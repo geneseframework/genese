@@ -1,6 +1,6 @@
 {
     "name": "genese",
-    "version": "0.0.2",
+    "version": "0.0.15",
     "scripts": {},
     "author": {
         "name": "Gilles Fabre",
@@ -14,7 +14,12 @@
     "bin": {
         "genese": "./index.js"
     },
-    "dependencies": {},
+    "dependencies": {
+        "@types/node": "^13.11.1",
+        "chalk": "^4.0.0",
+        "commander": "^5.0.0",
+        "fs-extra": "^9.0.0"
+    },
     "devDependencies": {
         "typescript": "^3.8.3"
     }
