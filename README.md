@@ -1,2 +1,2 @@
-# @genese/api
-Official genese-api framework repository
+# genese
+Official genese repository
