@@ -1,18 +1,27 @@
 {
-  "name": "@genese",
-  "version": "0.0.0",
-  "scripts": {},
-  "author": {
-    "name": "Gilles Fabre",
-    "url": "http://gillesfabre.com/"
-  },
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/geneseframework/genese"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "typescript": "^3.8.3"
-  }
+    "name": "genese",
+    "version": "0.0.2",
+    "scripts": {},
+    "author": {
+        "name": "Gilles Fabre",
+        "url": "http://gillesfabre.com/"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/geneseframework/genese"
+    },
+    "bin": {
+        "genese": "./index.js"
+    },
+    "dependencies": {
+        "@types/node": "^13.11.1",
+        "ansi-colors": "^4.1.1",
+        "app-root-path": "^3.0.0",
+        "commander": "^5.0.0",
+        "fs-extra": "^9.0.0"
+    },
+    "devDependencies": {
+        "typescript": "^3.8.3"
+    }
 }

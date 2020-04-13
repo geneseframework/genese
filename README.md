@@ -1,2 +1,2 @@
-# @genese
-Official genese framework repository
+# genese
+Official genese repository

@@ -4,9 +4,6 @@
 /dist
 /tmp
 /out-tsc
-/genese
-
-genese-api*
 
 # Only exists if Bazel was run
 /bazel-out
