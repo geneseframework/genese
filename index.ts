@@ -1,28 +1,41 @@
 #!/usr/bin/env node
+import { blueBright, red } from 'ansi-colors';
+import { exec } from 'child_process';
+
 const { program } = require('commander');
 
-console.log("Starts Genese cli");
+console.log(blueBright("Starts Genese cli"));
 
-const zzz = __dirname;
-console.log("zzz ", zzz);
+export const GENESE_DIR = __dirname;
+export const PROJECT_DIR = process.cwd();
 
-program.version('0.0.1')
-    .description('Genese cli');
+try {
 
-program.option('-h, --help', 'Help genese CLI')
-    .option('-d, --debug', 'Debugging');
+    program.version('0.0.1')
+        .description('Genese cli');
 
-program.command('new <type>')
-    .description('New app | api')
-    .action((context) => {
-        console.log('The context is : ', context);
-    });
+    program.command('new <type>')
+        .description('New app | api')
+        .action(() => {
+            exec('node node_modules/genese-api-angular/index.js', (error, stdout, stderr) => {
+                if (error) {
+                    console.log(red(`Error in Genese cli execution : ${error.message}`));
+                    return;
+                }
+                if (stderr) {
+                    console.log(red(`Error in Genese cli command : ${stderr}`));
+                    return;
+                }
+                console.log(blueBright("Genese cli created genese API successfully."));
+            });
+        });
 
-program.parse(process.argv);
+    program.parse(process.argv);
 
-export const PROJECT_DIR = 'aaa';
+} catch (err) {
+    console.error(red(`Error in Genese cli process : ${err}`));
+}
 
-console.log("End of Genese cli");
 
 
 
