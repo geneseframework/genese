@@ -26,6 +26,7 @@ try {
                     console.log(red(`Error in Genese cli command : ${stderr}`));
                     return;
                 }
+                console.log(`${stdout}`);
                 console.log(blueBright("Genese cli created genese API successfully."));
             });
         });

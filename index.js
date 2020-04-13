@@ -22,6 +22,7 @@ try {
                 console.log(ansi_colors_1.red("Error in Genese cli command : " + stderr));
                 return;
             }
+            console.log("" + stdout);
             console.log(ansi_colors_1.blueBright("Genese cli created genese API successfully."));
         });
     });
