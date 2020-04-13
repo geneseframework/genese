@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 const { program } = require('commander');
+
+console.log("Starts Genese cli");
+
+export const PROJECT_DIR = __dirname;
+console.log("PROJECT_DIR ", PROJECT_DIR);
+
 program.version('0.0.1')
     .description('Genese cli');
 
@@ -15,7 +21,7 @@ program.command('new <type>')
 program.parse(process.argv);
 
 
-console.log("Starts Genese cli");
+console.log("End of Genese cli");
 
 
 
