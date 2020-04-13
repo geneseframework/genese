@@ -11,7 +11,7 @@ export const PROJECT_DIR = process.cwd();
 
 try {
 
-    program.version('0.0.1')
+    program.version('0.0.3')
         .description('Genese cli');
 
     program.command('new <type>')
@@ -26,6 +26,7 @@ try {
                     console.log(red(`Error in Genese cli command : ${stderr}`));
                     return;
                 }
+                console.log(`${stdout}`);
                 console.log(blueBright("Genese cli created genese API successfully."));
             });
         });
