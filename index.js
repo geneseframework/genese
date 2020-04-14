@@ -8,12 +8,13 @@ console.log(ansi_colors_1.blueBright("Starts Genese cli"));
 exports.GENESE_DIR = __dirname;
 exports.PROJECT_DIR = process.cwd();
 try {
-    program.version('0.0.1')
+    program.version('0.0.4')
         .description('Genese cli');
     program.command('new <type>')
         .description('New app | api')
         .action(function () {
-        child_process_1.exec('node node_modules/genese-api-angular/index.js', function (error, stdout, stderr) {
+        var pathIndex = "node " + exports.PROJECT_DIR + "/node_modules/genese-api-angular/index.js";
+        child_process_1.exec(pathIndex, function (error, stdout, stderr) {
             if (error) {
                 console.log(ansi_colors_1.red("Error in Genese cli execution : " + error.message));
                 return;
@@ -22,7 +23,7 @@ try {
                 console.log(ansi_colors_1.red("Error in Genese cli command : " + stderr));
                 return;
             }
-            console.log("" + stdout);
+            console.log(ansi_colors_1.yellowBright("" + stdout));
             console.log(ansi_colors_1.blueBright("Genese cli created genese API successfully."));
         });
     });
