@@ -5,7 +5,6 @@ var options_1 = require("../models/options");
 var ts_folder_report_service_1 = require("./ts-folder-report.service");
 var file_service_1 = require("./file.service");
 var ts_file_report_service_1 = require("./ts-file-report.service");
-var appRoot = require('app-root-path').toString();
 var ReportsService = /** @class */ (function () {
     function ReportsService() {
     }
@@ -36,11 +35,11 @@ var ReportsService = /** @class */ (function () {
     };
     ReportsService.createStyleFiles = function () {
         file_service_1.createRelativeDir('reports-styles');
-        file_service_1.copyFile(appRoot + "/src/templates/styles/report.css", options_1.Options.pathReports + "/reports-styles/report.css");
-        file_service_1.copyFile(appRoot + "/src/templates/styles/styles.css", options_1.Options.pathReports + "/reports-styles/styles.css");
-        file_service_1.copyFile(appRoot + "/src/templates/styles/prettify.css", options_1.Options.pathReports + "/reports-styles/prettify.css");
-        file_service_1.copyFile(appRoot + "/src/templates/styles/prism.css", options_1.Options.pathReports + "/reports-styles/prism.css");
-        file_service_1.copyFile(appRoot + "/src/templates/styles/prism.js", options_1.Options.pathReports + "/reports-styles/prism.js");
+        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/report.css", options_1.Options.pathReports + "/reports-styles/report.css");
+        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/styles.css", options_1.Options.pathReports + "/reports-styles/styles.css");
+        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/prettify.css", options_1.Options.pathReports + "/reports-styles/prettify.css");
+        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/prism.css", options_1.Options.pathReports + "/reports-styles/prism.css");
+        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/prism.js", options_1.Options.pathReports + "/reports-styles/prism.js");
     };
     return ReportsService;
 }());

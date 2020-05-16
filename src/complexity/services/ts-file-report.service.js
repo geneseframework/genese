@@ -5,7 +5,6 @@ var eol = require("eol");
 var Handlebars = require("handlebars");
 var options_1 = require("../models/options");
 var file_service_1 = require("./file.service");
-var appRoot = require('app-root-path').toString();
 var TsFileReportService = /** @class */ (function () {
     function TsFileReportService(tsFile) {
         this.methods = [];
@@ -38,7 +37,7 @@ var TsFileReportService = /** @class */ (function () {
         this.registerPartial("cognitiveDoughnutScript", 'cognitive-doughnut');
         this.registerPartial("cyclomaticDoughnutScript", 'cyclomatic-doughnut');
         this.registerPartial("method", 'methods');
-        var reportTemplate = eol.auto(fs.readFileSync(appRoot + "/src/templates/handlebars/file-report.handlebars", 'utf-8'));
+        var reportTemplate = eol.auto(fs.readFileSync(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/handlebars/file-report.handlebars", 'utf-8'));
         this.template = Handlebars.compile(reportTemplate);
         this.writeReport();
     };
@@ -56,7 +55,7 @@ var TsFileReportService = /** @class */ (function () {
         fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
     };
     TsFileReportService.prototype.registerPartial = function (partialName, filename) {
-        var partial = eol.auto(fs.readFileSync(appRoot + "/src/templates/handlebars/" + filename + ".handlebars", 'utf-8'));
+        var partial = eol.auto(fs.readFileSync(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/handlebars/" + filename + ".handlebars", 'utf-8'));
         Handlebars.registerPartial(partialName, partial);
     };
     return TsFileReportService;

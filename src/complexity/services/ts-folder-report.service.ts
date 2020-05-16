@@ -14,7 +14,6 @@ import {
 import { TsFile } from '../models/ts-file.model';
 import { MethodReport } from '../models/method-report.model';
 
-const appRoot = require('app-root-path').toString();
 
 export class TsFolderReportService {
 
@@ -146,13 +145,14 @@ export class TsFolderReportService {
         this.registerPartial("cyclomaticDoughnutScript", 'cyclomatic-doughnut');
         this.registerPartial("rowFolder", 'row-folders');
         this.registerPartial("rowFile", 'row-files');
-        const reportTemplate = eol.auto(fs.readFileSync(`${appRoot}/src/templates/handlebars/folder-report.handlebars`, 'utf-8'));
+        const reportTemplate = eol.auto(fs.readFileSync(`${Options.pathGeneseNodeJs}/src/complexity/templates/handlebars/folder-report.handlebars`, 'utf-8'));
         this.template = Handlebars.compile(reportTemplate);
         this.writeReport();
     }
 
 
     private writeReport() {
+        console.log('TSFLDR', this.tsFolder)
         const template = this.template({
             colors: Options.colors,
             filesArray: this.filesArray,
@@ -163,16 +163,18 @@ export class TsFolderReportService {
             stats: this.tsFolder.getStats(),
             thresholds: Options.getThresholds()
         });
+        console.log('REL PATH', this.tsFolder.relativePath)
         if (this.tsFolder.relativePath) {
             createRelativeDir(this.tsFolder.relativePath);
         }
         const pathReport = `${Options.pathReports}/${this.tsFolder.relativePath}/folder-report.html`;
+        console.log('PATH REPORT', pathReport);
         fs.writeFileSync(pathReport, template, {encoding: 'utf-8'});
     }
 
 
     private registerPartial(partialName: string, filename: string): void {
-        const partial = eol.auto(fs.readFileSync(`${appRoot}/src/templates/handlebars/${filename}.handlebars`, 'utf-8'));
+        const partial = eol.auto(fs.readFileSync(`${Options.pathGeneseNodeJs}/src/complexity/templates/handlebars/${filename}.handlebars`, 'utf-8'));
         Handlebars.registerPartial(partialName, partial);
     }
 }

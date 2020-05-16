@@ -5,7 +5,6 @@ import { copyFile, createRelativeDir } from './file.service';
 import { TsFileReportService } from './ts-file-report.service';
 import { TsFile } from '../models/ts-file.model';
 
-const appRoot = require('app-root-path').toString();
 
 export class ReportsService {
 
@@ -42,10 +41,10 @@ export class ReportsService {
 
     private static createStyleFiles(): void {
         createRelativeDir('reports-styles');
-        copyFile(`${appRoot}/src/templates/styles/report.css`, `${Options.pathReports}/reports-styles/report.css`);
-        copyFile(`${appRoot}/src/templates/styles/styles.css`, `${Options.pathReports}/reports-styles/styles.css`);
-        copyFile(`${appRoot}/src/templates/styles/prettify.css`, `${Options.pathReports}/reports-styles/prettify.css`);
-        copyFile(`${appRoot}/src/templates/styles/prism.css`, `${Options.pathReports}/reports-styles/prism.css`);
-        copyFile(`${appRoot}/src/templates/styles/prism.js`, `${Options.pathReports}/reports-styles/prism.js`);
+        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/templates/styles/report.css`, `${Options.pathReports}/reports-styles/report.css`);
+        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/templates/styles/styles.css`, `${Options.pathReports}/reports-styles/styles.css`);
+        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/templates/styles/prettify.css`, `${Options.pathReports}/reports-styles/prettify.css`);
+        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/templates/styles/prism.css`, `${Options.pathReports}/reports-styles/prism.css`);
+        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/templates/styles/prism.js`, `${Options.pathReports}/reports-styles/prism.js`);
     }
 }

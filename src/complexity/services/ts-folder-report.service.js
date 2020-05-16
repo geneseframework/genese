@@ -6,7 +6,6 @@ var Handlebars = require("handlebars");
 var ts_folder_model_1 = require("../models/ts-folder.model");
 var options_1 = require("../models/options");
 var file_service_1 = require("./file.service");
-var appRoot = require('app-root-path').toString();
 var TsFolderReportService = /** @class */ (function () {
     function TsFolderReportService(tsFolder) {
         this.filesArray = [];
@@ -122,11 +121,12 @@ var TsFolderReportService = /** @class */ (function () {
         this.registerPartial("cyclomaticDoughnutScript", 'cyclomatic-doughnut');
         this.registerPartial("rowFolder", 'row-folders');
         this.registerPartial("rowFile", 'row-files');
-        var reportTemplate = eol.auto(fs.readFileSync(appRoot + "/src/templates/handlebars/folder-report.handlebars", 'utf-8'));
+        var reportTemplate = eol.auto(fs.readFileSync(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/handlebars/folder-report.handlebars", 'utf-8'));
         this.template = Handlebars.compile(reportTemplate);
         this.writeReport();
     };
     TsFolderReportService.prototype.writeReport = function () {
+        console.log('TSFLDR', this.tsFolder);
         var template = this.template({
             colors: options_1.Options.colors,
             filesArray: this.filesArray,
@@ -137,14 +137,16 @@ var TsFolderReportService = /** @class */ (function () {
             stats: this.tsFolder.getStats(),
             thresholds: options_1.Options.getThresholds()
         });
+        console.log('REL PATH', this.tsFolder.relativePath);
         if (this.tsFolder.relativePath) {
             file_service_1.createRelativeDir(this.tsFolder.relativePath);
         }
         var pathReport = options_1.Options.pathReports + "/" + this.tsFolder.relativePath + "/folder-report.html";
+        console.log('PATH REPORT', pathReport);
         fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
     };
     TsFolderReportService.prototype.registerPartial = function (partialName, filename) {
-        var partial = eol.auto(fs.readFileSync(appRoot + "/src/templates/handlebars/" + filename + ".handlebars", 'utf-8'));
+        var partial = eol.auto(fs.readFileSync(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/handlebars/" + filename + ".handlebars", 'utf-8'));
         Handlebars.registerPartial(partialName, partial);
     };
     return TsFolderReportService;

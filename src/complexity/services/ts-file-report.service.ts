@@ -6,7 +6,6 @@ import { getFilenameWithoutExtension, getRouteToRoot } from './file.service';
 import { TsFile } from '../models/ts-file.model';
 import { MethodReport } from '../models/method-report.model';
 
-const appRoot = require('app-root-path').toString();
 
 export class TsFileReportService {
 
@@ -46,7 +45,7 @@ export class TsFileReportService {
         this.registerPartial("cognitiveDoughnutScript", 'cognitive-doughnut');
         this.registerPartial("cyclomaticDoughnutScript", 'cyclomatic-doughnut');
         this.registerPartial("method", 'methods');
-        const reportTemplate = eol.auto(fs.readFileSync(`${appRoot}/src/templates/handlebars/file-report.handlebars`, 'utf-8'));
+        const reportTemplate = eol.auto(fs.readFileSync(`${Options.pathGeneseNodeJs}/src/complexity/templates/handlebars/file-report.handlebars`, 'utf-8'));
         this.template = Handlebars.compile(reportTemplate);
         this.writeReport();
     }
@@ -67,7 +66,7 @@ export class TsFileReportService {
 
 
     private registerPartial(partialName: string, filename: string): void {
-        const partial = eol.auto(fs.readFileSync(`${appRoot}/src/templates/handlebars/${filename}.handlebars`, 'utf-8'));
+        const partial = eol.auto(fs.readFileSync(`${Options.pathGeneseNodeJs}/src/complexity/templates/handlebars/${filename}.handlebars`, 'utf-8'));
         Handlebars.registerPartial(partialName, partial);
     }
 }

@@ -1,6 +1,6 @@
 {
     "name": "genese",
-    "version": "0.0.57",
+    "version": "0.0.60",
     "scripts": {
         "start": "tsc index.ts && tsc src/complexity/**/*.ts && npm publish"
     },
@@ -19,7 +19,6 @@
     "dependencies": {
         "@types/node": "^13.11.1",
         "ansi-colors": "^4.1.1",
-        "app-root-path": "^3.0.0",
         "chalk": "^4.0.0",
         "chart.js": "^2.9.3",
         "commander": "^5.0.0",
