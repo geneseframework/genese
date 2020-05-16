@@ -1,7 +1,9 @@
 {
     "name": "genese",
-    "version": "0.0.4",
-    "scripts": {},
+    "version": "0.0.47",
+    "scripts": {
+        "start": " tsc index.ts && npm publish"
+    },
     "author": {
         "name": "Gilles Fabre",
         "url": "http://gillesfabre.com/"
@@ -12,7 +14,7 @@
         "url": "https://github.com/geneseframework/genese"
     },
     "bin": {
-        "genese": "./index.js"
+        "genese": "index.js"
     },
     "dependencies": {
         "@types/node": "^13.11.1",
