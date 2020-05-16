@@ -1,4 +1,0 @@
-#!/usr/bin/env node
-
-require("./");
-console.log('INDEX.JS')

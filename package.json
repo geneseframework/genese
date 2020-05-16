@@ -1,8 +1,8 @@
 {
     "name": "genese",
-    "version": "0.0.47",
+    "version": "0.0.57",
     "scripts": {
-        "start": " tsc index.ts && npm publish"
+        "start": "tsc index.ts && tsc src/complexity/**/*.ts && npm publish"
     },
     "author": {
         "name": "Gilles Fabre",
@@ -20,8 +20,15 @@
         "@types/node": "^13.11.1",
         "ansi-colors": "^4.1.1",
         "app-root-path": "^3.0.0",
+        "chalk": "^4.0.0",
+        "chart.js": "^2.9.3",
         "commander": "^5.0.0",
-        "fs-extra": "^9.0.0"
+        "eol": "^0.9.1",
+        "fs-extra": "^9.0.0",
+        "handlebars": "^4.7.6",
+        "paths": "^0.1.1",
+        "prismjs": "^1.20.0",
+        "tsutils": "^3.17.1"
     },
     "devDependencies": {
         "typescript": "^3.8.3"
