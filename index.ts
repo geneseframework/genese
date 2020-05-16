@@ -1,23 +1,33 @@
 #!/usr/bin/env node
+
 import { blueBright, red, yellowBright } from 'ansi-colors';
+import { Main } from './src/complexity/main';
 import { exec } from 'child_process';
 
 const { program } = require('commander');
 
-console.log(blueBright("Starts Genese cli"));
+console.log("WELCOME TO GENESE CLI");
 
-export const GENESE_DIR = __dirname;
-export const PROJECT_DIR = process.cwd();
 
 try {
 
-    program.version('0.0.4')
+    program.version('0.0.5')
         .description('Genese cli');
+
+    program.command('cpx [pathToAnalyse]')
+        .description('Calculates cognitive and cyclomatic complexities')
+        .action((pathToAnalyze) => {
+            console.log(blueBright("STARTS GENESE COMPLEXITY CLI"));
+            console.log('PATH TO ANALYZE : ' + pathToAnalyze);
+            const mainProcess = new Main();
+            mainProcess.start(process.cwd(), pathToAnalyze, __dirname)
+        });
 
     program.command('new <type>')
         .description('New app | api')
         .action(() => {
-            const pathIndex = `node ${PROJECT_DIR}/node_modules/genese-api-angular/index.js`;
+            console.log(blueBright("STARTS GENESE API FOR ANGULAR APPS"));
+            const pathIndex = `node ${process.cwd()}/node_modules/genese-api-angular/index.js`;
             exec(pathIndex, (error, stdout, stderr) => {
                 if (error) {
                     console.log(red(`Error in Genese cli execution : ${error.message}`));
@@ -27,8 +37,10 @@ try {
                     console.log(red(`Error in Genese cli command : ${stderr}`));
                     return;
                 }
-                console.log(yellowBright(`${stdout}`));
-                console.log(blueBright("Genese cli created genese API successfully."));
+                if (stdout && stdout.length > 0) {
+                    console.log(yellowBright(`${stdout}`));
+                }
+                console.log(blueBright("API CREATED SUCCESSFULLY"));
             });
         });
 
@@ -37,7 +49,5 @@ try {
 } catch (err) {
     console.error(red(`Error in Genese cli process : ${err}`));
 }
-
-
 
 

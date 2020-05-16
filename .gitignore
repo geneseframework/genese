@@ -5,6 +5,9 @@
 /tmp
 /out-tsc
 
+# genese
+/genese
+
 # Only exists if Bazel was run
 /bazel-out
 
