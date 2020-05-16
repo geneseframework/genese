@@ -1,0 +1,916 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Genese complexity report</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../reports-styles/prism.css" />
+    <link rel="stylesheet" href="../../../reports-styles/prettify.css" />
+    <link rel="stylesheet" href="../../../reports-styles/report.css" />
+    <link rel="stylesheet" href="../../../reports-styles/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<div class="header">
+    <div class="header-left">
+        <div>
+            <h1>Genese complexity report</h1>
+        </div>
+        <div class="pad1y">
+            <span class="backLink" onclick="history.back()"><-</span>
+            parent-request.component.ts
+        </div>
+        <div class="clearfix">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">12</span>
+                <span>Methods</span>
+            </div>
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="clearfix padly">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">24</span>
+                <span>points of cognitive complexity</span>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">38</span>
+                <span>points of cyclomatic complexity</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--        -------------------------------------------------------------------------------------->
+<!--        -----------------------------------   Stats and charts   ----------------------------->
+<!--        -------------------------------------------------------------------------------------->
+
+
+<div class="mainContainer">
+    <div class="stats-and-charts">
+
+            <!--        -----------------------------------   Cognitive complexity   ---------------------------->
+
+        <div class="stats-cognitive">
+            <div class="stats-and-doughnut">
+                <div class="stats">
+
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">Cognitive complexity</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">91.7 %</span>
+                            <span class="quiet"> Correct</span>
+                            <span class='fraction'>11/12</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">8.3 %</span>
+                            <span class="quiet"> Warning</span>
+                            <span class='fraction'>1/12</span>
+                            <span class="quiet">(threshold : 5)</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">0 %</span>
+                            <span class="quiet"> Error</span>
+                            <span class='fraction'>0/12</span>
+                            <span class="quiet">(threshold : 10)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doughnut">
+                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>
+                </div>
+            </div>
+
+            <div class="bar">
+                <canvas id="bar-cognitive-cpx" height="400" width="750"></canvas>
+            </div>
+        </div>
+
+        <!--        -----------------------------------   Cyclomatic complexity   ---------------------------->
+
+        <div class="stats-cyclomatic">
+            <div class="stats-and-doughnut">
+                <div class="stats">
+                    <div class="clearfix cyclomatic-subtitle">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">Cyclomatic complexity</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">91.7 %</span>
+                            <span class="quiet"> Correct</span>
+                            <span class='fraction'>11/12</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">0 %</span>
+                            <span class="quiet"> Warning</span>
+                            <span class='fraction'>0/12</span>
+                            <span class="quiet">(threshold : 5)</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">8.3 %</span>
+                            <span class="quiet"> Error</span>
+                            <span class='fraction'>1/12</span>
+                            <span class="quiet">(threshold : 10)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doughnut">
+                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>
+                </div>
+            </div>
+            <div class="bar">
+                <canvas id="bar-cyclomatic-cpx" height="400" width="750"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+<!--            <div class="clearfix cognitive-subtitle">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">Cognitive complexity</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">91.7 %</span>-->
+<!--                    <span class="quiet"> Correct</span>-->
+<!--                    <span class='fraction'>11/12</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">8.3 %</span>-->
+<!--                    <span class="quiet"> Warning</span>-->
+<!--                    <span class='fraction'>1/12</span>-->
+<!--                    <span class="quiet">(threshold : 5)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">0 %</span>-->
+<!--                    <span class="quiet"> Error</span>-->
+<!--                    <span class='fraction'>0/12</span>-->
+<!--                    <span class="quiet">(threshold : 10)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash;        -----------------------------------   Cyclomatic complexity   --------------------------&ndash;&gt;-->
+
+<!--            <div class="clearfix cyclomatic-subtitle">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">Cyclomatic complexity</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">91.7 %</span>-->
+<!--                    <span class="quiet"> Correct</span>-->
+<!--                    <span class='fraction'>11/12</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">0 %</span>-->
+<!--                    <span class="quiet"> Warning</span>-->
+<!--                    <span class='fraction'>0/12</span>-->
+<!--                    <span class="quiet">(threshold : 5)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">8.3 %</span>-->
+<!--                    <span class="quiet"> Error</span>-->
+<!--                    <span class='fraction'>1/12</span>-->
+<!--                    <span class="quiet">(threshold : 10)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+
+<!--        &lt;!&ndash;        ------------------------------------------------------------------------------------&ndash;&gt;-->
+<!--        &lt;!&ndash;        -----------------------------------------   Charts   -------------------------------&ndash;&gt;-->
+<!--        &lt;!&ndash;        ------------------------------------------------------------------------------------&ndash;&gt;-->
+
+<!--        <div class="charts">-->
+<!--            <div class="cognitive-charts">-->
+<!--                <div class="doughnut">-->
+<!--                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>-->
+<!--                </div>-->
+<!--                <div class="bar">-->
+<!--                    <canvas id="bar-cognitive-cpx" height="250" width="800"></canvas>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="cyclomatic-charts">-->
+<!--                <div class="doughnut">-->
+<!--                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>-->
+<!--                </div>-->
+<!--                <div class="bar">-->
+<!--                    <canvas id="bar-cyclomatic-cpx" height="250" width="800"></canvas>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+    <!--        -------------------------------------------------------------------------------------->
+    <!--        -----------------------------------   Methods arrays   -------------------------------->
+    <!--        -------------------------------------------------------------------------------------->
+
+
+            <div id="ngOnInit">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">ngOnInit</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Initialize component
+                 */
+                ngOnInit() {
+                    this.getData();
+            
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="ngOnDestroy">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">ngOnDestroy</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">1</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Unsubscribe when component is destroyed
+                 */
+                ngOnDestroy() {
+                    this.currentRequestSubscription ? this.currentRequestSubscription.unsubscribe() : noop();
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="getData">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">getData</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">3</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">3</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * get component data
+                 */
+                getData(): void {
+                    this.currentRequestSubscription &#x3D; this.requestService.currentRequest.subscribe((result) &#x3D;&gt; {
+                        if (result) {
+                            this.request &#x3D; result;
+                            this.requestSaveReset &#x3D; UtilsService.deepCopy(result);
+                        }
+                    });
+                    this.requestService.editionEnabled &#x3D; true;
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="updateOrigin">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">updateOrigin</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">2</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">2</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Get Emitter Origin
+                 * @param event
+                 * @returns void
+                 */
+                updateOrigin(event: AircraftOrigin): void {
+                    this.request.origin.id &#x3D; event &amp;&amp; event.originId ? event.originId : &#x27;&#x27;;
+                    this.request.originComment &#x3D; event.originComment;
+                    this.request.originURL &#x3D; event.originURL;
+                    this.request.reference &#x3D; event.reference;
+                    this.request.originMedias &#x3D; event.originMedias;
+                    this.appService.dataChanged &#x3D; true;
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="updateAssignation">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">updateAssignation</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">2</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Get Emitter Assignation
+                 * @param event
+                 * @returns void
+                 */
+                updateAssignation(event: Assignation): void {
+                    this.request.operators &#x3D; event ? event.operators : [];
+                    this.request.technicalResponsibles &#x3D; event ? event.technicalManagers : [];
+                    this.appService.dataChanged &#x3D; true;
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="updateOetp">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">updateOetp</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Get Emitter Oetp
+                 * @param event
+                 * @returns void
+                 */
+                updateOetp(event: any): void {
+                    this.request.oetp &#x3D; event;
+                    this.appService.dataChanged &#x3D; true;
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="updateAircraft">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">updateAircraft</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Get Emitter AircraftZone
+                 * @param event
+                 * @returns void
+                 */
+                updateAircraft(event: AircraftZone): void {
+                    this.request.aircraftFamily &#x3D; event.aircraftFamily;
+                    this.request.aircraftVersions &#x3D; event.aircraftVersions;
+                    this.request.aircraftTypes &#x3D; event.aircraftTypes;
+                    this.request.missionType &#x3D; event.missionType;
+                    this.request.environment &#x3D; event.environment;
+                    this.request.clients &#x3D; event.childRequestClients;
+                    this.request.ataCode &#x3D; event.ataCode;
+                    this.appService.dataChanged &#x3D; true;
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="updateSpec">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">updateSpec</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">1</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Get Emitter Spec
+                 * @param event
+                 * @returns void
+                 */
+                updateSpec(event: Spec): void {
+                    this.request.specComment &#x3D; event ? event.specComment : &#x27;&#x27;;
+                    this.request.specMedias &#x3D; event.attachedFiles;
+                    this.appService.dataChanged &#x3D; true;
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="cancel">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">cancel</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Cancel and return to request list
+                 */
+                cancel(): void {
+                    this.appService.dataChanged &#x3D; false;
+                    this.requestService.currentRequest.next(this.requestSaveReset);
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="save">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">save</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">4</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">4</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Save request details
+                 */
+                save(status: &#x27;save&#x27; | &#x27;validate&#x27;) {
+                    if (this.isValidRequest() &amp;&amp; this.requestService.editionEnabled) {
+                        const body &#x3D; this.requestService.mapToUpdate(this.request);
+                        this.requestGenese.update(this.request.id, body, &#x27;/requests/&#x27; + this.request.id + &#x27;/&#x27; + status).subscribe(() &#x3D;&gt; {
+                            this.requestUpdated.emit(true);
+                        });
+                        this.appService.dataChanged &#x3D; false;
+                        this.toasterService.displayToastSaveSuccess(SuccessStatus.SUCCESS);
+                    }
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="isValidRequest">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">isValidRequest</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgwarning">10</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgerror">20</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Check if parent request details is valid
+                 */
+                isValidRequest(fromSave?: boolean): boolean {
+                    let dataChanged &#x3D; false;
+                    if (fromSave) {
+                        if (this.request.status !&#x3D;&#x3D; Status.VALIDATED) {
+                            dataChanged &#x3D; this.appService.dataChanged;
+                        } else {
+                            // User mustn&#x27;t save a validated request
+                            return false;
+                        }
+                    } else {
+                        if (this.appService.dataChanged) {
+                            dataChanged &#x3D; true;
+                        } else {
+                            dataChanged &#x3D; this.request.status !&#x3D;&#x3D; Status.VALIDATED;
+                        }
+                    }
+            
+                    return (!!this.request.origin &amp;&amp; this.request.origin.id !&#x3D;&#x3D; &#x27;&#x27;)
+                        &amp;&amp; !!this.request.reference
+                        &amp;&amp; !!this.request.aircraftFamily &amp;&amp; !!this.request.aircraftTypes &amp;&amp; !!this.request.aircraftVersions
+                        &amp;&amp; !!this.request.aircraftTypes &amp;&amp; !!this.request.aircraftVersions
+                        &amp;&amp; !!this.request.ataCode
+                        &amp;&amp; Array.isArray(this.request.clients)
+                        &amp;&amp; this.request.clients.length &gt; 0
+                        &amp;&amp; Array.isArray(this.request.operators)
+                        &amp;&amp; this.request.operators.length &gt; 0
+                        &amp;&amp; Array.isArray(this.request.technicalResponsibles)
+                        &amp;&amp; this.request.technicalResponsibles.length &gt; 0
+                        &amp;&amp; !!this.request.oetp
+                        &amp;&amp; dataChanged;
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="cancelDisabled">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">cancelDisabled</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">1</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">2</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Disable cancel button
+                 */
+                cancelDisabled(): boolean {
+                    return this.isDisabled || !this.appService.dataChanged;
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+
+
+    <!--        -------------------------------------------------------------------------------------->
+    <!--        -----------------------------------   Scripts-----   --------------------------------->
+    <!--        -------------------------------------------------------------------------------------->
+
+
+
+    <script src="../../../../../../node_modules/chart.js/dist/Chart.js"></script>
+    <script src="../../../reports-styles/prism.js"></script>
+
+    <script>
+        var ctxDougnutCognitive = document.getElementById('doughnut-cognitive-cpx').getContext("2d");
+        var doughnutCognitive = new Chart(ctxDougnutCognitive, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        11,
+                        1,
+                        0,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ]
+                }],
+                labels: [
+                    'correct methods ',
+                    'warning methods ',
+                    'error methods ',
+                ]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        left: 50,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Cognitive complexity'
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxBarCognitive = document.getElementById('bar-cognitive-cpx').getContext("2d");
+        var barCognitive = new Chart(ctxBarCognitive, {
+            type: 'bar',
+            data: {
+                labels: [
+                        '0',
+                        '1',
+                        '2',
+                        '3',
+                        '4',
+                        '10',
+                ],
+                datasets: [{
+                    data: [
+                            4,
+                            3,
+                            2,
+                            1,
+                            1,
+                            1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                    ],
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Cognitive complexity'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of methods'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxDougnutCyclomatic = document.getElementById('doughnut-cyclomatic-cpx').getContext("2d");
+        var doughnutCyclomatic = new Chart(ctxDougnutCyclomatic, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        11,
+                        0,
+                        1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ]
+                }],
+                labels: [
+                    'correct methods ',
+                    'warning methods ',
+                    'error methods ',
+                ]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        left: 50,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Cyclomatic complexity'
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxBarCyclomatic = document.getElementById('bar-cyclomatic-cpx').getContext("2d");
+        var barCyclomatic = new Chart(ctxBarCyclomatic, {
+            type: 'bar',
+            data: {
+                labels: [
+                        1,
+                        2,
+                        3,
+                        4,
+                        20,
+                ],
+                datasets: [{
+                    data: [
+                            7,
+                            2,
+                            1,
+                            1,
+                            1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ],
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: false,
+                    text: 'Cyclomatic complexity',
+                    position: 'top'
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Cyclomatic complexity'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of methods'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+</body>
+</html>

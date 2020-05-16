@@ -1,0 +1,1358 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Genese complexity report</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../reports-styles/prism.css" />
+    <link rel="stylesheet" href="../../../../reports-styles/prettify.css" />
+    <link rel="stylesheet" href="../../../../reports-styles/report.css" />
+    <link rel="stylesheet" href="../../../../reports-styles/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<div class="header">
+    <div class="header-left">
+        <div>
+            <h1>Genese complexity report</h1>
+        </div>
+        <div class="pad1y">
+            <span class="backLink" onclick="history.back()"><-</span>
+            drt-operation-list.component.ts
+        </div>
+        <div class="clearfix">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">20</span>
+                <span>Methods</span>
+            </div>
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="clearfix padly">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">140</span>
+                <span>points of cognitive complexity</span>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">96</span>
+                <span>points of cyclomatic complexity</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--        -------------------------------------------------------------------------------------->
+<!--        -----------------------------------   Stats and charts   ----------------------------->
+<!--        -------------------------------------------------------------------------------------->
+
+
+<div class="mainContainer">
+    <div class="stats-and-charts">
+
+            <!--        -----------------------------------   Cognitive complexity   ---------------------------->
+
+        <div class="stats-cognitive">
+            <div class="stats-and-doughnut">
+                <div class="stats">
+
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">Cognitive complexity</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">65 %</span>
+                            <span class="quiet"> Correct</span>
+                            <span class='fraction'>13/20</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">10 %</span>
+                            <span class="quiet"> Warning</span>
+                            <span class='fraction'>2/20</span>
+                            <span class="quiet">(threshold : 5)</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">25 %</span>
+                            <span class="quiet"> Error</span>
+                            <span class='fraction'>5/20</span>
+                            <span class="quiet">(threshold : 10)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doughnut">
+                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>
+                </div>
+            </div>
+
+            <div class="bar">
+                <canvas id="bar-cognitive-cpx" height="400" width="750"></canvas>
+            </div>
+        </div>
+
+        <!--        -----------------------------------   Cyclomatic complexity   ---------------------------->
+
+        <div class="stats-cyclomatic">
+            <div class="stats-and-doughnut">
+                <div class="stats">
+                    <div class="clearfix cyclomatic-subtitle">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">Cyclomatic complexity</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">70 %</span>
+                            <span class="quiet"> Correct</span>
+                            <span class='fraction'>14/20</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">20 %</span>
+                            <span class="quiet"> Warning</span>
+                            <span class='fraction'>4/20</span>
+                            <span class="quiet">(threshold : 5)</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">10 %</span>
+                            <span class="quiet"> Error</span>
+                            <span class='fraction'>2/20</span>
+                            <span class="quiet">(threshold : 10)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doughnut">
+                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>
+                </div>
+            </div>
+            <div class="bar">
+                <canvas id="bar-cyclomatic-cpx" height="400" width="750"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+<!--            <div class="clearfix cognitive-subtitle">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">Cognitive complexity</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">65 %</span>-->
+<!--                    <span class="quiet"> Correct</span>-->
+<!--                    <span class='fraction'>13/20</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">10 %</span>-->
+<!--                    <span class="quiet"> Warning</span>-->
+<!--                    <span class='fraction'>2/20</span>-->
+<!--                    <span class="quiet">(threshold : 5)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">25 %</span>-->
+<!--                    <span class="quiet"> Error</span>-->
+<!--                    <span class='fraction'>5/20</span>-->
+<!--                    <span class="quiet">(threshold : 10)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash;        -----------------------------------   Cyclomatic complexity   --------------------------&ndash;&gt;-->
+
+<!--            <div class="clearfix cyclomatic-subtitle">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">Cyclomatic complexity</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">70 %</span>-->
+<!--                    <span class="quiet"> Correct</span>-->
+<!--                    <span class='fraction'>14/20</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">20 %</span>-->
+<!--                    <span class="quiet"> Warning</span>-->
+<!--                    <span class='fraction'>4/20</span>-->
+<!--                    <span class="quiet">(threshold : 5)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">10 %</span>-->
+<!--                    <span class="quiet"> Error</span>-->
+<!--                    <span class='fraction'>2/20</span>-->
+<!--                    <span class="quiet">(threshold : 10)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+
+<!--        &lt;!&ndash;        ------------------------------------------------------------------------------------&ndash;&gt;-->
+<!--        &lt;!&ndash;        -----------------------------------------   Charts   -------------------------------&ndash;&gt;-->
+<!--        &lt;!&ndash;        ------------------------------------------------------------------------------------&ndash;&gt;-->
+
+<!--        <div class="charts">-->
+<!--            <div class="cognitive-charts">-->
+<!--                <div class="doughnut">-->
+<!--                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>-->
+<!--                </div>-->
+<!--                <div class="bar">-->
+<!--                    <canvas id="bar-cognitive-cpx" height="250" width="800"></canvas>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="cyclomatic-charts">-->
+<!--                <div class="doughnut">-->
+<!--                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>-->
+<!--                </div>-->
+<!--                <div class="bar">-->
+<!--                    <canvas id="bar-cyclomatic-cpx" height="250" width="800"></canvas>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+    <!--        -------------------------------------------------------------------------------------->
+    <!--        -----------------------------------   Methods arrays   -------------------------------->
+    <!--        -------------------------------------------------------------------------------------->
+
+
+            <div id="ngOnInit">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">ngOnInit</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgwarning">10</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">9</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                // --------------------------------------------------
+                //                     METHODS
+                // --------------------------------------------------
+            
+                /**
+                 * Component initialisation
+                 */
+                ngOnInit(): void {
+                    if (this.userService.getCurrentUserRoles().find((role) &#x3D;&gt; {
+                        return role &#x3D;&#x3D;&#x3D; &#x27;ADMIN&#x27; || role &#x3D;&#x3D;&#x3D; &#x27;TECHNICAL_RESPONSIBLE&#x27;;
+                    })) {
+                        this.hasCloseDrtRight &#x3D; true;
+                    }
+            
+                    if (this.route.snapshot.params.drtId) {
+                        this.drtId &#x3D; this.route.snapshot.params.drtId;
+                    }
+            
+                    this.selectedPageSubscription &#x3D; this.drtService.selectedPage.subscribe((selectedPage: string) &#x3D;&gt; {
+                        this.selectedPage &#x3D; selectedPage;
+                    });
+            
+                    this.inspections &#x3D; [
+                        {
+                            inspectionOpened: true,
+                            label: &#x27;APP.DRT_DETAIL.INTERNAL_INSPECTION&#x27;,
+                            iconPath: &#x27;../../assets/imgs/routing/internal.svg&#x27;,
+                            operations: this.drtOperations
+                        }
+                    ];
+            
+                    this.stateNotifiersubscription &#x3D; this.drtService.stateNotifier.subscribe((result: {
+                        reason: string,
+                        value: InspectionData,
+                        qcheckFullyTrue?: boolean
+                    }) &#x3D;&gt; {
+                        if (result.reason &#x3D;&#x3D;&#x3D; &#x27;validate&#x27; || result.reason &#x3D;&#x3D;&#x3D; &#x27;save&#x27;) {
+                            this.handleStateNotifierSubscription(result);
+                        }
+                    });
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="handleStateNotifierSubscription">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">handleStateNotifierSubscription</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgwarning">7</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">5</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Handle state notifier subscription
+                 * @param result
+                 */
+                handleStateNotifierSubscription(result: {
+                    reason: string,
+                    value: InspectionData,
+                    qcheckFullyTrue?: boolean
+                }): void {
+                    const operationIndex &#x3D; this.operations.findIndex(x &#x3D;&gt; {
+                        if (x.id) {
+                            return x.id.toString() &#x3D;&#x3D;&#x3D; this.taskSelected.operation;
+                        } else {
+                            return false;
+                        }
+                    });
+                    if (operationIndex &gt; -1) {
+                        const operation &#x3D; this.operations[operationIndex];
+                        if (operation) {
+                            this.getSelectedTaskIndex(operation, operationIndex, result);
+                        }
+                    }
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="getSelectedTaskIndex">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">getSelectedTaskIndex</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgerror">14</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">9</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Get selected task index
+                 * @param operation
+                 * @param operationIndex
+                 * @param result
+                 */
+                getSelectedTaskIndex(operation: DrtOperation, operationIndex: number, result: {
+                    reason: string,
+                    value: InspectionData,
+                    qcheckFullyTrue?: boolean
+                }): void {
+                    let taskSelectedIndex: number;
+                    let taskToHandle &#x3D; [];
+                    if (operation.behavior &#x3D;&#x3D;&#x3D; &#x27;TODO_LIST&#x27;) {
+                        if (operation.todoLists) {
+                            taskSelectedIndex &#x3D; operation.todoLists.findIndex(task &#x3D;&gt; task.id.toString() &#x3D;&#x3D;&#x3D; this.taskSelected.task);
+                            taskToHandle &#x3D; operation.todoLists;
+                        }
+                    } else {
+                        if (operation.functionalAreaStatus) {
+                            taskSelectedIndex &#x3D; operation.functionalAreaStatus.findIndex(
+                                task &#x3D;&gt; task.id.toString() &#x3D;&#x3D;&#x3D; this.taskSelected.task);
+                            taskToHandle &#x3D; operation.functionalAreaStatus;
+                        }
+                    }
+            
+                    if (Array.isArray(taskToHandle) &amp;&amp; taskToHandle.length &gt; 0 &amp;&amp; taskSelectedIndex !&#x3D;&#x3D; undefined) {
+                        this.setOperationsListStatus(taskToHandle, taskSelectedIndex, operationIndex, operation, result);
+                    }
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="setOperationsListStatus">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">setOperationsListStatus</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgerror">44</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgerror">16</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Set operations list status
+                 * @param taskToHandle
+                 * @param taskSelectedIndex
+                 * @param operationIndex
+                 * @param operation
+                 * @param result
+                 */
+                setOperationsListStatus(taskToHandle: any[], taskSelectedIndex: number, operationIndex: number, operation: DrtOperation, result: {
+                    reason: string,
+                    value: InspectionData,
+                    qcheckFullyTrue?: boolean
+                }): void {
+                    if (taskToHandle[taskSelectedIndex].status &#x3D;&#x3D;&#x3D; Status.CREATED) {
+                        this.operationsStatus[operationIndex].notInCreatedStateInspectionsNumber++;
+                    }
+                    if (result.reason &#x3D;&#x3D;&#x3D; &#x27;validate&#x27;) {
+                        if (taskToHandle[taskSelectedIndex].status &#x3D;&#x3D;&#x3D; Status.Q_CHECK) {
+                            if (result.qcheckFullyTrue &#x3D;&#x3D;&#x3D; true) {
+                                taskToHandle[taskSelectedIndex].status &#x3D; Status.VALIDATED;
+                            } else {
+                                taskToHandle[taskSelectedIndex].status &#x3D; Status.IN_PROGRESS;
+                            }
+                        } else {
+                            if (operation.behavior &#x3D;&#x3D;&#x3D; &#x27;TODO_LIST&#x27; || operation.behavior &#x3D;&#x3D;&#x3D; &#x27;VISUAL_COMPONENT&#x27;) {
+                                taskToHandle[taskSelectedIndex].status &#x3D; Status.VALIDATED;
+                            } else {
+                                if (taskToHandle[taskSelectedIndex].status !&#x3D;&#x3D; Status.VALIDATED) {
+                                    taskToHandle[taskSelectedIndex].status &#x3D; Status.Q_CHECK;
+                                    this.operationsStatus[operationIndex].usefulStatus &#x3D; Status.Q_CHECK;
+                                }
+                            }
+                        }
+                        if (taskToHandle.every(task &#x3D;&gt; task.status &#x3D;&#x3D;&#x3D; Status.VALIDATED)) {
+                            this.operationsStatus[operationIndex].usefulStatus &#x3D; Status.VALIDATED;
+                        } else if (this.operationsStatus[operationIndex].usefulStatus !&#x3D;&#x3D; Status.Q_CHECK) {
+                            this.operationsStatus[operationIndex].usefulStatus &#x3D; Status.IN_PROGRESS;
+                        }
+                        if (this.operationsStatus.every(status &#x3D;&gt; {
+                            return status.usefulStatus &#x3D;&#x3D;&#x3D; Status.VALIDATED;
+                        })) {
+                            this.isClosable &#x3D; true;
+                        }
+                    } else {
+                        if (this.operationsStatus[operationIndex].usefulStatus !&#x3D;&#x3D; Status.Q_CHECK) {
+                            this.operationsStatus[operationIndex].usefulStatus &#x3D; Status.IN_PROGRESS;
+                            const task &#x3D; taskToHandle.find(x &#x3D;&gt; {
+                                if (x.id) {
+                                    return x.id.toString() &#x3D;&#x3D;&#x3D; this.taskSelected.task;
+                                } else {
+                                    return false;
+                                }
+                            });
+                            !!task ? task.status &#x3D; Status.IN_PROGRESS : noop();
+                        }
+                    }
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="ngOnDestroy">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">ngOnDestroy</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">2</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">3</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Unsubscribe when component is destroyed
+                 */
+                ngOnDestroy(): void {
+                    if (this.stateNotifiersubscription) {
+                        this.stateNotifiersubscription.unsubscribe();
+                    }
+                    if (this.selectedPageSubscription) {
+                        this.selectedPageSubscription.unsubscribe();
+                    }
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="ngOnChanges">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">ngOnChanges</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">5</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">5</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * On component data change
+                 * @param changes
+                 */
+                ngOnChanges(changes: SimpleChanges): void {
+                    if (changes.operations &amp;&amp; !changes.operations.firstChange) {
+                        this.setOperations();
+                    }
+                    if (this.taskSelected !&#x3D;&#x3D; this.localSelectedTask) {
+                        this.localSelectedTask &#x3D; UtilsService.deepCopy(this.taskSelected);
+                        if (this.localSelectedTask.operation) {
+                            this.operationsOpened[this.localSelectedTask.operation] &#x3D; true;
+                        }
+                    }
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="goToFiltering">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">goToFiltering</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Go to filtering
+                 */
+                goToFiltering(): void {
+                    this.operationsOpened &#x3D; [];
+                    this.localSelectedTask &#x3D; undefined;
+                    this.router.navigate([&#x27;filtering&#x27;], {relativeTo: this.route});
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="goToReport">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">goToReport</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">2</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">3</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Go to report
+                 */
+                goToReport(): void {
+                    if (this.drtId &amp;&amp; this.drtStatus !&#x3D;&#x3D; Status.CREATED) {
+                        this.operationsOpened &#x3D; [];
+                        this.localSelectedTask &#x3D; undefined;
+                        this.drtService.statusSet.next();
+                        this.router.navigate([&#x27;drt&#x27;, this.drtId, &#x27;summary-report&#x27;]);
+                    }
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="setOperations">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">setOperations</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgerror">11</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">6</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * format given operations
+                 */
+                setOperations(): void {
+                    this.drtOperations &#x3D; [];
+                    if (this.operations &amp;&amp; this.operations.length &gt; 0) {
+                        this.operations.forEach((operation) &#x3D;&gt; {
+                            this.drtOperations.push(operation);
+                            let usefulStatus &#x3D; Status.CREATED;
+                            let notInCreatedStateInspectionsNumber &#x3D; 0;
+                            let data: {notInCreatedStateInspectionsNumber: number, usefulStatus: Status};
+                            if (operation.behavior &#x3D;&#x3D;&#x3D; &#x27;TODO_LIST&#x27;) {
+                                data &#x3D; this.setOperationsTodolist(operation, notInCreatedStateInspectionsNumber, usefulStatus);
+                            } else {
+                                data &#x3D; this.setOperationsOtherThanTodolist(operation, notInCreatedStateInspectionsNumber, usefulStatus);
+                            }
+                            if (data) {
+                                notInCreatedStateInspectionsNumber &#x3D; data.notInCreatedStateInspectionsNumber;
+                                usefulStatus &#x3D; data.usefulStatus;
+                            }
+                            this.operationsStatus.push({notInCreatedStateInspectionsNumber, usefulStatus});
+                        });
+                    }
+            
+                    this.inspections[0].operations &#x3D; this.drtOperations;
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="setOperationsTodolist">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">setOperationsTodolist</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgerror">24</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgerror">11</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Set operations todolist
+                 * @param operation
+                 * @param notInCreatedStateInspectionsNumber
+                 * @param usefulStatus
+                 */
+                setOperationsTodolist(operation: DrtOperation, notInCreatedStateInspectionsNumber: number, usefulStatus: Status):
+                    {notInCreatedStateInspectionsNumber: number, usefulStatus: Status} {
+                    operation.todoLists.forEach((status) &#x3D;&gt; {
+                        if (status.status !&#x3D;&#x3D; Status.CREATED) {
+                            notInCreatedStateInspectionsNumber++;
+                        }
+                        if (status.status &#x3D;&#x3D;&#x3D; Status.IN_PROGRESS &amp;&amp;
+                            (usefulStatus &#x3D;&#x3D;&#x3D; Status.CREATED || usefulStatus &#x3D;&#x3D;&#x3D; Status.IN_PROGRESS)) {
+                            // Orange case
+                            usefulStatus &#x3D; status.status;
+                        } else if (status.status !&#x3D;&#x3D; Status.CREATED) {
+                            if (usefulStatus &#x3D;&#x3D;&#x3D; Status.VALIDATED &amp;&amp; status.status !&#x3D;&#x3D; Status.VALIDATED) {
+                                usefulStatus &#x3D; status.status;
+                            } else if (usefulStatus &#x3D;&#x3D;&#x3D; Status.IN_PROGRESS &amp;&amp; status.status !&#x3D;&#x3D; Status.IN_PROGRESS) {
+                                noop();
+                            } else {
+                                // All other cases are green
+                                usefulStatus &#x3D; Status.VALIDATED;
+                            }
+                        }
+                    });
+                    return {notInCreatedStateInspectionsNumber, usefulStatus};
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="setOperationsOtherThanTodolist">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">setOperationsOtherThanTodolist</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgerror">16</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">10</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Set operations other than todolist
+                 * @param operation
+                 * @param notInCreatedStateInspectionsNumber
+                 * @param usefulStatus
+                 */
+                setOperationsOtherThanTodolist(operation: DrtOperation, notInCreatedStateInspectionsNumber: number, usefulStatus: Status):
+                    {notInCreatedStateInspectionsNumber: number, usefulStatus: Status} {
+                    let functionalAreaValidated &#x3D; 0;
+                    operation.functionalAreaStatus.forEach((status) &#x3D;&gt; {
+                        if (status.status !&#x3D;&#x3D; Status.CREATED) {
+                            notInCreatedStateInspectionsNumber++;
+                        }
+                        if ((status.status &#x3D;&#x3D;&#x3D; Status.IN_PROGRESS || status.status &#x3D;&#x3D;&#x3D; Status.Q_CHECK) &amp;&amp;
+                            (usefulStatus &#x3D;&#x3D;&#x3D; Status.CREATED || usefulStatus &#x3D;&#x3D;&#x3D; Status.IN_PROGRESS)) {
+                            // Orange case
+                            usefulStatus &#x3D; status.status;
+                        } else if (status.status !&#x3D;&#x3D; Status.CREATED) {
+                            functionalAreaValidated++;
+                        }
+                    });
+                    if (functionalAreaValidated &#x3D;&#x3D;&#x3D; operation.functionalAreaStatus.length) {
+                        usefulStatus &#x3D; Status.VALIDATED;
+                    } else if (functionalAreaValidated &gt; 0) {
+                        usefulStatus &#x3D; Status.IN_PROGRESS;
+                    }
+                    return {notInCreatedStateInspectionsNumber, usefulStatus};
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="closeDrt">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">closeDrt</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Close DRT
+                 */
+                closeDrt(): void {
+                    this.closeDrtAction.emit();
+                    this.isClosable &#x3D; false;
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="selectTask">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">selectTask</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * select a task
+                 * @param operation
+                 * @param task
+                 */
+                selectTask(operation: DrtOperation, task: DrtOperationFunctionalArea): void {
+                    this.taskSelectedChanged.emit({operation, task});
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="isActiveTask">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">isActiveTask</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">1</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">5</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Make menu active color
+                 * @param operation
+                 * @param task
+                 */
+                isActiveTask(operation: DrtOperation, task: DrtOperationFunctionalArea): boolean {
+                    return this.localSelectedTask &amp;&amp; this.localSelectedTask.task &amp;&amp; this.localSelectedTask.task &#x3D;&#x3D;&#x3D; task.id
+                        &amp;&amp; this.localSelectedTask.operation &amp;&amp; +this.localSelectedTask.operation &#x3D;&#x3D;&#x3D; operation.id;
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="loadReport">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">loadReport</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">2</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">2</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Load report
+                 */
+                loadReport(): void {
+                    if (this.reportLoaded) {
+                        this.reportReady();
+                    } else {
+                        this.reportLoaded &#x3D; true;
+                    }
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="logoReady">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">logoReady</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Logo ready
+                 */
+                logoReady(): void {
+                    this.isLogoReady &#x3D; true;
+                    this.reportReady();
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="summaryReportReady">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">summaryReportReady</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Summary report ready
+                 */
+                summaryReportReady(): void {
+                    this.isSummaryReportReady &#x3D; true;
+                    this.reportReady();
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="filteringReportReady">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">filteringReportReady</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Filtering report ready
+                 */
+                filteringReportReady(): void {
+                    this.isFilteringReportReady &#x3D; true;
+                    this.reportReady();
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="inspectionDetailReportReady">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">inspectionDetailReportReady</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Inspection detail Report ready
+                 */
+                inspectionDetailReportReady(): void {
+                    this.isInspectionDetailReportReady &#x3D; true;
+                    this.reportReady();
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="reportReady">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">reportReady</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">2</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">5</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Report ready action
+                 */
+                reportReady() {
+                    if (this.isSummaryReportReady &amp;&amp; this.isFilteringReportReady &amp;&amp; this.isLogoReady &amp;&amp; this.isInspectionDetailReportReady) {
+                        document.getElementById(&#x27;btn-print&#x27;).click();
+                    }
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+
+
+    <!--        -------------------------------------------------------------------------------------->
+    <!--        -----------------------------------   Scripts-----   --------------------------------->
+    <!--        -------------------------------------------------------------------------------------->
+
+
+
+    <script src="../../../../../../../node_modules/chart.js/dist/Chart.js"></script>
+    <script src="../../../../reports-styles/prism.js"></script>
+
+    <script>
+        var ctxDougnutCognitive = document.getElementById('doughnut-cognitive-cpx').getContext("2d");
+        var doughnutCognitive = new Chart(ctxDougnutCognitive, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        13,
+                        2,
+                        5,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ]
+                }],
+                labels: [
+                    'correct methods ',
+                    'warning methods ',
+                    'error methods ',
+                ]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        left: 50,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Cognitive complexity'
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxBarCognitive = document.getElementById('bar-cognitive-cpx').getContext("2d");
+        var barCognitive = new Chart(ctxBarCognitive, {
+            type: 'bar',
+            data: {
+                labels: [
+                        '0',
+                        '1',
+                        '2',
+                        '5',
+                        '7',
+                        '10',
+                        '11',
+                        '14',
+                        '16',
+                        '24',
+                        '44',
+                ],
+                datasets: [{
+                    data: [
+                            7,
+                            1,
+                            4,
+                            1,
+                            1,
+                            1,
+                            1,
+                            1,
+                            1,
+                            1,
+                            1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ],
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Cognitive complexity'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of methods'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxDougnutCyclomatic = document.getElementById('doughnut-cyclomatic-cpx').getContext("2d");
+        var doughnutCyclomatic = new Chart(ctxDougnutCyclomatic, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        14,
+                        4,
+                        2,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ]
+                }],
+                labels: [
+                    'correct methods ',
+                    'warning methods ',
+                    'error methods ',
+                ]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        left: 50,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Cyclomatic complexity'
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxBarCyclomatic = document.getElementById('bar-cyclomatic-cpx').getContext("2d");
+        var barCyclomatic = new Chart(ctxBarCyclomatic, {
+            type: 'bar',
+            data: {
+                labels: [
+                        1,
+                        2,
+                        3,
+                        5,
+                        6,
+                        9,
+                        10,
+                        11,
+                        16,
+                ],
+                datasets: [{
+                    data: [
+                            7,
+                            1,
+                            2,
+                            4,
+                            1,
+                            2,
+                            1,
+                            1,
+                            1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ],
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: false,
+                    text: 'Cyclomatic complexity',
+                    position: 'top'
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Cyclomatic complexity'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of methods'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+</body>
+</html>

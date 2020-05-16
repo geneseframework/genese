@@ -1,0 +1,1495 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Genese complexity report for all files</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./../../reports-styles/prettify.css" />
+    <link rel="stylesheet" href="./../../reports-styles/report.css" />
+    <link rel="stylesheet" href="./../../reports-styles/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+<!--        -------------------------------------------------------------------------------------->
+<!--        ---------------------------------------   Header   ----------------------------------->
+<!--        -------------------------------------------------------------------------------------->
+
+
+<div class="header">
+    <div class="header-left">
+        <div>
+            <h1>Genese complexity report</h1>
+        </div>
+        <div class="pad1y">
+                <a class="backLink" href="../folder-report.html"><-</a>
+            /Users/utilisateur/Documents/projets/retex/airbus-retex-front/src/app/ui-components
+        </div>
+        <div class="clearfix">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">48</span>
+                <span>Files</span>
+            </div>
+            <div class='fl pad1y space-right2'>
+                <span class="strong">114</span>
+                <span>Methods</span>
+            </div>
+        </div>
+    </div>
+    <div class="header-right">
+
+        <div class="clearfix padly">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">349</span>
+                <span>points of cognitive complexity</span>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">320</span>
+                <span>points of cyclomatic complexity</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--        -------------------------------------------------------------------------------------->
+<!--        -----------------------------------   Stats and charts   ----------------------------->
+<!--        -------------------------------------------------------------------------------------->
+
+<div class="mainContainer">
+    <div class="stats-and-charts">
+
+        <!--        -----------------------------------   Cognitive complexity   ---------------------------->
+
+        <div class="stats-cognitive">
+            <div class="stats-and-doughnut">
+                <div class="stats">
+
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">Cognitive complexity</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">82.5 %</span>
+                            <span class="quiet"> Correct</span>
+                            <span class='fraction'>94/114</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">9.6 %</span>
+                            <span class="quiet"> Warning</span>
+                            <span class='fraction'>11/114</span>
+                            <span class="quiet">(threshold : 5)</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">7.9 %</span>
+                            <span class="quiet"> Error</span>
+                            <span class='fraction'>9/114</span>
+                            <span class="quiet">(threshold : 10)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doughnut">
+                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>
+                </div>
+            </div>
+
+            <div class="bar">
+                <canvas id="bar-cognitive-cpx" height="400" width="750"></canvas>
+            </div>
+        </div>
+
+        <!--        -----------------------------------   Cyclomatic complexity   ---------------------------->
+
+        <div class="stats-cyclomatic">
+            <div class="stats-and-doughnut">
+                <div class="stats">
+                    <div class="clearfix cyclomatic-subtitle">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">Cyclomatic complexity</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">87.7 %</span>
+                            <span class="quiet"> Correct</span>
+                            <span class='fraction'>100/114</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">9.6 %</span>
+                            <span class="quiet"> Warning</span>
+                            <span class='fraction'>11/114</span>
+                            <span class="quiet">(threshold : 5)</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">2.6 %</span>
+                            <span class="quiet"> Error</span>
+                            <span class='fraction'>3/114</span>
+                            <span class="quiet">(threshold : 10)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doughnut">
+                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>
+                </div>
+            </div>
+            <div class="bar">
+                <canvas id="bar-cyclomatic-cpx" height="400" width="750"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+    <!--        -------------------------------------------------------------------------------------->
+    <!--        -----------------------------------   Report arrays   -------------------------------->
+    <!--        -------------------------------------------------------------------------------------->
+
+
+    <!--        ----------------------------------   Folders array   --------------------------------->
+
+    <div class="clearfix cognitive-subtitle">
+        <div class='fl pad1y space-right2'>
+            <span class="strong">Subfolders of /Users/utilisateur/Documents/projets/retex/airbus-retex-front/src/app/ui-components</span>
+        </div>
+    </div>
+    <table class="array-report">
+        <thead>
+        <tr>
+            <th rowspan="2">Folders</th>
+            <th rowspan="2">Number of files</th>
+            <th rowspan="2">Number of methods</th>
+            <th colspan="3">Cognitive complexity of methods</th>
+            <th colspan="3">Cyclomatic complexity of methods</th>
+        </tr>
+        <tr>
+            <th>Correct</th>
+            <th>Warning</th>
+            <th>Error</th>
+            <th>Correct</th>
+            <th>Warning</th>
+            <th>Error</th>
+        </tr>
+        </thead>
+                <tr>
+                    <td>
+                            <a href="../folder-report.html">../</a>
+                    </td>
+                    <td class="center"></td>
+                    <td class="center"></td>
+                    <td class="center correct"></td>
+                    <td class="center warning"></td>
+                    <td class="center error"></td>
+                    <td class="center correct"></td>
+                    <td class="center warning"></td>
+                    <td class="center error"></td>
+                </tr>
+                <tr>
+                    <td>
+                            app/ui-components
+                    </td>
+                    <td class="center">48</td>
+                    <td class="center">114</td>
+                    <td class="center correct">94</td>
+                    <td class="center warning">11</td>
+                    <td class="center error">9</td>
+                    <td class="center correct">100</td>
+                    <td class="center warning">11</td>
+                    <td class="center error">3</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./add-button/folder-report.html">app/ui-components/add-button</a>
+                    </td>
+                    <td class="center">2</td>
+                    <td class="center">1</td>
+                    <td class="center correct">1</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                    <td class="center correct">1</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./calendar/folder-report.html">app/ui-components/calendar</a>
+                    </td>
+                    <td class="center">3</td>
+                    <td class="center">14</td>
+                    <td class="center correct">13</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">1</td>
+                    <td class="center correct">13</td>
+                    <td class="center warning">1</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./chip/folder-report.html">app/ui-components/chip</a>
+                    </td>
+                    <td class="center">3</td>
+                    <td class="center">2</td>
+                    <td class="center correct">2</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                    <td class="center correct">2</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./click-outside/folder-report.html">app/ui-components/click-outside</a>
+                    </td>
+                    <td class="center">3</td>
+                    <td class="center">2</td>
+                    <td class="center correct">1</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">1</td>
+                    <td class="center correct">1</td>
+                    <td class="center warning">1</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./date-picker/folder-report.html">app/ui-components/date-picker</a>
+                    </td>
+                    <td class="center">4</td>
+                    <td class="center">24</td>
+                    <td class="center correct">22</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">2</td>
+                    <td class="center correct">22</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">2</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./dialog-modal/folder-report.html">app/ui-components/dialog-modal</a>
+                    </td>
+                    <td class="center">2</td>
+                    <td class="center">3</td>
+                    <td class="center correct">3</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                    <td class="center correct">3</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./file-loader/folder-report.html">app/ui-components/file-loader</a>
+                    </td>
+                    <td class="center">2</td>
+                    <td class="center">6</td>
+                    <td class="center correct">4</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">2</td>
+                    <td class="center correct">4</td>
+                    <td class="center warning">1</td>
+                    <td class="center error">1</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./filter-multi-select/folder-report.html">app/ui-components/filter-multi-select</a>
+                    </td>
+                    <td class="center">2</td>
+                    <td class="center">11</td>
+                    <td class="center correct">7</td>
+                    <td class="center warning">3</td>
+                    <td class="center error">1</td>
+                    <td class="center correct">9</td>
+                    <td class="center warning">2</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./image-modal/folder-report.html">app/ui-components/image-modal</a>
+                    </td>
+                    <td class="center">2</td>
+                    <td class="center">1</td>
+                    <td class="center correct">1</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                    <td class="center correct">1</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./multiple-select/folder-report.html">app/ui-components/multiple-select</a>
+                    </td>
+                    <td class="center">2</td>
+                    <td class="center">6</td>
+                    <td class="center correct">5</td>
+                    <td class="center warning">1</td>
+                    <td class="center error">0</td>
+                    <td class="center correct">6</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./pastille/folder-report.html">app/ui-components/pastille</a>
+                    </td>
+                    <td class="center">2</td>
+                    <td class="center">1</td>
+                    <td class="center correct">1</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                    <td class="center correct">1</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./qcheck-buttons/folder-report.html">app/ui-components/qcheck-buttons</a>
+                    </td>
+                    <td class="center">2</td>
+                    <td class="center">2</td>
+                    <td class="center correct">2</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                    <td class="center correct">2</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./radio-button/folder-report.html">app/ui-components/radio-button</a>
+                    </td>
+                    <td class="center">2</td>
+                    <td class="center">4</td>
+                    <td class="center correct">2</td>
+                    <td class="center warning">2</td>
+                    <td class="center error">0</td>
+                    <td class="center correct">3</td>
+                    <td class="center warning">1</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./search-bar/folder-report.html">app/ui-components/search-bar</a>
+                    </td>
+                    <td class="center">3</td>
+                    <td class="center">7</td>
+                    <td class="center correct">7</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                    <td class="center correct">7</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./select/folder-report.html">app/ui-components/select</a>
+                    </td>
+                    <td class="center">3</td>
+                    <td class="center">10</td>
+                    <td class="center correct">7</td>
+                    <td class="center warning">2</td>
+                    <td class="center error">1</td>
+                    <td class="center correct">8</td>
+                    <td class="center warning">2</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./select-v2/folder-report.html">app/ui-components/select-v2</a>
+                    </td>
+                    <td class="center">3</td>
+                    <td class="center">11</td>
+                    <td class="center correct">7</td>
+                    <td class="center warning">3</td>
+                    <td class="center error">1</td>
+                    <td class="center correct">8</td>
+                    <td class="center warning">3</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./slide-toggle/folder-report.html">app/ui-components/slide-toggle</a>
+                    </td>
+                    <td class="center">2</td>
+                    <td class="center">3</td>
+                    <td class="center correct">3</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                    <td class="center correct">3</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./spinner/folder-report.html">app/ui-components/spinner</a>
+                    </td>
+                    <td class="center">4</td>
+                    <td class="center">3</td>
+                    <td class="center correct">3</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                    <td class="center correct">3</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./tabs-multilanguage/folder-report.html">app/ui-components/tabs-multilanguage</a>
+                    </td>
+                    <td class="center">2</td>
+                    <td class="center">3</td>
+                    <td class="center correct">3</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                    <td class="center correct">3</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                </tr>
+    </table>
+
+    <!--        ----------------------------------   Files array   --------------------------------->
+
+    <div class="clearfix cognitive-subtitle">
+        <div class='fl pad1y space-right2'>
+            <span class="strong">Files of /Users/utilisateur/Documents/projets/retex/airbus-retex-front/src/app/ui-components</span>
+        </div>
+    </div>
+    <table class="array-report">
+        <thead>
+        <tr>
+            <th>File</th>
+            <th>Method</th>
+            <th>Cognitive complexity</th>
+            <th>Cyclomatic complexity</th>
+        </tr>
+        </thead>
+    </table>
+
+
+    <!--        ----------------------------------   Methods array   --------------------------------->
+
+    <div class="clearfix cognitive-subtitle">
+        <div class='fl pad1y space-right2'>
+            <span class="strong">Methods of /Users/utilisateur/Documents/projets/retex/airbus-retex-front/src/app/ui-components folder and its subfolders</span>
+            <span class="quiet">(ordered by decreasing cognitive complexity)</span>
+        </div>
+    </div>
+    <table class="array-report">
+        <thead>
+        <tr>
+            <th>File</th>
+            <th>Method</th>
+            <th>Cognitive complexity</th>
+            <th>Cyclomatic complexity</th>
+        </tr>
+        </thead>
+                <tr>
+                    <td><a href="./date-picker/date-picker.service.html">date-picker.service.ts</a></td>
+                    <td><a href="./date-picker/date-picker.service.html#getInputsWithLocaleFormat">getInputsWithLocaleFormat</a></td>
+                    <td class="center error">28</td>
+                    <td class="center error">12</td>
+                </tr>
+                <tr>
+                    <td><a href="./file-loader/file-loader.component.html">file-loader.component.ts</a></td>
+                    <td><a href="./file-loader/file-loader.component.html#onFileSelected">onFileSelected</a></td>
+                    <td class="center error">21</td>
+                    <td class="center error">12</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.component.html">date-picker.component.ts</a></td>
+                    <td><a href="./date-picker/date-picker.component.html#onKey">onKey</a></td>
+                    <td class="center error">18</td>
+                    <td class="center error">11</td>
+                </tr>
+                <tr>
+                    <td><a href="./select-v2/select-v2.component.html">select-v2.component.ts</a></td>
+                    <td><a href="./select-v2/select-v2.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center error">16</td>
+                    <td class="center warning">6</td>
+                </tr>
+                <tr>
+                    <td><a href="./click-outside/click-outside-interactive.directive.html">click-outside-interactive.directive.ts</a></td>
+                    <td><a href="./click-outside/click-outside-interactive.directive.html#onClick">onClick</a></td>
+                    <td class="center error">15</td>
+                    <td class="center warning">10</td>
+                </tr>
+                <tr>
+                    <td><a href="./file-loader/file-loader.component.html">file-loader.component.ts</a></td>
+                    <td><a href="./file-loader/file-loader.component.html#ngOnChanges">ngOnChanges</a></td>
+                    <td class="center error">14</td>
+                    <td class="center warning">8</td>
+                </tr>
+                <tr>
+                    <td><a href="./select/select.component.html">select.component.ts</a></td>
+                    <td><a href="./select/select.component.html#getSelectedOption">getSelectedOption</a></td>
+                    <td class="center error">14</td>
+                    <td class="center warning">9</td>
+                </tr>
+                <tr>
+                    <td><a href="./calendar/calendar.component.html">calendar.component.ts</a></td>
+                    <td><a href="./calendar/calendar.component.html#selectPeriod">selectPeriod</a></td>
+                    <td class="center error">13</td>
+                    <td class="center warning">6</td>
+                </tr>
+                <tr>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html">filter-multi-select.component.ts</a></td>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html#getSelectedOption">getSelectedOption</a></td>
+                    <td class="center error">13</td>
+                    <td class="center warning">7</td>
+                </tr>
+                <tr>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html">filter-multi-select.component.ts</a></td>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html#openSelect">openSelect</a></td>
+                    <td class="center warning">10</td>
+                    <td class="center warning">7</td>
+                </tr>
+                <tr>
+                    <td><a href="./multiple-select/multiple-select.component.html">multiple-select.component.ts</a></td>
+                    <td><a href="./multiple-select/multiple-select.component.html#refresh">refresh</a></td>
+                    <td class="center warning">10</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./select/select.component.html">select.component.ts</a></td>
+                    <td><a href="./select/select.component.html#openSelect">openSelect</a></td>
+                    <td class="center warning">9</td>
+                    <td class="center warning">6</td>
+                </tr>
+                <tr>
+                    <td><a href="./select-v2/select-v2.component.html">select-v2.component.ts</a></td>
+                    <td><a href="./select-v2/select-v2.component.html#ngOnChanges">ngOnChanges</a></td>
+                    <td class="center warning">9</td>
+                    <td class="center warning">8</td>
+                </tr>
+                <tr>
+                    <td><a href="./select-v2/select-v2.component.html">select-v2.component.ts</a></td>
+                    <td><a href="./select-v2/select-v2.component.html#openSelect">openSelect</a></td>
+                    <td class="center warning">9</td>
+                    <td class="center warning">6</td>
+                </tr>
+                <tr>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html">filter-multi-select.component.ts</a></td>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html#searchChange">searchChange</a></td>
+                    <td class="center warning">8</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./radio-button/radio-button.component.html">radio-button.component.ts</a></td>
+                    <td><a href="./radio-button/radio-button.component.html#selectValue">selectValue</a></td>
+                    <td class="center warning">8</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html">filter-multi-select.component.ts</a></td>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html#onKeySelect">onKeySelect</a></td>
+                    <td class="center warning">7</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./radio-button/radio-button.component.html">radio-button.component.ts</a></td>
+                    <td><a href="./radio-button/radio-button.component.html#isSelected">isSelected</a></td>
+                    <td class="center warning">7</td>
+                    <td class="center warning">6</td>
+                </tr>
+                <tr>
+                    <td><a href="./select/select.component.html">select.component.ts</a></td>
+                    <td><a href="./select/select.component.html#onKeySelect">onKeySelect</a></td>
+                    <td class="center warning">7</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./select-v2/select-v2.component.html">select-v2.component.ts</a></td>
+                    <td><a href="./select-v2/select-v2.component.html#onKeySelect">onKeySelect</a></td>
+                    <td class="center warning">7</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.component.html">date-picker.component.ts</a></td>
+                    <td><a href="./date-picker/date-picker.component.html#selectedDayChanged">selectedDayChanged</a></td>
+                    <td class="center correct">5</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html">filter-multi-select.component.ts</a></td>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html#onKeyPlaceholder">onKeyPlaceholder</a></td>
+                    <td class="center correct">5</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./multiple-select/multiple-select.component.html">multiple-select.component.ts</a></td>
+                    <td><a href="./multiple-select/multiple-select.component.html#add">add</a></td>
+                    <td class="center correct">5</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./select/select.component.html">select.component.ts</a></td>
+                    <td><a href="./select/select.component.html#onKeyPlaceholder">onKeyPlaceholder</a></td>
+                    <td class="center correct">5</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./select-v2/select-v2.component.html">select-v2.component.ts</a></td>
+                    <td><a href="./select-v2/select-v2.component.html#onKeyPlaceholder">onKeyPlaceholder</a></td>
+                    <td class="center correct">5</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.component.html">date-picker.component.ts</a></td>
+                    <td><a href="./date-picker/date-picker.component.html#getSelectedDay">getSelectedDay</a></td>
+                    <td class="center correct">4</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./search-bar/search-bar.component.html">search-bar.component.ts</a></td>
+                    <td><a href="./search-bar/search-bar.component.html#loadItems">loadItems</a></td>
+                    <td class="center correct">4</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./calendar/calendar.component.html">calendar.component.ts</a></td>
+                    <td><a href="./calendar/calendar.component.html#setMonthYear">setMonthYear</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./calendar/calendar.component.html">calendar.component.ts</a></td>
+                    <td><a href="./calendar/calendar.component.html#isStartOrEnd">isStartOrEnd</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./calendar/calendar.component.html">calendar.component.ts</a></td>
+                    <td><a href="./calendar/calendar.component.html#getMonthDays">getMonthDays</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.component.html">date-picker.component.ts</a></td>
+                    <td><a href="./date-picker/date-picker.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./file-loader/file-loader.component.html">file-loader.component.ts</a></td>
+                    <td><a href="./file-loader/file-loader.component.html#onDownloadButtonClicked">onDownloadButtonClicked</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./radio-button/radio-button.component.html">radio-button.component.ts</a></td>
+                    <td><a href="./radio-button/radio-button.component.html#selectOption">selectOption</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./tabs-multilanguage/tabs-multilanguage.component.html">tabs-multilanguage.component.ts</a></td>
+                    <td><a href="./tabs-multilanguage/tabs-multilanguage.component.html#getFormValidity">getFormValidity</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./calendar/calendar.component.html">calendar.component.ts</a></td>
+                    <td><a href="./calendar/calendar.component.html#changeDate">changeDate</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./chip/chip.component.html">chip.component.ts</a></td>
+                    <td><a href="./chip/chip.component.html#getClass">getClass</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./click-outside/click-outside.directive.html">click-outside.directive.ts</a></td>
+                    <td><a href="./click-outside/click-outside.directive.html#onClick">onClick</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.component.html">date-picker.component.ts</a></td>
+                    <td><a href="./date-picker/date-picker.component.html#ngOnChanges">ngOnChanges</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.service.html">date-picker.service.ts</a></td>
+                    <td><a href="./date-picker/date-picker.service.html#getUnitsOrder">getUnitsOrder</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html">filter-multi-select.component.ts</a></td>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html#getItemValue">getItemValue</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./multiple-select/multiple-select.component.html">multiple-select.component.ts</a></td>
+                    <td><a href="./multiple-select/multiple-select.component.html#ngOnChanges">ngOnChanges</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./multiple-select/multiple-select.component.html">multiple-select.component.ts</a></td>
+                    <td><a href="./multiple-select/multiple-select.component.html#remove">remove</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./multiple-select/multiple-select.component.html">multiple-select.component.ts</a></td>
+                    <td><a href="./multiple-select/multiple-select.component.html#hideOrDisplayAll">hideOrDisplayAll</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./select/select.component.html">select.component.ts</a></td>
+                    <td><a href="./select/select.component.html#getItemValue">getItemValue</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./slide-toggle/slide-toggle.component.html">slide-toggle.component.ts</a></td>
+                    <td><a href="./slide-toggle/slide-toggle.component.html#computeSlideToggleStyle">computeSlideToggleStyle</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./calendar/calendar.component.html">calendar.component.ts</a></td>
+                    <td><a href="./calendar/calendar.component.html#selectionChanged">selectionChanged</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./calendar/calendar.component.html">calendar.component.ts</a></td>
+                    <td><a href="./calendar/calendar.component.html#isToday">isToday</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./calendar/calendar.component.html">calendar.component.ts</a></td>
+                    <td><a href="./calendar/calendar.component.html#isSelected">isSelected</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./calendar/calendar.component.html">calendar.component.ts</a></td>
+                    <td><a href="./calendar/calendar.component.html#getMonthWeeks">getMonthWeeks</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./chip/chip.component.html">chip.component.ts</a></td>
+                    <td><a href="./chip/chip.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.component.html">date-picker.component.ts</a></td>
+                    <td><a href="./date-picker/date-picker.component.html#openDropdown">openDropdown</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.component.html">date-picker.component.ts</a></td>
+                    <td><a href="./date-picker/date-picker.component.html#isTouched">isTouched</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.component.html">date-picker.component.ts</a></td>
+                    <td><a href="./date-picker/date-picker.component.html#clearDate">clearDate</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.service.html">date-picker.service.ts</a></td>
+                    <td><a href="./date-picker/date-picker.service.html#setSelectedDay">setSelectedDay</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.service.html">date-picker.service.ts</a></td>
+                    <td><a href="./date-picker/date-picker.service.html#getDateMomentFormat">getDateMomentFormat</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.service.html">date-picker.service.ts</a></td>
+                    <td><a href="./date-picker/date-picker.service.html#isInputsFilled">isInputsFilled</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.service.html">date-picker.service.ts</a></td>
+                    <td><a href="./date-picker/date-picker.service.html#isDatePickerInvalid">isDatePickerInvalid</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./file-loader/file-loader.component.html">file-loader.component.ts</a></td>
+                    <td><a href="./file-loader/file-loader.component.html#onDeleteButtonClicked">onDeleteButtonClicked</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html">filter-multi-select.component.ts</a></td>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html#ngOnChanges">ngOnChanges</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html">filter-multi-select.component.ts</a></td>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html#onKeyOptions">onKeyOptions</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html">filter-multi-select.component.ts</a></td>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html#selectChanged">selectChanged</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html">filter-multi-select.component.ts</a></td>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html#closePopup">closePopup</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./multiple-select/multiple-select.component.html">multiple-select.component.ts</a></td>
+                    <td><a href="./multiple-select/multiple-select.component.html#emit">emit</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./qcheck-buttons/qcheck-buttons.component.html">qcheck-buttons.component.ts</a></td>
+                    <td><a href="./qcheck-buttons/qcheck-buttons.component.html#updateSelectedValue">updateSelectedValue</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./search-bar/search-bar.component.html">search-bar.component.ts</a></td>
+                    <td><a href="./search-bar/search-bar.component.html#focusInput">focusInput</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./search-bar/search-bar.component.html">search-bar.component.ts</a></td>
+                    <td><a href="./search-bar/search-bar.component.html#focusOut">focusOut</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./search-bar/search-bar.component.html">search-bar.component.ts</a></td>
+                    <td><a href="./search-bar/search-bar.component.html#stopHover">stopHover</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./search-bar/search-bar.component.html">search-bar.component.ts</a></td>
+                    <td><a href="./search-bar/search-bar.component.html#mockItems">mockItems</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./select/select.component.html">select.component.ts</a></td>
+                    <td><a href="./select/select.component.html#onKeyOptions">onKeyOptions</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./select/select.component.html">select.component.ts</a></td>
+                    <td><a href="./select/select.component.html#closePopup">closePopup</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./select-v2/select-v2.component.html">select-v2.component.ts</a></td>
+                    <td><a href="./select-v2/select-v2.component.html#ngOnDestroy">ngOnDestroy</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./select-v2/select-v2.component.html">select-v2.component.ts</a></td>
+                    <td><a href="./select-v2/select-v2.component.html#onKeyOptions">onKeyOptions</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./select-v2/select-v2.component.html">select-v2.component.ts</a></td>
+                    <td><a href="./select-v2/select-v2.component.html#closeSelectList">closeSelectList</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./slide-toggle/slide-toggle.component.html">slide-toggle.component.ts</a></td>
+                    <td><a href="./slide-toggle/slide-toggle.component.html#slideToggleClicked">slideToggleClicked</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./tabs-multilanguage/tabs-multilanguage.component.html">tabs-multilanguage.component.ts</a></td>
+                    <td><a href="./tabs-multilanguage/tabs-multilanguage.component.html#changeTab">changeTab</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./add-button/add-button.component.html">add-button.component.ts</a></td>
+                    <td><a href="./add-button/add-button.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./calendar/calendar.component.html">calendar.component.ts</a></td>
+                    <td><a href="./calendar/calendar.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./calendar/calendar.component.html">calendar.component.ts</a></td>
+                    <td><a href="./calendar/calendar.component.html#setDateByPicker">setDateByPicker</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./calendar/calendar.component.html">calendar.component.ts</a></td>
+                    <td><a href="./calendar/calendar.component.html#changeYear">changeYear</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./calendar/calendar.component.html">calendar.component.ts</a></td>
+                    <td><a href="./calendar/calendar.component.html#changeMonth">changeMonth</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./calendar/calendar.component.html">calendar.component.ts</a></td>
+                    <td><a href="./calendar/calendar.component.html#cancelSelection">cancelSelection</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.component.html">date-picker.component.ts</a></td>
+                    <td><a href="./date-picker/date-picker.component.html#changeDropdown">changeDropdown</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.component.html">date-picker.component.ts</a></td>
+                    <td><a href="./date-picker/date-picker.component.html#closeDropdown">closeDropdown</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.service.html">date-picker.service.ts</a></td>
+                    <td><a href="./date-picker/date-picker.service.html#clearDate">clearDate</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.service.html">date-picker.service.ts</a></td>
+                    <td><a href="./date-picker/date-picker.service.html#getFieldsOrder">getFieldsOrder</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.service.html">date-picker.service.ts</a></td>
+                    <td><a href="./date-picker/date-picker.service.html#getSelectedDay">getSelectedDay</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.service.html">date-picker.service.ts</a></td>
+                    <td><a href="./date-picker/date-picker.service.html#setDateValues">setDateValues</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.service.html">date-picker.service.ts</a></td>
+                    <td><a href="./date-picker/date-picker.service.html#dateMomentValidator">dateMomentValidator</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.service.html">date-picker.service.ts</a></td>
+                    <td><a href="./date-picker/date-picker.service.html#getDateSplitter">getDateSplitter</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.service.html">date-picker.service.ts</a></td>
+                    <td><a href="./date-picker/date-picker.service.html#getPreviousInput">getPreviousInput</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./date-picker/date-picker.service.html">date-picker.service.ts</a></td>
+                    <td><a href="./date-picker/date-picker.service.html#getNextInput">getNextInput</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./dialog-modal/dialog-modal.component.html">dialog-modal.component.ts</a></td>
+                    <td><a href="./dialog-modal/dialog-modal.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./dialog-modal/dialog-modal.component.html">dialog-modal.component.ts</a></td>
+                    <td><a href="./dialog-modal/dialog-modal.component.html#closeModal">closeModal</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./dialog-modal/dialog-modal.component.html">dialog-modal.component.ts</a></td>
+                    <td><a href="./dialog-modal/dialog-modal.component.html#removeOverlay">removeOverlay</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./file-loader/file-loader.component.html">file-loader.component.ts</a></td>
+                    <td><a href="./file-loader/file-loader.component.html#unshiftFirst">unshiftFirst</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./file-loader/file-loader.component.html">file-loader.component.ts</a></td>
+                    <td><a href="./file-loader/file-loader.component.html#parseFileExtension">parseFileExtension</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html">filter-multi-select.component.ts</a></td>
+                    <td><a href="./filter-multi-select/filter-multi-select.component.html#clearSearchBar">clearSearchBar</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./image-modal/image-modal.component.html">image-modal.component.ts</a></td>
+                    <td><a href="./image-modal/image-modal.component.html#closeModal">closeModal</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./pastille/pastille.component.html">pastille.component.ts</a></td>
+                    <td><a href="./pastille/pastille.component.html#getBackgroundColor">getBackgroundColor</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./qcheck-buttons/qcheck-buttons.component.html">qcheck-buttons.component.ts</a></td>
+                    <td><a href="./qcheck-buttons/qcheck-buttons.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./radio-button/radio-button.component.html">radio-button.component.ts</a></td>
+                    <td><a href="./radio-button/radio-button.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./search-bar/search-bar.component.html">search-bar.component.ts</a></td>
+                    <td><a href="./search-bar/search-bar.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./search-bar/search-bar.component.html">search-bar.component.ts</a></td>
+                    <td><a href="./search-bar/search-bar.component.html#startHover">startHover</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./select/select.component.html">select.component.ts</a></td>
+                    <td><a href="./select/select.component.html#searchChange">searchChange</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./select/select.component.html">select.component.ts</a></td>
+                    <td><a href="./select/select.component.html#selectChanged">selectChanged</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./select/select.component.html">select.component.ts</a></td>
+                    <td><a href="./select/select.component.html#clearSearchBar">clearSearchBar</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./select-v2/select-v2.component.html">select-v2.component.ts</a></td>
+                    <td><a href="./select-v2/select-v2.component.html#searchChange">searchChange</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./select-v2/select-v2.component.html">select-v2.component.ts</a></td>
+                    <td><a href="./select-v2/select-v2.component.html#selectChanged">selectChanged</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./select-v2/select-v2.component.html">select-v2.component.ts</a></td>
+                    <td><a href="./select-v2/select-v2.component.html#clearSearchBar">clearSearchBar</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./slide-toggle/slide-toggle.component.html">slide-toggle.component.ts</a></td>
+                    <td><a href="./slide-toggle/slide-toggle.component.html#computeSliderStyle">computeSliderStyle</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./spinner/spinner.component.html">spinner.component.ts</a></td>
+                    <td><a href="./spinner/spinner.component.html#close">close</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./spinner/spinner.service.html">spinner.service.ts</a></td>
+                    <td><a href="./spinner/spinner.service.html#stopLoading">stopLoading</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./spinner/spinner.service.html">spinner.service.ts</a></td>
+                    <td><a href="./spinner/spinner.service.html#startLoading">startLoading</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./tabs-multilanguage/tabs-multilanguage.component.html">tabs-multilanguage.component.ts</a></td>
+                    <td><a href="./tabs-multilanguage/tabs-multilanguage.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+    </table>
+
+
+
+    <!--        -------------------------------------------------------------------------------------->
+    <!--        -----------------------------------   Scripts-----   --------------------------------->
+    <!--        -------------------------------------------------------------------------------------->
+
+
+
+    <script src="../../../../../node_modules/chart.js/dist/Chart.js"></script>
+
+    <script>
+        var ctxDougnutCognitive = document.getElementById('doughnut-cognitive-cpx').getContext("2d");
+        var doughnutCognitive = new Chart(ctxDougnutCognitive, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        94,
+                        11,
+                        9,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ]
+                }],
+                labels: [
+                    'correct methods ',
+                    'warning methods ',
+                    'error methods ',
+                ]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        left: 50,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Cognitive complexity'
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxBarCognitive = document.getElementById('bar-cognitive-cpx').getContext("2d");
+        var barCognitive = new Chart(ctxBarCognitive, {
+            type: 'bar',
+            data: {
+                labels: [
+                        '0',
+                        '1',
+                        '2',
+                        '3',
+                        '4',
+                        '5',
+                        '6',
+                        '7',
+                        '8',
+                        '9',
+                        '10',
+                        '11',
+                        '12',
+                        '13',
+                        '14',
+                        '15',
+                        '16',
+                        '17',
+                        '18',
+                        '19',
+                        '20',
+                        '21',
+                        '22',
+                        '23',
+                        '24',
+                        '25',
+                        '26',
+                        '27',
+                        '28',
+                ],
+                datasets: [{
+                    data: [
+                            39,
+                            30,
+                            11,
+                            7,
+                            2,
+                            5,
+                            0,
+                            4,
+                            2,
+                            3,
+                            2,
+                            0,
+                            0,
+                            2,
+                            2,
+                            1,
+                            1,
+                            0,
+                            1,
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ],
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Cognitive complexity'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of methods'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxDougnutCyclomatic = document.getElementById('doughnut-cyclomatic-cpx').getContext("2d");
+        var doughnutCyclomatic = new Chart(ctxDougnutCyclomatic, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        100,
+                        11,
+                        3,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ]
+                }],
+                labels: [
+                    'correct methods ',
+                    'warning methods ',
+                    'error methods ',
+                ]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        left: 50,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Cyclomatic complexity'
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxBarCyclomatic = document.getElementById('bar-cyclomatic-cpx').getContext("2d");
+        var barCyclomatic = new Chart(ctxBarCyclomatic, {
+            type: 'bar',
+            data: {
+                labels: [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                ],
+                datasets: [{
+                    data: [
+                            44,
+                            27,
+                            11,
+                            15,
+                            3,
+                            5,
+                            2,
+                            2,
+                            1,
+                            1,
+                            1,
+                            2,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ],
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: false,
+                    text: 'Cyclomatic complexity',
+                    position: 'top'
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Cyclomatic complexity'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of methods'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+</body>
+</html>

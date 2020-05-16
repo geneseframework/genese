@@ -1,0 +1,14 @@
+{
+    "complexity": {
+        "cognitiveCpx": {
+            "errorThreshold": 8,
+            "warningThreshold": 3
+        },
+        "cyclomaticCpx": {
+            "errorThreshold": 10,
+            "warningThreshold": 5
+        },
+        "pathFolderToAnalyze": "./src/",
+        "pathReports": "./gn-reports"
+    }
+}

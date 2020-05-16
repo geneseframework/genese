@@ -1,0 +1,1696 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Genese complexity report</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../reports-styles/prism.css" />
+    <link rel="stylesheet" href="../../../reports-styles/prettify.css" />
+    <link rel="stylesheet" href="../../../reports-styles/report.css" />
+    <link rel="stylesheet" href="../../../reports-styles/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<div class="header">
+    <div class="header-left">
+        <div>
+            <h1>Genese complexity report</h1>
+        </div>
+        <div class="pad1y">
+            <span class="backLink" onclick="history.back()"><-</span>
+            routing-detail.component.ts
+        </div>
+        <div class="clearfix">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">24</span>
+                <span>Methods</span>
+            </div>
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="clearfix padly">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">150</span>
+                <span>points of cognitive complexity</span>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">106</span>
+                <span>points of cyclomatic complexity</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--        -------------------------------------------------------------------------------------->
+<!--        -----------------------------------   Stats and charts   ----------------------------->
+<!--        -------------------------------------------------------------------------------------->
+
+
+<div class="mainContainer">
+    <div class="stats-and-charts">
+
+            <!--        -----------------------------------   Cognitive complexity   ---------------------------->
+
+        <div class="stats-cognitive">
+            <div class="stats-and-doughnut">
+                <div class="stats">
+
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">Cognitive complexity</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">54.2 %</span>
+                            <span class="quiet"> Correct</span>
+                            <span class='fraction'>13/24</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">33.3 %</span>
+                            <span class="quiet"> Warning</span>
+                            <span class='fraction'>8/24</span>
+                            <span class="quiet">(threshold : 5)</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">12.5 %</span>
+                            <span class="quiet"> Error</span>
+                            <span class='fraction'>3/24</span>
+                            <span class="quiet">(threshold : 10)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doughnut">
+                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>
+                </div>
+            </div>
+
+            <div class="bar">
+                <canvas id="bar-cognitive-cpx" height="400" width="750"></canvas>
+            </div>
+        </div>
+
+        <!--        -----------------------------------   Cyclomatic complexity   ---------------------------->
+
+        <div class="stats-cyclomatic">
+            <div class="stats-and-doughnut">
+                <div class="stats">
+                    <div class="clearfix cyclomatic-subtitle">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">Cyclomatic complexity</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">70.8 %</span>
+                            <span class="quiet"> Correct</span>
+                            <span class='fraction'>17/24</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">20.8 %</span>
+                            <span class="quiet"> Warning</span>
+                            <span class='fraction'>5/24</span>
+                            <span class="quiet">(threshold : 5)</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">8.3 %</span>
+                            <span class="quiet"> Error</span>
+                            <span class='fraction'>2/24</span>
+                            <span class="quiet">(threshold : 10)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doughnut">
+                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>
+                </div>
+            </div>
+            <div class="bar">
+                <canvas id="bar-cyclomatic-cpx" height="400" width="750"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+<!--            <div class="clearfix cognitive-subtitle">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">Cognitive complexity</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">54.2 %</span>-->
+<!--                    <span class="quiet"> Correct</span>-->
+<!--                    <span class='fraction'>13/24</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">33.3 %</span>-->
+<!--                    <span class="quiet"> Warning</span>-->
+<!--                    <span class='fraction'>8/24</span>-->
+<!--                    <span class="quiet">(threshold : 5)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">12.5 %</span>-->
+<!--                    <span class="quiet"> Error</span>-->
+<!--                    <span class='fraction'>3/24</span>-->
+<!--                    <span class="quiet">(threshold : 10)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash;        -----------------------------------   Cyclomatic complexity   --------------------------&ndash;&gt;-->
+
+<!--            <div class="clearfix cyclomatic-subtitle">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">Cyclomatic complexity</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">70.8 %</span>-->
+<!--                    <span class="quiet"> Correct</span>-->
+<!--                    <span class='fraction'>17/24</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">20.8 %</span>-->
+<!--                    <span class="quiet"> Warning</span>-->
+<!--                    <span class='fraction'>5/24</span>-->
+<!--                    <span class="quiet">(threshold : 5)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">8.3 %</span>-->
+<!--                    <span class="quiet"> Error</span>-->
+<!--                    <span class='fraction'>2/24</span>-->
+<!--                    <span class="quiet">(threshold : 10)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+
+<!--        &lt;!&ndash;        ------------------------------------------------------------------------------------&ndash;&gt;-->
+<!--        &lt;!&ndash;        -----------------------------------------   Charts   -------------------------------&ndash;&gt;-->
+<!--        &lt;!&ndash;        ------------------------------------------------------------------------------------&ndash;&gt;-->
+
+<!--        <div class="charts">-->
+<!--            <div class="cognitive-charts">-->
+<!--                <div class="doughnut">-->
+<!--                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>-->
+<!--                </div>-->
+<!--                <div class="bar">-->
+<!--                    <canvas id="bar-cognitive-cpx" height="250" width="800"></canvas>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="cyclomatic-charts">-->
+<!--                <div class="doughnut">-->
+<!--                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>-->
+<!--                </div>-->
+<!--                <div class="bar">-->
+<!--                    <canvas id="bar-cyclomatic-cpx" height="250" width="800"></canvas>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+    <!--        -------------------------------------------------------------------------------------->
+    <!--        -----------------------------------   Methods arrays   -------------------------------->
+    <!--        -------------------------------------------------------------------------------------->
+
+
+            <div id="ngOnInit">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">ngOnInit</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">5</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">7</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                // --------------------------------------------------
+                //                     METHODS
+                // --------------------------------------------------
+            
+                /**
+                 * Component initialisation
+                 */
+                ngOnInit(): void {
+                    this.hasWriteLevel &#x3D; this.userService.hasWriteLevel(&#x27;ROUTING&#x27;);
+                    const url &#x3D; this.route.snapshot.url;
+                    if (url &amp;&amp; url[url.length - 1] &amp;&amp; url[url.length - 1].path &#x3D;&#x3D;&#x3D; &#x27;edit&#x27; &amp;&amp; this.hasWriteLevel) {
+                        this.editionMode &#x3D; true;
+                        // this.operationsEditionEnabled &#x3D; true;
+                    }
+                    this.route.params.subscribe((params) &#x3D;&gt; {
+                        params &amp;&amp; params.id ? this.routingId &#x3D; params.id : this.router.navigate([&#x27;/routing&#x27;]);
+                        this.versionUrl +&#x3D; this.routingId + &#x27;/versions&#x27;;
+                        this.getData();
+                    });
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="ngOnDestroy">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">ngOnDestroy</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Component destruction
+                 */
+                ngOnDestroy() {
+                    this.dialog.closeAll();
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="getData">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">getData</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgerror">45</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgerror">22</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Get the selected routing
+                 */
+                getData(): void {
+                    this.spinnerService.startLoading();
+                    this.localeService.getLocaleLang()
+                        .pipe(finalize(() &#x3D;&gt; this.spinnerService.stopLoading()))
+                        .subscribe((lang: string) &#x3D;&gt; {
+                            let url &#x3D; environment.urls.baseApiUrl + &#x27;/api/routings/&#x27; + this.routingId;
+                            if (this.paramsUrl) {
+                                url +&#x3D; &#x60;?version&#x3D;${this.paramsUrl}&#x60;;
+                            }
+                            this.routingGenese.getOne(undefined, url)
+                                .pipe(finalize(() &#x3D;&gt; this.spinnerService.stopLoading()))
+                                .subscribe((routing: Routing) &#x3D;&gt; {
+                                    this.routing &#x3D; routing;
+                                    if (this.routing &amp;&amp; this.routing.part) {
+                                        this.partIsLatestVersion &#x3D; this.routing.part.status !&#x3D;&#x3D; Status.OBSOLETED;
+                                        this.partImage &#x3D; &#x27;&#x27;;
+                                        if (this.routing.part.media &amp;&amp; this.routing.part.media.uuid) {
+                                            this.partImage &#x3D; &#x60;${environment.urls.baseApiUrl}/api/media/${this.routing.part.media.uuid}&#x60;;
+                                        }
+                                    }
+                                    this.translateService.get(&#x27;STATUS.&#x27; + this.routing.status)
+                                        .pipe(finalize(() &#x3D;&gt; this.spinnerService.stopLoading()))
+                                        .subscribe((status: string) &#x3D;&gt; {
+                                            this.headerData.id &#x3D; this.routing.id;
+                                            this.headerData.status &#x3D; status;
+                                            this.headerData.creationDate &#x3D; UtilsService.toDateFormat(this.routing.creationDate);
+                                            this.headerData.name &#x3D; this.routing.translatedFields &amp;&amp; this.routing.translatedFields[Language[lang]]
+                                                ? this.routing.translatedFields[Language[lang]].name
+                                                : &#x27;&#x27;;
+                                            this.headerData.designation &#x3D; this.routing.part
+                                            &amp;&amp; this.routing.part.partDesignation
+                                            &amp;&amp; this.routing.part.partDesignation.translatedFields
+                                            &amp;&amp; this.routing.part.partDesignation.translatedFields[Language[lang]]
+                                                ? this.routing.part.partDesignation.translatedFields[Language[lang]].designation
+                                                : &#x27;&#x27;;
+                                            this.headerData.versionNumber &#x3D; this.routing.versionNumber ? this.routing.versionNumber : &#x27;&#x27;;
+                                            this.headerData.creator &#x3D; this.routing.creator ? this.routing.creator.name : &#x27;&#x27;;
+                                            this.headerData.numberOfAssociatedRequests &#x3D; Array.isArray(this.routing.requestIds)
+                                                ? this.routing.requestIds.length.toString()
+                                                : &#x27;&#x27;;
+                                            this.headerData.pnPnRoot &#x3D; &#x27;&#x27;;
+                                            if (this.routing &amp;&amp; this.routing.part) {
+                                                this.headerData.pnPnRoot &#x3D; this.partService.formatPnAndPnRoot({
+                                                    partNumber: this.routing.part.partNumber,
+                                                    partNumberRoot: this.routing.part.partNumberRoot
+                                                });
+                                            }
+                                            this.setTopBarDescriptor(Language[lang]);
+                                            this.spinnerService.stopLoading();
+                                        }, err &#x3D;&gt; {
+                                            console.error(err);
+                                            this.router.navigate([&#x27;routing&#x27;]);
+                                        });
+                                }, err &#x3D;&gt; {
+                                    console.error(err);
+                                    this.router.navigate([&#x27;routing&#x27;]);
+                                });
+                            this.routingOperationDataService.getOperations(+this.routingId, this.paramsUrl).subscribe(
+                                (operationsData: { operations: RoutingOperation[], functionalAreas: RoutingOperationFunctionalArea[] }) &#x3D;&gt; {
+                                    this.operations &#x3D; operationsData.operations;
+                                    this.operationsBackup &#x3D; JSON.parse(JSON.stringify(this.operations));
+                                    this.functionalAreas &#x3D; operationsData.functionalAreas.map((functionalArea) &#x3D;&gt; {
+                                        return RoutingOperationFunctionalArea.mapToRoutingOperationFunctionalArea(functionalArea);
+                                    });
+                                }
+                            );
+                        });
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="backToList">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">backToList</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Return to routing list
+                 */
+                backToList(): void {
+                    this.appService.navigateIfNoChanges([&#x27;routing&#x27;]);
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="openVersion">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">openVersion</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * open version side menu
+                 */
+                openVersion(): void {
+                    this.versionListVisible &#x3D; true;
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="changeVersion">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">changeVersion</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgwarning">7</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">4</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * When a version is clicked on the right side panel
+                 * @param versionNumber
+                 * @param latest
+                 */
+                changeVersion({versionNumber, latest}): void {
+                    if (this.appService.dataChanged) {
+                        this.appService.checkUpdates().subscribe(res &#x3D;&gt; {
+                            if (res) {
+                                this.inspectionChanged &#x3D; false;
+                                this.appService.dataChanged &#x3D; false;
+                                this.changeVersionChecked({versionNumber, latest});
+                            }
+                        });
+                    } else {
+                        this.changeVersionChecked({versionNumber, latest});
+                    }
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="changeVersionChecked">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">changeVersionChecked</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">1</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Apply the change of version
+                 * @param versionNumber
+                 * @param latest
+                 */
+                changeVersionChecked({versionNumber, latest}) {
+                    this.versionNumber &#x3D; versionNumber;
+            
+                    this.operationsEditionEnabled &#x3D; false;
+                    this.operation &#x3D; null;
+                    this.task &#x3D; null;
+                    this.selectedTaskWrapper &#x3D; {
+                        operation: undefined,
+                        task: undefined
+                    };
+                    this.isLastVersion &#x3D; latest;
+                    this.paramsUrl &#x3D; versionNumber ? versionNumber.toString() : &#x27;&#x27;;
+                    this.getData();
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="onInspectionsChanged">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">onInspectionsChanged</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * On inspection changed
+                 * @param inspections
+                 */
+                onInspectionsChanged(inspections: RoutingInspection[]) {
+                    this.inspectionChanged &#x3D; true;
+                    this.appService.dataChanged &#x3D; true;
+                    this.inspections &#x3D; inspections;
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="openAssociatedRequestModal">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">openAssociatedRequestModal</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Open the associated request modal
+                 */
+                openAssociatedRequestModal() {
+                    // Todo open the modal
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="operationRemoved">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">operationRemoved</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgerror">19</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgerror">12</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Remove operation
+                 * @param wrapper
+                 */
+                operationRemoved(wrapper: { operation: RoutingOperation, index: number }) {
+                    if (wrapper.operation &amp;&amp; wrapper.operation.id) {
+                        const index &#x3D; this.operations.findIndex((op: RoutingOperation) &#x3D;&gt; wrapper.operation.id &#x3D;&#x3D;&#x3D; op.id);
+                        if (index &gt; -1) {
+                            this.removedOperations.push(wrapper.operation);
+                            this.appService.dataChanged &#x3D; true;
+                            this.operations.splice(index, 1);
+                        }
+                    } else if (wrapper.index || wrapper.index &#x3D;&#x3D;&#x3D; 0) {
+                        // this.removedOperations.push(wrapper.operation);
+                        this.operations.splice(wrapper.index, 1);
+                    }
+                    this.operations.sort(this.routingService.sortByOrderNumber);
+                    this.operations.forEach((operation, index) &#x3D;&gt; {
+                        if (index &#x3D;&#x3D;&#x3D; 0 &amp;&amp; operation.orderNumber !&#x3D;&#x3D; 1) {
+                            operation.orderNumber &#x3D; 1;
+                        } else if (index &amp;&amp; ((operation.orderNumber - this.operations[index - 1].orderNumber) &gt; 1)) {
+                            operation.orderNumber &#x3D; this.operations[index - 1].orderNumber + 1;
+                        }
+                    });
+                    // todo rework internal and external so you can remove this.
+                    this.operations &#x3D; [...this.operations];
+                    this.selectedTaskChanged &#x3D; true;
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="operationOrderChanged">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">operationOrderChanged</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgwarning">6</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">6</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * On order change
+                 * @param wrapper
+                 */
+                operationOrderChanged(wrapper: { operation: RoutingOperation, index: number, increment: number }) {
+                    if (wrapper &amp;&amp; wrapper.operation &amp;&amp; wrapper.increment) {
+                        const oldOrder &#x3D; wrapper.operation.orderNumber;
+                        const newOrder &#x3D; oldOrder + wrapper.increment;
+                        const operationIndex &#x3D; wrapper.index;
+                        const otherIndex &#x3D; this.operations.findIndex((op) &#x3D;&gt; op.orderNumber &#x3D;&#x3D;&#x3D; newOrder);
+                        if (otherIndex &gt; -1) {
+                            this.operations[otherIndex].orderNumber &#x3D; oldOrder;
+                        }
+                        this.operations[operationIndex].orderNumber &#x3D; newOrder;
+                        this.operations.sort(this.routingService.sortByOrderNumber);
+                        this.operations &#x3D; [...this.operations];
+                        this.selectedTaskChanged &#x3D; true;
+                        this.appService.dataChanged &#x3D; true;
+                    }
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="changeSelectedTask">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">changeSelectedTask</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgwarning">8</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">4</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * change selected task
+                 * @param wrapper
+                 */
+                changeSelectedTask(wrapper: { operation: RoutingOperation, task: { id: string, name: string } }): void {
+                    if (this.inspectionChanged) {
+                        this.openConfirmationModal().subscribe((confirmation: boolean) &#x3D;&gt; {
+                            if (confirmation) {
+                                this.appService.dataChanged &#x3D; false;
+                                this.cancelEdition();
+                                this.changeSelectedTask(wrapper);
+                            }
+                        });
+                    } else {
+                        this.selectedTaskWrapper &#x3D; {operation: wrapper.operation, task: wrapper.task};
+                        this.operation &#x3D; wrapper.operation;
+                        this.task &#x3D; {...wrapper.task};
+                    }
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="openConfirmationModal">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">openConfirmationModal</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Open confirmation modal
+                 */
+                openConfirmationModal() {
+                    const dialogRef &#x3D; this.dialog.open(DialogModalComponent, {
+                        width: &#x27;600px&#x27;,
+                        height: &#x27;270px&#x27;,
+                        hasBackdrop: false,
+                        data: {
+                            title: {key: &#x27;APP.ROUTING.CANCEL_MODAL.TITLE&#x27;, params: {}},
+                            body: {key: &#x27;APP.ROUTING.CANCEL_MODAL.BODY&#x27;, params: {}},
+                            buttonValidModal: {key: &#x27;MODAL.CONFIRM&#x27;, params: {}}
+                        }
+                    });
+            
+                    return dialogRef.afterClosed();
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="enableOperationEdition">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">enableOperationEdition</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgwarning">9</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">5</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * enable operation edition
+                 * @param value
+                 */
+                enableOperationEdition(value: boolean) {
+                    if (this.selectedTaskChanged || this.appService.dataChanged) {
+                        this.openConfirmationModal().subscribe((confirmation: boolean) &#x3D;&gt; {
+                            if (confirmation) {
+                                this.cancelEdition();
+                                this.selectedTaskWrapper &#x3D; {operation: undefined, task: undefined};
+                                this.operation &#x3D; undefined;
+                                this.task &#x3D; undefined;
+                                this.enableOperationEdition(value);
+                            }
+                        });
+                    } else {
+                        this.selectedTaskWrapper &#x3D; {operation: undefined, task: undefined};
+                        this.operation &#x3D; undefined;
+                        this.task &#x3D; undefined;
+                        this.operationsEditionEnabled &#x3D; value;
+                    }
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="openAddOperationModal">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">openAddOperationModal</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgwarning">7</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">4</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Open the operation modal
+                 */
+                openAddOperationModal(): void {
+                    const dialogRef &#x3D; this.dialog.open(RoutingDetailAddOperationModalComponent, {
+                        hasBackdrop: false,
+                        width: &#x27;650px&#x27;
+                    });
+            
+                    dialogRef.afterClosed().subscribe((operationType: OperationType) &#x3D;&gt; {
+                        if (operationType) {
+                            this.newOperation.operationType &#x3D; operationType;
+                            if (operationType.behavior &#x3D;&#x3D;&#x3D; OperationBehavior.TODO_LIST) {
+                                this.openTodoListModal(operationType.id);
+                            } else {
+                                this.addOperation();
+                            }
+                        }
+                    });
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="openTodoListModal">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">openTodoListModal</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">3</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">3</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Open the todoList modal
+                 */
+                openTodoListModal(operationTypeId: number): void {
+                    const dialogRef &#x3D; this.dialog.open(RoutingDetailTodoListModalComponent, {
+                        hasBackdrop: false,
+                        width: &#x27;650px&#x27;,
+                        data: operationTypeId
+                    });
+            
+                    dialogRef.afterClosed().subscribe((tasks: { name: string, id: string }[]) &#x3D;&gt; {
+                        if (tasks) {
+                            this.newOperation.tasks &#x3D; tasks;
+                            this.addOperation();
+                        }
+                    });
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="cancelEdition">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">cancelEdition</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Cancel edition
+                 */
+                cancelEdition() {
+                    this.inspectionChanged &#x3D; false;
+                    this.appService.dataChanged &#x3D; false;
+                    this.inspections &#x3D; [];
+                    this.routingService.stateNotifier.next(&#x27;cancel&#x27;);
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="saveEdition">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">saveEdition</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgerror">15</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">9</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * save changes
+                 */
+                saveEdition() {
+                    if (this.operation.id &amp;&amp; this.task.id &amp;&amp; this.inspections) {
+                        this.spinnerService.startLoading();
+                        this.routingOperationDataService.editInspections(this.routingId, this.operation.id, this.task.id, this.inspections)
+                            .pipe(finalize(() &#x3D;&gt; this.spinnerService.stopLoading()))
+                            .subscribe(
+                                () &#x3D;&gt; {
+                                    this.toastService.displayToast(&#x27;APP.ROUTING_DETAIL.SAVE_SUCCESSFULLY&#x27;,
+                                        ColorPaletteTypes.primary,
+                                        3000);
+                                    this.appService.dataChanged &#x3D; false;
+                                    this.inspectionChanged &#x3D; false;
+                                    this.routingService.stateNotifier.next(&#x27;save&#x27;);
+                                    if (this.routing.status &#x3D;&#x3D;&#x3D; Status.VALIDATED) {
+                                        this.routing.versionNumber &#x3D; (+this.routing.versionNumber + 1).toString();
+                                        this.headerData.versionNumber &#x3D; this.routing.versionNumber;
+                                        this.translateService.get(&#x27;STATUS.&#x27; + Status.CREATED)
+                                            .subscribe((status: string) &#x3D;&gt; {
+                                                this.headerData.status &#x3D; status;
+                                                this.topBarDescriptor.columns[4].fields[0].pastille &#x3D; Status.CREATED;
+                                            });
+                                    }
+                                    this.getData();
+                                }, (err) &#x3D;&gt; console.error(err)
+                            );
+                    }
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="addOperation">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">addOperation</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgwarning">10</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">7</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * add new Operation
+                 */
+                addOperation() {
+                    if (this.newOperation) {
+                        let orderNumber &#x3D; 1;
+                        this.operations.forEach((op) &#x3D;&gt; {
+                            if (!orderNumber || op.orderNumber &gt;&#x3D; orderNumber) {
+                                orderNumber &#x3D; op.orderNumber + 1;
+                            }
+                        });
+                        const operation: RoutingOperation &#x3D; {
+                            operationTypeId: this.newOperation.operationType.id,
+                            name: this.newOperation.operationType.name,
+                            template: this.newOperation.operationType.template,
+                            behavior: this.newOperation.operationType.behavior,
+                            routingId: +this.routingId,
+                            orderNumber,
+                            inspectionValue: &#x27;internal&#x27;
+                        };
+                        if (this.newOperation.tasks &amp;&amp; this.newOperation.tasks.length &gt; 0) {
+                            operation.todoLists &#x3D; this.newOperation.tasks;
+                        }
+                        this.operations &#x3D; [...this.operations, operation];
+                        this.newOperation &#x3D; {
+                            operationType: undefined,
+                            tasks: []
+                        };
+                        this.appService.dataChanged &#x3D; true;
+                        this.selectedTaskChanged &#x3D; true;
+                    }
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="saveOperations">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">saveOperations</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgwarning">6</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">7</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Save operation
+                 */
+                saveOperations() {
+                    this.spinnerService.startLoading();
+                    const operations &#x3D; this.operations.filter((op) &#x3D;&gt; op.id || op.id &#x3D;&#x3D;&#x3D; 0);
+                    const addedOperations &#x3D; this.operations.filter((op) &#x3D;&gt; !op.id &amp;&amp; op.id !&#x3D;&#x3D; 0);
+                    this.routingOperationDataService.editOperations(+this.routingId, operations, addedOperations, this.removedOperations)
+                        .pipe(finalize(() &#x3D;&gt; this.spinnerService.stopLoading()))
+                        .subscribe(
+                            (routingOperations: RoutingOperation[]) &#x3D;&gt; {
+                                this.toastService.displayToast(&#x27;APP.ROUTING_DETAIL.SAVE_SUCCESSFULLY&#x27;,
+                                    ColorPaletteTypes.primary,
+                                    3000);
+                                this.operations &#x3D; routingOperations;
+                                this.operationsBackup &#x3D; JSON.parse(JSON.stringify(routingOperations));
+                                this.operationsEditionEnabled &#x3D; false;
+                                this.appService.dataChanged &#x3D; false;
+                                this.selectedTaskChanged &#x3D; false;
+                                this.getData();
+                            }
+                        );
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="reloadOperationsBackup">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">reloadOperationsBackup</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * reload operations backup
+                 */
+                reloadOperationsBackup() {
+                    this.operations &#x3D; this.operationsBackup;
+                    this.appService.dataChanged &#x3D; false;
+                    this.selectedTaskChanged &#x3D; false;
+                    this.removedOperations &#x3D; [];
+                    this.operationsEditionEnabled &#x3D; false;
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="updatePart">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">updatePart</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgwarning">9</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">5</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Update part
+                 */
+                updatePart(): void {
+                    this.dialog.open(DialogModalComponent, {
+                        hasBackdrop: false,
+                        width: &#x27;600px&#x27;,
+                        height: &#x27;250px&#x27;,
+                        data: {
+                            title: {key: &#x27;APP.ROUTING.UPDATE_PART_MODAL.TITLE&#x27;},
+                            body: {key: &#x27;APP.ROUTING.UPDATE_PART_MODAL.BODY&#x27;},
+                            buttonValidModal: {key: &#x27;MODAL.UPDATE&#x27;}
+                        }
+                    }).afterClosed().subscribe((result) &#x3D;&gt; {
+                        if (result) {
+                            this.spinnerService.startLoading();
+                            this.routingOperationDataService.updateRoutingPart(this.routingId)
+                                .pipe(finalize(() &#x3D;&gt; this.spinnerService.stopLoading()))
+                                .subscribe(data &#x3D;&gt; {
+                                    this.getData();
+                                });
+                        }
+                    });
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="refreshRoutingComponentUpdate">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">refreshRoutingComponentUpdate</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Refresh routing due to routing component update
+                 */
+                refreshRoutingComponentUpdate(): void {
+                    this.getData();
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="setTopBarDescriptor">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">setTopBarDescriptor</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Configure top bar
+                 * @param lang
+                 */
+                setTopBarDescriptor(lang: string): void {
+                    this.topBarDescriptor.columns &#x3D; [
+                        {
+                            fields: [
+                                {
+                                    type: &#x27;text&#x27;,
+                                    label: &#x27;APP.ROUTING_DETAIL.ROUTING_HASH&#x27;,
+                                    action: undefined,
+                                    embeddedActionIcon: &#x27;&#x27;,
+                                    value: &#x27;id&#x27;,
+                                    size: &#x27;half&#x27;,
+                                    align: &#x27;top&#x27;,
+                                    pastille: undefined
+                                },
+                                {
+                                    type: &#x27;text&#x27;,
+                                    label: &#x27;APP.ROUTING_DETAIL.PN_PN_ROOT&#x27;,
+                                    action: undefined,
+                                    embeddedActionIcon: &#x27;&#x27;,
+                                    value: &#x27;pnPnRoot&#x27;,
+                                    size: &#x27;half&#x27;,
+                                    align: &#x27;bottom&#x27;
+                                }
+                            ],
+                            weight: &#x27;2&#x27;
+                        },
+                        {
+                            fields: [
+                                {
+                                    type: &#x27;text&#x27;,
+                                    label: &#x27;APP.ROUTING_DETAIL.NAME&#x27;,
+                                    action: undefined,
+                                    embeddedActionIcon: &#x27;&#x27;,
+                                    value: &#x27;name&#x27;,
+                                    size: &#x27;half&#x27;,
+                                    align: &#x27;top&#x27;,
+                                    pastille: undefined
+                                },
+                                {
+                                    type: &#x27;text&#x27;,
+                                    label: &#x27;APP.ROUTING_DETAIL.DESIGNATION&#x27;,
+                                    action: undefined,
+                                    embeddedActionIcon: &#x27;&#x27;,
+                                    value: &#x27;designation&#x27;,
+                                    size: &#x27;half&#x27;,
+                                    align: &#x27;bottom&#x27;
+                                }
+                            ],
+                            weight: &#x27;2&#x27;
+                        },
+                        {
+                            fields: [
+                                {
+                                    type: &#x27;text&#x27;,
+                                    label: &#x27;APP.ROUTING_DETAIL.VERSION&#x27;,
+                                    action: {
+                                        behavior: this.openVersion.bind(this),
+                                        params: [],
+                                        label: &#x27;&#x27;,
+                                        tooltip: &#x27;&#x27;
+                                    },
+                                    embeddedActionIcon: &#x27;fa-eye&#x27;,
+                                    value: &#x27;versionNumber&#x27;,
+                                    size: &#x27;half&#x27;,
+                                    align: &#x27;top&#x27;,
+                                    pastille: undefined,
+                                    tooltip: &#x27;APP.DISPLAY_VERSIONS&#x27;
+                                },
+                                {
+                                    type: &#x27;text&#x27;,
+                                    label: &#x27;APP.ROUTING_DETAIL.CREATOR&#x27;,
+                                    action: undefined,
+                                    embeddedActionIcon: &#x27;&#x27;,
+                                    value: &#x27;creator&#x27;,
+                                    size: &#x27;half&#x27;,
+                                    align: &#x27;bottom&#x27;
+                                }
+                            ],
+                            weight: &#x27;2&#x27;
+                        },
+                        {
+                            fields: [
+                                {
+                                    type: &#x27;link&#x27;,
+                                    label: &#x27;APP.ROUTING_DETAIL.ASSOCIATED_REQUEST&#x27;,
+                                    action: {
+                                        behavior: this.openAssociatedRequestModal.bind(this),
+                                        params: [],
+                                        label: &#x27;&#x27;,
+                                        tooltip: &#x27;&#x27;
+                                    },
+                                    embeddedActionIcon: &#x27;&#x27;,
+                                    value: &#x27;numberOfAssociatedRequests&#x27;,
+                                    size: &#x27;half&#x27;,
+                                    align: &#x27;top&#x27;,
+                                    pastille: undefined
+                                },
+                                {
+                                    type: &#x27;text&#x27;,
+                                    label: &#x27;APP.ROUTING_DETAIL.DATE&#x27;,
+                                    action: undefined,
+                                    embeddedActionIcon: &#x27;&#x27;,
+                                    value: &#x27;creationDate&#x27;,
+                                    size: &#x27;half&#x27;,
+                                    align: &#x27;bottom&#x27;,
+                                    pastille: undefined
+                                }
+                            ],
+                            weight: &#x27;2&#x27;
+                        },
+                        {
+                            fields: [
+                                {
+                                    type: &#x27;text&#x27;,
+                                    label: &#x27;APP.ROUTING_DETAIL.STATUS&#x27;,
+                                    action: undefined,
+                                    embeddedActionIcon: &#x27;&#x27;,
+                                    value: &#x27;status&#x27;,
+                                    size: &#x27;half&#x27;,
+                                    align: &#x27;top&#x27;,
+                                    pastille: this.routing.status
+                                }
+                            ],
+                            weight: &#x27;2&#x27;
+                        },
+                    ];
+                }
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+
+
+    <!--        -------------------------------------------------------------------------------------->
+    <!--        -----------------------------------   Scripts-----   --------------------------------->
+    <!--        -------------------------------------------------------------------------------------->
+
+
+
+    <script src="../../../../../../node_modules/chart.js/dist/Chart.js"></script>
+    <script src="../../../reports-styles/prism.js"></script>
+
+    <script>
+        var ctxDougnutCognitive = document.getElementById('doughnut-cognitive-cpx').getContext("2d");
+        var doughnutCognitive = new Chart(ctxDougnutCognitive, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        13,
+                        8,
+                        3,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ]
+                }],
+                labels: [
+                    'correct methods ',
+                    'warning methods ',
+                    'error methods ',
+                ]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        left: 50,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Cognitive complexity'
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxBarCognitive = document.getElementById('bar-cognitive-cpx').getContext("2d");
+        var barCognitive = new Chart(ctxBarCognitive, {
+            type: 'bar',
+            data: {
+                labels: [
+                        '0',
+                        '1',
+                        '3',
+                        '5',
+                        '6',
+                        '7',
+                        '8',
+                        '9',
+                        '10',
+                        '15',
+                        '19',
+                        '45',
+                ],
+                datasets: [{
+                    data: [
+                            10,
+                            1,
+                            1,
+                            1,
+                            2,
+                            2,
+                            1,
+                            2,
+                            1,
+                            1,
+                            1,
+                            1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ],
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Cognitive complexity'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of methods'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxDougnutCyclomatic = document.getElementById('doughnut-cyclomatic-cpx').getContext("2d");
+        var doughnutCyclomatic = new Chart(ctxDougnutCyclomatic, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        17,
+                        5,
+                        2,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ]
+                }],
+                labels: [
+                    'correct methods ',
+                    'warning methods ',
+                    'error methods ',
+                ]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        left: 50,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Cyclomatic complexity'
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxBarCyclomatic = document.getElementById('bar-cyclomatic-cpx').getContext("2d");
+        var barCyclomatic = new Chart(ctxBarCyclomatic, {
+            type: 'bar',
+            data: {
+                labels: [
+                        1,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        9,
+                        12,
+                        22,
+                ],
+                datasets: [{
+                    data: [
+                            11,
+                            1,
+                            3,
+                            2,
+                            1,
+                            3,
+                            1,
+                            1,
+                            1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ],
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: false,
+                    text: 'Cyclomatic complexity',
+                    position: 'top'
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Cyclomatic complexity'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of methods'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+</body>
+</html>
