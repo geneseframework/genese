@@ -8,7 +8,8 @@ import { RowFileReport } from '../models/row-file-report.model';
 import {
     createRelativeDir,
     getFilenameWithoutExtension,
-    getRouteBetweenPaths, getRouteFromFolderToFile, getRouteFromFolderToSubFolder,
+    getRouteFromFolderToFile,
+    getRouteFromFolderToSubFolder,
     getRouteToRoot
 } from './file.service';
 import { TsFile } from '../models/ts-file.model';
@@ -152,7 +153,6 @@ export class TsFolderReportService {
 
 
     private writeReport() {
-        console.log('TSFLDR', this.tsFolder)
         const template = this.template({
             colors: Options.colors,
             filesArray: this.filesArray,
@@ -163,12 +163,10 @@ export class TsFolderReportService {
             stats: this.tsFolder.getStats(),
             thresholds: Options.getThresholds()
         });
-        console.log('REL PATH', this.tsFolder.relativePath)
         if (this.tsFolder.relativePath) {
             createRelativeDir(this.tsFolder.relativePath);
         }
         const pathReport = `${Options.pathReports}/${this.tsFolder.relativePath}/folder-report.html`;
-        console.log('PATH REPORT', pathReport);
         fs.writeFileSync(pathReport, template, {encoding: 'utf-8'});
     }
 

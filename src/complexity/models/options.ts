@@ -2,7 +2,6 @@ import { ComplexityType } from '../enums/complexity-type.enum';
 import { Complexity } from '../interfaces/complexity.interface';
 import { ChartColor } from '../enums/colors.enum';
 import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.interface';
-import { getPath } from '../services/file.service';
 
 
 export class Options {

@@ -126,7 +126,6 @@ var TsFolderReportService = /** @class */ (function () {
         this.writeReport();
     };
     TsFolderReportService.prototype.writeReport = function () {
-        console.log('TSFLDR', this.tsFolder);
         var template = this.template({
             colors: options_1.Options.colors,
             filesArray: this.filesArray,
@@ -137,12 +136,10 @@ var TsFolderReportService = /** @class */ (function () {
             stats: this.tsFolder.getStats(),
             thresholds: options_1.Options.getThresholds()
         });
-        console.log('REL PATH', this.tsFolder.relativePath);
         if (this.tsFolder.relativePath) {
             file_service_1.createRelativeDir(this.tsFolder.relativePath);
         }
         var pathReport = options_1.Options.pathReports + "/" + this.tsFolder.relativePath + "/folder-report.html";
-        console.log('PATH REPORT', pathReport);
         fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
     };
     TsFolderReportService.prototype.registerPartial = function (partialName, filename) {
