@@ -6,13 +6,17 @@ import { exec } from 'child_process';
 
 const { program } = require('commander');
 
-console.log("WELCOME TO GENESE CLI");
-
+// ---------------------------------------------------------------------------------------------------------
+//                                          GENESE CLI
+// ---------------------------------------------------------------------------------------------------------
 
 try {
+    console.log("WELCOME TO GENESE CLI");
 
     program.version('0.0.5')
         .description('Genese cli');
+
+    // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
 
     program.command('cpx [pathToAnalyse]')
         .description('Calculates cognitive and cyclomatic complexities')
@@ -23,6 +27,8 @@ try {
             const mainProcess = new Main();
             mainProcess.start(process.cwd(), path, __dirname)
         });
+
+    // ----------------------------------   GENESE API for Angular   ----------------------------------------
 
     program.command('new <type>')
         .description('New app | api')

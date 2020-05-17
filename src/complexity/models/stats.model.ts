@@ -2,7 +2,7 @@ import { Barchart } from './barchart.model';
 import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.interface';
 import { ComplexityType } from '../enums/complexity-type.enum';
 import { Tools } from '../services/tools.service';
-import { Bar } from './bar.model';
+import { Bar } from '../interfaces/bar.interface';
 
 export class Stats {
 

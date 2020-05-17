@@ -1,3 +1,6 @@
+/**
+ * Colors of the different charts
+ */
 export enum ChartColor {
     CORRECT = 'rgba(3, 169, 244, 0.6)',
     WARNING = 'rgba(255, 152, 0, 0.6)',
