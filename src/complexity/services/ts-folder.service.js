@@ -38,10 +38,7 @@ var TsFolderService = /** @class */ (function (_super) {
         }
         var tsFolder = new ts_folder_model_1.TsFolder();
         tsFolder.path = path;
-        // console.log('PATHHH', path);
-        // console.log('PATHHH FOLDER TO ANALYSE Options.pathFolderToAnalyze', Options.pathFolderToAnalyze);
         tsFolder.relativePath = file_service_1.getRelativePath(options_1.Options.pathFolderToAnalyze, path);
-        // console.log('PATHHH RELATIVE', tsFolder.relativePath);
         var filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach(function (elementName) {
             var pathElement = path + elementName;

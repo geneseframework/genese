@@ -27,10 +27,7 @@ export class TsFolderService extends StatsService {
         }
         const tsFolder: TsFolder = new TsFolder();
         tsFolder.path = path;
-        // console.log('PATHHH', path);
-        // console.log('PATHHH FOLDER TO ANALYSE Options.pathFolderToAnalyze', Options.pathFolderToAnalyze);
         tsFolder.relativePath = getRelativePath(Options.pathFolderToAnalyze, path);
-        // console.log('PATHHH RELATIVE', tsFolder.relativePath);
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach(function(elementName) {
             const pathElement = path + elementName;

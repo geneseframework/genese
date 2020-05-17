@@ -1,14 +1,14 @@
 {
     "complexity": {
         "cognitiveCpx": {
-            "errorThreshold": 8,
-            "warningThreshold": 3
+            "errorThreshold": 10,
+            "warningThreshold": 7
         },
         "cyclomaticCpx": {
             "errorThreshold": 10,
             "warningThreshold": 5
         },
-        "pathFolderToAnalyze": "./src/",
+        "pathFolderToAnalyze": "/Users/utilisateur/Documents/projets/naval-group/code/full/20200513-1730/cyms/src/",
         "pathReports": "./gn-reports"
     }
 }

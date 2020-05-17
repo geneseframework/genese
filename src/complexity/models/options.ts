@@ -19,7 +19,7 @@ export class Options {
         warningThreshold: 5
     };
     static pathCommand = '';
-    static pathFolderToAnalyze = '';
+    static pathFolderToAnalyze = './';
     static pathGeneseNodeJs = '';
     static pathReports = '';
 
@@ -43,8 +43,12 @@ export class Options {
 
     static setOptionsFromConfig(geneseConfigPath: string): void {
         const config = require(geneseConfigPath);
-        console.log('CONIG JSON CPX', config.complexity);
         Options.pathReports = config.complexity?.pathReports ?? Options.pathReports;
+        Options.pathFolderToAnalyze = config.complexity?.pathFolderToAnalyze ?? Options.pathFolderToAnalyze;
+        Options.cognitiveCpx.errorThreshold = config.complexity?.cognitiveCpx?.errorThreshold ?? Options.cognitiveCpx.errorThreshold;
+        Options.cognitiveCpx.warningThreshold = config.complexity?.cognitiveCpx?.warningThreshold ?? Options.cognitiveCpx.warningThreshold;
+        Options.cyclomaticCpx.errorThreshold = config.complexity?.cyclomaticCpx?.errorThreshold ?? Options.cyclomaticCpx.errorThreshold;
+        Options.cyclomaticCpx.warningThreshold = config.complexity?.cyclomaticCpx?.warningThreshold ?? Options.cyclomaticCpx.warningThreshold;
     }
 
 
