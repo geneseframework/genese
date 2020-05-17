@@ -40,6 +40,7 @@ var ReportsService = /** @class */ (function () {
         file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/prettify.css", options_1.Options.pathReports + "/reports-styles/prettify.css");
         file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/prism.css", options_1.Options.pathReports + "/reports-styles/prism.css");
         file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/prism.js", options_1.Options.pathReports + "/reports-styles/prism.js");
+        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/node_modules/chart.js/dist/Chart.js", options_1.Options.pathReports + "/reports-styles/Chart.js");
     };
     return ReportsService;
 }());

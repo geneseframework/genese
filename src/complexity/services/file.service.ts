@@ -24,20 +24,12 @@ export function getAllFiles(dirPath: string, arrayOfFiles?: string[]): string[] 
 }
 
 
-export function getPath(pathFile: string): string {
-    const splittedPath = pathFile.split('/');
-    splittedPath.pop();
-    return splittedPath.join('/');
-}
-
-
 export function getRelativePath(pathRoot: string, path: string): string {
     if (!path || !pathRoot || path === pathRoot) {
         return '';
     }
     const pathWithoutEndSlash = path.charAt(path.length - 1) === `/` ? path.slice(0, path.length - 1) : path;
-    const  relpath =pathRoot === pathWithoutEndSlash.slice(0, pathRoot.length) ? pathWithoutEndSlash.slice(pathRoot.length, pathWithoutEndSlash.length) : pathWithoutEndSlash;
-    return relpath;
+    return pathRoot === pathWithoutEndSlash.slice(0, pathRoot.length) ? pathWithoutEndSlash.slice(pathRoot.length, pathWithoutEndSlash.length) : pathWithoutEndSlash;
 }
 
 

@@ -46,5 +46,6 @@ export class ReportsService {
         copyFile(`${Options.pathGeneseNodeJs}/src/complexity/templates/styles/prettify.css`, `${Options.pathReports}/reports-styles/prettify.css`);
         copyFile(`${Options.pathGeneseNodeJs}/src/complexity/templates/styles/prism.css`, `${Options.pathReports}/reports-styles/prism.css`);
         copyFile(`${Options.pathGeneseNodeJs}/src/complexity/templates/styles/prism.js`, `${Options.pathReports}/reports-styles/prism.js`);
+        copyFile(`${Options.pathGeneseNodeJs}/node_modules/chart.js/dist/Chart.js`, `${Options.pathReports}/reports-styles/Chart.js`);
     }
 }
