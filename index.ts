@@ -18,9 +18,10 @@ try {
         .description('Calculates cognitive and cyclomatic complexities')
         .action((pathToAnalyze) => {
             console.log(blueBright("STARTS GENESE COMPLEXITY CLI"));
-            console.log('PATH TO ANALYZE : ' + pathToAnalyze);
+            const path = pathToAnalyze ?? './';
+            console.log('PATH TO ANALYZE : ' + path);
             const mainProcess = new Main();
-            mainProcess.start(process.cwd(), pathToAnalyze, __dirname)
+            mainProcess.start(process.cwd(), path, __dirname)
         });
 
     program.command('new <type>')
@@ -37,7 +38,7 @@ try {
                     console.log(red(`Error in Genese cli command : ${stderr}`));
                     return;
                 }
-                if (stdout && stdout.length > 0) {
+                if (stdout && stdout.length ) {
                     console.log(yellowBright(`${stdout}`));
                 }
                 console.log(blueBright("API CREATED SUCCESSFULLY"));

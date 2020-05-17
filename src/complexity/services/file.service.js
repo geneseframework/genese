@@ -22,19 +22,12 @@ function getAllFiles(dirPath, arrayOfFiles) {
     return arrayOfFiles;
 }
 exports.getAllFiles = getAllFiles;
-function getPath(pathFile) {
-    var splittedPath = pathFile.split('/');
-    splittedPath.pop();
-    return splittedPath.join('/');
-}
-exports.getPath = getPath;
 function getRelativePath(pathRoot, path) {
     if (!path || !pathRoot || path === pathRoot) {
         return '';
     }
     var pathWithoutEndSlash = path.charAt(path.length - 1) === "/" ? path.slice(0, path.length - 1) : path;
-    var relpath = pathRoot === pathWithoutEndSlash.slice(0, pathRoot.length) ? pathWithoutEndSlash.slice(pathRoot.length, pathWithoutEndSlash.length) : pathWithoutEndSlash;
-    return relpath;
+    return pathRoot === pathWithoutEndSlash.slice(0, pathRoot.length) ? pathWithoutEndSlash.slice(pathRoot.length, pathWithoutEndSlash.length) : pathWithoutEndSlash;
 }
 exports.getRelativePath = getRelativePath;
 function getRouteToRoot(relativePath) {
