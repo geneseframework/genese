@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var ts_folder_model_1 = require("../models/ts-folder.model");
+var tree_folder_model_1 = require("../models/tree-folder.model");
 var options_1 = require("../models/options");
 var ts_folder_report_service_1 = require("./ts-folder-report.service");
 var file_service_1 = require("./file.service");
@@ -10,7 +10,7 @@ var ReportsService = /** @class */ (function () {
     }
     ReportsService.generateAllReports = function (tsFolder) {
         ReportsService.createStyleFiles();
-        var parentFolder = new ts_folder_model_1.TsFolder();
+        var parentFolder = new tree_folder_model_1.TreeFolder();
         parentFolder.subFolders.push(tsFolder);
         ReportsService.generateSubfoldersReports(tsFolder);
     };
@@ -35,12 +35,12 @@ var ReportsService = /** @class */ (function () {
     };
     ReportsService.createStyleFiles = function () {
         file_service_1.createRelativeDir('reports-styles');
-        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/report.css", options_1.Options.pathReports + "/reports-styles/report.css");
-        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/styles.css", options_1.Options.pathReports + "/reports-styles/styles.css");
-        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/prettify.css", options_1.Options.pathReports + "/reports-styles/prettify.css");
-        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/prism.css", options_1.Options.pathReports + "/reports-styles/prism.css");
-        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/prism.js", options_1.Options.pathReports + "/reports-styles/prism.js");
-        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/node_modules/chart.js/dist/Chart.js", options_1.Options.pathReports + "/reports-styles/Chart.js");
+        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/report.css", options_1.Options.pathOutDir + "/reports-styles/report.css");
+        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/styles.css", options_1.Options.pathOutDir + "/reports-styles/styles.css");
+        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/prettify.css", options_1.Options.pathOutDir + "/reports-styles/prettify.css");
+        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/prism.css", options_1.Options.pathOutDir + "/reports-styles/prism.css");
+        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/styles/prism.js", options_1.Options.pathOutDir + "/reports-styles/prism.js");
+        file_service_1.copyFile(options_1.Options.pathGeneseNodeJs + "/node_modules/chart.js/dist/Chart.js", options_1.Options.pathOutDir + "/reports-styles/Chart.js");
     };
     return ReportsService;
 }());

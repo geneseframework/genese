@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var ts = require("typescript");
-var ts_method_model_1 = require("../models/ts-method.model");
+var tree_method_model_1 = require("../models/tree-method.model");
 var ts_tree_service_1 = require("./ts-tree.service");
 var TsMethodService = /** @class */ (function () {
     function TsMethodService() {
@@ -10,9 +10,9 @@ var TsMethodService = /** @class */ (function () {
         var methods = [];
         ts.forEachChild(tsFile.sourceFile, function cb(node) {
             if (node.kind === ts.SyntaxKind.MethodDeclaration) {
-                var newMethod = new ts_method_model_1.TsMethod(node);
-                newMethod.tsFile = tsFile;
-                newMethod.tsTree = ts_tree_service_1.TsTreeService.generateTree(newMethod);
+                var newMethod = new tree_method_model_1.TreeMethod(node);
+                newMethod.treeFile = tsFile;
+                newMethod.tree = ts_tree_service_1.TsTreeService.generateTree(newMethod);
                 newMethod.evaluate();
                 methods.push(newMethod);
             }

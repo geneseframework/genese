@@ -13,10 +13,10 @@ var StatsService = /** @class */ (function () {
             this._stats = new stats_model_1.Stats();
             this.calculateStats(fileOrFolder);
             this.getSubject();
-            this._stats.addPercentages();
+            this._stats.setPercentages();
             this._stats.cumulateComplexities();
             this.sortBarCharts();
-            return this._stats;
+            return this._stats.plugChartHoles();
         }
     };
     StatsService.prototype.sortBarCharts = function () {

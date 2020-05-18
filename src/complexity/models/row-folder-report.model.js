@@ -1,5 +1,8 @@
 "use strict";
 exports.__esModule = true;
+/**
+* Defines the model of a row in the arrays of folders reports
+*/
 var RowFolderReport = /** @class */ (function () {
     function RowFolderReport() {
         this.numberOfFiles = 0;

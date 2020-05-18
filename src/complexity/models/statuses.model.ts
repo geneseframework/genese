@@ -1,16 +1,24 @@
 import { Addition } from '../interfaces/add.interface';
 
-export class Statuses implements Addition<Statuses>{
+/**
+ * Number of elements by complexity status
+ */
+export class RepartitionByStatus implements Addition<RepartitionByStatus>{
 
-    correct ?= 0;
-    warning ?= 0;
-    error ?= 0;
+    correct ?= 0;       // Number of elements with status "correct"
+    warning ?= 0;       // Number of elements with status "warning"
+    error ?= 0;         // Number of elements with status "error"
 
-    add(statuses: Statuses): Statuses {
-        let newStatuses = new Statuses();
-        newStatuses.correct = this.correct + statuses.correct;
-        newStatuses.warning = this.warning + statuses.warning;
-        newStatuses.error = this.error + statuses.error;
+
+    /**
+     * Adds other repartitionByStatus
+     * @param repartitionByStatus
+     */
+    add(repartitionByStatus: RepartitionByStatus): RepartitionByStatus {
+        let newStatuses = new RepartitionByStatus();
+        newStatuses.correct = this.correct + repartitionByStatus.correct;
+        newStatuses.warning = this.warning + repartitionByStatus.warning;
+        newStatuses.error = this.error + repartitionByStatus.error;
         return newStatuses;
     }
 }

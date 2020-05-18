@@ -62,13 +62,13 @@ function getRouteFromFolderToFile(tsFolder, tsFile) {
     if (!tsFile || !tsFolder) {
         return undefined;
     }
-    if (tsFile.tsFolder.path.slice(0, tsFolder.path.length) !== tsFolder.path) {
+    if (tsFile.treeFolder.path.slice(0, tsFolder.path.length) !== tsFolder.path) {
         console.log("The file " + tsFile.name + " is not inside the folder " + tsFolder.path);
         return undefined;
     }
     else {
         var linkStarter = tsFolder.relativePath === '' ? './' : '.';
-        return "" + linkStarter + tsFile.tsFolder.path.slice(tsFolder.path.length);
+        return "" + linkStarter + tsFile.treeFolder.path.slice(tsFolder.path.length);
     }
 }
 exports.getRouteFromFolderToFile = getRouteFromFolderToFile;
@@ -99,7 +99,7 @@ function getFilenameWithoutExtension(filename) {
 }
 exports.getFilenameWithoutExtension = getFilenameWithoutExtension;
 function createRelativeDir(relativePath) {
-    var path = options_1.Options.pathReports + "/" + relativePath;
+    var path = options_1.Options.pathOutDir + "/" + relativePath;
     if (fs.existsSync(path)) {
         fs.emptyDirSync(path);
     }
@@ -109,11 +109,11 @@ function createRelativeDir(relativePath) {
 }
 exports.createRelativeDir = createRelativeDir;
 function createOutDir() {
-    if (fs.existsSync(options_1.Options.pathReports)) {
-        fs.emptyDirSync(options_1.Options.pathReports);
+    if (fs.existsSync(options_1.Options.pathOutDir)) {
+        fs.emptyDirSync(options_1.Options.pathOutDir);
     }
     else {
-        fs.mkdirsSync(options_1.Options.pathReports);
+        fs.mkdirsSync(options_1.Options.pathOutDir);
     }
 }
 exports.createOutDir = createOutDir;

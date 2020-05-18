@@ -1,3 +1,6 @@
+/**
+ * Defines the model of a row in the arrays of files reports
+ */
 export class RowFileReport {
 
     cognitiveColor ?= 'correct';
@@ -6,7 +9,6 @@ export class RowFileReport {
     cyclomaticValue ?= 0;
     filename ?= '';
     linkFile ?= '';
-    linkMethod ?= '';
     methodName ?= '';
 
 }

@@ -1,5 +1,8 @@
 "use strict";
 exports.__esModule = true;
+/**
+ * Kinds of complexities
+ */
 var ComplexityType;
 (function (ComplexityType) {
     ComplexityType["COGNITIVE"] = "cognitive";

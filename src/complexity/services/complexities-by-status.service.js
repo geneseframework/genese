@@ -6,10 +6,10 @@ var complexity_type_enum_1 = require("../enums/complexity-type.enum");
 var ComplexitiesByStatusService = /** @class */ (function () {
     function ComplexitiesByStatusService() {
     }
-    ComplexitiesByStatusService.prototype.addMethodCpxByStatus = function (cpxByStatus, tsMethod) {
+    ComplexitiesByStatusService.prototype.addMethodCpxByStatus = function (cpxByStatus, treeMethod) {
         var cpx = cpxByStatus !== null && cpxByStatus !== void 0 ? cpxByStatus : new complexities_by_status_interface_1.ComplexitiesByStatus();
-        cpx = this.incrementMethodByCpxType(cpx, complexity_type_enum_1.ComplexityType.COGNITIVE, tsMethod.cognitiveStatus);
-        cpx = this.incrementMethodByCpxType(cpx, complexity_type_enum_1.ComplexityType.CYCLOMATIC, tsMethod.cyclomaticStatus);
+        cpx = this.incrementMethodByCpxType(cpx, complexity_type_enum_1.ComplexityType.COGNITIVE, treeMethod.cognitiveStatus);
+        cpx = this.incrementMethodByCpxType(cpx, complexity_type_enum_1.ComplexityType.CYCLOMATIC, treeMethod.cyclomaticStatus);
         return cpx;
     };
     ComplexitiesByStatusService.prototype.incrementMethodByCpxType = function (cpxByStatus, complexityType, methodStatus) {

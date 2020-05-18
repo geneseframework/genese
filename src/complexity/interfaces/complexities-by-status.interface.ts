@@ -1,11 +1,19 @@
-import { Statuses } from '../models/statuses.model';
+import { RepartitionByStatus } from '../models/statuses.model';
 import { Addition } from './add.interface';
 
+/**
+ * Repartition by status for each kind of complexity
+ */
 export class ComplexitiesByStatus implements Addition<ComplexitiesByStatus> {
 
-    cognitive?: Statuses = new Statuses();
-    cyclomatic?: Statuses = new Statuses();
+    cognitive?: RepartitionByStatus = new RepartitionByStatus();
+    cyclomatic?: RepartitionByStatus = new RepartitionByStatus();
 
+
+    /**
+     * Adds other cognitive and cyclomatic complexities
+     * @param cpxByStatus
+     */
     add(cpxByStatus: ComplexitiesByStatus): ComplexitiesByStatus {
         if (!cpxByStatus) {
             return new ComplexitiesByStatus();

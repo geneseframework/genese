@@ -3,7 +3,7 @@ import * as eol from "eol";
 import * as Handlebars from "handlebars";
 import { Options } from '../models/options';
 import { getFilenameWithoutExtension, getRouteToRoot } from './file.service';
-import { TsFile } from '../models/ts-file.model';
+import { TreeFile } from '../models/tree-file.model';
 import { MethodReport } from '../models/method-report.model';
 
 
@@ -12,17 +12,17 @@ export class TsFileReportService {
     private methods: MethodReport[] = [];
     private relativeRootReports = '';
     template: HandlebarsTemplateDelegate;
-    tsFile: TsFile = undefined;
+    tsFile: TreeFile = undefined;
 
 
-    constructor(tsFile: TsFile) {
+    constructor(tsFile: TreeFile) {
         this.tsFile = tsFile;
     }
 
 
     getMethodsArray(): MethodReport[] {
         let report: MethodReport[] = [];
-        for (const method of this.tsFile.tsMethods) {
+        for (const method of this.tsFile.treeMethods) {
             const methodReport: MethodReport = {
                 code: method.getCode(),
                 cognitiveColor: method.cognitiveStatus.toLowerCase(),
@@ -39,7 +39,7 @@ export class TsFileReportService {
 
     generateReport(): void {
         this.methods = this.getMethodsArray();
-        this.relativeRootReports = getRouteToRoot(this.tsFile.tsFolder?.relativePath);
+        this.relativeRootReports = getRouteToRoot(this.tsFile.treeFolder?.relativePath);
         this.registerPartial("cognitiveBarchartScript", 'cognitive-barchart');
         this.registerPartial("cyclomaticBarchartScript", 'cyclomatic-barchart');
         this.registerPartial("cognitiveDoughnutScript", 'cognitive-doughnut');
@@ -60,7 +60,7 @@ export class TsFileReportService {
             thresholds: Options.getThresholds()
         });
         const filenameWithoutExtension = getFilenameWithoutExtension(this.tsFile.name);
-        const pathReport = `${Options.pathReports}/${this.tsFile.tsFolder?.relativePath}/${filenameWithoutExtension}.html`;
+        const pathReport = `${Options.pathOutDir}/${this.tsFile.treeFolder?.relativePath}/${filenameWithoutExtension}.html`;
         fs.writeFileSync(pathReport, template, {encoding: 'utf-8'});
     }
 

@@ -3,7 +3,7 @@ exports.__esModule = true;
 var fs = require("fs-extra");
 var eol = require("eol");
 var Handlebars = require("handlebars");
-var ts_folder_model_1 = require("../models/ts-folder.model");
+var tree_folder_model_1 = require("../models/tree-folder.model");
 var options_1 = require("../models/options");
 var file_service_1 = require("./file.service");
 var TsFolderReportService = /** @class */ (function () {
@@ -55,16 +55,16 @@ var TsFolderReportService = /** @class */ (function () {
         var report = [];
         for (var _i = 0, _a = tsFolder.tsFiles; _i < _a.length; _i++) {
             var tsFile = _a[_i];
-            for (var _b = 0, _c = tsFile.tsMethods; _b < _c.length; _b++) {
-                var tsMethod = _c[_b];
+            for (var _b = 0, _c = tsFile.treeMethods; _b < _c.length; _b++) {
+                var treeMethod = _c[_b];
                 report.push({
-                    cognitiveColor: tsMethod.cognitiveStatus.toLowerCase(),
-                    cognitiveValue: tsMethod.cognitiveValue,
-                    cyclomaticColor: tsMethod.cyclomaticStatus.toLowerCase(),
-                    cyclomaticValue: tsMethod.cyclomaticValue,
+                    cognitiveColor: treeMethod.cognitiveStatus.toLowerCase(),
+                    cognitiveValue: treeMethod.cognitiveValue,
+                    cyclomaticColor: treeMethod.cyclomaticStatus.toLowerCase(),
+                    cyclomaticValue: treeMethod.cyclomaticValue,
                     filename: tsFile.name,
                     linkFile: this.getFileLink(tsFile),
-                    methodName: tsMethod.name
+                    methodName: treeMethod.name
                 });
             }
         }
@@ -80,16 +80,16 @@ var TsFolderReportService = /** @class */ (function () {
             var subfolder = _a[_i];
             for (var _b = 0, _c = subfolder.tsFiles; _b < _c.length; _b++) {
                 var tsFile = _c[_b];
-                for (var _d = 0, _e = tsFile.tsMethods; _d < _e.length; _d++) {
-                    var tsMethod = _e[_d];
+                for (var _d = 0, _e = tsFile.treeMethods; _d < _e.length; _d++) {
+                    var treeMethod = _e[_d];
                     report.push({
-                        cognitiveColor: tsMethod.cognitiveStatus.toLowerCase(),
-                        cognitiveValue: tsMethod.cognitiveValue,
-                        cyclomaticColor: tsMethod.cyclomaticStatus.toLowerCase(),
-                        cyclomaticValue: tsMethod.cyclomaticValue,
+                        cognitiveColor: treeMethod.cognitiveStatus.toLowerCase(),
+                        cognitiveValue: treeMethod.cognitiveValue,
+                        cyclomaticColor: treeMethod.cyclomaticStatus.toLowerCase(),
+                        cyclomaticValue: treeMethod.cyclomaticValue,
                         filename: tsFile.name,
                         linkFile: this.getFileLink(tsFile),
-                        methodName: tsMethod.name
+                        methodName: treeMethod.name
                     });
                 }
             }
@@ -102,14 +102,14 @@ var TsFolderReportService = /** @class */ (function () {
     };
     TsFolderReportService.prototype.getFileLink = function (tsFile) {
         var _a;
-        if (this.tsFolder.relativePath === ((_a = tsFile.tsFolder) === null || _a === void 0 ? void 0 : _a.relativePath)) {
+        if (this.tsFolder.relativePath === ((_a = tsFile.treeFolder) === null || _a === void 0 ? void 0 : _a.relativePath)) {
             return "./" + file_service_1.getFilenameWithoutExtension(tsFile.name) + ".html";
         }
         var route = file_service_1.getRouteFromFolderToFile(this.tsFolder, tsFile);
         return route + "/" + file_service_1.getFilenameWithoutExtension(tsFile.name) + ".html";
     };
     TsFolderReportService.prototype.generateReport = function () {
-        var parentFolder = new ts_folder_model_1.TsFolder();
+        var parentFolder = new tree_folder_model_1.TreeFolder();
         parentFolder.subFolders.push(this.tsFolder);
         this.relativeRootReports = file_service_1.getRouteToRoot(this.tsFolder.relativePath);
         this.filesArray = this.getFilesArray(this.tsFolder);
@@ -139,7 +139,7 @@ var TsFolderReportService = /** @class */ (function () {
         if (this.tsFolder.relativePath) {
             file_service_1.createRelativeDir(this.tsFolder.relativePath);
         }
-        var pathReport = options_1.Options.pathReports + "/" + this.tsFolder.relativePath + "/folder-report.html";
+        var pathReport = options_1.Options.pathOutDir + "/" + this.tsFolder.relativePath + "/folder-report.html";
         fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
     };
     TsFolderReportService.prototype.registerPartial = function (partialName, filename) {

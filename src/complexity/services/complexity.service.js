@@ -19,7 +19,7 @@ var ComplexityService = /** @class */ (function () {
     };
     /**
      * Calculates the cyclomatic complexity of a method
-     * @param node: ts.Node
+     * @param node: ts.Tree
      */
     ComplexityService.calculateCyclomaticComplexity = function (node) {
         var totalComplexity = 1;
@@ -109,7 +109,7 @@ var ComplexityService = /** @class */ (function () {
     };
     ComplexityService.isRecursion = function (tsTree, node) {
         var _a, _b;
-        return ((_a = node === null || node === void 0 ? void 0 : node['name']) === null || _a === void 0 ? void 0 : _a['escapedText']) === ((_b = tsTree === null || tsTree === void 0 ? void 0 : tsTree.tsMethod) === null || _b === void 0 ? void 0 : _b.name);
+        return ((_a = node === null || node === void 0 ? void 0 : node['name']) === null || _a === void 0 ? void 0 : _a['escapedText']) === ((_b = tsTree === null || tsTree === void 0 ? void 0 : tsTree.treeMethod) === null || _b === void 0 ? void 0 : _b.name);
     };
     ComplexityService.addBinaryCognitiveCpx = function (tsTree) {
         if (!(tsTree === null || tsTree === void 0 ? void 0 : tsTree.node) || !tsTree.parent.node) {

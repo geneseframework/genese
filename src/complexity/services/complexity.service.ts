@@ -1,13 +1,13 @@
 import * as ts from 'typescript';
 import * as utils from 'tsutils';
-import { TsTree } from '../models/ts-tree.model';
+import { Tree } from '../models/tree.model';
 import { Ast } from './ast.service';
 
 export class ComplexityService {
 
 
 
-    static calculateCognitiveComplexity(tsTree: TsTree): number {
+    static calculateCognitiveComplexity(tsTree: Tree): number {
         let complexity = 0;
         if (tsTree) {
             for (const tree of tsTree?.children) {
@@ -21,7 +21,7 @@ export class ComplexityService {
 
     /**
      * Calculates the cyclomatic complexity of a method
-     * @param node: ts.Node
+     * @param node: ts.Tree
      */
     static calculateCyclomaticComplexity(node: ts.Node): number {
         let totalComplexity = 1;
@@ -64,7 +64,7 @@ export class ComplexityService {
     }
 
 
-    static addCognitiveComplexity(tsTree: TsTree): number {
+    static addCognitiveComplexity(tsTree: Tree): number {
         let complexity = 0;
         if (!tsTree?.node || tsTree?.depth === undefined) {
             return 0;
@@ -104,7 +104,7 @@ export class ComplexityService {
     }
 
 
-    static conditionalExpressionIsTrivial(tsTree: TsTree): boolean {
+    static conditionalExpressionIsTrivial(tsTree: Tree): boolean {
         return (ComplexityService.isLiteral(tsTree?.node?.['whenTrue']) && ComplexityService.isLiteral(tsTree?.node?.['whenFalse']));
     }
 
@@ -117,12 +117,12 @@ export class ComplexityService {
     }
 
 
-    static isRecursion(tsTree: TsTree, node: ts.Node): boolean {
-        return node?.['name']?.['escapedText'] === tsTree?.tsMethod?.name;
+    static isRecursion(tsTree: Tree, node: ts.Node): boolean {
+        return node?.['name']?.['escapedText'] === tsTree?.treeMethod?.name;
     }
 
 
-    static addBinaryCognitiveCpx(tsTree: TsTree): number {
+    static addBinaryCognitiveCpx(tsTree: Tree): number {
         if (!tsTree?.node || !tsTree.parent.node) {
             return 0;
         }
@@ -162,7 +162,7 @@ export class ComplexityService {
     }
 
 
-    static increasesCognitiveComplexity(tsTree: TsTree): boolean {
+    static increasesCognitiveComplexity(tsTree: Tree): boolean {
 
         if (tsTree?.node?.['elseStatement']) {
             return true;

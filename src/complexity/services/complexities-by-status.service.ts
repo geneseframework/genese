@@ -1,14 +1,14 @@
 import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.interface';
-import { TsMethod } from '../models/ts-method.model';
+import { TreeMethod } from '../models/tree-method.model';
 import { MethodStatus } from '../enums/evaluation-status.enum';
 import { ComplexityType } from '../enums/complexity-type.enum';
 
 export class ComplexitiesByStatusService {
 
-    addMethodCpxByStatus(cpxByStatus: ComplexitiesByStatus, tsMethod: TsMethod): ComplexitiesByStatus {
+    addMethodCpxByStatus(cpxByStatus: ComplexitiesByStatus, treeMethod: TreeMethod): ComplexitiesByStatus {
         let cpx: ComplexitiesByStatus = cpxByStatus ?? new ComplexitiesByStatus();
-        cpx = this.incrementMethodByCpxType(cpx, ComplexityType.COGNITIVE, tsMethod.cognitiveStatus);
-        cpx = this.incrementMethodByCpxType(cpx, ComplexityType.CYCLOMATIC, tsMethod.cyclomaticStatus);
+        cpx = this.incrementMethodByCpxType(cpx, ComplexityType.COGNITIVE, treeMethod.cognitiveStatus);
+        cpx = this.incrementMethodByCpxType(cpx, ComplexityType.CYCLOMATIC, treeMethod.cyclomaticStatus);
         return cpx;
     }
 
