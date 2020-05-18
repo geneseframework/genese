@@ -1,5 +1,8 @@
 "use strict";
 exports.__esModule = true;
+/**
+ * Defines the elements included in a method's report
+ */
 var MethodReport = /** @class */ (function () {
     function MethodReport() {
         this.code = '';

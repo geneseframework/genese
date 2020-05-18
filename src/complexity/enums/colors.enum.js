@@ -1,5 +1,8 @@
 "use strict";
 exports.__esModule = true;
+/**
+ * Colors of the different charts
+ */
 var ChartColor;
 (function (ChartColor) {
     ChartColor["CORRECT"] = "rgba(3, 169, 244, 0.6)";

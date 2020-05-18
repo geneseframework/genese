@@ -139,7 +139,7 @@ var TsFolderReportService = /** @class */ (function () {
         if (this.tsFolder.relativePath) {
             file_service_1.createRelativeDir(this.tsFolder.relativePath);
         }
-        var pathReport = options_1.Options.pathReports + "/" + this.tsFolder.relativePath + "/folder-report.html";
+        var pathReport = options_1.Options.pathOutDir + "/" + this.tsFolder.relativePath + "/folder-report.html";
         fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
     };
     TsFolderReportService.prototype.registerPartial = function (partialName, filename) {

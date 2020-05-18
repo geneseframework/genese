@@ -16,7 +16,7 @@ export abstract class StatsService {
             this._stats = new Stats();
             this.calculateStats(fileOrFolder);
             this.getSubject();
-            this._stats.addPercentages();
+            this._stats.setPercentages();
             this._stats.cumulateComplexities();
             this.sortBarCharts();
             return this._stats;

@@ -5,10 +5,14 @@ var ansi_colors_1 = require("ansi-colors");
 var main_1 = require("./src/complexity/main");
 var child_process_1 = require("child_process");
 var program = require('commander').program;
-console.log("WELCOME TO GENESE CLI");
+// ---------------------------------------------------------------------------------------------------------
+//                                          GENESE CLI
+// ---------------------------------------------------------------------------------------------------------
 try {
+    console.log("WELCOME TO GENESE CLI");
     program.version('0.0.5')
         .description('Genese cli');
+    // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
     program.command('cpx [pathToAnalyse]')
         .description('Calculates cognitive and cyclomatic complexities')
         .action(function (pathToAnalyze) {
@@ -18,6 +22,7 @@ try {
         var mainProcess = new main_1.Main();
         mainProcess.start(process.cwd(), path, __dirname);
     });
+    // ----------------------------------   GENESE API for Angular   ----------------------------------------
     program.command('new <type>')
         .description('New app | api')
         .action(function () {

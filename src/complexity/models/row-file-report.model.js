@@ -1,5 +1,8 @@
 "use strict";
 exports.__esModule = true;
+/**
+ * Defines the model of a row in the arrays of files reports
+ */
 var RowFileReport = /** @class */ (function () {
     function RowFileReport() {
         this.cognitiveColor = 'correct';
@@ -8,7 +11,6 @@ var RowFileReport = /** @class */ (function () {
         this.cyclomaticValue = 0;
         this.filename = '';
         this.linkFile = '';
-        this.linkMethod = '';
         this.methodName = '';
     }
     return RowFileReport;

@@ -51,7 +51,7 @@ var TsFileReportService = /** @class */ (function () {
             thresholds: options_1.Options.getThresholds()
         });
         var filenameWithoutExtension = file_service_1.getFilenameWithoutExtension(this.tsFile.name);
-        var pathReport = options_1.Options.pathReports + "/" + ((_a = this.tsFile.tsFolder) === null || _a === void 0 ? void 0 : _a.relativePath) + "/" + filenameWithoutExtension + ".html";
+        var pathReport = options_1.Options.pathOutDir + "/" + ((_a = this.tsFile.tsFolder) === null || _a === void 0 ? void 0 : _a.relativePath) + "/" + filenameWithoutExtension + ".html";
         fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
     };
     TsFileReportService.prototype.registerPartial = function (partialName, filename) {

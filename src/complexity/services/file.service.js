@@ -99,7 +99,7 @@ function getFilenameWithoutExtension(filename) {
 }
 exports.getFilenameWithoutExtension = getFilenameWithoutExtension;
 function createRelativeDir(relativePath) {
-    var path = options_1.Options.pathReports + "/" + relativePath;
+    var path = options_1.Options.pathOutDir + "/" + relativePath;
     if (fs.existsSync(path)) {
         fs.emptyDirSync(path);
     }
@@ -109,11 +109,11 @@ function createRelativeDir(relativePath) {
 }
 exports.createRelativeDir = createRelativeDir;
 function createOutDir() {
-    if (fs.existsSync(options_1.Options.pathReports)) {
-        fs.emptyDirSync(options_1.Options.pathReports);
+    if (fs.existsSync(options_1.Options.pathOutDir)) {
+        fs.emptyDirSync(options_1.Options.pathOutDir);
     }
     else {
-        fs.mkdirsSync(options_1.Options.pathReports);
+        fs.mkdirsSync(options_1.Options.pathOutDir);
     }
 }
 exports.createOutDir = createOutDir;

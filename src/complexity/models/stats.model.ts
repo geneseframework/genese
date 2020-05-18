@@ -20,13 +20,19 @@ export class Stats {
     totalCyclomaticComplexity ?= 0;
 
 
-    addPercentages(): void {
-        this.addPercentagesByComplexity(ComplexityType.COGNITIVE);
-        this.addPercentagesByComplexity(ComplexityType.CYCLOMATIC);
+    /**
+     * Sets the percentages of cognitive and cyclomatic complexities spread by complexity status
+     */
+    setPercentages(): void {
+        this.setPercentagesByComplexity(ComplexityType.COGNITIVE);
+        this.setPercentagesByComplexity(ComplexityType.CYCLOMATIC);
     }
 
 
-    addPercentagesByComplexity(cpx: ComplexityType): void {
+    /**
+     * Sets the percentages of cognitive or cyclomatic complexity spread by complexity status
+     */
+    setPercentagesByComplexity(cpx: ComplexityType): void {
         if (this.numberOfMethodsByStatus[cpx]) {
             this.percentsByStatus[cpx] = new ComplexitiesByStatus();
             this.percentsByStatus[cpx].correct = Tools.percent(this.numberOfMethodsByStatus[cpx].correct, this.numberOfMethods);
@@ -36,6 +42,9 @@ export class Stats {
     }
 
 
+    /**
+     * For each complexity chart, adds bars with height = 0 when there is no method with a given complexity value which is lower than the greatest value
+     */
     plugChartHoles(): Stats {
         this.barChartCognitive = this.barChartCognitive.plugChartHoles();
         this.barChartCyclomatic = this.barChartCyclomatic.plugChartHoles();
@@ -43,16 +52,11 @@ export class Stats {
     }
 
 
+    /**
+     * Gets the sum of complexities for each barchart
+     */
     cumulateComplexities(): void {
-        this.totalCognitiveComplexity = this.cumulateComplexitiesByChart(this.barChartCognitive.data);
-        this.totalCyclomaticComplexity = this.cumulateComplexitiesByChart(this.barChartCyclomatic.data);
-    }
-
-
-    cumulateComplexitiesByChart(data: Bar[]): number {
-        if (!data?.length) {
-            return 0;
-        }
-        return data.map(e => e.x * e.y).reduce((total, current)  =>  total + current);
+        this.totalCognitiveComplexity = this.barChartCognitive.getSumOfComplexities();
+        this.totalCyclomaticComplexity = this.barChartCyclomatic.getSumOfComplexities();
     }
 }

@@ -7,6 +7,9 @@ import { Evaluate } from '../interfaces/evaluate.interface';
 import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.interface';
 import { ComplexitiesByStatusService } from '../services/complexities-by-status.service';
 
+/**
+ *
+ */
 export class TsFile implements Evaluate {
 
     cognitiveValue ?= 0;
