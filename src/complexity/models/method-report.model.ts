@@ -1,3 +1,6 @@
+/**
+ * Defines the elements included in a method's report
+ */
 export class MethodReport {
 
     code ?= '';

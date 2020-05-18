@@ -60,7 +60,7 @@ export class TsFileReportService {
             thresholds: Options.getThresholds()
         });
         const filenameWithoutExtension = getFilenameWithoutExtension(this.tsFile.name);
-        const pathReport = `${Options.pathReports}/${this.tsFile.tsFolder?.relativePath}/${filenameWithoutExtension}.html`;
+        const pathReport = `${Options.pathOutDir}/${this.tsFile.tsFolder?.relativePath}/${filenameWithoutExtension}.html`;
         fs.writeFileSync(pathReport, template, {encoding: 'utf-8'});
     }
 

@@ -166,7 +166,7 @@ export class TsFolderReportService {
         if (this.tsFolder.relativePath) {
             createRelativeDir(this.tsFolder.relativePath);
         }
-        const pathReport = `${Options.pathReports}/${this.tsFolder.relativePath}/folder-report.html`;
+        const pathReport = `${Options.pathOutDir}/${this.tsFolder.relativePath}/folder-report.html`;
         fs.writeFileSync(pathReport, template, {encoding: 'utf-8'});
     }
 

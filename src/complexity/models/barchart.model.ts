@@ -87,6 +87,10 @@ export class Barchart {
     }
 
 
+    /**
+     * Adds bars with height = 0 when there is no method with a given complexity value which is lower than the greatest value
+     * Returns the chart himself
+     */
     plugChartHoles(): Barchart {
         this.sort();
         const cpxMax: number = this.data[this.data.length - 1]?.x;

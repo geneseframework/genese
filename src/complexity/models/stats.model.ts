@@ -4,6 +4,9 @@ import { ComplexityType } from '../enums/complexity-type.enum';
 import { Tools } from '../services/tools.service';
 import { Bar } from '../interfaces/bar.interface';
 
+/**
+ * The different statistics sent to handlebars templates of file reports and folder reports
+ */
 export class Stats {
 
     barChartCognitive?: Barchart = new Barchart(ComplexityType.COGNITIVE);
@@ -14,7 +17,6 @@ export class Stats {
     percentsByStatus?: ComplexitiesByStatus = new ComplexitiesByStatus();
     subject ?= '';
     totalCognitiveComplexity ?= 0;
-    // totalComplexitiesByStatus?: ComplexitiesByStatus = new ComplexitiesByStatus();
     totalCyclomaticComplexity ?= 0;
 
 

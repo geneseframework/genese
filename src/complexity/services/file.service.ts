@@ -105,7 +105,7 @@ export function getFilenameWithoutExtension(filename: string): string {
 
 
 export function createRelativeDir(relativePath: string): void {
-    const path = `${Options.pathReports}/${relativePath}`;
+    const path = `${Options.pathOutDir}/${relativePath}`;
     if (fs.existsSync(path)) {
         fs.emptyDirSync(path);
     } else {
@@ -115,10 +115,10 @@ export function createRelativeDir(relativePath: string): void {
 
 
 export function createOutDir(): void {
-    if (fs.existsSync(Options.pathReports)) {
-        fs.emptyDirSync(Options.pathReports);
+    if (fs.existsSync(Options.pathOutDir)) {
+        fs.emptyDirSync(Options.pathOutDir);
     } else {
-        fs.mkdirsSync(Options.pathReports);
+        fs.mkdirsSync(Options.pathOutDir);
     }
 }
 
