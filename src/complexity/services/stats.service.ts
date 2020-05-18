@@ -1,11 +1,11 @@
-import { TsFolder } from '../models/ts-folder.model';
-import { TsFile } from '../models/ts-file.model';
+import { TreeFolder } from '../models/tree-folder.model';
+import { TreeFile } from '../models/tree-file.model';
 import { Stats } from '../models/stats.model';
 
 export abstract class StatsService {
 
     protected abstract _stats: Stats = undefined;
-    protected abstract calculateStats(fileOrFolder: TsFile | TsFolder): void;
+    protected abstract calculateStats(fileOrFolder: TreeFile | TreeFolder): void;
     protected abstract getSubject(): void;
 
 
@@ -19,7 +19,7 @@ export abstract class StatsService {
             this._stats.setPercentages();
             this._stats.cumulateComplexities();
             this.sortBarCharts();
-            return this._stats;
+            return this._stats.plugChartHoles();
         }
     }
 

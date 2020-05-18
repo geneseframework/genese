@@ -1,9 +1,9 @@
 import * as ts from 'typescript';
-import { TsFolder } from './models/ts-folder.model';
+import { TreeFolder } from './models/tree-folder.model';
 import { Options } from './models/options';
 import { createOutDir } from './services/file.service';
 import { ReportsService } from './services/reports.service';
-import { TsFolderService } from './services/ts-folder.service';
+import { TreeFolderService } from './services/tree-folder.service';
 import { blueBright } from 'ansi-colors';
 
 
@@ -16,7 +16,7 @@ export class Main {
         console.log('START CALCULATION');
         Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
         createOutDir();
-        const tsFolder = TsFolderService.generateTree(Options.pathFolderToAnalyze, 'ts');
+        const tsFolder = TreeFolderService.generateTree(Options.pathFolderToAnalyze, 'ts');
         ReportsService.generateAllReports(tsFolder);
         console.log(blueBright('COMPLEXITY REPORT GENERATED SUCCESSFULLY'));
     }

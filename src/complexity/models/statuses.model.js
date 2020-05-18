@@ -1,13 +1,13 @@
 "use strict";
 exports.__esModule = true;
 /**
- * Number of methods by complexity status
+ * Number of elements by complexity status
  */
 var RepartitionByStatus = /** @class */ (function () {
     function RepartitionByStatus() {
-        this.correct = 0;
-        this.warning = 0;
-        this.error = 0;
+        this.correct = 0; // Number of elements with status "correct"
+        this.warning = 0; // Number of elements with status "warning"
+        this.error = 0; // Number of elements with status "error"
     }
     /**
      * Adds other repartitionByStatus

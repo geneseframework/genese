@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var ts_folder_model_1 = require("../models/ts-folder.model");
+var tree_folder_model_1 = require("../models/tree-folder.model");
 var options_1 = require("../models/options");
 var ts_folder_report_service_1 = require("./ts-folder-report.service");
 var file_service_1 = require("./file.service");
@@ -10,7 +10,7 @@ var ReportsService = /** @class */ (function () {
     }
     ReportsService.generateAllReports = function (tsFolder) {
         ReportsService.createStyleFiles();
-        var parentFolder = new ts_folder_model_1.TsFolder();
+        var parentFolder = new tree_folder_model_1.TreeFolder();
         parentFolder.subFolders.push(tsFolder);
         ReportsService.generateSubfoldersReports(tsFolder);
     };

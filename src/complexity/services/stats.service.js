@@ -16,7 +16,7 @@ var StatsService = /** @class */ (function () {
             this._stats.setPercentages();
             this._stats.cumulateComplexities();
             this.sortBarCharts();
-            return this._stats;
+            return this._stats.plugChartHoles();
         }
     };
     StatsService.prototype.sortBarCharts = function () {

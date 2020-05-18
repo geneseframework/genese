@@ -18,12 +18,6 @@ var Stats = /** @class */ (function () {
         this.subject = '';
         this.totalCognitiveComplexity = 0;
         this.totalCyclomaticComplexity = 0;
-        // cumulateComplexitiesByChart(data: Bar[]): number {
-        //     if (!data?.length) {
-        //         return 0;
-        //     }
-        //     return data.map(e => e.x * e.y).reduce((total, current)  =>  total + current);
-        // }
     }
     /**
      * Sets the percentages of cognitive and cyclomatic complexities spread by complexity status

@@ -1,22 +1,22 @@
-import { TsFolder } from '../models/ts-folder.model';
+import { TreeFolder } from '../models/tree-folder.model';
 import { Options } from '../models/options';
 import { TsFolderReportService } from './ts-folder-report.service';
 import { copyFile, createRelativeDir } from './file.service';
 import { TsFileReportService } from './ts-file-report.service';
-import { TsFile } from '../models/ts-file.model';
+import { TreeFile } from '../models/tree-file.model';
 
 
 export class ReportsService {
 
-    static generateAllReports(tsFolder: TsFolder): void {
+    static generateAllReports(tsFolder: TreeFolder): void {
         ReportsService.createStyleFiles();
-        const parentFolder: TsFolder = new TsFolder();
+        const parentFolder: TreeFolder = new TreeFolder();
         parentFolder.subFolders.push(tsFolder);
         ReportsService.generateSubfoldersReports(tsFolder);
     }
 
 
-    private static generateSubfoldersReports(tsFolder: TsFolder): void{
+    private static generateSubfoldersReports(tsFolder: TreeFolder): void{
         ReportsService.generateFolderReport(tsFolder);
         for (const subFolder of tsFolder.subFolders) {
             ReportsService.generateSubfoldersReports(subFolder);
@@ -24,7 +24,7 @@ export class ReportsService {
     }
 
 
-    private static generateFolderReport(tsFolder: TsFolder): void {
+    private static generateFolderReport(tsFolder: TreeFolder): void {
         const folderReportService = new TsFolderReportService(tsFolder);
         folderReportService.generateReport();
         for (const file of tsFolder.tsFiles) {
@@ -33,7 +33,7 @@ export class ReportsService {
     }
 
 
-    private static generateFileReport(tsFile: TsFile): void {
+    private static generateFileReport(tsFile: TreeFile): void {
         const fileReportService = new TsFileReportService(tsFile);
         fileReportService.generateReport();
     }

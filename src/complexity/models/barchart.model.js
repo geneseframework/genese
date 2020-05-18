@@ -95,6 +95,9 @@ var Barchart = /** @class */ (function () {
         this.sort();
         return this;
     };
+    /**
+     * Gets the sum of complexities of this barchart
+     */
     Barchart.prototype.getSumOfComplexities = function () {
         var _a;
         if (!((_a = this.data) === null || _a === void 0 ? void 0 : _a.length)) {

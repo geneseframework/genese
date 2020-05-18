@@ -14,7 +14,7 @@ var TsFileReportService = /** @class */ (function () {
     }
     TsFileReportService.prototype.getMethodsArray = function () {
         var report = [];
-        for (var _i = 0, _a = this.tsFile.tsMethods; _i < _a.length; _i++) {
+        for (var _i = 0, _a = this.tsFile.treeMethods; _i < _a.length; _i++) {
             var method = _a[_i];
             var methodReport = {
                 code: method.getCode(),
@@ -31,7 +31,7 @@ var TsFileReportService = /** @class */ (function () {
     TsFileReportService.prototype.generateReport = function () {
         var _a;
         this.methods = this.getMethodsArray();
-        this.relativeRootReports = file_service_1.getRouteToRoot((_a = this.tsFile.tsFolder) === null || _a === void 0 ? void 0 : _a.relativePath);
+        this.relativeRootReports = file_service_1.getRouteToRoot((_a = this.tsFile.treeFolder) === null || _a === void 0 ? void 0 : _a.relativePath);
         this.registerPartial("cognitiveBarchartScript", 'cognitive-barchart');
         this.registerPartial("cyclomaticBarchartScript", 'cyclomatic-barchart');
         this.registerPartial("cognitiveDoughnutScript", 'cognitive-doughnut');
@@ -51,7 +51,7 @@ var TsFileReportService = /** @class */ (function () {
             thresholds: options_1.Options.getThresholds()
         });
         var filenameWithoutExtension = file_service_1.getFilenameWithoutExtension(this.tsFile.name);
-        var pathReport = options_1.Options.pathOutDir + "/" + ((_a = this.tsFile.tsFolder) === null || _a === void 0 ? void 0 : _a.relativePath) + "/" + filenameWithoutExtension + ".html";
+        var pathReport = options_1.Options.pathOutDir + "/" + ((_a = this.tsFile.treeFolder) === null || _a === void 0 ? void 0 : _a.relativePath) + "/" + filenameWithoutExtension + ".html";
         fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
     };
     TsFileReportService.prototype.registerPartial = function (partialName, filename) {

@@ -1,7 +1,7 @@
 import * as fs from 'fs-extra';
 import * as eol from "eol";
 import * as Handlebars from "handlebars";
-import { TsFolder } from '../models/ts-folder.model';
+import { TreeFolder } from '../models/tree-folder.model';
 import { Options } from '../models/options';
 import { RowFolderReport } from '../models/row-folder-report.model';
 import { RowFileReport } from '../models/row-file-report.model';
@@ -12,7 +12,7 @@ import {
     getRouteFromFolderToSubFolder,
     getRouteToRoot
 } from './file.service';
-import { TsFile } from '../models/ts-file.model';
+import { TreeFile } from '../models/tree-file.model';
 import { MethodReport } from '../models/method-report.model';
 
 
@@ -24,15 +24,15 @@ export class TsFolderReportService {
     private methodsArray: RowFileReport[] = [];
     private relativeRootReports = '';
     template: HandlebarsTemplateDelegate;
-    tsFolder: TsFolder = undefined;
+    tsFolder: TreeFolder = undefined;
 
 
-    constructor(tsFolder: TsFolder) {
+    constructor(tsFolder: TreeFolder) {
         this.tsFolder = tsFolder;
     }
 
 
-    getFoldersArray(tsFolder: TsFolder): RowFolderReport[] {
+    getFoldersArray(tsFolder: TreeFolder): RowFolderReport[] {
         let report: RowFolderReport[] = [];
         if (this.tsFolder.path !== Options.pathFolderToAnalyze) {
             report.push(this.addRowBackToPreviousFolder());
@@ -41,7 +41,7 @@ export class TsFolderReportService {
     }
 
 
-    getSubfoldersArray(tsFolder: TsFolder, isSubfolder = false): RowFolderReport[] {
+    getSubfoldersArray(tsFolder: TreeFolder, isSubfolder = false): RowFolderReport[] {
         let report: RowFolderReport[] = [];
         for (const subfolder of tsFolder.subFolders) {
             const subfolderReport: RowFolderReport = {
@@ -72,18 +72,18 @@ export class TsFolderReportService {
     }
 
 
-    getFilesArray(tsFolder: TsFolder): RowFileReport[] {
+    getFilesArray(tsFolder: TreeFolder): RowFileReport[] {
         let report: RowFileReport[] = [];
         for (const tsFile of tsFolder.tsFiles) {
-            for (const tsMethod of tsFile.tsMethods) {
+            for (const treeMethod of tsFile.treeMethods) {
                 report.push({
-                    cognitiveColor: tsMethod.cognitiveStatus.toLowerCase(),
-                    cognitiveValue: tsMethod.cognitiveValue,
-                    cyclomaticColor: tsMethod.cyclomaticStatus.toLowerCase(),
-                    cyclomaticValue: tsMethod.cyclomaticValue,
+                    cognitiveColor: treeMethod.cognitiveStatus.toLowerCase(),
+                    cognitiveValue: treeMethod.cognitiveValue,
+                    cyclomaticColor: treeMethod.cyclomaticStatus.toLowerCase(),
+                    cyclomaticValue: treeMethod.cyclomaticValue,
                     filename: tsFile.name,
                     linkFile: this.getFileLink(tsFile),
-                    methodName: tsMethod.name
+                    methodName: treeMethod.name
                 })
             }
         }
@@ -91,25 +91,25 @@ export class TsFolderReportService {
     }
 
 
-    getMethodsArraySortedByDecreasingCognitiveCpx(tsFolder: TsFolder): RowFileReport[] {
+    getMethodsArraySortedByDecreasingCognitiveCpx(tsFolder: TreeFolder): RowFileReport[] {
         const report = this.getMethodsArray(tsFolder);
         return this.sortByDecreasingCognitiveCpx(report);
     }
 
 
-    getMethodsArray(tsFolder: TsFolder): RowFileReport[] {
+    getMethodsArray(tsFolder: TreeFolder): RowFileReport[] {
         let report: RowFileReport[] = [];
         for (const subfolder of tsFolder.subFolders) {
             for (const tsFile of subfolder.tsFiles) {
-                for (const tsMethod of tsFile.tsMethods) {
+                for (const treeMethod of tsFile.treeMethods) {
                     report.push({
-                        cognitiveColor: tsMethod.cognitiveStatus.toLowerCase(),
-                        cognitiveValue: tsMethod.cognitiveValue,
-                        cyclomaticColor: tsMethod.cyclomaticStatus.toLowerCase(),
-                        cyclomaticValue: tsMethod.cyclomaticValue,
+                        cognitiveColor: treeMethod.cognitiveStatus.toLowerCase(),
+                        cognitiveValue: treeMethod.cognitiveValue,
+                        cyclomaticColor: treeMethod.cyclomaticStatus.toLowerCase(),
+                        cyclomaticValue: treeMethod.cyclomaticValue,
                         filename: tsFile.name,
                         linkFile: this.getFileLink(tsFile),
-                        methodName: tsMethod.name
+                        methodName: treeMethod.name
                     })
                 }
             }
@@ -124,8 +124,8 @@ export class TsFolderReportService {
     }
 
 
-    getFileLink(tsFile: TsFile): string {
-        if (this.tsFolder.relativePath === tsFile.tsFolder?.relativePath) {
+    getFileLink(tsFile: TreeFile): string {
+        if (this.tsFolder.relativePath === tsFile.treeFolder?.relativePath) {
             return `./${getFilenameWithoutExtension(tsFile.name)}.html`;
         }
         const route = getRouteFromFolderToFile(this.tsFolder, tsFile);
@@ -134,7 +134,7 @@ export class TsFolderReportService {
 
 
     generateReport(): void {
-        const parentFolder: TsFolder = new TsFolder();
+        const parentFolder: TreeFolder = new TreeFolder();
         parentFolder.subFolders.push(this.tsFolder);
         this.relativeRootReports = getRouteToRoot(this.tsFolder.relativePath);
         this.filesArray = this.getFilesArray(this.tsFolder);

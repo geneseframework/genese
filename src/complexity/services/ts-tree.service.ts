@@ -1,31 +1,31 @@
 import * as ts from 'typescript';
 import { Ast } from './ast.service';
-import { TsTree } from '../models/ts-tree.model';
-import { TsMethod } from '../models/ts-method.model';
+import { Tree } from '../models/tree.model';
+import { TreeMethod } from '../models/tree-method.model';
 import { ComplexityService as CS } from './complexity.service';
 
 
 export class TsTreeService {
 
-    static generateTree(tsMethod: TsMethod): TsTree {
-        let tsTree: TsTree = new TsTree();
-        tsTree.node = tsMethod.node;
+    static generateTree(treeMethod: TreeMethod): Tree {
+        let tsTree: Tree = new Tree();
+        tsTree.node = treeMethod.node;
         tsTree.depth = 0;
-        tsTree.tsMethod = tsMethod;
-        tsTree.kind = Ast.getType(tsMethod.node);
+        tsTree.treeMethod = treeMethod;
+        tsTree.kind = Ast.getType(treeMethod.node);
         tsTree = TsTreeService.addTreeToChildren(tsTree)
         return tsTree;
     }
 
 
-    static addTreeToChildren(tsTree: TsTree): TsTree {
+    static addTreeToChildren(tsTree: Tree): Tree {
         const depth: number = tsTree.depth;
         ts.forEachChild(tsTree.node, (childNode: ts.Node) => {
-            const newTree = new TsTree();
+            const newTree = new Tree();
             childNode.parent = tsTree.node;
             newTree.node = childNode;
             newTree.depth = CS.increaseDepth(childNode, depth);
-            newTree.tsMethod = tsTree.tsMethod;
+            newTree.treeMethod = tsTree.treeMethod;
             newTree.parent = tsTree;
             newTree.kind = Ast.getType(childNode);
             newTree.increasesCognitiveComplexity = CS.increasesCognitiveComplexity(newTree);

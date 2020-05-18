@@ -1,7 +1,7 @@
 import * as fs from 'fs-extra';
 import { Options } from '../models/options';
-import { TsFolder } from '../models/ts-folder.model';
-import { TsFile } from '../models/ts-file.model';
+import { TreeFolder } from '../models/tree-folder.model';
+import { TreeFile } from '../models/tree-file.model';
 
 export function getFilename(pathFile = ''): string {
     const splittedPath = pathFile.split('/');
@@ -62,21 +62,21 @@ export function getRouteBetweenPaths(pathSource: string, pathTarget: string): st
 }
 
 
-export function getRouteFromFolderToFile(tsFolder: TsFolder, tsFile: TsFile): string {
+export function getRouteFromFolderToFile(tsFolder: TreeFolder, tsFile: TreeFile): string {
     if (!tsFile || !tsFolder) {
         return undefined;
     }
-    if (tsFile.tsFolder.path.slice(0, tsFolder.path.length) !== tsFolder.path) {
+    if (tsFile.treeFolder.path.slice(0, tsFolder.path.length) !== tsFolder.path) {
         console.log(`The file ${tsFile.name} is not inside the folder ${tsFolder.path}`);
         return undefined;
     } else {
         const linkStarter = tsFolder.relativePath === '' ? './' : '.';
-        return `${linkStarter}${tsFile.tsFolder.path.slice(tsFolder.path.length)}`;
+        return `${linkStarter}${tsFile.treeFolder.path.slice(tsFolder.path.length)}`;
     }
 }
 
 
-export function getRouteFromFolderToSubFolder(folder: TsFolder, subfolder: TsFolder): string {
+export function getRouteFromFolderToSubFolder(folder: TreeFolder, subfolder: TreeFolder): string {
     if (!folder || !subfolder|| subfolder.path === folder.path ) {
         return undefined;
     }
