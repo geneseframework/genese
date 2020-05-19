@@ -5,8 +5,8 @@ import { ChartColor } from '../enums/colors.enum';
  */
 export interface Bar {
 
-    color?: ChartColor;
-    x: number;
-    y: number;
+    color?: ChartColor; // The color of the bar
+    x: number;          // The abscissa of the bar
+    y: number;          // The ordinate (the height) of the bar
 
 }

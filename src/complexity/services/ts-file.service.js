@@ -20,7 +20,7 @@ var ast_service_1 = require("./ast.service");
 var evaluation_status_enum_1 = require("../enums/evaluation-status.enum");
 var complexity_type_enum_1 = require("../enums/complexity-type.enum");
 var stats_service_1 = require("./stats.service");
-var TsFileService = /** @class */ (function (_super) {
+var TreeFileService = /** @class */ (function (_super) {
     __extends(TsFileService, _super);
     function TsFileService(tsFile) {
         var _this = _super.call(this) || this;
@@ -75,4 +75,4 @@ var TsFileService = /** @class */ (function (_super) {
     };
     return TsFileService;
 }(stats_service_1.StatsService));
-exports.TsFileService = TsFileService;
+exports.TsFileService = TreeFileService;

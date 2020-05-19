@@ -15,8 +15,8 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 var tree_folder_model_1 = require("./tree-folder.model");
 var tree_file_service_1 = require("../services/tree-file.service");
-var complexities_by_status_service_1 = require("../services/complexities-by-status.service");
 var evaluable_model_1 = require("./evaluable.model");
+var tree_method_service_1 = require("../services/tree-method.service");
 /**
  * Element of the Tree structure corresponding to a given file (AST sourceFile)
  */
@@ -38,7 +38,7 @@ var TreeFile = /** @class */ (function (_super) {
      * Evaluates the complexities of this TreeFile
      */
     TreeFile.prototype.evaluate = function () {
-        var cpbss = new complexities_by_status_service_1.ComplexitiesByStatusService();
+        var cpbss = new tree_method_service_1.TreeMethodService();
         for (var _i = 0, _a = this.treeMethods; _i < _a.length; _i++) {
             var method = _a[_i];
             this.cognitiveValue += method.cognitiveValue;

@@ -15,11 +15,11 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 var tree_folder_model_1 = require("../models/tree-folder.model");
 var tree_file_model_1 = require("../models/tree-file.model");
-var ts_method_service_1 = require("./ts-method.service");
 var ast_service_1 = require("./ast.service");
 var evaluation_status_enum_1 = require("../enums/evaluation-status.enum");
 var complexity_type_enum_1 = require("../enums/complexity-type.enum");
 var stats_service_1 = require("./stats.service");
+var tree_method_service_1 = require("./tree-method.service");
 var TreeFileService = /** @class */ (function (_super) {
     __extends(TreeFileService, _super);
     function TreeFileService(tsFile) {
@@ -36,7 +36,7 @@ var TreeFileService = /** @class */ (function (_super) {
         tsFile.sourceFile = ast_service_1.Ast.getSourceFile(path);
         tsFile.treeFolder = tsFolder;
         tsFile.name = (_a = tsFile.sourceFile) === null || _a === void 0 ? void 0 : _a.fileName;
-        tsFile.treeMethods = ts_method_service_1.TsMethodService.generateTree(tsFile);
+        tsFile.treeMethods = tree_method_service_1.TreeMethodService.generateTree(tsFile);
         tsFile.evaluate();
         return tsFile;
     };

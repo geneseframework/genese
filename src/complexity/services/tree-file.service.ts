@@ -1,12 +1,12 @@
 import { TreeFolder } from '../models/tree-folder.model';
 import { TreeFile } from '../models/tree-file.model';
-import { TsMethodService } from './ts-method.service';
 import { Ast } from './ast.service';
 import { TreeMethod } from '../models/tree-method.model';
 import { MethodStatus } from '../enums/evaluation-status.enum';
 import { ComplexityType } from '../enums/complexity-type.enum';
 import { StatsService } from './stats.service';
 import { Stats } from '../models/stats.model';
+import { TreeMethodService } from './tree-method.service';
 
 export class TreeFileService extends StatsService{
 
@@ -23,7 +23,7 @@ export class TreeFileService extends StatsService{
         tsFile.sourceFile = Ast.getSourceFile(path);
         tsFile.treeFolder = tsFolder;
         tsFile.name = tsFile.sourceFile?.fileName;
-        tsFile.treeMethods = TsMethodService.generateTree(tsFile);
+        tsFile.treeMethods = TreeMethodService.generateTree(tsFile);
         tsFile.evaluate();
         return tsFile;
     }

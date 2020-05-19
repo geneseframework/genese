@@ -1,9 +1,29 @@
-import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.interface';
+import * as ts from 'typescript';
+import { TreeFile } from '../models/tree-file.model';
 import { TreeMethod } from '../models/tree-method.model';
-import { MethodStatus } from '../enums/evaluation-status.enum';
+import { TsTreeService } from './ts-tree.service';
+import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.interface';
 import { ComplexityType } from '../enums/complexity-type.enum';
+import { MethodStatus } from '../enums/evaluation-status.enum';
 
-export class ComplexitiesByStatusService {
+export class TreeMethodService {
+
+
+    static generateTree(tsFile: TreeFile): TreeMethod[] {
+        const methods: TreeMethod[] = [];
+        ts.forEachChild(tsFile.sourceFile, function cb(node) {
+            if (node.kind === ts.SyntaxKind.MethodDeclaration) {
+                const newMethod: TreeMethod = new TreeMethod(node);
+                newMethod.treeFile = tsFile;
+                newMethod.tree = TsTreeService.generateTree(newMethod);
+                newMethod.evaluate();
+                methods.push(newMethod);
+            }
+            ts.forEachChild(node, cb);
+        });
+        return methods;
+    }
+
 
     addMethodCpxByStatus(cpxByStatus: ComplexitiesByStatus, treeMethod: TreeMethod): ComplexitiesByStatus {
         let cpx: ComplexitiesByStatus = cpxByStatus ?? new ComplexitiesByStatus();
@@ -30,4 +50,5 @@ export class ComplexitiesByStatusService {
         }
         return status;
     }
+
 }

@@ -4,9 +4,9 @@ import { TreeFolder } from './tree-folder.model';
 import { TreeFileService } from '../services/tree-file.service';
 import { Stats } from './stats.model';
 import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.interface';
-import { ComplexitiesByStatusService } from '../services/complexities-by-status.service';
 import { Evaluable } from './evaluable.model';
 import { HasStats } from '../interfaces/has-stats';
+import { TreeMethodService } from '../services/tree-method.service';
 
 /**
  * Element of the Tree structure corresponding to a given file (AST sourceFile)
@@ -32,7 +32,7 @@ export class TreeFile extends Evaluable implements HasStats {
      * Evaluates the complexities of this TreeFile
      */
     evaluate(): void {
-        const cpbss = new ComplexitiesByStatusService();
+        const cpbss = new TreeMethodService();
         for (const method of this.treeMethods) {
             this.cognitiveValue += method.cognitiveValue;
             this.cyclomaticValue += method.cyclomaticValue;
