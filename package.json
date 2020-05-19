@@ -1,6 +1,6 @@
 {
     "name": "genese",
-    "version": "0.0.89",
+    "version": "0.0.94",
     "scripts": {
         "start": "tsc index.ts && tsc src/complexity/**/*.ts && npm publish"
     },
