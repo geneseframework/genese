@@ -3,16 +3,26 @@ import * as utils from 'tsutils';
 import { Tree } from '../models/tree.model';
 import { Ast } from './ast.service';
 
+/**
+ * Service around complexity calculation
+ */
 export class ComplexityService {
 
 
+    // ---------------------------------------------------------------------------------------------------------
+    //                                          Cognitive complexity
+    // ---------------------------------------------------------------------------------------------------------
 
-    static calculateCognitiveComplexity(tsTree: Tree): number {
+    /**
+     * Returns the cognitive complexity of a Tree (the total of complexities of himself and its children)
+     * @param tree      // The Tree to analyse
+     */
+    static getCognitiveComplexity(tree: Tree): number {
         let complexity = 0;
-        if (tsTree) {
-            for (const tree of tsTree?.children) {
-                complexity += ComplexityService.addCognitiveComplexity(tree);
-                complexity += ComplexityService.calculateCognitiveComplexity(tree);
+        if (tree) {
+            for (const child of tree?.children) {
+                complexity += ComplexityService.calculateCognitiveComplexity(child);
+                complexity += ComplexityService.getCognitiveComplexity(child);
             }
         }
         return complexity;
@@ -20,27 +30,86 @@ export class ComplexityService {
 
 
     /**
-     * Calculates the cyclomatic complexity of a method
-     * @param node: ts.Tree
+     * Returns the cognitive complexity of a Tree himself (not its children)
+     * @param tree      // The Tree to analyse
      */
-    static calculateCyclomaticComplexity(node: ts.Node): number {
-        let totalComplexity = 1;
-        ts.forEachChild(node, function cb(node) {
-            if (utils.isFunctionWithBody(node)) {
-                totalComplexity += 1;
-                ts.forEachChild(node, cb);
-            } else {
-                if (ComplexityService.increasesCyclomaticComplexity(node)) {
-                    totalComplexity += 1;
+    static calculateCognitiveComplexity(tree: Tree): number {
+        let complexity = 0;
+        if (!tree?.node || tree?.depth === undefined) {
+            return 0;
+        }
+        if (tree?.node?.['elseStatement']) {
+            complexity ++;
+        }
+        switch (tree.node.kind) {
+            case ts.SyntaxKind.ArrowFunction:
+            case ts.SyntaxKind.CatchClause:
+            case ts.SyntaxKind.DoStatement:
+            case ts.SyntaxKind.ForStatement:
+            case ts.SyntaxKind.ForInStatement:
+            case ts.SyntaxKind.ForOfStatement:
+            case ts.SyntaxKind.FunctionExpression:
+            case ts.SyntaxKind.IfStatement:
+            case ts.SyntaxKind.MethodDeclaration:
+            case ts.SyntaxKind.SwitchStatement:
+            case ts.SyntaxKind.WhileStatement:
+                complexity += tree.depth + 1;
+                break;
+            case ts.SyntaxKind.BinaryExpression:
+                complexity += ComplexityService.addBinaryCognitiveCpx(tree);
+                break;
+            case ts.SyntaxKind.PropertyAccessExpression:
+                if (ComplexityService.isRecursion(tree, tree.node)) {
+                    complexity++;
                 }
-                ts.forEachChild(node, cb);
-            }
-        });
-        return totalComplexity;
+                break;
+            case ts.SyntaxKind.ConditionalExpression:
+                complexity += ComplexityService.conditionalExpressionIsTrivial(tree.node) ? 0 : 1;
+                break;
+            default:
+                complexity += 0;
+        }
+        return complexity;
     }
 
 
+    /**
+     * Checks if the AST node of a Tree increases the cognitive complexity
+     * @param tsTree        // The Tree to check
+     */
+    static increasesCognitiveComplexity(tsTree: Tree): boolean {
+        if (tsTree?.node?.['elseStatement']) {
+            return true;
+        }
+        switch (tsTree?.node?.kind) {
+            case ts.SyntaxKind.ArrowFunction:
+            case ts.SyntaxKind.CatchClause:
+            case ts.SyntaxKind.DoStatement:
+            case ts.SyntaxKind.ForStatement:
+            case ts.SyntaxKind.ForInStatement:
+            case ts.SyntaxKind.ForOfStatement:
+            case ts.SyntaxKind.FunctionExpression:
+            case ts.SyntaxKind.IfStatement:
+            case ts.SyntaxKind.MethodDeclaration:
+            case ts.SyntaxKind.SwitchStatement:
+            case ts.SyntaxKind.WhileStatement:
+                return true;
+            case ts.SyntaxKind.BinaryExpression:
+                return ComplexityService.addBinaryCognitiveCpx(tsTree) > 0;
+            case ts.SyntaxKind.ConditionalExpression:
+                return !ComplexityService.conditionalExpressionIsTrivial(tsTree.node);
+            default:
+                return false;
+        }
+    }
 
+
+    /**
+     * Returns the depth of a "block" inside a given AST node
+     * For example, if on the line 2 the depth is equal to 1 and the line 3 is an IfStatement, the block inside the "if" will have a depth equal to 2.
+     * @param node      // The node to check
+     * @param depth     // The depth of the parent of the node
+     */
     static increaseDepth(node: ts.Node, depth: number): number {
         let newDepth = depth;
         switch (node?.parent.kind) {
@@ -64,51 +133,19 @@ export class ComplexityService {
     }
 
 
-    static addCognitiveComplexity(tsTree: Tree): number {
-        let complexity = 0;
-        if (!tsTree?.node || tsTree?.depth === undefined) {
-            return 0;
-        }
-        if (tsTree?.node?.['elseStatement']) {
-            complexity ++;
-        }
-        switch (tsTree.node.kind) {
-            case ts.SyntaxKind.ArrowFunction:
-            case ts.SyntaxKind.CatchClause:
-            case ts.SyntaxKind.DoStatement:
-            case ts.SyntaxKind.ForStatement:
-            case ts.SyntaxKind.ForInStatement:
-            case ts.SyntaxKind.ForOfStatement:
-            case ts.SyntaxKind.FunctionExpression:
-            case ts.SyntaxKind.IfStatement:
-            case ts.SyntaxKind.MethodDeclaration:
-            case ts.SyntaxKind.SwitchStatement:
-            case ts.SyntaxKind.WhileStatement:
-                complexity += tsTree.depth + 1;
-                break;
-            case ts.SyntaxKind.BinaryExpression:
-                complexity += ComplexityService.addBinaryCognitiveCpx(tsTree);
-                break;
-            case ts.SyntaxKind.PropertyAccessExpression:
-                if (ComplexityService.isRecursion(tsTree, tsTree.node)) {
-                    complexity++;
-                }
-                break;
-            case ts.SyntaxKind.ConditionalExpression:
-                complexity += ComplexityService.conditionalExpressionIsTrivial(tsTree) ? 0 : 1;
-                break;
-            default:
-                complexity += 0;
-        }
-        return complexity;
+    /**
+     * Checks if an AST node of type ConditionalExpression (a ternary expression) is trivial, ie if the true case and the false case are only some literals
+     * @param node      // The node to analyse
+     */
+    static conditionalExpressionIsTrivial(node: ts.Node): boolean {
+        return (ComplexityService.isLiteral(node?.['whenTrue']) && ComplexityService.isLiteral(node?.['whenFalse']));
     }
 
 
-    static conditionalExpressionIsTrivial(tsTree: Tree): boolean {
-        return (ComplexityService.isLiteral(tsTree?.node?.['whenTrue']) && ComplexityService.isLiteral(tsTree?.node?.['whenFalse']));
-    }
-
-
+    /**
+     * Checks if an AST node is a primitive (a string, a number or a boolean)
+     * @param node      // The node to analyse
+     */
     static isLiteral(node: ts.Node): boolean {
         return node?.kind === ts.SyntaxKind.StringLiteral
             || node?.kind === ts.SyntaxKind.NumericLiteral
@@ -117,23 +154,67 @@ export class ComplexityService {
     }
 
 
-    static isRecursion(tsTree: Tree, node: ts.Node): boolean {
-        return node?.['name']?.['escapedText'] === tsTree?.treeMethod?.name;
+    /**
+     * Checks if an AST node inside a method is a recursion, ie a call to this method.
+     * The param "tree" must be a Tree which is a descendant of a method (ie a Tree with node of type MethodDescription)
+     * @param tree      // The tree (inside a method)
+     * @param node      // The node to analyse (a recursion or not)
+     */
+    static isRecursion(tree: Tree, node: ts.Node): boolean {
+        return node?.['name']?.['escapedText'] === tree?.treeMethod?.name;
     }
 
 
-    static addBinaryCognitiveCpx(tsTree: Tree): number {
-        if (!tsTree?.node || !tsTree.parent.node) {
+    /**
+     * Increases the cognitive complexity when there is a binary succeeding to a binary of different type
+     * For example, the second && is not increasing the cognitive complexity :
+     *      if (a && b && c)
+     * but in the next example, the || will increase it because it succeeds to a binary of different type (a &&)
+     *      if (a && b || c)
+     * @param tree      // The Tree to analyse
+     */
+    static addBinaryCognitiveCpx(tree: Tree): number {
+        if (!tree?.node || !tree.parent.node) {
             return 0;
         }
         let complexity = 0;
-        if (Ast.isBinary(tsTree.node) && Ast.isLogicDoor(tsTree.node)) {
-            complexity = (Ast.isSameOperatorToken(tsTree.node, tsTree.parent.node) && !Ast.isOrTokenBetweenBinaries(tsTree.node)) ? 0 : 1;
+        if (Ast.isBinary(tree.node) && Ast.isLogicDoor(tree.node)) {
+            complexity = (Ast.isSameOperatorToken(tree.node, tree.parent.node) && !Ast.isOrTokenBetweenBinaries(tree.node)) ? 0 : 1;
         }
         return complexity;
     }
 
 
+    // ---------------------------------------------------------------------------------------------------------
+    //                                          Cyclomatic complexity
+    // ---------------------------------------------------------------------------------------------------------
+
+
+    /**
+     * Returns the cyclomatic complexity of an AST node
+     * @param node      // The AST node
+     */
+    static calculateCyclomaticComplexity(node: ts.Node): number {
+        let totalComplexity = 1;
+        ts.forEachChild(node, function cb(node) {
+            if (utils.isFunctionWithBody(node)) {
+                totalComplexity += 1;
+                ts.forEachChild(node, cb);
+            } else {
+                if (ComplexityService.increasesCyclomaticComplexity(node)) {
+                    totalComplexity += 1;
+                }
+                ts.forEachChild(node, cb);
+            }
+        });
+        return totalComplexity;
+    }
+
+
+    /**
+     * Increases the cyclomatic complexity when the AST node must increase it
+     * @param node      // The AST node
+     */
     static increasesCyclomaticComplexity(node) {
         switch (node.kind) {
             case ts.SyntaxKind.CaseClause:
@@ -156,34 +237,6 @@ export class ComplexityService {
                         return false;
                 }
             case ts.SyntaxKind.ConditionalExpression:
-            default:
-                return false;
-        }
-    }
-
-
-    static increasesCognitiveComplexity(tsTree: Tree): boolean {
-
-        if (tsTree?.node?.['elseStatement']) {
-            return true;
-        }
-        switch (tsTree?.node?.kind) {
-            case ts.SyntaxKind.ArrowFunction:
-            case ts.SyntaxKind.CatchClause:
-            case ts.SyntaxKind.DoStatement:
-            case ts.SyntaxKind.ForStatement:
-            case ts.SyntaxKind.ForInStatement:
-            case ts.SyntaxKind.ForOfStatement:
-            case ts.SyntaxKind.FunctionExpression:
-            case ts.SyntaxKind.IfStatement:
-            case ts.SyntaxKind.MethodDeclaration:
-            case ts.SyntaxKind.SwitchStatement:
-            case ts.SyntaxKind.WhileStatement:
-                return true;
-            case ts.SyntaxKind.BinaryExpression:
-                return ComplexityService.addBinaryCognitiveCpx(tsTree) > 0;
-            case ts.SyntaxKind.ConditionalExpression:
-                return !ComplexityService.conditionalExpressionIsTrivial(tsTree);
             default:
                 return false;
         }

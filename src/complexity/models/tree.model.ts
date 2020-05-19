@@ -15,7 +15,7 @@ export class Tree implements IsAstNode {
     kind ?= '';                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
     node?: ts.Node = undefined;             // The current node in the AST
     parent?: Tree;                          // The tree of the parent of the current node
-    treeMethod?: TreeMethod = undefined;    // The method including the current tree (if it's the case)
+    treeMethod?: TreeMethod = undefined;    // The method at the root of the current tree (if this tree is inside a method)
 
 
     constructor() {

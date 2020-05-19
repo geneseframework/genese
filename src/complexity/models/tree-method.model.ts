@@ -34,7 +34,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
      * Evaluates the complexities of this TreeMethod
      */
     evaluate(): void {
-        this.cognitiveValue = CS.calculateCognitiveComplexity(this.tree);
+        this.cognitiveValue = CS.getCognitiveComplexity(this.tree);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticValue = CS.calculateCyclomaticComplexity(this.node);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);

@@ -11,7 +11,7 @@ var Tree = /** @class */ (function () {
         this.increasesCognitiveComplexity = false; // True if the node's type increases the cognitive complexity
         this.kind = ''; // The kind of the node ('MethodDeclaration, IfStatement, ...)
         this.node = undefined; // The current node in the AST
-        this.treeMethod = undefined; // The method including the current tree (if it's the case)
+        this.treeMethod = undefined; // The method at the root of the current tree (if this tree is inside a method)
         // super();
     }
     /**
