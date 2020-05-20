@@ -8,20 +8,31 @@ import { StatsService } from './stats.service';
 import { Stats } from '../models/stats.model';
 import { TreeMethodService } from './tree-method.service';
 
+/**
+ * - TreeFiles generation from Abstract Syntax Tree of a file
+ * - Other services for TreeFiles
+ */
 export class TreeFileService extends StatsService{
 
-    protected _stats: Stats = undefined;
-    tsFile: TreeFile = undefined;
+    protected _stats: Stats = undefined;           // The statistics of the TreeFile
+    treeFile: TreeFile = undefined;               // The TreeFile corresponding to this service
 
-    constructor(tsFile: TreeFile) {
+    constructor(treeFile: TreeFile) {
         super();
-        this.tsFile = tsFile;
+        this.treeFile = treeFile;
     }
 
-    static generateTree(path: string, tsFolder: TreeFolder = new TreeFolder()): TreeFile {
+
+    /**
+     * Generates the TreeFile for a given file of a given folder
+     * The tree is generated according to the Abstract Syntax Tree (AST) of the file
+     * @param path          // The path of the file
+     * @param treeFolder      // The TreeFolder containing the TreeFile
+     */
+    static generateTree(path: string, treeFolder: TreeFolder = new TreeFolder()): TreeFile {
         const tsFile: TreeFile = new TreeFile();
         tsFile.sourceFile = Ast.getSourceFile(path);
-        tsFile.treeFolder = tsFolder;
+        tsFile.treeFolder = treeFolder;
         tsFile.name = tsFile.sourceFile?.fileName;
         tsFile.treeMethods = TreeMethodService.generateTree(tsFile);
         tsFile.evaluate();
@@ -29,23 +40,36 @@ export class TreeFileService extends StatsService{
     }
 
 
-    calculateStats(tsFile: TreeFile): void {
-        this._stats.numberOfMethods = tsFile.treeMethods?.length ?? 0;
-        for (const method of tsFile.treeMethods) {
+    /**
+     * Calculates the statistics of the TreeFile
+     * @param treeFile    // The TreeFile to analyse
+     */
+    calculateStats(treeFile: TreeFile): void {
+        this._stats.numberOfMethods = treeFile.treeMethods?.length ?? 0;
+        for (const method of treeFile.treeMethods) {
             this.incrementStats(method);
         }
     }
 
 
-    incrementStats(method: TreeMethod): void {
-        this.incrementMethodsByStatus(method, ComplexityType.COGNITIVE);
-        this.incrementMethodsByStatus(method, ComplexityType.CYCLOMATIC);
-        this._stats.barChartCognitive.addResult(method.cognitiveValue);
-        this._stats.barChartCyclomatic.addResult(method.cyclomaticValue);
+    /**
+     * Increments TreeFile statistics for a given method
+     * @param treeMethod    // The TreeMethod to analyse
+     */
+    incrementStats(treeMethod: TreeMethod): void {
+        this.incrementStatsMethodsByStatus(treeMethod, ComplexityType.COGNITIVE);
+        this.incrementStatsMethodsByStatus(treeMethod, ComplexityType.CYCLOMATIC);
+        this._stats.barChartCognitive.addResult(treeMethod.cognitiveValue);
+        this._stats.barChartCyclomatic.addResult(treeMethod.cyclomaticValue);
     }
 
 
-    incrementMethodsByStatus(treeMethod: TreeMethod, type: ComplexityType): void {
+    /**
+     * Increments the number of methods spread by Status (correct, warning, error) and by complexity type
+     * @param treeMethod        // The TreeMethod to analyse
+     * @param type              // The complexity type
+     */
+    incrementStatsMethodsByStatus(treeMethod: TreeMethod, type: ComplexityType): void {
         const status = (type === ComplexityType.COGNITIVE) ? treeMethod.cognitiveStatus : treeMethod.cyclomaticStatus;
         switch (status) {
             case MethodStatus.CORRECT:
@@ -63,8 +87,11 @@ export class TreeFileService extends StatsService{
     }
 
 
-    getSubject(): void {
-        this._stats.subject = this.tsFile.name;
+    /**
+     * Returns the filename of the TreeFile linked to this service
+     */
+    getNameOrPath(): void {
+        this._stats.subject = this.treeFile.name;
     }
 
 }

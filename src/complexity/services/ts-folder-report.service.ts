@@ -8,12 +8,11 @@ import { RowFileReport } from '../models/row-file-report.model';
 import {
     createRelativeDir,
     getFilenameWithoutExtension,
-    getRouteFromFolderToFile,
-    getRouteFromFolderToSubFolder,
     getRouteToRoot
 } from './file.service';
 import { TreeFile } from '../models/tree-file.model';
 import { MethodReport } from '../models/method-report.model';
+import { TreeFolderService } from './tree-folder.service';
 
 
 export class TsFolderReportService {
@@ -24,17 +23,19 @@ export class TsFolderReportService {
     private methodsArray: RowFileReport[] = [];
     private relativeRootReports = '';
     template: HandlebarsTemplateDelegate;
-    tsFolder: TreeFolder = undefined;
+    treeFolder: TreeFolder = undefined;
+    treeFolderService: TreeFolderService;
 
 
     constructor(tsFolder: TreeFolder) {
-        this.tsFolder = tsFolder;
+        this.treeFolder = tsFolder;
+        this.treeFolderService = new TreeFolderService(this.treeFolder);
     }
 
 
     getFoldersArray(tsFolder: TreeFolder): RowFolderReport[] {
         let report: RowFolderReport[] = [];
-        if (this.tsFolder.path !== Options.pathFolderToAnalyze) {
+        if (this.treeFolder.path !== Options.pathFolderToAnalyze) {
             report.push(this.addRowBackToPreviousFolder());
         }
         return report.concat(this.getSubfoldersArray(tsFolder));
@@ -49,7 +50,7 @@ export class TsFolderReportService {
                 numberOfFiles: subfolder.getStats().numberOfFiles,
                 numberOfMethods: subfolder.getStats().numberOfMethods,
                 path: subfolder.relativePath,
-                routeFromCurrentFolder: getRouteFromFolderToSubFolder(this.tsFolder, subfolder)
+                routeFromCurrentFolder: this.treeFolderService.getRouteFromFolderToSubFolder(this.treeFolder, subfolder)
             };
             report.push(subfolderReport);
             if (!isSubfolder) {
@@ -74,7 +75,7 @@ export class TsFolderReportService {
 
     getFilesArray(tsFolder: TreeFolder): RowFileReport[] {
         let report: RowFileReport[] = [];
-        for (const tsFile of tsFolder.tsFiles) {
+        for (const tsFile of tsFolder.treeFiles) {
             for (const treeMethod of tsFile.treeMethods) {
                 report.push({
                     cognitiveColor: treeMethod.cognitiveStatus.toLowerCase(),
@@ -100,7 +101,7 @@ export class TsFolderReportService {
     getMethodsArray(tsFolder: TreeFolder): RowFileReport[] {
         let report: RowFileReport[] = [];
         for (const subfolder of tsFolder.subFolders) {
-            for (const tsFile of subfolder.tsFiles) {
+            for (const tsFile of subfolder.treeFiles) {
                 for (const treeMethod of tsFile.treeMethods) {
                     report.push({
                         cognitiveColor: treeMethod.cognitiveStatus.toLowerCase(),
@@ -125,19 +126,19 @@ export class TsFolderReportService {
 
 
     getFileLink(tsFile: TreeFile): string {
-        if (this.tsFolder.relativePath === tsFile.treeFolder?.relativePath) {
+        if (this.treeFolder.relativePath === tsFile.treeFolder?.relativePath) {
             return `./${getFilenameWithoutExtension(tsFile.name)}.html`;
         }
-        const route = getRouteFromFolderToFile(this.tsFolder, tsFile);
+        const route = this.treeFolderService.getRouteFromFolderToFile(this.treeFolder, tsFile);
         return `${route}/${getFilenameWithoutExtension(tsFile.name)}.html`;
     }
 
 
     generateReport(): void {
         const parentFolder: TreeFolder = new TreeFolder();
-        parentFolder.subFolders.push(this.tsFolder);
-        this.relativeRootReports = getRouteToRoot(this.tsFolder.relativePath);
-        this.filesArray = this.getFilesArray(this.tsFolder);
+        parentFolder.subFolders.push(this.treeFolder);
+        this.relativeRootReports = getRouteToRoot(this.treeFolder.relativePath);
+        this.filesArray = this.getFilesArray(this.treeFolder);
         this.foldersArray = this.getFoldersArray(parentFolder);
         this.methodsArray = this.getMethodsArraySortedByDecreasingCognitiveCpx(parentFolder);
         this.registerPartial("cognitiveBarchartScript", 'cognitive-barchart');
@@ -160,13 +161,13 @@ export class TsFolderReportService {
             isRootFolder: this.isRootFolder,
             methodsArray: this.methodsArray,
             relativeRootReports: this.relativeRootReports,
-            stats: this.tsFolder.getStats(),
+            stats: this.treeFolder.getStats(),
             thresholds: Options.getThresholds()
         });
-        if (this.tsFolder.relativePath) {
-            createRelativeDir(this.tsFolder.relativePath);
+        if (this.treeFolder.relativePath) {
+            createRelativeDir(this.treeFolder.relativePath);
         }
-        const pathReport = `${Options.pathOutDir}/${this.tsFolder.relativePath}/folder-report.html`;
+        const pathReport = `${Options.pathOutDir}/${this.treeFolder.relativePath}/folder-report.html`;
         fs.writeFileSync(pathReport, template, {encoding: 'utf-8'});
     }
 

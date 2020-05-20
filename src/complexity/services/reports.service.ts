@@ -6,39 +6,61 @@ import { TsFileReportService } from './ts-file-report.service';
 import { TreeFile } from '../models/tree-file.model';
 
 
+/**
+ * Service for reports generation
+ */
 export class ReportsService {
 
-    static generateAllReports(tsFolder: TreeFolder): void {
+    /**
+     * Main reports generation process
+     * @param treeFolder        // The main folder
+     */
+    static generateAllReports(treeFolder: TreeFolder): void {
         ReportsService.createStyleFiles();
         const parentFolder: TreeFolder = new TreeFolder();
-        parentFolder.subFolders.push(tsFolder);
-        ReportsService.generateSubfoldersReports(tsFolder);
+        parentFolder.subFolders.push(treeFolder);
+        ReportsService.generateSubfoldersReports(treeFolder);
     }
 
 
-    private static generateSubfoldersReports(tsFolder: TreeFolder): void{
-        ReportsService.generateFolderReport(tsFolder);
-        for (const subFolder of tsFolder.subFolders) {
+    /**
+     * Generates reports of subFolders recursively
+     * @param treeFolder        // The TreeFolder to analyse
+     */
+    private static generateSubfoldersReports(treeFolder: TreeFolder): void{
+        ReportsService.generateFolderReport(treeFolder);
+        for (const subFolder of treeFolder.subFolders) {
             ReportsService.generateSubfoldersReports(subFolder);
         }
     }
 
 
-    private static generateFolderReport(tsFolder: TreeFolder): void {
-        const folderReportService = new TsFolderReportService(tsFolder);
+    /**
+     * Generates a report for a given folder
+     * @param treeFolder        // The TreeFolder to analyse
+     */
+    private static generateFolderReport(treeFolder: TreeFolder): void {
+        const folderReportService = new TsFolderReportService(treeFolder);
         folderReportService.generateReport();
-        for (const file of tsFolder.tsFiles) {
+        for (const file of treeFolder.treeFiles) {
             ReportsService.generateFileReport(file);
         }
     }
 
 
-    private static generateFileReport(tsFile: TreeFile): void {
-        const fileReportService = new TsFileReportService(tsFile);
+    /**
+     * Generates a report for a given file
+     * @param treeFile        // The TreeFile to analyse
+     */
+    private static generateFileReport(treeFile: TreeFile): void {
+        const fileReportService = new TsFileReportService(treeFile);
         fileReportService.generateReport();
     }
 
 
+    /**
+     * Copy the css files, prism.js and chart.js to a subfolder of the outDir
+     */
     private static createStyleFiles(): void {
         createRelativeDir('reports-styles');
         copyFile(`${Options.pathGeneseNodeJs}/src/complexity/templates/styles/report.css`, `${Options.pathOutDir}/reports-styles/report.css`);

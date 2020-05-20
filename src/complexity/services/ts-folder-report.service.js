@@ -6,6 +6,7 @@ var Handlebars = require("handlebars");
 var tree_folder_model_1 = require("../models/tree-folder.model");
 var options_1 = require("../models/options");
 var file_service_1 = require("./file.service");
+var tree_folder_service_1 = require("./tree-folder.service");
 var TsFolderReportService = /** @class */ (function () {
     function TsFolderReportService(tsFolder) {
         this.filesArray = [];
@@ -13,12 +14,13 @@ var TsFolderReportService = /** @class */ (function () {
         this.isRootFolder = false;
         this.methodsArray = [];
         this.relativeRootReports = '';
-        this.tsFolder = undefined;
-        this.tsFolder = tsFolder;
+        this.treeFolder = undefined;
+        this.treeFolder = tsFolder;
+        this.treeFolderService = new tree_folder_service_1.TreeFolderService(this.treeFolder);
     }
     TsFolderReportService.prototype.getFoldersArray = function (tsFolder) {
         var report = [];
-        if (this.tsFolder.path !== options_1.Options.pathFolderToAnalyze) {
+        if (this.treeFolder.path !== options_1.Options.pathFolderToAnalyze) {
             report.push(this.addRowBackToPreviousFolder());
         }
         return report.concat(this.getSubfoldersArray(tsFolder));
@@ -33,7 +35,7 @@ var TsFolderReportService = /** @class */ (function () {
                 numberOfFiles: subfolder.getStats().numberOfFiles,
                 numberOfMethods: subfolder.getStats().numberOfMethods,
                 path: subfolder.relativePath,
-                routeFromCurrentFolder: file_service_1.getRouteFromFolderToSubFolder(this.tsFolder, subfolder)
+                routeFromCurrentFolder: this.treeFolderService.getRouteFromFolderToSubFolder(this.treeFolder, subfolder)
             };
             report.push(subfolderReport);
             if (!isSubfolder) {
@@ -53,7 +55,7 @@ var TsFolderReportService = /** @class */ (function () {
     };
     TsFolderReportService.prototype.getFilesArray = function (tsFolder) {
         var report = [];
-        for (var _i = 0, _a = tsFolder.tsFiles; _i < _a.length; _i++) {
+        for (var _i = 0, _a = tsFolder.treeFiles; _i < _a.length; _i++) {
             var tsFile = _a[_i];
             for (var _b = 0, _c = tsFile.treeMethods; _b < _c.length; _b++) {
                 var treeMethod = _c[_b];
@@ -78,7 +80,7 @@ var TsFolderReportService = /** @class */ (function () {
         var report = [];
         for (var _i = 0, _a = tsFolder.subFolders; _i < _a.length; _i++) {
             var subfolder = _a[_i];
-            for (var _b = 0, _c = subfolder.tsFiles; _b < _c.length; _b++) {
+            for (var _b = 0, _c = subfolder.treeFiles; _b < _c.length; _b++) {
                 var tsFile = _c[_b];
                 for (var _d = 0, _e = tsFile.treeMethods; _d < _e.length; _d++) {
                     var treeMethod = _e[_d];
@@ -102,17 +104,17 @@ var TsFolderReportService = /** @class */ (function () {
     };
     TsFolderReportService.prototype.getFileLink = function (tsFile) {
         var _a;
-        if (this.tsFolder.relativePath === ((_a = tsFile.treeFolder) === null || _a === void 0 ? void 0 : _a.relativePath)) {
+        if (this.treeFolder.relativePath === ((_a = tsFile.treeFolder) === null || _a === void 0 ? void 0 : _a.relativePath)) {
             return "./" + file_service_1.getFilenameWithoutExtension(tsFile.name) + ".html";
         }
-        var route = file_service_1.getRouteFromFolderToFile(this.tsFolder, tsFile);
+        var route = this.treeFolderService.getRouteFromFolderToFile(this.treeFolder, tsFile);
         return route + "/" + file_service_1.getFilenameWithoutExtension(tsFile.name) + ".html";
     };
     TsFolderReportService.prototype.generateReport = function () {
         var parentFolder = new tree_folder_model_1.TreeFolder();
-        parentFolder.subFolders.push(this.tsFolder);
-        this.relativeRootReports = file_service_1.getRouteToRoot(this.tsFolder.relativePath);
-        this.filesArray = this.getFilesArray(this.tsFolder);
+        parentFolder.subFolders.push(this.treeFolder);
+        this.relativeRootReports = file_service_1.getRouteToRoot(this.treeFolder.relativePath);
+        this.filesArray = this.getFilesArray(this.treeFolder);
         this.foldersArray = this.getFoldersArray(parentFolder);
         this.methodsArray = this.getMethodsArraySortedByDecreasingCognitiveCpx(parentFolder);
         this.registerPartial("cognitiveBarchartScript", 'cognitive-barchart');
@@ -133,13 +135,13 @@ var TsFolderReportService = /** @class */ (function () {
             isRootFolder: this.isRootFolder,
             methodsArray: this.methodsArray,
             relativeRootReports: this.relativeRootReports,
-            stats: this.tsFolder.getStats(),
+            stats: this.treeFolder.getStats(),
             thresholds: options_1.Options.getThresholds()
         });
-        if (this.tsFolder.relativePath) {
-            file_service_1.createRelativeDir(this.tsFolder.relativePath);
+        if (this.treeFolder.relativePath) {
+            file_service_1.createRelativeDir(this.treeFolder.relativePath);
         }
-        var pathReport = options_1.Options.pathOutDir + "/" + this.tsFolder.relativePath + "/folder-report.html";
+        var pathReport = options_1.Options.pathOutDir + "/" + this.treeFolder.relativePath + "/folder-report.html";
         fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
     };
     TsFolderReportService.prototype.registerPartial = function (partialName, filename) {
