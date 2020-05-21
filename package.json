@@ -2,7 +2,8 @@
     "name": "genese",
     "version": "0.0.101",
     "scripts": {
-        "debug": "tsc && node debug.js",
+        "cleanjs": "rm -rf src/complexity/enums/*.js && rm -rf src/complexity/interfaces/*.js && rm -rf src/complexity/mocks/*.js && rm -rf src/complexity/models/*.js && rm -rf src/complexity/services/*.js",
+        "debug": "tsc && node debug.js && npm run cleanjs",
         "start": "tsc && npm publish"
     },
     "author": {
