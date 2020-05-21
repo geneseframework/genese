@@ -1,8 +1,8 @@
 {
     "name": "genese",
-    "version": "0.0.7",
+    "version": "0.0.100",
     "scripts": {
-        "start": "tsc index.ts && tsc src/complexity/**/*.ts && npm publish"
+        "start": "tsc && npm publish"
     },
     "author": {
         "name": "Gilles Fabre",

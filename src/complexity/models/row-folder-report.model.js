@@ -1,15 +1,14 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
 * Defines the model of a row in the arrays of folders reports
 */
-var RowFolderReport = /** @class */ (function () {
-    function RowFolderReport() {
+class RowFolderReport {
+    constructor() {
         this.numberOfFiles = 0;
         this.numberOfMethods = 0;
         this.path = '';
         this.routeFromCurrentFolder = '';
     }
-    return RowFolderReport;
-}());
+}
 exports.RowFolderReport = RowFolderReport;

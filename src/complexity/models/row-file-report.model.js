@@ -1,10 +1,10 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Defines the model of a row in the arrays of files reports
  */
-var RowFileReport = /** @class */ (function () {
-    function RowFileReport() {
+class RowFileReport {
+    constructor() {
         this.cognitiveColor = 'correct';
         this.cognitiveValue = 0;
         this.cyclomaticColor = 'correct';
@@ -13,6 +13,5 @@ var RowFileReport = /** @class */ (function () {
         this.linkFile = '';
         this.methodName = '';
     }
-    return RowFileReport;
-}());
+}
 exports.RowFileReport = RowFileReport;

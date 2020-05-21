@@ -1,19 +1,17 @@
 "use strict";
-exports.__esModule = true;
-var ts = require("typescript");
-var tree_method_model_1 = require("../models/tree-method.model");
-var ts_tree_service_1 = require("./ts-tree.service");
-var complexities_by_status_interface_1 = require("../interfaces/complexities-by-status.interface");
-var complexity_type_enum_1 = require("../enums/complexity-type.enum");
-var evaluation_status_enum_1 = require("../enums/evaluation-status.enum");
-var TreeMethodService = /** @class */ (function () {
-    function TreeMethodService() {
-    }
-    TreeMethodService.generateTree = function (tsFile) {
-        var methods = [];
+Object.defineProperty(exports, "__esModule", { value: true });
+const ts = require("typescript");
+const tree_method_model_1 = require("../models/tree-method.model");
+const ts_tree_service_1 = require("./ts-tree.service");
+const complexities_by_status_interface_1 = require("../interfaces/complexities-by-status.interface");
+const complexity_type_enum_1 = require("../enums/complexity-type.enum");
+const evaluation_status_enum_1 = require("../enums/evaluation-status.enum");
+class TreeMethodService {
+    static generateTree(tsFile) {
+        const methods = [];
         ts.forEachChild(tsFile.sourceFile, function cb(node) {
             if (node.kind === ts.SyntaxKind.MethodDeclaration) {
-                var newMethod = new tree_method_model_1.TreeMethod(node);
+                const newMethod = new tree_method_model_1.TreeMethod(node);
                 newMethod.treeFile = tsFile;
                 newMethod.tree = ts_tree_service_1.TsTreeService.generateTree(newMethod);
                 newMethod.evaluate();
@@ -22,15 +20,15 @@ var TreeMethodService = /** @class */ (function () {
             ts.forEachChild(node, cb);
         });
         return methods;
-    };
-    TreeMethodService.prototype.addMethodCpxByStatus = function (cpxByStatus, treeMethod) {
-        var cpx = cpxByStatus !== null && cpxByStatus !== void 0 ? cpxByStatus : new complexities_by_status_interface_1.ComplexitiesByStatus();
+    }
+    addMethodCpxByStatus(cpxByStatus, treeMethod) {
+        let cpx = cpxByStatus !== null && cpxByStatus !== void 0 ? cpxByStatus : new complexities_by_status_interface_1.ComplexitiesByStatus();
         cpx = this.incrementMethodByCpxType(cpx, complexity_type_enum_1.ComplexityType.COGNITIVE, treeMethod.cognitiveStatus);
         cpx = this.incrementMethodByCpxType(cpx, complexity_type_enum_1.ComplexityType.CYCLOMATIC, treeMethod.cyclomaticStatus);
         return cpx;
-    };
-    TreeMethodService.prototype.incrementMethodByCpxType = function (cpxByStatus, complexityType, methodStatus) {
-        var status = cpxByStatus;
+    }
+    incrementMethodByCpxType(cpxByStatus, complexityType, methodStatus) {
+        const status = cpxByStatus;
         switch (methodStatus) {
             case evaluation_status_enum_1.MethodStatus.CORRECT:
                 status[complexityType].correct = status[complexityType].correct + 1;
@@ -45,7 +43,6 @@ var TreeMethodService = /** @class */ (function () {
                 break;
         }
         return status;
-    };
-    return TreeMethodService;
-}());
+    }
+}
 exports.TreeMethodService = TreeMethodService;

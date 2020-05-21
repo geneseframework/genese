@@ -1,26 +1,22 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Service for BarCharts
  */
-var BarchartService = /** @class */ (function () {
-    function BarchartService() {
-    }
+class BarchartService {
     /**
      * Merge two BarCharts
      * @param chart1
      * @param chart2
      */
-    BarchartService.concat = function (chart1, chart2) {
+    static concat(chart1, chart2) {
         if (!chart2) {
             return chart1;
         }
-        for (var _i = 0, _a = chart2.data; _i < _a.length; _i++) {
-            var bar = _a[_i];
+        for (const bar of chart2.data) {
             chart1 = chart1.addResult(bar.x, bar.y);
         }
         return chart1;
-    };
-    return BarchartService;
-}());
+    }
+}
 exports.BarchartService = BarchartService;
