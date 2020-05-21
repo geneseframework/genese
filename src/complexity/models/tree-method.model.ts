@@ -9,6 +9,8 @@ import { ComplexityType } from '../enums/complexity-type.enum';
 import { Evaluable } from './evaluable.model';
 import { IsAstNode } from '../interfaces/is-ast-node';
 import { Code } from './code.model';
+import { CodeService } from '../services/code.service';
+import { clone } from '../services/tools.service';
 
 /**
  * Element of the Tree structure corresponding to a given method
@@ -16,13 +18,14 @@ import { Code } from './code.model';
 export class TreeMethod extends Evaluable implements IsAstNode {
 
     astPosition = 0;
-    #originalCode?: Code = undefined;
-    #displayedCode?: Code = undefined;
+    codeService: CodeService = new CodeService();
     cognitiveStatus: MethodStatus = MethodStatus.CORRECT;           // The cognitive status of the method
     cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;          // The cyclomatic status of the method
+    #displayedCode?: Code = undefined;
     filename ?= '';                                                 // The name of the file containing the method
     name ?= '';                                                     // The name of the method
     node: ts.Node = undefined;                                      // The AST node corresponding to the method
+    #originalCode?: Code = undefined;
     treeFile?: TreeFile = new TreeFile();                           // The TreeFile which contains the TreeMethod
     tree?: Tree = undefined;                                        // The AST of the method itself
 
@@ -91,14 +94,24 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     }
 
 
-    createDisplayedCode(tree: Tree = this.tree, recurse = false): void {
-        this.#displayedCode = this.#originalCode;
+    createDisplayedCode(tree: Tree = this.tree): void {
+        this.#displayedCode = new Code();
+        for (const line of this.#originalCode.lines) {
+            this.#displayedCode.lines.push({
+                text: line.text,
+                position: line.position
+            });
+        }
+        this.createDisplayedCodeTreeChildren(tree)
+    }
+
+    createDisplayedCodeTreeChildren(tree: Tree) {
         for (const childTree of tree.children) {
             if (childTree.increasesCognitiveComplexity) {
-                const issue = this.#originalCode.getLineIssue(childTree.node?.pos - this.astPosition)
-                this.#displayedCode.lines[issue] = this.#displayedCode.addComment('+1 Cognitive complexity', this.#displayedCode.lines[issue]);
+                const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
+                this.#displayedCode.lines[issue] = this.#originalCode.addComment('+1 Cognitive complexity', this.#originalCode.lines[issue]);
             }
-            this.createDisplayedCode(childTree, true);
+            this.createDisplayedCodeTreeChildren(childTree);
         }
         this.#displayedCode.setTextWithLines();
     }
