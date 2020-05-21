@@ -43,7 +43,7 @@ var TreeMethod = /** @class */ (function (_super) {
      */
     TreeMethod.prototype.evaluate = function () {
         var _a, _b, _c;
-        this.cognitiveValue = complexity_service_1.ComplexityService.calculateCognitiveComplexity(this.tree);
+        this.cognitiveValue = complexity_service_1.ComplexityService.getCognitiveComplexity(this.tree);
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
         this.cyclomaticValue = complexity_service_1.ComplexityService.calculateCyclomaticComplexity(this.node);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);

@@ -2,12 +2,25 @@
 exports.__esModule = true;
 var fs = require("fs-extra");
 var options_1 = require("../models/options");
+/**
+ * Tools about files or folders
+ */
+/**
+ * Returns the name of the file at a given path
+ * @param pathFile      // The path of the file
+ */
 function getFilename(pathFile) {
     if (pathFile === void 0) { pathFile = ''; }
     var splittedPath = pathFile.split('/');
     return splittedPath[splittedPath.length - 1];
 }
 exports.getFilename = getFilename;
+/**
+ * Returns the array of files included in a given folder and its subfolders
+ * The files are returned as strings
+ * @param dirPath           // The path of the folder
+ * @param arrayOfFiles      // Recursion parameter
+ */
 function getAllFiles(dirPath, arrayOfFiles) {
     var files = fs.readdirSync(dirPath);
     arrayOfFiles = arrayOfFiles || [];
@@ -22,14 +35,32 @@ function getAllFiles(dirPath, arrayOfFiles) {
     return arrayOfFiles;
 }
 exports.getAllFiles = getAllFiles;
-function getRelativePath(pathRoot, path) {
-    if (!path || !pathRoot || path === pathRoot) {
+/**
+ * Returns the route from a folder to a subfolder
+ * @param pathRoot          // The path of the parent folder
+ * @param pathSubfolder     // The path of the subFolder (this path MUST be a path of a subFolder of pathRoot)
+ */
+function getRelativePath(pathRoot, pathSubfolder) {
+    if (!pathSubfolder || !pathRoot || pathSubfolder === pathRoot) {
         return '';
     }
-    var pathWithoutEndSlash = path.charAt(path.length - 1) === "/" ? path.slice(0, path.length - 1) : path;
+    var pathWithoutEndSlash = getPathWithoutEndSlash(pathSubfolder);
     return pathRoot === pathWithoutEndSlash.slice(0, pathRoot.length) ? pathWithoutEndSlash.slice(pathRoot.length, pathWithoutEndSlash.length) : pathWithoutEndSlash;
 }
 exports.getRelativePath = getRelativePath;
+/**
+ * Returns a path without the eventual slash at the end
+ * @param path      // The path to analyse
+ */
+function getPathWithoutEndSlash(path) {
+    return path.charAt(path.length - 1) === "/" ? path.slice(0, path.length - 1) : path;
+}
+exports.getPathWithoutEndSlash = getPathWithoutEndSlash;
+/**
+ * Returns the path between a subfolder and its root
+ * For example, if relativePath = 'my/relative/path', it will return '../../..
+ * @param relativePath      // The path to analyse
+ */
 function getRouteToRoot(relativePath) {
     if (!relativePath) {
         return '';
@@ -41,55 +72,18 @@ function getRouteToRoot(relativePath) {
     return relativeRoot.slice(1);
 }
 exports.getRouteToRoot = getRouteToRoot;
-function getRouteBetweenPaths(pathSource, pathTarget) {
-    if (pathSource === undefined || pathTarget === undefined) {
-        return undefined;
-    }
-    var commonRoute = '';
-    for (var i = 0; i < pathSource.length; i++) {
-        if (pathSource.charAt(i) === pathTarget.charAt(i)) {
-            commonRoute = "" + commonRoute + pathSource.charAt(i);
-        }
-        else {
-            break;
-        }
-    }
-    var backToCommonRoute = getRouteToRoot(pathSource.slice(commonRoute.length));
-    return "" + backToCommonRoute + pathTarget.slice(commonRoute.length);
-}
-exports.getRouteBetweenPaths = getRouteBetweenPaths;
-function getRouteFromFolderToFile(tsFolder, tsFile) {
-    if (!tsFile || !tsFolder) {
-        return undefined;
-    }
-    if (tsFile.treeFolder.path.slice(0, tsFolder.path.length) !== tsFolder.path) {
-        console.log("The file " + tsFile.name + " is not inside the folder " + tsFolder.path);
-        return undefined;
-    }
-    else {
-        var linkStarter = tsFolder.relativePath === '' ? './' : '.';
-        return "" + linkStarter + tsFile.treeFolder.path.slice(tsFolder.path.length);
-    }
-}
-exports.getRouteFromFolderToFile = getRouteFromFolderToFile;
-function getRouteFromFolderToSubFolder(folder, subfolder) {
-    if (!folder || !subfolder || subfolder.path === folder.path) {
-        return undefined;
-    }
-    if (subfolder.path.slice(0, folder.path.length) !== folder.path) {
-        console.log("The folder " + subfolder.path + " is not a subfolder of " + folder.path);
-        return undefined;
-    }
-    else {
-        var linkStarter = folder.relativePath === '' ? './' : '.';
-        return "" + linkStarter + subfolder.path.slice(folder.path.length);
-    }
-}
-exports.getRouteFromFolderToSubFolder = getRouteFromFolderToSubFolder;
+/**
+ * Returns the extension of a file
+ * @param filename      // The name of the file
+ */
 function getExtension(filename) {
     return filename ? filename.split('.').pop() : '';
 }
 exports.getExtension = getExtension;
+/**
+ * Returns the filename without its extension
+ * @param filename      // The name of the file
+ */
 function getFilenameWithoutExtension(filename) {
     if (!filename) {
         return '';
@@ -98,6 +92,10 @@ function getFilenameWithoutExtension(filename) {
     return filename.slice(0, -(extensionLength + 1));
 }
 exports.getFilenameWithoutExtension = getFilenameWithoutExtension;
+/**
+ * Creates a subFolder of the outDir folder
+ * @param relativePath      // The relative path of the subfolder compared to the outDir path
+ */
 function createRelativeDir(relativePath) {
     var path = options_1.Options.pathOutDir + "/" + relativePath;
     if (fs.existsSync(path)) {
@@ -108,6 +106,9 @@ function createRelativeDir(relativePath) {
     }
 }
 exports.createRelativeDir = createRelativeDir;
+/**
+ * Creates the outDir folder
+ */
 function createOutDir() {
     if (fs.existsSync(options_1.Options.pathOutDir)) {
         fs.emptyDirSync(options_1.Options.pathOutDir);
@@ -117,6 +118,11 @@ function createOutDir() {
     }
 }
 exports.createOutDir = createOutDir;
+/**
+ * Copy a file from a path to another one
+ * @param originPath        // The origin's path
+ * @param targetPath        // The target's path
+ */
 function copyFile(originPath, targetPath) {
     fs.copyFileSync(originPath, targetPath);
 }

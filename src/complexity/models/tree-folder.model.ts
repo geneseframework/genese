@@ -18,13 +18,13 @@ export class TreeFolder extends Evaluable implements HasStats {
     relativePath ?= '';                                                         // The relative path of this folder
     stats: Stats = undefined;                                                   // The stats corresponding to this folder
     subFolders?: TreeFolder[] = [];                                             // The subfolders of this folder
-    tsFiles?: TreeFile[] = [];                                                  // The array of files of this folder (not in the subfolders)
-    tsFolderService?: TreeFolderService = undefined;                            // The TreeFolderService linked to this TreeFolder
+    treeFiles?: TreeFile[] = [];                                                // The array of files of this folder (not in the subfolders)
+    treeFolderService?: TreeFolderService = undefined;                          // The TreeFolderService linked to this TreeFolder
 
 
     constructor() {
         super();
-        this.tsFolderService = new TreeFolderService(this);
+        this.treeFolderService = new TreeFolderService(this);
     }
 
 
@@ -33,7 +33,7 @@ export class TreeFolder extends Evaluable implements HasStats {
      */
     getStats(): Stats {
         if (!this.stats) {
-            this.stats = this.tsFolderService.getStats(this);
+            this.stats = this.treeFolderService.getStats(this);
         }
         return this.stats;
     }
@@ -43,7 +43,7 @@ export class TreeFolder extends Evaluable implements HasStats {
      * Evaluates the complexities of this TreeFolder
      */
     evaluate(): void {
-        for (const file of this.tsFiles) {
+        for (const file of this.treeFiles) {
             this.cognitiveValue += file.cognitiveValue;
             this.cyclomaticValue += file.cyclomaticValue;
             this.numberOfMethods += file.treeMethods?.length ?? 0;

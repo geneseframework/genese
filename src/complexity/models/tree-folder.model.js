@@ -31,9 +31,9 @@ var TreeFolder = /** @class */ (function (_super) {
         _this.relativePath = ''; // The relative path of this folder
         _this.stats = undefined; // The stats corresponding to this folder
         _this.subFolders = []; // The subfolders of this folder
-        _this.tsFiles = []; // The array of files of this folder (not in the subfolders)
-        _this.tsFolderService = undefined; // The TreeFolderService linked to this TreeFolder
-        _this.tsFolderService = new tree_folder_service_1.TreeFolderService(_this);
+        _this.treeFiles = []; // The array of files of this folder (not in the subfolders)
+        _this.treeFolderService = undefined; // The TreeFolderService linked to this TreeFolder
+        _this.treeFolderService = new tree_folder_service_1.TreeFolderService(_this);
         return _this;
     }
     /**
@@ -41,7 +41,7 @@ var TreeFolder = /** @class */ (function (_super) {
      */
     TreeFolder.prototype.getStats = function () {
         if (!this.stats) {
-            this.stats = this.tsFolderService.getStats(this);
+            this.stats = this.treeFolderService.getStats(this);
         }
         return this.stats;
     };
@@ -50,7 +50,7 @@ var TreeFolder = /** @class */ (function (_super) {
      */
     TreeFolder.prototype.evaluate = function () {
         var _a, _b;
-        for (var _i = 0, _c = this.tsFiles; _i < _c.length; _i++) {
+        for (var _i = 0, _c = this.treeFiles; _i < _c.length; _i++) {
             var file = _c[_i];
             this.cognitiveValue += file.cognitiveValue;
             this.cyclomaticValue += file.cyclomaticValue;

@@ -1,13 +1,27 @@
 import * as fs from 'fs-extra';
 import { Options } from '../models/options';
-import { TreeFolder } from '../models/tree-folder.model';
-import { TreeFile } from '../models/tree-file.model';
 
+/**
+ * Tools about files or folders
+ */
+
+
+/**
+ * Returns the name of the file at a given path
+ * @param pathFile      // The path of the file
+ */
 export function getFilename(pathFile = ''): string {
     const splittedPath = pathFile.split('/');
     return splittedPath[splittedPath.length - 1];
 }
 
+
+/**
+ * Returns the array of files included in a given folder and its subfolders
+ * The files are returned as strings
+ * @param dirPath           // The path of the folder
+ * @param arrayOfFiles      // Recursion parameter
+ */
 export function getAllFiles(dirPath: string, arrayOfFiles?: string[]): string[] {
     const files = fs.readdirSync(dirPath)
 
@@ -24,15 +38,34 @@ export function getAllFiles(dirPath: string, arrayOfFiles?: string[]): string[] 
 }
 
 
-export function getRelativePath(pathRoot: string, path: string): string {
-    if (!path || !pathRoot || path === pathRoot) {
+/**
+ * Returns the route from a folder to a subfolder
+ * @param pathRoot          // The path of the parent folder
+ * @param pathSubfolder     // The path of the subFolder (this path MUST be a path of a subFolder of pathRoot)
+ */
+export function getRelativePath(pathRoot: string, pathSubfolder: string): string {
+    if (!pathSubfolder || !pathRoot || pathSubfolder === pathRoot) {
         return '';
     }
-    const pathWithoutEndSlash = path.charAt(path.length - 1) === `/` ? path.slice(0, path.length - 1) : path;
+    const pathWithoutEndSlash = getPathWithoutEndSlash(pathSubfolder);
     return pathRoot === pathWithoutEndSlash.slice(0, pathRoot.length) ? pathWithoutEndSlash.slice(pathRoot.length, pathWithoutEndSlash.length) : pathWithoutEndSlash;
 }
 
 
+/**
+ * Returns a path without the eventual slash at the end
+ * @param path      // The path to analyse
+ */
+export function getPathWithoutEndSlash(path: string): string {
+    return path.charAt(path.length - 1) === `/` ? path.slice(0, path.length - 1) : path;
+}
+
+
+/**
+ * Returns the path between a subfolder and its root
+ * For example, if relativePath = 'my/relative/path', it will return '../../..
+ * @param relativePath      // The path to analyse
+ */
 export function getRouteToRoot(relativePath: string): string {
     if (!relativePath) {
         return '';
@@ -45,56 +78,19 @@ export function getRouteToRoot(relativePath: string): string {
 }
 
 
-export function getRouteBetweenPaths(pathSource: string, pathTarget: string): string {
-    if (pathSource === undefined || pathTarget === undefined) {
-        return undefined;
-    }
-    let commonRoute = '';
-    for (let i = 0; i < pathSource.length; i++) {
-        if (pathSource.charAt(i) === pathTarget.charAt(i)) {
-            commonRoute = `${commonRoute}${pathSource.charAt(i)}`
-        } else {
-            break;
-        }
-    }
-    const backToCommonRoute = getRouteToRoot(pathSource.slice(commonRoute.length));
-    return `${backToCommonRoute}${pathTarget.slice(commonRoute.length)}`;
-}
-
-
-export function getRouteFromFolderToFile(tsFolder: TreeFolder, tsFile: TreeFile): string {
-    if (!tsFile || !tsFolder) {
-        return undefined;
-    }
-    if (tsFile.treeFolder.path.slice(0, tsFolder.path.length) !== tsFolder.path) {
-        console.log(`The file ${tsFile.name} is not inside the folder ${tsFolder.path}`);
-        return undefined;
-    } else {
-        const linkStarter = tsFolder.relativePath === '' ? './' : '.';
-        return `${linkStarter}${tsFile.treeFolder.path.slice(tsFolder.path.length)}`;
-    }
-}
-
-
-export function getRouteFromFolderToSubFolder(folder: TreeFolder, subfolder: TreeFolder): string {
-    if (!folder || !subfolder|| subfolder.path === folder.path ) {
-        return undefined;
-    }
-    if (subfolder.path.slice(0, folder.path.length) !== folder.path) {
-        console.log(`The folder ${subfolder.path} is not a subfolder of ${folder.path}`);
-        return undefined;
-    } else {
-        const linkStarter = folder.relativePath === '' ? './' : '.';
-        return `${linkStarter}${subfolder.path.slice(folder.path.length)}`;
-    }
-}
-
-
+/**
+ * Returns the extension of a file
+ * @param filename      // The name of the file
+ */
 export function getExtension(filename: string): string {
     return filename ? filename.split('.').pop() : '';
 }
 
 
+/**
+ * Returns the filename without its extension
+ * @param filename      // The name of the file
+ */
 export function getFilenameWithoutExtension(filename: string): string {
     if (!filename) {
         return '';
@@ -104,6 +100,10 @@ export function getFilenameWithoutExtension(filename: string): string {
 }
 
 
+/**
+ * Creates a subFolder of the outDir folder
+ * @param relativePath      // The relative path of the subfolder compared to the outDir path
+ */
 export function createRelativeDir(relativePath: string): void {
     const path = `${Options.pathOutDir}/${relativePath}`;
     if (fs.existsSync(path)) {
@@ -114,6 +114,9 @@ export function createRelativeDir(relativePath: string): void {
 }
 
 
+/**
+ * Creates the outDir folder
+ */
 export function createOutDir(): void {
     if (fs.existsSync(Options.pathOutDir)) {
         fs.emptyDirSync(Options.pathOutDir);
@@ -123,6 +126,11 @@ export function createOutDir(): void {
 }
 
 
+/**
+ * Copy a file from a path to another one
+ * @param originPath        // The origin's path
+ * @param targetPath        // The target's path
+ */
 export function copyFile(originPath: string, targetPath: string): void {
     fs.copyFileSync(originPath, targetPath);
 }

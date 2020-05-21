@@ -1,8 +1,6 @@
 import { Barchart } from './barchart.model';
 import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.interface';
 import { ComplexityType } from '../enums/complexity-type.enum';
-import { Tools } from '../services/tools.service';
-import { Bar } from '../interfaces/bar.interface';
 
 /**
  * The different statistics sent to handlebars templates of file reports and folder reports
@@ -35,10 +33,23 @@ export class Stats {
     setPercentagesByComplexity(cpx: ComplexityType): void {
         if (this.numberOfMethodsByStatus[cpx]) {
             this.percentsByStatus[cpx] = new ComplexitiesByStatus();
-            this.percentsByStatus[cpx].correct = Tools.percent(this.numberOfMethodsByStatus[cpx].correct, this.numberOfMethods);
-            this.percentsByStatus[cpx].warning = Tools.percent(this.numberOfMethodsByStatus[cpx].warning, this.numberOfMethods);
-            this.percentsByStatus[cpx].error = Tools.percent(this.numberOfMethodsByStatus[cpx].error, this.numberOfMethods);
+            this.percentsByStatus[cpx].correct = this.percent(this.numberOfMethodsByStatus[cpx].correct, this.numberOfMethods);
+            this.percentsByStatus[cpx].warning = this.percent(this.numberOfMethodsByStatus[cpx].warning, this.numberOfMethods);
+            this.percentsByStatus[cpx].error = this.percent(this.numberOfMethodsByStatus[cpx].error, this.numberOfMethods);
         }
+    }
+
+
+    /**
+     * Returns the result of a fraction in percentage with 2 decimals
+     * @param numerator         // The numerator of the fraction
+     * @param denominator       // The denominator of the fraction
+     */
+    percent(numerator: number, denominator: number): number {
+        if (!denominator) {
+            return 0;
+        }
+        return  Math.round(numerator * 1000 / denominator) / 10;
     }
 
 
