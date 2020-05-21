@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
 import { TreeFolder } from '../models/tree-folder.model';
-import { getExtension, getRelativePath } from './file.service';
+import { getExtension, getPathWithDotSlash, getRelativePath } from './file.service';
 import { TreeFileService } from './tree-file.service';
 import { TreeFile } from '../models/tree-file.model';
 import { BarchartService } from './barchart.service';
@@ -42,20 +42,27 @@ export class TreeFolderService extends StatsService {
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach(function(elementName) {
             const pathElement = path + elementName;
-            if (fs.statSync(pathElement).isDirectory()) {
-                let subFolder = new TreeFolder();
-                subFolder = TreeFolderService.generateTree(`${pathElement}/`, extension, subFolder);
-                subFolder.parent = treeSubFolder;
-                subFolder.path = pathElement;
-                tsFolder.subFolders.push(subFolder);
-            } else {
-                if (!extension || extension === getExtension(pathElement)) {
-                    tsFolder.treeFiles.push(TreeFileService.generateTree(pathElement, tsFolder));
+            if (!TreeFolderService.isIgnored(pathElement)) {
+                if (fs.statSync(pathElement).isDirectory()) {
+                    let subFolder = new TreeFolder();
+                    subFolder = TreeFolderService.generateTree(`${pathElement}/`, extension, subFolder);
+                    subFolder.parent = treeSubFolder;
+                    subFolder.path = pathElement;
+                    tsFolder.subFolders.push(subFolder);
+                } else {
+                    if (!extension || extension === getExtension(pathElement)) {
+                        tsFolder.treeFiles.push(TreeFileService.generateTree(pathElement, tsFolder));
+                    }
                 }
             }
         });
         tsFolder.evaluate();
         return tsFolder;
+    }
+
+
+    static isIgnored(path: string) : boolean {
+        return Options.ignore.includes(path);
     }
 
 

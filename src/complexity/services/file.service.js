@@ -55,6 +55,21 @@ function getPathWithoutEndSlash(path) {
     return path.charAt(path.length - 1) === `/` ? path.slice(0, path.length - 1) : path;
 }
 exports.getPathWithoutEndSlash = getPathWithoutEndSlash;
+function getArrayOfPathsWithDotSlash(paths) {
+    if (!Array.isArray(paths)) {
+        return undefined;
+    }
+    const pathsWithDotSlash = [];
+    for (const path of paths) {
+        pathsWithDotSlash.push(getPathWithDotSlash(path));
+    }
+    return pathsWithDotSlash;
+}
+exports.getArrayOfPathsWithDotSlash = getArrayOfPathsWithDotSlash;
+function getPathWithDotSlash(path) {
+    return (path === null || path === void 0 ? void 0 : path.slice(0, 2)) !== './' ? `./${path}` : path;
+}
+exports.getPathWithDotSlash = getPathWithDotSlash;
 /**
  * Returns the path between a subfolder and its root
  * For example, if relativePath = 'my/relative/path', it will return '../../..

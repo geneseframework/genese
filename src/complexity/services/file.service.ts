@@ -61,6 +61,23 @@ export function getPathWithoutEndSlash(path: string): string {
 }
 
 
+export function getArrayOfPathsWithDotSlash(paths: string[]): string[] {
+    if (!Array.isArray(paths)) {
+        return undefined;
+    }
+    const pathsWithDotSlash: string[] = [];
+    for (const path of paths) {
+        pathsWithDotSlash.push(getPathWithDotSlash(path));
+    }
+    return pathsWithDotSlash;
+}
+
+
+export function getPathWithDotSlash(path: string): string {
+    return path?.slice(0,2) !== './' ? `./${path}` : path;
+}
+
+
 /**
  * Returns the path between a subfolder and its root
  * For example, if relativePath = 'my/relative/path', it will return '../../..

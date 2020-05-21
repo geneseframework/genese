@@ -37,21 +37,26 @@ class TreeFolderService extends stats_service_1.StatsService {
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach(function (elementName) {
             const pathElement = path + elementName;
-            if (fs.statSync(pathElement).isDirectory()) {
-                let subFolder = new tree_folder_model_1.TreeFolder();
-                subFolder = TreeFolderService.generateTree(`${pathElement}/`, extension, subFolder);
-                subFolder.parent = treeSubFolder;
-                subFolder.path = pathElement;
-                tsFolder.subFolders.push(subFolder);
-            }
-            else {
-                if (!extension || extension === file_service_1.getExtension(pathElement)) {
-                    tsFolder.treeFiles.push(tree_file_service_1.TreeFileService.generateTree(pathElement, tsFolder));
+            if (!TreeFolderService.isIgnored(pathElement)) {
+                if (fs.statSync(pathElement).isDirectory()) {
+                    let subFolder = new tree_folder_model_1.TreeFolder();
+                    subFolder = TreeFolderService.generateTree(`${pathElement}/`, extension, subFolder);
+                    subFolder.parent = treeSubFolder;
+                    subFolder.path = pathElement;
+                    tsFolder.subFolders.push(subFolder);
+                }
+                else {
+                    if (!extension || extension === file_service_1.getExtension(pathElement)) {
+                        tsFolder.treeFiles.push(tree_file_service_1.TreeFileService.generateTree(pathElement, tsFolder));
+                    }
                 }
             }
         });
         tsFolder.evaluate();
         return tsFolder;
+    }
+    static isIgnored(path) {
+        return options_1.Options.ignore.includes(path);
     }
     /**
      * Calculates the statistics of the TreeFolder

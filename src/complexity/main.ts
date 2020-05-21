@@ -1,5 +1,4 @@
 import * as ts from 'typescript';
-import { TreeFolder } from './models/tree-folder.model';
 import { Options } from './models/options';
 import { createOutDir } from './services/file.service';
 import { ReportsService } from './services/reports.service';

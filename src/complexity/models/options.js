@@ -4,6 +4,7 @@ const complexity_type_enum_1 = require("../enums/complexity-type.enum");
 const colors_enum_1 = require("../enums/colors.enum");
 const complexities_by_status_interface_1 = require("../interfaces/complexities-by-status.interface");
 const fs = require("fs-extra");
+const file_service_1 = require("../services/file.service");
 /**
  * The options used by genese-complexity
  * Some options can be override by command-line options or with geneseconfig.json
@@ -39,14 +40,16 @@ class Options {
      * @param geneseConfigPath  // The path of the geneseconfig.json file
      */
     static setOptionsFromConfig(geneseConfigPath) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t;
         const config = require(geneseConfigPath);
-        Options.pathOutDir = (_b = (_a = config.complexity) === null || _a === void 0 ? void 0 : _a.pathReports) !== null && _b !== void 0 ? _b : Options.pathOutDir;
-        Options.pathFolderToAnalyze = (_d = (_c = config.complexity) === null || _c === void 0 ? void 0 : _c.pathFolderToAnalyze) !== null && _d !== void 0 ? _d : Options.pathFolderToAnalyze;
-        Options.cognitiveCpx.errorThreshold = (_g = (_f = (_e = config.complexity) === null || _e === void 0 ? void 0 : _e.cognitiveCpx) === null || _f === void 0 ? void 0 : _f.errorThreshold) !== null && _g !== void 0 ? _g : Options.cognitiveCpx.errorThreshold;
-        Options.cognitiveCpx.warningThreshold = (_k = (_j = (_h = config.complexity) === null || _h === void 0 ? void 0 : _h.cognitiveCpx) === null || _j === void 0 ? void 0 : _j.warningThreshold) !== null && _k !== void 0 ? _k : Options.cognitiveCpx.warningThreshold;
-        Options.cyclomaticCpx.errorThreshold = (_o = (_m = (_l = config.complexity) === null || _l === void 0 ? void 0 : _l.cyclomaticCpx) === null || _m === void 0 ? void 0 : _m.errorThreshold) !== null && _o !== void 0 ? _o : Options.cyclomaticCpx.errorThreshold;
-        Options.cyclomaticCpx.warningThreshold = (_r = (_q = (_p = config.complexity) === null || _p === void 0 ? void 0 : _p.cyclomaticCpx) === null || _q === void 0 ? void 0 : _q.warningThreshold) !== null && _r !== void 0 ? _r : Options.cyclomaticCpx.warningThreshold;
+        console.log('CONGIF', config);
+        Options.cognitiveCpx.errorThreshold = (_c = (_b = (_a = config.complexity) === null || _a === void 0 ? void 0 : _a.cognitiveCpx) === null || _b === void 0 ? void 0 : _b.errorThreshold) !== null && _c !== void 0 ? _c : Options.cognitiveCpx.errorThreshold;
+        Options.cognitiveCpx.warningThreshold = (_f = (_e = (_d = config.complexity) === null || _d === void 0 ? void 0 : _d.cognitiveCpx) === null || _e === void 0 ? void 0 : _e.warningThreshold) !== null && _f !== void 0 ? _f : Options.cognitiveCpx.warningThreshold;
+        Options.cyclomaticCpx.errorThreshold = (_j = (_h = (_g = config.complexity) === null || _g === void 0 ? void 0 : _g.cyclomaticCpx) === null || _h === void 0 ? void 0 : _h.errorThreshold) !== null && _j !== void 0 ? _j : Options.cyclomaticCpx.errorThreshold;
+        Options.cyclomaticCpx.warningThreshold = (_m = (_l = (_k = config.complexity) === null || _k === void 0 ? void 0 : _k.cyclomaticCpx) === null || _l === void 0 ? void 0 : _l.warningThreshold) !== null && _m !== void 0 ? _m : Options.cyclomaticCpx.warningThreshold;
+        Options.ignore = (_p = file_service_1.getArrayOfPathsWithDotSlash((_o = config.complexity) === null || _o === void 0 ? void 0 : _o.ignore)) !== null && _p !== void 0 ? _p : Options.ignore;
+        Options.pathFolderToAnalyze = (_r = (_q = config.complexity) === null || _q === void 0 ? void 0 : _q.pathFolderToAnalyze) !== null && _r !== void 0 ? _r : Options.pathFolderToAnalyze;
+        Options.pathOutDir = (_t = (_s = config.complexity) === null || _s === void 0 ? void 0 : _s.pathReports) !== null && _t !== void 0 ? _t : Options.pathOutDir;
     }
     /**
      * Gets the different thresholds defined in Options class
@@ -76,6 +79,7 @@ Options.cyclomaticCpx = {
     type: complexity_type_enum_1.ComplexityType.CYCLOMATIC,
     warningThreshold: 5 // A complexity strictly greater than warning threshold and lower or equal than errorThreshold will be seen as warning (can be overriden)
 };
+Options.ignore = []; // The paths of the files or folders to ignore
 Options.pathCommand = ''; // The path of the folder where the command-line was entered (can't be overriden)
 Options.pathFolderToAnalyze = './'; // The path of the folder to analyse (can be overriden)
 Options.pathGeneseNodeJs = ''; // The path of the node_module Genese in the nodejs user environment (can't be overriden)
