@@ -1,14 +1,12 @@
 "use strict";
-exports.__esModule = true;
-var ts = require("typescript");
-var utils = require("tsutils");
-var ast_service_1 = require("./ast.service");
+Object.defineProperty(exports, "__esModule", { value: true });
+const ts = require("typescript");
+const utils = require("tsutils");
+const ast_service_1 = require("./ast.service");
 /**
  * Service around complexity calculation
  */
-var ComplexityService = /** @class */ (function () {
-    function ComplexityService() {
-    }
+class ComplexityService {
     // ---------------------------------------------------------------------------------------------------------
     //                                          Cognitive complexity
     // ---------------------------------------------------------------------------------------------------------
@@ -16,24 +14,23 @@ var ComplexityService = /** @class */ (function () {
      * Returns the cognitive complexity of a Tree (the total of complexities of himself and its children)
      * @param tree      // The Tree to analyse
      */
-    ComplexityService.getCognitiveComplexity = function (tree) {
-        var complexity = 0;
+    static getCognitiveComplexity(tree) {
+        let complexity = 0;
         if (tree) {
-            for (var _i = 0, _a = tree === null || tree === void 0 ? void 0 : tree.children; _i < _a.length; _i++) {
-                var child = _a[_i];
+            for (const child of tree === null || tree === void 0 ? void 0 : tree.children) {
                 complexity += ComplexityService.calculateCognitiveComplexity(child);
                 complexity += ComplexityService.getCognitiveComplexity(child);
             }
         }
         return complexity;
-    };
+    }
     /**
      * Returns the cognitive complexity of a Tree himself (not its children)
      * @param tree      // The Tree to analyse
      */
-    ComplexityService.calculateCognitiveComplexity = function (tree) {
+    static calculateCognitiveComplexity(tree) {
         var _a;
-        var complexity = 0;
+        let complexity = 0;
         if (!(tree === null || tree === void 0 ? void 0 : tree.node) || (tree === null || tree === void 0 ? void 0 : tree.depth) === undefined) {
             return 0;
         }
@@ -69,12 +66,12 @@ var ComplexityService = /** @class */ (function () {
                 complexity += 0;
         }
         return complexity;
-    };
+    }
     /**
      * Checks if the AST node of a Tree increases the cognitive complexity
      * @param tsTree        // The Tree to check
      */
-    ComplexityService.increasesCognitiveComplexity = function (tsTree) {
+    static increasesCognitiveComplexity(tsTree) {
         var _a, _b;
         if ((_a = tsTree === null || tsTree === void 0 ? void 0 : tsTree.node) === null || _a === void 0 ? void 0 : _a['elseStatement']) {
             return true;
@@ -99,15 +96,15 @@ var ComplexityService = /** @class */ (function () {
             default:
                 return false;
         }
-    };
+    }
     /**
      * Returns the depth of a "block" inside a given AST node
      * For example, if on the line 2 the depth is equal to 1 and the line 3 is an IfStatement, the block inside the "if" will have a depth equal to 2.
      * @param node      // The node to check
      * @param depth     // The depth of the parent of the node
      */
-    ComplexityService.increaseDepth = function (node, depth) {
-        var newDepth = depth;
+    static increaseDepth(node, depth) {
+        let newDepth = depth;
         switch (node === null || node === void 0 ? void 0 : node.parent.kind) {
             case ts.SyntaxKind.ArrowFunction:
             case ts.SyntaxKind.CatchClause:
@@ -126,34 +123,34 @@ var ComplexityService = /** @class */ (function () {
                 break;
         }
         return newDepth;
-    };
+    }
     /**
      * Checks if an AST node of type ConditionalExpression (a ternary expression) is trivial, ie if the true case and the false case are only some literals
      * @param node      // The node to analyse
      */
-    ComplexityService.conditionalExpressionIsTrivial = function (node) {
+    static conditionalExpressionIsTrivial(node) {
         return (ComplexityService.isLiteral(node === null || node === void 0 ? void 0 : node['whenTrue']) && ComplexityService.isLiteral(node === null || node === void 0 ? void 0 : node['whenFalse']));
-    };
+    }
     /**
      * Checks if an AST node is a primitive (a string, a number or a boolean)
      * @param node      // The node to analyse
      */
-    ComplexityService.isLiteral = function (node) {
+    static isLiteral(node) {
         return (node === null || node === void 0 ? void 0 : node.kind) === ts.SyntaxKind.StringLiteral
             || (node === null || node === void 0 ? void 0 : node.kind) === ts.SyntaxKind.NumericLiteral
             || (node === null || node === void 0 ? void 0 : node.kind) === ts.SyntaxKind.TrueKeyword
             || (node === null || node === void 0 ? void 0 : node.kind) === ts.SyntaxKind.FalseKeyword;
-    };
+    }
     /**
      * Checks if an AST node inside a method is a recursion, ie a call to this method.
      * The param "tree" must be a Tree which is a descendant of a method (ie a Tree with node of type MethodDescription)
      * @param tree      // The tree (inside a method)
      * @param node      // The node to analyse (a recursion or not)
      */
-    ComplexityService.isRecursion = function (tree, node) {
+    static isRecursion(tree, node) {
         var _a, _b;
         return ((_a = node === null || node === void 0 ? void 0 : node['name']) === null || _a === void 0 ? void 0 : _a['escapedText']) === ((_b = tree === null || tree === void 0 ? void 0 : tree.treeMethod) === null || _b === void 0 ? void 0 : _b.name);
-    };
+    }
     /**
      * Increases the cognitive complexity when there is a binary succeeding to a binary of different type
      * For example, the second && is not increasing the cognitive complexity :
@@ -162,16 +159,16 @@ var ComplexityService = /** @class */ (function () {
      *      if (a && b || c)
      * @param tree      // The Tree to analyse
      */
-    ComplexityService.addBinaryCognitiveCpx = function (tree) {
+    static addBinaryCognitiveCpx(tree) {
         if (!(tree === null || tree === void 0 ? void 0 : tree.node) || !tree.parent.node) {
             return 0;
         }
-        var complexity = 0;
+        let complexity = 0;
         if (ast_service_1.Ast.isBinary(tree.node) && ast_service_1.Ast.isLogicDoor(tree.node)) {
             complexity = (ast_service_1.Ast.isSameOperatorToken(tree.node, tree.parent.node) && !ast_service_1.Ast.isOrTokenBetweenBinaries(tree.node)) ? 0 : 1;
         }
         return complexity;
-    };
+    }
     // ---------------------------------------------------------------------------------------------------------
     //                                          Cyclomatic complexity
     // ---------------------------------------------------------------------------------------------------------
@@ -179,8 +176,8 @@ var ComplexityService = /** @class */ (function () {
      * Returns the cyclomatic complexity of an AST node
      * @param node      // The AST node
      */
-    ComplexityService.calculateCyclomaticComplexity = function (node) {
-        var totalComplexity = 1;
+    static calculateCyclomaticComplexity(node) {
+        let totalComplexity = 1;
         ts.forEachChild(node, function cb(node) {
             if (utils.isFunctionWithBody(node)) {
                 totalComplexity += 1;
@@ -194,12 +191,12 @@ var ComplexityService = /** @class */ (function () {
             }
         });
         return totalComplexity;
-    };
+    }
     /**
      * Increases the cyclomatic complexity when the AST node must increase it
      * @param node      // The AST node
      */
-    ComplexityService.increasesCyclomaticComplexity = function (node) {
+    static increasesCyclomaticComplexity(node) {
         switch (node.kind) {
             case ts.SyntaxKind.CaseClause:
                 return (node).statements.length > 0;
@@ -224,7 +221,6 @@ var ComplexityService = /** @class */ (function () {
             default:
                 return false;
         }
-    };
-    return ComplexityService;
-}());
+    }
+}
 exports.ComplexityService = ComplexityService;

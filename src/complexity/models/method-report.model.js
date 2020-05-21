@@ -1,10 +1,10 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Defines the elements included in a method's report
  */
-var MethodReport = /** @class */ (function () {
-    function MethodReport() {
+class MethodReport {
+    constructor() {
         this.code = '';
         this.cognitiveColor = 'correct';
         this.cognitiveValue = 0;
@@ -12,6 +12,5 @@ var MethodReport = /** @class */ (function () {
         this.cyclomaticValue = 0;
         this.methodName = '';
     }
-    return MethodReport;
-}());
+}
 exports.MethodReport = MethodReport;

@@ -1,14 +1,14 @@
 "use strict";
-exports.__esModule = true;
-var fs = require("fs-extra");
-var eol = require("eol");
-var Handlebars = require("handlebars");
-var tree_folder_model_1 = require("../models/tree-folder.model");
-var options_1 = require("../models/options");
-var file_service_1 = require("./file.service");
-var tree_folder_service_1 = require("./tree-folder.service");
-var TsFolderReportService = /** @class */ (function () {
-    function TsFolderReportService(tsFolder) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs = require("fs-extra");
+const eol = require("eol");
+const Handlebars = require("handlebars");
+const tree_folder_model_1 = require("../models/tree-folder.model");
+const options_1 = require("../models/options");
+const file_service_1 = require("./file.service");
+const tree_folder_service_1 = require("./tree-folder.service");
+class TsFolderReportService {
+    constructor(tsFolder) {
         this.filesArray = [];
         this.foldersArray = [];
         this.isRootFolder = false;
@@ -18,19 +18,17 @@ var TsFolderReportService = /** @class */ (function () {
         this.treeFolder = tsFolder;
         this.treeFolderService = new tree_folder_service_1.TreeFolderService(this.treeFolder);
     }
-    TsFolderReportService.prototype.getFoldersArray = function (tsFolder) {
-        var report = [];
+    getFoldersArray(tsFolder) {
+        let report = [];
         if (this.treeFolder.path !== options_1.Options.pathFolderToAnalyze) {
             report.push(this.addRowBackToPreviousFolder());
         }
         return report.concat(this.getSubfoldersArray(tsFolder));
-    };
-    TsFolderReportService.prototype.getSubfoldersArray = function (tsFolder, isSubfolder) {
-        if (isSubfolder === void 0) { isSubfolder = false; }
-        var report = [];
-        for (var _i = 0, _a = tsFolder.subFolders; _i < _a.length; _i++) {
-            var subfolder = _a[_i];
-            var subfolderReport = {
+    }
+    getSubfoldersArray(tsFolder, isSubfolder = false) {
+        let report = [];
+        for (const subfolder of tsFolder.subFolders) {
+            const subfolderReport = {
                 complexitiesByStatus: subfolder.getStats().numberOfMethodsByStatus,
                 numberOfFiles: subfolder.getStats().numberOfFiles,
                 numberOfMethods: subfolder.getStats().numberOfMethods,
@@ -43,8 +41,8 @@ var TsFolderReportService = /** @class */ (function () {
             }
         }
         return report;
-    };
-    TsFolderReportService.prototype.addRowBackToPreviousFolder = function () {
+    }
+    addRowBackToPreviousFolder() {
         return {
             complexitiesByStatus: undefined,
             numberOfFiles: undefined,
@@ -52,13 +50,11 @@ var TsFolderReportService = /** @class */ (function () {
             path: '../',
             routeFromCurrentFolder: '..'
         };
-    };
-    TsFolderReportService.prototype.getFilesArray = function (tsFolder) {
-        var report = [];
-        for (var _i = 0, _a = tsFolder.treeFiles; _i < _a.length; _i++) {
-            var tsFile = _a[_i];
-            for (var _b = 0, _c = tsFile.treeMethods; _b < _c.length; _b++) {
-                var treeMethod = _c[_b];
+    }
+    getFilesArray(tsFolder) {
+        let report = [];
+        for (const tsFile of tsFolder.treeFiles) {
+            for (const treeMethod of tsFile.treeMethods) {
                 report.push({
                     cognitiveColor: treeMethod.cognitiveStatus.toLowerCase(),
                     cognitiveValue: treeMethod.cognitiveValue,
@@ -71,19 +67,16 @@ var TsFolderReportService = /** @class */ (function () {
             }
         }
         return report;
-    };
-    TsFolderReportService.prototype.getMethodsArraySortedByDecreasingCognitiveCpx = function (tsFolder) {
-        var report = this.getMethodsArray(tsFolder);
+    }
+    getMethodsArraySortedByDecreasingCognitiveCpx(tsFolder) {
+        const report = this.getMethodsArray(tsFolder);
         return this.sortByDecreasingCognitiveCpx(report);
-    };
-    TsFolderReportService.prototype.getMethodsArray = function (tsFolder) {
-        var report = [];
-        for (var _i = 0, _a = tsFolder.subFolders; _i < _a.length; _i++) {
-            var subfolder = _a[_i];
-            for (var _b = 0, _c = subfolder.treeFiles; _b < _c.length; _b++) {
-                var tsFile = _c[_b];
-                for (var _d = 0, _e = tsFile.treeMethods; _d < _e.length; _d++) {
-                    var treeMethod = _e[_d];
+    }
+    getMethodsArray(tsFolder) {
+        let report = [];
+        for (const subfolder of tsFolder.subFolders) {
+            for (const tsFile of subfolder.treeFiles) {
+                for (const treeMethod of tsFile.treeMethods) {
                     report.push({
                         cognitiveColor: treeMethod.cognitiveStatus.toLowerCase(),
                         cognitiveValue: treeMethod.cognitiveValue,
@@ -98,20 +91,20 @@ var TsFolderReportService = /** @class */ (function () {
             report = report.concat(this.getMethodsArray(subfolder));
         }
         return report;
-    };
-    TsFolderReportService.prototype.sortByDecreasingCognitiveCpx = function (methodsReport) {
-        return methodsReport.sort(function (a, b) { return b.cognitiveValue - a.cognitiveValue; });
-    };
-    TsFolderReportService.prototype.getFileLink = function (tsFile) {
+    }
+    sortByDecreasingCognitiveCpx(methodsReport) {
+        return methodsReport.sort((a, b) => b.cognitiveValue - a.cognitiveValue);
+    }
+    getFileLink(tsFile) {
         var _a;
         if (this.treeFolder.relativePath === ((_a = tsFile.treeFolder) === null || _a === void 0 ? void 0 : _a.relativePath)) {
-            return "./" + file_service_1.getFilenameWithoutExtension(tsFile.name) + ".html";
+            return `./${file_service_1.getFilenameWithoutExtension(tsFile.name)}.html`;
         }
-        var route = this.treeFolderService.getRouteFromFolderToFile(this.treeFolder, tsFile);
-        return route + "/" + file_service_1.getFilenameWithoutExtension(tsFile.name) + ".html";
-    };
-    TsFolderReportService.prototype.generateReport = function () {
-        var parentFolder = new tree_folder_model_1.TreeFolder();
+        const route = this.treeFolderService.getRouteFromFolderToFile(this.treeFolder, tsFile);
+        return `${route}/${file_service_1.getFilenameWithoutExtension(tsFile.name)}.html`;
+    }
+    generateReport() {
+        const parentFolder = new tree_folder_model_1.TreeFolder();
         parentFolder.subFolders.push(this.treeFolder);
         this.relativeRootReports = file_service_1.getRouteToRoot(this.treeFolder.relativePath);
         this.filesArray = this.getFilesArray(this.treeFolder);
@@ -123,12 +116,12 @@ var TsFolderReportService = /** @class */ (function () {
         this.registerPartial("cyclomaticDoughnutScript", 'cyclomatic-doughnut');
         this.registerPartial("rowFolder", 'row-folders');
         this.registerPartial("rowFile", 'row-files');
-        var reportTemplate = eol.auto(fs.readFileSync(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/handlebars/folder-report.handlebars", 'utf-8'));
+        const reportTemplate = eol.auto(fs.readFileSync(`${options_1.Options.pathGeneseNodeJs}/src/complexity/templates/handlebars/folder-report.handlebars`, 'utf-8'));
         this.template = Handlebars.compile(reportTemplate);
         this.writeReport();
-    };
-    TsFolderReportService.prototype.writeReport = function () {
-        var template = this.template({
+    }
+    writeReport() {
+        const template = this.template({
             colors: options_1.Options.colors,
             filesArray: this.filesArray,
             foldersArray: this.foldersArray,
@@ -141,13 +134,12 @@ var TsFolderReportService = /** @class */ (function () {
         if (this.treeFolder.relativePath) {
             file_service_1.createRelativeDir(this.treeFolder.relativePath);
         }
-        var pathReport = options_1.Options.pathOutDir + "/" + this.treeFolder.relativePath + "/folder-report.html";
+        const pathReport = `${options_1.Options.pathOutDir}/${this.treeFolder.relativePath}/folder-report.html`;
         fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
-    };
-    TsFolderReportService.prototype.registerPartial = function (partialName, filename) {
-        var partial = eol.auto(fs.readFileSync(options_1.Options.pathGeneseNodeJs + "/src/complexity/templates/handlebars/" + filename + ".handlebars", 'utf-8'));
+    }
+    registerPartial(partialName, filename) {
+        const partial = eol.auto(fs.readFileSync(`${options_1.Options.pathGeneseNodeJs}/src/complexity/templates/handlebars/${filename}.handlebars`, 'utf-8'));
         Handlebars.registerPartial(partialName, partial);
-    };
-    return TsFolderReportService;
-}());
+    }
+}
 exports.TsFolderReportService = TsFolderReportService;

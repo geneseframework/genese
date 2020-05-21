@@ -1,7 +1,7 @@
 "use strict";
-exports.__esModule = true;
-var fs = require("fs-extra");
-var options_1 = require("../models/options");
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs = require("fs-extra");
+const options_1 = require("../models/options");
 /**
  * Tools about files or folders
  */
@@ -9,9 +9,8 @@ var options_1 = require("../models/options");
  * Returns the name of the file at a given path
  * @param pathFile      // The path of the file
  */
-function getFilename(pathFile) {
-    if (pathFile === void 0) { pathFile = ''; }
-    var splittedPath = pathFile.split('/');
+function getFilename(pathFile = '') {
+    const splittedPath = pathFile.split('/');
     return splittedPath[splittedPath.length - 1];
 }
 exports.getFilename = getFilename;
@@ -22,14 +21,14 @@ exports.getFilename = getFilename;
  * @param arrayOfFiles      // Recursion parameter
  */
 function getAllFiles(dirPath, arrayOfFiles) {
-    var files = fs.readdirSync(dirPath);
+    const files = fs.readdirSync(dirPath);
     arrayOfFiles = arrayOfFiles || [];
     files.forEach(function (file) {
         if (fs.statSync(dirPath + "/" + file).isDirectory()) {
             arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
         }
         else {
-            arrayOfFiles.push(dirPath + "/" + file);
+            arrayOfFiles.push(`${dirPath}/${file}`);
         }
     });
     return arrayOfFiles;
@@ -44,7 +43,7 @@ function getRelativePath(pathRoot, pathSubfolder) {
     if (!pathSubfolder || !pathRoot || pathSubfolder === pathRoot) {
         return '';
     }
-    var pathWithoutEndSlash = getPathWithoutEndSlash(pathSubfolder);
+    const pathWithoutEndSlash = getPathWithoutEndSlash(pathSubfolder);
     return pathRoot === pathWithoutEndSlash.slice(0, pathRoot.length) ? pathWithoutEndSlash.slice(pathRoot.length, pathWithoutEndSlash.length) : pathWithoutEndSlash;
 }
 exports.getRelativePath = getRelativePath;
@@ -53,7 +52,7 @@ exports.getRelativePath = getRelativePath;
  * @param path      // The path to analyse
  */
 function getPathWithoutEndSlash(path) {
-    return path.charAt(path.length - 1) === "/" ? path.slice(0, path.length - 1) : path;
+    return path.charAt(path.length - 1) === `/` ? path.slice(0, path.length - 1) : path;
 }
 exports.getPathWithoutEndSlash = getPathWithoutEndSlash;
 /**
@@ -65,9 +64,9 @@ function getRouteToRoot(relativePath) {
     if (!relativePath) {
         return '';
     }
-    var relativeRoot = '/..';
-    for (var i = 0; i < relativePath.length; i++) {
-        relativeRoot = relativePath.charAt(i) === '/' ? "/.." + relativeRoot : relativeRoot;
+    let relativeRoot = '/..';
+    for (let i = 0; i < relativePath.length; i++) {
+        relativeRoot = relativePath.charAt(i) === '/' ? `/..${relativeRoot}` : relativeRoot;
     }
     return relativeRoot.slice(1);
 }
@@ -88,7 +87,7 @@ function getFilenameWithoutExtension(filename) {
     if (!filename) {
         return '';
     }
-    var extensionLength = getExtension(filename).length;
+    const extensionLength = getExtension(filename).length;
     return filename.slice(0, -(extensionLength + 1));
 }
 exports.getFilenameWithoutExtension = getFilenameWithoutExtension;
@@ -97,7 +96,7 @@ exports.getFilenameWithoutExtension = getFilenameWithoutExtension;
  * @param relativePath      // The relative path of the subfolder compared to the outDir path
  */
 function createRelativeDir(relativePath) {
-    var path = options_1.Options.pathOutDir + "/" + relativePath;
+    const path = `${options_1.Options.pathOutDir}/${relativePath}`;
     if (fs.existsSync(path)) {
         fs.emptyDirSync(path);
     }

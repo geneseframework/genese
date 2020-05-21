@@ -1,18 +1,18 @@
 "use strict";
-exports.__esModule = true;
-var stats_model_1 = require("../models/stats.model");
+Object.defineProperty(exports, "__esModule", { value: true });
+const stats_model_1 = require("../models/stats.model");
 /**
  * Abstract class managing statistics of files or folders
  */
-var StatsService = /** @class */ (function () {
-    function StatsService() {
+class StatsService {
+    constructor() {
         this._stats = undefined; // The statistics of the TreeFile or the TreeFolder
     }
     /**
      * Calculates and returns all the statistics
      * @param fileOrFolder      // The file or folder to analyse
      */
-    StatsService.prototype.getStats = function (fileOrFolder) {
+    getStats(fileOrFolder) {
         if (this._stats) {
             return this._stats;
         }
@@ -25,14 +25,13 @@ var StatsService = /** @class */ (function () {
             this.sortBarCharts();
             return this._stats.plugChartHoles();
         }
-    };
+    }
     /**
      * Sorts the barCharts by increasing complexity
      */
-    StatsService.prototype.sortBarCharts = function () {
+    sortBarCharts() {
         this._stats.barChartCognitive = this._stats.barChartCognitive.sort();
         this._stats.barChartCyclomatic = this._stats.barChartCyclomatic.sort();
-    };
-    return StatsService;
-}());
+    }
+}
 exports.StatsService = StatsService;
