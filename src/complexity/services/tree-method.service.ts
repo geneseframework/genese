@@ -22,6 +22,7 @@ export class TreeMethodService {
                 newMethod.code = codeService.createCode(newMethod.originalText);
                 newMethod.tree = TsTreeService.generateTree(newMethod);
                 newMethod.evaluate();
+                newMethod.createDisplayedText();
                 methods.push(newMethod);
             }
             ts.forEachChild(node, cb);

@@ -29,7 +29,7 @@ export class CodeService {
             code.maxLineWidth = code.maxLineWidth < textLine.length ? textLine.length : code.maxLineWidth;
             issue++;
         }
-        console.log('CODE', code);
+        // console.log('CODE', code);
         return code;
     }
 }

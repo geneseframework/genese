@@ -115,4 +115,13 @@ export class TreeMethod extends Evaluable implements IsAstNode {
 
     }
 
+
+    createDisplayedText(): void {
+        console.log('CODE ORIGINAL', this.code)
+        this.#displayedText = '';
+        for (const line of this.code.lines) {
+            this.#displayedText += `${line?.text?.padEnd(this.#code.maxLineWidth + 10, '-')}\n`;
+        }
+    }
+
 }
