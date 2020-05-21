@@ -26,10 +26,8 @@ export class CodeService {
         if (position < 0 || position > code.text.length) {
             return 0;
         } else {
-            console.log('POSSSS', position);
             const issue = code.lines.findIndex(e => {
-                console.log('E', e);
-                return position >= e.position && position < e.position + e.text.length
+                return position >= e?.position && position < e?.position + e?.text.length
             }) ;
             return issue;
         }

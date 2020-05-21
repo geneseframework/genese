@@ -16,8 +16,8 @@ export class Code {
 
     addComment(comment: string, line: CodeLine): CodeLine {
         const updatedLine: CodeLine = {
-            position: line.position,
-            text: line.text
+            position: line?.position,
+            text: line?.text
         };
         const txt = `${updatedLine.text} // `;
         updatedLine.text = `${txt.padEnd(this.maxLineWidth + 10, '-')} ${comment}`;

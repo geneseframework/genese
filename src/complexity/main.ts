@@ -5,7 +5,7 @@ import { ReportsService } from './services/reports.service';
 import { TreeFolderService } from './services/tree-folder.service';
 import { blueBright } from 'ansi-colors';
 
-export const DEBUG = true;
+export const DEBUG = false;
 
 export class Main {
 
