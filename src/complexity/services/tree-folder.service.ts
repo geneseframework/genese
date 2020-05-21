@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
 import { TreeFolder } from '../models/tree-folder.model';
-import { getExtension, getPathWithDotSlash, getRelativePath } from './file.service';
+import { getExtension, getRelativePath } from './file.service';
 import { TreeFileService } from './tree-file.service';
 import { TreeFile } from '../models/tree-file.model';
 import { BarchartService } from './barchart.service';
@@ -42,7 +42,7 @@ export class TreeFolderService extends StatsService {
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach(function(elementName) {
             const pathElement = path + elementName;
-            if (!TreeFolderService.isIgnored(pathElement)) {
+            if (!Options.isIgnored(pathElement)) {
                 if (fs.statSync(pathElement).isDirectory()) {
                     let subFolder = new TreeFolder();
                     subFolder = TreeFolderService.generateTree(`${pathElement}/`, extension, subFolder);
@@ -58,11 +58,6 @@ export class TreeFolderService extends StatsService {
         });
         tsFolder.evaluate();
         return tsFolder;
-    }
-
-
-    static isIgnored(path: string) : boolean {
-        return Options.ignore.includes(path);
     }
 
 

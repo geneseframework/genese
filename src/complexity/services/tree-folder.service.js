@@ -37,7 +37,7 @@ class TreeFolderService extends stats_service_1.StatsService {
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach(function (elementName) {
             const pathElement = path + elementName;
-            if (!TreeFolderService.isIgnored(pathElement)) {
+            if (!options_1.Options.isIgnored(pathElement)) {
                 if (fs.statSync(pathElement).isDirectory()) {
                     let subFolder = new tree_folder_model_1.TreeFolder();
                     subFolder = TreeFolderService.generateTree(`${pathElement}/`, extension, subFolder);
@@ -54,9 +54,6 @@ class TreeFolderService extends stats_service_1.StatsService {
         });
         tsFolder.evaluate();
         return tsFolder;
-    }
-    static isIgnored(path) {
-        return options_1.Options.ignore.includes(path);
     }
     /**
      * Calculates the statistics of the TreeFolder

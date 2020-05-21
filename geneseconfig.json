@@ -9,8 +9,13 @@
             "warningThreshold": 5
         },
         "ignore": [
+            ".git",
+            ".idea",
+            "api",
+            "gn-reports",
             "node_modules",
-            "./genese"
+            "./genese",
+            "src/complexity/services/tree-folder.service.ts"
         ],
         "pathFolderToAnalyze": "./",
         "pathReports": "./gn-reports"

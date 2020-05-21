@@ -3,6 +3,7 @@ import { Ast } from './ast.service';
 import { Tree } from '../models/tree.model';
 import { TreeMethod } from '../models/tree-method.model';
 import { ComplexityService as CS } from './complexity.service';
+import { Options } from '../models/options';
 
 
 export class TsTreeService {
