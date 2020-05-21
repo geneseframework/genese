@@ -57,3 +57,19 @@ try {
     console.error(red(`Error in Genese cli process : ${err}`));
 }
 
+function zzz(a) {
+    if (a > 3) {
+        console.log('ZZZ')
+    }
+}
+
+class Class {
+
+    aaa(a) {
+        if (a > 3) {
+            console.log('ZZZ')
+        }
+    }
+
+}
+

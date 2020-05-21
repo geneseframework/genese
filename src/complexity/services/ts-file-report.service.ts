@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as eol from "eol";
 import * as Handlebars from "handlebars";
 import { Options } from '../models/options';
-import { getFilenameWithoutExtension, getRouteToRoot } from './file.service';
+import { getFilenameWithoutExtension, getPathWithDotSlash, getRouteToRoot } from './file.service';
 import { TreeFile } from '../models/tree-file.model';
 import { MethodReport } from '../models/method-report.model';
 
@@ -55,7 +55,7 @@ export class TsFileReportService {
         const template = this.template({
             colors: Options.colors,
             methods: this.methods,
-            relativeRootReports: this.relativeRootReports,
+            relativeRootReports: getPathWithDotSlash(this.relativeRootReports),
             stats: this.tsFile.getStats(),
             thresholds: Options.getThresholds()
         });
