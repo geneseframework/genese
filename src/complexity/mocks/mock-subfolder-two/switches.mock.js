@@ -10,11 +10,9 @@
  * copying, modification, translation, disclosure or performance by any means whatsoever shall constitute
  * an infringement punishable by criminal or civil law and, more generally, a breach of Naval Group SA’s rights.
  */
-exports.__esModule = true;
-var SwitchesMock = /** @class */ (function () {
-    function SwitchesMock() {
-    }
-    SwitchesMock.prototype.switches = function (numberOfWords) {
+Object.defineProperty(exports, "__esModule", { value: true });
+class SwitchesMock {
+    switches(numberOfWords) {
         switch (numberOfWords) {
             case 1:
                 console.log("one");
@@ -26,26 +24,25 @@ var SwitchesMock = /** @class */ (function () {
                 console.log("lots");
         }
         return { cyclomaticValue: 3, cognitiveValue: 1 };
-    };
-    SwitchesMock.prototype.tryCatch = function () {
+    }
+    tryCatch() {
         try {
-            var a = 1;
+            const a = 1;
         }
         catch (e) {
             console.log(e);
         }
         return { cyclomaticValue: 2, cognitiveValue: 1 };
-    };
-    SwitchesMock.prototype.recursion = function (a) {
+    }
+    recursion(a) {
         if (a > 10) {
             this.recursion(a);
         }
         return { cyclomaticValue: 2, cognitiveValue: 2 };
-    };
-    SwitchesMock.prototype.questionDotToken = function (time) {
+    }
+    questionDotToken(time) {
         time = time === null || time === void 0 ? void 0 : time.name;
         return { cyclomaticValue: 1, cognitiveValue: 0 };
-    };
-    return SwitchesMock;
-}());
+    }
+}
 exports.SwitchesMock = SwitchesMock;

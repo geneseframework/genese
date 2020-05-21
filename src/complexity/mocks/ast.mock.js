@@ -1,18 +1,17 @@
 "use strict";
-exports.__esModule = true;
-var DICTIONARY;
-var AstMock = /** @class */ (function () {
-    function AstMock() {
-    }
-    AstMock.prototype.ifElse = function (data) {
-        if (data === 'a') {
-            data = 'b';
+Object.defineProperty(exports, "__esModule", { value: true });
+let DICTIONARY;
+class AstMock {
+    z(a) {
+        for (let i of a) {
+            for (let j of a) {
+                console.log(a);
+            }
         }
-        else {
-            data = 'c';
+        if (a) {
+            console.log('b');
         }
         return { cyclomaticValue: 2, cognitiveValue: 2 };
-    };
-    return AstMock;
-}());
+    }
+}
 exports.AstMock = AstMock;

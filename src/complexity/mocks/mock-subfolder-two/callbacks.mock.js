@@ -1,28 +1,25 @@
 "use strict";
-exports.__esModule = true;
-var CallbacksMock = /** @class */ (function () {
-    function CallbacksMock() {
-    }
-    CallbacksMock.prototype.caller = function (a) {
-        this.methodWithCallback(a, function (b) {
+Object.defineProperty(exports, "__esModule", { value: true });
+class CallbacksMock {
+    caller(a) {
+        this.methodWithCallback(a, (b) => {
             if (a < 2) {
                 console.log(b);
             }
         });
         return { cyclomaticValue: 3, cognitiveValue: 3 };
-    };
-    CallbacksMock.prototype.callerFunction = function (a) {
+    }
+    callerFunction(a) {
         this.methodWithCallback(a, function (b) {
             if (b < 6) {
                 console.log('b', b);
             }
         });
         return { cyclomaticValue: 3, cognitiveValue: 3 };
-    };
-    CallbacksMock.prototype.methodWithCallback = function (a, callback) {
+    }
+    methodWithCallback(a, callback) {
         callback(a + 3);
         return { cyclomaticValue: 0, cognitiveValue: 0 };
-    };
-    return CallbacksMock;
-}());
+    }
+}
 exports.CallbacksMock = CallbacksMock;

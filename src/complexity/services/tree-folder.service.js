@@ -8,6 +8,7 @@ const barchart_service_1 = require("./barchart.service");
 const complexity_type_enum_1 = require("../enums/complexity-type.enum");
 const stats_service_1 = require("./stats.service");
 const options_1 = require("../models/options");
+const main_1 = require("../main");
 /**
  * - TreeFolders generation from Abstract Syntax Tree of a folder
  * - Other services for TreeFolders
@@ -61,7 +62,9 @@ class TreeFolderService extends stats_service_1.StatsService {
         }
         else {
             if (!extension || extension === file_service_1.getExtension(pathElement)) {
-                treeFolder.treeFiles.push(tree_file_service_1.TreeFileService.generateTree(pathElement, treeFolder));
+                if (!main_1.DEBUG || (main_1.DEBUG && pathElement === './src/complexity/mocks/ast.mock.ts')) {
+                    treeFolder.treeFiles.push(tree_file_service_1.TreeFileService.generateTree(pathElement, treeFolder));
+                }
             }
         }
     }

@@ -8,17 +8,23 @@ import { MethodStatus } from '../enums/evaluation-status.enum';
 import { ComplexityType } from '../enums/complexity-type.enum';
 import { Evaluable } from './evaluable.model';
 import { IsAstNode } from '../interfaces/is-ast-node';
+import { Code } from './code.model';
+import { CodeService } from '../services/code.service';
 
 /**
  * Element of the Tree structure corresponding to a given method
  */
 export class TreeMethod extends Evaluable implements IsAstNode {
 
+    astPosition = 0;
+    codeService: CodeService = new CodeService();
     cognitiveStatus: MethodStatus = MethodStatus.CORRECT;           // The cognitive status of the method
     cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;          // The cyclomatic status of the method
+    #displayedCode?: Code = undefined;
     filename ?= '';                                                 // The name of the file containing the method
     name ?= '';                                                     // The name of the method
     node: ts.Node = undefined;                                      // The AST node corresponding to the method
+    #originalCode?: Code = undefined;
     treeFile?: TreeFile = new TreeFile();                           // The TreeFile which contains the TreeMethod
     tree?: Tree = undefined;                                        // The AST of the method itself
 
@@ -64,10 +70,50 @@ export class TreeMethod extends Evaluable implements IsAstNode {
 
 
     /**
-     * Gets the full code of the method
+     * Gets the Code of the method (as Code object)
      */
-    getCode(): string {
-        return this.node.getFullText(this.treeFile.sourceFile);
+    get originalCode(): Code {
+        return this.#originalCode;
+    }
+
+
+    /**
+     * Gets the full originalText of the method
+     */
+    set originalCode(code : Code) {
+        this.#originalCode = code;
+    }
+
+
+    /**
+     * Gets the full originalText of the method
+     */
+    get displayedCode(): Code {
+        return this.#displayedCode;
+    }
+
+
+    createDisplayedCode(tree: Tree = this.tree): void {
+        this.#displayedCode = new Code();
+        for (const line of this.#originalCode.lines) {
+            this.#displayedCode.lines.push({
+                text: line.text,
+                position: line.position
+            });
+        }
+        this.addCommentsToDisplayCode(tree)
+    }
+
+
+    addCommentsToDisplayCode(tree: Tree) {
+        for (const childTree of tree.children) {
+            if (childTree.increasesCognitiveComplexity) {
+                const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
+                this.#displayedCode.lines[issue] = this.#originalCode.addComment('+ Cognitive complexity', this.#originalCode.lines[issue]);
+            }
+            this.addCommentsToDisplayCode(childTree);
+        }
+        this.#displayedCode.setTextWithLines();
     }
 
 }

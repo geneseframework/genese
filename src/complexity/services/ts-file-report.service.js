@@ -13,10 +13,11 @@ class TsFileReportService {
         this.tsFile = tsFile;
     }
     getMethodsArray() {
+        var _a;
         let report = [];
         for (const method of this.tsFile.treeMethods) {
             const methodReport = {
-                code: method.getCode(),
+                code: (_a = method.displayedCode) === null || _a === void 0 ? void 0 : _a.text,
                 cognitiveColor: method.cognitiveStatus.toLowerCase(),
                 cognitiveValue: method.cognitiveValue,
                 cyclomaticColor: method.cyclomaticStatus.toLowerCase(),

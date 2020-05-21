@@ -8,6 +8,7 @@ import { ComplexityType } from '../enums/complexity-type.enum';
 import { StatsService } from './stats.service';
 import { Stats } from '../models/stats.model';
 import { Options } from '../models/options';
+import { DEBUG } from '../main';
 
 /**
  * - TreeFolders generation from Abstract Syntax Tree of a folder
@@ -67,7 +68,9 @@ export class TreeFolderService extends StatsService {
             treeFolder.subFolders.push(subFolder);
         } else {
             if (!extension || extension === getExtension(pathElement)) {
-                treeFolder.treeFiles.push(TreeFileService.generateTree(pathElement, treeFolder));
+                if (!DEBUG || (DEBUG && pathElement === './src/complexity/mocks/ast.mock.ts')) {
+                    treeFolder.treeFiles.push(TreeFileService.generateTree(pathElement, treeFolder));
+                }
             }
         }
     }
