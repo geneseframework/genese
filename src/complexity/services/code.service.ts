@@ -16,7 +16,7 @@ export class CodeService {
             code.lines.push({text: textLine, issue: issue, position: pos});
             code.maxLineWidth = code.maxLineWidth < textLine.length ? textLine.length : code.maxLineWidth;
             issue++;
-            pos = textLine ? pos + textLine.length + 2 : pos;
+            pos = textLine ? pos + textLine.length + 1 : pos;
         }
         return code;
     }
@@ -25,11 +25,14 @@ export class CodeService {
     getLineIssue(code: Code, position: number): number {
         if (position < 0 || position > code.text.length) {
             return 0;
-        } else {
-            const issue = code.lines.findIndex(e => {
-                return position >= e?.position && position < e?.position + e?.text.length
-            }) ;
-            return issue;
         }
+        let issue = 0;
+        for (const line of code.lines) {
+            if (position < line?.position + line?.text.length) {
+                issue = line?.issue - 1;
+                break;
+            }
+        }
+        return issue;
     }
 }

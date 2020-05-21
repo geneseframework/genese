@@ -10,7 +10,6 @@ import { Evaluable } from './evaluable.model';
 import { IsAstNode } from '../interfaces/is-ast-node';
 import { Code } from './code.model';
 import { CodeService } from '../services/code.service';
-import { clone } from '../services/tools.service';
 
 /**
  * Element of the Tree structure corresponding to a given method
@@ -102,16 +101,17 @@ export class TreeMethod extends Evaluable implements IsAstNode {
                 position: line.position
             });
         }
-        this.createDisplayedCodeTreeChildren(tree)
+        this.addCommentsToDisplayCode(tree)
     }
 
-    createDisplayedCodeTreeChildren(tree: Tree) {
+
+    addCommentsToDisplayCode(tree: Tree) {
         for (const childTree of tree.children) {
             if (childTree.increasesCognitiveComplexity) {
                 const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
-                this.#displayedCode.lines[issue] = this.#originalCode.addComment('+1 Cognitive complexity', this.#originalCode.lines[issue]);
+                this.#displayedCode.lines[issue] = this.#originalCode.addComment('+ Cognitive complexity', this.#originalCode.lines[issue]);
             }
-            this.createDisplayedCodeTreeChildren(childTree);
+            this.addCommentsToDisplayCode(childTree);
         }
         this.#displayedCode.setTextWithLines();
     }

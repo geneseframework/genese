@@ -22,14 +22,14 @@ export class AstMock {
 
 
 
-    ifElse(data) {
-        if (data === 'a') {
-            data = 'b';
-            if (data === 'c') {
-                data = 'e';
+    z(a) {
+        for (let i of a) {
+            for (let j of a) {
+                console.log(a);
             }
-        } else {
-            data = 'c';
+        }
+        if (a) {
+            console.log('b');
         }
         return {cyclomaticValue: 2, cognitiveValue: 2};
     }
