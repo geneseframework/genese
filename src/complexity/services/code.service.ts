@@ -2,32 +2,21 @@ import { Code } from '../models/code.model';
 
 export class CodeService {
 
-    #code: Code;
-    #text = '';
-
-    constructor(text = '') {
-        this.#text = text;
-        this.#code = this.createCode(text)
-    }
-
-    get text(): string {
-        return this.#text
-    }
-
-    get lines(): string[] {
-        const linesArray: string[] = [];
-        return linesArray;
+    constructor() {
     }
 
 
     createCode(text: string): Code {
         const code: Code = new Code();
+        code.text = text;
         const textLines: string[] = text.split('\n');
         let issue = 1;
+        let pos = 0;
         for (const textLine of textLines) {
-            code.lines.push({text: textLine, issue: issue});
+            code.lines.push({text: textLine, issue: issue, position: pos});
             code.maxLineWidth = code.maxLineWidth < textLine.length ? textLine.length : code.maxLineWidth;
             issue++;
+            pos = textLine ? pos + textLine.length + 2 : pos;
         }
         // console.log('CODE', code);
         return code;

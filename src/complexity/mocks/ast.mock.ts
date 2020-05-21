@@ -22,7 +22,7 @@ export class AstMock {
 
 
 
-    ifElse(data): EvaluationValuesInterface {
+    ifElse(data) {
         if (data === 'a') {
             data = 'b';
         } else {

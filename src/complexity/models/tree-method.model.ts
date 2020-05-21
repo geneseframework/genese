@@ -15,14 +15,14 @@ import { Code } from './code.model';
  */
 export class TreeMethod extends Evaluable implements IsAstNode {
 
-    #code?: Code = undefined;
+    astPosition = 0;
+    #originalCode?: Code = undefined;
+    #displayedCode?: Code = undefined;
     cognitiveStatus: MethodStatus = MethodStatus.CORRECT;           // The cognitive status of the method
     cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;          // The cyclomatic status of the method
-    #displayedText = '';
     filename ?= '';                                                 // The name of the file containing the method
     name ?= '';                                                     // The name of the method
     node: ts.Node = undefined;                                      // The AST node corresponding to the method
-    #originalText = '';
     treeFile?: TreeFile = new TreeFile();                           // The TreeFile which contains the TreeMethod
     tree?: Tree = undefined;                                        // The AST of the method itself
 
@@ -68,60 +68,39 @@ export class TreeMethod extends Evaluable implements IsAstNode {
 
 
     /**
-     * Gets the full originalText of the method
-     */
-    get originalText(): string {
-        return this.#originalText;
-    }
-
-
-    /**
-     * Gets the full originalText of the method
-     */
-    set originalText(methodText: string) {
-        this.#originalText = methodText;
-    }
-
-
-    /**
      * Gets the Code of the method (as Code object)
      */
-    get code(): Code {
-        if (!this.#code) {
-            this.code = this.createCode();
-        }
-        return this.#code;
-    }
-
-
-    /**
-     * Gets the Code of the method (as Code object)
-     */
-    set code(codeToSet: Code) {
-        this.#code = codeToSet;
+    get originalCode(): Code {
+        return this.#originalCode;
     }
 
 
     /**
      * Gets the full originalText of the method
      */
-    get displayedText(): string {
-        return this.#displayedText;
+    set originalCode(code : Code) {
+        this.#originalCode = code;
     }
 
 
-    private createCode(): Code {
-        return;
-
+    /**
+     * Gets the full originalText of the method
+     */
+    get displayedCode(): Code {
+        return this.#displayedCode;
     }
 
 
-    createDisplayedText(): void {
-        console.log('CODE ORIGINAL', this.code)
-        this.#displayedText = '';
-        for (const line of this.code.lines) {
-            this.#displayedText += `${line?.text?.padEnd(this.#code.maxLineWidth + 10, '-')}\n`;
+    createDisplayedCode(tree: Tree = this.tree, recurse = false): void {
+        this.#displayedCode = this.#originalCode;
+        for (const childTree of tree.children) {
+            if (childTree.increasesCognitiveComplexity) {
+                const issue = this.#originalCode.getLineIssue(childTree.node?.pos - this.astPosition)
+                this.#displayedCode.lines[issue - 1].text += ' // Comments';
+            }
+            this.createDisplayedCode(childTree, true);
         }
+        this.#displayedCode.setTextWithLines();
     }
 
 }

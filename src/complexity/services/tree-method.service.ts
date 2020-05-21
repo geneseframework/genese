@@ -17,12 +17,14 @@ export class TreeMethodService {
             if (Ast.isFunctionOrMethod(node)) {
                 const newMethod: TreeMethod = new TreeMethod(node);
                 newMethod.treeFile = treeFile;
-                newMethod.originalText = node.getFullText(treeFile.sourceFile);
+                newMethod.astPosition = node.pos;
+                const originalText = node.getFullText(treeFile.sourceFile);
                 const codeService = new CodeService();
-                newMethod.code = codeService.createCode(newMethod.originalText);
+                newMethod.originalCode = codeService.createCode(originalText);
                 newMethod.tree = TsTreeService.generateTree(newMethod);
                 newMethod.evaluate();
-                newMethod.createDisplayedText();
+                console.log('CODE ORIGINAL', newMethod.originalCode)
+                newMethod.createDisplayedCode();
                 methods.push(newMethod);
             }
             ts.forEachChild(node, cb);
