@@ -31,7 +31,7 @@ export class Ast {
      * @param node // The AST node
      */
     static getMethodName(node: ts.Node): string {
-        if (node?.kind === ts.SyntaxKind.MethodDeclaration) {
+        if (Ast.isFunctionOrMethod(node)) {
             return node?.['name']?.['escapedText'] ?? '';
         } else {
             return '';
@@ -78,5 +78,14 @@ export class Ast {
      */
     static isSameOperatorToken(firstNode: ts.Node, secondNode: ts.Node): boolean {
         return firstNode?.['operatorToken']?.kind === secondNode?.['operatorToken']?.kind ?? false;
+    }
+
+
+    /**
+     * Checks if an AST node is a function or a method
+     * @param node
+     */
+    static isFunctionOrMethod(node: ts.Node): boolean {
+        return node?.kind === ts.SyntaxKind.MethodDeclaration || node?.kind === ts.SyntaxKind.FunctionDeclaration || false;
     }
 }

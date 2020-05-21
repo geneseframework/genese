@@ -50,7 +50,6 @@ class Options {
         Options.pathFolderToAnalyze = (_r = (_q = config.complexity) === null || _q === void 0 ? void 0 : _q.pathFolderToAnalyze) !== null && _r !== void 0 ? _r : Options.pathFolderToAnalyze;
         Options.pathOutDir = (_t = (_s = config.complexity) === null || _s === void 0 ? void 0 : _s.pathReports) !== null && _t !== void 0 ? _t : Options.pathOutDir;
         Options.ignore.push(Options.pathOutDir);
-        console.log('OPT', Options);
     }
     /**
      * Gets the different thresholds defined in Options class

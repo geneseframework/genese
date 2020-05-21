@@ -56,4 +56,3 @@ try {
 } catch (err) {
     console.error(red(`Error in Genese cli process : ${err}`));
 }
-

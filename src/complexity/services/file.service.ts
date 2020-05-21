@@ -61,6 +61,10 @@ export function getPathWithoutEndSlash(path: string): string {
 }
 
 
+/**
+ * Returns an array of paths with a ./ at the beginning
+ * @param paths         // The array of paths
+ */
 export function getArrayOfPathsWithDotSlash(paths: string[]): string[] {
     if (!Array.isArray(paths)) {
         return undefined;
@@ -73,8 +77,18 @@ export function getArrayOfPathsWithDotSlash(paths: string[]): string[] {
 }
 
 
+/**
+ * Returns a path with a ./ at the beginning
+ * @param path      // The path to analyse
+ */
 export function getPathWithDotSlash(path: string): string {
-    return path?.slice(0,2) !== './' ? `./${path}` : path;
+    let pathWithDotSlash = path;
+    if (path?.slice(0, 1) === '/') {
+        pathWithDotSlash = `.${pathWithDotSlash}`;
+    } else if (path?.slice(0,2) !== './') {
+        pathWithDotSlash = `./${path}`;
+    }
+    return pathWithDotSlash;
 }
 
 

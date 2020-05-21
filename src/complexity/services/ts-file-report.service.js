@@ -45,7 +45,7 @@ class TsFileReportService {
         const template = this.template({
             colors: options_1.Options.colors,
             methods: this.methods,
-            relativeRootReports: this.relativeRootReports,
+            relativeRootReports: file_service_1.getPathWithDotSlash(this.relativeRootReports),
             stats: this.tsFile.getStats(),
             thresholds: options_1.Options.getThresholds()
         });

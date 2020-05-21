@@ -55,6 +55,10 @@ function getPathWithoutEndSlash(path) {
     return path.charAt(path.length - 1) === `/` ? path.slice(0, path.length - 1) : path;
 }
 exports.getPathWithoutEndSlash = getPathWithoutEndSlash;
+/**
+ * Returns an array of paths with a ./ at the beginning
+ * @param paths         // The array of paths
+ */
 function getArrayOfPathsWithDotSlash(paths) {
     if (!Array.isArray(paths)) {
         return undefined;
@@ -66,8 +70,19 @@ function getArrayOfPathsWithDotSlash(paths) {
     return pathsWithDotSlash;
 }
 exports.getArrayOfPathsWithDotSlash = getArrayOfPathsWithDotSlash;
+/**
+ * Returns a path with a ./ at the beginning
+ * @param path      // The path to analyse
+ */
 function getPathWithDotSlash(path) {
-    return (path === null || path === void 0 ? void 0 : path.slice(0, 2)) !== './' ? `./${path}` : path;
+    let pathWithDotSlash = path;
+    if ((path === null || path === void 0 ? void 0 : path.slice(0, 1)) === '/') {
+        pathWithDotSlash = `.${pathWithDotSlash}`;
+    }
+    else if ((path === null || path === void 0 ? void 0 : path.slice(0, 2)) !== './') {
+        pathWithDotSlash = `./${path}`;
+    }
+    return pathWithDotSlash;
 }
 exports.getPathWithDotSlash = getPathWithDotSlash;
 /**
