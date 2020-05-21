@@ -17,8 +17,9 @@ export class TreeMethodService {
             if (Ast.isFunctionOrMethod(node)) {
                 const newMethod: TreeMethod = new TreeMethod(node);
                 newMethod.treeFile = treeFile;
-                newMethod.text = node.getFullText(treeFile.sourceFile);
-                newMethod.code = CodeService.createCode(newMethod.text);
+                newMethod.originalText = node.getFullText(treeFile.sourceFile);
+                const codeService = new CodeService();
+                newMethod.code = codeService.createCode(newMethod.originalText);
                 newMethod.tree = TsTreeService.generateTree(newMethod);
                 newMethod.evaluate();
                 methods.push(newMethod);

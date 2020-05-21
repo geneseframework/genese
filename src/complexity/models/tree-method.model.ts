@@ -18,10 +18,11 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     #code?: Code = undefined;
     cognitiveStatus: MethodStatus = MethodStatus.CORRECT;           // The cognitive status of the method
     cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;          // The cyclomatic status of the method
+    #displayedText = '';
     filename ?= '';                                                 // The name of the file containing the method
     name ?= '';                                                     // The name of the method
     node: ts.Node = undefined;                                      // The AST node corresponding to the method
-    #text = '';
+    #originalText = '';
     treeFile?: TreeFile = new TreeFile();                           // The TreeFile which contains the TreeMethod
     tree?: Tree = undefined;                                        // The AST of the method itself
 
@@ -67,18 +68,18 @@ export class TreeMethod extends Evaluable implements IsAstNode {
 
 
     /**
-     * Gets the full text of the method
+     * Gets the full originalText of the method
      */
-    get text(): string {
-        return this.#text;
+    get originalText(): string {
+        return this.#originalText;
     }
 
 
     /**
-     * Gets the full text of the method
+     * Gets the full originalText of the method
      */
-    set text(methodText: string) {
-        this.#text = methodText;
+    set originalText(methodText: string) {
+        this.#originalText = methodText;
     }
 
 
@@ -98,6 +99,14 @@ export class TreeMethod extends Evaluable implements IsAstNode {
      */
     set code(codeToSet: Code) {
         this.#code = codeToSet;
+    }
+
+
+    /**
+     * Gets the full originalText of the method
+     */
+    get displayedText(): string {
+        return this.#displayedText;
     }
 
 
