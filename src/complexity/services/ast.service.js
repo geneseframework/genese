@@ -27,7 +27,7 @@ class Ast {
      */
     static getMethodName(node) {
         var _a, _b;
-        if ((node === null || node === void 0 ? void 0 : node.kind) === ts.SyntaxKind.MethodDeclaration) {
+        if (Ast.isFunctionOrMethod(node)) {
             return (_b = (_a = node === null || node === void 0 ? void 0 : node['name']) === null || _a === void 0 ? void 0 : _a['escapedText']) !== null && _b !== void 0 ? _b : '';
         }
         else {
@@ -69,6 +69,13 @@ class Ast {
     static isSameOperatorToken(firstNode, secondNode) {
         var _a, _b, _c;
         return (_c = ((_a = firstNode === null || firstNode === void 0 ? void 0 : firstNode['operatorToken']) === null || _a === void 0 ? void 0 : _a.kind) === ((_b = secondNode === null || secondNode === void 0 ? void 0 : secondNode['operatorToken']) === null || _b === void 0 ? void 0 : _b.kind)) !== null && _c !== void 0 ? _c : false;
+    }
+    /**
+     * Checks if an AST node is a function or a method
+     * @param node
+     */
+    static isFunctionOrMethod(node) {
+        return (node === null || node === void 0 ? void 0 : node.kind) === ts.SyntaxKind.MethodDeclaration || (node === null || node === void 0 ? void 0 : node.kind) === ts.SyntaxKind.FunctionDeclaration || false;
     }
 }
 exports.Ast = Ast;

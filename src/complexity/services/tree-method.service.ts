@@ -5,6 +5,7 @@ import { TsTreeService } from './ts-tree.service';
 import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.interface';
 import { ComplexityType } from '../enums/complexity-type.enum';
 import { MethodStatus } from '../enums/evaluation-status.enum';
+import { Ast } from './ast.service';
 
 export class TreeMethodService {
 
@@ -12,7 +13,7 @@ export class TreeMethodService {
     static generateTree(tsFile: TreeFile): TreeMethod[] {
         const methods: TreeMethod[] = [];
         ts.forEachChild(tsFile.sourceFile, function cb(node) {
-            if (node.kind === ts.SyntaxKind.MethodDeclaration) {
+            if (Ast.isFunctionOrMethod(node)) {
                 const newMethod: TreeMethod = new TreeMethod(node);
                 newMethod.treeFile = tsFile;
                 newMethod.tree = TsTreeService.generateTree(newMethod);
