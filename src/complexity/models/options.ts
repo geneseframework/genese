@@ -3,6 +3,7 @@ import { Complexity } from '../interfaces/complexity.interface';
 import { ChartColor } from '../enums/colors.enum';
 import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.interface';
 import * as fs from 'fs-extra';
+import { getArrayOfPathsWithDotSlash } from '../services/file.service';
 
 
 /**
@@ -26,6 +27,7 @@ export class Options {
         type: ComplexityType.CYCLOMATIC,            // Sets the complexity type for this option (can't be overriden)
         warningThreshold: 5                         // A complexity strictly greater than warning threshold and lower or equal than errorThreshold will be seen as warning (can be overriden)
     };
+    static ignore: string[] = [];                   // The paths of the files or folders to ignore
     static pathCommand = '';                        // The path of the folder where the command-line was entered (can't be overriden)
     static pathFolderToAnalyze = './';              // The path of the folder to analyse (can be overriden)
     static pathGeneseNodeJs = '';                   // The path of the node_module Genese in the nodejs user environment (can't be overriden)
@@ -67,12 +69,14 @@ export class Options {
      */
     static setOptionsFromConfig(geneseConfigPath: string): void {
         const config = require(geneseConfigPath);
-        Options.pathOutDir = config.complexity?.pathReports ?? Options.pathOutDir;
-        Options.pathFolderToAnalyze = config.complexity?.pathFolderToAnalyze ?? Options.pathFolderToAnalyze;
         Options.cognitiveCpx.errorThreshold = config.complexity?.cognitiveCpx?.errorThreshold ?? Options.cognitiveCpx.errorThreshold;
         Options.cognitiveCpx.warningThreshold = config.complexity?.cognitiveCpx?.warningThreshold ?? Options.cognitiveCpx.warningThreshold;
         Options.cyclomaticCpx.errorThreshold = config.complexity?.cyclomaticCpx?.errorThreshold ?? Options.cyclomaticCpx.errorThreshold;
         Options.cyclomaticCpx.warningThreshold = config.complexity?.cyclomaticCpx?.warningThreshold ?? Options.cyclomaticCpx.warningThreshold;
+        Options.ignore = getArrayOfPathsWithDotSlash(config.complexity?.ignore) ?? Options.ignore;
+        Options.pathFolderToAnalyze = config.complexity?.pathFolderToAnalyze ?? Options.pathFolderToAnalyze;
+        Options.pathOutDir = config.complexity?.pathReports ?? Options.pathOutDir;
+        Options.ignore.push(Options.pathOutDir);
     }
 
 
@@ -86,5 +90,14 @@ export class Options {
         cpxByStatus.cyclomatic.warning = Options.cyclomaticCpx.warningThreshold;
         cpxByStatus.cyclomatic.error = Options.cyclomaticCpx.errorThreshold;
         return cpxByStatus;
+    }
+
+
+    /**
+     * Checks if a file or a folder is ignored in geneseconfig.json
+     * @param path
+     */
+    static isIgnored(path: string) : boolean {
+        return  Options.ignore.includes(path);
     }
 }

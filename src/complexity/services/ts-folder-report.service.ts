@@ -5,11 +5,7 @@ import { TreeFolder } from '../models/tree-folder.model';
 import { Options } from '../models/options';
 import { RowFolderReport } from '../models/row-folder-report.model';
 import { RowFileReport } from '../models/row-file-report.model';
-import {
-    createRelativeDir,
-    getFilenameWithoutExtension,
-    getRouteToRoot
-} from './file.service';
+import { createRelativeDir, getFilenameWithoutExtension, getRouteToRoot } from './file.service';
 import { TreeFile } from '../models/tree-file.model';
 import { MethodReport } from '../models/method-report.model';
 import { TreeFolderService } from './tree-folder.service';

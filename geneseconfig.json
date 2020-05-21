@@ -1,0 +1,21 @@
+{
+    "complexity": {
+        "cognitiveCpx": {
+            "errorThreshold": 5,
+            "warningThreshold": 3
+        },
+        "cyclomaticCpx": {
+            "errorThreshold": 10,
+            "warningThreshold": 5
+        },
+        "ignore": [
+            ".git",
+            ".idea",
+            "api",
+            "node_modules",
+            "./genese"
+        ],
+        "pathFolderToAnalyze": "./",
+        "pathReports": "./gn-reports"
+    }
+}
