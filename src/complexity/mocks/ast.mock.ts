@@ -25,6 +25,9 @@ export class AstMock {
     ifElse(data) {
         if (data === 'a') {
             data = 'b';
+            if (data === 'c') {
+                data = 'e';
+            }
         } else {
             data = 'c';
         }

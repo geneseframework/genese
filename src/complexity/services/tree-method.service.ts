@@ -23,7 +23,6 @@ export class TreeMethodService {
                 newMethod.originalCode = codeService.createCode(originalText);
                 newMethod.tree = TsTreeService.generateTree(newMethod);
                 newMethod.evaluate();
-                console.log('CODE ORIGINAL', newMethod.originalCode)
                 newMethod.createDisplayedCode();
                 methods.push(newMethod);
             }

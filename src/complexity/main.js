@@ -5,6 +5,7 @@ const file_service_1 = require("./services/file.service");
 const reports_service_1 = require("./services/reports.service");
 const tree_folder_service_1 = require("./services/tree-folder.service");
 const ansi_colors_1 = require("ansi-colors");
+exports.DEBUG = true;
 class Main {
     constructor() {
     }

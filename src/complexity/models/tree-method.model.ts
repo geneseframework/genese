@@ -96,7 +96,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
         for (const childTree of tree.children) {
             if (childTree.increasesCognitiveComplexity) {
                 const issue = this.#originalCode.getLineIssue(childTree.node?.pos - this.astPosition)
-                this.#displayedCode.lines[issue - 1].text += ' // Comments';
+                this.#displayedCode.lines[issue] = this.#displayedCode.addComment('+1 Cognitive complexity', this.#displayedCode.lines[issue]);
             }
             this.createDisplayedCode(childTree, true);
         }

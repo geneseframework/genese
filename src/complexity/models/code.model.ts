@@ -24,4 +24,12 @@ export class Code {
             return issue;
         }
     }
+
+
+    addComment(comment: string, line: CodeLine): CodeLine {
+        const updatedLine = line;
+        const txt = `${updatedLine.text} // `;
+        updatedLine.text = `${txt.padEnd(this.maxLineWidth + 10, '-')} ${comment}`;
+        return updatedLine;
+    }
 }
