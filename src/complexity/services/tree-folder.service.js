@@ -31,29 +31,39 @@ class TreeFolderService extends stats_service_1.StatsService {
             console.log('ERROR: no path.');
             return undefined;
         }
-        const tsFolder = new tree_folder_model_1.TreeFolder();
-        tsFolder.path = path;
-        tsFolder.relativePath = file_service_1.getRelativePath(options_1.Options.pathFolderToAnalyze, path);
+        const treeFolder = new tree_folder_model_1.TreeFolder();
+        treeFolder.path = path;
+        treeFolder.relativePath = file_service_1.getRelativePath(options_1.Options.pathFolderToAnalyze, path);
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach(function (elementName) {
             const pathElement = path + elementName;
             if (!options_1.Options.isIgnored(pathElement)) {
-                if (fs.statSync(pathElement).isDirectory()) {
-                    let subFolder = new tree_folder_model_1.TreeFolder();
-                    subFolder = TreeFolderService.generateTree(`${pathElement}/`, extension, subFolder);
-                    subFolder.parent = treeSubFolder;
-                    subFolder.path = pathElement;
-                    tsFolder.subFolders.push(subFolder);
-                }
-                else {
-                    if (!extension || extension === file_service_1.getExtension(pathElement)) {
-                        tsFolder.treeFiles.push(tree_file_service_1.TreeFileService.generateTree(pathElement, tsFolder));
-                    }
-                }
+                TreeFolderService.generateFileOrDirTree(pathElement, extension, treeSubFolder, treeFolder);
             }
         });
-        tsFolder.evaluate();
-        return tsFolder;
+        treeFolder.evaluate();
+        return treeFolder;
+    }
+    /**
+     * Generates the TreeFolder of a treeSubFolder which is a child of a given treeFolder with the path 'pathElement'
+     * @param pathElement       // The path of the element
+     * @param extension         // The extension of the files concerned by the generation (actually: only .ts)
+     * @param treeSubFolder     // The TreeFolder of a subfolder of the param treeFolder
+     * @param treeFolder        // The parent TreeFolder
+     */
+    static generateFileOrDirTree(pathElement, extension, treeSubFolder, treeFolder) {
+        if (fs.statSync(pathElement).isDirectory()) {
+            let subFolder = new tree_folder_model_1.TreeFolder();
+            subFolder = TreeFolderService.generateTree(`${pathElement}/`, extension, subFolder);
+            subFolder.parent = treeSubFolder;
+            subFolder.path = pathElement;
+            treeFolder.subFolders.push(subFolder);
+        }
+        else {
+            if (!extension || extension === file_service_1.getExtension(pathElement)) {
+                treeFolder.treeFiles.push(tree_file_service_1.TreeFileService.generateTree(pathElement, treeFolder));
+            }
+        }
     }
     /**
      * Calculates the statistics of the TreeFolder

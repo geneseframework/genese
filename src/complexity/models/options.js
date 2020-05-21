@@ -42,7 +42,6 @@ class Options {
     static setOptionsFromConfig(geneseConfigPath) {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t;
         const config = require(geneseConfigPath);
-        console.log('CONGIF', config);
         Options.cognitiveCpx.errorThreshold = (_c = (_b = (_a = config.complexity) === null || _a === void 0 ? void 0 : _a.cognitiveCpx) === null || _b === void 0 ? void 0 : _b.errorThreshold) !== null && _c !== void 0 ? _c : Options.cognitiveCpx.errorThreshold;
         Options.cognitiveCpx.warningThreshold = (_f = (_e = (_d = config.complexity) === null || _d === void 0 ? void 0 : _d.cognitiveCpx) === null || _e === void 0 ? void 0 : _e.warningThreshold) !== null && _f !== void 0 ? _f : Options.cognitiveCpx.warningThreshold;
         Options.cyclomaticCpx.errorThreshold = (_j = (_h = (_g = config.complexity) === null || _g === void 0 ? void 0 : _g.cyclomaticCpx) === null || _h === void 0 ? void 0 : _h.errorThreshold) !== null && _j !== void 0 ? _j : Options.cyclomaticCpx.errorThreshold;
@@ -50,6 +49,8 @@ class Options {
         Options.ignore = (_p = file_service_1.getArrayOfPathsWithDotSlash((_o = config.complexity) === null || _o === void 0 ? void 0 : _o.ignore)) !== null && _p !== void 0 ? _p : Options.ignore;
         Options.pathFolderToAnalyze = (_r = (_q = config.complexity) === null || _q === void 0 ? void 0 : _q.pathFolderToAnalyze) !== null && _r !== void 0 ? _r : Options.pathFolderToAnalyze;
         Options.pathOutDir = (_t = (_s = config.complexity) === null || _s === void 0 ? void 0 : _s.pathReports) !== null && _t !== void 0 ? _t : Options.pathOutDir;
+        Options.ignore.push(Options.pathOutDir);
+        console.log('OPT', Options);
     }
     /**
      * Gets the different thresholds defined in Options class

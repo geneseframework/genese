@@ -12,10 +12,8 @@
             ".git",
             ".idea",
             "api",
-            "gn-reports",
             "node_modules",
-            "./genese",
-            "src/complexity/services/tree-folder.service.ts"
+            "./genese"
         ],
         "pathFolderToAnalyze": "./",
         "pathReports": "./gn-reports"

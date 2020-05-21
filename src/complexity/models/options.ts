@@ -69,7 +69,6 @@ export class Options {
      */
     static setOptionsFromConfig(geneseConfigPath: string): void {
         const config = require(geneseConfigPath);
-        console.log('CONGIF', config)
         Options.cognitiveCpx.errorThreshold = config.complexity?.cognitiveCpx?.errorThreshold ?? Options.cognitiveCpx.errorThreshold;
         Options.cognitiveCpx.warningThreshold = config.complexity?.cognitiveCpx?.warningThreshold ?? Options.cognitiveCpx.warningThreshold;
         Options.cyclomaticCpx.errorThreshold = config.complexity?.cyclomaticCpx?.errorThreshold ?? Options.cyclomaticCpx.errorThreshold;
@@ -77,6 +76,7 @@ export class Options {
         Options.ignore = getArrayOfPathsWithDotSlash(config.complexity?.ignore) ?? Options.ignore;
         Options.pathFolderToAnalyze = config.complexity?.pathFolderToAnalyze ?? Options.pathFolderToAnalyze;
         Options.pathOutDir = config.complexity?.pathReports ?? Options.pathOutDir;
+        Options.ignore.push(Options.pathOutDir);
     }
 
 
