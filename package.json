@@ -2,6 +2,7 @@
     "name": "genese",
     "version": "0.0.101",
     "scripts": {
+        "debug": "tsc && node debug.js",
         "start": "tsc && npm publish"
     },
     "author": {

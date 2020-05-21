@@ -7,13 +7,16 @@ const complexities_by_status_interface_1 = require("../interfaces/complexities-b
 const complexity_type_enum_1 = require("../enums/complexity-type.enum");
 const evaluation_status_enum_1 = require("../enums/evaluation-status.enum");
 const ast_service_1 = require("./ast.service");
+const code_service_1 = require("./code.service");
 class TreeMethodService {
-    static generateTree(tsFile) {
+    static generateTree(treeFile) {
         const methods = [];
-        ts.forEachChild(tsFile.sourceFile, function cb(node) {
+        ts.forEachChild(treeFile.sourceFile, function cb(node) {
             if (ast_service_1.Ast.isFunctionOrMethod(node)) {
                 const newMethod = new tree_method_model_1.TreeMethod(node);
-                newMethod.treeFile = tsFile;
+                newMethod.treeFile = treeFile;
+                newMethod.text = node.getFullText(treeFile.sourceFile);
+                newMethod.code = code_service_1.CodeService.createCode(newMethod.text);
                 newMethod.tree = ts_tree_service_1.TsTreeService.generateTree(newMethod);
                 newMethod.evaluate();
                 methods.push(newMethod);

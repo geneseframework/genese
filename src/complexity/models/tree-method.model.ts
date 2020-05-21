@@ -8,17 +8,20 @@ import { MethodStatus } from '../enums/evaluation-status.enum';
 import { ComplexityType } from '../enums/complexity-type.enum';
 import { Evaluable } from './evaluable.model';
 import { IsAstNode } from '../interfaces/is-ast-node';
+import { Code } from './code.model';
 
 /**
  * Element of the Tree structure corresponding to a given method
  */
 export class TreeMethod extends Evaluable implements IsAstNode {
 
+    #code?: Code = undefined;
     cognitiveStatus: MethodStatus = MethodStatus.CORRECT;           // The cognitive status of the method
     cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;          // The cyclomatic status of the method
     filename ?= '';                                                 // The name of the file containing the method
     name ?= '';                                                     // The name of the method
     node: ts.Node = undefined;                                      // The AST node corresponding to the method
+    #text = '';
     treeFile?: TreeFile = new TreeFile();                           // The TreeFile which contains the TreeMethod
     tree?: Tree = undefined;                                        // The AST of the method itself
 
@@ -64,10 +67,43 @@ export class TreeMethod extends Evaluable implements IsAstNode {
 
 
     /**
-     * Gets the full code of the method
+     * Gets the full text of the method
      */
-    getCode(): string {
-        return this.node.getFullText(this.treeFile.sourceFile);
+    get text(): string {
+        return this.#text;
+    }
+
+
+    /**
+     * Gets the full text of the method
+     */
+    set text(methodText: string) {
+        this.#text = methodText;
+    }
+
+
+    /**
+     * Gets the Code of the method (as Code object)
+     */
+    get code(): Code {
+        if (!this.#code) {
+            this.code = this.createCode();
+        }
+        return this.#code;
+    }
+
+
+    /**
+     * Gets the Code of the method (as Code object)
+     */
+    set code(codeToSet: Code) {
+        this.#code = codeToSet;
+    }
+
+
+    private createCode(): Code {
+        return;
+
     }
 
 }

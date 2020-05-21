@@ -6,16 +6,19 @@ import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.inter
 import { ComplexityType } from '../enums/complexity-type.enum';
 import { MethodStatus } from '../enums/evaluation-status.enum';
 import { Ast } from './ast.service';
+import { CodeService } from './code.service';
 
 export class TreeMethodService {
 
 
-    static generateTree(tsFile: TreeFile): TreeMethod[] {
+    static generateTree(treeFile: TreeFile): TreeMethod[] {
         const methods: TreeMethod[] = [];
-        ts.forEachChild(tsFile.sourceFile, function cb(node) {
+        ts.forEachChild(treeFile.sourceFile, function cb(node) {
             if (Ast.isFunctionOrMethod(node)) {
                 const newMethod: TreeMethod = new TreeMethod(node);
-                newMethod.treeFile = tsFile;
+                newMethod.treeFile = treeFile;
+                newMethod.text = node.getFullText(treeFile.sourceFile);
+                newMethod.code = CodeService.createCode(newMethod.text);
                 newMethod.tree = TsTreeService.generateTree(newMethod);
                 newMethod.evaluate();
                 methods.push(newMethod);

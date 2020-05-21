@@ -24,7 +24,7 @@ export class TsFileReportService {
         let report: MethodReport[] = [];
         for (const method of this.tsFile.treeMethods) {
             const methodReport: MethodReport = {
-                code: method.getCode(),
+                code: method.text,
                 cognitiveColor: method.cognitiveStatus.toLowerCase(),
                 cognitiveValue: method.cognitiveValue,
                 cyclomaticColor: method.cyclomaticStatus.toLowerCase(),

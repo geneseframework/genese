@@ -1,4 +1,18 @@
 "use strict";
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+};
+var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, privateMap, value) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to set private field on non-instance");
+    }
+    privateMap.set(receiver, value);
+    return value;
+};
+var _code, _text;
 Object.defineProperty(exports, "__esModule", { value: true });
 const tree_file_model_1 = require("./tree-file.model");
 const ast_service_1 = require("../services/ast.service");
@@ -13,11 +27,13 @@ const evaluable_model_1 = require("./evaluable.model");
 class TreeMethod extends evaluable_model_1.Evaluable {
     constructor(node) {
         super();
+        _code.set(this, undefined);
         this.cognitiveStatus = evaluation_status_enum_1.MethodStatus.CORRECT; // The cognitive status of the method
         this.cyclomaticStatus = evaluation_status_enum_1.MethodStatus.CORRECT; // The cyclomatic status of the method
         this.filename = ''; // The name of the file containing the method
         this.name = ''; // The name of the method
         this.node = undefined; // The AST node corresponding to the method
+        _text.set(this, '');
         this.treeFile = new tree_file_model_1.TreeFile(); // The TreeFile which contains the TreeMethod
         this.tree = undefined; // The AST of the method itself
         this.node = node;
@@ -53,10 +69,35 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         return status;
     }
     /**
-     * Gets the full code of the method
+     * Gets the full text of the method
      */
-    getCode() {
-        return this.node.getFullText(this.treeFile.sourceFile);
+    get text() {
+        return __classPrivateFieldGet(this, _text);
+    }
+    /**
+     * Gets the full text of the method
+     */
+    set text(methodText) {
+        __classPrivateFieldSet(this, _text, methodText);
+    }
+    /**
+     * Gets the Code of the method (as Code object)
+     */
+    get code() {
+        if (!__classPrivateFieldGet(this, _code)) {
+            this.code = this.createCode();
+        }
+        return __classPrivateFieldGet(this, _code);
+    }
+    /**
+     * Gets the Code of the method (as Code object)
+     */
+    set code(codeToSet) {
+        __classPrivateFieldSet(this, _code, codeToSet);
+    }
+    createCode() {
+        return;
     }
 }
 exports.TreeMethod = TreeMethod;
+_code = new WeakMap(), _text = new WeakMap();

@@ -12,7 +12,8 @@
             "dom"
         ]
     },
-    "files": [
-        "src/complexity/main.ts"
+    "exclude": ["node_modules", "gn-report"],
+    "include": [
+        "src/**/*.ts"
     ]
 }
