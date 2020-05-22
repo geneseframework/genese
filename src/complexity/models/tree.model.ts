@@ -10,9 +10,9 @@ const chalk = require('chalk');
 export class Tree implements IsAstNode {
 
     children?: Tree[] = [];                 // The children trees corresponding to children AST nodes of the current AST node
-    depth ?= 0;                             // The depth of the node inside a given method
     increasesCognitiveComplexity = false;   // True if the node's type increases the cognitive complexity
     kind ?= '';                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
+    nesting ?= 0;                             // The nesting of the node inside a given method
     node?: ts.Node = undefined;             // The current node in the AST
     parent?: Tree;                          // The tree of the parent of the current node
     treeMethod?: TreeMethod = undefined;    // The method at the root of the current tree (if this tree is inside a method)
@@ -41,7 +41,7 @@ export class Tree implements IsAstNode {
     printChildren(tsTree: Tree, indent: string) {
         for (const childTree of tsTree.children) {
             const color = childTree.increasesCognitiveComplexity ? 'red' : 'white';
-            console.log(indent, chalk[color](childTree.kind), 'depth', childTree.depth, 'parent', tsTree.kind);
+            console.log(indent, chalk[color](childTree.kind), 'nesting', childTree.nesting, 'parent', tsTree.kind);
             const newIndent = indent + '  ';
             this.printChildren(childTree, newIndent);
         }

@@ -17,12 +17,12 @@ export class ComplexityService {
      * Returns the cognitive complexity of a Tree (the total of complexities of himself and its children)
      * @param tree      // The Tree to analyse
      */
-    static getCognitiveComplexity(tree: Tree): number {
+    static getCognitiveCpx(tree: Tree): number {
         let complexity = 0;
         if (tree) {
             for (const child of tree?.children) {
-                complexity += ComplexityService.calculateCognitiveComplexity(child);
-                complexity += ComplexityService.getCognitiveComplexity(child);
+                complexity += ComplexityService.getTreeCognitiveCpx(child);
+                complexity += ComplexityService.getCognitiveCpx(child);
             }
         }
         return complexity;
@@ -33,9 +33,9 @@ export class ComplexityService {
      * Returns the cognitive complexity of a Tree himself (not its children)
      * @param tree      // The Tree to analyse
      */
-    static calculateCognitiveComplexity(tree: Tree): number {
+    static getTreeCognitiveCpx(tree: Tree): number {
         let complexity = 0;
-        if (!tree?.node || tree?.depth === undefined) {
+        if (!tree?.node || tree?.nesting === undefined) {
             return 0;
         }
         if (tree?.node?.['elseStatement']) {
@@ -54,7 +54,7 @@ export class ComplexityService {
             case ts.SyntaxKind.MethodDeclaration:
             case ts.SyntaxKind.SwitchStatement:
             case ts.SyntaxKind.WhileStatement:
-                complexity += tree.depth + 1;
+                complexity += tree.nesting + 1;
                 break;
             case ts.SyntaxKind.BinaryExpression:
                 complexity += ComplexityService.addBinaryCognitiveCpx(tree);
@@ -107,12 +107,12 @@ export class ComplexityService {
 
 
     /**
-     * Returns the nesting (the depth) of a "block" inside a given AST node
-     * For example, if on the line 2 the depth is equal to 1 and the line 3 is an IfStatement, the block inside the "if" will have a depth equal to 2.
+     * Returns the nesting (the nesting) of a "block" inside a given AST node
+     * For example, if on a given line the nesting is equal to 5 and if the next line is an IfStatement, the block inside the "if" will have a nesting equal to 6.
      * @param node          // The node to check
-     * @param nesting       // The depth of the parent of the node
+     * @param nesting       // The nesting of the parent of the node
      */
-    static increaseNesting(node: ts.Node, nesting: number): number {
+    static getNesting(node: ts.Node, nesting: number): number {
         let newNesting = nesting;
         switch (node?.parent.kind) {
             case ts.SyntaxKind.ArrowFunction:

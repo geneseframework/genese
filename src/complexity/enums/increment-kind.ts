@@ -1,6 +1,6 @@
 export enum IncrementKind {
 
-    BREAK_FLOW = 'breakflow',
+    BREAK_FLOW = 'breakFlow',
     NESTING = 'nesting'
 
 }

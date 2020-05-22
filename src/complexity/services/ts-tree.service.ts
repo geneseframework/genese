@@ -11,7 +11,7 @@ export class TsTreeService {
     static generateTree(treeMethod: TreeMethod): Tree {
         let tsTree: Tree = new Tree();
         tsTree.node = treeMethod.node;
-        tsTree.depth = 0;
+        tsTree.nesting = 0;
         tsTree.treeMethod = treeMethod;
         tsTree.kind = Ast.getType(treeMethod.node);
         tsTree = TsTreeService.addTreeToChildren(tsTree)
@@ -20,12 +20,12 @@ export class TsTreeService {
 
 
     static addTreeToChildren(tsTree: Tree): Tree {
-        const depth: number = tsTree.depth;
+        const depth: number = tsTree.nesting;
         ts.forEachChild(tsTree.node, (childNode: ts.Node) => {
             const newTree = new Tree();
             childNode.parent = tsTree.node;
             newTree.node = childNode;
-            newTree.depth = CS.increaseNesting(childNode, depth);
+            newTree.nesting = CS.getNesting(childNode, depth);
             newTree.treeMethod = tsTree.treeMethod;
             newTree.parent = tsTree;
             newTree.kind = Ast.getType(childNode);
