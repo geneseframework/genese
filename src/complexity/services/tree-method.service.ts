@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 import { TreeFile } from '../models/tree-file.model';
 import { TreeMethod } from '../models/tree-method.model';
-import { TsTreeService } from './ts-tree.service';
+import { TreeNodeService } from './tree-node.service';
 import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.interface';
 import { ComplexityType } from '../enums/complexity-type.enum';
 import { MethodStatus } from '../enums/evaluation-status.enum';
@@ -21,7 +21,7 @@ export class TreeMethodService {
                 const originalText = node.getFullText(treeFile.sourceFile);
                 const codeService = new CodeService();
                 newMethod.originalCode = codeService.createCode(originalText);
-                newMethod.tree = TsTreeService.generateTree(newMethod);
+                newMethod.tree = TreeNodeService.generateTree(newMethod);
                 newMethod.evaluate();
                 newMethod.createDisplayedCode();
                 methods.push(newMethod);

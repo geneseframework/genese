@@ -28,7 +28,7 @@ export class TsFileReportService {
                 cognitiveColor: method.cognitiveStatus.toLowerCase(),
                 cognitiveValue: method.cognitiveValue,
                 cyclomaticColor: method.cyclomaticStatus.toLowerCase(),
-                cyclomaticValue: method.cyclomaticValue,
+                cyclomaticValue: method.cyclomaticCpx,
                 methodName: method.name,
             };
             report.push(methodReport);

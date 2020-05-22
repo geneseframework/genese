@@ -3,7 +3,7 @@ import * as ts from 'typescript';
 import { getFilename } from './file.service';
 
 /**
- * Service for operations on Tree elements relative to a given node in Abstract Syntax Tree (AST)
+ * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)
  */
 export class Ast {
 

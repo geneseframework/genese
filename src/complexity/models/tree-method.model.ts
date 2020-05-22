@@ -2,7 +2,7 @@ import * as ts from 'typescript';
 import { TreeFile } from './tree-file.model';
 import { Ast } from '../services/ast.service';
 import { ComplexityService, ComplexityService as CS } from '../services/complexity.service';
-import { Tree } from './tree.model';
+import { TreeNode } from './tree.model';
 import { Options } from './options';
 import { MethodStatus } from '../enums/evaluation-status.enum';
 import { ComplexityType } from '../enums/complexity-type.enum';
@@ -13,7 +13,7 @@ import { CodeService } from '../services/code.service';
 import { IncrementKind } from '../enums/increment-kind';
 
 /**
- * Element of the Tree structure corresponding to a given method
+ * Element of the TreeNode structure corresponding to a given method
  */
 export class TreeMethod extends Evaluable implements IsAstNode {
 
@@ -28,7 +28,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     node: ts.Node = undefined;                                      // The AST node corresponding to the method
     #originalCode?: Code = undefined;
     treeFile?: TreeFile = new TreeFile();                           // The TreeFile which contains the TreeMethod
-    tree?: Tree = undefined;                                        // The AST of the method itself
+    tree?: TreeNode = undefined;                                        // The AST of the method itself
 
 
     constructor(node: ts.Node) {
@@ -44,7 +44,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     evaluate(): void {
         this.cognitiveValue = CS.getCognitiveCpx(this.tree);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
-        this.cyclomaticValue = CS.calculateCyclomaticComplexity(this.node);
+        this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.node);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
         this.filename = this.treeFile?.sourceFile?.fileName ?? '';
     }
@@ -59,12 +59,12 @@ export class TreeMethod extends Evaluable implements IsAstNode {
         if (
             (cpxType === ComplexityType.COGNITIVE && this.cognitiveValue <= Options.cognitiveCpx.warningThreshold)
             ||
-            (cpxType === ComplexityType.CYCLOMATIC && this.cyclomaticValue <= Options.cyclomaticCpx.warningThreshold)) {
+            (cpxType === ComplexityType.CYCLOMATIC && this.cyclomaticCpx <= Options.cyclomaticCpx.warningThreshold)) {
             status = MethodStatus.CORRECT;
         } else if (
             (cpxType === ComplexityType.COGNITIVE && this.cognitiveValue > Options.cognitiveCpx.errorThreshold)
             ||
-            (cpxType === ComplexityType.CYCLOMATIC && this.cyclomaticValue > Options.cyclomaticCpx.errorThreshold)) {
+            (cpxType === ComplexityType.CYCLOMATIC && this.cyclomaticCpx > Options.cyclomaticCpx.errorThreshold)) {
             status = MethodStatus.ERROR;
         }
         return status;
@@ -95,7 +95,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     }
 
 
-    createDisplayedCode(tree: Tree = this.tree): void {
+    createDisplayedCode(tree: TreeNode = this.tree): void {
         this.#displayedCode = new Code();
         for (const line of this.#originalCode.lines) {
             this.#displayedCode.lines.push({
@@ -112,7 +112,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     }
 
 
-    setCodeLines(tree: Tree): void {
+    setCodeLines(tree: TreeNode): void {
         for (const childTree of tree.children) {
             if (childTree.increasesCognitiveComplexity) {
                 const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);

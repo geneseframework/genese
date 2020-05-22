@@ -9,7 +9,7 @@ import { Stats } from '../models/stats.model';
 import { TreeMethodService } from './tree-method.service';
 
 /**
- * - TreeFiles generation from Abstract Syntax Tree of a file
+ * - TreeFiles generation from Abstract Syntax TreeNode of a file
  * - Other services for TreeFiles
  */
 export class TreeFileService extends StatsService{
@@ -25,7 +25,7 @@ export class TreeFileService extends StatsService{
 
     /**
      * Generates the TreeFile for a given file of a given folder
-     * The tree is generated according to the Abstract Syntax Tree (AST) of the file
+     * The tree is generated according to the Abstract Syntax TreeNode (AST) of the file
      * @param path          // The path of the file
      * @param treeFolder      // The TreeFolder containing the TreeFile
      */
@@ -60,7 +60,7 @@ export class TreeFileService extends StatsService{
         this.incrementStatsMethodsByStatus(treeMethod, ComplexityType.COGNITIVE);
         this.incrementStatsMethodsByStatus(treeMethod, ComplexityType.CYCLOMATIC);
         this._stats.barChartCognitive.addResult(treeMethod.cognitiveValue);
-        this._stats.barChartCyclomatic.addResult(treeMethod.cyclomaticValue);
+        this._stats.barChartCyclomatic.addResult(treeMethod.cyclomaticCpx);
     }
 
 

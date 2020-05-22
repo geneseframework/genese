@@ -1,7 +1,8 @@
 import * as ts from 'typescript';
 import * as utils from 'tsutils';
-import { Tree } from '../models/tree.model';
+import { TreeNode } from '../models/tree.model';
 import { Ast } from './ast.service';
+import { CognitiveCpx } from '../models/cognitive-cpx.model';
 
 /**
  * Service around complexity calculation
@@ -14,10 +15,10 @@ export class ComplexityService {
     // ---------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns the cognitive complexity of a Tree (the total of complexities of himself and its children)
-     * @param tree      // The Tree to analyse
+     * Returns the cognitive complexity of a TreeNode (the total of complexities of himself and its children)
+     * @param tree      // The TreeNode to analyse
      */
-    static getCognitiveCpx(tree: Tree): number {
+    static getCognitiveCpx(tree: TreeNode): number {
         let complexity = 0;
         if (tree) {
             for (const child of tree?.children) {
@@ -30,10 +31,55 @@ export class ComplexityService {
 
 
     /**
-     * Returns the cognitive complexity of a Tree himself (not its children)
-     * @param tree      // The Tree to analyse
+     * Returns the cognitive complexity of a TreeNode himself (not its children)
+     * @param tree      // The TreeNode to analyse
      */
-    static getTreeCognitiveCpx(tree: Tree): number {
+    static getTreeLocalCognitiveCpx(tree: TreeNode): CognitiveCpx {
+        let complexity = new CognitiveCpx();
+        if (!tree?.node || tree?.nesting === undefined) {
+            return complexity;
+        }
+        if (tree?.node?.['elseStatement']) {
+            complexity.breakFlow ++;
+        }
+        switch (tree.node.kind) {
+            case ts.SyntaxKind.ArrowFunction:
+            case ts.SyntaxKind.CatchClause:
+            case ts.SyntaxKind.DoStatement:
+            case ts.SyntaxKind.ForStatement:
+            case ts.SyntaxKind.ForInStatement:
+            case ts.SyntaxKind.ForOfStatement:
+            case ts.SyntaxKind.FunctionDeclaration:
+            case ts.SyntaxKind.FunctionExpression:
+            case ts.SyntaxKind.IfStatement:
+            case ts.SyntaxKind.MethodDeclaration:
+            case ts.SyntaxKind.SwitchStatement:
+            case ts.SyntaxKind.WhileStatement:
+                complexity.nesting += tree.nesting + 1;
+                break;
+            case ts.SyntaxKind.BinaryExpression:
+                complexity.breakFlow += ComplexityService.addBinaryCognitiveCpx(tree);
+                break;
+            case ts.SyntaxKind.PropertyAccessExpression:
+                if (ComplexityService.isRecursion(tree, tree.node)) {
+                    complexity.breakFlow++;
+                }
+                break;
+            case ts.SyntaxKind.ConditionalExpression:
+                complexity.breakFlow += ComplexityService.conditionalExpressionIsTrivial(tree.node) ? 0 : 1;
+                break;
+            default:
+                break;
+        }
+        return complexity;
+    }
+
+
+    /**
+     * Returns the cognitive complexity of a TreeNode himself (not its children)
+     * @param tree      // The TreeNode to analyse
+     */
+    static getTreeCognitiveCpx(tree: TreeNode): number {
         let complexity = 0;
         if (!tree?.node || tree?.nesting === undefined) {
             return 0;
@@ -75,10 +121,10 @@ export class ComplexityService {
 
 
     /**
-     * Checks if the AST node of a Tree increases the cognitive complexity
-     * @param tree        // The Tree to check
+     * Checks if the AST node of a TreeNode increases the cognitive complexity
+     * @param tree        // The TreeNode to check
      */
-    static increaseBreakFlow(tree: Tree): boolean {
+    static increaseBreakFlow(tree: TreeNode): boolean {
         if (tree?.node?.['elseStatement']) {
             return true;
         }
@@ -158,11 +204,11 @@ export class ComplexityService {
 
     /**
      * Checks if an AST node inside a method is a recursion, ie a call to this method.
-     * The param "tree" must be a Tree which is a descendant of a method (ie a Tree with node of type MethodDescription)
+     * The param "tree" must be a TreeNode which is a descendant of a method (ie a TreeNode with node of type MethodDescription)
      * @param tree      // The tree (inside a method)
      * @param node      // The node to analyse (a recursion or not)
      */
-    static isRecursion(tree: Tree, node: ts.Node): boolean {
+    static isRecursion(tree: TreeNode, node: ts.Node): boolean {
         return node?.['name']?.['escapedText'] === tree?.treeMethod?.name;
     }
 
@@ -173,9 +219,9 @@ export class ComplexityService {
      *      if (a && b && c)
      * but in the next example, the || will increase it because it succeeds to a binary of different type (a &&)
      *      if (a && b || c)
-     * @param tree      // The Tree to analyse
+     * @param tree      // The TreeNode to analyse
      */
-    static addBinaryCognitiveCpx(tree: Tree): number {
+    static addBinaryCognitiveCpx(tree: TreeNode): number {
         if (!tree?.node || !tree.parent.node) {
             return 0;
         }
