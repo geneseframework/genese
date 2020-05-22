@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 import { TreeFile } from './tree-file.model';
 import { Ast } from '../services/ast.service';
-import { ComplexityService as CS } from '../services/complexity.service';
+import { ComplexityService, ComplexityService as CS } from '../services/complexity.service';
 import { Tree } from './tree.model';
 import { Options } from './options';
 import { MethodStatus } from '../enums/evaluation-status.enum';
@@ -10,6 +10,7 @@ import { Evaluable } from './evaluable.model';
 import { IsAstNode } from '../interfaces/is-ast-node';
 import { Code } from './code.model';
 import { CodeService } from '../services/code.service';
+import { IncrementKind } from '../enums/increment-kind';
 
 /**
  * Element of the Tree structure corresponding to a given method
@@ -19,6 +20,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     astPosition = 0;
     codeService: CodeService = new CodeService();
     cognitiveStatus: MethodStatus = MethodStatus.CORRECT;           // The cognitive status of the method
+    complexityService?: ComplexityService= new ComplexityService();
     cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;          // The cyclomatic status of the method
     #displayedCode?: Code = undefined;
     filename ?= '';                                                 // The name of the file containing the method
@@ -97,12 +99,16 @@ export class TreeMethod extends Evaluable implements IsAstNode {
         this.#displayedCode = new Code();
         for (const line of this.#originalCode.lines) {
             this.#displayedCode.lines.push({
+                issue: line.issue,
                 text: line.text,
-                position: line.position
+                position: line.position,
+                breakFlow: line.breakFlow,
+                nesting: line.nesting
             });
         }
         this.setCodeLines(tree);
         this.addCommentsToDisplayedCode();
+        this.#displayedCode.setTextWithLines();
     }
 
 
@@ -110,11 +116,13 @@ export class TreeMethod extends Evaluable implements IsAstNode {
         for (const childTree of tree.children) {
             if (childTree.increasesCognitiveComplexity) {
                 const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
-                this.#displayedCode.lines[issue] = this.#originalCode.addComment('+ Cognitive complexity', this.#originalCode.lines[issue]);
+                this.#displayedCode.lines[issue].impactsCognitiveCpx = true;
+                if (ComplexityService.increaseBreakFlow(childTree)) {
+                    this.increment(issue, IncrementKind.BREAK_FLOW);
+                }
             }
             this.setCodeLines(childTree);
         }
-        this.#displayedCode.setTextWithLines();
     }
 
 
@@ -132,8 +140,13 @@ export class TreeMethod extends Evaluable implements IsAstNode {
                     }
                     comment = `${comment})`;
                 }
-                this.#displayedCode[line.issue] = this.#originalCode.addComment(comment, this.#originalCode.lines[line.issue]);
+                this.#displayedCode.lines[line.issue] = this.#originalCode.addComment(comment, this.#originalCode.lines[line.issue]);
             });
+    }
+
+
+    increment(issue: number, incrementKind: IncrementKind): void {
+        this.#displayedCode.lines[issue].breakFlow = this.#displayedCode.lines[issue]?.breakFlow ? this.#displayedCode.lines[issue].breakFlow + 1 : 1;
     }
 
 }

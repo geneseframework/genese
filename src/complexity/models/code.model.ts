@@ -1,5 +1,4 @@
 import { CodeLine } from './code-line.model';
-import { CodeService } from '../services/code.service';
 
 export class Code {
 
@@ -16,10 +15,9 @@ export class Code {
 
 
     addComment(comment: string, line: CodeLine): CodeLine {
-        const updatedLine: CodeLine = {
-            position: line?.position,
-            text: line?.text
-        };
+        const updatedLine =new CodeLine();
+        updatedLine.position = line?.position;
+        updatedLine.text = line?.text;
         const txt = `${updatedLine.text} // `;
         updatedLine.text = `${txt.padEnd(this.maxLineWidth + 10, '-')} ${comment}`;
         return updatedLine;
