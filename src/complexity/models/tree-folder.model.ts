@@ -6,7 +6,7 @@ import { Evaluable } from './evaluable.model';
 import { HasStats } from '../interfaces/has-stats';
 
 /**
- * Element of the Tree structure corresponding to a given folder
+ * Element of the TreeNode structure corresponding to a given folder
  */
 export class TreeFolder extends Evaluable implements HasStats {
 
@@ -45,7 +45,7 @@ export class TreeFolder extends Evaluable implements HasStats {
     evaluate(): void {
         for (const file of this.treeFiles) {
             this.cognitiveValue += file.cognitiveValue;
-            this.cyclomaticValue += file.cyclomaticValue;
+            this.cyclomaticCpx += file.cyclomaticCpx;
             this.numberOfMethods += file.treeMethods?.length ?? 0;
             this.numberOfFiles++;
             this.complexitiesByStatus = this.complexitiesByStatus.add(file.complexitiesByStatus);

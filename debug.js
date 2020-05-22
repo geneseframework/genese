@@ -12,5 +12,5 @@ try {
     mainProcess.start(__dirname, './', __dirname);
 }
 catch (err) {
-    console.error(ansi_colors_1.red("Error in debug process : " + err));
+    console.error(ansi_colors_1.red("Error in debug process : " + err.stack));
 }

@@ -77,7 +77,7 @@ export class TsFolderReportService {
                     cognitiveColor: treeMethod.cognitiveStatus.toLowerCase(),
                     cognitiveValue: treeMethod.cognitiveValue,
                     cyclomaticColor: treeMethod.cyclomaticStatus.toLowerCase(),
-                    cyclomaticValue: treeMethod.cyclomaticValue,
+                    cyclomaticValue: treeMethod.cyclomaticCpx,
                     filename: tsFile.name,
                     linkFile: this.getFileLink(tsFile),
                     methodName: treeMethod.name
@@ -103,7 +103,7 @@ export class TsFolderReportService {
                         cognitiveColor: treeMethod.cognitiveStatus.toLowerCase(),
                         cognitiveValue: treeMethod.cognitiveValue,
                         cyclomaticColor: treeMethod.cyclomaticStatus.toLowerCase(),
-                        cyclomaticValue: treeMethod.cyclomaticValue,
+                        cyclomaticValue: treeMethod.cyclomaticCpx,
                         filename: tsFile.name,
                         linkFile: this.getFileLink(tsFile),
                         methodName: treeMethod.name

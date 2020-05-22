@@ -11,7 +11,7 @@ import { Options } from '../models/options';
 import { DEBUG } from '../main';
 
 /**
- * - TreeFolders generation from Abstract Syntax Tree of a folder
+ * - TreeFolders generation from Abstract Syntax TreeNode of a folder
  * - Other services for TreeFolders
  */
 export class TreeFolderService extends StatsService {
@@ -27,7 +27,7 @@ export class TreeFolderService extends StatsService {
 
     /**
      * Generates the TreeFolder for a given folder
-     * The tree is generated according to the Abstract Syntax Tree (AST) of the folder
+     * The tree is generated according to the Abstract Syntax TreeNode (AST) of the folder
      * @param path              // The path of the folder
      * @param extension         // The extension of the files concerned by the generation (actually: only .ts)
      * @param treeSubFolder     // The TreeFolder of a subfolder (param useful only for recursivity, should not be used outside of the method)

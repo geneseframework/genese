@@ -9,7 +9,7 @@ import { HasStats } from '../interfaces/has-stats';
 import { TreeMethodService } from '../services/tree-method.service';
 
 /**
- * Element of the Tree structure corresponding to a given file (AST sourceFile)
+ * Element of the TreeNode structure corresponding to a given file (AST sourceFile)
  */
 export class TreeFile extends Evaluable implements HasStats {
 
@@ -35,7 +35,7 @@ export class TreeFile extends Evaluable implements HasStats {
         const cpbss = new TreeMethodService();
         for (const method of this.treeMethods) {
             this.cognitiveValue += method.cognitiveValue;
-            this.cyclomaticValue += method.cyclomaticValue;
+            this.cyclomaticCpx += method.cyclomaticCpx;
             this.complexitiesByStatus = cpbss.addMethodCpxByStatus(this.complexitiesByStatus, method);
         }
     }
