@@ -55,6 +55,7 @@ export class ComplexityService {
             case ts.SyntaxKind.MethodDeclaration:
             case ts.SyntaxKind.SwitchStatement:
             case ts.SyntaxKind.WhileStatement:
+                complexity.breakFlow = 1;
                 complexity.nesting += tree.nesting + 1;
                 break;
             case ts.SyntaxKind.BinaryExpression:
@@ -62,7 +63,7 @@ export class ComplexityService {
                 break;
             case ts.SyntaxKind.PropertyAccessExpression:
                 if (ComplexityService.isRecursion(tree, tree.node)) {
-                    complexity.breakFlow++;
+                    complexity.breakFlow = 1;
                 }
                 break;
             case ts.SyntaxKind.ConditionalExpression:
