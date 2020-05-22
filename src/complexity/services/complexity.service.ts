@@ -76,13 +76,13 @@ export class ComplexityService {
 
     /**
      * Checks if the AST node of a Tree increases the cognitive complexity
-     * @param tsTree        // The Tree to check
+     * @param tree        // The Tree to check
      */
-    static increasesCognitiveComplexity(tsTree: Tree): boolean {
-        if (tsTree?.node?.['elseStatement']) {
+    static increaseBreakFlow(tree: Tree): boolean {
+        if (tree?.node?.['elseStatement']) {
             return true;
         }
-        switch (tsTree?.node?.kind) {
+        switch (tree?.node?.kind) {
             case ts.SyntaxKind.ArrowFunction:
             case ts.SyntaxKind.CatchClause:
             case ts.SyntaxKind.DoStatement:
@@ -97,9 +97,9 @@ export class ComplexityService {
             case ts.SyntaxKind.WhileStatement:
                 return true;
             case ts.SyntaxKind.BinaryExpression:
-                return ComplexityService.addBinaryCognitiveCpx(tsTree) > 0;
+                return ComplexityService.addBinaryCognitiveCpx(tree) > 0;
             case ts.SyntaxKind.ConditionalExpression:
-                return !ComplexityService.conditionalExpressionIsTrivial(tsTree.node);
+                return !ComplexityService.conditionalExpressionIsTrivial(tree.node);
             default:
                 return false;
         }
@@ -107,13 +107,13 @@ export class ComplexityService {
 
 
     /**
-     * Returns the depth of a "block" inside a given AST node
+     * Returns the nesting (the depth) of a "block" inside a given AST node
      * For example, if on the line 2 the depth is equal to 1 and the line 3 is an IfStatement, the block inside the "if" will have a depth equal to 2.
-     * @param node      // The node to check
-     * @param depth     // The depth of the parent of the node
+     * @param node          // The node to check
+     * @param nesting       // The depth of the parent of the node
      */
-    static increaseDepth(node: ts.Node, depth: number): number {
-        let newDepth = depth;
+    static increaseNesting(node: ts.Node, nesting: number): number {
+        let newNesting = nesting;
         switch (node?.parent.kind) {
             case ts.SyntaxKind.ArrowFunction:
             case ts.SyntaxKind.CatchClause:
@@ -126,12 +126,12 @@ export class ComplexityService {
             case ts.SyntaxKind.IfStatement:
             case ts.SyntaxKind.SwitchStatement:
             case ts.SyntaxKind.WhileStatement:
-                newDepth = depth + 1;
+                newNesting = nesting + 1;
                 break;
             default:
                 break;
         }
-        return newDepth;
+        return newNesting;
     }
 
 

@@ -101,19 +101,39 @@ export class TreeMethod extends Evaluable implements IsAstNode {
                 position: line.position
             });
         }
-        this.addCommentsToDisplayCode(tree)
+        this.setCodeLines(tree);
+        this.addCommentsToDisplayedCode();
     }
 
 
-    addCommentsToDisplayCode(tree: Tree) {
+    setCodeLines(tree: Tree): void {
         for (const childTree of tree.children) {
             if (childTree.increasesCognitiveComplexity) {
                 const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
                 this.#displayedCode.lines[issue] = this.#originalCode.addComment('+ Cognitive complexity', this.#originalCode.lines[issue]);
             }
-            this.addCommentsToDisplayCode(childTree);
+            this.setCodeLines(childTree);
         }
         this.#displayedCode.setTextWithLines();
+    }
+
+
+
+    addCommentsToDisplayedCode(): void {
+        this.#displayedCode.lines
+            .filter(line => !!line.impactsCognitiveCpx)
+            .forEach(line => {
+                let comment = '';
+                const cognitiveCpx = this.codeService.cognitiveCpx(line);
+                if (cognitiveCpx > 0) {
+                    comment = `+${cognitiveCpx} Cognitive complexity (+${line.breakFlow} break flow`;
+                    if (line.nesting > 0) {
+                        comment = `${comment}, +${line.nesting} nesting`;
+                    }
+                    comment = `${comment})`;
+                }
+                this.#displayedCode[line.issue] = this.#originalCode.addComment(comment, this.#originalCode.lines[line.issue]);
+            });
     }
 
 }

@@ -1,4 +1,5 @@
 import { Code } from '../models/code.model';
+import { CodeLine } from '../models/code-line.model';
 
 export class CodeService {
 
@@ -13,7 +14,8 @@ export class CodeService {
         let issue = 1;
         let pos = 0;
         for (const textLine of textLines) {
-            code.lines.push({text: textLine, issue: issue, position: pos});
+            const codeLine: CodeLine = {text: textLine, issue: issue, position: pos};
+            code.lines.push(codeLine);
             code.maxLineWidth = code.maxLineWidth < textLine.length ? textLine.length : code.maxLineWidth;
             issue++;
             pos = textLine ? pos + textLine.length + 1 : pos;
@@ -34,5 +36,10 @@ export class CodeService {
             }
         }
         return issue;
+    }
+
+
+    cognitiveCpx(codeLine: CodeLine): number {
+        return codeLine.breakFlow + codeLine.nesting;
     }
 }

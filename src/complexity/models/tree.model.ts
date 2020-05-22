@@ -19,7 +19,6 @@ export class Tree implements IsAstNode {
 
 
     constructor() {
-        // super();
     }
 
     /**

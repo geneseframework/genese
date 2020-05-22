@@ -1,4 +1,5 @@
 import { CodeLine } from './code-line.model';
+import { CodeService } from '../services/code.service';
 
 export class Code {
 

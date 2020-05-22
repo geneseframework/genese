@@ -25,11 +25,11 @@ export class TsTreeService {
             const newTree = new Tree();
             childNode.parent = tsTree.node;
             newTree.node = childNode;
-            newTree.depth = CS.increaseDepth(childNode, depth);
+            newTree.depth = CS.increaseNesting(childNode, depth);
             newTree.treeMethod = tsTree.treeMethod;
             newTree.parent = tsTree;
             newTree.kind = Ast.getType(childNode);
-            newTree.increasesCognitiveComplexity = CS.increasesCognitiveComplexity(newTree);
+            newTree.increasesCognitiveComplexity = CS.increaseBreakFlow(newTree);
             tsTree.children.push(TsTreeService.addTreeToChildren(newTree));
         });
         return tsTree;
