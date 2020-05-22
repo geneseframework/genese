@@ -14,12 +14,8 @@ export class Code {
     }
 
 
-    addComment(comment: string, line: CodeLine): CodeLine {
-        const updatedLine =new CodeLine();
-        updatedLine.position = line?.position;
-        updatedLine.text = line?.text;
-        const txt = `${updatedLine.text} // `;
-        updatedLine.text = `${txt.padEnd(this.maxLineWidth + 10, '-')} ${comment}`;
-        return updatedLine;
+    addComment(comment: string, line: CodeLine): string {
+        const txt = `${line?.text} // `;
+        return `${txt.padEnd(this.maxLineWidth + 10, '-')} ${comment}`;
     }
 }

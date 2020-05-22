@@ -107,6 +107,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
             });
         }
         this.setCodeLines(tree);
+        console.log('DISPLL', this.#displayedCode)
         this.addCommentsToDisplayedCode();
         this.#displayedCode.setTextWithLines();
     }
@@ -116,6 +117,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
         for (const childTree of tree.children) {
             if (childTree.increasesCognitiveComplexity) {
                 const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
+                console.log('ISSSUE', issue)
                 this.#displayedCode.lines[issue].impactsCognitiveCpx = true;
                 if (ComplexityService.increaseBreakFlow(childTree)) {
                     this.increment(issue, IncrementKind.BREAK_FLOW);
@@ -139,8 +141,10 @@ export class TreeMethod extends Evaluable implements IsAstNode {
                         comment = `${comment}, +${line.nesting} nesting`;
                     }
                     comment = `${comment})`;
+                    console.log('ISSSUE Z', line.issue)
+
                 }
-                this.#displayedCode.lines[line.issue] = this.#originalCode.addComment(comment, this.#originalCode.lines[line.issue]);
+                this.#displayedCode.lines[line.issue - 1].text = this.#originalCode.addComment(comment, this.#originalCode.lines[line.issue - 1]);
             });
     }
 
@@ -148,5 +152,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     increment(issue: number, incrementKind: IncrementKind): void {
         this.#displayedCode.lines[issue].breakFlow = this.#displayedCode.lines[issue]?.breakFlow ? this.#displayedCode.lines[issue].breakFlow + 1 : 1;
     }
+
+
 
 }
