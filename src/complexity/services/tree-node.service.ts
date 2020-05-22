@@ -30,9 +30,9 @@ export class TreeNodeService {
             newTree.parent = treeNode;
             newTree.kind = Ast.getType(childNode);
             newTree.cognitiveCpx = CS.getTreeLocalCognitiveCpx(newTree);
-            if (newTree.cognitiveCpx.total > 0) {
-                console.log('COGCP+X', newTree.cognitiveCpx)
-            }
+            // if (newTree.cognitiveCpx.total > 0) {
+            //     console.log('COGCP+X', newTree.cognitiveCpx)
+            // }
             newTree.increasesCognitiveComplexity = CS.increaseBreakFlow(newTree);
             treeNode.children.push(TreeNodeService.addTreeToChildren(newTree));
         });

@@ -41,7 +41,7 @@ export class CodeService {
         return issue;
     }
 
-    cognitiveCpx(codeLine: CodeLine): number {
-        return codeLine.breakFlow + codeLine.nesting;
-    }
+    // cognitiveCpx(codeLine: CodeLine): number {
+    //     return codeLine.breakFlow + codeLine.nesting;
+    // }
 }

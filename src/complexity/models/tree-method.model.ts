@@ -11,6 +11,7 @@ import { IsAstNode } from '../interfaces/is-ast-node';
 import { Code } from './code.model';
 import { CodeService } from '../services/code.service';
 import { IncrementKind } from '../enums/increment-kind';
+import { CognitiveCpx } from './cognitive-cpx.model';
 
 /**
  * Element of the TreeNode structure corresponding to a given method
@@ -99,6 +100,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
         this.#displayedCode = new Code();
         for (const line of this.#originalCode.lines) {
             this.#displayedCode.lines.push({
+                cognitiveCpx: new CognitiveCpx(),
                 issue: line.issue,
                 text: line.text,
                 position: line.position,
@@ -117,9 +119,11 @@ export class TreeMethod extends Evaluable implements IsAstNode {
             if (childTree.increasesCognitiveComplexity) {
                 const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
                 this.#displayedCode.lines[issue].impactsCognitiveCpx = true;
-                if (ComplexityService.increaseBreakFlow(childTree)) {
-                    this.increment(issue, IncrementKind.BREAK_FLOW);
-                }
+                this.#displayedCode.lines[issue].cognitiveCpx.breakFlow += childTree.cognitiveCpx.breakFlow;
+                this.#displayedCode.lines[issue].cognitiveCpx.nesting += childTree.cognitiveCpx.nesting;
+                // if (ComplexityService.increaseBreakFlow(childTree)) {
+                //     this.increment(issue, IncrementKind.BREAK_FLOW);
+                // }
                 // if (ComplexityService.getNesting(childTree)) {
                 //     this.increment(issue, IncrementKind.BREAK_FLOW);
                 // }
@@ -135,11 +139,11 @@ export class TreeMethod extends Evaluable implements IsAstNode {
             .filter(line => !!line.impactsCognitiveCpx)
             .forEach(line => {
                 let comment = '';
-                const cognitiveCpx = this.codeService.cognitiveCpx(line);
-                if (cognitiveCpx > 0) {
-                    comment = `+${cognitiveCpx} Cognitive complexity (+${line.breakFlow} break flow`;
-                    if (line.nesting > 0) {
-                        comment = `${comment}, +${line.nesting} nesting`;
+                // const cognitiveCpx = this.codeService.cognitiveCpx(line);
+                if (line.cognitiveCpx?.total > 0) {
+                    comment = `+${line.cognitiveCpx.total} Cognitive complexity (+${line.cognitiveCpx.breakFlow} break flow`;
+                    if (line.cognitiveCpx.nesting > 0) {
+                        comment = `${comment}, +${line.cognitiveCpx.nesting} nesting`;
                     }
                     comment = `${comment})`;
 

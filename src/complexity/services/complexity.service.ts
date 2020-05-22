@@ -56,7 +56,7 @@ export class ComplexityService {
             case ts.SyntaxKind.SwitchStatement:
             case ts.SyntaxKind.WhileStatement:
                 complexity.breakFlow = 1;
-                complexity.nesting += tree.nesting + 1;
+                complexity.nesting = tree.nesting;
                 break;
             case ts.SyntaxKind.BinaryExpression:
                 complexity.breakFlow += ComplexityService.addBinaryCognitiveCpx(tree);
