@@ -2,7 +2,7 @@ import * as ts from 'typescript';
 import { TreeFile } from './tree-file.model';
 import { Ast } from '../services/ast.service';
 import { ComplexityService, ComplexityService as CS } from '../services/complexity.service';
-import { TreeNode } from './tree.model';
+import { TreeNode } from './tree-node.model';
 import { Options } from './options';
 import { MethodStatus } from '../enums/evaluation-status.enum';
 import { ComplexityType } from '../enums/complexity-type.enum';
@@ -21,7 +21,6 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     astPosition = 0;
     codeService: CodeService = new CodeService();
     cognitiveStatus: MethodStatus = MethodStatus.CORRECT;           // The cognitive status of the method
-    complexityService?: ComplexityService= new ComplexityService();
     cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;          // The cyclomatic status of the method
     #displayedCode?: Code = undefined;
     filename ?= '';                                                 // The name of the file containing the method
@@ -121,12 +120,14 @@ export class TreeMethod extends Evaluable implements IsAstNode {
                 this.#displayedCode.lines[issue].impactsCognitiveCpx = true;
                 this.#displayedCode.lines[issue].cognitiveCpx.breakFlow += childTree.cognitiveCpx.breakFlow;
                 this.#displayedCode.lines[issue].cognitiveCpx.nesting += childTree.cognitiveCpx.nesting;
-                // if (ComplexityService.increaseBreakFlow(childTree)) {
-                //     this.increment(issue, IncrementKind.BREAK_FLOW);
-                // }
-                // if (ComplexityService.getNesting(childTree)) {
-                //     this.increment(issue, IncrementKind.BREAK_FLOW);
-                // }
+
+            }
+            if (tree?.node?.kind === ts.SyntaxKind.IfStatement) {
+                if (tree?.node?.['elseStatement']?.pos === childTree?.node?.pos) {
+                    const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
+                    this.#displayedCode.lines[issue].impactsCognitiveCpx = true;
+                    this.#displayedCode.lines[issue].cognitiveCpx.breakFlow += 1;
+                }
             }
             this.setCodeLines(childTree);
         }

@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 import { Ast } from './ast.service';
-import { TreeNode } from '../models/tree.model';
+import { TreeNode } from '../models/tree-node.model';
 import { TreeMethod } from '../models/tree-method.model';
 import { ComplexityService as CS } from './complexity.service';
 import { Options } from '../models/options';
@@ -15,6 +15,7 @@ export class TreeNodeService {
         treeNode.treeMethod = treeMethod;
         treeNode.kind = Ast.getType(treeMethod.node);
         treeNode = TreeNodeService.addTreeToChildren(treeNode)
+        // treeNode.printAllChildren()
         return treeNode;
     }
 
@@ -30,9 +31,6 @@ export class TreeNodeService {
             newTree.parent = treeNode;
             newTree.kind = Ast.getType(childNode);
             newTree.cognitiveCpx = CS.getTreeLocalCognitiveCpx(newTree);
-            // if (newTree.cognitiveCpx.total > 0) {
-            //     console.log('COGCP+X', newTree.cognitiveCpx)
-            // }
             newTree.increasesCognitiveComplexity = CS.increaseBreakFlow(newTree);
             treeNode.children.push(TreeNodeService.addTreeToChildren(newTree));
         });

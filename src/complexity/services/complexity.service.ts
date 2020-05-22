@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 import * as utils from 'tsutils';
-import { TreeNode } from '../models/tree.model';
+import { TreeNode } from '../models/tree-node.model';
 import { Ast } from './ast.service';
 import { CognitiveCpx } from '../models/cognitive-cpx.model';
 
@@ -40,7 +40,7 @@ export class ComplexityService {
             return complexity;
         }
         if (tree?.node?.['elseStatement']) {
-            complexity.breakFlow ++;
+            complexity.breakFlow = 1;
         }
         switch (tree.node.kind) {
             case ts.SyntaxKind.ArrowFunction:
@@ -126,6 +126,13 @@ export class ComplexityService {
      * @param tree        // The TreeNode to check
      */
     static increaseBreakFlow(tree: TreeNode): boolean {
+        // if (tree?.parent?.node?.kind === ts.SyntaxKind.IfStatement) {
+        //     console.log('PARENT IS IF', tree?.parent?.node)
+        //     if (tree?.parent?.node?.['elseStatement']?.pos === tree?.node?.pos) {
+        //         console.log('IS ELSE STT')
+        //         return true;
+        //     }
+        // }
         if (tree?.node?.['elseStatement']) {
             return true;
         }
