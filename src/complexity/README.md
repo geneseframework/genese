@@ -4,10 +4,13 @@ Genese Complexity is a part of the [genese framework]('https://github.com/genese
 This module creates an HTML report displaying the complexities scores of each folder, file or method which will give you an overview of the code quality of your project. Moreover, you will find for each method the reasons of the complexity score which will help you to refactor your code more easily.
 
 
+![dashboard png]('https://github.com/geneseframework/genese/readme-dashboard.png')
+
 ## Table of Contents
 * [Why use Genese Complexity ?](#why-use-genese-complexity-)
 * [Installation](#installation)
 * [Usage](#usage)
+* [Interpretation of results](#interpretation-of-results)
 
 
 ## Why use Genese Complexity ?
@@ -16,7 +19,7 @@ Genese Complexity is an audit tool which allows you to identify quickly the bad 
 
 ## Installation
 
-Genese complexity is a part of the genese module itself, so if you installed it globally yet, you have nothing to do. If not, please install globally the genese module :
+Genese complexity is a part of the genese module itself, so if you installed globally genese yet, you have nothing to do. If not, please install globally the genese module :
 
 ```sh 
 npm i -g genese
@@ -39,4 +42,8 @@ genese cpx ./src/
 
 Please note that the slash at the end of the path is mandatory.
 
-This command line will generate a report in the folder `genese/complexity/reports` (it can be customized) named `folder-report.html`. You just need to open it in a browser.
+This command line will generate a report in the folder `genese/complexity/reports` (it can be customized) named `folder-report.html`. You just need to open it in a browser to display the results.
+
+## Interpretation of results
+
+

@@ -16,6 +16,6 @@
             "./genese"
         ],
         "pathFolderToAnalyze": "./src/complexity/mocks/",
-        "pathReports": "./gn-reports"
+        "pathReports": "./genese"
     }
 }
