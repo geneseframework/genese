@@ -4,7 +4,7 @@ Genese Complexity is a part of the [genese framework]('https://github.com/genese
 This module creates an HTML report displaying the complexities scores of each folder, file or method which will give you an overview of the code quality of your project. Moreover, you will find for each method the reasons of the complexity score which will help you to refactor your code more easily.
 
 
-![Dashboard Genese Complexity](https://github.com/geneseframework/genese/blob/develop/readme-dashboard.png?raw=true)
+![Dashboard Genese Complexity](./readme-dashboard.png?raw=true "Dashboard")
 
 ## Table of Contents
 * [Why use Genese Complexity ?](#why-use-genese-complexity-)
