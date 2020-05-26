@@ -48,5 +48,5 @@ This command line will generate a report in the folder `genese/complexity/report
 
 The dashboard's header presents the global statistics of the analyzed project. These scores will give you an overview of its size.
 
-The main part of the page consist in two pairs of charts : the left one is about cognitive complexity and the other is about cyclomatic complexity. The "doughnut chart" is an overview of the distribution of the project's methods statuses (correct, warning and error). The information on the left are reminding these thresholds and can be customized.
+The main part of the page consist in two pairs of charts : the left one is about cognitive complexity and the other is about cyclomatic complexity. The "doughnut chart" is an overview of the distribution of the project's methods statuses (correct, warning and error). The information on the left are reminding these thresholds (which can be customized).
  
