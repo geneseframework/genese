@@ -15,7 +15,7 @@ This module creates an HTML report displaying the complexities scores of each fo
 
 ## Why use Genese Complexity ?
 
-Genese Complexity is an audit tool which allows you to identify quickly the bad practices concerning the too high level of cognitive or cyclomatic complexity in a project. You will be able to find quickly the methods with "error status" or with "warning status" and to fix the different bad smells.
+Genese Complexity is an audit tool which allows you to identify quickly the bad practices concerning cognitive or cyclomatic complexity. You will be able to find quickly the methods with too high complexity score (error) or which are near this threshold (warning) and fix the different bad smells.
 
 ## Installation
 
@@ -46,4 +46,7 @@ This command line will generate a report in the folder `genese/complexity/report
 
 ## Interpretation of results
 
+The dashboard's header presents the global statistics of the analyzed project. These scores will give you an overview of its size.
 
+The main part of the page consist in two pairs of charts : the left one is about cognitive complexity and the other is about cyclomatic complexity. The "doughnut chart" is an overview of the distribution of the project's methods statuses (correct, warning and error). The information on the left are reminding these thresholds and can be customized.
+ 
