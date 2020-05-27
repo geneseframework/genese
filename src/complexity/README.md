@@ -126,7 +126,27 @@ The last character must be a slash.
 
 ### Reports path
 
-By default, the genese complexity report will be located here : `current_folder/genese/` 
+By default, the genese complexity report will be located here : `current_folder/genese/`. You can change it like this:
+
+```json
+{
+    "complexity": {
+        "pathReports": "./my-report-folder"
+    }
+}
+```
+
+## Documentation
+
+### Cyclomatic complexity
+
+The cyclomatic complexity represents the difficulty to test a given method. The cyclomatic score is a measure of the testability and the maintainability of your code. This score gives you a first indication about the measure of the time of development needed to test your code and to increase its maintainability.
+
+The force of the cyclomatic complexity concept is its simplicity: approximately, all breakflows (for, if, switch, ...) increase the score of 1. This simplicity is giving you an objective overview of the quality of your code, without subjective interpretations. Unfortunately, this lack of subjectivity involves the low relevance of the cyclomatic complexity score when you want to measure the ***real*** maintainability of your code. If you want to be sure that your code will be easy to maintain, you must ask you this question: ***as a developer**, would it be easy to understand a code like this ?
+
+If you are a human, you will read your code differently than a machine would do it. That's why we need to add more parameters to calculate the real maintainability of your code, and these parameters will contain a part of subjectivity. The measure of the understandability of you code is given by the cognitive complexity which is described below. 
+
+### Cognitive complexity
 
 
 
