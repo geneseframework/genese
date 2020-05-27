@@ -46,7 +46,91 @@ This command line will generate a report in the folder `genese/complexity/report
 
 ## Interpretation of results
 
+### Folder reports
+
 The dashboard's header presents the global statistics of the analyzed project. These scores will give you an overview of its size.
 
-The main part of the page consist in two pairs of charts : the left one is about cognitive complexity and the other is about cyclomatic complexity. The "doughnut chart" is an overview of the distribution of the project's methods statuses (correct, warning and error). The information on the left are reminding these thresholds (which can be customized).
+The main part of the page consist in two pairs of charts : the left one is about cognitive complexity and the other one about cyclomatic complexity. The "doughnut chart" is an overview of the distribution of the project's methods statuses (correct, warning and error). The information on the left are reminding warning and error thresholds (which can be customized), and display the number of methods by status.
  
+ The bar charts display the number of methods by complexity score. The first array displays the detailed information of each subfolder of the current one. The second presents informations of the files inside the current folder (but not the files inside its subfolders), and the third array displays the complexity scores of each method of each file located in the current folder or its subloders, sorted by decreasing cognitive complexity score.
+ 
+ ### File reports
+ 
+ As folder reports, the file reports display complexity statistics of its methods. In addition, you will find detailed information of each of its methods, with explanations of the calculation mode of their cognitive complexity.
+ 
+ ## Configuration
+ 
+ Some parameters are configurable by creating a file geneseconfig.json located on the folder where you will enter the command-line. This file must have this form :
+ 
+ ```json 
+{
+    "complexity": {
+        // "option": value
+        ...
+    }
+} 
+```
+ 
+ ### Thresholds
+ 
+ You can customize the warning and error thresholds of each kind of complexity like this :
+ 
+ ```json 
+{
+    "complexity": {
+        "cognitiveCpx": {
+            "errorThreshold": 15,   // default : 10 
+            "warningThreshold": 10  // default : 5
+        },
+        "cyclomaticCpx": {
+            "errorThreshold": 15,   // default : 10
+            "warningThreshold": 10  // default : 5
+        },
+    }
+} 
+```
+
+### Folders to ignore
+
+You can ignore some folders like this :
+
+```json
+{
+    "complexity": {
+        "ignore": [
+            ".git",
+            ".idea",
+            "api",
+            "/node_modules",
+            "./genese"
+        ]
+    }
+}
+``` 
+
+The folders ignored by default are `/node_modules` and `./genese`.
+
+### Path of folder to analyse
+
+By default, the folder to analyse is the folder where you enter the command-line. You can change it like this :
+
+```json
+{
+    "complexity": {
+        "pathFolderToAnalyze": "./src/"
+    }
+}
+``` 
+
+The last character must be a slash.
+
+### Reports path
+
+By default, the genese complexity report will be located here : `current_folder/genese/` 
+
+
+
+
+
+
+
