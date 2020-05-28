@@ -148,9 +148,27 @@ If you are a human, you will read your code differently than a machine would do 
 
 ### Cognitive complexity
 
+The cognitive complexity could be defined as "a measure of the cognitive effort to understand some code". 
 
+A project is maintainable if each file and each method is easily understandable; that's why the cognitive complexity should be seen as the most important indicator of code maintainability.
 
+The definition above is perfect, but needs to be clarified. The "cognitive effort" is a concept easy to understand, but complex to define. There is no scientific definition of this concept : what is complex to understand and what is not ? Is an "if - else" more complex than a "for", a "while" or a "switch" ? How many times a recursive method is more complex than a "normal" one ? Shorthands like optional chaining or nullish coalescing clearly decrease the complexity of a method, but in which proportion ? There are no indisputable responses. We are condemned to weight each complexity factor with an arbitrary value which corresponds to our intuition.
 
+The first try to define algorithmic rules allowing to calculate the cognitive complexity was done by Ann Campbell for SonarCloud in 2017. She used three basic rules to calculate the cognitive complexity score :
 
+      1. Ignore structures that allow multiple statements to be readably shorthanded into one
+      2. Increment (add one) for each break in the linear flow of the code
+      3. Increment when flow-breaking structures are nested
+
+This calculation method involves the following elements :
+
+* Increment for breaks in the linear flow
+
+    - Loop structures : for, while, do while, ... : + 1
+    - Conditionals : ternary operators, if, ... : + 1
+    - else, else if, ... : 0 (no nesting increment because **"the mental cost has already been paid when reading the if"**.
+    - catch : + 1 ("try" and "finally" are ignored)
+    - switch : + 1 (globally, not for each "case")
+    - logic doors : + 1 for the first one and + 1 for the next one if different of the previous one (a && b => +1 ; a && b && c => + 1 ; a && b || c => + 2)   
 
 
