@@ -5,6 +5,6 @@ import { Stats } from '../models/stats.model';
  */
 export interface HasStats {
 
-    stats?: Stats;                                  // The statistics of the element
+    stats?: Stats;                                  // The statistics of the object
 
 }

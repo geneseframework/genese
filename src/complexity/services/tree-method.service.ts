@@ -11,6 +11,10 @@ import { CodeService } from './code.service';
 export class TreeMethodService {
 
 
+    /**
+     * Generates the array of TreeMethods corresponding to the methods included in a given TreeFile
+     * @param treeFile  // The TreeFile containing the methods
+     */
     static generateTree(treeFile: TreeFile): TreeMethod[] {
         const methods: TreeMethod[] = [];
         ts.forEachChild(treeFile.sourceFile, function cb(node) {
@@ -32,6 +36,11 @@ export class TreeMethodService {
     }
 
 
+    /**
+     * Returns the addition of a ComplexitiesByStatus object and the complexities scores of a given treeMethod
+     * @param cpxByStatus   // The object to add
+     * @param treeMethod    // The TreeMethod in question
+     */
     addMethodCpxByStatus(cpxByStatus: ComplexitiesByStatus, treeMethod: TreeMethod): ComplexitiesByStatus {
         let cpx: ComplexitiesByStatus = cpxByStatus ?? new ComplexitiesByStatus();
         cpx = this.incrementMethodByCpxType(cpx, ComplexityType.COGNITIVE, treeMethod.cognitiveStatus);
@@ -40,6 +49,12 @@ export class TreeMethodService {
     }
 
 
+    /**
+     * For a given complexity type, returns the value of a ComplexitiesByStatus object incremented of one for a given MethodStatus
+     * @param cpxByStatus       // The ComplexitiesByStatus object
+     * @param complexityType    // The type of complexity to increment
+     * @param methodStatus      // The complexity status
+     */
     private incrementMethodByCpxType(cpxByStatus: ComplexitiesByStatus, complexityType: ComplexityType, methodStatus: MethodStatus): ComplexitiesByStatus {
         const status: ComplexitiesByStatus = cpxByStatus;
         switch (methodStatus) {

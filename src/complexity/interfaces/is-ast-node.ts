@@ -5,6 +5,6 @@ import * as ts from 'typescript';
  */
 export interface IsAstNode {
 
-    node?: ts.Node;
+    node?: ts.Node;     // The AST node of the object
 
 }

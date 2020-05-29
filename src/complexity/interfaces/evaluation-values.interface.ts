@@ -3,7 +3,7 @@
  */
 export interface EvaluationValuesInterface {
 
-    cognitiveValue?: number;
-    cyclomaticValue?: number;
+    cognitiveValue?: number;        // The cognitive complexity score
+    cyclomaticValue?: number;       // The cyclomatic complexity score
 
 }

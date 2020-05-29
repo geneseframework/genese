@@ -32,11 +32,11 @@ export class TreeFile extends Evaluable implements HasStats {
      * Evaluates the complexities of this TreeFile
      */
     evaluate(): void {
-        const cpbss = new TreeMethodService();
+        const treeMethodService = new TreeMethodService();
         for (const method of this.treeMethods) {
             this.cognitiveValue += method.cognitiveValue;
             this.cyclomaticCpx += method.cyclomaticCpx;
-            this.complexitiesByStatus = cpbss.addMethodCpxByStatus(this.complexitiesByStatus, method);
+            this.complexitiesByStatus = treeMethodService.addMethodCpxByStatus(this.complexitiesByStatus, method);
         }
     }
 

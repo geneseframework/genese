@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 import { TreeFile } from './tree-file.model';
 import { Ast } from '../services/ast.service';
-import { ComplexityService, ComplexityService as CS } from '../services/complexity.service';
+import { ComplexityService as CS } from '../services/complexity.service';
 import { TreeNode } from './tree-node.model';
 import { Options } from './options';
 import { MethodStatus } from '../enums/evaluation-status.enum';
@@ -10,25 +10,24 @@ import { Evaluable } from './evaluable.model';
 import { IsAstNode } from '../interfaces/is-ast-node';
 import { Code } from './code.model';
 import { CodeService } from '../services/code.service';
-import { IncrementKind } from '../enums/increment-kind';
-import { CognitiveCpx } from './cognitive-cpx.model';
+import { CognitiveCpxByIncrementType } from './cognitive-cpx-by-increment-type.model';
 
 /**
  * Element of the TreeNode structure corresponding to a given method
  */
 export class TreeMethod extends Evaluable implements IsAstNode {
 
-    astPosition = 0;
-    codeService: CodeService = new CodeService();
+    astPosition = 0;                                                // The position of the AST node of the method in the code of its file
+    codeService: CodeService = new CodeService();                   // The service managing Code objects
     cognitiveStatus: MethodStatus = MethodStatus.CORRECT;           // The cognitive status of the method
     cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;          // The cyclomatic status of the method
-    #displayedCode?: Code = undefined;
+    #displayedCode?: Code = undefined;                              // The code to display in the report
     filename ?= '';                                                 // The name of the file containing the method
     name ?= '';                                                     // The name of the method
     node: ts.Node = undefined;                                      // The AST node corresponding to the method
-    #originalCode?: Code = undefined;
+    #originalCode?: Code = undefined;                               // The original Code of the method (as Code object)
     treeFile?: TreeFile = new TreeFile();                           // The TreeFile which contains the TreeMethod
-    tree?: TreeNode = undefined;                                        // The AST of the method itself
+    tree?: TreeNode = undefined;                                    // The AST of the method itself
 
 
     constructor(node: ts.Node) {
@@ -95,11 +94,15 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     }
 
 
+    /**
+     * Creates the code to display with the original code of a TreeNode
+     * @param tree  // The TreeNode to analyse
+     */
     createDisplayedCode(tree: TreeNode = this.tree): void {
         this.#displayedCode = new Code();
         for (const line of this.#originalCode.lines) {
             this.#displayedCode.lines.push({
-                cognitiveCpx: new CognitiveCpx(),
+                cognitiveCpx: new CognitiveCpxByIncrementType(),
                 issue: line.issue,
                 text: line.text,
                 position: line.position,
@@ -113,13 +116,17 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     }
 
 
+    /**
+     * Sets the CodeLines of the displayed Code of this method
+     * @param tree
+     */
     setCodeLines(tree: TreeNode): void {
         for (const childTree of tree.children) {
             if (childTree.increasesCognitiveComplexity) {
                 const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
                 this.#displayedCode.lines[issue].impactsCognitiveCpx = true;
-                this.#displayedCode.lines[issue].cognitiveCpx.breakFlow += childTree.cognitiveCpx.breakFlow;
-                this.#displayedCode.lines[issue].cognitiveCpx.nesting += childTree.cognitiveCpx.nesting;
+                this.#displayedCode.lines[issue].cognitiveCpx.breakFlow += childTree.cognitiveCpxByIncrementType.breakFlow;
+                this.#displayedCode.lines[issue].cognitiveCpx.nesting += childTree.cognitiveCpxByIncrementType.nesting;
 
             }
             if (tree?.node?.kind === ts.SyntaxKind.IfStatement) {
@@ -134,13 +141,14 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     }
 
 
-
+    /**
+     * Adds information about complexity increment reasons for each line of the displayed code
+     */
     addCommentsToDisplayedCode(): void {
         this.#displayedCode.lines
             .filter(line => !!line.impactsCognitiveCpx)
             .forEach(line => {
                 let comment = '';
-                // const cognitiveCpx = this.codeService.cognitiveCpx(line);
                 if (line.cognitiveCpx?.total > 0) {
                     comment = `+${line.cognitiveCpx.total} Cognitive complexity (+${line.cognitiveCpx.breakFlow} break flow`;
                     if (line.cognitiveCpx.nesting > 0) {
@@ -152,12 +160,4 @@ export class TreeMethod extends Evaluable implements IsAstNode {
                 this.#displayedCode.lines[line.issue - 1].text = this.#originalCode.addComment(comment, this.#originalCode.lines[line.issue - 1]);
             });
     }
-
-
-    increment(issue: number, incrementKind: IncrementKind): void {
-        this.#displayedCode.lines[issue][incrementKind] = this.#displayedCode.lines[issue]?.[incrementKind] ? this.#displayedCode.lines[issue]?.[incrementKind] + 1 : 1;
-    }
-
-
-
 }

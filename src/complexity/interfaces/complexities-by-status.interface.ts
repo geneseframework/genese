@@ -6,8 +6,8 @@ import { Addition } from './add.interface';
  */
 export class ComplexitiesByStatus implements Addition<ComplexitiesByStatus> {
 
-    cognitive?: RepartitionByStatus = new RepartitionByStatus();
-    cyclomatic?: RepartitionByStatus = new RepartitionByStatus();
+    cognitive?: RepartitionByStatus = new RepartitionByStatus();        // The repartition by status of the cognitive complexity
+    cyclomatic?: RepartitionByStatus = new RepartitionByStatus();       // The repartition by status of the cyclomatic complexity
 
 
     /**
