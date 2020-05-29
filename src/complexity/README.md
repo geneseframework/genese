@@ -166,9 +166,21 @@ This calculation method involves the following elements :
 
     - Loop structures : for, while, do while, ... : + 1
     - Conditionals : ternary operators, if, ... : + 1
+    - else, else if, ... : + 1 
+    - catch : + 1 ("try" and "finally" are ignored)
+    - switch : + 1 
+    - logic doors : + 1 for the first one and + 1 for the next one if different of the previous one (a && b => +1 ; a && b && c => + 1 ; a && b || c => + 2)
+    - recursion : + 1   
+
+* Increment for nesting structures
+
+    - Loop structures : for, while, do while, ... : + 1
+    - Conditionals : ternary operators, if, ... : + 1
     - else, else if, ... : 0 (no nesting increment because **"the mental cost has already been paid when reading the if"**.
     - catch : + 1 ("try" and "finally" are ignored)
     - switch : + 1 (globally, not for each "case")
-    - logic doors : + 1 for the first one and + 1 for the next one if different of the previous one (a && b => +1 ; a && b && c => + 1 ; a && b || c => + 2)   
+    - logic doors : 0   
+    - recursion : 0   
+
 
 
