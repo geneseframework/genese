@@ -14,13 +14,13 @@ export class TreeNodeService {
      * Generates the TreeNode corresponding to a given TreeMethod
      * @param treeMethod    // The TreeMethod in question
      */
-    static generateTree(treeMethod: TreeMethod): TreeNode {
+    generateTree(treeMethod: TreeMethod): TreeNode {
         let treeNode: TreeNode = new TreeNode();
         treeNode.node = treeMethod.node;
         treeNode.nesting = 0;
         treeNode.treeMethod = treeMethod;
         treeNode.kind = Ast.getType(treeMethod.node);
-        treeNode = TreeNodeService.addTreeToChildren(treeNode)
+        treeNode = this.addTreeToChildren(treeNode)
         return treeNode;
     }
 
@@ -29,7 +29,7 @@ export class TreeNodeService {
      * Returns the TreeNode obtained by setting recursively TreeNodes for its children and subchildren
      * @param treeNode
      */
-    static addTreeToChildren(treeNode: TreeNode): TreeNode {
+    addTreeToChildren(treeNode: TreeNode): TreeNode {
         const depth: number = treeNode.nesting;
         ts.forEachChild(treeNode.node, (childNode: ts.Node) => {
             const newTree = new TreeNode();
@@ -41,7 +41,7 @@ export class TreeNodeService {
             newTree.kind = Ast.getType(childNode);
             newTree.cognitiveCpxByIncrementType = CS.getTreeLocalCognitiveCpx(newTree);
             newTree.increasesCognitiveComplexity = CS.increaseBreakFlow(newTree);
-            treeNode.children.push(TreeNodeService.addTreeToChildren(newTree));
+            treeNode.children.push(this.addTreeToChildren(newTree));
         });
         return treeNode;
     }

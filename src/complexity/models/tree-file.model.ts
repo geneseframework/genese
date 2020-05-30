@@ -17,14 +17,14 @@ export class TreeFile extends Evaluable implements HasStats {
     name ?= '';                                                 // The name of the file
     sourceFile?: ts.SourceFile = undefined;                     // The sourceFile corresponding to this TreeFile
     stats?: Stats = undefined;                                  // The statistics of the file
-    treeFileService: TreeFileService = undefined;               // The service for TreeFiles
+    treeFileService: TreeFileService = new TreeFileService();               // The service for TreeFiles
     treeFolder?: TreeFolder = new TreeFolder();                 // The TreeFolder which includes this TreeFile
     treeMethods?: TreeMethod[] = [];                            // The TreeMethods included in this TreeFile
 
 
     constructor() {
         super();
-        this.treeFileService = new TreeFileService(this);
+        this.treeFileService.treeFile = this;
     }
 
 

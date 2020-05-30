@@ -14,12 +14,12 @@ import { TreeMethodService } from './tree-method.service';
  */
 export class TreeFileService extends StatsService{
 
-    protected _stats: Stats = undefined;           // The statistics of the TreeFile
-    treeFile: TreeFile = undefined;               // The TreeFile corresponding to this service
+    protected _stats: Stats = undefined;            // The statistics of the TreeFile
+    treeFile: TreeFile = undefined;                 // The TreeFile corresponding to this service
+    treeMethodService?: TreeMethodService = new TreeMethodService();
 
-    constructor(treeFile: TreeFile) {
+    constructor() {
         super();
-        this.treeFile = treeFile;
     }
 
 
@@ -29,12 +29,12 @@ export class TreeFileService extends StatsService{
      * @param path          // The path of the file
      * @param treeFolder      // The TreeFolder containing the TreeFile
      */
-    static generateTree(path: string, treeFolder: TreeFolder = new TreeFolder()): TreeFile {
+    generateTree(path: string, treeFolder: TreeFolder = new TreeFolder()): TreeFile {
         const tsFile: TreeFile = new TreeFile();
         tsFile.sourceFile = Ast.getSourceFile(path);
         tsFile.treeFolder = treeFolder;
         tsFile.name = tsFile.sourceFile?.fileName;
-        tsFile.treeMethods = TreeMethodService.generateTree(tsFile);
+        tsFile.treeMethods = this.treeMethodService.generateTree(tsFile);
         tsFile.evaluate();
         return tsFile;
     }
