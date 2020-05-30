@@ -1,6 +1,6 @@
 # Genese
 
-Genese is a typescript framework containing different tools which will improve your speed of development and increase your code quality. Some of these tools are accessible with command lines with the genese package itself, like genese-complexity. Other tools are available in separate modules, like genese-angular or genese-api. 
+Genese is a typescript framework containing different tools which will improve your speed of development and increase your code quality. Some of these tools are accessible with command lines with the genese package itself, like `genese-complexity`. Other tools are available in separate modules, like `genese-angular` or `genese-api`. 
 
 
 ## 1. Installation
@@ -27,9 +27,9 @@ After installing globally Genese, you'll can launch the creation of the data-ser
 genese new api
 ```
 
-More information in the [genese-api-angular documentation](https://github.com/gillesfabre34/genese-api-angular').
+You will find more information in the [genese-api-angular documentation](https://github.com/gillesfabre34/genese-api-angular).
 
-A demonstrator of genese-api-angular is available [here]('https://github.com/geneseframework/genese-api-angular-demo').
+A demonstrator of genese-api-angular is available [here](https://github.com/geneseframework/genese-api-angular-demo).
 
 ### 2.2 Genese Complexity
 
@@ -41,7 +41,7 @@ After installing globally Genese, you'll can launch the analysis with this comma
 genese cpx [pathDir]
 ```
 
-More information in the [genese-complexity documentation]('https://github.com/geneseframework/genese/tree/develop/src/complexity').
+You will find more information in the [genese-complexity documentation](https://github.com/geneseframework/genese/tree/develop/src/complexity).
 
 ## 3 Genese modules
 
@@ -57,9 +57,9 @@ Installation :
 npm i genese-angular
 ```
 
-More information in the [genese-angular documentation]('https://github.com/geneseframework/genese-angular').
+You will find more information in the [genese-angular documentation](https://github.com/geneseframework/genese-angular).
 
-A demonstrator of genese-angular is available [here]('https://github.com/geneseframework/genese-angular-demo').
+A demonstrator of genese-angular is available [here](https://github.com/geneseframework/genese-angular-demo).
 
 ### 3.2 Mappers
 
@@ -73,6 +73,6 @@ Installation :
 npm i genese-mapper
 ```
 
-More information in the [genese-mapper documentation]('https://github.com/geneseframework/genese-mapper').
+You will find more information in the [genese-mapper documentation](https://github.com/geneseframework/genese-mapper).
 
 
