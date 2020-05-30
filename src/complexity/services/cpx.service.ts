@@ -1,14 +1,31 @@
 import * as ts from 'typescript';
 import { Ast } from './ast.service';
+import { TreeNode } from '../models/tree-node.model';
 
 export class CpxService {
 
-    getComplexity(node: ts.Node, cb?: () => number): number {
+    cpx = 0;
+    treeNode: TreeNode;
+
+    getComplexity(treeNode: TreeNode): number {
+        this.treeNode = treeNode;
+        this.addIntrinsicCpx(treeNode);
+        this.addChildrenCpx(treeNode);
+        return this.cpx;
+    }
+
+
+    private addIntrinsicCpx(treeChild: TreeNode, treeParent?: TreeNode): void {
         let cpx = 0;
-        ts.forEachChild(node, function cb(childNode: ts.Node) {
-            console.log('KIND', Ast.getType(childNode))
-            ts.forEachChild(node, cb);
-        });
-        return cpx
+        console.log('CPX', Ast.getType(treeChild.node))
+        this.cpx += cpx;
+    }
+
+
+    private addChildrenCpx(treeNode: TreeNode): void {
+        for (const treeChild of treeNode.children) {
+            this.addIntrinsicCpx(treeChild, treeNode);
+            this.addChildrenCpx(treeChild);
+        }
     }
 }

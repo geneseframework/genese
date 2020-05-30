@@ -23,7 +23,6 @@ export class TreeMethodService {
         let __self = this;
         ts.forEachChild(treeFile.sourceFile, function cb(node) {
             if (Ast.isFunctionOrMethod(node)) {
-                // TreeMethodService.c
                 const newMethod: TreeMethod = new TreeMethod(node);
                 newMethod.treeFile = treeFile;
                 newMethod.astPosition = node.pos;
@@ -33,6 +32,7 @@ export class TreeMethodService {
                 newMethod.tree = __self.treeNodeService.generateTree(newMethod);
                 newMethod.evaluate();
                 newMethod.createDisplayedCode();
+                __self.cpxService.getComplexity(newMethod.tree);
                 methods.push(newMethod);
             }
             ts.forEachChild(node, cb);
