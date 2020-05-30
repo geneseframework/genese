@@ -65,7 +65,7 @@ The main part of the page consist in two pairs of charts : the left one is about
  ```json 
 {
     "complexity": {
-        "option": value
+        "option": "value"
     }
 } 
 ```
@@ -95,11 +95,11 @@ The values by default are :
 {
     "complexity": {
         "cognitiveCpx": {
-            "errorThreshold": 10 
+            "errorThreshold": 10,
             "warningThreshold": 5
         },
         "cyclomaticCpx": {
-            "errorThreshold": 10
+            "errorThreshold": 10,
             "warningThreshold": 5
         },
     }
