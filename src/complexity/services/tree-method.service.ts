@@ -7,25 +7,30 @@ import { ComplexityType } from '../enums/complexity-type.enum';
 import { MethodStatus } from '../enums/evaluation-status.enum';
 import { Ast } from './ast.service';
 import { CodeService } from './code.service';
+import { CpxService } from './cpx.service';
 
 export class TreeMethodService {
 
+    cpxService?: CpxService = new CpxService();
+    treeNodeService?: TreeNodeService = new TreeNodeService();
 
     /**
      * Generates the array of TreeMethods corresponding to the methods included in a given TreeFile
      * @param treeFile  // The TreeFile containing the methods
      */
-    static generateTree(treeFile: TreeFile): TreeMethod[] {
+    generateTree(treeFile: TreeFile): TreeMethod[] {
         const methods: TreeMethod[] = [];
+        let __self = this;
         ts.forEachChild(treeFile.sourceFile, function cb(node) {
             if (Ast.isFunctionOrMethod(node)) {
+                // TreeMethodService.c
                 const newMethod: TreeMethod = new TreeMethod(node);
                 newMethod.treeFile = treeFile;
                 newMethod.astPosition = node.pos;
                 const originalText = node.getFullText(treeFile.sourceFile);
                 const codeService = new CodeService();
                 newMethod.originalCode = codeService.createCode(originalText);
-                newMethod.tree = TreeNodeService.generateTree(newMethod);
+                newMethod.tree = __self.treeNodeService.generateTree(newMethod);
                 newMethod.evaluate();
                 newMethod.createDisplayedCode();
                 methods.push(newMethod);

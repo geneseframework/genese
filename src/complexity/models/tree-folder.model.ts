@@ -19,12 +19,12 @@ export class TreeFolder extends Evaluable implements HasStats {
     stats: Stats = undefined;                                                   // The stats corresponding to this folder
     subFolders?: TreeFolder[] = [];                                             // The subfolders of this folder
     treeFiles?: TreeFile[] = [];                                                // The array of files of this folder (not in the subfolders)
-    treeFolderService?: TreeFolderService = undefined;                          // The TreeFolderService linked to this TreeFolder
+    treeFolderService?: TreeFolderService = new TreeFolderService();                          // The TreeFolderService linked to this TreeFolder
 
 
     constructor() {
         super();
-        this.treeFolderService = new TreeFolderService(this);
+        this.treeFolderService.treeFolder = this;
     }
 
 

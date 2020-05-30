@@ -5,12 +5,14 @@ import { ReportsService } from './services/reports.service';
 import { TreeFolderService } from './services/tree-folder.service';
 import { blueBright } from 'ansi-colors';
 
-export const DEBUG = true;     // Set to true to use Genese Complexity in DEBUG mode (with npm run debug)
+export const DEBUG = false;     // Set to true to use Genese Complexity in DEBUG mode (with npm run debug)
 
 /**
  * Main process of the analysis
  */
 export class Main {
+
+    treeFolderService?: TreeFolderService = new TreeFolderService();
 
     constructor() {
     }
@@ -25,7 +27,7 @@ export class Main {
         console.log('START CALCULATION');
         Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
         createOutDir();
-        const tsFolder = TreeFolderService.generateTree(Options.pathFolderToAnalyze, 'ts');
+        const tsFolder = this.treeFolderService.generateTree(Options.pathFolderToAnalyze, 'ts');
         ReportsService.generateAllReports(tsFolder);
         console.log(blueBright('COMPLEXITY REPORT GENERATED SUCCESSFULLY'));
     }

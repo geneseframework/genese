@@ -9,7 +9,7 @@ export abstract class StatsService {
 
     protected abstract _stats: Stats = undefined;                                       // The statistics of the TreeFile or the TreeFolder
     protected abstract calculateStats(fileOrFolder: TreeFile | TreeFolder): void;       // The method calculating the statistics
-    protected abstract getNameOrPath(): void;                                           // The method returning the filename or the folder's path
+    protected abstract getNameOrPath(element: TreeFile | TreeFolder): void;                                           // The method returning the filename or the folder's path
 
 
     /**
@@ -22,7 +22,7 @@ export abstract class StatsService {
         } else {
             this._stats = new Stats();
             this.calculateStats(fileOrFolder);
-            this.getNameOrPath();
+            this.getNameOrPath(fileOrFolder);
             this._stats.setPercentages();
             this._stats.cumulateComplexities();
             this.sortBarCharts();
