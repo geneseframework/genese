@@ -40,6 +40,23 @@ export class Ast {
 
 
     /**
+     * Returns the number of AST nodes which are children of a given AST node
+     * @param node
+     */
+    static getNodeCount(node: ts.Node): number {
+        let count = 0;
+        ts.forEachChild(node, function cb(childNode) {
+            count++
+            ts.forEachChild(childNode, cb);
+        });
+        return count;
+    }
+
+
+    // -------------------------------------   TYPE CHECKS   ------------------------------------------
+
+
+    /**
      * Checks if an AST node is a BinaryExpression
      * @param node // The AST node
      */
