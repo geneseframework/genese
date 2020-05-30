@@ -5,9 +5,15 @@ import { TreeMethod } from '../models/tree-method.model';
 import { ComplexityService as CS } from './complexity.service';
 import { Options } from '../models/options';
 
-
+/**
+ * Service managing TreeNodes
+ */
 export class TreeNodeService {
 
+    /**
+     * Generates the TreeNode corresponding to a given TreeMethod
+     * @param treeMethod    // The TreeMethod in question
+     */
     static generateTree(treeMethod: TreeMethod): TreeNode {
         let treeNode: TreeNode = new TreeNode();
         treeNode.node = treeMethod.node;
@@ -15,11 +21,14 @@ export class TreeNodeService {
         treeNode.treeMethod = treeMethod;
         treeNode.kind = Ast.getType(treeMethod.node);
         treeNode = TreeNodeService.addTreeToChildren(treeNode)
-        // treeNode.printAllChildren()
         return treeNode;
     }
 
 
+    /**
+     * Returns the TreeNode obtained by setting recursively TreeNodes for its children and subchildren
+     * @param treeNode
+     */
     static addTreeToChildren(treeNode: TreeNode): TreeNode {
         const depth: number = treeNode.nesting;
         ts.forEachChild(treeNode.node, (childNode: ts.Node) => {
@@ -30,7 +39,7 @@ export class TreeNodeService {
             newTree.treeMethod = treeNode.treeMethod;
             newTree.parent = treeNode;
             newTree.kind = Ast.getType(childNode);
-            newTree.cognitiveCpx = CS.getTreeLocalCognitiveCpx(newTree);
+            newTree.cognitiveCpxByIncrementType = CS.getTreeLocalCognitiveCpx(newTree);
             newTree.increasesCognitiveComplexity = CS.increaseBreakFlow(newTree);
             treeNode.children.push(TreeNodeService.addTreeToChildren(newTree));
         });

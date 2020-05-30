@@ -1,12 +1,18 @@
 import { Code } from '../models/code.model';
 import { CodeLine } from '../models/code-line.model';
 
+/**
+ * Service managing Code objects
+ */
 export class CodeService {
 
     constructor() {
     }
 
-
+    /**
+     * Creates a Code object from the content of a given code (as string)
+     * @param text  // The content of the code
+     */
     createCode(text: string): Code {
         const code: Code = new Code();
         code.text = text;
@@ -19,7 +25,7 @@ export class CodeService {
             line.issue = issue;
             line.position = pos;
             code.lines.push(line);
-            code.maxLineWidth = code.maxLineWidth < textLine.length ? textLine.length : code.maxLineWidth;
+            code.maxLineLength = code.maxLineLength < textLine.length ? textLine.length : code.maxLineLength;
             issue++;
             pos = textLine ? pos + textLine.length + 1 : pos;
         }
@@ -27,6 +33,11 @@ export class CodeService {
     }
 
 
+    /**
+     * Returns the number of the CodeLine at a given position in the code
+     * @param code      // The Code where to search
+     * @param position  // The position where we search the number of its line
+     */
     getLineIssue(code: Code, position: number): number {
         if (position < 0 || position > code.text.length) {
             return 0;

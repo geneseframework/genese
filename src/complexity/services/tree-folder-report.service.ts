@@ -10,17 +10,19 @@ import { TreeFile } from '../models/tree-file.model';
 import { MethodReport } from '../models/method-report.model';
 import { TreeFolderService } from './tree-folder.service';
 
+/**
+ * Service generating folders reports
+ */
+export class TreeFolderReportService {
 
-export class TsFolderReportService {
-
-    private filesArray: RowFileReport[] = [];
-    private foldersArray: RowFolderReport[] = [];
-    private isRootFolder = false;
-    private methodsArray: RowFileReport[] = [];
-    private relativeRootReports = '';
-    template: HandlebarsTemplateDelegate;
-    treeFolder: TreeFolder = undefined;
-    treeFolderService: TreeFolderService;
+    private filesArray: RowFileReport[] = [];           // The array of files reports
+    private foldersArray: RowFolderReport[] = [];       // The array of subfolders reports
+    private isRootFolder = false;                       // True if the TreeFolder relative to this service is the root folder of the analysis
+    private methodsArray: RowFileReport[] = [];         // The array of methods reports
+    private relativeRootReports = '';                   // The route between the position of the current TsFolder and the root of the analysis
+    template: HandlebarsTemplateDelegate;               // The HandleBar template used to generate the report
+    treeFolder: TreeFolder = undefined;                 // The TreeFolder relative to this service
+    treeFolderService: TreeFolderService;               // The service relative to TreeFolders
 
 
     constructor(tsFolder: TreeFolder) {
@@ -29,18 +31,27 @@ export class TsFolderReportService {
     }
 
 
-    getFoldersArray(tsFolder: TreeFolder): RowFolderReport[] {
+    /**
+     * Returns the array of subfolders with their analysis
+     * @param treeFolder    // The TreeFolder to analyse
+     */
+    getFoldersArray(treeFolder: TreeFolder): RowFolderReport[] {
         let report: RowFolderReport[] = [];
         if (this.treeFolder.path !== Options.pathFolderToAnalyze) {
-            report.push(this.addRowBackToPreviousFolder());
+            report.push(this.addRowBackToParentFolder());
         }
-        return report.concat(this.getSubfoldersArray(tsFolder));
+        return report.concat(this.getSubfoldersArray(treeFolder));
     }
 
 
-    getSubfoldersArray(tsFolder: TreeFolder, isSubfolder = false): RowFolderReport[] {
+    /**
+     * Recursion returning the array of subfolders reports
+     * @param treeFolder        // The TreeFolder to analyse
+     * @param isSubfolder       // True if treeFolder is a subfolder (used for recursivity)
+     */
+    getSubfoldersArray(treeFolder: TreeFolder, isSubfolder = false): RowFolderReport[] {
         let report: RowFolderReport[] = [];
-        for (const subfolder of tsFolder.subFolders) {
+        for (const subfolder of treeFolder.subFolders) {
             const subfolderReport: RowFolderReport = {
                 complexitiesByStatus: subfolder.getStats().numberOfMethodsByStatus,
                 numberOfFiles: subfolder.getStats().numberOfFiles,
@@ -57,7 +68,10 @@ export class TsFolderReportService {
     }
 
 
-    addRowBackToPreviousFolder(): RowFolderReport {
+    /**
+     * Adds a backlink to the parent folder
+     */
+    addRowBackToParentFolder(): RowFolderReport {
         return {
             complexitiesByStatus: undefined,
             numberOfFiles: undefined,
@@ -69,9 +83,13 @@ export class TsFolderReportService {
     }
 
 
-    getFilesArray(tsFolder: TreeFolder): RowFileReport[] {
+    /**
+     * Returns the array of files with their analysis
+     * @param treeFolder    // The TreeFolder to analyse
+     */
+    getFilesArray(treeFolder: TreeFolder): RowFileReport[] {
         let report: RowFileReport[] = [];
-        for (const tsFile of tsFolder.treeFiles) {
+        for (const tsFile of treeFolder.treeFiles) {
             for (const treeMethod of tsFile.treeMethods) {
                 report.push({
                     cognitiveColor: treeMethod.cognitiveStatus.toLowerCase(),
@@ -88,15 +106,23 @@ export class TsFolderReportService {
     }
 
 
-    getMethodsArraySortedByDecreasingCognitiveCpx(tsFolder: TreeFolder): RowFileReport[] {
-        const report = this.getMethodsArray(tsFolder);
+    /**
+     * Returns the array of methods sorted by decreasing cognitive complexity
+     * @param treeFolder    // The TreeFolder to analyse
+     */
+    getMethodsArraySortedByDecreasingCognitiveCpx(treeFolder: TreeFolder): RowFileReport[] {
+        const report = this.getMethodsArray(treeFolder);
         return this.sortByDecreasingCognitiveCpx(report);
     }
 
 
-    getMethodsArray(tsFolder: TreeFolder): RowFileReport[] {
+    /**
+     * Recursion returning the array of methods reports of each subfolder
+     * @param treeFolder    // The TreeFolder to analyse
+     */
+    getMethodsArray(treeFolder: TreeFolder): RowFileReport[] {
         let report: RowFileReport[] = [];
-        for (const subfolder of tsFolder.subFolders) {
+        for (const subfolder of treeFolder.subFolders) {
             for (const tsFile of subfolder.treeFiles) {
                 for (const treeMethod of tsFile.treeMethods) {
                     report.push({
@@ -116,20 +142,31 @@ export class TsFolderReportService {
     }
 
 
+    /**
+     * The method sorting the rows of the methods report by decreasing cognitive complexity
+     * @param methodsReport     // The array to sort
+     */
     sortByDecreasingCognitiveCpx(methodsReport: MethodReport[]): MethodReport[] {
         return methodsReport.sort((a, b) => b.cognitiveValue - a.cognitiveValue);
     }
 
 
-    getFileLink(tsFile: TreeFile): string {
-        if (this.treeFolder.relativePath === tsFile.treeFolder?.relativePath) {
-            return `./${getFilenameWithoutExtension(tsFile.name)}.html`;
+    /**
+     * Returns the path to the report's page of a given TreeFile
+     * @param treeFile
+     */
+    getFileLink(treeFile: TreeFile): string {
+        if (this.treeFolder.relativePath === treeFile.treeFolder?.relativePath) {
+            return `./${getFilenameWithoutExtension(treeFile.name)}.html`;
         }
-        const route = this.treeFolderService.getRouteFromFolderToFile(this.treeFolder, tsFile);
-        return `${route}/${getFilenameWithoutExtension(tsFile.name)}.html`;
+        const route = this.treeFolderService.getRouteFromFolderToFile(this.treeFolder, treeFile);
+        return `${route}/${getFilenameWithoutExtension(treeFile.name)}.html`;
     }
 
 
+    /**
+     * Generates the folder's report
+     */
     generateReport(): void {
         const parentFolder: TreeFolder = new TreeFolder();
         parentFolder.subFolders.push(this.treeFolder);

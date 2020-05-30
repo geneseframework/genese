@@ -1,15 +1,16 @@
-import { CognitiveCpx } from './cognitive-cpx.model';
+import { CognitiveCpxByIncrementType } from './cognitive-cpx-by-increment-type.model';
 
+/**
+ * A line of a Code object
+ */
 export class CodeLine {
 
-    breakFlow ?= 0;
-    breakFlowIncrement ?= 0;
-    cognitiveCpx?: CognitiveCpx = new CognitiveCpx();
-    impactsCognitiveCpx ?= false;
-    issue ?= 0;
-    nesting ?= 0;
-    nestingIncrement ?= 0;
-    position ?= 0;
-    text ?= '';
+    breakFlow ?= 0;                                         // The number of breakflows on this line
+    cognitiveCpx?: CognitiveCpxByIncrementType = new CognitiveCpxByIncrementType();       // The cognitive complexity relative to this line (breakFlows, increments,...)
+    impactsCognitiveCpx ?= false;                           // True if this line increases the cognitive complexity, false if not
+    issue ?= 0;                                             // The number of the line in its Code context (method)
+    nesting ?= 0;                                           // The number of elements increasing nesting on this line
+    position ?= 0;                                          // The position (in number of characters) of the start of the line
+    text ?= '';                                             // The text of the line
 
 }

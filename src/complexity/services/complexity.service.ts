@@ -2,7 +2,7 @@ import * as ts from 'typescript';
 import * as utils from 'tsutils';
 import { TreeNode } from '../models/tree-node.model';
 import { Ast } from './ast.service';
-import { CognitiveCpx } from '../models/cognitive-cpx.model';
+import { CognitiveCpxByIncrementType } from '../models/cognitive-cpx-by-increment-type.model';
 
 /**
  * Service around complexity calculation
@@ -34,8 +34,8 @@ export class ComplexityService {
      * Returns the cognitive complexity of a TreeNode himself (not its children)
      * @param tree      // The TreeNode to analyse
      */
-    static getTreeLocalCognitiveCpx(tree: TreeNode): CognitiveCpx {
-        let complexity = new CognitiveCpx();
+    static getTreeLocalCognitiveCpx(tree: TreeNode): CognitiveCpxByIncrementType {
+        let complexity = new CognitiveCpxByIncrementType();
         if (!tree?.node || tree?.nesting === undefined) {
             return complexity;
         }
@@ -126,13 +126,6 @@ export class ComplexityService {
      * @param tree        // The TreeNode to check
      */
     static increaseBreakFlow(tree: TreeNode): boolean {
-        // if (tree?.parent?.node?.kind === ts.SyntaxKind.IfStatement) {
-        //     console.log('PARENT IS IF', tree?.parent?.node)
-        //     if (tree?.parent?.node?.['elseStatement']?.pos === tree?.node?.pos) {
-        //         console.log('IS ELSE STT')
-        //         return true;
-        //     }
-        // }
         if (tree?.node?.['elseStatement']) {
             return true;
         }

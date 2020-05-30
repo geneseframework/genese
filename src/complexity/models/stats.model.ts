@@ -7,15 +7,15 @@ import { ComplexityType } from '../enums/complexity-type.enum';
  */
 export class Stats {
 
-    barChartCognitive?: Barchart = new Barchart(ComplexityType.COGNITIVE);
-    barChartCyclomatic?: Barchart = new Barchart(ComplexityType.CYCLOMATIC);
-    numberOfMethodsByStatus?: ComplexitiesByStatus = new ComplexitiesByStatus();
-    numberOfFiles ?= 0;
-    numberOfMethods ?= 0;
-    percentsByStatus?: ComplexitiesByStatus = new ComplexitiesByStatus();
-    subject ?= '';
-    totalCognitiveComplexity ?= 0;
-    totalCyclomaticComplexity ?= 0;
+    barChartCognitive?: Barchart = new Barchart(ComplexityType.COGNITIVE);          // Bar chart of cognitive complexity
+    barChartCyclomatic?: Barchart = new Barchart(ComplexityType.CYCLOMATIC);        // Bar chart of cyclomatic complexity
+    numberOfMethodsByStatus?: ComplexitiesByStatus = new ComplexitiesByStatus();    // Number of methods spread by status
+    numberOfFiles ?= 0;                                                             // Number of files of the report (if it's a folder report)
+    numberOfMethods ?= 0;                                                           // Number of methods of the report
+    percentsByStatus?: ComplexitiesByStatus = new ComplexitiesByStatus();           // Percentages of repartition by complexity status
+    subject ?= '';                                                                  // The subject of the analysis (file or folder)
+    totalCognitiveComplexity ?= 0;                                                  // Total of cognitive complexity scores
+    totalCyclomaticComplexity ?= 0;                                                 // Total of cyclomatic complexity scores
 
 
     /**

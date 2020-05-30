@@ -5,13 +5,22 @@ import { ReportsService } from './services/reports.service';
 import { TreeFolderService } from './services/tree-folder.service';
 import { blueBright } from 'ansi-colors';
 
-export const DEBUG = false;
+export const DEBUG = false;     // Set to true to use Genese Complexity in DEBUG mode (with npm run debug)
 
+/**
+ * Main process of the analysis
+ */
 export class Main {
 
     constructor() {
     }
 
+    /**
+     * Starts the analysis
+     * @param pathCommand
+     * @param pathToAnalyze
+     * @param pathGeneseNodeJs
+     */
     start(pathCommand: string, pathToAnalyze: string, pathGeneseNodeJs: string): void {
         console.log('START CALCULATION');
         Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);

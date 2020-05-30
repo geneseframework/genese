@@ -5,10 +5,19 @@ const file_service_1 = require("./services/file.service");
 const reports_service_1 = require("./services/reports.service");
 const tree_folder_service_1 = require("./services/tree-folder.service");
 const ansi_colors_1 = require("ansi-colors");
-exports.DEBUG = false;
+exports.DEBUG = false; // Set to true to use Genese Complexity in DEBUG mode (with npm run debug)
+/**
+ * Main process of the analysis
+ */
 class Main {
     constructor() {
     }
+    /**
+     * Starts the analysis
+     * @param pathCommand
+     * @param pathToAnalyze
+     * @param pathGeneseNodeJs
+     */
     start(pathCommand, pathToAnalyze, pathGeneseNodeJs) {
         console.log('START CALCULATION');
         options_1.Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);

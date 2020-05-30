@@ -1,8 +1,8 @@
 /**
- * Interface for objects which should be added to others, like RepartitionByStatus or ComplexitiesByStatus
+ * Interface for objects which can be added to others, like RepartitionByStatus or ComplexitiesByStatus
  */
 export interface Addition<T> {
 
-    add: (element: T) => T;
+    add: (element: T) => T;     // The addition method
 
 }

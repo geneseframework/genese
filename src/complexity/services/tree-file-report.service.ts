@@ -6,23 +6,28 @@ import { getFilenameWithoutExtension, getPathWithDotSlash, getRouteToRoot } from
 import { TreeFile } from '../models/tree-file.model';
 import { MethodReport } from '../models/method-report.model';
 
+/**
+ * Service generating files reports
+ */
+export class TreeFileReportService {
 
-export class TsFileReportService {
-
-    private methods: MethodReport[] = [];
-    private relativeRootReports = '';
-    template: HandlebarsTemplateDelegate;
-    tsFile: TreeFile = undefined;
+    private methodReports: MethodReport[] = [];     // The array of method reports
+    private relativeRootReports = '';               // The route between the position of the current TsFile and the root of the analysis
+    template: HandlebarsTemplateDelegate;           // The HandleBar template used to generate the report
+    treeFile: TreeFile = undefined;                 // The TreeFile relative to this service
 
 
-    constructor(tsFile: TreeFile) {
-        this.tsFile = tsFile;
+    constructor(treeFile: TreeFile) {
+        this.treeFile = treeFile;
     }
 
 
+    /**
+     * Returns the array of methods with their analysis
+     */
     getMethodsArray(): MethodReport[] {
         let report: MethodReport[] = [];
-        for (const method of this.tsFile.treeMethods) {
+        for (const method of this.treeFile.treeMethods) {
             const methodReport: MethodReport = {
                 code: method.displayedCode?.text,
                 cognitiveColor: method.cognitiveStatus.toLowerCase(),
@@ -37,9 +42,12 @@ export class TsFileReportService {
     }
 
 
+    /**
+     * Generates the file's report
+     */
     generateReport(): void {
-        this.methods = this.getMethodsArray();
-        this.relativeRootReports = getRouteToRoot(this.tsFile.treeFolder?.relativePath);
+        this.methodReports = this.getMethodsArray();
+        this.relativeRootReports = getRouteToRoot(this.treeFile.treeFolder?.relativePath);
         this.registerPartial("cognitiveBarchartScript", 'cognitive-barchart');
         this.registerPartial("cyclomaticBarchartScript", 'cyclomatic-barchart');
         this.registerPartial("cognitiveDoughnutScript", 'cognitive-doughnut');
@@ -51,20 +59,28 @@ export class TsFileReportService {
     }
 
 
+    /**
+     * Creates the file of the report
+     */
     private writeReport() {
         const template = this.template({
             colors: Options.colors,
-            methods: this.methods,
+            methods: this.methodReports,
             relativeRootReports: getPathWithDotSlash(this.relativeRootReports),
-            stats: this.tsFile.getStats(),
+            stats: this.treeFile.getStats(),
             thresholds: Options.getThresholds()
         });
-        const filenameWithoutExtension = getFilenameWithoutExtension(this.tsFile.name);
-        const pathReport = `${Options.pathOutDir}/${this.tsFile.treeFolder?.relativePath}/${filenameWithoutExtension}.html`;
+        const filenameWithoutExtension = getFilenameWithoutExtension(this.treeFile.name);
+        const pathReport = `${Options.pathOutDir}/${this.treeFile.treeFolder?.relativePath}/${filenameWithoutExtension}.html`;
         fs.writeFileSync(pathReport, template, {encoding: 'utf-8'});
     }
 
 
+    /**
+     * Registers a HandleBar's partial for a given partial's name and a given filename
+     * @param partialName   // The name of the partial
+     * @param filename      // The name of the file
+     */
     private registerPartial(partialName: string, filename: string): void {
         const partial = eol.auto(fs.readFileSync(`${Options.pathGeneseNodeJs}/src/complexity/templates/handlebars/${filename}.handlebars`, 'utf-8'));
         Handlebars.registerPartial(partialName, partial);

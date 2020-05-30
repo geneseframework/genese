@@ -5,10 +5,10 @@ import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.inter
 */
 export class RowFolderReport {
 
-    complexitiesByStatus?: ComplexitiesByStatus;
-    numberOfFiles ?= 0;
-    numberOfMethods ?= 0;
-    path ?= '';
-    routeFromCurrentFolder ?= '';
+    complexitiesByStatus?: ComplexitiesByStatus;    // The complexities of the folder analysed in the row (spread by status)
+    numberOfFiles ?= 0;                             // The number of files of the folder analysed in the row (and its subfolders)
+    numberOfMethods ?= 0;                           // The number of methods of the folder analysed in the row (and its subfolders)
+    path ?= '';                                     // The path  of the folder analysed in the row
+    routeFromCurrentFolder ?= '';                   // The route between the current folder and the subfolder analysed in the row
 
 }

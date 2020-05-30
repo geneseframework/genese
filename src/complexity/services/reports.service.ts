@@ -1,8 +1,8 @@
 import { TreeFolder } from '../models/tree-folder.model';
 import { Options } from '../models/options';
-import { TsFolderReportService } from './ts-folder-report.service';
+import { TreeFolderReportService } from './tree-folder-report.service';
 import { copyFile, createRelativeDir } from './file.service';
-import { TsFileReportService } from './ts-file-report.service';
+import { TreeFileReportService } from './tree-file-report.service';
 import { TreeFile } from '../models/tree-file.model';
 
 
@@ -40,7 +40,7 @@ export class ReportsService {
      * @param treeFolder        // The TreeFolder to analyse
      */
     private static generateFolderReport(treeFolder: TreeFolder): void {
-        const folderReportService = new TsFolderReportService(treeFolder);
+        const folderReportService = new TreeFolderReportService(treeFolder);
         folderReportService.generateReport();
         for (const file of treeFolder.treeFiles) {
             ReportsService.generateFileReport(file);
@@ -53,7 +53,7 @@ export class ReportsService {
      * @param treeFile        // The TreeFile to analyse
      */
     private static generateFileReport(treeFile: TreeFile): void {
-        const fileReportService = new TsFileReportService(treeFile);
+        const fileReportService = new TreeFileReportService(treeFile);
         fileReportService.generateReport();
     }
 
