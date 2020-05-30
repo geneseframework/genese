@@ -68,7 +68,7 @@ export class TreeFolderService extends StatsService {
             treeFolder.subFolders.push(subFolder);
         } else {
             if (!extension || extension === getExtension(pathElement)) {
-                if (!DEBUG || (DEBUG && pathElement === './src/complexity/mocks/ast.mock.ts')) {
+                if (!DEBUG || (DEBUG && pathElement === './src/complexity/mocks/debug.mock.ts')) {
                     treeFolder.treeFiles.push(TreeFileService.generateTree(pathElement, treeFolder));
                 }
             }
