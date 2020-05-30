@@ -1,6 +1,7 @@
 import * as fs from 'fs-extra';
 import * as ts from 'typescript';
 import { getFilename } from './file.service';
+import { KindOfNode } from '../enums/kind-of-node.enum';
 
 /**
  * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)
@@ -53,7 +54,9 @@ export class Ast {
     }
 
 
+    // ------------------------------------------------------------------------------------------------
     // -------------------------------------   TYPE CHECKS   ------------------------------------------
+    // ------------------------------------------------------------------------------------------------
 
 
     /**
@@ -104,5 +107,42 @@ export class Ast {
      */
     static isFunctionOrMethod(node: ts.Node): boolean {
         return node?.kind === ts.SyntaxKind.MethodDeclaration || node?.kind === ts.SyntaxKind.FunctionDeclaration || false;
+    }
+
+
+    // ------------------------------------------------------------------------------------------------
+    // -------------------------------------   KIND OF NODE   -----------------------------------------
+    // ------------------------------------------------------------------------------------------------
+
+
+    getKindOfNode(node: ts.Node): KindOfNode {
+        if (!node) {
+            return undefined;
+        }
+        switch (node.kind) {
+            case ts.SyntaxKind.NumericLiteral:
+            case ts.SyntaxKind.FalseKeyword:
+            case ts.SyntaxKind.StringLiteral:
+            case ts.SyntaxKind.TrueKeyword:
+                return KindOfNode.BASIC;
+            case ts.SyntaxKind.ArrowFunction:
+            case ts.SyntaxKind.FunctionDeclaration:
+            case ts.SyntaxKind.FunctionExpression:
+            case ts.SyntaxKind.MethodDeclaration:
+                return KindOfNode.FUNC;
+            case ts.SyntaxKind.CatchClause:
+            case ts.SyntaxKind.ConditionalExpression:
+            case ts.SyntaxKind.IfStatement:
+            case ts.SyntaxKind.SwitchStatement:
+                return KindOfNode.CONDITIONAL;
+            case ts.SyntaxKind.DoStatement:
+            case ts.SyntaxKind.ForStatement:
+            case ts.SyntaxKind.ForInStatement:
+            case ts.SyntaxKind.ForOfStatement:
+            case ts.SyntaxKind.WhileStatement:
+                return KindOfNode.LOOP;
+            default:
+                return KindOfNode.BASIC;
+        }
     }
 }

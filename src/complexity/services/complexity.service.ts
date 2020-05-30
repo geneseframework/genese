@@ -187,7 +187,7 @@ export class ComplexityService {
      * @param node      // The node to analyse
      */
     static conditionalExpressionIsTrivial(node: ts.Node): boolean {
-        return (ComplexityService.isLiteral(node?.['whenTrue']) && ComplexityService.isLiteral(node?.['whenFalse']));
+        return (ComplexityService.isBasic(node?.['whenTrue']) && ComplexityService.isBasic(node?.['whenFalse']));
     }
 
 
@@ -195,7 +195,7 @@ export class ComplexityService {
      * Checks if an AST node is a primitive (a string, a number or a boolean)
      * @param node      // The node to analyse
      */
-    static isLiteral(node: ts.Node): boolean {
+    static isBasic(node: ts.Node): boolean {
         return node?.kind === ts.SyntaxKind.StringLiteral
             || node?.kind === ts.SyntaxKind.NumericLiteral
             || node?.kind === ts.SyntaxKind.TrueKeyword

@@ -1,5 +1,6 @@
 export const cpx = {
     aggregation: {
+        arr: 1,                             // Array of arrays
         density: 0.05,                      // Accumulation of nodes on a same line of code
         logicDoorChange: 2,                 // a "or" after a "and" (or a "or" after a "and") without brackets
         logicDoorChangeWithBrackets: 1      // a "or" after a "and" (or a "or" after a "and") without brackets
@@ -10,6 +11,7 @@ export const cpx = {
         loop: 0.5                           // Inside a loop
     },
     structural: {
+        arr: 1,                             // "Array", "Set"
         asynchronicity: 1,                  // "Promise", "Observable"
         conditional: 1,                     // "if", "else", "else if", "switch", "catch", ternary expression, nullish coalescing
         declaration: 0.1,                   // Declaration of a Class, a Function, a Method, ...
@@ -19,7 +21,7 @@ export const cpx = {
         jump: 1,                            // "break", "continue"
         logicDoor: 1,                       // "and", "or", "not"
         loop: 1,                            // "for", "foreach", "while"
-        node: 0.1,                          // Any AST node ("Identifier", "Parameter", "IfStatement", "Block", "CallExpression", ...)
+        basic: 0.1,                         // Any elementary node ("Identifier", "Parameter", "Block", ...)
         recursion: 3                        // Recursion or callback
     }
 }
