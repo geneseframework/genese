@@ -65,8 +65,7 @@ The main part of the page consist in two pairs of charts : the left one is about
  ```json 
 {
     "complexity": {
-        // "option": value
-        ...
+        "option": value
     }
 } 
 ```
@@ -79,12 +78,29 @@ The main part of the page consist in two pairs of charts : the left one is about
 {
     "complexity": {
         "cognitiveCpx": {
-            "errorThreshold": 15,   // default : 10 
-            "warningThreshold": 10  // default : 5
+            "errorThreshold": 15, 
+            "warningThreshold": 10
         },
         "cyclomaticCpx": {
-            "errorThreshold": 15,   // default : 10
-            "warningThreshold": 10  // default : 5
+            "errorThreshold": 15,
+            "warningThreshold": 10
+        },
+    }
+} 
+```
+
+The values by default are :
+
+ ```json 
+{
+    "complexity": {
+        "cognitiveCpx": {
+            "errorThreshold": 10 
+            "warningThreshold": 5
+        },
+        "cyclomaticCpx": {
+            "errorThreshold": 10
+            "warningThreshold": 5
         },
     }
 } 
@@ -176,7 +192,7 @@ This calculation method involves the following elements :
 
     - Loop structures : for, while, do while, ... : + 1
     - Conditionals : ternary operators, if, ... : + 1
-    - else, else if, ... : 0 (no nesting increment because **"the mental cost has already been paid when reading the if"**.
+    - else, else if, ... : 0 (no nesting increment because *"the mental cost has already been paid when reading the if"*.
     - catch : + 1 ("try" and "finally" are ignored)
     - switch : + 1 (globally, not for each "case")
     - logic doors : 0   
