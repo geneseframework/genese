@@ -1,7 +1,8 @@
 import * as fs from 'fs-extra';
 import * as ts from 'typescript';
 import { getFilename } from './file.service';
-import { KindOfNode } from '../enums/kind-of-node.enum';
+import { NodeFeature } from '../enums/node-feature.enum';
+import { cpx } from '../cpx';
 
 /**
  * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)
@@ -111,11 +112,11 @@ export class Ast {
 
 
     // ------------------------------------------------------------------------------------------------
-    // -------------------------------------   KIND OF NODE   -----------------------------------------
+    // -------------------------------------   NODE FEATURE   -----------------------------------------
     // ------------------------------------------------------------------------------------------------
 
 
-    getKindOfNode(node: ts.Node): KindOfNode {
+    static getNodeFeature(node: ts.Node): NodeFeature {
         if (!node) {
             return undefined;
         }
@@ -124,25 +125,40 @@ export class Ast {
             case ts.SyntaxKind.FalseKeyword:
             case ts.SyntaxKind.StringLiteral:
             case ts.SyntaxKind.TrueKeyword:
-                return KindOfNode.BASIC;
+                return NodeFeature.BASIC;
             case ts.SyntaxKind.ArrowFunction:
             case ts.SyntaxKind.FunctionDeclaration:
             case ts.SyntaxKind.FunctionExpression:
             case ts.SyntaxKind.MethodDeclaration:
-                return KindOfNode.FUNC;
+                return NodeFeature.FUNC;
             case ts.SyntaxKind.CatchClause:
             case ts.SyntaxKind.ConditionalExpression:
             case ts.SyntaxKind.IfStatement:
             case ts.SyntaxKind.SwitchStatement:
-                return KindOfNode.CONDITIONAL;
+                return NodeFeature.CONDITIONAL;
             case ts.SyntaxKind.DoStatement:
             case ts.SyntaxKind.ForStatement:
             case ts.SyntaxKind.ForInStatement:
             case ts.SyntaxKind.ForOfStatement:
             case ts.SyntaxKind.WhileStatement:
-                return KindOfNode.LOOP;
+                return NodeFeature.LOOP;
             default:
-                return KindOfNode.BASIC;
+                return NodeFeature.BASIC;
         }
+    }
+
+
+    static getAggregationCpx(nodeFeature: NodeFeature): number {
+        return cpx.aggregation[nodeFeature] ?? 0;
+    }
+
+
+    static getNestingCpx(nodeFeature: NodeFeature): number {
+        return cpx.nesting[nodeFeature] ?? 0;
+    }
+
+
+    static getStructuralCpx(nodeFeature: NodeFeature): number {
+        return cpx.structural[nodeFeature] ?? 0;
     }
 }

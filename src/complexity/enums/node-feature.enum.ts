@@ -1,4 +1,4 @@
-export enum KindOfNode {
+export enum NodeFeature {
 
     ARR = 'arr',
     BASIC = 'basic',

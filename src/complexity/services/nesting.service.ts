@@ -12,7 +12,7 @@ export class NestingService {
         if (!treeNode || !treeNode.node) {
             return 0;
         }
-        let nesting = treeNode?.parent?.nesting ?? 0;
+        let nesting = treeNode?.parent?.nestingCpx ?? 0;
         switch (treeNode.node.parent.kind) {
             case ts.SyntaxKind.ArrowFunction:
             case ts.SyntaxKind.CatchClause:

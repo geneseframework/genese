@@ -5,6 +5,7 @@ import { TreeMethod } from '../models/tree-method.model';
 import { ComplexityService as CS } from './complexity.service';
 import { Options } from '../models/options';
 import { NestingService } from './nesting.service';
+import { NodeFeature } from '../enums/node-feature.enum';
 
 /**
  * Service managing TreeNodes
@@ -19,7 +20,7 @@ export class TreeNodeService {
     generateTree(treeMethod: TreeMethod): TreeNode {
         let treeNode: TreeNode = new TreeNode();
         treeNode.node = treeMethod.node;
-        treeNode.nesting = 0;
+        treeNode.nestingCpx = 0;
         treeNode.treeMethod = treeMethod;
         treeNode.kind = Ast.getType(treeMethod.node);
         treeNode = this.addTreeToChildren(treeNode)
@@ -28,11 +29,11 @@ export class TreeNodeService {
 
 
     /**
-     * Returns the TreeNode obtained by setting recursively TreeNodes for its children and subchildren
+     * Returns the TreeNode obtained by setting recursively TreeNodes for its children and subChildren
      * @param treeNode
      */
     addTreeToChildren(treeNode: TreeNode): TreeNode {
-        const depth: number = treeNode.nesting;
+        const depth: number = treeNode.nestingCpx;
         ts.forEachChild(treeNode.node, (childNode: ts.Node) => {
             const newTree = new TreeNode();
             childNode.parent = treeNode.node;
@@ -41,14 +42,11 @@ export class TreeNodeService {
             newTree.treeMethod = treeNode.treeMethod;
             newTree.parent = treeNode;
             newTree.kind = Ast.getType(childNode);
-            newTree.nesting = this.nestingService.getNesting(newTree);
+            newTree.nestingCpx = this.nestingService.getNesting(newTree);
             newTree.cognitiveCpxByIncrementType = CS.getTreeLocalCognitiveCpx(newTree);
             newTree.increasesCognitiveComplexity = CS.increaseBreakFlow(newTree);
             treeNode.children.push(this.addTreeToChildren(newTree));
         });
         return treeNode;
     }
-
-
-
 }
