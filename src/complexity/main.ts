@@ -5,7 +5,7 @@ import { ReportsService } from './services/reports.service';
 import { TreeFolderService } from './services/tree-folder.service';
 import { blueBright } from 'ansi-colors';
 
-export const DEBUG = true;     // Set to true to use Genese Complexity in DEBUG mode (with npm run debug)
+export const DEBUG = true;     // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND with stats only for debug.mock.ts
 
 /**
  * Main process of the analysis
