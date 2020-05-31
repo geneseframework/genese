@@ -7,11 +7,11 @@ import { ComplexityType } from '../enums/complexity-type.enum';
 import { MethodStatus } from '../enums/evaluation-status.enum';
 import { Ast } from './ast.service';
 import { CodeService } from './code.service';
-import { CpxService } from './cpx.service';
+// import { CpxService } from './cpx.service';
 
 export class TreeMethodService {
 
-    cpxService?: CpxService = new CpxService();
+    // cpxService?: CpxService = new CpxService();
     treeNodeService?: TreeNodeService = new TreeNodeService();
 
     /**
@@ -32,7 +32,6 @@ export class TreeMethodService {
                 newMethod.tree = __self.treeNodeService.generateTree(newMethod);
                 newMethod.evaluate();
                 newMethod.createDisplayedCode();
-                __self.cpxService.getComplexity(newMethod.tree);
                 methods.push(newMethod);
             }
             ts.forEachChild(node, cb);

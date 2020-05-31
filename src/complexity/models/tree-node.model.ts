@@ -4,7 +4,7 @@ import { IsAstNode } from '../interfaces/is-ast-node';
 import { Evaluable } from './evaluable.model';
 import { NodeFeature } from '../enums/node-feature.enum';
 import { Ast } from '../services/ast.service';
-import { NestingService } from '../services/nesting.service';
+import { NestingComplexity } from '../enums/nesting-complexity';
 
 const chalk = require('chalk');
 
@@ -16,8 +16,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
     children?: TreeNode[] = [];                 // The children trees corresponding to children AST nodes of the current AST node
     increasesCognitiveComplexity = false;       // True if the node's type increases the cognitive complexity
     kind ?= '';                                 // The kind of the node ('MethodDeclaration, IfStatement, ...)
-    #nestingCpx ?= 0;                               // The nesting of the node inside a given method
-    nestingService?: NestingService = new NestingService();
+    #nestingCpx: number = undefined;            // The nesting of the node inside a given method
     node?: ts.Node = undefined;                 // The current node in the AST
     parent?: TreeNode;                          // The tree of the parent of the current node
     treeMethod?: TreeMethod = undefined;        // The method at the root of the current tree (if this tree is inside a method)
@@ -53,13 +52,13 @@ export class TreeNode extends Evaluable implements IsAstNode {
         this.#nestingCpx = cpx;
     }
 
-    calculateNestingCpx() {
+    calculateNestingCpx(): NestingComplexity {
         if (!this.node || !this.parent) {
             return 0;
         }
         let nesting = this.parent.nestingCpx ?? 0;
         nesting += Ast.getNestingCpx(Ast.getNodeFeature(this.parent.node));
-        console.log('NODE', Ast.getType(this.node), 'NESTING', nesting);
+        this.#nestingCpx = nesting;
         return nesting;
     }
 

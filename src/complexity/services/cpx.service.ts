@@ -17,7 +17,7 @@ export class CpxService {
 
     private addIntrinsicCpx(treeChild: TreeNode, treeParent?: TreeNode): void {
         let cpx = 0;
-        console.log('CPX', Ast.getType(treeChild.node), 'nesting : ', treeChild.nestingCpx)
+        // console.log('CPX', Ast.getType(treeChild.node), 'nesting : ', treeChild.nesting)
         this.cpx += cpx;
     }
 
