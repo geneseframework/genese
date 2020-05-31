@@ -36,7 +36,7 @@ export class ComplexityService {
      */
     static getTreeLocalCognitiveCpx(tree: TreeNode): CognitiveCpxByIncrementType {
         let complexity = new CognitiveCpxByIncrementType();
-        if (!tree?.node || tree?.nesting === undefined) {
+        if (!tree?.node || tree?.nestingCpx === undefined) {
             return complexity;
         }
         if (tree?.node?.['elseStatement']) {
@@ -56,7 +56,7 @@ export class ComplexityService {
             case ts.SyntaxKind.SwitchStatement:
             case ts.SyntaxKind.WhileStatement:
                 complexity.breakFlow = 1;
-                complexity.nesting = tree.nesting;
+                complexity.nesting = tree.nestingCpx;
                 break;
             case ts.SyntaxKind.BinaryExpression:
                 complexity.breakFlow += ComplexityService.addBinaryCognitiveCpx(tree);
@@ -82,7 +82,7 @@ export class ComplexityService {
      */
     static getTreeCognitiveCpx(tree: TreeNode): number {
         let complexity = 0;
-        if (!tree?.node || tree?.nesting === undefined) {
+        if (!tree?.node || tree?.nestingCpx === undefined) {
             return 0;
         }
         if (tree?.node?.['elseStatement']) {
@@ -101,7 +101,7 @@ export class ComplexityService {
             case ts.SyntaxKind.MethodDeclaration:
             case ts.SyntaxKind.SwitchStatement:
             case ts.SyntaxKind.WhileStatement:
-                complexity += tree.nesting + 1;
+                complexity += tree.nestingCpx + 1;
                 break;
             case ts.SyntaxKind.BinaryExpression:
                 complexity += ComplexityService.addBinaryCognitiveCpx(tree);
@@ -187,7 +187,7 @@ export class ComplexityService {
      * @param node      // The node to analyse
      */
     static conditionalExpressionIsTrivial(node: ts.Node): boolean {
-        return (ComplexityService.isLiteral(node?.['whenTrue']) && ComplexityService.isLiteral(node?.['whenFalse']));
+        return (ComplexityService.isBasic(node?.['whenTrue']) && ComplexityService.isBasic(node?.['whenFalse']));
     }
 
 
@@ -195,7 +195,7 @@ export class ComplexityService {
      * Checks if an AST node is a primitive (a string, a number or a boolean)
      * @param node      // The node to analyse
      */
-    static isLiteral(node: ts.Node): boolean {
+    static isBasic(node: ts.Node): boolean {
         return node?.kind === ts.SyntaxKind.StringLiteral
             || node?.kind === ts.SyntaxKind.NumericLiteral
             || node?.kind === ts.SyntaxKind.TrueKeyword

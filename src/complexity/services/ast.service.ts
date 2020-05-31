@@ -1,6 +1,8 @@
 import * as fs from 'fs-extra';
 import * as ts from 'typescript';
 import { getFilename } from './file.service';
+import { NodeFeature } from '../enums/node-feature.enum';
+import { cpx } from '../cpx';
 
 /**
  * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)
@@ -53,7 +55,9 @@ export class Ast {
     }
 
 
+    // ------------------------------------------------------------------------------------------------
     // -------------------------------------   TYPE CHECKS   ------------------------------------------
+    // ------------------------------------------------------------------------------------------------
 
 
     /**
@@ -104,5 +108,57 @@ export class Ast {
      */
     static isFunctionOrMethod(node: ts.Node): boolean {
         return node?.kind === ts.SyntaxKind.MethodDeclaration || node?.kind === ts.SyntaxKind.FunctionDeclaration || false;
+    }
+
+
+    // ------------------------------------------------------------------------------------------------
+    // -------------------------------------   NODE FEATURE   -----------------------------------------
+    // ------------------------------------------------------------------------------------------------
+
+
+    static getNodeFeature(node: ts.Node): NodeFeature {
+        if (!node) {
+            return undefined;
+        }
+        switch (node.kind) {
+            case ts.SyntaxKind.NumericLiteral:
+            case ts.SyntaxKind.FalseKeyword:
+            case ts.SyntaxKind.StringLiteral:
+            case ts.SyntaxKind.TrueKeyword:
+                return NodeFeature.BASIC;
+            case ts.SyntaxKind.ArrowFunction:
+            case ts.SyntaxKind.FunctionDeclaration:
+            case ts.SyntaxKind.FunctionExpression:
+            case ts.SyntaxKind.MethodDeclaration:
+                return NodeFeature.FUNC;
+            case ts.SyntaxKind.CatchClause:
+            case ts.SyntaxKind.ConditionalExpression:
+            case ts.SyntaxKind.IfStatement:
+            case ts.SyntaxKind.SwitchStatement:
+                return NodeFeature.CONDITIONAL;
+            case ts.SyntaxKind.DoStatement:
+            case ts.SyntaxKind.ForStatement:
+            case ts.SyntaxKind.ForInStatement:
+            case ts.SyntaxKind.ForOfStatement:
+            case ts.SyntaxKind.WhileStatement:
+                return NodeFeature.LOOP;
+            default:
+                return NodeFeature.BASIC;
+        }
+    }
+
+
+    static getAggregationCpx(nodeFeature: NodeFeature): number {
+        return cpx.aggregation[nodeFeature] ?? 0;
+    }
+
+
+    static getNestingCpx(nodeFeature: NodeFeature): number {
+        return cpx.nesting[nodeFeature] ?? 0;
+    }
+
+
+    static getStructuralCpx(nodeFeature: NodeFeature): number {
+        return cpx.structural[nodeFeature] ?? 0;
     }
 }

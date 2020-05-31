@@ -41,8 +41,8 @@ export class TreeMethod extends Evaluable implements IsAstNode {
      * Evaluates the complexities of this TreeMethod
      */
     evaluate(): void {
-        console.log('NODE COUNT', this.nodeCount)
-        // this.tree.printAllChildren();
+        // console.log('NODE COUNT', this.nodeCount)
+        this.tree.printAllChildren();
         this.cognitiveValue = CS.getCognitiveCpx(this.tree);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.node);
