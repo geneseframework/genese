@@ -164,7 +164,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
         this.#displayedCode.lines
             .filter(line => line.cpxFactors.total > 0)
             .forEach(line => {
-                let comment = `+${line.cpxFactors.total} Complexity index (+${line.cpxFactors.totalBasic} ${FactorCategory.BASIC}`;
+                let comment = `+${line.cpxFactors.total.toFixed(1)} Complexity index (+${line.cpxFactors.totalBasic.toFixed(1)} ${FactorCategory.BASIC}`;
                 comment = line.cpxFactors.totalAggregation > 0 ? `${comment}, +${line.cpxFactors.totalAggregation} ${FactorCategory.AGGREGATION}` : comment;
                 // comment = line.cpxFactors.totalNesting > 0 ? `${comment}, +${line.cpxFactors.totalNesting} nesting` : comment;
                 comment = line.cpxFactors.totalStructural > 0 ? `${comment}, +${line.cpxFactors.totalStructural} ${FactorCategory.STRUCTURAL}` : comment;
