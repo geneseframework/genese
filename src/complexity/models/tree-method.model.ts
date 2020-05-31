@@ -10,7 +10,7 @@ import { Evaluable } from './evaluable.model';
 import { IsAstNode } from '../interfaces/is-ast-node';
 import { Code } from './code.model';
 import { CodeService } from '../services/code.service';
-import { CognitiveCpxByIncrementType } from './cognitive-cpx-by-increment-type.model';
+import { CpxByFactor } from './cognitive-cpx-by-increment-type.model';
 
 /**
  * Element of the TreeNode structure corresponding to a given method
@@ -112,7 +112,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
         this.#displayedCode = new Code();
         for (const line of this.#originalCode.lines) {
             this.#displayedCode.lines.push({
-                cognitiveCpx: new CognitiveCpxByIncrementType(),
+                cpxByFactor: new CpxByFactor(),
                 issue: line.issue,
                 text: line.text,
                 position: line.position,
@@ -135,15 +135,15 @@ export class TreeMethod extends Evaluable implements IsAstNode {
             if (childTree.increasesCognitiveComplexity) {
                 const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
                 this.#displayedCode.lines[issue].impactsCognitiveCpx = true;
-                this.#displayedCode.lines[issue].cognitiveCpx.breakFlow += childTree.cognitiveCpxByIncrementType.breakFlow;
-                this.#displayedCode.lines[issue].cognitiveCpx.nesting += childTree.cognitiveCpxByIncrementType.nesting;
+                this.#displayedCode.lines[issue].cpxByFactor.breakFlow += childTree.cognitiveCpxByIncrementType.breakFlow;
+                this.#displayedCode.lines[issue].cpxByFactor.nesting += childTree.cognitiveCpxByIncrementType.nesting;
 
             }
             if (tree?.node?.kind === ts.SyntaxKind.IfStatement) {
                 if (tree?.node?.['elseStatement']?.pos === childTree?.node?.pos) {
                     const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
                     this.#displayedCode.lines[issue].impactsCognitiveCpx = true;
-                    this.#displayedCode.lines[issue].cognitiveCpx.breakFlow += 1;
+                    this.#displayedCode.lines[issue].cpxByFactor.breakFlow += 1;
                 }
             }
             this.setCodeLines(childTree);
@@ -159,13 +159,12 @@ export class TreeMethod extends Evaluable implements IsAstNode {
             .filter(line => !!line.impactsCognitiveCpx)
             .forEach(line => {
                 let comment = '';
-                if (line.cognitiveCpx?.total > 0) {
-                    comment = `+${line.cognitiveCpx.total} Cognitive complexity (+${line.cognitiveCpx.breakFlow} break flow`;
-                    if (line.cognitiveCpx.nesting > 0) {
-                        comment = `${comment}, +${line.cognitiveCpx.nesting} nesting`;
+                if (line.cpxByFactor?.total > 0) {
+                    comment = `+${line.cpxByFactor.total} Cognitive complexity (+${line.cpxByFactor.breakFlow} break flow`;
+                    if (line.cpxByFactor.nesting > 0) {
+                        comment = `${comment}, +${line.cpxByFactor.nesting} nesting`;
                     }
                     comment = `${comment})`;
-
                 }
                 this.#displayedCode.lines[line.issue - 1].text = this.#originalCode.addComment(comment, this.#originalCode.lines[line.issue - 1]);
             });
