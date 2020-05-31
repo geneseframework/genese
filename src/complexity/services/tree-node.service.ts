@@ -38,7 +38,6 @@ export class TreeNodeService {
             newTree.kind = Ast.getType(childNode);
             newTree.nestingCpx = newTree.calculateNestingCpx();
             newTree.cognitiveCpxByIncrementType = CS.getTreeLocalCognitiveCpx(newTree);
-            newTree.increasesCognitiveComplexity = CS.increaseBreakFlow(newTree);
             treeNode.children.push(this.addTreeToChildren(newTree));
         });
         return treeNode;

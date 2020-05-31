@@ -5,6 +5,7 @@ import { Evaluable } from './evaluable.model';
 import { NodeFeature } from '../enums/node-feature.enum';
 import { Ast } from '../services/ast.service';
 import { NestingComplexity } from '../enums/nesting-complexity';
+import { CpxFactors } from './cpx-factors.model';
 
 const chalk = require('chalk');
 
@@ -14,7 +15,8 @@ const chalk = require('chalk');
 export class TreeNode extends Evaluable implements IsAstNode {
 
     children?: TreeNode[] = [];                 // The children trees corresponding to children AST nodes of the current AST node
-    increasesCognitiveComplexity = false;       // True if the node's type increases the cognitive complexity
+    cpxFactors?: CpxFactors = new CpxFactors();
+    // increasesCognitiveComplexity = false;       // True if the node's type increases the cognitive complexity
     kind ?= '';                                 // The kind of the node ('MethodDeclaration, IfStatement, ...)
     #nestingCpx: number = undefined;            // The nesting of the node inside a given method
     node?: ts.Node = undefined;                 // The current node in the AST
@@ -85,7 +87,12 @@ export class TreeNode extends Evaluable implements IsAstNode {
      */
     printChildren(tsTree: TreeNode, indent: string) {
         for (const childTree of tsTree.children) {
-            const color = childTree.increasesCognitiveComplexity ? 'red' : 'white';
+            let color = '';
+            if (childTree.cpxFactors.total < 0.5) {
+                color = 'white';
+            } else {
+                color = childTree.cpxFactors.total > 1 ? 'red' : 'yellow';
+            }
             console.log(indent, chalk[color](childTree.kind), 'nesting', childTree.nestingCpx, 'parent', tsTree.kind);
             const newIndent = indent + '  ';
             this.printChildren(childTree, newIndent);

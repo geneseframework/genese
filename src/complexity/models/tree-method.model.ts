@@ -42,7 +42,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
      */
     evaluate(): void {
         // console.log('NODE COUNT', this.nodeCount)
-        // this.tree.printAllChildren();
+        this.tree.printAllChildren();
         this.cognitiveValue = CS.getCognitiveCpx(this.tree);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.node);
@@ -132,7 +132,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
      */
     setCodeLines(tree: TreeNode): void {
         for (const childTree of tree.children) {
-            if (childTree.increasesCognitiveComplexity) {
+            if (childTree.cpxFactors.total >= 0.5) {
                 const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
                 this.#displayedCode.lines[issue].impactsCognitiveCpx = true;
                 this.#displayedCode.lines[issue].cpxByFactor.breakFlow += childTree.cognitiveCpxByIncrementType.breakFlow;
