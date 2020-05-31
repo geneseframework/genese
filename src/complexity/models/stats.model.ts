@@ -45,7 +45,7 @@ export class Stats {
      * @param numerator         // The numerator of the fraction
      * @param denominator       // The denominator of the fraction
      */
-    percent(numerator: number, denominator: number): number {
+    private percent(numerator: number, denominator: number): number {
         if (!denominator) {
             return 0;
         }
