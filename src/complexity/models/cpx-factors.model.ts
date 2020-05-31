@@ -12,7 +12,7 @@ export class CpxFactors {
     basic?: {
         declaration?: number,                       // Declaration of a Class, a Function, a Method, ...
         imp?: number,                               // Element imported from another file
-        node?: number,                              // Any AST node ("Identifier", "Parameter", "Block", IfStatement, ...)
+        node?: number,                              // Any AST node ("Identifier", " ", "Block", IfStatement, ...)
     };
     nesting?: {
         arr?: number,                               // Inside an array
