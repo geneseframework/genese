@@ -133,6 +133,10 @@ export class Ast {
             case ts.SyntaxKind.SwitchStatement:
                 return NodeFeature.CONDITIONAL;
             case ts.SyntaxKind.Block:
+            case ts.SyntaxKind.CallExpression:
+            case ts.SyntaxKind.ExpressionStatement:
+            case ts.SyntaxKind.Parameter:
+            case ts.SyntaxKind.PropertyAccessExpression:
                 return NodeFeature.EMPTY;
             case ts.SyntaxKind.ArrowFunction:
             case ts.SyntaxKind.FunctionDeclaration:
