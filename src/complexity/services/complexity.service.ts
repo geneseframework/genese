@@ -2,7 +2,7 @@ import * as ts from 'typescript';
 import * as utils from 'tsutils';
 import { TreeNode } from '../models/tree-node.model';
 import { Ast } from './ast.service';
-import { CpxByFactor } from '../models/cognitive-cpx-by-increment-type.model';
+import { CpxByFactor } from '../models/cpx-by-factor';
 
 /**
  * Service around complexity calculation

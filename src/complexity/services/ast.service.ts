@@ -3,6 +3,7 @@ import * as ts from 'typescript';
 import { getFilename } from './file.service';
 import { NodeFeature } from '../enums/node-feature.enum';
 import { cpxFactors } from '../cpx-factors';
+import { CpxFactors } from '../models/cpx-factors.model';
 
 /**
  * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)
@@ -126,16 +127,18 @@ export class Ast {
             case ts.SyntaxKind.StringLiteral:
             case ts.SyntaxKind.TrueKeyword:
                 return NodeFeature.BASIC;
-            case ts.SyntaxKind.ArrowFunction:
-            case ts.SyntaxKind.FunctionDeclaration:
-            case ts.SyntaxKind.FunctionExpression:
-            case ts.SyntaxKind.MethodDeclaration:
-                return NodeFeature.FUNC;
             case ts.SyntaxKind.CatchClause:
             case ts.SyntaxKind.ConditionalExpression:
             case ts.SyntaxKind.IfStatement:
             case ts.SyntaxKind.SwitchStatement:
                 return NodeFeature.CONDITIONAL;
+            case ts.SyntaxKind.Block:
+                return NodeFeature.EMPTY;
+            case ts.SyntaxKind.ArrowFunction:
+            case ts.SyntaxKind.FunctionDeclaration:
+            case ts.SyntaxKind.FunctionExpression:
+            case ts.SyntaxKind.MethodDeclaration:
+                return NodeFeature.FUNC;
             case ts.SyntaxKind.DoStatement:
             case ts.SyntaxKind.ForStatement:
             case ts.SyntaxKind.ForInStatement:
@@ -145,6 +148,28 @@ export class Ast {
             default:
                 return NodeFeature.BASIC;
         }
+    }
+
+    static getCpxFactors(nodeFeature: NodeFeature): CpxFactors {
+        const cpxFact = new CpxFactors();
+        cpxFact.basic.node = nodeFeature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
+        switch (nodeFeature) {
+            case NodeFeature.BASIC:
+                break;
+            case NodeFeature.CONDITIONAL:
+                cpxFact.nesting.conditional = cpxFactors.nesting.conditional;
+                cpxFact.structural.conditional = cpxFactors.structural.conditional;
+                break;
+            case NodeFeature.FUNC:
+                cpxFact.nesting.func = cpxFactors.nesting.func;
+                cpxFact.structural.func = cpxFactors.structural.func;
+                break;
+            case NodeFeature.LOOP:
+                cpxFact.nesting.loop = cpxFactors.nesting.loop;
+                cpxFact.structural.loop = cpxFactors.structural.loop;
+                break;
+        }
+        return cpxFact;
     }
 
 

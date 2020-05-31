@@ -1,5 +1,3 @@
-import { CpxByFactor } from './cognitive-cpx-by-increment-type.model';
-
 /**
  * Defines the elements included in a method's report
  */

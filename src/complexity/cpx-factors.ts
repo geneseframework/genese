@@ -17,6 +17,7 @@ complexityFactors.basic = {
 complexityFactors.nesting = {
     arr: 1,                             // Inside an array
     conditional: 0.5,                   // Inside a conditional
+    func: 1,                            // Usage of a function or method inside a block of code
     loop: 0.5                           // Inside a loop
 };
 complexityFactors.structural = {

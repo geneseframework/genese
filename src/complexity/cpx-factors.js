@@ -16,6 +16,7 @@ complexityFactors.basic = {
 complexityFactors.nesting = {
     arr: 1,
     conditional: 0.5,
+    func: 1,
     loop: 0.5 // Inside a loop
 };
 complexityFactors.structural = {

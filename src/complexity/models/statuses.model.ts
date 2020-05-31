@@ -1,4 +1,4 @@
-import { Addition } from '../interfaces/add.interface';
+import { Addition } from '../interfaces/addition.interface';
 
 /**
  * Number of elements by complexity status
