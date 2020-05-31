@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as ts from 'typescript';
 import { getFilename } from './file.service';
 import { NodeFeature } from '../enums/node-feature.enum';
-import { cpx } from '../cpx';
+import { cpxFactors } from '../cpx-factors';
 
 /**
  * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)
@@ -149,16 +149,16 @@ export class Ast {
 
 
     static getAggregationCpx(nodeFeature: NodeFeature): number {
-        return cpx.aggregation[nodeFeature] ?? 0;
+        return cpxFactors.aggregation[nodeFeature] ?? 0;
     }
 
 
     static getNestingCpx(nodeFeature: NodeFeature): number {
-        return cpx.nesting[nodeFeature] ?? 0;
+        return cpxFactors.nesting[nodeFeature] ?? 0;
     }
 
 
     static getStructuralCpx(nodeFeature: NodeFeature): number {
-        return cpx.structural[nodeFeature] ?? 0;
+        return cpxFactors.structural[nodeFeature] ?? 0;
     }
 }

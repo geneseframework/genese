@@ -30,14 +30,14 @@ npm i -g genese
 Genese complexity is launched with the Genese CLI included in the genese module. The main command-line is
 
 ```sh 
-genese cpx [directory]
+genese cpxFactors [directory]
 ```
 
 The "directory" param is the folder of the project to audit. It can be relative or absolute.
 
 ***Example :***
 ```sh 
-genese cpx ./src/
+genese cpxFactors ./src/
 ```
 
 Please note that the slash at the end of the path is mandatory.
