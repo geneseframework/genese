@@ -1,4 +1,4 @@
-export const cpx = {
+export const cpxFactors = {
     aggregation: {
         arr: 1,                             // Array of arrays
         density: 0.05,                      // Accumulation of nodes on a same line of code

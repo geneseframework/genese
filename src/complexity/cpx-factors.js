@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cpx = {
+exports.cpxFactors = {
     aggregation: {
         arr: 1,
         density: 0.05,

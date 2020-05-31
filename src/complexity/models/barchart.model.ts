@@ -23,10 +23,11 @@ export class Barchart {
      * @param quantity / The y value to add for the bar with x abscissa
      */
     addResult(complexity: number, quantity = 1): Barchart {
-        if (this.abscissaAlreadyExists(complexity)) {
-            this.increaseOrdinate(complexity, quantity);
+        const roundedCpx = Math.round(complexity);
+        if (this.abscissaAlreadyExists(roundedCpx)) {
+            this.increaseOrdinate(roundedCpx, quantity);
         } else {
-            this.newBar(complexity, quantity);
+            this.newBar(roundedCpx, quantity);
         }
         return this;
     }
@@ -36,7 +37,7 @@ export class Barchart {
      * Checks if a bar exists on a given abscissa
      * @param complexity / The abscissa value
      */
-    abscissaAlreadyExists(complexity: number): boolean {
+    private abscissaAlreadyExists(complexity: number): boolean {
         return this.data.map(p => p.x).includes(complexity);
     }
 
@@ -46,7 +47,7 @@ export class Barchart {
      * @param abscissa / The abscissa of the bar (the complexity value)
      * @param quantity / The height to add at the bar
      */
-    increaseOrdinate(abscissa: number, quantity = 1): void {
+    private increaseOrdinate(abscissa: number, quantity = 1): void {
         const index = this.data.findIndex(e => e.x === abscissa);
         this.data[index].y = this.data[index].y + quantity;
     }

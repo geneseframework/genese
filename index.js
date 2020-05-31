@@ -13,7 +13,7 @@ try {
     program.version('0.0.5')
         .description('Genese cli');
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
-    program.command('cpx [pathToAnalyse]')
+    program.command('cpxFactors [pathToAnalyse]')
         .description('Calculates cognitive and cyclomatic complexities')
         .action(function (pathToAnalyze) {
         console.log(ansi_colors_1.blueBright("STARTS GENESE COMPLEXITY CLI"));
