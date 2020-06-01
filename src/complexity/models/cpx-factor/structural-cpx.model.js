@@ -4,7 +4,6 @@ class StructuralCpx {
     constructor() {
         this.arr = 0; // "Array", "Set"
         this.asynchronicity = 0; // "Promise", "Observable"
-        this.binary = 0;
         this.conditional = 0; // "if", "else", "else if", "switch", "catch", ternary expression, nullish coalescing
         this.externalBinding = 0; // A "this" inside a method which not refers to the method context (its class)
         this.func = 0; // Usage of a function or method inside a block of code

@@ -2,7 +2,6 @@ export class StructuralCpx {
 
     arr ?= 0;                               // "Array", "Set"
     asynchronicity ?= 0;                    // "Promise", "Observable"
-    binary ?= 0;
     conditional ?= 0;                       // "if", "else", "else if", "switch", "catch", ternary expression, nullish coalescing
     externalBinding ?= 0;                   // A "this" inside a method which not refers to the method context (its class)
     func ?= 0;                              // Usage of a function or method inside a block of code

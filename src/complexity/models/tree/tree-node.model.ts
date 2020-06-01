@@ -64,13 +64,18 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
+    set cpxFactors(cpxFactors) {
+        this.#cpxFactors = cpxFactors;
+    }
+
+
     calculateCpxFactors(): void {
         this.cpxFactors.basic.node = this.feature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
         switch (this.feature) {
             case NodeFeature.BASIC:
                 break;
             case NodeFeature.BINARY:
-                this.cpxFactors.structural.binary = cpxFactors.structural.binary;
+                this.addBinaryCpxFactors();
                 break;
             case NodeFeature.CONDITIONAL:
                 this.cpxFactors.nesting.conditional = cpxFactors.nesting.conditional;
@@ -79,9 +84,12 @@ export class TreeNode extends Evaluable implements IsAstNode {
             case NodeFeature.FUNC:
                 this.cpxFactors.structural.func = cpxFactors.structural.func;
                 break;
-            case NodeFeature.LOOP:
-                this.cpxFactors.structural.loop = cpxFactors.structural.loop;
+            case NodeFeature.LOGIC_DOOR:
+                this.cpxFactors.structural.logicDoor = cpxFactors.structural.logicDoor;
                 break;
+            // case NodeFeature.LOOP:
+            //     this.cpxFactors.structural.loop = cpxFactors.structural.loop;
+            //     break;
             case NodeFeature.REGEX:
                 this.cpxFactors.structural.regex = cpxFactors.structural.regex;
                 break;
@@ -90,14 +98,17 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
-    calculateNestingCpx(): void {
+    private calculateNestingCpx(): void {
         if (this.node && this.parent?.parent?.node && this.parent?.cpxFactors?.nesting) {
             this.cpxFactors.nesting = addObjects(this.parent.cpxFactors.nesting, this.cpxFactors.nesting);
             // console.log('NESTING NODE', this.cpxFactors.nesting)
         }
-
     }
 
+
+    private addBinaryCpxFactors(): void {
+        this.cpxFactors = this.cpxFactors.add(this.nodeFeatureService.getBinaryCpxFactors(this));
+    }
 
 
     // ------------------------------------------------------------------------------------------------

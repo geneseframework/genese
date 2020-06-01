@@ -4,8 +4,8 @@ class AggregationCpx {
     constructor() {
         this.arr = 0; // Array of arrays
         this.density = 0; // Accumulation of nodes on a same line of code
-        this.logicDoorChange = 0; // a "or" after a "and" (or a "or" after a "and") without brackets
-        this.logicDoorChangeWithBrackets = 0; // a "or" after a "and" (or a "or" after a "and") without brackets
+        this.differentLogicDoor = 0; // a "or" after a "and" (or a "or" after a "and") without brackets
+        this.differentLogicDoorWithBrackets = 0; // a "or" after a "and" (or a "or" after a "and") without brackets
     }
 }
 exports.AggregationCpx = AggregationCpx;
