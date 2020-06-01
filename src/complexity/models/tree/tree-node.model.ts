@@ -74,7 +74,6 @@ export class TreeNode extends Evaluable implements IsAstNode {
      * The current TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
     isRecursion(): boolean {
-        console.log('METHOD', this.treeMethod)
         if (!this.treeMethod) {
             return false;
         }

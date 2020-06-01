@@ -4,7 +4,7 @@ export class DebugMock {
 
 
     r(a, b, c) {
-        this.r(a, b, c);
+        a = a ? b : b ? c : 0;
     }
 
     //

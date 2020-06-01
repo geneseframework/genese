@@ -68,7 +68,6 @@ class TreeNode extends evaluable_model_1.Evaluable {
      */
     isRecursion() {
         var _a, _b;
-        console.log('METHOD', this.treeMethod);
         if (!this.treeMethod) {
             return false;
         }

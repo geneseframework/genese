@@ -13,5 +13,8 @@ class HyperComplexMock {
         }, object)[path[path.length - 1]] = value; // Finally assign the value to the last key
         return object; // Return the top-level object to allow chaining
     }
+    reducer(acc, curr, index, path) {
+        return Object(acc[curr]) === acc[curr] ? acc[curr] : (acc[curr] = isNaN(+path[index + 1]) ? {} : []);
+    }
 }
 exports.HyperComplexMock = HyperComplexMock;

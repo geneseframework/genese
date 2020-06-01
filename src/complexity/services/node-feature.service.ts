@@ -52,6 +52,8 @@ export class NodeFeatureService {
     }
 
 
+
+    // TODO : remove ?
     getCpxFactors(nodeFeature: NodeFeature): CpxFactors {
         const cpxFact = new CpxFactors();
         cpxFact.basic.node = nodeFeature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
