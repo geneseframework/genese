@@ -4,7 +4,7 @@ import { Ast } from '../ast.service';
 import { TreeMethod } from '../../models/tree/tree-method.model';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
 import { ComplexityType } from '../../enums/complexity-type.enum';
-import { StatsService } from '../stats.service';
+import { StatsService } from '../report/stats.service';
 import { Stats } from '../../models/stats.model';
 import { TreeMethodService } from './tree-method.service';
 
@@ -59,7 +59,7 @@ export class TreeFileService extends StatsService{
     incrementStats(treeMethod: TreeMethod): void {
         this.incrementStatsMethodsByStatus(treeMethod, ComplexityType.COGNITIVE);
         this.incrementStatsMethodsByStatus(treeMethod, ComplexityType.CYCLOMATIC);
-        this._stats.barChartCognitive.addResult(treeMethod.cognitiveValue);
+        this._stats.barChartCognitive.addResult(treeMethod.cpxIndex);
         this._stats.barChartCyclomatic.addResult(treeMethod.cyclomaticCpx);
     }
 

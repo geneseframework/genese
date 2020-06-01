@@ -11,7 +11,8 @@ class TreeFile extends evaluable_model_1.Evaluable {
     constructor() {
         super();
         this.complexitiesByStatus = undefined; // The file complexities spread by complexity status
-        this.name = ''; // The name of the file
+        this.cpxIndex = 0; // The complexity index of this file
+        this.name = ''; // The name of this file
         this.sourceFile = undefined; // The sourceFile corresponding to this TreeFile
         this.stats = undefined; // The statistics of the file
         this.treeFileService = new tree_file_service_1.TreeFileService(); // The service for TreeFiles
@@ -25,7 +26,7 @@ class TreeFile extends evaluable_model_1.Evaluable {
     evaluate() {
         const treeMethodService = new tree_method_service_1.TreeMethodService();
         for (const method of this.treeMethods) {
-            this.cognitiveValue += method.cognitiveValue;
+            this.cpxIndex += method.cpxIndex;
             this.cyclomaticCpx += method.cyclomaticCpx;
             this.complexitiesByStatus = treeMethodService.addMethodCpxByStatus(this.complexitiesByStatus, method);
         }

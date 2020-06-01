@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const options_1 = require("./models/options");
 const file_service_1 = require("./services/file.service");
-const reports_service_1 = require("./services/reports.service");
+const reports_service_1 = require("./services/report/reports.service");
 const tree_folder_service_1 = require("./services/tree/tree-folder.service");
 const ansi_colors_1 = require("ansi-colors");
 exports.DEBUG = true; // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND with stats only for debug.mock.ts

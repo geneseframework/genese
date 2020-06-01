@@ -23,7 +23,7 @@ class SwitchesMock {
             default:
                 console.log("lots");
         }
-        return { cyclomaticValue: 3, cognitiveValue: 1 };
+        return { cyclomaticValue: 3, cpxIndex: 1 };
     }
     tryCatch() {
         try {
@@ -32,17 +32,17 @@ class SwitchesMock {
         catch (e) {
             console.log(e);
         }
-        return { cyclomaticValue: 2, cognitiveValue: 1 };
+        return { cyclomaticValue: 2, cpxIndex: 1 };
     }
     recursion(a) {
         if (a > 10) {
             this.recursion(a);
         }
-        return { cyclomaticValue: 2, cognitiveValue: 2 };
+        return { cyclomaticValue: 2, cpxIndex: 2 };
     }
     questionDotToken(time) {
         time = time === null || time === void 0 ? void 0 : time.name;
-        return { cyclomaticValue: 1, cognitiveValue: 0 };
+        return { cyclomaticValue: 1, cpxIndex: 0 };
     }
 }
 exports.SwitchesMock = SwitchesMock;
