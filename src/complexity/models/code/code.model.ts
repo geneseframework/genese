@@ -1,4 +1,5 @@
 import { CodeLine } from './code-line.model';
+import { TreeNode } from '../tree/tree-node.model';
 
 /**
     The TypeScript code seen as an array of CodeLine
@@ -28,6 +29,13 @@ export class Code {
     addComment(comment: string, line: CodeLine): string {
         const txt = `${line?.text} // `;
         return `${txt.padEnd(this.maxLineLength + 10, '-')} ${comment}`;
+    }
+
+
+    setLinesNestingCpx(): void {
+        for (const line of this.lines) {
+            line.setNestingCpx();
+        }
     }
 
 }

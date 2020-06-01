@@ -2,7 +2,7 @@ import * as ts from 'typescript';
 import { Options } from './models/options';
 import { createOutDir } from './services/file.service';
 import { ReportsService } from './services/reports.service';
-import { TreeFolderService } from './services/tree-folder.service';
+import { TreeFolderService } from './services/tree/tree-folder.service';
 import { blueBright } from 'ansi-colors';
 
 export const DEBUG = true;     // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND with stats only for debug.mock.ts

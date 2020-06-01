@@ -1,30 +1,25 @@
-import * as fs from 'fs-extra';
-import { TreeFolder } from '../models/tree-folder.model';
-import { getExtension, getRelativePath } from './file.service';
-import { TreeFileService } from './tree-file.service';
-import { TreeFile } from '../models/tree-file.model';
-import { BarchartService } from './barchart.service';
-import { ComplexityType } from '../enums/complexity-type.enum';
-import { StatsService } from './stats.service';
-import { Stats } from '../models/stats.model';
-import { Options } from '../models/options';
-import { DEBUG } from '../main';
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs = require("fs-extra");
+const tree_folder_model_1 = require("../../models/tree/tree-folder.model");
+const file_service_1 = require("../file.service");
+const tree_file_service_1 = require("./tree-file.service");
+const barchart_service_1 = require("../barchart.service");
+const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
+const stats_service_1 = require("../stats.service");
+const options_1 = require("../../models/options");
+const main_1 = require("../../main");
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
  * - Other services for TreeFolders
  */
-export class TreeFolderService extends StatsService {
-
-    protected _stats: Stats = undefined;            // The statistics of the TreeFolder
-    treeFileService?: TreeFileService = new TreeFileService();
-    treeFolder: TreeFolder = undefined;             // The TreeFolder corresponding to this service
-
+class TreeFolderService extends stats_service_1.StatsService {
     constructor() {
         super();
+        this._stats = undefined; // The statistics of the TreeFolder
+        this.treeFileService = new tree_file_service_1.TreeFileService();
+        this.treeFolder = undefined; // The TreeFolder corresponding to this service
     }
-
-
     /**
      * Generates the TreeFolder for a given folder
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the folder
@@ -32,26 +27,24 @@ export class TreeFolderService extends StatsService {
      * @param extension         // The extension of the files concerned by the generation (actually: only .ts)
      * @param treeSubFolder     // The TreeFolder of a subfolder (param useful only for recursivity, should not be used outside of the method)
      */
-    generateTree(path: string, extension?: string, treeSubFolder?: TreeFolder): TreeFolder {
+    generateTree(path, extension, treeSubFolder) {
         if (!path) {
-            console.log('ERROR: no path.')
+            console.log('ERROR: no path.');
             return undefined;
         }
-        const treeFolder: TreeFolder = new TreeFolder();
+        const treeFolder = new tree_folder_model_1.TreeFolder();
         treeFolder.path = path;
-        treeFolder.relativePath = getRelativePath(Options.pathFolderToAnalyze, path);
+        treeFolder.relativePath = file_service_1.getRelativePath(options_1.Options.pathFolderToAnalyze, path);
         const filesOrDirs = fs.readdirSync(path);
-        filesOrDirs.forEach((elementName: string) => {
+        filesOrDirs.forEach((elementName) => {
             const pathElement = path + elementName;
-            if (!Options.isIgnored(pathElement)) {
+            if (!options_1.Options.isIgnored(pathElement)) {
                 this.generateFileOrDirTree(pathElement, extension, treeSubFolder, treeFolder);
             }
         });
         treeFolder.evaluate();
         return treeFolder;
     }
-
-
     /**
      * Generates the TreeFolder of a treeSubFolder which is a child of a given treeFolder with the path 'pathElement'
      * @param pathElement       // The path of the element
@@ -59,29 +52,29 @@ export class TreeFolderService extends StatsService {
      * @param treeSubFolder     // The TreeFolder of a subfolder of the param treeFolder
      * @param treeFolder        // The parent TreeFolder
      */
-    private generateFileOrDirTree(pathElement: string, extension: string, treeSubFolder: TreeFolder, treeFolder: TreeFolder): void {
+    generateFileOrDirTree(pathElement, extension, treeSubFolder, treeFolder) {
         if (fs.statSync(pathElement).isDirectory()) {
-            let subFolder = new TreeFolder();
+            let subFolder = new tree_folder_model_1.TreeFolder();
             subFolder = this.generateTree(`${pathElement}/`, extension, subFolder);
             subFolder.parent = treeSubFolder;
             subFolder.path = pathElement;
             treeFolder.subFolders.push(subFolder);
-        } else {
-            if (!extension || extension === getExtension(pathElement)) {
-                if (!DEBUG || (DEBUG && pathElement === './src/complexity/mocks/debug.mock.ts')) {
+        }
+        else {
+            if (!extension || extension === file_service_1.getExtension(pathElement)) {
+                if (!main_1.DEBUG || (main_1.DEBUG && pathElement === './src/complexity/mocks/debug.mock.ts')) {
                     treeFolder.treeFiles.push(this.treeFileService.generateTree(pathElement, treeFolder));
                 }
             }
         }
     }
-
-
     /**
      * Calculates the statistics of the TreeFolder
      * @param treeFolder        // The TreeFolder to analyse
      */
-    calculateStats(treeFolder: TreeFolder): void {
-        this._stats.numberOfFiles += treeFolder?.treeFiles?.length ?? 0;
+    calculateStats(treeFolder) {
+        var _a, _b;
+        this._stats.numberOfFiles += (_b = (_a = treeFolder === null || treeFolder === void 0 ? void 0 : treeFolder.treeFiles) === null || _a === void 0 ? void 0 : _a.length) !== null && _b !== void 0 ? _b : 0;
         for (const file of treeFolder.treeFiles) {
             this.incrementFileStats(file);
         }
@@ -89,80 +82,72 @@ export class TreeFolderService extends StatsService {
             this.calculateStats(subFolder);
         }
     }
-
-
     /**
      * Increments TreeFolder statistics for a given treeFile
      * @param treeFile       // The TreeFile to analyse
      */
-    incrementFileStats(treeFile: TreeFile): void {
+    incrementFileStats(treeFile) {
         if (!treeFile) {
             return;
         }
         let tsFileStats = treeFile.getStats();
         this._stats.numberOfMethods += tsFileStats.numberOfMethods;
-        this.incrementMethodsByStatus(ComplexityType.COGNITIVE, tsFileStats);
-        this.incrementMethodsByStatus(ComplexityType.CYCLOMATIC, tsFileStats);
-        this._stats.barChartCognitive = BarchartService.concat(this._stats.barChartCognitive, tsFileStats.barChartCognitive);
-        this._stats.barChartCyclomatic = BarchartService.concat(this._stats.barChartCyclomatic, tsFileStats.barChartCyclomatic);
+        this.incrementMethodsByStatus(complexity_type_enum_1.ComplexityType.COGNITIVE, tsFileStats);
+        this.incrementMethodsByStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC, tsFileStats);
+        this._stats.barChartCognitive = barchart_service_1.BarchartService.concat(this._stats.barChartCognitive, tsFileStats.barChartCognitive);
+        this._stats.barChartCyclomatic = barchart_service_1.BarchartService.concat(this._stats.barChartCyclomatic, tsFileStats.barChartCyclomatic);
     }
-
-
     /**
      * Increments the number of methods spread by Status (correct, warning, error) and by complexity type
      * @param type              // The complexity type
      * @param tsFileStats
      */
-    incrementMethodsByStatus(type: ComplexityType, tsFileStats: Stats): void {
+    incrementMethodsByStatus(type, tsFileStats) {
         this._stats.numberOfMethodsByStatus[type].correct += tsFileStats.numberOfMethodsByStatus[type].correct;
         this._stats.numberOfMethodsByStatus[type].error += tsFileStats.numberOfMethodsByStatus[type].error;
         this._stats.numberOfMethodsByStatus[type].warning += tsFileStats.numberOfMethodsByStatus[type].warning;
     }
-
-
     /**
      * Returns the path of the TreeFolder linked to this service
      */
-    getNameOrPath(treeFolder: TreeFolder): void {
-        this._stats.subject = getRelativePath(Options.pathCommand, treeFolder.path);
+    getNameOrPath(treeFolder) {
+        this._stats.subject = file_service_1.getRelativePath(options_1.Options.pathCommand, treeFolder.path);
     }
-
-
     /**
      * Returns the path between a TreeFolder's path and a TreeFile's path which is inside it or inside one of its subfolders
      * @param treeFolder      // The path of the TreeFolder
      * @param treeFile        // The path of the TreeFile
      */
-    getRouteFromFolderToFile(treeFolder: TreeFolder, treeFile: TreeFile): string {
+    getRouteFromFolderToFile(treeFolder, treeFile) {
         if (!treeFile || !treeFolder) {
             return undefined;
         }
         if (treeFile.treeFolder.path.slice(0, treeFolder.path.length) !== treeFolder.path) {
             console.log(`The file ${treeFile.name} is not inside the folder ${treeFolder.path}`);
             return undefined;
-        } else {
+        }
+        else {
             const linkStarter = treeFolder.relativePath === '' ? './' : '.';
             return `${linkStarter}${treeFile.treeFolder.path.slice(treeFolder.path.length)}`;
         }
     }
-
-
     /**
      * Returns the route from the folder of a TreeFolder to one of its subfolders
      * @param treeFolder
      * @param treeSubfolder
      */
-    getRouteFromFolderToSubFolder(treeFolder: TreeFolder, treeSubfolder: TreeFolder): string {
-        if (!treeFolder || !treeSubfolder|| treeSubfolder.path === treeFolder.path ) {
+    getRouteFromFolderToSubFolder(treeFolder, treeSubfolder) {
+        if (!treeFolder || !treeSubfolder || treeSubfolder.path === treeFolder.path) {
             return undefined;
         }
         if (treeSubfolder.path.slice(0, treeFolder.path.length) !== treeFolder.path) {
             console.log(`The folder ${treeSubfolder.path} is not a subfolder of ${treeFolder.path}`);
             return undefined;
-        } else {
+        }
+        else {
             const linkStarter = treeFolder.relativePath === '' ? './' : '.';
             return `${linkStarter}${treeSubfolder.path.slice(treeFolder.path.length)}`;
         }
     }
-
 }
+exports.TreeFolderService = TreeFolderService;

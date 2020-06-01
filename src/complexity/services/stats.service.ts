@@ -1,5 +1,5 @@
-import { TreeFolder } from '../models/tree-folder.model';
-import { TreeFile } from '../models/tree-file.model';
+import { TreeFolder } from '../models/tree/tree-folder.model';
+import { TreeFile } from '../models/tree/tree-file.model';
 import { Stats } from '../models/stats.model';
 
 /**
