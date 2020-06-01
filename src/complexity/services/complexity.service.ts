@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 import * as utils from 'tsutils';
-import { TreeNode } from '../models/tree-node.model';
+import { TreeNode } from '../models/tree/tree-node.model';
 import { Ast } from './ast.service';
 import { CpxByFactor } from '../models/cpx-by-factor';
 

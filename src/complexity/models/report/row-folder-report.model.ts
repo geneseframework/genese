@@ -1,4 +1,4 @@
-import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.interface';
+import { ComplexitiesByStatus } from '../../interfaces/complexities-by-status.interface';
 
 /**
 * Defines the model of a row in the arrays of folders reports

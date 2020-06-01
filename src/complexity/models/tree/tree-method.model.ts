@@ -1,18 +1,18 @@
 import * as ts from 'typescript';
 import { TreeFile } from './tree-file.model';
-import { Ast } from '../services/ast.service';
-import { ComplexityService as CS } from '../services/complexity.service';
+import { Ast } from '../../services/ast.service';
+import { ComplexityService as CS } from '../../services/complexity.service';
 import { TreeNode } from './tree-node.model';
-import { Options } from './options';
-import { MethodStatus } from '../enums/evaluation-status.enum';
-import { ComplexityType } from '../enums/complexity-type.enum';
-import { Evaluable } from './evaluable.model';
-import { IsAstNode } from '../interfaces/is-ast-node';
-import { Code } from './code.model';
-import { CodeService } from '../services/code.service';
-import { CpxFactors } from './cpx-factors/cpx-factors.model';
-import { FactorCategory } from '../enums/factor-category.enum';
-import { CodeLine } from './code-line.model';
+import { Options } from '../options';
+import { MethodStatus } from '../../enums/evaluation-status.enum';
+import { ComplexityType } from '../../enums/complexity-type.enum';
+import { Evaluable } from '../evaluable.model';
+import { IsAstNode } from '../../interfaces/is-ast-node';
+import { Code } from '../code/code.model';
+import { CodeService } from '../../services/code.service';
+import { CpxFactors } from '../cpx-factor/cpx-factors.model';
+import { FactorCategory } from '../../enums/factor-category.enum';
+import { CodeLine } from '../code/code-line.model';
 
 /**
  * Element of the TreeNode structure corresponding to a given method

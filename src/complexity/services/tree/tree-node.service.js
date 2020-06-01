@@ -1,43 +1,41 @@
-import * as ts from 'typescript';
-import { Ast } from './ast.service';
-import { TreeNode } from '../models/tree-node.model';
-import { TreeMethod } from '../models/tree-method.model';
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const ts = require("typescript");
+const ast_service_1 = require("../ast.service");
+const tree_node_model_1 = require("../../models/tree/tree-node.model");
 /**
  * Service managing TreeNodes
  */
-export class TreeNodeService {
-
+class TreeNodeService {
     /**
      * Generates the TreeNode corresponding to a given TreeMethod
      * @param treeMethod    // The TreeMethod in question
      */
-    generateTree(treeMethod: TreeMethod): TreeNode {
-        let treeNode: TreeNode = new TreeNode();
+    generateTree(treeMethod) {
+        let treeNode = new tree_node_model_1.TreeNode();
         treeNode.node = treeMethod.node;
         treeNode.nestingCpx = 0;
         treeNode.treeMethod = treeMethod;
-        treeNode.kind = Ast.getType(treeMethod.node);
+        treeNode.kind = ast_service_1.Ast.getType(treeMethod.node);
         treeNode = this.addTreeToChildren(treeNode);
         return treeNode;
     }
-
-
     /**
      * Returns the TreeNode obtained by setting recursively TreeNodes for its children and subChildren
      * @param treeNode
      */
-    addTreeToChildren(treeNode: TreeNode): TreeNode {
-        ts.forEachChild(treeNode.node, (childNode: ts.Node) => {
-            const newTree = new TreeNode();
+    addTreeToChildren(treeNode) {
+        ts.forEachChild(treeNode.node, (childNode) => {
+            const newTree = new tree_node_model_1.TreeNode();
             childNode.parent = treeNode.node;
             newTree.node = childNode;
             newTree.treeMethod = treeNode.treeMethod;
             newTree.parent = treeNode;
-            newTree.kind = Ast.getType(childNode);
+            newTree.kind = ast_service_1.Ast.getType(childNode);
             newTree.evaluate();
             treeNode.children.push(this.addTreeToChildren(newTree));
         });
         return treeNode;
     }
 }
+exports.TreeNodeService = TreeNodeService;

@@ -1,5 +1,5 @@
-import { CpxFactors } from './cpx-factors/cpx-factors.model';
-import { NestingCpx } from './cpx-factors/nesting-cpx.model';
+import { CpxFactors } from '../cpx-factor/cpx-factors.model';
+import { NestingCpx } from '../cpx-factor/nesting-cpx.model';
 
 /**
  * A line of a Code object

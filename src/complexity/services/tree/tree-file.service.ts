@@ -1,11 +1,11 @@
-import { TreeFolder } from '../models/tree-folder.model';
-import { TreeFile } from '../models/tree-file.model';
-import { Ast } from './ast.service';
-import { TreeMethod } from '../models/tree-method.model';
-import { MethodStatus } from '../enums/evaluation-status.enum';
-import { ComplexityType } from '../enums/complexity-type.enum';
-import { StatsService } from './stats.service';
-import { Stats } from '../models/stats.model';
+import { TreeFolder } from '../../models/tree/tree-folder.model';
+import { TreeFile } from '../../models/tree/tree-file.model';
+import { Ast } from '../ast.service';
+import { TreeMethod } from '../../models/tree/tree-method.model';
+import { MethodStatus } from '../../enums/evaluation-status.enum';
+import { ComplexityType } from '../../enums/complexity-type.enum';
+import { StatsService } from '../stats.service';
+import { Stats } from '../../models/stats.model';
 import { TreeMethodService } from './tree-method.service';
 
 /**

@@ -1,13 +1,13 @@
 import * as ts from 'typescript';
 import { TreeMethod } from './tree-method.model';
-import { IsAstNode } from '../interfaces/is-ast-node';
-import { Evaluable } from './evaluable.model';
-import { NodeFeature } from '../enums/node-feature.enum';
-import { Ast } from '../services/ast.service';
-import { CpxFactors } from './cpx-factors/cpx-factors.model';
-import { cpxFactors } from '../cpx-factors';
-import { addObjects } from '../services/tools.service';
-import { NodeFeatureService } from '../services/node-feature.service';
+import { IsAstNode } from '../../interfaces/is-ast-node';
+import { Evaluable } from '../evaluable.model';
+import { NodeFeature } from '../../enums/node-feature.enum';
+import { Ast } from '../../services/ast.service';
+import { CpxFactors } from '../cpx-factor/cpx-factors.model';
+import { cpxFactors } from '../../cpx-factors';
+import { addObjects } from '../../services/tools.service';
+import { NodeFeatureService } from '../../services/node-feature.service';
 
 const chalk = require('chalk');
 

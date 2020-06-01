@@ -1,12 +1,12 @@
 import * as ts from 'typescript';
 import { TreeMethod } from './tree-method.model';
 import { TreeFolder } from './tree-folder.model';
-import { TreeFileService } from '../services/tree-file.service';
-import { Stats } from './stats.model';
-import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.interface';
-import { Evaluable } from './evaluable.model';
-import { HasStats } from '../interfaces/has-stats';
-import { TreeMethodService } from '../services/tree-method.service';
+import { TreeFileService } from '../../services/tree/tree-file.service';
+import { Stats } from '../stats.model';
+import { ComplexitiesByStatus } from '../../interfaces/complexities-by-status.interface';
+import { Evaluable } from '../evaluable.model';
+import { HasStats } from '../../interfaces/has-stats';
+import { TreeMethodService } from '../../services/tree/tree-method.service';
 
 /**
  * Element of the TreeNode structure corresponding to a given file (AST sourceFile)

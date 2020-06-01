@@ -1,9 +1,9 @@
 import { TreeFile } from './tree-file.model';
-import { TreeFolderService } from '../services/tree-folder.service';
-import { Stats } from './stats.model';
-import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.interface';
-import { Evaluable } from './evaluable.model';
-import { HasStats } from '../interfaces/has-stats';
+import { TreeFolderService } from '../../services/tree/tree-folder.service';
+import { Stats } from '../stats.model';
+import { ComplexitiesByStatus } from '../../interfaces/complexities-by-status.interface';
+import { Evaluable } from '../evaluable.model';
+import { HasStats } from '../../interfaces/has-stats';
 
 /**
  * Element of the TreeNode structure corresponding to a given folder

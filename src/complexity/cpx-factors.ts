@@ -1,4 +1,4 @@
-import { CpxFactors } from './models/cpx-factors/cpx-factors.model';
+import { CpxFactors } from './models/cpx-factor/cpx-factors.model';
 
 const complexityFactors: CpxFactors = new CpxFactors();
 
