@@ -7,6 +7,7 @@ import { Ast } from '../services/ast.service';
 import { CpxFactors } from './cpx-factors.model';
 import { cpxFactors } from '../cpx-factors';
 import { addObjects } from '../services/tools.service';
+import { NodeFeatureService } from '../services/node-feature.service';
 
 const chalk = require('chalk');
 
@@ -16,10 +17,12 @@ const chalk = require('chalk');
 export class TreeNode extends Evaluable implements IsAstNode {
 
     children?: TreeNode[] = [];                 // The children trees corresponding to children AST nodes of the current AST node
-    cpxFactors?: CpxFactors = new CpxFactors();
+    #cpxFactors?: CpxFactors = new CpxFactors();
+    #feature?: NodeFeature = undefined;
     kind ?= '';                                 // The kind of the node ('MethodDeclaration, IfStatement, ...)
     #nestingCpx: number = undefined;            // The nesting of the node inside a given method
     node?: ts.Node = undefined;                 // The current node in the AST
+    nodeFeatureService?: NodeFeatureService = new NodeFeatureService();
     parent?: TreeNode;                          // The tree of the parent of the current node
     treeMethod?: TreeMethod = undefined;        // The method at the root of the current tree (if this tree is inside a method)
 
@@ -36,16 +39,6 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
-    get nodeFeature(): NodeFeature {
-        return Ast.getNodeFeature(this.node);
-    }
-
-
-    get aggregationCpx(): number {
-        return Ast.getAggregationCpx(this.nodeFeature);
-    }
-
-
     get nestingCpx(): number {
         return this.cpxFactors.totalNesting;
     }
@@ -56,14 +49,24 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
+    get feature(): NodeFeature {
+        return this.#feature ?? this.nodeFeatureService.getFeature(this.node);
+    }
+
+
+    get cpxFactors(): CpxFactors {
+        return this.#cpxFactors ?? this.nodeFeatureService.getCpxFactors(this.feature);
+    }
+
+
     calculateCpxFactors(): void {
-        const nodeFeature = Ast.getNodeFeature(this.node);
-        this.cpxFactors.basic.node = nodeFeature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
+        this.cpxFactors.basic.node = this.feature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
         this.calculateNestingCpx();
-        switch (nodeFeature) {
+        switch (this.feature) {
             case NodeFeature.BASIC:
                 break;
             case NodeFeature.CONDITIONAL:
+                // this.cpxFactors.nesting.conditional = cpxFactors.nesting.conditional;
                 this.cpxFactors.structural.conditional = cpxFactors.structural.conditional;
                 break;
             case NodeFeature.FUNC:
@@ -78,16 +81,19 @@ export class TreeNode extends Evaluable implements IsAstNode {
         }
     }
 
+
     calculateNestingCpx(): void {
         if (this.node && this.parent?.parent?.node && this.parent?.cpxFactors?.nesting) {
-            this.cpxFactors.nesting = addObjects(this.parent.cpxFactors.nesting, Ast.getCpxFactors(Ast.getNodeFeature(this.parent.node)).nesting);
+            this.cpxFactors.nesting = addObjects(this.parent.cpxFactors.nesting, this.cpxFactors.nesting);
         }
     }
 
 
-    get structuralCpx(): number {
-        return Ast.getStructuralCpx(this.nodeFeature);
-    }
+
+    // ------------------------------------------------------------------------------------------------
+    // ---------------------------------------   PRINT AST   ------------------------------------------
+    // ------------------------------------------------------------------------------------------------
+
 
 
     /**
