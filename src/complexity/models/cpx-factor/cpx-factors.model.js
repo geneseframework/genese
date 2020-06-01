@@ -17,9 +17,7 @@ class CpxFactors {
         var _a;
         let total = 0;
         for (const key of Object.keys(this)) {
-            if (key !== 'nesting') {
-                total += (_a = this[`total${tools_service_1.capitalize(key)}`]) !== null && _a !== void 0 ? _a : 0;
-            }
+            total += (_a = this[`total${tools_service_1.capitalize(key)}`]) !== null && _a !== void 0 ? _a : 0;
         }
         return total;
     }

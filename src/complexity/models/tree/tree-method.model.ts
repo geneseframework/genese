@@ -44,7 +44,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
      * Evaluates the complexities of this TreeMethod
      */
     evaluate(): void {
-        this.tree.printAllChildren();
+        // this.tree.printAllChildren();
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.node);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
@@ -155,8 +155,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
             .forEach(line => {
                 let comment = `+${line.cpxFactors.total.toFixed(1)} Complexity index (+${line.cpxFactors.totalBasic.toFixed(1)} ${FactorCategory.BASIC}`;
                 comment = line.cpxFactors.totalAggregation > 0 ? `${comment}, +${line.cpxFactors.totalAggregation} ${FactorCategory.AGGREGATION}` : comment;
-                comment = `${comment}, +${line.cpxFactors.totalNesting} nesting`;
-                // comment = line.cpxFactors.totalNesting > 0 ? `${comment}, +${line.cpxFactors.totalNesting} nesting` : comment;
+                comment = line.cpxFactors.totalNesting > 0 ? `${comment}, +${line.cpxFactors.totalNesting} nesting` : comment;
                 comment = line.cpxFactors.totalStructural > 0 ? `${comment}, +${line.cpxFactors.totalStructural} ${FactorCategory.STRUCTURAL}` : comment;
                 comment = `${comment})`;
                 this.#displayedCode.lines[line.issue - 1].text = this.#originalCode.addComment(comment, this.#originalCode.lines[line.issue - 1]);

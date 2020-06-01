@@ -17,9 +17,7 @@ export class CpxFactors implements Addition<CpxFactors>{
     get total(): number {
         let total = 0;
         for (const key of Object.keys(this)) {
-            if (key !== 'nesting') {
-                total += this[`total${capitalize(key)}`] ?? 0;
-            }
+            total += this[`total${capitalize(key)}`] ?? 0;
         }
         return total;
     }

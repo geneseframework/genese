@@ -51,7 +51,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
      */
     evaluate() {
         var _a, _b, _c;
-        this.tree.printAllChildren();
+        // this.tree.printAllChildren();
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
         this.cyclomaticCpx = complexity_service_1.ComplexityService.calculateCyclomaticComplexity(this.node);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
@@ -146,8 +146,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
             .forEach(line => {
             let comment = `+${line.cpxFactors.total.toFixed(1)} Complexity index (+${line.cpxFactors.totalBasic.toFixed(1)} ${factor_category_enum_1.FactorCategory.BASIC}`;
             comment = line.cpxFactors.totalAggregation > 0 ? `${comment}, +${line.cpxFactors.totalAggregation} ${factor_category_enum_1.FactorCategory.AGGREGATION}` : comment;
-            comment = `${comment}, +${line.cpxFactors.totalNesting} nesting`;
-            // comment = line.cpxFactors.totalNesting > 0 ? `${comment}, +${line.cpxFactors.totalNesting} nesting` : comment;
+            comment = line.cpxFactors.totalNesting > 0 ? `${comment}, +${line.cpxFactors.totalNesting} nesting` : comment;
             comment = line.cpxFactors.totalStructural > 0 ? `${comment}, +${line.cpxFactors.totalStructural} ${factor_category_enum_1.FactorCategory.STRUCTURAL}` : comment;
             comment = `${comment})`;
             __classPrivateFieldGet(this, _displayedCode).lines[line.issue - 1].text = __classPrivateFieldGet(this, _originalCode).addComment(comment, __classPrivateFieldGet(this, _originalCode).lines[line.issue - 1]);
