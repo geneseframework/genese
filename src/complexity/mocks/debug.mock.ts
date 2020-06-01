@@ -4,27 +4,7 @@ export class DebugMock {
 
 
     r(a, b, c) {
-        if (a && b || c) {
-            console.log('b');
-        }
-    }
-
-    o(a, b, c) {
-        if ((a && b) || c) {
-            console.log('b');
-        }
-    }
-
-    p(a, b, c, d) {
-        if ((a && b) || (c && d)) {
-            console.log('b');
-        }
-    }
-
-    l(a, b, c, d) {
-        if ((a && b) || (c && d) && a) {
-            console.log('b');
-        }
+        this.r(a, b, c);
     }
 
     //

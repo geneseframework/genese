@@ -40,14 +40,6 @@ export class SwitchesMock {
     }
 
 
-    recursion(a): EvaluationValuesInterface {
-        if (a > 10) {
-            this.recursion(a);
-        }
-        return {cyclomaticValue: 2, cpxIndex: 2};
-    }
-
-
     questionDotToken(time: any): EvaluationValuesInterface {
         time = time?.name;
         return {cyclomaticValue: 1, cpxIndex: 0};

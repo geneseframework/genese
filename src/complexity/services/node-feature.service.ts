@@ -104,5 +104,4 @@ export class NodeFeatureService {
         }
         return cpxFact;
     }
-
 }

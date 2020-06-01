@@ -62,8 +62,23 @@ class TreeNode extends evaluable_model_1.Evaluable {
     set cpxFactors(cpxFactors) {
         __classPrivateFieldSet(this, _cpxFactors, cpxFactors);
     }
+    /**
+     * Checks if an AST node inside a method is a recursion, ie a call to this method.
+     * The current TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
+     */
+    isRecursion() {
+        var _a, _b;
+        console.log('METHOD', this.treeMethod);
+        if (!this.treeMethod) {
+            return false;
+        }
+        return ((_b = (_a = this.node) === null || _a === void 0 ? void 0 : _a['name']) === null || _b === void 0 ? void 0 : _b['escapedText']) === this.treeMethod.name;
+    }
     calculateCpxFactors() {
         this.cpxFactors.basic.node = this.feature === node_feature_enum_1.NodeFeature.EMPTY ? 0 : cpx_factors_1.cpxFactors.basic.node;
+        if (this.isRecursion()) {
+            this.cpxFactors.structural.recursion = cpx_factors_1.cpxFactors.structural.recursion;
+        }
         switch (this.feature) {
             case node_feature_enum_1.NodeFeature.BASIC:
                 break;
@@ -80,9 +95,6 @@ class TreeNode extends evaluable_model_1.Evaluable {
             case node_feature_enum_1.NodeFeature.LOGIC_DOOR:
                 this.cpxFactors.structural.logicDoor = cpx_factors_1.cpxFactors.structural.logicDoor;
                 break;
-            // case NodeFeature.LOOP:
-            //     this.cpxFactors.structural.loop = cpxFactors.structural.loop;
-            //     break;
             case node_feature_enum_1.NodeFeature.REGEX:
                 this.cpxFactors.structural.regex = cpx_factors_1.cpxFactors.structural.regex;
                 break;
@@ -93,7 +105,6 @@ class TreeNode extends evaluable_model_1.Evaluable {
         var _a, _b, _c, _d;
         if (this.node && ((_b = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.parent) === null || _b === void 0 ? void 0 : _b.node) && ((_d = (_c = this.parent) === null || _c === void 0 ? void 0 : _c.cpxFactors) === null || _d === void 0 ? void 0 : _d.nesting)) {
             this.cpxFactors.nesting = tools_service_1.addObjects(this.parent.cpxFactors.nesting, this.cpxFactors.nesting);
-            // console.log('NESTING NODE', this.cpxFactors.nesting)
         }
     }
     addBinaryCpxFactors() {
