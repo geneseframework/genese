@@ -18,16 +18,16 @@ export class ComplexityService {
      * Returns the cognitive complexity of a TreeNode (the total of complexities of himself and its children)
      * @param tree      // The TreeNode to analyse
      */
-    static getCognitiveCpx(tree: TreeNode): number {
-        let complexity = 0;
-        if (tree) {
-            for (const child of tree?.children) {
-                complexity += ComplexityService.getTreeCognitiveCpx(child);
-                complexity += ComplexityService.getCognitiveCpx(child);
-            }
-        }
-        return complexity;
-    }
+    // static getCognitiveCpx(tree: TreeNode): number {
+    //     let complexity = 0;
+    //     if (tree) {
+    //         for (const child of tree?.children) {
+    //             complexity += ComplexityService.getTreeCognitiveCpx(child);
+    //             complexity += ComplexityService.getCognitiveCpx(child);
+    //         }
+    //     }
+    //     return complexity;
+    // }
 
 
     /**
@@ -58,9 +58,9 @@ export class ComplexityService {
                 complexity.breakFlow = 1;
                 complexity.nesting = tree.nestingCpx;
                 break;
-            case ts.SyntaxKind.BinaryExpression:
-                complexity.breakFlow += ComplexityService.addBinaryCognitiveCpx(tree);
-                break;
+            // case ts.SyntaxKind.BinaryExpression:
+            //     complexity.breakFlow += ComplexityService.addBinaryCognitiveCpx(tree);
+            //     break;
             case ts.SyntaxKind.PropertyAccessExpression:
                 if (ComplexityService.isRecursion(tree, tree.node)) {
                     complexity.breakFlow = 1;
@@ -103,9 +103,9 @@ export class ComplexityService {
             case ts.SyntaxKind.WhileStatement:
                 complexity += tree.nestingCpx + 1;
                 break;
-            case ts.SyntaxKind.BinaryExpression:
-                complexity += ComplexityService.addBinaryCognitiveCpx(tree);
-                break;
+            // case ts.SyntaxKind.BinaryExpression:
+            //     complexity += ComplexityService.addBinaryCognitiveCpx(tree);
+            //     break;
             case ts.SyntaxKind.PropertyAccessExpression:
                 if (ComplexityService.isRecursion(tree, tree.node)) {
                     complexity++;
@@ -143,8 +143,8 @@ export class ComplexityService {
             case ts.SyntaxKind.SwitchStatement:
             case ts.SyntaxKind.WhileStatement:
                 return true;
-            case ts.SyntaxKind.BinaryExpression:
-                return ComplexityService.addBinaryCognitiveCpx(tree) > 0;
+            // case ts.SyntaxKind.BinaryExpression:
+                // return ComplexityService.addBinaryCognitiveCpx(tree) > 0;
             case ts.SyntaxKind.ConditionalExpression:
                 return !ComplexityService.conditionalExpressionIsTrivial(tree.node);
             default:
@@ -159,27 +159,27 @@ export class ComplexityService {
      * @param node          // The node to check
      * @param nesting       // The nesting of the parent of the node
      */
-    static getNesting(node: ts.Node, nesting: number): number {
-        let newNesting = nesting;
-        switch (node?.parent.kind) {
-            case ts.SyntaxKind.ArrowFunction:
-            case ts.SyntaxKind.CatchClause:
-            case ts.SyntaxKind.ConditionalExpression:
-            case ts.SyntaxKind.DoStatement:
-            case ts.SyntaxKind.ForStatement:
-            case ts.SyntaxKind.ForInStatement:
-            case ts.SyntaxKind.ForOfStatement:
-            case ts.SyntaxKind.FunctionExpression:
-            case ts.SyntaxKind.IfStatement:
-            case ts.SyntaxKind.SwitchStatement:
-            case ts.SyntaxKind.WhileStatement:
-                newNesting = nesting + 1;
-                break;
-            default:
-                break;
-        }
-        return newNesting;
-    }
+    // static getNesting(node: ts.Node, nesting: number): number {
+    //     let newNesting = nesting;
+    //     switch (node?.parent.kind) {
+    //         case ts.SyntaxKind.ArrowFunction:
+    //         case ts.SyntaxKind.CatchClause:
+    //         case ts.SyntaxKind.ConditionalExpression:
+    //         case ts.SyntaxKind.DoStatement:
+    //         case ts.SyntaxKind.ForStatement:
+    //         case ts.SyntaxKind.ForInStatement:
+    //         case ts.SyntaxKind.ForOfStatement:
+    //         case ts.SyntaxKind.FunctionExpression:
+    //         case ts.SyntaxKind.IfStatement:
+    //         case ts.SyntaxKind.SwitchStatement:
+    //         case ts.SyntaxKind.WhileStatement:
+    //             newNesting = nesting + 1;
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //     return newNesting;
+    // }
 
 
     /**
@@ -222,16 +222,16 @@ export class ComplexityService {
      *      if (a && b || c)
      * @param tree      // The TreeNode to analyse
      */
-    static addBinaryCognitiveCpx(tree: TreeNode): number {
-        if (!tree?.node || !tree.parent.node) {
-            return 0;
-        }
-        let complexity = 0;
-        if (Ast.isBinary(tree.node) && Ast.isLogicDoor(tree.node)) {
-            complexity = (Ast.isSameOperatorToken(tree.node, tree.parent.node) && !Ast.isOrTokenBetweenBinaries(tree.node)) ? 0 : 1;
-        }
-        return complexity;
-    }
+    // static addBinaryCognitiveCpx(tree: TreeNode): number {
+    //     if (!tree?.node || !tree.parent.node) {
+    //         return 0;
+    //     }
+    //     let complexity = 0;
+    //     if (Ast.isBinary(tree.node) && Ast.isLogicDoor(tree.node)) {
+    //         complexity = (Ast.isSameOperatorToken(tree.node, tree.parent.node) && !Ast.isOrTokenBetweenBinaries(tree.node)) ? 0 : 1;
+    //     }
+    //     return complexity;
+    // }
 
 
     // ---------------------------------------------------------------------------------------------------------

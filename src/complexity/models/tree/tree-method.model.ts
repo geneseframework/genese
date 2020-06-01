@@ -119,7 +119,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     }
 
 
-    setDisplayedCodeLines(): void {
+    private setDisplayedCodeLines(): void {
         this.#displayedCode = new Code();
         for (const line of this.#originalCode.lines) {
             const displayedLine = new CodeLine();
@@ -135,7 +135,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
      * Sets the CodeLines of the displayed Code of this method
      * @param tree
      */
-    setCpxFactorsToDisplayedCode(tree: TreeNode): void {
+    private setCpxFactorsToDisplayedCode(tree: TreeNode): void {
         for (const childTree of tree.children) {
             const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
             this.#displayedCode.lines[issue].cpxFactors = this.#displayedCode.lines[issue].cpxFactors.add(childTree.cpxFactors);
@@ -148,7 +148,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     /**
      * Adds information about complexity increment reasons for each line of the displayed code
      */
-    addCommentsToDisplayedCode(): void {
+    private addCommentsToDisplayedCode(): void {
         this.#displayedCode.lines
             .filter(line => line.cpxFactors.total > 0)
             .forEach(line => {

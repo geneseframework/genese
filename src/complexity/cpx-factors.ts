@@ -6,8 +6,7 @@ const complexityFactors: CpxFactors = new CpxFactors();
 complexityFactors.aggregation = {
     arr: 1,                             // Array of arrays
     density: 0.05,                      // Accumulation of nodes on a same line of code
-    logicDoorChange: 2,                 // a "or" after a "and" (or a "or" after a "and") without brackets
-    logicDoorChangeWithBrackets: 1      // a "or" after a "and" (or a "or" after a "and") without brackets
+    differentLogicDoor: 2,                 // a "or" after a "and" (or a "or" after a "and") without brackets
 };
 complexityFactors.basic = {
     declaration: 0.1,                   // Declaration of a Class, a Function, a Method, ...
