@@ -61,13 +61,13 @@ export class ComplexityService {
             // case ts.SyntaxKind.BinaryExpression:
             //     complexity.breakFlow += ComplexityService.addBinaryCognitiveCpx(tree);
             //     break;
-            case ts.SyntaxKind.PropertyAccessExpression:
-                if (ComplexityService.isRecursion(tree, tree.node)) {
-                    complexity.breakFlow = 1;
-                }
-                break;
+            // case ts.SyntaxKind.PropertyAccessExpression:
+            //     if (ComplexityService.isRecursion(tree, tree.node)) {
+            //         complexity.breakFlow = 1;
+            //     }
+            //     break;
             case ts.SyntaxKind.ConditionalExpression:
-                complexity.breakFlow += ComplexityService.conditionalExpressionIsTrivial(tree.node) ? 0 : 1;
+                complexity.breakFlow += Ast.conditionalExpressionIsTrivial(tree.node) ? 0 : 1;
                 break;
             default:
                 break;
@@ -106,13 +106,13 @@ export class ComplexityService {
             // case ts.SyntaxKind.BinaryExpression:
             //     complexity += ComplexityService.addBinaryCognitiveCpx(tree);
             //     break;
-            case ts.SyntaxKind.PropertyAccessExpression:
-                if (ComplexityService.isRecursion(tree, tree.node)) {
-                    complexity++;
-                }
-                break;
+            // case ts.SyntaxKind.PropertyAccessExpression:
+            //     if (ComplexityService.isRecursion(tree, tree.node)) {
+            //         complexity++;
+            //     }
+            //     break;
             case ts.SyntaxKind.ConditionalExpression:
-                complexity += ComplexityService.conditionalExpressionIsTrivial(tree.node) ? 0 : 1;
+                complexity += Ast.conditionalExpressionIsTrivial(tree.node) ? 0 : 1;
                 break;
             default:
                 complexity += 0;
@@ -146,7 +146,7 @@ export class ComplexityService {
             // case ts.SyntaxKind.BinaryExpression:
                 // return ComplexityService.addBinaryCognitiveCpx(tree) > 0;
             case ts.SyntaxKind.ConditionalExpression:
-                return !ComplexityService.conditionalExpressionIsTrivial(tree.node);
+                return !Ast.conditionalExpressionIsTrivial(tree.node);
             default:
                 return false;
         }
@@ -180,38 +180,27 @@ export class ComplexityService {
     //     }
     //     return newNesting;
     // }
+    //
+    //
+    // /**
+    //  * Checks if an AST node of type ConditionalExpression (a ternary expression) is trivial, ie if the true case and the false case are only some literals
+    //  * @param node      // The node to analyse
+    //  */
+    // static conditionalExpressionIsTrivial(node: ts.Node): boolean {
+    //     return (Ast.isBasic(node?.['whenTrue']) && Ast.isBasic(node?.['whenFalse']));
+    // }
 
-
-    /**
-     * Checks if an AST node of type ConditionalExpression (a ternary expression) is trivial, ie if the true case and the false case are only some literals
-     * @param node      // The node to analyse
-     */
-    static conditionalExpressionIsTrivial(node: ts.Node): boolean {
-        return (ComplexityService.isBasic(node?.['whenTrue']) && ComplexityService.isBasic(node?.['whenFalse']));
-    }
-
-
-    /**
-     * Checks if an AST node is a primitive (a string, a number or a boolean)
-     * @param node      // The node to analyse
-     */
-    static isBasic(node: ts.Node): boolean {
-        return node?.kind === ts.SyntaxKind.StringLiteral
-            || node?.kind === ts.SyntaxKind.NumericLiteral
-            || node?.kind === ts.SyntaxKind.TrueKeyword
-            || node?.kind === ts.SyntaxKind.FalseKeyword;
-    }
-
-
-    /**
-     * Checks if an AST node inside a method is a recursion, ie a call to this method.
-     * The param "tree" must be a TreeNode which is a descendant of a method (ie a TreeNode with node of type MethodDescription)
-     * @param tree      // The tree (inside a method)
-     * @param node      // The node to analyse (a recursion or not)
-     */
-    static isRecursion(tree: TreeNode, node: ts.Node): boolean {
-        return node?.['name']?.['escapedText'] === tree?.treeMethod?.name;
-    }
+    //
+    //
+    // /**
+    //  * Checks if an AST node inside a method is a recursion, ie a call to this method.
+    //  * The param "tree" must be a TreeNode which is a descendant of a method (ie a TreeNode with node of type MethodDescription)
+    //  * @param tree      // The tree (inside a method)
+    //  * @param node      // The node to analyse (a recursion or not)
+    //  */
+    // static isRecursion(tree: TreeNode, node: ts.Node): boolean {
+    //     return node?.['name']?.['escapedText'] === tree?.treeMethod?.name;
+    // }
 
 
     /**

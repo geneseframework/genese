@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class CallbacksMock {
+    recursion(a) {
+        this.recursion(a);
+    }
     caller(a) {
         this.methodWithCallback(a, (b) => {
             if (a < 2) {

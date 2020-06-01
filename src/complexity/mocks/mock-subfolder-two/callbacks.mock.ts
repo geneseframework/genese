@@ -1,5 +1,12 @@
+import { EvaluationValuesInterface } from '../../interfaces/evaluation-values.interface';
 
 export class CallbacksMock {
+
+
+    recursion(a) {
+        this.recursion(a);
+    }
+
 
     caller(a) {
         this.methodWithCallback(a, (b) => {
