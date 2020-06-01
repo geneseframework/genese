@@ -59,10 +59,16 @@ class TreeNode extends evaluable_model_1.Evaluable {
         var _a;
         return (_a = __classPrivateFieldGet(this, _cpxFactors)) !== null && _a !== void 0 ? _a : this.nodeFeatureService.getCpxFactors(this.feature);
     }
+    set cpxFactors(cpxFactors) {
+        __classPrivateFieldSet(this, _cpxFactors, cpxFactors);
+    }
     calculateCpxFactors() {
         this.cpxFactors.basic.node = this.feature === node_feature_enum_1.NodeFeature.EMPTY ? 0 : cpx_factors_1.cpxFactors.basic.node;
         switch (this.feature) {
             case node_feature_enum_1.NodeFeature.BASIC:
+                break;
+            case node_feature_enum_1.NodeFeature.BINARY:
+                this.addBinaryCpxFactors();
                 break;
             case node_feature_enum_1.NodeFeature.CONDITIONAL:
                 this.cpxFactors.nesting.conditional = cpx_factors_1.cpxFactors.nesting.conditional;
@@ -71,9 +77,12 @@ class TreeNode extends evaluable_model_1.Evaluable {
             case node_feature_enum_1.NodeFeature.FUNC:
                 this.cpxFactors.structural.func = cpx_factors_1.cpxFactors.structural.func;
                 break;
-            case node_feature_enum_1.NodeFeature.LOOP:
-                this.cpxFactors.structural.loop = cpx_factors_1.cpxFactors.structural.loop;
+            case node_feature_enum_1.NodeFeature.LOGIC_DOOR:
+                this.cpxFactors.structural.logicDoor = cpx_factors_1.cpxFactors.structural.logicDoor;
                 break;
+            // case NodeFeature.LOOP:
+            //     this.cpxFactors.structural.loop = cpxFactors.structural.loop;
+            //     break;
             case node_feature_enum_1.NodeFeature.REGEX:
                 this.cpxFactors.structural.regex = cpx_factors_1.cpxFactors.structural.regex;
                 break;
@@ -86,6 +95,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
             this.cpxFactors.nesting = tools_service_1.addObjects(this.parent.cpxFactors.nesting, this.cpxFactors.nesting);
             // console.log('NESTING NODE', this.cpxFactors.nesting)
         }
+    }
+    addBinaryCpxFactors() {
+        this.cpxFactors = this.cpxFactors.add(this.nodeFeatureService.getBinaryCpxFactors(this));
     }
     // ------------------------------------------------------------------------------------------------
     // ---------------------------------------   PRINT AST   ------------------------------------------
