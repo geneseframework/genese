@@ -1,7 +1,7 @@
 /**
  * The cognitive complexity score spread by kinds of reasons to increase cognitive complexity
  */
-export class CognitiveCpxByIncrementType {
+export class CpxByFactor {
 
     breakFlow ?= 0;     // The number of elements increasing the breakFlow (if, else, for, switch, catch, recursion, logic doors, ...)
     nesting ?= 0;       // The number of elements increasing the nesting (if, else, for, switch, catch, ...)
