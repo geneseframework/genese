@@ -18,6 +18,24 @@ export class DebugMock {
     }
 
 
+    r(a, b) {
+        if (a && b) {
+            console.log('b');
+        }
+    }
+
+
+
+    k(a, b) {
+        if (a) {
+            console.log('a');
+        }
+        if (b) {
+            console.log('b');
+        }
+    }
+
+
     set(object: Object, path: string | string[] = '', value: any): Object {
         if (!object) {
             return undefined;

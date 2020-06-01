@@ -64,6 +64,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
         switch (this.feature) {
             case node_feature_enum_1.NodeFeature.BASIC:
                 break;
+            case node_feature_enum_1.NodeFeature.BINARY:
+                this.cpxFactors.structural.binary = cpx_factors_1.cpxFactors.structural.binary;
+                break;
             case node_feature_enum_1.NodeFeature.CONDITIONAL:
                 this.cpxFactors.nesting.conditional = cpx_factors_1.cpxFactors.nesting.conditional;
                 this.cpxFactors.structural.conditional = cpx_factors_1.cpxFactors.structural.conditional;

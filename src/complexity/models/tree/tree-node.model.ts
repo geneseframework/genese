@@ -69,6 +69,9 @@ export class TreeNode extends Evaluable implements IsAstNode {
         switch (this.feature) {
             case NodeFeature.BASIC:
                 break;
+            case NodeFeature.BINARY:
+                this.cpxFactors.structural.binary = cpxFactors.structural.binary;
+                break;
             case NodeFeature.CONDITIONAL:
                 this.cpxFactors.nesting.conditional = cpxFactors.nesting.conditional;
                 this.cpxFactors.structural.conditional = cpxFactors.structural.conditional;

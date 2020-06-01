@@ -23,6 +23,7 @@ complexityFactors.nesting = {
 complexityFactors.structural = {
     arr: 1,                             // "Array", "Set"
     asynchronicity: 1,                  // "Promise", "Observable"
+    binary: 1,
     conditional: 1,                     // "if", "else", "else if", "switch", "catch", ternary expression, nullish coalescing
     externalBinding: 3,                 // A "this" inside a method which not refers to the method context (its class)
     func: 1,                            // Usage of a function or method inside a block of code
