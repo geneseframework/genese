@@ -1,5 +1,5 @@
 import { RepartitionByStatus } from '../models/statuses.model';
-import { Addition } from './add.interface';
+import { Addition } from './addition.interface';
 
 /**
  * Repartition by status for each kind of complexity

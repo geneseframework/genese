@@ -7,11 +7,9 @@ import { ComplexityType } from '../enums/complexity-type.enum';
 import { MethodStatus } from '../enums/evaluation-status.enum';
 import { Ast } from './ast.service';
 import { CodeService } from './code.service';
-// import { CpxService } from './cpxFactors.service';
 
 export class TreeMethodService {
 
-    // cpxService?: CpxService = new CpxService();
     treeNodeService?: TreeNodeService = new TreeNodeService();
 
     /**

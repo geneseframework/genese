@@ -1,6 +1,7 @@
 import { Barchart } from './barchart.model';
 import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.interface';
 import { ComplexityType } from '../enums/complexity-type.enum';
+import { percent } from '../services/tools.service';
 
 /**
  * The different statistics sent to handlebars templates of file reports and folder reports
@@ -33,25 +34,11 @@ export class Stats {
     setPercentagesByComplexity(cpx: ComplexityType): void {
         if (this.numberOfMethodsByStatus[cpx]) {
             this.percentsByStatus[cpx] = new ComplexitiesByStatus();
-            this.percentsByStatus[cpx].correct = this.percent(this.numberOfMethodsByStatus[cpx].correct, this.numberOfMethods);
-            this.percentsByStatus[cpx].warning = this.percent(this.numberOfMethodsByStatus[cpx].warning, this.numberOfMethods);
-            this.percentsByStatus[cpx].error = this.percent(this.numberOfMethodsByStatus[cpx].error, this.numberOfMethods);
+            this.percentsByStatus[cpx].correct = percent(this.numberOfMethodsByStatus[cpx].correct, this.numberOfMethods);
+            this.percentsByStatus[cpx].warning = percent(this.numberOfMethodsByStatus[cpx].warning, this.numberOfMethods);
+            this.percentsByStatus[cpx].error = percent(this.numberOfMethodsByStatus[cpx].error, this.numberOfMethods);
         }
     }
-
-
-    /**
-     * Returns the result of a fraction in percentage with 2 decimals
-     * @param numerator         // The numerator of the fraction
-     * @param denominator       // The denominator of the fraction
-     */
-    private percent(numerator: number, denominator: number): number {
-        if (!denominator) {
-            return 0;
-        }
-        return  Math.round(numerator * 1000 / denominator) / 10;
-    }
-
 
     /**
      * For each complexity chart, adds bars with height = 0 when there is no method with a given complexity value which is lower than the greatest value

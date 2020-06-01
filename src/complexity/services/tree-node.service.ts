@@ -2,7 +2,6 @@ import * as ts from 'typescript';
 import { Ast } from './ast.service';
 import { TreeNode } from '../models/tree-node.model';
 import { TreeMethod } from '../models/tree-method.model';
-import { ComplexityService as CS } from './complexity.service';
 
 /**
  * Service managing TreeNodes
@@ -36,9 +35,7 @@ export class TreeNodeService {
             newTree.treeMethod = treeNode.treeMethod;
             newTree.parent = treeNode;
             newTree.kind = Ast.getType(childNode);
-            newTree.nestingCpx = newTree.calculateNestingCpx();
-            newTree.cognitiveCpxByIncrementType = CS.getTreeLocalCognitiveCpx(newTree);
-            newTree.increasesCognitiveComplexity = CS.increaseBreakFlow(newTree);
+            newTree.evaluate();
             treeNode.children.push(this.addTreeToChildren(newTree));
         });
         return treeNode;

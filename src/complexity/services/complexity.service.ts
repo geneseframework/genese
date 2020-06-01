@@ -2,7 +2,7 @@ import * as ts from 'typescript';
 import * as utils from 'tsutils';
 import { TreeNode } from '../models/tree-node.model';
 import { Ast } from './ast.service';
-import { CognitiveCpxByIncrementType } from '../models/cognitive-cpx-by-increment-type.model';
+import { CpxByFactor } from '../models/cpx-by-factor';
 
 /**
  * Service around complexity calculation
@@ -34,8 +34,8 @@ export class ComplexityService {
      * Returns the cognitive complexity of a TreeNode himself (not its children)
      * @param tree      // The TreeNode to analyse
      */
-    static getTreeLocalCognitiveCpx(tree: TreeNode): CognitiveCpxByIncrementType {
-        let complexity = new CognitiveCpxByIncrementType();
+    static getTreeLocalCognitiveCpx(tree: TreeNode): CpxByFactor {
+        let complexity = new CpxByFactor();
         if (!tree?.node || tree?.nestingCpx === undefined) {
             return complexity;
         }

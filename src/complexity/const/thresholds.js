@@ -1,3 +1,3 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DENSITY_THRESHOLD = 10;
+exports.CODE_LINE_THRESHOLD = 0.5;
