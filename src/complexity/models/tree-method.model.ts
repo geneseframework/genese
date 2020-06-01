@@ -11,7 +11,6 @@ import { IsAstNode } from '../interfaces/is-ast-node';
 import { Code } from './code.model';
 import { CodeService } from '../services/code.service';
 import { CpxFactors } from './cpx-factors.model';
-import { CODE_LINE_THRESHOLD } from '../const/thresholds';
 import { FactorCategory } from '../enums/factor-category.enum';
 
 /**
