@@ -72,6 +72,9 @@ export class TreeNode extends Evaluable implements IsAstNode {
             case NodeFeature.LOOP:
                 this.cpxFactors.structural.loop = cpxFactors.structural.loop;
                 break;
+            case NodeFeature.REGEX:
+                this.cpxFactors.structural.regex = cpxFactors.structural.regex;
+                break;
         }
     }
 

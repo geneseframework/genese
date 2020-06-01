@@ -7,6 +7,7 @@ export enum NodeFeature {
     EMPTY = 'empty',
     FUNC = 'func',
     LOGIC_DOOR = 'logicDoor',
-    LOOP = 'loop'
+    LOOP = 'loop',
+    REGEX = 'regex'
 
 }

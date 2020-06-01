@@ -120,7 +120,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
         for (const line of this.#displayedCode?.lines) {
             count += line.cpxFactors.total;
         }
-        return count;
+        return +count.toFixed(2);
     }
 
     /**

@@ -44,7 +44,9 @@ export class CpxFactors implements Addition<CpxFactors>{
         jump?: number,                              // "break", "continue"
         logicDoor?: number,                         // "and", "or", "not"
         loop?: number,                              // "for", "foreach", "while"
-        recursion?: number                          // Recursion or callback
+        recursion?: number,                         // Recursion or callback
+        regex?: number                              // Regular expression
+
     } = {
         arr: 0,
         asynchronicity: 0,
@@ -55,6 +57,7 @@ export class CpxFactors implements Addition<CpxFactors>{
         logicDoor: 0,
         loop: 0,
         recursion: 0,
+        regex: 0
     };
 
     get total(): number {

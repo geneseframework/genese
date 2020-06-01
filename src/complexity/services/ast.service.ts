@@ -149,6 +149,8 @@ export class Ast {
             case ts.SyntaxKind.ForOfStatement:
             case ts.SyntaxKind.WhileStatement:
                 return NodeFeature.LOOP;
+            case ts.SyntaxKind.RegularExpressionLiteral:
+                return NodeFeature.REGEX;
             default:
                 return NodeFeature.BASIC;
         }
@@ -171,6 +173,9 @@ export class Ast {
             case NodeFeature.LOOP:
                 cpxFact.nesting.loop = cpxFactors.nesting.loop;
                 cpxFact.structural.loop = cpxFactors.structural.loop;
+                break;
+            case NodeFeature.REGEX:
+                cpxFact.structural.regex = cpxFactors.structural.regex;
                 break;
         }
         return cpxFact;

@@ -28,6 +28,7 @@ complexityFactors.structural = {
     jump: 1,
     logicDoor: 1,
     loop: 1,
-    recursion: 3 // Recursion or callback
+    recursion: 3,
+    regex: 1 // Regular expression
 };
 exports.cpxFactors = complexityFactors;

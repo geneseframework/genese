@@ -29,7 +29,8 @@ complexityFactors.structural = {
     jump: 1,                            // "break", "continue"
     logicDoor: 1,                       // "and", "or", "not"
     loop: 1,                            // "for", "foreach", "while"
-    recursion: 3                        // Recursion or callback
+    recursion: 3,                       // Recursion or callback
+    regex: 1                            // Regular expression
 };
 
 export const cpxFactors: CpxFactors = complexityFactors;
