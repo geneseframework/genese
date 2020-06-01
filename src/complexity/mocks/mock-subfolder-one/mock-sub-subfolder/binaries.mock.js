@@ -1,6 +1,31 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class BinariesMock {
+    binary(a, b) {
+        if (a && b) {
+            console.log('b');
+        }
+    }
+    differentLogicDoor(a, b, c) {
+        if (a && b || c) {
+            console.log('b');
+        }
+    }
+    differentLogicDoorWithBrackets(a, b, c) {
+        if ((a && b) || c) {
+            console.log('b');
+        }
+    }
+    orBetweenTwoBinaries(a, b, c, d) {
+        if ((a && b) || (c && d)) {
+            console.log('b');
+        }
+    }
+    differentLogicDoorBetweenBinaries(a, b, c, d) {
+        if ((a && b) || (c && d) && a) {
+            console.log('b');
+        }
+    }
     forIfAndAndOrAndAndOrOr(a, b, c, d, e, f) {
         for (let i = 0; i < 10; i++) {
             if (b && c || d && f || a) {

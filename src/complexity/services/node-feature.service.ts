@@ -84,6 +84,8 @@ export class NodeFeatureService {
      *      if (a && b && c)
      * but in the next example, the || will increase it because it succeeds to a binary of different type (a &&)
      *      if (a && b || c)
+     * Furthermore, when there are brackets separating the "and" and the "or", the cognitive complexity don't increase
+     *      if ((a && b) || c)
      * @param tree      // The TreeNode to analyse
      */
     getBinaryCpxFactors(tree: TreeNode): CpxFactors {
@@ -93,11 +95,11 @@ export class NodeFeatureService {
         }
         if (Ast.isBinary(tree.node) && Ast.isLogicDoor(tree.node)) {
             cpxFact.structural.logicDoor = cpxFactors.structural.logicDoor;
-            if (Ast.isBinary(tree.parent?.node)) {
-                console.log('PARENT KIND', Ast.getType(tree.parent.node));
-                console.log('IS SAME', Ast.isSameOperatorToken(tree.node, tree.parent.node));
-                console.log('IS OR BETWEEN BINARIES', Ast.isOrTokenBetweenBinaries(tree.node))
-                cpxFact.aggregation.differentLogicDoor = (Ast.isSameOperatorToken(tree.node, tree.parent.node) && !Ast.isOrTokenBetweenBinaries(tree.node)) ? 0 : 1;
+            if (Ast.isBinary(tree.parent?.node)
+                && !Ast.isSameOperatorToken(tree.node, tree.parent.node)
+                && !Ast.isOrTokenBetweenBinaries(tree.node)
+            ) {
+                cpxFact.aggregation.differentLogicDoor = cpxFactors.aggregation.differentLogicDoor;
             }
         }
         return cpxFact;

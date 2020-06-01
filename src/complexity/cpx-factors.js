@@ -6,7 +6,6 @@ complexityFactors.aggregation = {
     arr: 1,
     density: 0.05,
     differentLogicDoor: 2,
-    differentLogicDoorWithBrackets: 1 // a "or" after a "and" (or a "or" after a "and") without brackets
 };
 complexityFactors.basic = {
     declaration: 0.1,
