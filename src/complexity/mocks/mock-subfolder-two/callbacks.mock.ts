@@ -7,7 +7,7 @@ export class CallbacksMock {
                 console.log(b)
             }
         })
-        return {cyclomaticValue: 3, cognitiveValue: 3};
+        return {cyclomaticValue: 3, cpxIndex: 3};
     }
 
 
@@ -17,13 +17,13 @@ export class CallbacksMock {
                 console.log('b', b)
             }
         })
-        return {cyclomaticValue: 3, cognitiveValue: 3};
+        return {cyclomaticValue: 3, cpxIndex: 3};
     }
 
 
     methodWithCallback(a, callback) {
         callback(a + 3);
-        return {cyclomaticValue: 0, cognitiveValue: 0};
+        return {cyclomaticValue: 0, cpxIndex: 0};
     }
 
 }

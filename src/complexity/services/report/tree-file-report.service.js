@@ -25,7 +25,7 @@ class TreeFileReportService {
             const methodReport = {
                 code: (_a = method.displayedCode) === null || _a === void 0 ? void 0 : _a.text,
                 cognitiveColor: method.cognitiveStatus.toLowerCase(),
-                cognitiveValue: method.cpxIndex,
+                cpxIndex: method.cpxIndex,
                 cyclomaticColor: method.cyclomaticStatus.toLowerCase(),
                 cyclomaticValue: method.cyclomaticCpx,
                 methodName: method.name,

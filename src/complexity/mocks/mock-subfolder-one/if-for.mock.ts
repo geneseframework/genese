@@ -11,7 +11,7 @@ class IfForMock {
         if (data === 'a') {
             data = 'b';
         }
-        return {cyclomaticValue: 2, cognitiveValue: 1};
+        return {cyclomaticValue: 2, cpxIndex: 1};
     }
 
 
@@ -21,7 +21,7 @@ class IfForMock {
         } else {
             data = 'c';
         }
-        return {cyclomaticValue: 2, cognitiveValue: 2};
+        return {cyclomaticValue: 2, cpxIndex: 2};
     }
 
 
@@ -32,7 +32,7 @@ class IfForMock {
                 data = 'c';
             }
         }
-        return {cyclomaticValue: 2, cognitiveValue: 3};
+        return {cyclomaticValue: 2, cpxIndex: 3};
     }
 
 
@@ -44,7 +44,7 @@ class IfForMock {
                 data = 'c';
             }
         }
-        return {cyclomaticValue: 2, cognitiveValue: 1};
+        return {cyclomaticValue: 2, cpxIndex: 1};
     }
 
 
@@ -57,7 +57,7 @@ class IfForMock {
                 data = 'f';
             }
         }
-        return {cyclomaticValue: 2, cognitiveValue: 4};
+        return {cyclomaticValue: 2, cpxIndex: 4};
     }
 
 
@@ -65,7 +65,7 @@ class IfForMock {
         if (a && b) {
             console.log(a);
         }
-        return {cyclomaticValue: 3, cognitiveValue: 2};
+        return {cyclomaticValue: 3, cpxIndex: 2};
     }
 
 
@@ -73,7 +73,7 @@ class IfForMock {
         if (a || b) {
             console.log(a);
         }
-        return {cyclomaticValue: 3, cognitiveValue: 2};
+        return {cyclomaticValue: 3, cpxIndex: 2};
     }
 
 
@@ -81,7 +81,7 @@ class IfForMock {
         if (a && b && c) {
             console.log(a);
         }
-        return {cyclomaticValue: 4, cognitiveValue: 2};
+        return {cyclomaticValue: 4, cpxIndex: 2};
     }
 
 
@@ -89,7 +89,7 @@ class IfForMock {
         if (a && b || c) {
             console.log(a);
         }
-        return {cyclomaticValue: 4, cognitiveValue: 3};
+        return {cyclomaticValue: 4, cpxIndex: 3};
     }
 
 
@@ -97,7 +97,7 @@ class IfForMock {
         if (a && b && c || d && e && f) {
             console.log(a);
         }
-        return {cyclomaticValue: 7, cognitiveValue: 4};
+        return {cyclomaticValue: 7, cpxIndex: 4};
     }
 
 
@@ -105,7 +105,7 @@ class IfForMock {
         if (a && b && c || d && e && f || a || b) {
             console.log(a);
         }
-        return {cyclomaticValue: 9, cognitiveValue: 5};
+        return {cyclomaticValue: 9, cpxIndex: 5};
     }
 
 
@@ -117,7 +117,7 @@ class IfForMock {
                 }
             }
         }
-        return {cyclomaticValue: 4, cognitiveValue: 6};
+        return {cyclomaticValue: 4, cpxIndex: 6};
     }
 
 
@@ -131,7 +131,7 @@ class IfForMock {
                 }
             }
         }
-        return {cyclomaticValue: 4, cognitiveValue: 6};
+        return {cyclomaticValue: 4, cpxIndex: 6};
     }
 
 
@@ -139,7 +139,7 @@ class IfForMock {
         for (const elt of data) {
             console.log(elt);
         }
-        return {cyclomaticValue: 1, cognitiveValue: 1};
+        return {cyclomaticValue: 1, cpxIndex: 1};
     }
 
 
@@ -147,7 +147,7 @@ class IfForMock {
         data.forEach(e => {
             console.log(e);
         })
-        return {cyclomaticValue: 1, cognitiveValue: 1};
+        return {cyclomaticValue: 1, cpxIndex: 1};
     }
 
 
@@ -161,7 +161,7 @@ class IfForMock {
             }
             total += i;
         }
-        return {cyclomaticValue: 4, cognitiveValue: 6};
+        return {cyclomaticValue: 4, cpxIndex: 6};
     }
 
 }

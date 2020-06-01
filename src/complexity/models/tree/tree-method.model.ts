@@ -10,7 +10,6 @@ import { Evaluable } from '../evaluable.model';
 import { IsAstNode } from '../../interfaces/is-ast-node';
 import { Code } from '../code/code.model';
 import { CodeService } from '../../services/code.service';
-import { CpxFactors } from '../cpx-factor/cpx-factors.model';
 import { FactorCategory } from '../../enums/factor-category.enum';
 import { CodeLine } from '../code/code-line.model';
 
@@ -59,12 +58,12 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     getComplexityStatus(cpxType: ComplexityType): MethodStatus {
         let status = MethodStatus.WARNING;
         if (
-            (cpxType === ComplexityType.COGNITIVE && this.cognitiveValue <= Options.cognitiveCpx.warningThreshold)
+            (cpxType === ComplexityType.COGNITIVE && this.cpxIndex <= Options.cognitiveCpx.warningThreshold)
             ||
             (cpxType === ComplexityType.CYCLOMATIC && this.cyclomaticCpx <= Options.cyclomaticCpx.warningThreshold)) {
             status = MethodStatus.CORRECT;
         } else if (
-            (cpxType === ComplexityType.COGNITIVE && this.cognitiveValue > Options.cognitiveCpx.errorThreshold)
+            (cpxType === ComplexityType.COGNITIVE && this.cpxIndex > Options.cognitiveCpx.errorThreshold)
             ||
             (cpxType === ComplexityType.CYCLOMATIC && this.cyclomaticCpx > Options.cyclomaticCpx.errorThreshold)) {
             status = MethodStatus.ERROR;

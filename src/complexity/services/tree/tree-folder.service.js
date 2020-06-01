@@ -4,9 +4,9 @@ const fs = require("fs-extra");
 const tree_folder_model_1 = require("../../models/tree/tree-folder.model");
 const file_service_1 = require("../file.service");
 const tree_file_service_1 = require("./tree-file.service");
-const barchart_service_1 = require("../barchart.service");
+const barchart_service_1 = require("../report/barchart.service");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
-const stats_service_1 = require("../stats.service");
+const stats_service_1 = require("../report/stats.service");
 const options_1 = require("../../models/options");
 const main_1 = require("../../main");
 /**

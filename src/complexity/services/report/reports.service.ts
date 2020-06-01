@@ -1,9 +1,9 @@
-import { TreeFolder } from '../models/tree/tree-folder.model';
-import { Options } from '../models/options';
-import { TreeFolderReportService } from './tree/tree-folder-report.service';
-import { copyFile, createRelativeDir } from './file.service';
-import { TreeFileReportService } from './tree/tree-file-report.service';
-import { TreeFile } from '../models/tree/tree-file.model';
+import { TreeFolder } from '../../models/tree/tree-folder.model';
+import { Options } from '../../models/options';
+import { TreeFolderReportService } from './tree-folder-report.service';
+import { copyFile, createRelativeDir } from '../file.service';
+import { TreeFileReportService } from './tree-file-report.service';
+import { TreeFile } from '../../models/tree/tree-file.model';
 
 
 /**
