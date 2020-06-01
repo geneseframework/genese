@@ -1,9 +1,6 @@
 import * as fs from 'fs-extra';
 import * as ts from 'typescript';
 import { getFilename } from './file.service';
-import { NodeFeature } from '../enums/node-feature.enum';
-import { cpxFactors } from '../cpx-factors';
-import { CpxFactors } from '../models/cpx-factors.model';
 
 /**
  * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)

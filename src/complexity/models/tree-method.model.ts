@@ -43,21 +43,11 @@ export class TreeMethod extends Evaluable implements IsAstNode {
      * Evaluates the complexities of this TreeMethod
      */
     evaluate(): void {
-        // console.log('NODE COUNT', this.nodeCount)
         this.tree.printAllChildren();
-        // this.cognitiveValue = CS.getCognitiveCpx(this.tree);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.node);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
         this.filename = this.treeFile?.sourceFile?.fileName ?? '';
-    }
-
-
-    /**
-     *
-     */
-    get nodeCount(): number {
-        return Ast.getNodeCount(this.node);
     }
 
 
@@ -79,14 +69,6 @@ export class TreeMethod extends Evaluable implements IsAstNode {
             status = MethodStatus.ERROR;
         }
         return status;
-    }
-
-
-    /**
-     * Gets the Code of the method (as Code object)
-     */
-    get originalCode(): Code {
-        return this.#originalCode;
     }
 
 
@@ -122,11 +104,21 @@ export class TreeMethod extends Evaluable implements IsAstNode {
         return +count.toFixed(2);
     }
 
+
     /**
      * Creates the code to display with the original code of a TreeNode
      * @param tree  // The TreeNode to analyse
      */
     createDisplayedCode(tree: TreeNode = this.tree): void {
+        this.setDisplayedCodeLines();
+        this.setCpxFactorsToDisplayedCode(tree);
+        this.addCommentsToDisplayedCode();
+        this.calculateCpxIndex();
+        this.#displayedCode.setTextWithLines();
+    }
+
+
+    setDisplayedCodeLines(): void {
         this.#displayedCode = new Code();
         for (const line of this.#originalCode.lines) {
             this.#displayedCode.lines.push({
@@ -136,10 +128,6 @@ export class TreeMethod extends Evaluable implements IsAstNode {
                 position: line.position,
             });
         }
-        this.setCodeLines(tree);
-        this.addCommentsToDisplayedCode();
-        this.calculateCpxIndex();
-        this.#displayedCode.setTextWithLines();
     }
 
 
@@ -147,11 +135,11 @@ export class TreeMethod extends Evaluable implements IsAstNode {
      * Sets the CodeLines of the displayed Code of this method
      * @param tree
      */
-    setCodeLines(tree: TreeNode): void {
+    setCpxFactorsToDisplayedCode(tree: TreeNode): void {
         for (const childTree of tree.children) {
             const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
             this.#displayedCode.lines[issue].cpxFactors = this.#displayedCode.lines[issue].cpxFactors.add(childTree.cpxFactors);
-            this.setCodeLines(childTree);
+            this.setCpxFactorsToDisplayedCode(childTree);
         }
     }
 

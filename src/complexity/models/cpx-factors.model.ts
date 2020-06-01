@@ -60,6 +60,7 @@ export class CpxFactors implements Addition<CpxFactors>{
         regex: 0
     };
 
+
     get total(): number {
         let total = 0;
         for (const key of Object.keys(this)) {
@@ -70,21 +71,26 @@ export class CpxFactors implements Addition<CpxFactors>{
         return total;
     }
 
+
     get totalAggregation(): number {
         return this.totalByFactorCategory(FactorCategory.AGGREGATION)
     }
+
 
     get totalBasic(): number {
         return this.totalByFactorCategory(FactorCategory.BASIC)
     }
 
+
     get totalNesting(): number {
         return this.totalByFactorCategory(FactorCategory.NESTING)
     }
 
+
     get totalStructural(): number {
         return this.totalByFactorCategory(FactorCategory.STRUCTURAL)
     }
+
 
     private totalByFactorCategory(key: FactorCategory): number {
         let total = 0;
@@ -94,26 +100,9 @@ export class CpxFactors implements Addition<CpxFactors>{
         return total;
     }
 
+
     add(cpxFactors: CpxFactors): CpxFactors {
         return addObjects<CpxFactors>(this, cpxFactors, CpxFactors);
     }
-
-    // add(cpxFactors: CpxFactors): CpxFactors {
-    //     if (!cpxFactors) {
-    //         return this;
-    //     }
-    //     const cpxFact: CpxFactors = new CpxFactors();
-    //     // cpxFact.aggregation = cpxFactors.aggregation ? th
-    //     console.log('cpxFactors', cpxFactors);
-    //     console.log('THIS', this);
-    //     for (const category in FactorCategory) {
-    //         console.log('category', category)
-    //         console.log('this[FactorCategory[category]]', this[FactorCategory[category]])
-    //         for (const factor in Object.keys(this[FactorCategory[category]])) {
-    //             cpxFact[category][factor] = cpxFactors[category][factor] ? this[category][factor] + cpxFactors[category][factor] : cpxFact[category][factor];
-    //         }
-    //     }
-    //     return cpxFact;
-    // }
 
 }

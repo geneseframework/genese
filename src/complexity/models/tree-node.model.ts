@@ -60,13 +60,13 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
 
     calculateCpxFactors(): void {
-        // const nodeFeature = Ast.getNodeFeature(this.node);
         this.cpxFactors.basic.node = this.feature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
         this.calculateNestingCpx();
         switch (this.feature) {
             case NodeFeature.BASIC:
                 break;
             case NodeFeature.CONDITIONAL:
+                // this.cpxFactors.nesting.conditional = cpxFactors.nesting.conditional;
                 this.cpxFactors.structural.conditional = cpxFactors.structural.conditional;
                 break;
             case NodeFeature.FUNC:

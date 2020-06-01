@@ -16,6 +16,7 @@ export class NodeFeatureService {
             case ts.SyntaxKind.StringLiteral:
             case ts.SyntaxKind.TrueKeyword:
                 return NodeFeature.BASIC;
+            // case ts.SyntaxKind.BinaryExpression:
             case ts.SyntaxKind.CatchClause:
             case ts.SyntaxKind.ConditionalExpression:
             case ts.SyntaxKind.IfStatement:
