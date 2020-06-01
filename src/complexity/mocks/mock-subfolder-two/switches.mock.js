@@ -34,12 +34,6 @@ class SwitchesMock {
         }
         return { cyclomaticValue: 2, cpxIndex: 1 };
     }
-    recursion(a) {
-        if (a > 10) {
-            this.recursion(a);
-        }
-        return { cyclomaticValue: 2, cpxIndex: 2 };
-    }
     questionDotToken(time) {
         time = time === null || time === void 0 ? void 0 : time.name;
         return { cyclomaticValue: 1, cpxIndex: 0 };

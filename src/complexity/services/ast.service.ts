@@ -108,4 +108,25 @@ export class Ast {
         return node?.kind === ts.SyntaxKind.MethodDeclaration || node?.kind === ts.SyntaxKind.FunctionDeclaration || false;
     }
 
+
+    /**
+     * Checks if an AST node of type ConditionalExpression (a ternary expression) is trivial, ie if the true case and the false case are only some literals
+     * @param node      // The node to analyse
+     */
+    static conditionalExpressionIsTrivial(node: ts.Node): boolean {
+        return (Ast.isBasic(node?.['whenTrue']) && Ast.isBasic(node?.['whenFalse']));
+    }
+
+
+    /**
+     * Checks if an AST node is a primitive (a string, a number or a boolean)
+     * @param node      // The node to analyse
+     */
+    static isBasic(node: ts.Node): boolean {
+        return node?.kind === ts.SyntaxKind.StringLiteral
+            || node?.kind === ts.SyntaxKind.NumericLiteral
+            || node?.kind === ts.SyntaxKind.TrueKeyword
+            || node?.kind === ts.SyntaxKind.FalseKeyword;
+    }
+
 }

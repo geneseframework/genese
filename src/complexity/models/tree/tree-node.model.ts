@@ -69,8 +69,23 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
+    /**
+     * Checks if an AST node inside a method is a recursion, ie a call to this method.
+     * The current TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
+     */
+    isRecursion(): boolean {
+        if (!this.treeMethod) {
+            return false;
+        }
+        return this.node?.['name']?.['escapedText'] === this.treeMethod.name;
+    }
+
+
     calculateCpxFactors(): void {
         this.cpxFactors.basic.node = this.feature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
+        if (this.isRecursion()) {
+            this.cpxFactors.structural.recursion = cpxFactors.structural.recursion;
+        }
         switch (this.feature) {
             case NodeFeature.BASIC:
                 break;
@@ -87,9 +102,6 @@ export class TreeNode extends Evaluable implements IsAstNode {
             case NodeFeature.LOGIC_DOOR:
                 this.cpxFactors.structural.logicDoor = cpxFactors.structural.logicDoor;
                 break;
-            // case NodeFeature.LOOP:
-            //     this.cpxFactors.structural.loop = cpxFactors.structural.loop;
-            //     break;
             case NodeFeature.REGEX:
                 this.cpxFactors.structural.regex = cpxFactors.structural.regex;
                 break;
@@ -101,7 +113,6 @@ export class TreeNode extends Evaluable implements IsAstNode {
     private calculateNestingCpx(): void {
         if (this.node && this.parent?.parent?.node && this.parent?.cpxFactors?.nesting) {
             this.cpxFactors.nesting = addObjects(this.parent.cpxFactors.nesting, this.cpxFactors.nesting);
-            // console.log('NESTING NODE', this.cpxFactors.nesting)
         }
     }
 
