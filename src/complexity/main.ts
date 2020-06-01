@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 import { Options } from './models/options';
 import { createOutDir } from './services/file.service';
-import { ReportsService } from './services/reports.service';
+import { ReportsService } from './services/report/reports.service';
 import { TreeFolderService } from './services/tree/tree-folder.service';
 import { blueBright } from 'ansi-colors';
 

@@ -63,12 +63,12 @@ class TreeMethod extends evaluable_model_1.Evaluable {
      */
     getComplexityStatus(cpxType) {
         let status = evaluation_status_enum_1.MethodStatus.WARNING;
-        if ((cpxType === complexity_type_enum_1.ComplexityType.COGNITIVE && this.cognitiveValue <= options_1.Options.cognitiveCpx.warningThreshold)
+        if ((cpxType === complexity_type_enum_1.ComplexityType.COGNITIVE && this.cpxIndex <= options_1.Options.cognitiveCpx.warningThreshold)
             ||
                 (cpxType === complexity_type_enum_1.ComplexityType.CYCLOMATIC && this.cyclomaticCpx <= options_1.Options.cyclomaticCpx.warningThreshold)) {
             status = evaluation_status_enum_1.MethodStatus.CORRECT;
         }
-        else if ((cpxType === complexity_type_enum_1.ComplexityType.COGNITIVE && this.cognitiveValue > options_1.Options.cognitiveCpx.errorThreshold)
+        else if ((cpxType === complexity_type_enum_1.ComplexityType.COGNITIVE && this.cpxIndex > options_1.Options.cognitiveCpx.errorThreshold)
             ||
                 (cpxType === complexity_type_enum_1.ComplexityType.CYCLOMATIC && this.cyclomaticCpx > options_1.Options.cyclomaticCpx.errorThreshold)) {
             status = evaluation_status_enum_1.MethodStatus.ERROR;

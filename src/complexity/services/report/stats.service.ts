@@ -1,6 +1,6 @@
-import { TreeFolder } from '../models/tree/tree-folder.model';
-import { TreeFile } from '../models/tree/tree-file.model';
-import { Stats } from '../models/stats.model';
+import { TreeFolder } from '../../models/tree/tree-folder.model';
+import { TreeFile } from '../../models/tree/tree-file.model';
+import { Stats } from '../../models/stats.model';
 
 /**
  * Abstract class managing statistics of files or folders

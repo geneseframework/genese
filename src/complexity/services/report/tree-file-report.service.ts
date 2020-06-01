@@ -31,7 +31,7 @@ export class TreeFileReportService {
             const methodReport: MethodReport = {
                 code: method.displayedCode?.text,
                 cognitiveColor: method.cognitiveStatus.toLowerCase(),
-                cognitiveValue: method.cpxIndex,
+                cpxIndex: method.cpxIndex,
                 cyclomaticColor: method.cyclomaticStatus.toLowerCase(),
                 cyclomaticValue: method.cyclomaticCpx,
                 methodName: method.name,

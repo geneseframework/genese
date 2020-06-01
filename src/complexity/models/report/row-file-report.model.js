@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class RowFileReport {
     constructor() {
         this.cognitiveColor = 'correct'; // The color associated to the cognitive complexity score of the method analysed in the row
-        this.cognitiveValue = 0; // The cognitive complexity score of the method analysed in the row
+        this.cpxIndex = 0; // The complexity index of the method analysed in the row
         this.cyclomaticColor = 'correct'; // The color associated to the cyclomatic complexity score of the method analysed in the row
         this.cyclomaticValue = 0; // The cyclomatic complexity score of the method analysed in the row
         this.filename = ''; // The name of the file

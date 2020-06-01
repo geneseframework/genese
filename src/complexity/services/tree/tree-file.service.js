@@ -5,7 +5,7 @@ const tree_file_model_1 = require("../../models/tree/tree-file.model");
 const ast_service_1 = require("../ast.service");
 const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
-const stats_service_1 = require("../stats.service");
+const stats_service_1 = require("../report/stats.service");
 const tree_method_service_1 = require("./tree-method.service");
 /**
  * - TreeFiles generation from Abstract Syntax TreeNode of a file
@@ -52,7 +52,7 @@ class TreeFileService extends stats_service_1.StatsService {
     incrementStats(treeMethod) {
         this.incrementStatsMethodsByStatus(treeMethod, complexity_type_enum_1.ComplexityType.COGNITIVE);
         this.incrementStatsMethodsByStatus(treeMethod, complexity_type_enum_1.ComplexityType.CYCLOMATIC);
-        this._stats.barChartCognitive.addResult(treeMethod.cognitiveValue);
+        this._stats.barChartCognitive.addResult(treeMethod.cpxIndex);
         this._stats.barChartCyclomatic.addResult(treeMethod.cyclomaticCpx);
     }
     /**

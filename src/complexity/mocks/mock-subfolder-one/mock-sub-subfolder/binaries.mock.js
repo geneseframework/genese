@@ -7,7 +7,7 @@ class BinariesMock {
                 console.log(a);
             }
         }
-        return { cyclomaticValue: 7, cognitiveValue: 5 };
+        return { cyclomaticValue: 7, cpxIndex: 5 };
     }
     forForIfAndAndOrAndAndOrOr(a, b, c, d, e, f) {
         for (let i = 0; i < 10; i++) {
@@ -20,15 +20,15 @@ class BinariesMock {
         if (a > b) {
             console.log(b);
         }
-        return { cyclomaticValue: 9, cognitiveValue: 11 };
+        return { cyclomaticValue: 9, cpxIndex: 11 };
     }
     ternary(a) {
         const result = a > 10 ? 5 : 3;
-        return { cyclomaticValue: 2, cognitiveValue: 0 };
+        return { cyclomaticValue: 2, cpxIndex: 0 };
     }
     ternaries(a) {
         const result = a > 10 ? 5 : ((a < 5) ? 3 : 2);
-        return { cyclomaticValue: 2, cognitiveValue: 0 };
+        return { cyclomaticValue: 2, cpxIndex: 0 };
     }
 }
 exports.BinariesMock = BinariesMock;

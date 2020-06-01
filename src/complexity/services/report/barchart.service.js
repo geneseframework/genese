@@ -1,16 +1,15 @@
-import { Barchart } from '../models/barchart.model';
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Service for BarCharts
  */
-export class BarchartService {
-
+class BarchartService {
     /**
      * Merge two BarCharts
      * @param chart1
      * @param chart2
      */
-    static concat(chart1: Barchart, chart2: Barchart): Barchart {
+    static concat(chart1, chart2) {
         if (!chart2) {
             return chart1;
         }
@@ -19,5 +18,5 @@ export class BarchartService {
         }
         return chart1;
     }
-
 }
+exports.BarchartService = BarchartService;

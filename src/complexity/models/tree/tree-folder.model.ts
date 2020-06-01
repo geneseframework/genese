@@ -11,6 +11,7 @@ import { HasStats } from '../../interfaces/has-stats';
 export class TreeFolder extends Evaluable implements HasStats {
 
     complexitiesByStatus?: ComplexitiesByStatus = new ComplexitiesByStatus();   // The folder complexities spread by complexity status
+    cpxIndex ?= 0;                                                              // The complexity index of this folder
     numberOfFiles ?= 0;                                                         // The number of files in this folder and its subfolders
     numberOfMethods ?= 0;                                                       // The number of methods included in all the files of this folder and its subfolders
     parent?: TreeFolder = undefined;                                            // The TreeFolder corresponding to the parent folder of this TreeFolder
@@ -44,7 +45,7 @@ export class TreeFolder extends Evaluable implements HasStats {
      */
     evaluate(): void {
         for (const file of this.treeFiles) {
-            this.cognitiveValue += file.cognitiveValue;
+            this.cpxIndex += file.cpxIndex;
             this.cyclomaticCpx += file.cyclomaticCpx;
             this.numberOfMethods += file.treeMethods?.length ?? 0;
             this.numberOfFiles++;

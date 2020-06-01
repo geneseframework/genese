@@ -14,10 +14,11 @@ import { TreeMethodService } from '../../services/tree/tree-method.service';
 export class TreeFile extends Evaluable implements HasStats {
 
     complexitiesByStatus?: ComplexitiesByStatus = undefined;    // The file complexities spread by complexity status
-    name ?= '';                                                 // The name of the file
+    cpxIndex ?= 0;                                              // The complexity index of this file
+    name ?= '';                                                 // The name of this file
     sourceFile?: ts.SourceFile = undefined;                     // The sourceFile corresponding to this TreeFile
     stats?: Stats = undefined;                                  // The statistics of the file
-    treeFileService: TreeFileService = new TreeFileService();               // The service for TreeFiles
+    treeFileService: TreeFileService = new TreeFileService();   // The service for TreeFiles
     treeFolder?: TreeFolder = new TreeFolder();                 // The TreeFolder which includes this TreeFile
     treeMethods?: TreeMethod[] = [];                            // The TreeMethods included in this TreeFile
 
@@ -34,7 +35,7 @@ export class TreeFile extends Evaluable implements HasStats {
     evaluate(): void {
         const treeMethodService = new TreeMethodService();
         for (const method of this.treeMethods) {
-            this.cognitiveValue += method.cognitiveValue;
+            this.cpxIndex += method.cpxIndex;
             this.cyclomaticCpx += method.cyclomaticCpx;
             this.complexitiesByStatus = treeMethodService.addMethodCpxByStatus(this.complexitiesByStatus, method);
         }
