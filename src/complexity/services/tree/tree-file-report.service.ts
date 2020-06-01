@@ -1,10 +1,10 @@
 import * as fs from 'fs-extra';
 import * as eol from "eol";
 import * as Handlebars from "handlebars";
-import { Options } from '../models/options';
-import { getFilenameWithoutExtension, getPathWithDotSlash, getRouteToRoot } from './file.service';
-import { TreeFile } from '../models/tree-file.model';
-import { MethodReport } from '../models/method-report.model';
+import { Options } from '../../models/options';
+import { getFilenameWithoutExtension, getPathWithDotSlash, getRouteToRoot } from '../file.service';
+import { TreeFile } from '../../models/tree/tree-file.model';
+import { MethodReport } from '../../models/report/method-report.model';
 
 /**
  * Service generating files reports

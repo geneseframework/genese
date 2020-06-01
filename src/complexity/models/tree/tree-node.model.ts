@@ -1,13 +1,13 @@
 import * as ts from 'typescript';
 import { TreeMethod } from './tree-method.model';
-import { IsAstNode } from '../interfaces/is-ast-node';
-import { Evaluable } from './evaluable.model';
-import { NodeFeature } from '../enums/node-feature.enum';
-import { Ast } from '../services/ast.service';
-import { CpxFactors } from './cpx-factors.model';
-import { cpxFactors } from '../cpx-factors';
-import { addObjects } from '../services/tools.service';
-import { NodeFeatureService } from '../services/node-feature.service';
+import { IsAstNode } from '../../interfaces/is-ast-node';
+import { Evaluable } from '../evaluable.model';
+import { NodeFeature } from '../../enums/node-feature.enum';
+import { Ast } from '../../services/ast.service';
+import { CpxFactors } from '../cpx-factor/cpx-factors.model';
+import { cpxFactors } from '../../cpx-factors';
+import { addObjects } from '../../services/tools.service';
+import { NodeFeatureService } from '../../services/node-feature.service';
 
 const chalk = require('chalk');
 
@@ -49,6 +49,11 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
+    get intrinsicNestingCpx(): number {
+        return this.nodeFeatureService.getCpxFactors(this.nodeFeatureService.getFeature(this.node)).totalNesting;
+    }
+
+
     get feature(): NodeFeature {
         return this.#feature ?? this.nodeFeatureService.getFeature(this.node);
     }
@@ -61,12 +66,11 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
     calculateCpxFactors(): void {
         this.cpxFactors.basic.node = this.feature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
-        this.calculateNestingCpx();
         switch (this.feature) {
             case NodeFeature.BASIC:
                 break;
             case NodeFeature.CONDITIONAL:
-                // this.cpxFactors.nesting.conditional = cpxFactors.nesting.conditional;
+                this.cpxFactors.nesting.conditional = cpxFactors.nesting.conditional;
                 this.cpxFactors.structural.conditional = cpxFactors.structural.conditional;
                 break;
             case NodeFeature.FUNC:
@@ -79,13 +83,16 @@ export class TreeNode extends Evaluable implements IsAstNode {
                 this.cpxFactors.structural.regex = cpxFactors.structural.regex;
                 break;
         }
+        this.calculateNestingCpx();
     }
 
 
     calculateNestingCpx(): void {
         if (this.node && this.parent?.parent?.node && this.parent?.cpxFactors?.nesting) {
             this.cpxFactors.nesting = addObjects(this.parent.cpxFactors.nesting, this.cpxFactors.nesting);
+            // console.log('NESTING NODE', this.cpxFactors.nesting)
         }
+
     }
 
 

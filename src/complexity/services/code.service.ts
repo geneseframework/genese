@@ -1,5 +1,5 @@
-import { Code } from '../models/code.model';
-import { CodeLine } from '../models/code-line.model';
+import { Code } from '../models/code/code.model';
+import { CodeLine } from '../models/code/code-line.model';
 
 /**
  * Service managing Code objects

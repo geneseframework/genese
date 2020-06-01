@@ -1,4 +1,4 @@
-import { CpxFactors } from './models/cpx-factors.model';
+import { CpxFactors } from './models/cpx-factor/cpx-factors.model';
 
 const complexityFactors: CpxFactors = new CpxFactors();
 
@@ -15,7 +15,7 @@ complexityFactors.basic = {
     node: 0.1,                          // Any AST node ("Identifier", "Parameter", "Block", IfStatement, ...)
 };
 complexityFactors.nesting = {
-    arr: 1,                             // Inside an array
+    // arr: 1,                             // Inside an array
     conditional: 0.5,                   // Inside a conditional
     func: 1,                            // Usage of a function or method inside a block of code
     loop: 0.5                           // Inside a loop
