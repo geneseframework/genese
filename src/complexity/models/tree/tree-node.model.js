@@ -48,6 +48,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
     set nestingCpx(cpx) {
         __classPrivateFieldSet(this, _nestingCpx, cpx);
     }
+    get intrinsicNestingCpx() {
+        return this.nodeFeatureService.getCpxFactors(this.nodeFeatureService.getFeature(this.node)).totalNesting;
+    }
     get feature() {
         var _a;
         return (_a = __classPrivateFieldGet(this, _feature)) !== null && _a !== void 0 ? _a : this.nodeFeatureService.getFeature(this.node);
@@ -58,7 +61,6 @@ class TreeNode extends evaluable_model_1.Evaluable {
     }
     calculateCpxFactors() {
         this.cpxFactors.basic.node = this.feature === node_feature_enum_1.NodeFeature.EMPTY ? 0 : cpx_factors_1.cpxFactors.basic.node;
-        this.calculateNestingCpx();
         switch (this.feature) {
             case node_feature_enum_1.NodeFeature.BASIC:
                 break;
@@ -76,14 +78,14 @@ class TreeNode extends evaluable_model_1.Evaluable {
                 this.cpxFactors.structural.regex = cpx_factors_1.cpxFactors.structural.regex;
                 break;
         }
+        this.calculateNestingCpx();
     }
     calculateNestingCpx() {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c, _d;
         if (this.node && ((_b = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.parent) === null || _b === void 0 ? void 0 : _b.node) && ((_d = (_c = this.parent) === null || _c === void 0 ? void 0 : _c.cpxFactors) === null || _d === void 0 ? void 0 : _d.nesting)) {
-            console.log('NESTING PARENT', (_f = (_e = this.parent) === null || _e === void 0 ? void 0 : _e.cpxFactors) === null || _f === void 0 ? void 0 : _f.nesting);
             this.cpxFactors.nesting = tools_service_1.addObjects(this.parent.cpxFactors.nesting, this.cpxFactors.nesting);
+            // console.log('NESTING NODE', this.cpxFactors.nesting)
         }
-        console.log('NESTING NODE', this.cpxFactors.nesting);
     }
     // ------------------------------------------------------------------------------------------------
     // ---------------------------------------   PRINT AST   ------------------------------------------

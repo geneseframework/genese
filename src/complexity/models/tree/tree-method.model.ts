@@ -140,6 +140,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
         for (const childTree of tree.children) {
             const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
             this.#displayedCode.lines[issue].cpxFactors = this.#displayedCode.lines[issue].cpxFactors.add(childTree.cpxFactors);
+            this.#displayedCode.lines[issue].treeNodes.push(childTree);
             this.setCpxFactorsToDisplayedCode(childTree);
         }
     }

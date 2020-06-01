@@ -1,4 +1,5 @@
 import { CodeLine } from './code-line.model';
+import { TreeNode } from '../tree/tree-node.model';
 
 /**
     The TypeScript code seen as an array of CodeLine

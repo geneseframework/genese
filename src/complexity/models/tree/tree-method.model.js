@@ -133,6 +133,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         for (const childTree of tree.children) {
             const issue = this.codeService.getLineIssue(__classPrivateFieldGet(this, _originalCode), ((_a = childTree.node) === null || _a === void 0 ? void 0 : _a.pos) - this.astPosition);
             __classPrivateFieldGet(this, _displayedCode).lines[issue].cpxFactors = __classPrivateFieldGet(this, _displayedCode).lines[issue].cpxFactors.add(childTree.cpxFactors);
+            __classPrivateFieldGet(this, _displayedCode).lines[issue].treeNodes.push(childTree);
             this.setCpxFactorsToDisplayedCode(childTree);
         }
     }

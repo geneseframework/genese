@@ -14,7 +14,7 @@ complexityFactors.basic = {
     node: 0.1,
 };
 complexityFactors.nesting = {
-    arr: 1,
+    // arr: 1,                             // Inside an array
     conditional: 0.5,
     func: 1,
     loop: 0.5 // Inside a loop

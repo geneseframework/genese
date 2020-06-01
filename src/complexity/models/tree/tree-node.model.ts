@@ -49,6 +49,11 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
+    get intrinsicNestingCpx(): number {
+        return this.nodeFeatureService.getCpxFactors(this.nodeFeatureService.getFeature(this.node)).totalNesting;
+    }
+
+
     get feature(): NodeFeature {
         return this.#feature ?? this.nodeFeatureService.getFeature(this.node);
     }
@@ -61,7 +66,6 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
     calculateCpxFactors(): void {
         this.cpxFactors.basic.node = this.feature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
-        this.calculateNestingCpx();
         switch (this.feature) {
             case NodeFeature.BASIC:
                 break;
@@ -79,15 +83,15 @@ export class TreeNode extends Evaluable implements IsAstNode {
                 this.cpxFactors.structural.regex = cpxFactors.structural.regex;
                 break;
         }
+        this.calculateNestingCpx();
     }
 
 
     calculateNestingCpx(): void {
         if (this.node && this.parent?.parent?.node && this.parent?.cpxFactors?.nesting) {
-            console.log('NESTING PARENT', this.parent?.cpxFactors?.nesting)
             this.cpxFactors.nesting = addObjects(this.parent.cpxFactors.nesting, this.cpxFactors.nesting);
+            // console.log('NESTING NODE', this.cpxFactors.nesting)
         }
-        console.log('NESTING NODE', this.cpxFactors.nesting)
 
     }
 
