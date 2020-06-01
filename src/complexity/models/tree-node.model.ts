@@ -4,7 +4,7 @@ import { IsAstNode } from '../interfaces/is-ast-node';
 import { Evaluable } from './evaluable.model';
 import { NodeFeature } from '../enums/node-feature.enum';
 import { Ast } from '../services/ast.service';
-import { CpxFactors } from './cpx-factors.model';
+import { CpxFactors } from './cpx-factors/cpx-factors.model';
 import { cpxFactors } from '../cpx-factors';
 import { addObjects } from '../services/tools.service';
 import { NodeFeatureService } from '../services/node-feature.service';
@@ -66,7 +66,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
             case NodeFeature.BASIC:
                 break;
             case NodeFeature.CONDITIONAL:
-                // this.cpxFactors.nesting.conditional = cpxFactors.nesting.conditional;
+                this.cpxFactors.nesting.conditional = cpxFactors.nesting.conditional;
                 this.cpxFactors.structural.conditional = cpxFactors.structural.conditional;
                 break;
             case NodeFeature.FUNC:
@@ -84,8 +84,11 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
     calculateNestingCpx(): void {
         if (this.node && this.parent?.parent?.node && this.parent?.cpxFactors?.nesting) {
+            console.log('NESTING PARENT', this.parent?.cpxFactors?.nesting)
             this.cpxFactors.nesting = addObjects(this.parent.cpxFactors.nesting, this.cpxFactors.nesting);
         }
+        console.log('NESTING NODE', this.cpxFactors.nesting)
+
     }
 
 

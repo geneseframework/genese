@@ -1,7 +1,7 @@
 /**
  * Elements which can be evaluated
  */
-import { CpxFactors } from './cpx-factors.model';
+import { CpxFactors } from './cpx-factors/cpx-factors.model';
 
 export abstract class Evaluable {
 

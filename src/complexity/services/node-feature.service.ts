@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 import { NodeFeature } from '../enums/node-feature.enum';
-import { CpxFactors } from '../models/cpx-factors.model';
+import { CpxFactors } from '../models/cpx-factors/cpx-factors.model';
 import { cpxFactors } from '../cpx-factors';
 
 export class NodeFeatureService {

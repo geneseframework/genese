@@ -10,8 +10,9 @@ import { Evaluable } from './evaluable.model';
 import { IsAstNode } from '../interfaces/is-ast-node';
 import { Code } from './code.model';
 import { CodeService } from '../services/code.service';
-import { CpxFactors } from './cpx-factors.model';
+import { CpxFactors } from './cpx-factors/cpx-factors.model';
 import { FactorCategory } from '../enums/factor-category.enum';
+import { CodeLine } from './code-line.model';
 
 /**
  * Element of the TreeNode structure corresponding to a given method
@@ -112,6 +113,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     createDisplayedCode(tree: TreeNode = this.tree): void {
         this.setDisplayedCodeLines();
         this.setCpxFactorsToDisplayedCode(tree);
+        this.#displayedCode.setLinesNestingCpx();
         this.addCommentsToDisplayedCode();
         this.calculateCpxIndex();
         this.#displayedCode.setTextWithLines();
@@ -121,12 +123,11 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     setDisplayedCodeLines(): void {
         this.#displayedCode = new Code();
         for (const line of this.#originalCode.lines) {
-            this.#displayedCode.lines.push({
-                cpxFactors: new CpxFactors(),
-                issue: line.issue,
-                text: line.text,
-                position: line.position,
-            });
+            const displayedLine = new CodeLine();
+            displayedLine.issue = line.issue;
+            displayedLine.text = line.text;
+            displayedLine.position = line.position;
+            this.#displayedCode.lines.push(displayedLine);
         }
     }
 
@@ -153,6 +154,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
             .forEach(line => {
                 let comment = `+${line.cpxFactors.total.toFixed(1)} Complexity index (+${line.cpxFactors.totalBasic.toFixed(1)} ${FactorCategory.BASIC}`;
                 comment = line.cpxFactors.totalAggregation > 0 ? `${comment}, +${line.cpxFactors.totalAggregation} ${FactorCategory.AGGREGATION}` : comment;
+                comment = `${comment}, +${line.cpxFactors.totalNesting} nesting`;
                 // comment = line.cpxFactors.totalNesting > 0 ? `${comment}, +${line.cpxFactors.totalNesting} nesting` : comment;
                 comment = line.cpxFactors.totalStructural > 0 ? `${comment}, +${line.cpxFactors.totalStructural} ${FactorCategory.STRUCTURAL}` : comment;
                 comment = `${comment})`;

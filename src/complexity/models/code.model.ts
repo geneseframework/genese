@@ -30,4 +30,11 @@ export class Code {
         return `${txt.padEnd(this.maxLineLength + 10, '-')} ${comment}`;
     }
 
+
+    setLinesNestingCpx(): void {
+        for (const line of this.lines) {
+            line.setNestingCpx();
+        }
+    }
+
 }

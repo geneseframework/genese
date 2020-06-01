@@ -1,4 +1,5 @@
-import { CpxFactors } from './cpx-factors.model';
+import { CpxFactors } from './cpx-factors/cpx-factors.model';
+import { NestingCpx } from './cpx-factors/nesting-cpx.model';
 
 /**
  * A line of a Code object
@@ -10,4 +11,9 @@ export class CodeLine {
     position ?= 0;                                          // The position (in number of characters) of the start of the line
     text ?= '';                                             // The text of the line
 
+
+    setNestingCpx(): void {
+        this.cpxFactors.nesting = new NestingCpx();
+        // this.cpxFactors.nesting.conditional = 1;
+    }
 }
