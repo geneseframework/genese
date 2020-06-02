@@ -6,7 +6,6 @@ complexityFactors.aggregation = {
     arr: 1,
     density: 0.05,
     differentLogicDoor: 2,
-    ternary: 2 // Ternaries inside other ternaries
 };
 complexityFactors.basic = {
     declaration: 0.1,
@@ -17,7 +16,8 @@ complexityFactors.nesting = {
     // arr: 1,                          // Inside an array
     conditional: 0.5,
     func: 1,
-    loop: 0.5 // Inside a loop
+    loop: 0.5,
+    ternary: 2 // Ternaries inside other ternaries
 };
 complexityFactors.structural = {
     arr: 1,
@@ -29,6 +29,7 @@ complexityFactors.structural = {
     logicDoor: 1,
     loop: 1,
     recursion: 3,
-    regex: 1 // Regular expression
+    regex: 1,
+    ternary: 1 // Ternary expression
 };
 exports.cpxFactors = complexityFactors;

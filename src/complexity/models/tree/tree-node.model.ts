@@ -105,6 +105,10 @@ export class TreeNode extends Evaluable implements IsAstNode {
             case NodeFeature.REGEX:
                 this.cpxFactors.structural.regex = cpxFactors.structural.regex;
                 break;
+            case NodeFeature.TERNARY:
+                this.cpxFactors.nesting.ternary = cpxFactors.nesting.ternary;
+                this.cpxFactors.structural.ternary = cpxFactors.structural.ternary;
+                break;
         }
         this.calculateNestingCpx();
     }
