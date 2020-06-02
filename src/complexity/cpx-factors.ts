@@ -7,7 +7,6 @@ complexityFactors.aggregation = {
     arr: 1,                             // Array of arrays
     density: 0.05,                      // Accumulation of nodes on a same line of code
     differentLogicDoor: 2,              // a "or" after a "and" (or a "or" after a "and") without brackets
-    ternary: 2                          // Ternaries inside other ternaries
 };
 complexityFactors.basic = {
     declaration: 0.1,                   // Declaration of a Class, a Function, a Method, ...
@@ -18,19 +17,21 @@ complexityFactors.nesting = {
     // arr: 1,                          // Inside an array
     conditional: 0.5,                   // Inside a conditional
     func: 1,                            // Usage of a function or method inside a block of code
-    loop: 0.5                           // Inside a loop
+    loop: 0.5,                          // Inside a loop
+    ternary: 2                          // Ternaries inside other ternaries
 };
 complexityFactors.structural = {
     arr: 1,                             // "Array", "Set"
     asynchronicity: 1,                  // "Promise", "Observable"
-    conditional: 1,                     // "if", "else", "else if", "switch", "catch", ternary expression, nullish coalescing
+    conditional: 1,                     // "if", "else", "else if", "switch", "catch", nullish coalescing
     externalBinding: 3,                 // A "this" inside a method which not refers to the method context (its class)
     func: 1,                            // Usage of a function or method inside a block of code
     jump: 1,                            // "break", "continue"
     logicDoor: 1,                       // "and", "or", "not"
     loop: 1,                            // "for", "foreach", "while"
     recursion: 3,                       // Recursion or callback
-    regex: 1                            // Regular expression
+    regex: 1,                           // Regular expression
+    ternary: 1                          // Ternary expression
 };
 
 export const cpxFactors: CpxFactors = complexityFactors;

@@ -97,6 +97,10 @@ class TreeNode extends evaluable_model_1.Evaluable {
             case node_feature_enum_1.NodeFeature.REGEX:
                 this.cpxFactors.structural.regex = cpx_factors_1.cpxFactors.structural.regex;
                 break;
+            case node_feature_enum_1.NodeFeature.TERNARY:
+                this.cpxFactors.nesting.ternary = cpx_factors_1.cpxFactors.nesting.ternary;
+                this.cpxFactors.structural.ternary = cpx_factors_1.cpxFactors.structural.ternary;
+                break;
         }
         this.calculateNestingCpx();
     }

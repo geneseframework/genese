@@ -51,7 +51,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
      */
     evaluate() {
         var _a, _b, _c;
-        // this.tree.printAllChildren();
+        this.tree.printAllChildren();
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
         this.cyclomaticCpx = complexity_service_1.ComplexityService.calculateCyclomaticComplexity(this.node);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
