@@ -4,7 +4,11 @@ export class DebugMock {
 
 
     r(a, b, c) {
-        a = a ? b : b ? c : 0;
+        if (a) {
+            console.log(a);
+        } else {
+            console.log(b)
+        }
     }
 
     //
