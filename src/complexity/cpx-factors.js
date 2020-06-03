@@ -6,6 +6,7 @@ complexityFactors.aggregation = {
     arr: 1,
     density: 0.05,
     differentLogicDoor: 2,
+    regex: 0.1 // each element in a regex
 };
 complexityFactors.basic = {
     declaration: 0.1,
@@ -13,7 +14,6 @@ complexityFactors.basic = {
     node: 0.1,
 };
 complexityFactors.nesting = {
-    // arr: 1,                          // Inside an array
     conditional: 0.5,
     func: 1,
     loop: 0.5,

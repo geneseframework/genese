@@ -1,0 +1,1150 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Genese complexity report</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./../../../reports-styles/prism.css" />
+    <link rel="stylesheet" href="./../../../reports-styles/prettify.css" />
+    <link rel="stylesheet" href="./../../../reports-styles/report.css" />
+    <link rel="stylesheet" href="./../../../reports-styles/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<div class="header">
+    <div class="header-left">
+        <div>
+            <h1>Genese complexity report</h1>
+        </div>
+        <div class="pad1y">
+            <span class="backLink" onclick="history.back()"><-</span>
+            part-modal.component.ts
+        </div>
+        <div class="clearfix">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">12</span>
+                <span>Methods</span>
+            </div>
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="clearfix padly">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">79</span>
+                <span>points of cognitive complexity</span>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">48</span>
+                <span>points of cyclomatic complexity</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--        -------------------------------------------------------------------------------------->
+<!--        -----------------------------------   Stats and charts   ----------------------------->
+<!--        -------------------------------------------------------------------------------------->
+
+
+<div class="mainContainer">
+    <div class="stats-and-charts">
+
+            <!--        -----------------------------------   Cognitive complexity   ---------------------------->
+
+        <div class="stats-cognitive">
+            <div class="stats-and-doughnut">
+                <div class="stats">
+
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">Cognitive complexity</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">83.3 %</span>
+                            <span class="quiet"> Correct</span>
+                            <span class='fraction'>10/12</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">0 %</span>
+                            <span class="quiet"> Warning</span>
+                            <span class='fraction'>0/12</span>
+                            <span class="quiet">(threshold : 5)</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">16.7 %</span>
+                            <span class="quiet"> Error</span>
+                            <span class='fraction'>2/12</span>
+                            <span class="quiet">(threshold : 10)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doughnut">
+                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>
+                </div>
+            </div>
+
+            <div class="bar">
+                <canvas id="bar-cognitive-cpx" height="400" width="750"></canvas>
+            </div>
+        </div>
+
+        <!--        -----------------------------------   Cyclomatic complexity   ---------------------------->
+
+        <div class="stats-cyclomatic">
+            <div class="stats-and-doughnut">
+                <div class="stats">
+                    <div class="clearfix cyclomatic-subtitle">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">Cyclomatic complexity</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">75 %</span>
+                            <span class="quiet"> Correct</span>
+                            <span class='fraction'>9/12</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">16.7 %</span>
+                            <span class="quiet"> Warning</span>
+                            <span class='fraction'>2/12</span>
+                            <span class="quiet">(threshold : 5)</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">8.3 %</span>
+                            <span class="quiet"> Error</span>
+                            <span class='fraction'>1/12</span>
+                            <span class="quiet">(threshold : 10)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doughnut">
+                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>
+                </div>
+            </div>
+            <div class="bar">
+                <canvas id="bar-cyclomatic-cpx" height="400" width="750"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+<!--            <div class="clearfix cognitive-subtitle">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">Cognitive complexity</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">83.3 %</span>-->
+<!--                    <span class="quiet"> Correct</span>-->
+<!--                    <span class='fraction'>10/12</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">0 %</span>-->
+<!--                    <span class="quiet"> Warning</span>-->
+<!--                    <span class='fraction'>0/12</span>-->
+<!--                    <span class="quiet">(threshold : 5)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">16.7 %</span>-->
+<!--                    <span class="quiet"> Error</span>-->
+<!--                    <span class='fraction'>2/12</span>-->
+<!--                    <span class="quiet">(threshold : 10)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash;        -----------------------------------   Cyclomatic complexity   --------------------------&ndash;&gt;-->
+
+<!--            <div class="clearfix cyclomatic-subtitle">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">Cyclomatic complexity</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">75 %</span>-->
+<!--                    <span class="quiet"> Correct</span>-->
+<!--                    <span class='fraction'>9/12</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">16.7 %</span>-->
+<!--                    <span class="quiet"> Warning</span>-->
+<!--                    <span class='fraction'>2/12</span>-->
+<!--                    <span class="quiet">(threshold : 5)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">8.3 %</span>-->
+<!--                    <span class="quiet"> Error</span>-->
+<!--                    <span class='fraction'>1/12</span>-->
+<!--                    <span class="quiet">(threshold : 10)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+
+<!--        &lt;!&ndash;        ------------------------------------------------------------------------------------&ndash;&gt;-->
+<!--        &lt;!&ndash;        -----------------------------------------   Charts   -------------------------------&ndash;&gt;-->
+<!--        &lt;!&ndash;        ------------------------------------------------------------------------------------&ndash;&gt;-->
+
+<!--        <div class="charts">-->
+<!--            <div class="cognitive-charts">-->
+<!--                <div class="doughnut">-->
+<!--                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>-->
+<!--                </div>-->
+<!--                <div class="bar">-->
+<!--                    <canvas id="bar-cognitive-cpx" height="250" width="800"></canvas>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="cyclomatic-charts">-->
+<!--                <div class="doughnut">-->
+<!--                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>-->
+<!--                </div>-->
+<!--                <div class="bar">-->
+<!--                    <canvas id="bar-cyclomatic-cpx" height="250" width="800"></canvas>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+    <!--        -------------------------------------------------------------------------------------->
+    <!--        -----------------------------------   Methods arrays   ------------------------------->
+    <!--        -------------------------------------------------------------------------------------->
+
+
+            <div id="ngOnInit">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">ngOnInit</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                // --------------------------------------------------
+                //                     METHODS
+                // --------------------------------------------------
+            
+                /**
+                 * Component initialization
+                 */
+                ngOnInit() {
+                    const overlay &#x3D; document.createElement(&#x27;div&#x27;);
+                    overlay.id &#x3D; &#x27;overlay&#x27;;
+                    document.body.prepend(overlay);
+                    this.getPartData();
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="addMpn">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">addMpn</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Adds an input to the mpn form
+                 */
+                addMpn() {
+                    this.mpn.push({code: &#x27;&#x27;});
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="subtractMpn">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">subtractMpn</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Subtract an input to the mpn form
+                 */
+                subtractMpn(index) {
+                    this.mpn.splice(index, 1);
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="getPartData">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">getPartData</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgerror">17</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">10</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Load ata and designation list
+                 */
+                getPartData() {
+                    const requests: any &#x3D; [
+                        this.ataService.getAta(),
+                        this.designationService.getDesignation()
+                    ];
+                    if (this.mode &#x3D;&#x3D;&#x3D; &#x27;duplicate&#x27;) { // ------------------------------------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                        this.partGenese.getOne(&#x60;/parts/duplicate/${this.partId}&#x60;).subscribe((part: Part) &#x3D;&gt; { // ---------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                            requests.push(part);
+                        });
+                    }
+            
+                    this.startLoading();
+                    forkJoin(requests).pipe(finalize(() &#x3D;&gt; { // ----------------------------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                            this.stopLoading();
+                        }))
+                        .subscribe(([ata, designation, part]: any) &#x3D;&gt; { // ------------------------------------------------------------ +1 Cognitive complexity (+1 break flow)
+                            if (Array.isArray(ata)) { // ------------------------------------------------------------------------------ +2 Cognitive complexity (+1 break flow, +1 nesting)
+                                ata.forEach(item &#x3D;&gt; this.ataList.push({value: item, content: item})); // ------------------------------ +3 Cognitive complexity (+1 break flow, +2 nesting)
+                            }
+                            if (Array.isArray(designation)) { // ---------------------------------------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                                designation.forEach(item &#x3D;&gt; this.designation.push({value: item, content: item.designation})); // ------ +3 Cognitive complexity (+1 break flow, +2 nesting)
+                            }
+                            this.originalDesignation &#x3D; [...this.designation];
+                            part ? this.part &#x3D; part : noop(); // ---------------------------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                        }, () &#x3D;&gt; this.closeModal()); // ------------------------------------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="validModal">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">validModal</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgerror">53</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgerror">16</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Modal validation
+                 */
+                validModal() {
+                    this.startLoading();
+                    this.part.mpnCodes &#x3D; [];
+                    this.mpn.forEach(item &#x3D;&gt; item.code &#x3D;&#x3D;&#x3D; &#x27;&#x27; ? noop() : this.part.mpnCodes.push({code: item.code.toUpperCase()})); // ------ +2 Cognitive complexity (+2 break flow)
+                    this.part.partNumber &#x3D; this.part.partNumber ? this.part.partNumber.toUpperCase() : &#x27;&#x27;; // ------------------------------- +1 Cognitive complexity (+1 break flow)
+                    this.part.partNumberRoot &#x3D; this.part.partNumberRoot ? this.part.partNumberRoot.toUpperCase() : &#x27;&#x27;; // ------------------- +1 Cognitive complexity (+1 break flow)
+            
+                    if (this.mode &#x3D;&#x3D;&#x3D; &#x27;creation&#x27;) { // -------------------------------------------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                        const mappedObject &#x3D; {
+                            partNumber: this.part.partNumber,
+                            partNumberRoot: this.part.partNumberRoot,
+                            partDesignationId: this.part.partDesignation ? this.part.partDesignation.id : undefined, // --------------------- +1 Cognitive complexity (+1 break flow)
+                            ataCode: this.part.ata ? this.part.ata.code : undefined, // ----------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                            mpnCodes: Array.isArray(this.part.mpnCodes) ? this.part.mpnCodes.map(e &#x3D;&gt; e.code) : [] // ----------------------- +4 Cognitive complexity (+2 break flow, +2 nesting)
+                        };
+                        this.partGenese.createCustom(&#x27;/parts&#x27;, mappedObject)
+                            .pipe(finalize(() &#x3D;&gt; this.stopLoading())) // -------------------------------------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                            .subscribe((part: Part) &#x3D;&gt; { // --------------------------------------------------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                                this.removeOverlay();
+                                this.dialogRef.close(part);
+                            }, err &#x3D;&gt; console.error(err)); // ------------------------------------------------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                    } else if (this.mode &#x3D;&#x3D;&#x3D; &#x27;duplicate&#x27;) { // ------------------------------------------------------------------------------ +3 Cognitive complexity (+2 break flow, +1 nesting)
+                        const body &#x3D; {
+                            partNumber: this.part.partNumber,
+                            partNumberRoot: this.part.partNumberRoot,
+                            partDesignationId: this.part.partDesignation ? this.part.partDesignation.id : undefined, // --------------------- +1 Cognitive complexity (+1 break flow)
+                            ataCode: this.part.ata ? this.part.ata.code : undefined, // ----------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                            mpnCodes: Array.isArray(this.part.mpnCodes) ? this.part.mpnCodes.map(e &#x3D;&gt; e.code) : [] // ----------------------- +5 Cognitive complexity (+2 break flow, +3 nesting)
+                        };
+                        this.partGenese.createCustom(&#x60;/parts/duplicate/${this.partId}&#x60;, body)
+                            .pipe(finalize(() &#x3D;&gt; this.stopLoading())) // -------------------------------------------------------------------- +3 Cognitive complexity (+1 break flow, +2 nesting)
+                            .subscribe((part: Part) &#x3D;&gt; { // --------------------------------------------------------------------------------- +3 Cognitive complexity (+1 break flow, +2 nesting)
+                                this.removeOverlay();
+                                this.dialogRef.close(part);
+                            }, err &#x3D;&gt; console.error(err)); // ------------------------------------------------------------------------------- +3 Cognitive complexity (+1 break flow, +2 nesting)
+                    } else {
+                        this.partGenese.updateCustom(&#x27;/parts/&#x27; + this.partId, // ------------------------------------------------------------ +1 Cognitive complexity (+1 break flow)
+                            {
+                                id: this.partId,
+                                partNumber: this.part.partNumber,
+                                partNumberRoot: this.part.partNumberRoot,
+                                partDesignationId: this.part.partDesignation ? this.part.partDesignation.id : undefined, // ----------------- +1 Cognitive complexity (+1 break flow)
+                                ataCode: this.part.ata ? this.part.ata.code : undefined, // ------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                                mpnCodes: Array.isArray(this.part.mpnCodes) ? this.part.mpnCodes.map(e &#x3D;&gt; e.code) : [], // ------------------ +5 Cognitive complexity (+2 break flow, +3 nesting)
+                                status: Status.CREATED
+                            })
+                            .pipe(finalize(() &#x3D;&gt; this.stopLoading())) // -------------------------------------------------------------------- +3 Cognitive complexity (+1 break flow, +2 nesting)
+                            .subscribe(() &#x3D;&gt; { // ------------------------------------------------------------------------------------------- +3 Cognitive complexity (+1 break flow, +2 nesting)
+                                this.removeOverlay();
+                                this.dialogRef.close(true);
+                            }, err &#x3D;&gt; console.error(err)); // ------------------------------------------------------------------------------- +3 Cognitive complexity (+1 break flow, +2 nesting)
+                    }
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="isFormValid">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">isFormValid</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">3</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">8</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * return true if the part number is valid
+                 * @return boolean
+                 */
+                isFormValid() {
+                    return (this.part.partNumber || this.part.partNumberRoot) // ------------------------ +2 Cognitive complexity (+2 break flow)
+                        &amp;&amp; this.mpn[0] &amp;&amp; this.mpn[0].code &amp;&amp; this.part.partDesignation
+                        &amp;&amp; (this.part.partDesignation.id || this.part.partDesignation.id &#x3D;&#x3D;&#x3D; 0) // ------ +1 Cognitive complexity (+1 break flow)
+                        &amp;&amp; this.part.partNumber !&#x3D;&#x3D; this.part.partNumberRoot;
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="onParameterChanged">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">onParameterChanged</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">1</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">3</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * WHen ata or designation is changed
+                 * @param event
+                 * @param filter
+                 */
+                onParameterChanged(event, filter) {
+                    switch (filter) { // ------------------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                        case &#x27;ata&#x27;:
+                            this.part.ata &#x3D; {code: event};
+                            break;
+                        case &#x27;designation&#x27;:
+                            this.part.partDesignation &#x3D; event;
+                            this.partService.behaviorUpdateTopBarDescriptor.next(&#x27;refresh&#x27;);
+                            break;
+                    }
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="closeModal">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">closeModal</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">1</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">2</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Close modal without saving
+                 */
+                closeModal() {
+                    if (this.part.partDesignation) { // ------------------------------------------ +1 Cognitive complexity (+1 break flow)
+                        this.part.partDesignation.designation &#x3D; this.initialDesignation;
+                        this.partService.behaviorUpdateTopBarDescriptor.next(&#x27;refresh&#x27;);
+                    }
+                    this.removeOverlay();
+                    this.dialogRef.close();
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="stopLoading">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">stopLoading</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Stop the loading
+                 */
+                stopLoading(): void {
+                    this.loading &#x3D; false;
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="startLoading">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">startLoading</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Start the loading
+                 */
+                startLoading(): void {
+                    this.loading &#x3D; true;
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="designationSearchChanged">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">designationSearchChanged</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">4</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">3</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * update designation list on search change
+                 * @param searchText
+                 */
+                designationSearchChanged(searchText: string) {
+                    if (searchText) { // ------------------------------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                        this.designation &#x3D; this.originalDesignation.filter((designation) &#x3D;&gt; { // ----------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                            return designation.content.toLowerCase().includes(searchText.toLowerCase());
+                        });
+                    } else {
+                        this.designation &#x3D; [...this.originalDesignation]; // ------------------------------------- +1 Cognitive complexity (+1 break flow)
+                    }
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="removeOverlay">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">removeOverlay</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Remove overlay
+                 */
+                removeOverlay(): void {
+                    document.body.firstChild.remove();
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+</div>
+
+
+    <!--        -------------------------------------------------------------------------------------->
+    <!--        -----------------------------------   Scripts   -------------------------------------->
+    <!--        -------------------------------------------------------------------------------------->
+
+
+
+    <script src="././../../../reports-styles/Chart.js"></script>
+    <script src="./../../../reports-styles/prism.js"></script>
+
+    <script>
+        var ctxDougnutCognitive = document.getElementById('doughnut-cognitive-cpx').getContext("2d");
+        var doughnutCognitive = new Chart(ctxDougnutCognitive, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        10,
+                        0,
+                        2,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ]
+                }],
+                labels: [
+                    'correct methods ',
+                    'warning methods ',
+                    'error methods ',
+                ]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        left: 50,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Cognitive complexity'
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxBarCognitive = document.getElementById('bar-cognitive-cpx').getContext("2d");
+        var barCognitive = new Chart(ctxBarCognitive, {
+            type: 'bar',
+            data: {
+                labels: [
+                        '0',
+                        '1',
+                        '2',
+                        '3',
+                        '4',
+                        '5',
+                        '6',
+                        '7',
+                        '8',
+                        '9',
+                        '10',
+                        '11',
+                        '12',
+                        '13',
+                        '14',
+                        '15',
+                        '16',
+                        '17',
+                        '18',
+                        '19',
+                        '20',
+                        '21',
+                        '22',
+                        '23',
+                        '24',
+                        '25',
+                        '26',
+                        '27',
+                        '28',
+                        '29',
+                        '30',
+                        '31',
+                        '32',
+                        '33',
+                        '34',
+                        '35',
+                        '36',
+                        '37',
+                        '38',
+                        '39',
+                        '40',
+                        '41',
+                        '42',
+                        '43',
+                        '44',
+                        '45',
+                        '46',
+                        '47',
+                        '48',
+                        '49',
+                        '50',
+                        '51',
+                        '52',
+                        '53',
+                ],
+                datasets: [{
+                    data: [
+                            6,
+                            2,
+                            0,
+                            1,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ],
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Cognitive complexity'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of methods'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxDougnutCyclomatic = document.getElementById('doughnut-cyclomatic-cpx').getContext("2d");
+        var doughnutCyclomatic = new Chart(ctxDougnutCyclomatic, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        9,
+                        2,
+                        1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ]
+                }],
+                labels: [
+                    'correct methods ',
+                    'warning methods ',
+                    'error methods ',
+                ]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        left: 50,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Cyclomatic complexity'
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxBarCyclomatic = document.getElementById('bar-cyclomatic-cpx').getContext("2d");
+        var barCyclomatic = new Chart(ctxBarCyclomatic, {
+            type: 'bar',
+            data: {
+                labels: [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                ],
+                datasets: [{
+                    data: [
+                            6,
+                            1,
+                            2,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ],
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: false,
+                    text: 'Cyclomatic complexity',
+                    position: 'top'
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Cyclomatic complexity'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of methods'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+</body>
+</html>

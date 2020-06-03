@@ -1,0 +1,974 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Genese complexity report</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./../../../../reports-styles/prism.css" />
+    <link rel="stylesheet" href="./../../../../reports-styles/prettify.css" />
+    <link rel="stylesheet" href="./../../../../reports-styles/report.css" />
+    <link rel="stylesheet" href="./../../../../reports-styles/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<div class="header">
+    <div class="header-left">
+        <div>
+            <h1>Genese complexity report</h1>
+        </div>
+        <div class="pad1y">
+            <span class="backLink" onclick="history.back()"><-</span>
+            child-aircraft.component.ts
+        </div>
+        <div class="clearfix">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">9</span>
+                <span>Methods</span>
+            </div>
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="clearfix padly">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">73</span>
+                <span>points of cognitive complexity</span>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">68</span>
+                <span>points of cyclomatic complexity</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--        -------------------------------------------------------------------------------------->
+<!--        -----------------------------------   Stats and charts   ----------------------------->
+<!--        -------------------------------------------------------------------------------------->
+
+
+<div class="mainContainer">
+    <div class="stats-and-charts">
+
+            <!--        -----------------------------------   Cognitive complexity   ---------------------------->
+
+        <div class="stats-cognitive">
+            <div class="stats-and-doughnut">
+                <div class="stats">
+
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">Cognitive complexity</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">44.4 %</span>
+                            <span class="quiet"> Correct</span>
+                            <span class='fraction'>4/9</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">33.3 %</span>
+                            <span class="quiet"> Warning</span>
+                            <span class='fraction'>3/9</span>
+                            <span class="quiet">(threshold : 5)</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">22.2 %</span>
+                            <span class="quiet"> Error</span>
+                            <span class='fraction'>2/9</span>
+                            <span class="quiet">(threshold : 10)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doughnut">
+                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>
+                </div>
+            </div>
+
+            <div class="bar">
+                <canvas id="bar-cognitive-cpx" height="400" width="750"></canvas>
+            </div>
+        </div>
+
+        <!--        -----------------------------------   Cyclomatic complexity   ---------------------------->
+
+        <div class="stats-cyclomatic">
+            <div class="stats-and-doughnut">
+                <div class="stats">
+                    <div class="clearfix cyclomatic-subtitle">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">Cyclomatic complexity</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">44.4 %</span>
+                            <span class="quiet"> Correct</span>
+                            <span class='fraction'>4/9</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">44.4 %</span>
+                            <span class="quiet"> Warning</span>
+                            <span class='fraction'>4/9</span>
+                            <span class="quiet">(threshold : 5)</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">11.1 %</span>
+                            <span class="quiet"> Error</span>
+                            <span class='fraction'>1/9</span>
+                            <span class="quiet">(threshold : 10)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doughnut">
+                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>
+                </div>
+            </div>
+            <div class="bar">
+                <canvas id="bar-cyclomatic-cpx" height="400" width="750"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+<!--            <div class="clearfix cognitive-subtitle">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">Cognitive complexity</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">44.4 %</span>-->
+<!--                    <span class="quiet"> Correct</span>-->
+<!--                    <span class='fraction'>4/9</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">33.3 %</span>-->
+<!--                    <span class="quiet"> Warning</span>-->
+<!--                    <span class='fraction'>3/9</span>-->
+<!--                    <span class="quiet">(threshold : 5)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">22.2 %</span>-->
+<!--                    <span class="quiet"> Error</span>-->
+<!--                    <span class='fraction'>2/9</span>-->
+<!--                    <span class="quiet">(threshold : 10)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash;        -----------------------------------   Cyclomatic complexity   --------------------------&ndash;&gt;-->
+
+<!--            <div class="clearfix cyclomatic-subtitle">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">Cyclomatic complexity</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">44.4 %</span>-->
+<!--                    <span class="quiet"> Correct</span>-->
+<!--                    <span class='fraction'>4/9</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">44.4 %</span>-->
+<!--                    <span class="quiet"> Warning</span>-->
+<!--                    <span class='fraction'>4/9</span>-->
+<!--                    <span class="quiet">(threshold : 5)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">11.1 %</span>-->
+<!--                    <span class="quiet"> Error</span>-->
+<!--                    <span class='fraction'>1/9</span>-->
+<!--                    <span class="quiet">(threshold : 10)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+
+<!--        &lt;!&ndash;        ------------------------------------------------------------------------------------&ndash;&gt;-->
+<!--        &lt;!&ndash;        -----------------------------------------   Charts   -------------------------------&ndash;&gt;-->
+<!--        &lt;!&ndash;        ------------------------------------------------------------------------------------&ndash;&gt;-->
+
+<!--        <div class="charts">-->
+<!--            <div class="cognitive-charts">-->
+<!--                <div class="doughnut">-->
+<!--                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>-->
+<!--                </div>-->
+<!--                <div class="bar">-->
+<!--                    <canvas id="bar-cognitive-cpx" height="250" width="800"></canvas>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="cyclomatic-charts">-->
+<!--                <div class="doughnut">-->
+<!--                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>-->
+<!--                </div>-->
+<!--                <div class="bar">-->
+<!--                    <canvas id="bar-cyclomatic-cpx" height="250" width="800"></canvas>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+    <!--        -------------------------------------------------------------------------------------->
+    <!--        -----------------------------------   Methods arrays   ------------------------------->
+    <!--        -------------------------------------------------------------------------------------->
+
+
+            <div id="ngOnInit">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">ngOnInit</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgwarning">8</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">5</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Init component
+                 */
+                ngOnInit(): void {
+                    this.subscription &#x3D; this.appService.stateNotifier.subscribe((result: StateNotifier) &#x3D;&gt; { // ------ +1 Cognitive complexity (+1 break flow)
+                        if (result &#x3D;&#x3D;&#x3D; StateNotifier.CANCEL) { // ---------------------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                            this.aircraft &#x3D; UtilsService.deepCopy(this.aircraftBackup);
+                        } else if (result &#x3D;&#x3D;&#x3D; (StateNotifier.SAVE || StateNotifier.VALIDATE)) { // ------------------- +5 Cognitive complexity (+3 break flow, +2 nesting)
+                            this.aircraftBackup &#x3D; UtilsService.deepCopy(this.aircraft);
+                        }
+                    });
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="ngOnChanges">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">ngOnChanges</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">4</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">5</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**-
+                 * Get data when request or child request inputs have changed (ie when the observable in child request component
+                 */
+                ngOnChanges(changes: SimpleChanges): void {
+                    if (changes.childRequest &amp;&amp; !changes.childRequest.firstChange) { // -------------------------------------------------- +2 Cognitive complexity (+2 break flow)
+                        this.getData();
+                    }
+                    if (changes.request &amp;&amp; !changes.request.firstChange) { // ------------------------------------------------------------ +2 Cognitive complexity (+2 break flow)
+                        this.getData();
+                    }
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="ngOnDestroy">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">ngOnDestroy</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">1</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Unsubscribe when component is destroyed
+                 */
+                ngOnDestroy() {
+                    this.subscription ? this.subscription.unsubscribe() : noop(); // ------ +1 Cognitive complexity (+1 break flow)
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="getData">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">getData</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgerror">26</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgerror">19</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Get data for aircraft component
+                 */
+                getData(): void {
+                    this.displayFamilyTypeVersion &#x3D; !!this.request &amp;&amp; !!this.request.id &amp;&amp; !!this.childRequest &amp;&amp; !!this.childRequest.id; // ------ +1 Cognitive complexity (+1 break flow)
+                    this.spinnerService.startLoading();
+                    let stopSpinner &#x3D; false;
+            
+                    this.aircraftIdNameGenese.getAll({
+                        gnPath: &#x27;/missions&#x27;
+                    })
+                        .pipe(finalize(() &#x3D;&gt; stopSpinner ? this.spinnerService.stopLoading() : stopSpinner &#x3D; true)) // ---------------------------- +2 Cognitive complexity (+2 break flow)
+                        .subscribe((idNames: IdName[]) &#x3D;&gt; { // ------------------------------------------------------------------------------------ +1 Cognitive complexity (+1 break flow)
+                            this.missionTypeSelectOptions &#x3D; this.aircraftService.mapMissionOrEnvironmentList(idNames);
+                            this.setSelectedMissionType();
+                        });
+            
+                    this.aircraftIdNameGenese.getAll({
+                        gnPath: &#x27;/environments&#x27;
+                    })
+                        .pipe(finalize(() &#x3D;&gt; stopSpinner ? this.spinnerService.stopLoading() : stopSpinner &#x3D; true)) // ---------------------------- +2 Cognitive complexity (+2 break flow)
+                        .subscribe((idNames: IdName[]) &#x3D;&gt; { // ------------------------------------------------------------------------------------ +1 Cognitive complexity (+1 break flow)
+                            this.environmentSelectOptions &#x3D; this.aircraftService.mapMissionOrEnvironmentList(idNames);
+                            this.setSelectedEnvironment();
+                        });
+            
+                    this.setClients();
+                    this.getParentClientList();
+                    this.selectedAta &#x3D; this.request ? {name: this.request.ataCode} : {name: &#x27;&#x27;}; // ----------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                    this.aircraft.ataCode &#x3D; this.request.ataCode ? this.request.ataCode : &#x27;&#x27;; // -------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                    if (this.request &amp;&amp; this.request.id) { // ------------------------------------------------------------------------------------- +2 Cognitive complexity (+2 break flow)
+                        if (this.childRequest.environment) { // ----------------------------------------------------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                            this.aircraft.environment &#x3D; this.childRequest.environment;
+                        } else {
+                            this.aircraft.environment &#x3D; this.request.environment ? this.request.environment : new IdName(); // -------------------- +2 Cognitive complexity (+2 break flow)
+                        }
+                        if (this.childRequest.missionType) { // ----------------------------------------------------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                            this.aircraft.missionType &#x3D; this.childRequest.missionType;
+                        } else {
+                            this.aircraft.missionType &#x3D; this.request.missionType ? this.request.missionType : new IdName(); // -------------------- +2 Cognitive complexity (+2 break flow)
+                        }
+                        this.aircraft.childRequestClients &#x3D; UtilsService.default(this.request.clients, []);
+            
+                        if (this.childRequest.aircraftFamily &amp;&amp; // -------------------------------------------------------------------------------- +3 Cognitive complexity (+2 break flow, +1 nesting)
+                                Array.isArray(this.childRequest.aircraftTypes) &amp;&amp; Array.isArray(this.childRequest.aircraftVersions)) {
+                            this.aircraft.aircraftFamily &#x3D; this.childRequest.aircraftFamily;
+                            this.selectedAircraftTypes &#x3D; UtilsService.mapIdNameToSelectOption(this.childRequest.aircraftTypes);
+                            this.selectedAircraftVersions &#x3D; UtilsService.mapIdNameToSelectOption(this.childRequest.aircraftVersions);
+                        } else {
+                            this.aircraft.aircraftFamily &#x3D; this.request.aircraftFamily; // -------------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                            this.selectedAircraftTypes &#x3D; UtilsService.mapIdNameToSelectOption(this.request.aircraftTypes);
+                            this.selectedAircraftVersions &#x3D; UtilsService.mapIdNameToSelectOption(this.request.aircraftVersions);
+                        }
+                        this.emitAllAircraftValuesCompleted();
+                    } else {
+                        this.disabledType &#x3D; !(this.aircraft.aircraftFamily &amp;&amp; this.aircraft.aircraftFamily.id); // -------------------------------- +2 Cognitive complexity (+2 break flow)
+                        this.disabledVersion &#x3D; !(this.aircraft.aircraftFamily &amp;&amp; this.aircraft.aircraftFamily.id // ------------------------------- +1 Cognitive complexity (+1 break flow)
+                            &amp;&amp; this.aircraft.aircraftTypes &amp;&amp; this.aircraft.aircraftTypes.length);
+                    }
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="emitAllAircraftValuesCompleted">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">emitAllAircraftValuesCompleted</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">2</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">7</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * If all aircraft values are defined, we emit update event to parent component to be able for it
+                 * to enable save and validate buttons
+                 */
+                emitAllAircraftValuesCompleted() {
+                    if (this.aircraft &amp;&amp; this.aircraft.aircraftFamily // ------------------------------------------------------- +2 Cognitive complexity (+2 break flow)
+                        &amp;&amp; Array.isArray(this.selectedAircraftTypes) &amp;&amp; this.selectedAircraftTypes.length &gt; 0
+                        &amp;&amp; Array.isArray(this.selectedAircraftVersions) &amp;&amp; this.selectedAircraftVersions.length &gt; 0) {
+                        this.onParameterChanged({
+                                selectedFamily: this.aircraft.aircraftFamily,
+                                selectedTypes: this.selectedAircraftTypes,
+                                selectedVersions: this.selectedAircraftVersions,
+                            },
+                            &#x27;family-type-version&#x27;,
+                            false
+                        );
+                    }
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="setSelectedMissionType">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">setSelectedMissionType</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgerror">12</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">10</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Set mission type options and selected value
+                 */
+                setSelectedMissionType(): void {
+                    if (this.childRequest &amp;&amp; this.childRequest.missionType &amp;&amp; this.childRequest.missionType.id) { // ------------------ +2 Cognitive complexity (+2 break flow)
+                        this.selectedMissionType &#x3D; this.childRequest.missionType ? this.childRequest.missionType : undefined; // ------ +1 Cognitive complexity (+1 break flow)
+                    } else if (this.request &amp;&amp; this.request.missionType &amp;&amp; this.request.missionType.id) { // -------------------------- +4 Cognitive complexity (+3 break flow, +1 nesting)
+                        this.selectedMissionType &#x3D; this.request.missionType ? this.request.missionType : undefined; // ---------------- +1 Cognitive complexity (+1 break flow)
+                    } else {
+                        this.selectedMissionType &#x3D; undefined; // ---------------------------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                    }
+            
+                    if (this.request &amp;&amp; this.request.missionType &amp;&amp; this.request.missionType.id) { // --------------------------------- +2 Cognitive complexity (+2 break flow)
+                        this.disabledMission &#x3D; true;
+                    } else {
+                        this.disabledMission &#x3D; false; // ------------------------------------------------------------------------------ +1 Cognitive complexity (+1 break flow)
+                    }
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="setSelectedEnvironment">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">setSelectedEnvironment</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgwarning">10</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">9</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Set environment options and selected value
+                 */
+                setSelectedEnvironment(): void {
+                    if (this.childRequest &amp;&amp; this.childRequest.environment &amp;&amp; this.childRequest.environment.id) { // ------------------ +2 Cognitive complexity (+2 break flow)
+                        this.selectedEnvironment &#x3D; this.childRequest.environment ? this.childRequest.environment : undefined; // ------ +1 Cognitive complexity (+1 break flow)
+                    } else if (this.request &amp;&amp; this.request.environment &amp;&amp; this.request.environment.id) { // -------------------------- +4 Cognitive complexity (+3 break flow, +1 nesting)
+                        this.selectedEnvironment &#x3D; this.request.environment ? this.request.environment : undefined; // ---------------- +1 Cognitive complexity (+1 break flow)
+                    } else {
+                        this.selectedEnvironment &#x3D; undefined; // ---------------------------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                    }
+            
+                    this.disabledEnvironment &#x3D; !!(this.request &amp;&amp; this.request.environment &amp;&amp; this.request.environment.id); // -------- +1 Cognitive complexity (+1 break flow)
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="setClients">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">setClients</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgwarning">6</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">7</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Set client options and selected value
+                 */
+                setClients(): void {
+                    this.selectClientOptions &#x3D; [];
+                    if (this.childRequest &amp;&amp; Array.isArray(this.childRequest.childRequestClients) &amp;&amp; this.childRequest.childRequestClients.length &gt; 0) { // ------ +2 Cognitive complexity (+2 break flow)
+                        this.selectedClients &#x3D; UtilsService.mapIdNameToSelectOption(this.childRequest.childRequestClients);
+                    } else if (this.request &amp;&amp; Array.isArray(this.request.clients) &amp;&amp; this.request.clients.length &gt; 0) { // -------------------------------------- +4 Cognitive complexity (+3 break flow, +1 nesting)
+                        this.selectedClients &#x3D; UtilsService.mapIdNameToSelectOption(this.request.clients);
+                    }
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="getParentClientList">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">getParentClientList</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">4</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">5</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+                /**
+                 * Get the parent request client list in child client list
+                 */
+                getParentClientList(): void {
+                    if (this.request &amp;&amp; Array.isArray(this.request.clients) &amp;&amp; this.request.clients.length &gt; 0) { // ------ +2 Cognitive complexity (+2 break flow)
+                        this.selectClientOptions &#x3D; [];
+                        this.request.clients.forEach((client: IdName) &#x3D;&gt; { // --------------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                            this.selectClientOptions.push({ content: client.name, value: client.id });
+                        });
+                    }
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+</div>
+
+
+    <!--        -------------------------------------------------------------------------------------->
+    <!--        -----------------------------------   Scripts   -------------------------------------->
+    <!--        -------------------------------------------------------------------------------------->
+
+
+
+    <script src="././../../../../reports-styles/Chart.js"></script>
+    <script src="./../../../../reports-styles/prism.js"></script>
+
+    <script>
+        var ctxDougnutCognitive = document.getElementById('doughnut-cognitive-cpx').getContext("2d");
+        var doughnutCognitive = new Chart(ctxDougnutCognitive, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        4,
+                        3,
+                        2,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ]
+                }],
+                labels: [
+                    'correct methods ',
+                    'warning methods ',
+                    'error methods ',
+                ]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        left: 50,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Cognitive complexity'
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxBarCognitive = document.getElementById('bar-cognitive-cpx').getContext("2d");
+        var barCognitive = new Chart(ctxBarCognitive, {
+            type: 'bar',
+            data: {
+                labels: [
+                        '0',
+                        '1',
+                        '2',
+                        '3',
+                        '4',
+                        '5',
+                        '6',
+                        '7',
+                        '8',
+                        '9',
+                        '10',
+                        '11',
+                        '12',
+                        '13',
+                        '14',
+                        '15',
+                        '16',
+                        '17',
+                        '18',
+                        '19',
+                        '20',
+                        '21',
+                        '22',
+                        '23',
+                        '24',
+                        '25',
+                        '26',
+                ],
+                datasets: [{
+                    data: [
+                            0,
+                            1,
+                            1,
+                            0,
+                            2,
+                            0,
+                            1,
+                            0,
+                            1,
+                            0,
+                            1,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ],
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Cognitive complexity'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of methods'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxDougnutCyclomatic = document.getElementById('doughnut-cyclomatic-cpx').getContext("2d");
+        var doughnutCyclomatic = new Chart(ctxDougnutCyclomatic, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        4,
+                        4,
+                        1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ]
+                }],
+                labels: [
+                    'correct methods ',
+                    'warning methods ',
+                    'error methods ',
+                ]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        left: 50,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Cyclomatic complexity'
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxBarCyclomatic = document.getElementById('bar-cyclomatic-cpx').getContext("2d");
+        var barCyclomatic = new Chart(ctxBarCyclomatic, {
+            type: 'bar',
+            data: {
+                labels: [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        18,
+                        19,
+                ],
+                datasets: [{
+                    data: [
+                            1,
+                            0,
+                            0,
+                            0,
+                            3,
+                            0,
+                            2,
+                            0,
+                            1,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ],
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: false,
+                    text: 'Cyclomatic complexity',
+                    position: 'top'
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Cyclomatic complexity'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of methods'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -10,12 +10,10 @@
  * an infringement punishable by criminal or civil law and, more generally, a breach of Naval Group SA’s rights.
  */
 
-import { EvaluationValuesInterface } from '../../interfaces/evaluation-values.interface';
-
 export class SwitchesMock {
 
 
-    switches(numberOfWords: number): EvaluationValuesInterface {
+    switches(numberOfWords: number) {
         switch (numberOfWords) {
             case 1:
                 console.log("one");
@@ -26,23 +24,20 @@ export class SwitchesMock {
             default:
                 console.log("lots");
         }
-        return {cyclomaticValue: 3, cpxIndex: 1};
     }
 
 
-    tryCatch(): EvaluationValuesInterface {
+    tryCatch() {
         try {
             const a = 1;
         } catch (e) {
             console.log(e);
         }
-        return {cyclomaticValue: 2, cpxIndex: 1};
     }
 
 
-    questionDotToken(time: any): EvaluationValuesInterface {
+    questionDotToken(time: any) {
         time = time?.name;
-        return {cyclomaticValue: 1, cpxIndex: 0};
     }
 
 }

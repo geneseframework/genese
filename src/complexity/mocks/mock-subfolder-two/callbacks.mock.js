@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class CallbacksMock {
+    constructor(object) {
+    }
     recursion(a) {
         this.recursion(a);
     }
@@ -10,7 +12,6 @@ class CallbacksMock {
                 console.log(b);
             }
         });
-        return { cyclomaticValue: 3, cpxIndex: 3 };
     }
     callerFunction(a) {
         this.methodWithCallback(a, function (b) {
@@ -18,11 +19,9 @@ class CallbacksMock {
                 console.log('b', b);
             }
         });
-        return { cyclomaticValue: 3, cpxIndex: 3 };
     }
     methodWithCallback(a, callback) {
         callback(a + 3);
-        return { cyclomaticValue: 0, cpxIndex: 0 };
     }
 }
 exports.CallbacksMock = CallbacksMock;

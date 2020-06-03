@@ -1,0 +1,114 @@
+.mainContainer {
+    padding: 20px ;
+}
+
+.header {
+    background-color: #000066;
+    color: deepskyblue;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header .header-left .backlink {
+    cursor: pointer;
+}
+
+.header .header-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.header .header-left .backLink {
+    color: #71c2e9;
+    cursor: pointer;
+}
+
+.stats-and-charts {
+    height: 650px;
+    display: flex;
+    flex-direction: row;
+}
+
+.stats-and-charts .stats-and-doughnut {
+    display: flex;
+    flex-direction: row;
+}
+
+.stats {
+    padding-top: 50px;
+    width: 310px;
+    padding-left: 50px;
+}
+
+.stats-cognitive {
+    flex: 1;
+}
+
+.stats-cyclomatic {
+    flex: 1;
+}
+
+
+.doughnut {
+    display: inline-block;
+    margin-left: -30px;
+}
+
+
+.bar {
+    /*height: 400px;*/
+    /*width: 90%;*/
+    display: inline-block;
+    padding-left: 30px;
+    vertical-align: top;
+}
+
+.cognitive-charts {
+    padding-top: 50px;
+}
+
+.cyclomatic-charts {
+    padding-top: 100px;
+}
+
+.correct {
+    color: rgba(3, 169, 244, 0.6);
+    font-weight: bold;
+}
+
+.warning {
+    color: rgba(255, 152, 0, 0.6);
+    font-weight: bold;
+}
+
+.error {
+    color: rgba(216, 27, 96, 0.6);
+    font-weight: bold;
+}
+
+.array-report .right {
+    text-align: right;
+}
+
+.array-report .bgwhite {
+    background-color: white;
+}
+
+.array-report .bgcorrect {
+    background-color: rgba(3, 169, 244, 0.6);
+}
+
+.array-report .bgwarning {
+    background-color: rgba(255, 152, 0, 0.6);
+}
+
+.array-report .bgerror {
+    background-color: rgba(216, 27, 96, 0.6);
+}
+
+.method-name-column {
+    width: 20%;
+}

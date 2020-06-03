@@ -1,27 +1,81 @@
+import { CallbacksMock } from './mock-subfolder-two/callbacks.mock';
 
 
 export class DebugMock {
 
 
-    r(a, b, c) {
+    ifAlone(a) {
         if (a) {
-            console.log(a);
-        } else {
-            console.log(b)
+            return 'b';
         }
     }
 
-    //
-    // set(object: Object, path: string | string[] = '', value: any): Object {
-    //     if (!object) {
-    //         return undefined;
-    //     }
-    //     if (!Array.isArray(path)) {
-    //         path = path.toString().match(/[^.[\]]+/g) || [];
-    //     }
-    //     path.slice(0, -1).reduce((acc: Object, curr: any, index: number) => {
-    //         return Object(acc[curr]) === acc[curr] ? acc[curr] : (acc[curr] = isNaN(+path[index + 1]) ? {} : []);
-    //     }, object)[path[path.length - 1]] = value; // Finally assign the value to the last key
-    //     return object; // Return the top-level object to allow chaining
-    // }
+
+    twoIfs(a, b) {
+        if (a) {
+            return 'b';
+        }
+        if (b) {
+            return 'c';
+        }
+    }
+
+
+    ifNestedIf(a, b) {
+        if (a) {
+            if (b) {
+                return 'c';
+            }
+            return 'b';
+        }
+    }
+
+
+    ifIfIf(a, b, c) {
+        if (a) {
+            if (b) {
+                if (c) {
+                    return 'd';
+                }
+                return 'c';
+            }
+            return 'b';
+        }
+    }
+
+
+    switchCase(a) {
+        switch (a) {
+            case 1:
+                return 'one';
+            case 2:
+                return 'two';
+            case 3:
+                return 'three';
+            default:
+                return 'other';
+        }
+    }
+
+
+    ifElse(a) {
+        if (a) {
+            return 'b';
+        } else {
+            return 'c';
+        }
+    }
+
+
+
+    hyperComplex<T>(object: Object, path: string | string[] = '', value: any): CallbacksMock<T> {
+        path = path.toString().match(/[^.[\]]+/g);
+        path.slice(0, -1).reduce((acc: Object, curr: any, index: number) => {
+            const arg = Math.round(index) % 3;
+            return Object(acc[curr]) === acc[curr + arg];
+        }, object)[path[path.length - 1]] = value;
+        return new CallbacksMock<T>(object);
+    }
+
+
 }

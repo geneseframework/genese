@@ -1,0 +1,1760 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Genese complexity report for all files</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./../../reports-styles/prettify.css" />
+    <link rel="stylesheet" href="./../../reports-styles/report.css" />
+    <link rel="stylesheet" href="./../../reports-styles/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+<!--        -------------------------------------------------------------------------------------->
+<!--        ---------------------------------------   Header   ----------------------------------->
+<!--        -------------------------------------------------------------------------------------->
+
+
+<div class="header">
+    <div class="header-left">
+        <div>
+            <h1>Genese complexity report</h1>
+        </div>
+        <div class="pad1y">
+                <a class="backLink" href="../folder-report.html"><-</a>
+            /Users/utilisateur/Documents/projets/retex/airbus-retex-front/src/app/request
+        </div>
+        <div class="clearfix">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">35</span>
+                <span>Files</span>
+            </div>
+            <div class='fl pad1y space-right2'>
+                <span class="strong">168</span>
+                <span>Methods</span>
+            </div>
+        </div>
+    </div>
+    <div class="header-right">
+
+        <div class="clearfix padly">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">747</span>
+                <span>points of cognitive complexity</span>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">647</span>
+                <span>points of cyclomatic complexity</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--        -------------------------------------------------------------------------------------->
+<!--        -----------------------------------   Stats and charts   ----------------------------->
+<!--        -------------------------------------------------------------------------------------->
+
+<div class="mainContainer">
+    <div class="stats-and-charts">
+
+        <!--        -----------------------------------   Cognitive complexity   ---------------------------->
+
+        <div class="stats-cognitive">
+            <div class="stats-and-doughnut">
+                <div class="stats">
+
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">Cognitive complexity</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">72 %</span>
+                            <span class="quiet"> Correct</span>
+                            <span class='fraction'>121/168</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">18.5 %</span>
+                            <span class="quiet"> Warning</span>
+                            <span class='fraction'>31/168</span>
+                            <span class="quiet">(threshold : 5)</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">9.5 %</span>
+                            <span class="quiet"> Error</span>
+                            <span class='fraction'>16/168</span>
+                            <span class="quiet">(threshold : 10)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doughnut">
+                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>
+                </div>
+            </div>
+
+            <div class="bar">
+                <canvas id="bar-cognitive-cpx" height="400" width="750"></canvas>
+            </div>
+        </div>
+
+        <!--        -----------------------------------   Cyclomatic complexity   ---------------------------->
+
+        <div class="stats-cyclomatic">
+            <div class="stats-and-doughnut">
+                <div class="stats">
+                    <div class="clearfix cyclomatic-subtitle">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">Cyclomatic complexity</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">84.5 %</span>
+                            <span class="quiet"> Correct</span>
+                            <span class='fraction'>142/168</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">10.7 %</span>
+                            <span class="quiet"> Warning</span>
+                            <span class='fraction'>18/168</span>
+                            <span class="quiet">(threshold : 5)</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">4.8 %</span>
+                            <span class="quiet"> Error</span>
+                            <span class='fraction'>8/168</span>
+                            <span class="quiet">(threshold : 10)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doughnut">
+                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>
+                </div>
+            </div>
+            <div class="bar">
+                <canvas id="bar-cyclomatic-cpx" height="400" width="750"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+    <!--        -------------------------------------------------------------------------------------->
+    <!--        -----------------------------------   Report arrays   -------------------------------->
+    <!--        -------------------------------------------------------------------------------------->
+
+
+    <!--        ----------------------------------   Folders array   --------------------------------->
+
+    <div class="clearfix cognitive-subtitle">
+        <div class='fl pad1y space-right2'>
+            <span class="strong">Subfolders of /Users/utilisateur/Documents/projets/retex/airbus-retex-front/src/app/request</span>
+        </div>
+    </div>
+    <table class="array-report">
+        <thead>
+        <tr>
+            <th rowspan="2">Folders</th>
+            <th rowspan="2">Number of files</th>
+            <th rowspan="2">Number of methods</th>
+            <th colspan="3">Cognitive complexity of methods</th>
+            <th colspan="3">Cyclomatic complexity of methods</th>
+        </tr>
+        <tr>
+            <th>Correct</th>
+            <th>Warning</th>
+            <th>Error</th>
+            <th>Correct</th>
+            <th>Warning</th>
+            <th>Error</th>
+        </tr>
+        </thead>
+                <tr>
+                    <td>
+                            <a href="../folder-report.html">../</a>
+                    </td>
+                    <td class="center"></td>
+                    <td class="center"></td>
+                    <td class="center correct"></td>
+                    <td class="center warning"></td>
+                    <td class="center error"></td>
+                    <td class="center correct"></td>
+                    <td class="center warning"></td>
+                    <td class="center error"></td>
+                </tr>
+                <tr>
+                    <td>
+                            app/request
+                    </td>
+                    <td class="center">35</td>
+                    <td class="center">168</td>
+                    <td class="center correct">121</td>
+                    <td class="center warning">31</td>
+                    <td class="center error">16</td>
+                    <td class="center correct">142</td>
+                    <td class="center warning">18</td>
+                    <td class="center error">8</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./child-request/folder-report.html">app/request/child-request</a>
+                    </td>
+                    <td class="center">5</td>
+                    <td class="center">55</td>
+                    <td class="center correct">33</td>
+                    <td class="center warning">15</td>
+                    <td class="center error">7</td>
+                    <td class="center correct">43</td>
+                    <td class="center warning">10</td>
+                    <td class="center error">2</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./models/folder-report.html">app/request/models</a>
+                    </td>
+                    <td class="center">6</td>
+                    <td class="center">0</td>
+                    <td class="center correct">0</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                    <td class="center correct">0</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./parent-request/folder-report.html">app/request/parent-request</a>
+                    </td>
+                    <td class="center">8</td>
+                    <td class="center">47</td>
+                    <td class="center correct">34</td>
+                    <td class="center warning">12</td>
+                    <td class="center error">1</td>
+                    <td class="center correct">44</td>
+                    <td class="center warning">2</td>
+                    <td class="center error">1</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./request-detail/folder-report.html">app/request/request-detail</a>
+                    </td>
+                    <td class="center">1</td>
+                    <td class="center">14</td>
+                    <td class="center correct">12</td>
+                    <td class="center warning">1</td>
+                    <td class="center error">1</td>
+                    <td class="center correct">13</td>
+                    <td class="center warning">1</td>
+                    <td class="center error">0</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./request-list/folder-report.html">app/request/request-list</a>
+                    </td>
+                    <td class="center">3</td>
+                    <td class="center">32</td>
+                    <td class="center correct">30</td>
+                    <td class="center warning">1</td>
+                    <td class="center error">1</td>
+                    <td class="center correct">30</td>
+                    <td class="center warning">1</td>
+                    <td class="center error">1</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./request-modal/folder-report.html">app/request/request-modal</a>
+                    </td>
+                    <td class="center">1</td>
+                    <td class="center">13</td>
+                    <td class="center correct">9</td>
+                    <td class="center warning">2</td>
+                    <td class="center error">2</td>
+                    <td class="center correct">9</td>
+                    <td class="center warning">3</td>
+                    <td class="center error">1</td>
+                </tr>
+                <tr>
+                    <td>
+                            <a href="./services/folder-report.html">app/request/services</a>
+                    </td>
+                    <td class="center">8</td>
+                    <td class="center">7</td>
+                    <td class="center correct">3</td>
+                    <td class="center warning">0</td>
+                    <td class="center error">4</td>
+                    <td class="center correct">3</td>
+                    <td class="center warning">1</td>
+                    <td class="center error">3</td>
+                </tr>
+    </table>
+
+    <!--        ----------------------------------   Files array   --------------------------------->
+
+    <div class="clearfix cognitive-subtitle">
+        <div class='fl pad1y space-right2'>
+            <span class="strong">Files of /Users/utilisateur/Documents/projets/retex/airbus-retex-front/src/app/request</span>
+        </div>
+    </div>
+    <table class="array-report">
+        <thead>
+        <tr>
+            <th>File</th>
+            <th>Method</th>
+            <th>Cognitive complexity</th>
+            <th>Cyclomatic complexity</th>
+        </tr>
+        </thead>
+    </table>
+
+
+    <!--        ----------------------------------   Methods array   --------------------------------->
+
+    <div class="clearfix cognitive-subtitle">
+        <div class='fl pad1y space-right2'>
+            <span class="strong">Methods of /Users/utilisateur/Documents/projets/retex/airbus-retex-front/src/app/request folder and its subfolders</span>
+            <span class="quiet">(ordered by decreasing cognitive complexity)</span>
+        </div>
+    </div>
+    <table class="array-report">
+        <thead>
+        <tr>
+            <th>File</th>
+            <th>Method</th>
+            <th>Cognitive complexity</th>
+            <th>Cyclomatic complexity</th>
+        </tr>
+        </thead>
+                <tr>
+                    <td><a href="./request-list/request-list.component.html">request-list.component.ts</a></td>
+                    <td><a href="./request-list/request-list.component.html#getRequestListData">getRequestListData</a></td>
+                    <td class="center error">39</td>
+                    <td class="center error">20</td>
+                </tr>
+                <tr>
+                    <td><a href="./services/request.service.html">request.service.ts</a></td>
+                    <td><a href="./services/request.service.html#mapToUpdate">mapToUpdate</a></td>
+                    <td class="center error">35</td>
+                    <td class="center error">18</td>
+                </tr>
+                <tr>
+                    <td><a href="./services/aircraft.service.html">aircraft.service.ts</a></td>
+                    <td><a href="./services/aircraft.service.html#onParameterChanged">onParameterChanged</a></td>
+                    <td class="center error">28</td>
+                    <td class="center error">15</td>
+                </tr>
+                <tr>
+                    <td><a href="./services/request.service.html">request.service.ts</a></td>
+                    <td><a href="./services/request.service.html#mapToHeader">mapToHeader</a></td>
+                    <td class="center error">27</td>
+                    <td class="center warning">8</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html">child-aircraft.component.ts</a></td>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html#getData">getData</a></td>
+                    <td class="center error">26</td>
+                    <td class="center error">19</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#disableButton">disableButton</a></td>
+                    <td class="center error">25</td>
+                    <td class="center error">33</td>
+                </tr>
+                <tr>
+                    <td><a href="./services/child-request.service.html">child-request.service.ts</a></td>
+                    <td><a href="./services/child-request.service.html#mapToUpdate">mapToUpdate</a></td>
+                    <td class="center error">24</td>
+                    <td class="center error">11</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#onParameterChanged">onParameterChanged</a></td>
+                    <td class="center error">21</td>
+                    <td class="center warning">9</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-detail/request-detail.component.html">request-detail.component.ts</a></td>
+                    <td><a href="./request-detail/request-detail.component.html#getData">getData</a></td>
+                    <td class="center error">19</td>
+                    <td class="center warning">7</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#saveOrValidate">saveOrValidate</a></td>
+                    <td class="center error">17</td>
+                    <td class="center warning">8</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-modal/request-modal.component.html">request-modal.component.ts</a></td>
+                    <td><a href="./request-modal/request-modal.component.html#validModal">validModal</a></td>
+                    <td class="center error">17</td>
+                    <td class="center warning">9</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-aircraft/parent-aircraft.component.html">parent-aircraft.component.ts</a></td>
+                    <td><a href="./parent-request/parent-aircraft/parent-aircraft.component.html#getData">getData</a></td>
+                    <td class="center error">15</td>
+                    <td class="center warning">10</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html">child-aircraft.component.ts</a></td>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html#setSelectedMissionType">setSelectedMissionType</a></td>
+                    <td class="center error">12</td>
+                    <td class="center warning">10</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#getRequestData">getRequestData</a></td>
+                    <td class="center error">11</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#getChildRequestData">getChildRequestData</a></td>
+                    <td class="center error">11</td>
+                    <td class="center warning">6</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-modal/request-modal.component.html">request-modal.component.ts</a></td>
+                    <td><a href="./request-modal/request-modal.component.html#setMultiLanguageTabs">setMultiLanguageTabs</a></td>
+                    <td class="center error">11</td>
+                    <td class="center warning">8</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#ngAfterViewInit">ngAfterViewInit</a></td>
+                    <td class="center warning">10</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#updatePart">updatePart</a></td>
+                    <td class="center warning">10</td>
+                    <td class="center warning">8</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html">child-aircraft.component.ts</a></td>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html#setSelectedEnvironment">setSelectedEnvironment</a></td>
+                    <td class="center warning">10</td>
+                    <td class="center warning">9</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-request.component.html">parent-request.component.ts</a></td>
+                    <td><a href="./parent-request/parent-request.component.html#isValidRequest">isValidRequest</a></td>
+                    <td class="center warning">10</td>
+                    <td class="center error">20</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/assignation/assignation.component.html">assignation.component.ts</a></td>
+                    <td><a href="./parent-request/assignation/assignation.component.html#getData">getData</a></td>
+                    <td class="center warning">10</td>
+                    <td class="center warning">7</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center warning">9</td>
+                    <td class="center warning">6</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/assignation/assignation.service.html">assignation.service.ts</a></td>
+                    <td><a href="./parent-request/assignation/assignation.service.html#formatUserArrayToSelectOption">formatUserArrayToSelectOption</a></td>
+                    <td class="center warning">9</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html">child-aircraft.component.ts</a></td>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center warning">8</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#fillSelect">fillSelect</a></td>
+                    <td class="center warning">8</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/assignation/assignation.component.html">assignation.component.ts</a></td>
+                    <td><a href="./parent-request/assignation/assignation.component.html#getUserAssignation">getUserAssignation</a></td>
+                    <td class="center warning">8</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-modal/request-modal.component.html">request-modal.component.ts</a></td>
+                    <td><a href="./request-modal/request-modal.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center warning">8</td>
+                    <td class="center warning">6</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#changeVersion">changeVersion</a></td>
+                    <td class="center warning">7</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#updateSerialNumbers">updateSerialNumbers</a></td>
+                    <td class="center warning">7</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#getData">getData</a></td>
+                    <td class="center warning">7</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-aircraft/parent-aircraft.component.html">parent-aircraft.component.ts</a></td>
+                    <td><a href="./parent-request/parent-aircraft/parent-aircraft.component.html#getAtaList">getAtaList</a></td>
+                    <td class="center warning">7</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-aircraft/parent-aircraft.component.html">parent-aircraft.component.ts</a></td>
+                    <td><a href="./parent-request/parent-aircraft/parent-aircraft.component.html#getClientList">getClientList</a></td>
+                    <td class="center warning">7</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-detail/request-detail.component.html">request-detail.component.ts</a></td>
+                    <td><a href="./request-detail/request-detail.component.html#changeVersion">changeVersion</a></td>
+                    <td class="center warning">7</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#getChildRequestDataFromParentRequest">getChildRequestDataFromParentRequest</a></td>
+                    <td class="center warning">6</td>
+                    <td class="center warning">7</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#setHeaderData">setHeaderData</a></td>
+                    <td class="center warning">6</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html">child-aircraft.component.ts</a></td>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html#setClients">setClients</a></td>
+                    <td class="center warning">6</td>
+                    <td class="center warning">7</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#fillSelectOptionsPn">fillSelectOptionsPn</a></td>
+                    <td class="center warning">6</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#fillSelectOptionsPnRoot">fillSelectOptionsPnRoot</a></td>
+                    <td class="center warning">6</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#onFileSelected">onFileSelected</a></td>
+                    <td class="center warning">6</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/assignation/assignation.component.html">assignation.component.ts</a></td>
+                    <td><a href="./parent-request/assignation/assignation.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center warning">6</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/oetp/oetp.component.html">oetp.component.ts</a></td>
+                    <td><a href="./parent-request/oetp/oetp.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center warning">6</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/origin/origin.component.html">origin.component.ts</a></td>
+                    <td><a href="./parent-request/origin/origin.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center warning">6</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/origin/origin.component.html">origin.component.ts</a></td>
+                    <td><a href="./parent-request/origin/origin.component.html#onFileSelected">onFileSelected</a></td>
+                    <td class="center warning">6</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/spec/spec.component.html">spec.component.ts</a></td>
+                    <td><a href="./parent-request/spec/spec.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center warning">6</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/spec/spec.component.html">spec.component.ts</a></td>
+                    <td><a href="./parent-request/spec/spec.component.html#onFileSelected">onFileSelected</a></td>
+                    <td class="center warning">6</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list.component.html">request-list.component.ts</a></td>
+                    <td><a href="./request-list/request-list.component.html#sortTable">sortTable</a></td>
+                    <td class="center warning">6</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-modal/request-modal.component.html">request-modal.component.ts</a></td>
+                    <td><a href="./request-modal/request-modal.component.html#isFormTabValid">isFormTabValid</a></td>
+                    <td class="center warning">6</td>
+                    <td class="center error">12</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-drt/child-drt.component.html">child-drt.component.ts</a></td>
+                    <td><a href="./child-request/child-drt/child-drt.component.html#emitUpdatedDrt">emitUpdatedDrt</a></td>
+                    <td class="center correct">5</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#getPart">getPart</a></td>
+                    <td class="center correct">5</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-detail/request-detail.component.html">request-detail.component.ts</a></td>
+                    <td><a href="./request-detail/request-detail.component.html#ngAfterViewInit">ngAfterViewInit</a></td>
+                    <td class="center correct">5</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html">request-list-item.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html#closeRequest">closeRequest</a></td>
+                    <td class="center correct">5</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html">request-list-item.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html#deleteRequest">deleteRequest</a></td>
+                    <td class="center correct">5</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html">request-list-item.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html#loadChildData">loadChildData</a></td>
+                    <td class="center correct">5</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item-tiles/request-list-item-tiles.component.html">request-list-item-tiles.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item-tiles/request-list-item-tiles.component.html#deleteChild">deleteChild</a></td>
+                    <td class="center correct">5</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item-tiles/request-list-item-tiles.component.html">request-list-item-tiles.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item-tiles/request-list-item-tiles.component.html#closeChild">closeChild</a></td>
+                    <td class="center correct">5</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-modal/request-modal.component.html">request-modal.component.ts</a></td>
+                    <td><a href="./request-modal/request-modal.component.html#mapWithExistingData">mapWithExistingData</a></td>
+                    <td class="center correct">5</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html">child-aircraft.component.ts</a></td>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html#ngOnChanges">ngOnChanges</a></td>
+                    <td class="center correct">4</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html">child-aircraft.component.ts</a></td>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html#getParentClientList">getParentClientList</a></td>
+                    <td class="center correct">4</td>
+                    <td class="center correct">5</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#deleteFileToUpload">deleteFileToUpload</a></td>
+                    <td class="center correct">4</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-request.component.html">parent-request.component.ts</a></td>
+                    <td><a href="./parent-request/parent-request.component.html#save">save</a></td>
+                    <td class="center correct">4</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/origin/origin.component.html">origin.component.ts</a></td>
+                    <td><a href="./parent-request/origin/origin.component.html#deleteFileToUpload">deleteFileToUpload</a></td>
+                    <td class="center correct">4</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/spec/spec.component.html">spec.component.ts</a></td>
+                    <td><a href="./parent-request/spec/spec.component.html#deleteFileToUpload">deleteFileToUpload</a></td>
+                    <td class="center correct">4</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list.component.html">request-list.component.ts</a></td>
+                    <td><a href="./request-list/request-list.component.html#formatRequesterList">formatRequesterList</a></td>
+                    <td class="center correct">4</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./services/aircraft.service.html">aircraft.service.ts</a></td>
+                    <td><a href="./services/aircraft.service.html#mapMissionOrEnvironmentList">mapMissionOrEnvironmentList</a></td>
+                    <td class="center correct">4</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-drt/child-drt.component.html">child-drt.component.ts</a></td>
+                    <td><a href="./child-request/child-drt/child-drt.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#removeSerialNumber">removeSerialNumber</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-request.component.html">parent-request.component.ts</a></td>
+                    <td><a href="./parent-request/parent-request.component.html#getData">getData</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/assignation/assignation.component.html">assignation.component.ts</a></td>
+                    <td><a href="./parent-request/assignation/assignation.component.html#technicalChange">technicalChange</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/assignation/assignation.component.html">assignation.component.ts</a></td>
+                    <td><a href="./parent-request/assignation/assignation.component.html#operatorChange">operatorChange</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/oetp/oetp.component.html">oetp.component.ts</a></td>
+                    <td><a href="./parent-request/oetp/oetp.component.html#ngOnDestroy">ngOnDestroy</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/spec/spec.component.html">spec.component.ts</a></td>
+                    <td><a href="./parent-request/spec/spec.component.html#ngOnDestroy">ngOnDestroy</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list.component.html">request-list.component.ts</a></td>
+                    <td><a href="./request-list/request-list.component.html#updateFilter">updateFilter</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center warning">8</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list.component.html">request-list.component.ts</a></td>
+                    <td><a href="./request-list/request-list.component.html#openRequestModal">openRequestModal</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-modal/request-modal.component.html">request-modal.component.ts</a></td>
+                    <td><a href="./request-modal/request-modal.component.html#isFormValid">isFormValid</a></td>
+                    <td class="center correct">3</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#getData">getData</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#updateDrt">updateDrt</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html">child-aircraft.component.ts</a></td>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html#emitAllAircraftValuesCompleted">emitAllAircraftValuesCompleted</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center warning">7</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-drt/child-drt.component.html">child-drt.component.ts</a></td>
+                    <td><a href="./child-request/child-drt/child-drt.component.html#ngOnChanges">ngOnChanges</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#ngOnChanges">ngOnChanges</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#setDesignation">setDesignation</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-request.component.html">parent-request.component.ts</a></td>
+                    <td><a href="./parent-request/parent-request.component.html#updateOrigin">updateOrigin</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-request.component.html">parent-request.component.ts</a></td>
+                    <td><a href="./parent-request/parent-request.component.html#updateAssignation">updateAssignation</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/assignation/assignation.component.html">assignation.component.ts</a></td>
+                    <td><a href="./parent-request/assignation/assignation.component.html#ngOnDestroy">ngOnDestroy</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/oetp/oetp.component.html">oetp.component.ts</a></td>
+                    <td><a href="./parent-request/oetp/oetp.component.html#emitUpdatedOetp">emitUpdatedOetp</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/origin/origin.component.html">origin.component.ts</a></td>
+                    <td><a href="./parent-request/origin/origin.component.html#ngOnDestroy">ngOnDestroy</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/origin/origin.component.html">origin.component.ts</a></td>
+                    <td><a href="./parent-request/origin/origin.component.html#getData">getData</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/origin/origin.component.html">origin.component.ts</a></td>
+                    <td><a href="./parent-request/origin/origin.component.html#emitUpdatedOrigin">emitUpdatedOrigin</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-aircraft/parent-aircraft.component.html">parent-aircraft.component.ts</a></td>
+                    <td><a href="./parent-request/parent-aircraft/parent-aircraft.component.html#ngOnChanges">ngOnChanges</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-aircraft/parent-aircraft.component.html">parent-aircraft.component.ts</a></td>
+                    <td><a href="./parent-request/parent-aircraft/parent-aircraft.component.html#setSelectedMissionType">setSelectedMissionType</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-aircraft/parent-aircraft.component.html">parent-aircraft.component.ts</a></td>
+                    <td><a href="./parent-request/parent-aircraft/parent-aircraft.component.html#setSelectedEnvironment">setSelectedEnvironment</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/spec/spec.component.html">spec.component.ts</a></td>
+                    <td><a href="./parent-request/spec/spec.component.html#onCommentUpdated">onCommentUpdated</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-detail/request-detail.component.html">request-detail.component.ts</a></td>
+                    <td><a href="./request-detail/request-detail.component.html#openModalModify">openModalModify</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list.component.html">request-list.component.ts</a></td>
+                    <td><a href="./request-list/request-list.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html">request-list-item.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html#isClosable">isClosable</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html">request-list-item.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html#isDeletable">isDeletable</a></td>
+                    <td class="center correct">2</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#updateAfterVersionChange">updateAfterVersionChange</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#disableCancel">disableCancel</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#isDrtDisabled">isDrtDisabled</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#isDisabled">isDisabled</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">4</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html">child-aircraft.component.ts</a></td>
+                    <td><a href="./child-request/child-aircraft/child-aircraft.component.html#ngOnDestroy">ngOnDestroy</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-drt/child-drt.component.html">child-drt.component.ts</a></td>
+                    <td><a href="./child-request/child-drt/child-drt.component.html#ngOnDestroy">ngOnDestroy</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#ngOnDestroy">ngOnDestroy</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#newSerialNumber">newSerialNumber</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#updateSerialNumbers">updateSerialNumbers</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-routing/child-routing.component.html">child-routing.component.ts</a></td>
+                    <td><a href="./child-request/child-routing/child-routing.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-routing/child-routing.component.html">child-routing.component.ts</a></td>
+                    <td><a href="./child-request/child-routing/child-routing.component.html#ngOnDestroy">ngOnDestroy</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-request.component.html">parent-request.component.ts</a></td>
+                    <td><a href="./parent-request/parent-request.component.html#ngOnDestroy">ngOnDestroy</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-request.component.html">parent-request.component.ts</a></td>
+                    <td><a href="./parent-request/parent-request.component.html#updateSpec">updateSpec</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-request.component.html">parent-request.component.ts</a></td>
+                    <td><a href="./parent-request/parent-request.component.html#cancelDisabled">cancelDisabled</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/origin/origin.component.html">origin.component.ts</a></td>
+                    <td><a href="./parent-request/origin/origin.component.html#getOriginList">getOriginList</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-detail/request-detail.component.html">request-detail.component.ts</a></td>
+                    <td><a href="./request-detail/request-detail.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-detail/request-detail.component.html">request-detail.component.ts</a></td>
+                    <td><a href="./request-detail/request-detail.component.html#updateAfterVersionChange">updateAfterVersionChange</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-detail/request-detail.component.html">request-detail.component.ts</a></td>
+                    <td><a href="./request-detail/request-detail.component.html#isDisabled">isDisabled</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list.component.html">request-list.component.ts</a></td>
+                    <td><a href="./request-list/request-list.component.html#ngAfterViewInit">ngAfterViewInit</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list.component.html">request-list.component.ts</a></td>
+                    <td><a href="./request-list/request-list.component.html#translateStatusList">translateStatusList</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list.component.html">request-list.component.ts</a></td>
+                    <td><a href="./request-list/request-list.component.html#getRequesters">getRequesters</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list.component.html">request-list.component.ts</a></td>
+                    <td><a href="./request-list/request-list.component.html#getAirbusEntity">getAirbusEntity</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list.component.html">request-list.component.ts</a></td>
+                    <td><a href="./request-list/request-list.component.html#getOriginList">getOriginList</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html">request-list-item.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html#seeRequest">seeRequest</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html">request-list-item.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html#goToModifyRequest">goToModifyRequest</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html">request-list-item.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html#checkChildStatus">checkChildStatus</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item-tiles/request-list-item-tiles.component.html">request-list-item-tiles.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item-tiles/request-list-item-tiles.component.html#editChild">editChild</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item-tiles/request-list-item-tiles.component.html">request-list-item-tiles.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item-tiles/request-list-item-tiles.component.html#isClosable">isClosable</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item-tiles/request-list-item-tiles.component.html">request-list-item-tiles.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item-tiles/request-list-item-tiles.component.html#isDeletable">isDeletable</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item-tiles/request-list-item-tiles.component.html">request-list-item-tiles.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item-tiles/request-list-item-tiles.component.html#isEditable">isEditable</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-modal/request-modal.component.html">request-modal.component.ts</a></td>
+                    <td><a href="./request-modal/request-modal.component.html#onParameterChanged">onParameterChanged</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">3</td>
+                </tr>
+                <tr>
+                    <td><a href="./services/request.service.html">request.service.ts</a></td>
+                    <td><a href="./services/request.service.html#convertDate">convertDate</a></td>
+                    <td class="center correct">1</td>
+                    <td class="center correct">2</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#cancel">cancel</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#updateAircraft">updateAircraft</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#backToList">backToList</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#openVersion">openVersion</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#allAircraftValuesCompleted">allAircraftValuesCompleted</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-request.component.html">child-request.component.ts</a></td>
+                    <td><a href="./child-request/child-request.component.html#setTopBarDescriptor">setTopBarDescriptor</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#emitPart">emitPart</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./child-request/child-part/child-part.component.html">child-part.component.ts</a></td>
+                    <td><a href="./child-request/child-part/child-part.component.html#onSearchChanged">onSearchChanged</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-request.component.html">parent-request.component.ts</a></td>
+                    <td><a href="./parent-request/parent-request.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-request.component.html">parent-request.component.ts</a></td>
+                    <td><a href="./parent-request/parent-request.component.html#updateOetp">updateOetp</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-request.component.html">parent-request.component.ts</a></td>
+                    <td><a href="./parent-request/parent-request.component.html#updateAircraft">updateAircraft</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-request.component.html">parent-request.component.ts</a></td>
+                    <td><a href="./parent-request/parent-request.component.html#cancel">cancel</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/assignation/assignation.component.html">assignation.component.ts</a></td>
+                    <td><a href="./parent-request/assignation/assignation.component.html#emitAssignation">emitAssignation</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/oetp/oetp.component.html">oetp.component.ts</a></td>
+                    <td><a href="./parent-request/oetp/oetp.component.html#getData">getData</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/origin/origin.component.html">origin.component.ts</a></td>
+                    <td><a href="./parent-request/origin/origin.component.html#emitOrigin">emitOrigin</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/origin/origin.component.html">origin.component.ts</a></td>
+                    <td><a href="./parent-request/origin/origin.component.html#onParameterChanged">onParameterChanged</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/parent-aircraft/parent-aircraft.component.html">parent-aircraft.component.ts</a></td>
+                    <td><a href="./parent-request/parent-aircraft/parent-aircraft.component.html#ngOnInit">ngOnInit</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/spec/spec.component.html">spec.component.ts</a></td>
+                    <td><a href="./parent-request/spec/spec.component.html#getData">getData</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./parent-request/spec/spec.component.html">spec.component.ts</a></td>
+                    <td><a href="./parent-request/spec/spec.component.html#emitUpdatedSpec">emitUpdatedSpec</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-detail/request-detail.component.html">request-detail.component.ts</a></td>
+                    <td><a href="./request-detail/request-detail.component.html#ngOnDestroy">ngOnDestroy</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-detail/request-detail.component.html">request-detail.component.ts</a></td>
+                    <td><a href="./request-detail/request-detail.component.html#onRequestUpdated">onRequestUpdated</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-detail/request-detail.component.html">request-detail.component.ts</a></td>
+                    <td><a href="./request-detail/request-detail.component.html#setTopBarDescriptor">setTopBarDescriptor</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-detail/request-detail.component.html">request-detail.component.ts</a></td>
+                    <td><a href="./request-detail/request-detail.component.html#stopLoading">stopLoading</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-detail/request-detail.component.html">request-detail.component.ts</a></td>
+                    <td><a href="./request-detail/request-detail.component.html#startLoading">startLoading</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-detail/request-detail.component.html">request-detail.component.ts</a></td>
+                    <td><a href="./request-detail/request-detail.component.html#backToList">backToList</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-detail/request-detail.component.html">request-detail.component.ts</a></td>
+                    <td><a href="./request-detail/request-detail.component.html#openVersion">openVersion</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list.component.html">request-list.component.ts</a></td>
+                    <td><a href="./request-list/request-list.component.html#ngOnDestroy">ngOnDestroy</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list.component.html">request-list.component.ts</a></td>
+                    <td><a href="./request-list/request-list.component.html#stopLoading">stopLoading</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list.component.html">request-list.component.ts</a></td>
+                    <td><a href="./request-list/request-list.component.html#startLoading">startLoading</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list.component.html">request-list.component.ts</a></td>
+                    <td><a href="./request-list/request-list.component.html#modifyRequest">modifyRequest</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html">request-list-item.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html#openChildRequest">openChildRequest</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html">request-list-item.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item/request-list-item.component.html#addChildRequest">addChildRequest</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-list/request-list-item-tiles/request-list-item-tiles.component.html">request-list-item-tiles.component.ts</a></td>
+                    <td><a href="./request-list/request-list-item-tiles/request-list-item-tiles.component.html#seeChild">seeChild</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-modal/request-modal.component.html">request-modal.component.ts</a></td>
+                    <td><a href="./request-modal/request-modal.component.html#changeCurrentLanguage">changeCurrentLanguage</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-modal/request-modal.component.html">request-modal.component.ts</a></td>
+                    <td><a href="./request-modal/request-modal.component.html#getFormValidity">getFormValidity</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-modal/request-modal.component.html">request-modal.component.ts</a></td>
+                    <td><a href="./request-modal/request-modal.component.html#closeModal">closeModal</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-modal/request-modal.component.html">request-modal.component.ts</a></td>
+                    <td><a href="./request-modal/request-modal.component.html#stopLoading">stopLoading</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-modal/request-modal.component.html">request-modal.component.ts</a></td>
+                    <td><a href="./request-modal/request-modal.component.html#startLoading">startLoading</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./request-modal/request-modal.component.html">request-modal.component.ts</a></td>
+                    <td><a href="./request-modal/request-modal.component.html#removeOverlay">removeOverlay</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+                <tr>
+                    <td><a href="./services/request-data.service.html">request-data.service.ts</a></td>
+                    <td><a href="./services/request-data.service.html#getAircraftVersions">getAircraftVersions</a></td>
+                    <td class="center correct">0</td>
+                    <td class="center correct">1</td>
+                </tr>
+    </table>
+</div>
+
+
+
+    <!--        -------------------------------------------------------------------------------------->
+    <!--        -----------------------------------   Scripts-----   --------------------------------->
+    <!--        -------------------------------------------------------------------------------------->
+
+
+
+    <script src="./../../reports-styles/Chart.js"></script>
+
+    <script>
+        var ctxDougnutCognitive = document.getElementById('doughnut-cognitive-cpx').getContext("2d");
+        var doughnutCognitive = new Chart(ctxDougnutCognitive, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        121,
+                        31,
+                        16,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ]
+                }],
+                labels: [
+                    'correct methods ',
+                    'warning methods ',
+                    'error methods ',
+                ]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        left: 50,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Cognitive complexity'
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxBarCognitive = document.getElementById('bar-cognitive-cpx').getContext("2d");
+        var barCognitive = new Chart(ctxBarCognitive, {
+            type: 'bar',
+            data: {
+                labels: [
+                        '0',
+                        '1',
+                        '2',
+                        '3',
+                        '4',
+                        '5',
+                        '6',
+                        '7',
+                        '8',
+                        '9',
+                        '10',
+                        '11',
+                        '12',
+                        '13',
+                        '14',
+                        '15',
+                        '16',
+                        '17',
+                        '18',
+                        '19',
+                        '20',
+                        '21',
+                        '22',
+                        '23',
+                        '24',
+                        '25',
+                        '26',
+                        '27',
+                        '28',
+                        '29',
+                        '30',
+                        '31',
+                        '32',
+                        '33',
+                        '34',
+                        '35',
+                        '36',
+                        '37',
+                        '38',
+                        '39',
+                ],
+                datasets: [{
+                    data: [
+                            40,
+                            32,
+                            22,
+                            10,
+                            8,
+                            9,
+                            14,
+                            6,
+                            4,
+                            2,
+                            5,
+                            3,
+                            1,
+                            0,
+                            0,
+                            1,
+                            0,
+                            2,
+                            0,
+                            1,
+                            0,
+                            1,
+                            0,
+                            0,
+                            1,
+                            1,
+                            1,
+                            1,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ],
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Cognitive complexity'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of methods'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxDougnutCyclomatic = document.getElementById('doughnut-cyclomatic-cpx').getContext("2d");
+        var doughnutCyclomatic = new Chart(ctxDougnutCyclomatic, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        142,
+                        18,
+                        8,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ]
+                }],
+                labels: [
+                    'correct methods ',
+                    'warning methods ',
+                    'error methods ',
+                ]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        left: 50,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Cyclomatic complexity'
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxBarCyclomatic = document.getElementById('bar-cyclomatic-cpx').getContext("2d");
+        var barCyclomatic = new Chart(ctxBarCyclomatic, {
+            type: 'bar',
+            data: {
+                labels: [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        18,
+                        19,
+                        20,
+                        21,
+                        22,
+                        23,
+                        24,
+                        25,
+                        26,
+                        27,
+                        28,
+                        29,
+                        30,
+                        31,
+                        32,
+                        33,
+                ],
+                datasets: [{
+                    data: [
+                            52,
+                            25,
+                            23,
+                            22,
+                            20,
+                            3,
+                            5,
+                            5,
+                            3,
+                            2,
+                            1,
+                            1,
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            1,
+                            1,
+                            2,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ],
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: false,
+                    text: 'Cyclomatic complexity',
+                    position: 'top'
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Cyclomatic complexity'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of methods'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+</body>
+</html>

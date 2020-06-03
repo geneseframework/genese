@@ -1,5 +1,3 @@
-import { EvaluationValuesInterface } from '../../interfaces/evaluation-values.interface';
-
 class IfForMock {
 
     constructor() {
@@ -7,36 +5,33 @@ class IfForMock {
 
 
 
-    ifAlone(data): EvaluationValuesInterface {
+    ifAlone(data) {
         if (data === 'a') {
             data = 'b';
         }
-        return {cyclomaticValue: 2, cpxIndex: 1};
     }
 
 
-    ifElse(data): EvaluationValuesInterface {
+    ifElse(data) {
         if (data === 'a') {
             data = 'b';
         } else {
             data = 'c';
         }
-        return {cyclomaticValue: 2, cpxIndex: 2};
     }
 
 
-    ifIf(data): EvaluationValuesInterface {
+    ifNestedIf(data) {
         if (data === 'a') {
             data = 'b';
             if (data === 'v') {
                 data = 'c';
             }
         }
-        return {cyclomaticValue: 2, cpxIndex: 3};
     }
 
 
-    ifElseIfInside(data): EvaluationValuesInterface {
+    ifElseIfInside(data) {
         if (data === 'a') {
             data = 'b';
         } else {
@@ -44,11 +39,10 @@ class IfForMock {
                 data = 'c';
             }
         }
-        return {cyclomaticValue: 2, cpxIndex: 1};
     }
 
 
-    ifIfElseInside(data): EvaluationValuesInterface {
+    ifIfElseInside(data) {
         if (data === 'a') {
             data = 'b';
             if (data === 'v') {
@@ -57,59 +51,52 @@ class IfForMock {
                 data = 'f';
             }
         }
-        return {cyclomaticValue: 2, cpxIndex: 4};
     }
 
 
-    ifAnd(a, b): EvaluationValuesInterface {
+    ifAnd(a, b) {
         if (a && b) {
             console.log(a);
         }
-        return {cyclomaticValue: 3, cpxIndex: 2};
     }
 
 
-    ifOr(a, b): EvaluationValuesInterface {
+    ifOr(a, b) {
         if (a || b) {
             console.log(a);
         }
-        return {cyclomaticValue: 3, cpxIndex: 2};
     }
 
 
-    ifAndAnd(a, b, c): EvaluationValuesInterface {
+    ifAndAnd(a, b, c) {
         if (a && b && c) {
             console.log(a);
         }
-        return {cyclomaticValue: 4, cpxIndex: 2};
     }
 
 
-    ifAndOr(a, b, c): EvaluationValuesInterface {
+    ifAndOr(a, b, c) {
         if (a && b || c) {
             console.log(a);
         }
-        return {cyclomaticValue: 4, cpxIndex: 3};
     }
 
 
-    ifAndAndOrAnd(a, b, c, d, e, f): EvaluationValuesInterface {
+    ifAndAndOrAnd(a, b, c, d, e, f) {
         if (a && b && c || d && e && f) {
             console.log(a);
         }
-        return {cyclomaticValue: 7, cpxIndex: 4};
     }
 
 
-    ifAndAndOrAndAndOrOr(a, b, c, d, e, f): EvaluationValuesInterface {
+    ifAndAndOrAndAndOrOr(a, b, c, d, e, f) {
         if (a && b && c || d && e && f || a || b) {
             console.log(a);
         }
-        return {cyclomaticValue: 9, cpxIndex: 5};
     }
 
 
-    ifIfIf(data: number): EvaluationValuesInterface {
+    ifIfIf(data: number) {
         if (data > 2) {
             if (data > 3) {
                 if (data > 4) {
@@ -117,11 +104,10 @@ class IfForMock {
                 }
             }
         }
-        return {cyclomaticValue: 4, cpxIndex: 6};
     }
 
 
-    ifIfIfElse(data: number): EvaluationValuesInterface {
+    ifIfIfElse(data: number) {
         if (data > 2) {
             if (data > 3) {
                 if (data > 4) {
@@ -131,27 +117,24 @@ class IfForMock {
                 }
             }
         }
-        return {cyclomaticValue: 4, cpxIndex: 6};
     }
 
 
-    forMethod(data): EvaluationValuesInterface {
+    forMethod(data) {
         for (const elt of data) {
             console.log(elt);
         }
-        return {cyclomaticValue: 1, cpxIndex: 1};
     }
 
 
-    forEachMethod(data): EvaluationValuesInterface {
+    forEachMethod(data) {
         data.forEach(e => {
             console.log(e);
         })
-        return {cyclomaticValue: 1, cpxIndex: 1};
     }
 
 
-    forForFor(max: number): EvaluationValuesInterface {
+    forForFor(max: number) {
         let total = 0;
         for (let i = 1; i < max; ++i) {
             for (let j = 2; j < i; ++j) {
@@ -161,7 +144,6 @@ class IfForMock {
             }
             total += i;
         }
-        return {cyclomaticValue: 4, cpxIndex: 6};
-    }
+        }
 
 }

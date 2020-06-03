@@ -1,0 +1,1237 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Genese complexity report</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="./../../../reports-styles/prism.css" />
+    <link rel="stylesheet" href="./../../../reports-styles/prettify.css" />
+    <link rel="stylesheet" href="./../../../reports-styles/report.css" />
+    <link rel="stylesheet" href="./../../../reports-styles/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<div class="header">
+    <div class="header-left">
+        <div>
+            <h1>Genese complexity report</h1>
+        </div>
+        <div class="pad1y">
+            <span class="backLink" onclick="history.back()"><-</span>
+            functionality-damage-list.component.ts
+        </div>
+        <div class="clearfix">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">16</span>
+                <span>Methods</span>
+            </div>
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="clearfix padly">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">96</span>
+                <span>points of cognitive complexity</span>
+            </div>
+        </div>
+        <div class="clearfix">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">62</span>
+                <span>points of cyclomatic complexity</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--        -------------------------------------------------------------------------------------->
+<!--        -----------------------------------   Stats and charts   ----------------------------->
+<!--        -------------------------------------------------------------------------------------->
+
+
+<div class="mainContainer">
+    <div class="stats-and-charts">
+
+            <!--        -----------------------------------   Cognitive complexity   ---------------------------->
+
+        <div class="stats-cognitive">
+            <div class="stats-and-doughnut">
+                <div class="stats">
+
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">Cognitive complexity</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">75 %</span>
+                            <span class="quiet"> Correct</span>
+                            <span class='fraction'>12/16</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">6.3 %</span>
+                            <span class="quiet"> Warning</span>
+                            <span class='fraction'>1/16</span>
+                            <span class="quiet">(threshold : 5)</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">18.8 %</span>
+                            <span class="quiet"> Error</span>
+                            <span class='fraction'>3/16</span>
+                            <span class="quiet">(threshold : 10)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doughnut">
+                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>
+                </div>
+            </div>
+
+            <div class="bar">
+                <canvas id="bar-cognitive-cpx" height="400" width="750"></canvas>
+            </div>
+        </div>
+
+        <!--        -----------------------------------   Cyclomatic complexity   ---------------------------->
+
+        <div class="stats-cyclomatic">
+            <div class="stats-and-doughnut">
+                <div class="stats">
+                    <div class="clearfix cyclomatic-subtitle">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">Cyclomatic complexity</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">81.3 %</span>
+                            <span class="quiet"> Correct</span>
+                            <span class='fraction'>13/16</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">12.5 %</span>
+                            <span class="quiet"> Warning</span>
+                            <span class='fraction'>2/16</span>
+                            <span class="quiet">(threshold : 5)</span>
+                        </div>
+                    </div>
+                    <div class="clearfix">
+                        <div class='fl pad1y space-right2'>
+                            <span class="strong">6.3 %</span>
+                            <span class="quiet"> Error</span>
+                            <span class='fraction'>1/16</span>
+                            <span class="quiet">(threshold : 10)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doughnut">
+                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>
+                </div>
+            </div>
+            <div class="bar">
+                <canvas id="bar-cyclomatic-cpx" height="400" width="750"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+<!--            <div class="clearfix cognitive-subtitle">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">Cognitive complexity</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">75 %</span>-->
+<!--                    <span class="quiet"> Correct</span>-->
+<!--                    <span class='fraction'>12/16</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">6.3 %</span>-->
+<!--                    <span class="quiet"> Warning</span>-->
+<!--                    <span class='fraction'>1/16</span>-->
+<!--                    <span class="quiet">(threshold : 5)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">18.8 %</span>-->
+<!--                    <span class="quiet"> Error</span>-->
+<!--                    <span class='fraction'>3/16</span>-->
+<!--                    <span class="quiet">(threshold : 10)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash;        -----------------------------------   Cyclomatic complexity   --------------------------&ndash;&gt;-->
+
+<!--            <div class="clearfix cyclomatic-subtitle">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">Cyclomatic complexity</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">81.3 %</span>-->
+<!--                    <span class="quiet"> Correct</span>-->
+<!--                    <span class='fraction'>13/16</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">12.5 %</span>-->
+<!--                    <span class="quiet"> Warning</span>-->
+<!--                    <span class='fraction'>2/16</span>-->
+<!--                    <span class="quiet">(threshold : 5)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="clearfix">-->
+<!--                <div class='fl pad1y space-right2'>-->
+<!--                    <span class="strong">6.3 %</span>-->
+<!--                    <span class="quiet"> Error</span>-->
+<!--                    <span class='fraction'>1/16</span>-->
+<!--                    <span class="quiet">(threshold : 10)</span>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+
+<!--        &lt;!&ndash;        ------------------------------------------------------------------------------------&ndash;&gt;-->
+<!--        &lt;!&ndash;        -----------------------------------------   Charts   -------------------------------&ndash;&gt;-->
+<!--        &lt;!&ndash;        ------------------------------------------------------------------------------------&ndash;&gt;-->
+
+<!--        <div class="charts">-->
+<!--            <div class="cognitive-charts">-->
+<!--                <div class="doughnut">-->
+<!--                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>-->
+<!--                </div>-->
+<!--                <div class="bar">-->
+<!--                    <canvas id="bar-cognitive-cpx" height="250" width="800"></canvas>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="cyclomatic-charts">-->
+<!--                <div class="doughnut">-->
+<!--                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>-->
+<!--                </div>-->
+<!--                <div class="bar">-->
+<!--                    <canvas id="bar-cyclomatic-cpx" height="250" width="800"></canvas>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+    <!--        -------------------------------------------------------------------------------------->
+    <!--        -----------------------------------   Methods arrays   ------------------------------->
+    <!--        -------------------------------------------------------------------------------------->
+
+
+            <div id="ngOnInit">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">ngOnInit</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">5</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">5</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                // --------------------------------------------------
+                //                     METHODS
+                // --------------------------------------------------
+            
+                /**
+                 * Component initialization
+                 */
+                ngOnInit(): void {
+                    this.hasWriteLevel &#x3D; this.userService.hasWriteLevel(&#x27;DAMAGE&#x27;);
+                    this.localeService.getLanguage().subscribe(lang &#x3D;&gt; { // ------------------------------------- +1 Cognitive complexity (+1 break flow)
+                        this.userLanguage &#x3D; lang;
+                        this.getData();
+                    });
+            
+                    this.subscription &#x3D; this.damageService.refreshDamageVersion.subscribe((result) &#x3D;&gt; { // ------ +1 Cognitive complexity (+1 break flow)
+                        if (result &amp;&amp; result &#x3D;&#x3D;&#x3D; &#x27;refresh&#x27;) { // ------------------------------------------------ +3 Cognitive complexity (+2 break flow, +1 nesting)
+                            this.damageService.versionNumber -&#x3D; 1;
+                            this.versionNumber &#x3D; this.damageService.versionNumber;
+                            this.damageService.behaviorUpdateDamage.next(&#x27;getData&#x27;);
+                            this.damageService.paramsUrl &#x3D; &#x27;&#x27;;
+                            this.getData();
+                        }
+                    });
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="ngOnDestroy">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">ngOnDestroy</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">1</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Component destruction
+                 */
+                ngOnDestroy(): void {
+                    this.dialog.closeAll();
+                    this.subscription ? this.subscription.unsubscribe() : noop(); // ------ +1 Cognitive complexity (+1 break flow)
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="canDelete">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">canDelete</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">1</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">2</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Check if functionalityDamage can be deleted
+                 */
+                canDelete(): boolean {
+                    return this.functionalDamageDeletable || this.functionalityDamageList.length &gt; 1; // ------ +1 Cognitive complexity (+1 break flow)
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="canEdit">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">canEdit</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">1</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">3</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Check if functionalityDamage can be edited
+                 */
+                canEdit(): boolean {
+                    return this.damageService.editionEnabled &amp;&amp; this.damageService.sideListEditionEnabled &amp;&amp; this.hasWriteLevel; // ------ +1 Cognitive complexity (+1 break flow)
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="getData">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">getData</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgerror">27</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgerror">11</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Get component data
+                 */
+                getData(): void {
+                    this.functionalDamageDeletable &#x3D; this.damageService.functionalDamageDeletable;
+                    this.route.params.subscribe(params &#x3D;&gt; { // ------------------------------------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                        this.damageId &#x3D; params.damageId.toString();
+                        if (!this.actionDone) { // ------------------------------------------------------------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                            if (this.damageService.versionNumber) { // ----------------------------------------------------------------------- +3 Cognitive complexity (+1 break flow, +2 nesting)
+                                this.versionNumber &#x3D; this.damageService.versionNumber;
+                                this.damageService.paramsUrl &#x3D; &#x60;?version&#x3D;${this.versionNumber}&#x60;;
+                            }
+                        } else {
+                            this.damageService.paramsUrl &#x3D; &#x27;&#x27;; // ---------------------------------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                            if (this.versionToUpdate) { // ----------------------------------------------------------------------------------- +3 Cognitive complexity (+1 break flow, +2 nesting)
+                                this.damageService.versionNumber +&#x3D; 1;
+                                this.versionNumber &#x3D; this.damageService.versionNumber;
+                                this.versionToUpdate &#x3D; false;
+                                this.damageService.isValidated &#x3D; false;
+                            }
+                        }
+                        this.spinnerService.startLoading();
+                        let keepLoading &#x3D; true;
+                        this.functionalityId &#x3D; params.functionalityId.toString();
+                        this.functionalitiesGenese.getAll({gnPath: &#x27;/functionalities&#x27;})
+                            .pipe(finalize(() &#x3D;&gt; { // ---------------------------------------------------------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                                keepLoading ? keepLoading &#x3D; false : this.spinnerService.stopLoading(); // ------------------------------------ +1 Cognitive complexity (+1 break flow)
+                            }))
+                            .subscribe((functionalities: Functionalities[]) &#x3D;&gt; { // ---------------------------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                                const functionality &#x3D; functionalities.find(e &#x3D;&gt; e.id &#x3D;&#x3D;&#x3D; this.functionalityId); // --------------------------- +3 Cognitive complexity (+1 break flow, +2 nesting)
+                                this.functionalityName &#x3D; functionality ? functionality.name : &#x27;&#x27;; // ----------------------------------------- +1 Cognitive complexity (+1 break flow)
+                            });
+                        this.functionalityDamageGenese.getAll({
+                            gnPath: &#x60;/damages/${this.damageId}/functionality/${this.functionalityId}${this.damageService.paramsUrl}&#x60;
+                        })
+                            .pipe(finalize(() &#x3D;&gt; { // ---------------------------------------------------------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                                keepLoading ? keepLoading &#x3D; false : this.spinnerService.stopLoading(); // ------------------------------------ +1 Cognitive complexity (+1 break flow)
+                            }))
+                            .subscribe((fd: FunctionalityDamage[]) &#x3D;&gt; { // ------------------------------------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                                this.functionalityDamageList &#x3D; fd;
+                            });
+                        if (!this.damageService.isInit) { // --------------------------------------------------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                            this.damageService.behaviorUpdateDamage.next(&#x27;getData&#x27;);
+                        } else {
+                            this.damageService.isInit &#x3D; false; // ---------------------------------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                        }
+                    });
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="getUrlImage">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">getUrlImage</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">2</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">3</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Get the uuid of the image of a Functionality Damage
+                 * @param functionalityDamage
+                 */
+                getUrlImage(functionalityDamage: FunctionalityDamage): string {
+                    return functionalityDamage &amp;&amp; functionalityDamage.image &amp;&amp; functionalityDamage.image.uuid // ------ +2 Cognitive complexity (+2 break flow)
+                        ? UtilsService.urlImage(functionalityDamage.image.uuid)
+                        : &#x27;&#x27;;
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="getTranslateFieldsAttributeValue">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">getTranslateFieldsAttributeValue</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">1</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Return description of a Functionality Damage
+                 * @param functionalityDamage
+                 * @param attributeName
+                 */
+                getTranslateFieldsAttributeValue(functionalityDamage: FunctionalityDamage, attributeName: string): string {
+                    return UtilsService.getTranslateFieldsAttributeValue(functionalityDamage, attributeName, this.userLanguage);
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="goBack">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">goBack</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">0</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">1</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Back to damage detail
+                 */
+                goBack(): void {
+                    this.router.navigate([&#x27;damage&#x27;, this.damageId]);
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="slideDetail">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">slideDetail</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">2</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">3</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Increment current index
+                 * @param increment (+1 or -1)
+                 */
+                slideDetail(increment: number): void {
+                    const summ &#x3D; this.currentIndex + increment;
+                    if (summ &lt; this.functionalityDamageList.length &amp;&amp; summ &gt; -1) { // ------ +2 Cognitive complexity (+2 break flow)
+                        this.currentIndex &#x3D; summ;
+                    }
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="getMarginLeft">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">getMarginLeft</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">1</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">2</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * return the value of the left offset
+                 * @param index
+                 */
+                getMarginLeft(index): string {
+                    if (index) { // ------------------------------------------------------------------------ +1 Cognitive complexity (+1 break flow)
+                        return &#x27;48px&#x27;;
+                    }
+                    return &#x60;calc(25% - ${50 * this.currentIndex}% - ${48 * this.currentIndex}px)&#x60;;
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="deleteFunctionalityDamage">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">deleteFunctionalityDamage</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgerror">15</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">8</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Delete a given FunctionalityDamage
+                 * @param functionalityDamage
+                 */
+                deleteFunctionalityDamage(functionalityDamage: FunctionalityDamage): void {
+                    const functionalityDamageName: string &#x3D; functionalityDamage &amp;&amp; functionalityDamage.translatedFields // ------ +2 Cognitive complexity (+2 break flow)
+                    &amp;&amp; functionalityDamage.translatedFields[this.userLanguage]
+                        ? functionalityDamage.translatedFields[this.userLanguage].reference
+                        : &#x27;&#x27;;
+                    this.deleteFunctionalityDamageDialog &#x3D; this.dialog.open(DialogModalComponent, {
+                        width: &#x27;700px&#x27;,
+                        height: &#x27;250px&#x27;,
+                        hasBackdrop: false,
+                        data: {
+                            title: {key: &#x27;APP.DAMAGE_LIBRARY.FUNCTIONALITY_DAMAGE_DELETE_MODAL.TITLE&#x27;, params: {}},
+                            body: {
+                                key: &#x27;APP.DAMAGE_LIBRARY.FUNCTIONALITY_DAMAGE_DELETE_MODAL.BODY&#x27;,
+                                params: {functionalityDamageName}
+                            },
+                            buttonValidModal: {key: &#x27;MODAL.DELETE&#x27;, params: {}}
+                        }
+                    });
+                    this.deleteFunctionalityDamageDialog.afterClosed().subscribe((data) &#x3D;&gt; { // --------------------------------- +1 Cognitive complexity (+1 break flow)
+                        if (data) { // ------------------------------------------------------------------------------------------ +2 Cognitive complexity (+1 break flow, +1 nesting)
+                            this.spinnerService.startLoading();
+                            this.functionalityDamageGenese
+                                .delete(functionalityDamage.id, &#x60;/damages/${this.damageId}/functionalityDamage&#x60;)
+                                .pipe(finalize(() &#x3D;&gt; this.spinnerService.stopLoading())) // ------------------------------------- +3 Cognitive complexity (+1 break flow, +2 nesting)
+                                .subscribe(() &#x3D;&gt; { // --------------------------------------------------------------------------- +3 Cognitive complexity (+1 break flow, +2 nesting)
+                                    this.updateValuesAndData();
+                                    if (this.currentIndex !&#x3D;&#x3D; 0) { // ----------------------------------------------------------- +4 Cognitive complexity (+1 break flow, +3 nesting)
+                                        this.slideDetail(-1);
+                                    }
+                                });
+                        }
+                    });
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="openFunctionalityDamageModal">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">openFunctionalityDamageModal</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgerror">30</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgwarning">9</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Open new functionality damage modal
+                 */
+                openFunctionalityDamageModal(functionalityDamage: FunctionalityDamage): void {
+                    this.addAffectedAreaDetailDialog &#x3D; this.dialog.open(FunctionalityDamageModalComponent, {
+                        width: &#x27;860px&#x27;,
+                        height: &#x27;680px&#x27;,
+                        hasBackdrop: false,
+                        data: {
+                            functionalityDamage: UtilsService.deepCopy(functionalityDamage),
+                            mandatoryLanguages: [Language.en, this.userLanguage]
+                        }
+                    });
+                    this.addAffectedAreaDetailDialog.afterClosed().subscribe(translatedFields &#x3D;&gt; { // -------------------------------------- +1 Cognitive complexity (+1 break flow)
+                        if (translatedFields) { // ----------------------------------------------------------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                            if (functionalityDamage) { // ---------------------------------------------------------------------------------- +3 Cognitive complexity (+1 break flow, +2 nesting)
+                                if (!functionalityDamage.id) { // -------------------------------------------------------------------------- +4 Cognitive complexity (+1 break flow, +3 nesting)
+                                    console.error(&#x27;Error: trying to update a FunctionalityDamage without any id.&#x27;);
+                                } else {
+                                    this.spinnerService.startLoading(); // ----------------------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                                    this.functionalityDamageGenese.update(functionalityDamage.id, {translatedFields},
+                                        &#x60;/damages/${this.damageId}/functionalityDamage/${functionalityDamage.id}/update&#x60;)
+                                        .pipe(finalize(() &#x3D;&gt; this.spinnerService.stopLoading())) // ---------------------------------------- +5 Cognitive complexity (+1 break flow, +4 nesting)
+                                        .subscribe(() &#x3D;&gt; this.updateValuesAndData()); // --------------------------------------------------- +5 Cognitive complexity (+1 break flow, +4 nesting)
+                                }
+                            } else {
+                                this.spinnerService.startLoading(); // --------------------------------------------------------------------- +1 Cognitive complexity (+1 break flow)
+                                this.functionalityDamageGenese
+                                    .create({translatedFields}, &#x60;/damages/${this.damageId}/functionality/${this.functionalityId}&#x60;)
+                                    .pipe(finalize(() &#x3D;&gt; this.spinnerService.stopLoading())) // -------------------------------------------- +4 Cognitive complexity (+1 break flow, +3 nesting)
+                                    .subscribe(() &#x3D;&gt; this.updateValuesAndData()); // ------------------------------------------------------- +4 Cognitive complexity (+1 break flow, +3 nesting)
+                            }
+                        }
+                    });
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="updateValuesAndData">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">updateValuesAndData</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">2</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">3</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                updateValuesAndData(): void {
+                    if (this.damageService.isValidated &amp;&amp; !this.actionDone) { // ------ +2 Cognitive complexity (+2 break flow)
+                        this.versionToUpdate &#x3D; true;
+                        this.actionDone &#x3D; true;
+                    }
+                    this.getData();
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="havePhoto">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">havePhoto</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">1</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">3</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Check if a functionality damage have a photo
+                 */
+                havePhoto(functionalityDamage: FunctionalityDamage): boolean {
+                    return functionalityDamage &amp;&amp; functionalityDamage.image &amp;&amp; functionalityDamage.image.filename !&#x3D;&#x3D; &#x27;&#x27;; // ------ +1 Cognitive complexity (+1 break flow)
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="addOrChangePhoto">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">addOrChangePhoto</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgwarning">6</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">5</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Add or change a photo
+                 */
+                addOrChangePhoto(functionalityDamage: FunctionalityDamage, files: FileList): void {
+                    if (files &amp;&amp; files.length &gt; 0) { // ------------------------------------------------------------------------- +2 Cognitive complexity (+2 break flow)
+                        this.spinnerService.startLoading();
+                        this.fileService.postFile(files[0],
+                            &#x60;${this.urlPostPhoto}${this.damageId}/functionalityDamage/${functionalityDamage.id}/image&#x60;)
+                            .pipe(finalize(() &#x3D;&gt; this.spinnerService.stopLoading())) // ----------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                            .subscribe(() &#x3D;&gt; { // ------------------------------------------------------------------------------- +2 Cognitive complexity (+1 break flow, +1 nesting)
+                                this.updateValuesAndData();
+                            });
+                    }
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="haveFunctionalityDamage">
+                <table class="array-report">
+                    <thead>
+                    <tr>
+                        <th class="method-name-column">
+                            <span class="strong">haveFunctionalityDamage</span>
+                        </th>
+                        <th class="right bgwhite">Cognitive complexity</th>
+                        <th class="bgcorrect">1</th>
+                        <th class="right bgwhite">Cyclomatic complexity</th>
+                        <th class="bgcorrect">2</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td colspan="5">
+                        <pre>
+                            <code class="language-js">
+                                
+            
+            
+                /**
+                 * Check if there is a functionality damage and if we are on the last carousel element
+                 */
+                haveFunctionalityDamage(): boolean {
+                    return this.currentIndex !&#x3D;&#x3D; this.functionalityDamageList.length - 1 &amp;&amp; this.functionalityDamageList.length &gt; 0; // ------ +1 Cognitive complexity (+1 break flow)
+                }
+            
+                            </code>
+                        </pre>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+</div>
+
+
+    <!--        -------------------------------------------------------------------------------------->
+    <!--        -----------------------------------   Scripts   -------------------------------------->
+    <!--        -------------------------------------------------------------------------------------->
+
+
+
+    <script src="././../../../reports-styles/Chart.js"></script>
+    <script src="./../../../reports-styles/prism.js"></script>
+
+    <script>
+        var ctxDougnutCognitive = document.getElementById('doughnut-cognitive-cpx').getContext("2d");
+        var doughnutCognitive = new Chart(ctxDougnutCognitive, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        12,
+                        1,
+                        3,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ]
+                }],
+                labels: [
+                    'correct methods ',
+                    'warning methods ',
+                    'error methods ',
+                ]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        left: 50,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Cognitive complexity'
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxBarCognitive = document.getElementById('bar-cognitive-cpx').getContext("2d");
+        var barCognitive = new Chart(ctxBarCognitive, {
+            type: 'bar',
+            data: {
+                labels: [
+                        '0',
+                        '1',
+                        '2',
+                        '3',
+                        '4',
+                        '5',
+                        '6',
+                        '7',
+                        '8',
+                        '9',
+                        '10',
+                        '11',
+                        '12',
+                        '13',
+                        '14',
+                        '15',
+                        '16',
+                        '17',
+                        '18',
+                        '19',
+                        '20',
+                        '21',
+                        '22',
+                        '23',
+                        '24',
+                        '25',
+                        '26',
+                        '27',
+                        '28',
+                        '29',
+                        '30',
+                ],
+                datasets: [{
+                    data: [
+                            1,
+                            7,
+                            3,
+                            0,
+                            0,
+                            1,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            0,
+                            1,
+                            0,
+                            0,
+                            1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ],
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Cognitive complexity'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of methods'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxDougnutCyclomatic = document.getElementById('doughnut-cyclomatic-cpx').getContext("2d");
+        var doughnutCyclomatic = new Chart(ctxDougnutCyclomatic, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [
+                        13,
+                        2,
+                        1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ]
+                }],
+                labels: [
+                    'correct methods ',
+                    'warning methods ',
+                    'error methods ',
+                ]
+            },
+            options: {
+                layout: {
+                    padding: {
+                        maintainAspectRatio: false,
+                        responsive: false,
+                        left: 50,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                legend: {
+                    display: false
+                },
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Cyclomatic complexity'
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctxBarCyclomatic = document.getElementById('bar-cyclomatic-cpx').getContext("2d");
+        var barCyclomatic = new Chart(ctxBarCyclomatic, {
+            type: 'bar',
+            data: {
+                labels: [
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                ],
+                datasets: [{
+                    data: [
+                            3,
+                            3,
+                            5,
+                            0,
+                            2,
+                            0,
+                            0,
+                            1,
+                            1,
+                            0,
+                            1,
+                    ],
+                    backgroundColor: [
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(3, 169, 244, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(255, 152, 0, 0.6)',
+                            'rgba(216, 27, 96, 0.6)',
+                    ],
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: false,
+                    text: 'Cyclomatic complexity',
+                    position: 'top'
+                },
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Cyclomatic complexity'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Number of methods'
+                        },
+                        ticks: {
+                            suggestedMin: 0
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+</body>
+</html>

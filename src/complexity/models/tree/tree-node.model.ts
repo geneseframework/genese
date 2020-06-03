@@ -3,7 +3,6 @@ import { TreeMethod } from './tree-method.model';
 import { IsAstNode } from '../../interfaces/is-ast-node';
 import { Evaluable } from '../evaluable.model';
 import { NodeFeature } from '../../enums/node-feature.enum';
-import { Ast } from '../../services/ast.service';
 import { CpxFactors } from '../cpx-factor/cpx-factors.model';
 import { cpxFactors } from '../../cpx-factors';
 import { addObjects } from '../../services/tools.service';

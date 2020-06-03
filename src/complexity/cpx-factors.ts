@@ -7,6 +7,7 @@ complexityFactors.aggregation = {
     arr: 1,                             // Array of arrays
     density: 0.05,                      // Accumulation of nodes on a same line of code
     differentLogicDoor: 2,              // a "or" after a "and" (or a "or" after a "and") without brackets
+    regex: 0.1                          // each element in a regex
 };
 complexityFactors.basic = {
     declaration: 0.1,                   // Declaration of a Class, a Function, a Method, ...
@@ -14,7 +15,6 @@ complexityFactors.basic = {
     node: 0.1,                          // Any AST node ("Identifier", "Parameter", "Block", IfStatement, ...)
 };
 complexityFactors.nesting = {
-    // arr: 1,                          // Inside an array
     conditional: 0.5,                   // Inside a conditional
     func: 1,                            // Usage of a function or method inside a block of code
     loop: 0.5,                          // Inside a loop
