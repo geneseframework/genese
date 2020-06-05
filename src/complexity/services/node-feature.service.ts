@@ -55,38 +55,6 @@ export class NodeFeatureService {
     }
 
 
-
-    // TODO : remove ?
-    getCpxFactors(nodeFeature: NodeFeature): CpxFactors {
-        const cpxFact = new CpxFactors();
-        cpxFact.basic.node = nodeFeature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
-        switch (nodeFeature) {
-            case NodeFeature.BASIC:
-                break;
-            case NodeFeature.CONDITIONAL:
-                cpxFact.nesting.conditional = cpxFactors.nesting.conditional;
-                cpxFact.structural.conditional = cpxFactors.structural.conditional;
-                break;
-            case NodeFeature.FUNC:
-                cpxFact.nesting.func = cpxFactors.nesting.func;
-                cpxFact.structural.func = cpxFactors.structural.func;
-                break;
-            case NodeFeature.LOOP:
-                cpxFact.nesting.loop = cpxFactors.nesting.loop;
-                cpxFact.structural.loop = cpxFactors.structural.loop;
-                break;
-            case NodeFeature.REGEX:
-                cpxFact.structural.regex = cpxFactors.structural.regex;
-                break;
-            case NodeFeature.TERNARY:
-                cpxFact.nesting.ternary = cpxFactors.nesting.ternary;
-                cpxFact.structural.ternary = cpxFactors.structural.ternary;
-                break;
-        }
-        return cpxFact;
-    }
-
-
     /**
      * Increases the cognitive complexity when there is a binary succeeding to a binary of different type
      * For example, the second && is not increasing the cognitive complexity :
