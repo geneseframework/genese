@@ -7,6 +7,7 @@ import { CpxFactors } from '../cpx-factor/cpx-factors.model';
 import { cpxFactors } from '../../cpx-factors';
 import { addObjects } from '../../services/tools.service';
 import { NodeFeatureService } from '../../services/node-feature.service';
+import { Ast } from '../../services/ast.service';
 
 const chalk = require('chalk');
 
@@ -98,6 +99,9 @@ export class TreeNode extends Evaluable implements IsAstNode {
         this.cpxFactors.basic.node = this.feature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
         if (this.isRecursion()) {
             this.cpxFactors.structural.recursion = cpxFactors.structural.recursion;
+        }
+        if (Ast.isElseStatement(this.node)) {
+            this.cpxFactors.structural.conditional = cpxFactors.structural.conditional;
         }
         switch (this.feature) {
             case NodeFeature.BASIC:

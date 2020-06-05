@@ -20,6 +20,7 @@ const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
 const cpx_factors_1 = require("../../cpx-factors");
 const tools_service_1 = require("../../services/tools.service");
 const node_feature_service_1 = require("../../services/node-feature.service");
+const ast_service_1 = require("../../services/ast.service");
 const chalk = require('chalk');
 /**
  * The formatted tree of elements corresponding to an Abstract Syntax TreeNode (AST)
@@ -89,6 +90,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
         this.cpxFactors.basic.node = this.feature === node_feature_enum_1.NodeFeature.EMPTY ? 0 : cpx_factors_1.cpxFactors.basic.node;
         if (this.isRecursion()) {
             this.cpxFactors.structural.recursion = cpx_factors_1.cpxFactors.structural.recursion;
+        }
+        if (ast_service_1.Ast.isElseStatement(this.node)) {
+            this.cpxFactors.structural.conditional = cpx_factors_1.cpxFactors.structural.conditional;
         }
         switch (this.feature) {
             case node_feature_enum_1.NodeFeature.BASIC:

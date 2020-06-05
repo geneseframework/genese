@@ -1,6 +1,3 @@
-import { CallbacksMock } from './mock-subfolder-two/callbacks.mock';
-
-
 export class DebugMock {
 
 
