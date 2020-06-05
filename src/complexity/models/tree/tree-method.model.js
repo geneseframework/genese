@@ -16,7 +16,7 @@ var _cpxIndex, _displayedCode, _originalCode;
 Object.defineProperty(exports, "__esModule", { value: true });
 const tree_file_model_1 = require("./tree-file.model");
 const ast_service_1 = require("../../services/ast.service");
-const complexity_service_1 = require("../../services/complexity.service");
+const cyclomaticComplexityService_1 = require("../../services/cyclomaticComplexityService");
 const options_1 = require("../options");
 const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
@@ -54,7 +54,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         var _a, _b, _c;
         this.tree.printAllChildren();
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
-        this.cyclomaticCpx = complexity_service_1.ComplexityService.calculateCyclomaticComplexity(this.node);
+        this.cyclomaticCpx = cyclomaticComplexityService_1.CyclomaticComplexityService.calculateCyclomaticComplexity(this.node);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
         this.filename = (_c = (_b = (_a = this.treeFile) === null || _a === void 0 ? void 0 : _a.sourceFile) === null || _b === void 0 ? void 0 : _b.fileName) !== null && _c !== void 0 ? _c : '';
     }

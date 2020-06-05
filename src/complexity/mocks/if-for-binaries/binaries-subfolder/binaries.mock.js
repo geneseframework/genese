@@ -50,14 +50,5 @@ class BinariesMock {
             console.log(b);
         }
     }
-    ternary(a) {
-        const result = a > 10 ? 5 : 3;
-    }
-    ternaries(a) {
-        const result = a > 10 ? 5 : ((a < 5) ? 3 : 2);
-    }
-    nestedTernaries(a, b, c, d) {
-        a = b ? a : c ? b : 0;
-    }
 }
 exports.BinariesMock = BinariesMock;

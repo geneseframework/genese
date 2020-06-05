@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 import { TreeFile } from './tree-file.model';
 import { Ast } from '../../services/ast.service';
-import { ComplexityService as CS } from '../../services/complexity.service';
+import { CyclomaticComplexityService as CS } from '../../services/cyclomaticComplexityService';
 import { TreeNode } from './tree-node.model';
 import { Options } from '../options';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
