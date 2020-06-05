@@ -135,9 +135,27 @@ export class Ast {
      * @param node      // The node to analyse
      */
     static isElseStatement(node: ts.Node): boolean {
-        return (node?.kind === ts.SyntaxKind.Block
+        return (Ast.isBlock(node)
             && node?.parent?.kind === ts.SyntaxKind.IfStatement
             && node?.parent['elseStatement']?.pos === node?.pos);
+    }
+
+
+    /**
+     * Checks if an AST node is a IfStatement which is an "else if"
+     * @param node      // The node to analyse
+     */
+    static isElseIfStatement(node: ts.Node): boolean {
+        return (node?.kind === ts.SyntaxKind.IfStatement && node?.parent?.kind === ts.SyntaxKind.IfStatement);
+    }
+
+
+    /**
+     * Checks if an AST node is a Block which is a "else"
+     * @param node      // The node to analyse
+     */
+    static isBlock(node: ts.Node): boolean {
+        return (node?.kind === ts.SyntaxKind.Block);
     }
 
 }

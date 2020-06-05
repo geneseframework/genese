@@ -69,7 +69,6 @@ export class TreeNode extends Evaluable implements IsAstNode {
      */
     get cpxFactors(): CpxFactors {
         return this.#cpxFactors ?? this.calculateCpxFactors();
-        // return this.#cpxFactors ?? this.nodeFeatureService.getCpxFactors(this.feature);
     }
 
 
@@ -110,7 +109,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
                 this.addBinaryCpxFactors();
                 break;
             case NodeFeature.CONDITIONAL:
-                this.cpxFactors.nesting.conditional = cpxFactors.nesting.conditional;
+                this.cpxFactors.nesting.conditional = Ast.isElseIfStatement(this.node) ? 0 : cpxFactors.nesting.conditional;
                 this.cpxFactors.structural.conditional = cpxFactors.structural.conditional;
                 break;
             case NodeFeature.FUNC:

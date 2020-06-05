@@ -12,6 +12,7 @@ import { Code } from '../code/code.model';
 import { CodeService } from '../../services/code.service';
 import { FactorCategory } from '../../enums/factor-category.enum';
 import { CodeLine } from '../code/code-line.model';
+import { cpxFactors } from '../../cpx-factors';
 
 /**
  * Element of the TreeNode structure corresponding to a given method
@@ -137,7 +138,11 @@ export class TreeMethod extends Evaluable implements IsAstNode {
      */
     private setCpxFactorsToDisplayedCode(tree: TreeNode): void {
         for (const childTree of tree.children) {
-            const issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
+            let issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
+            if (Ast.isElseStatement(childTree.node)) {
+                childTree.cpxFactors.basic.node = cpxFactors.basic.node;
+                issue--;
+            }
             this.#displayedCode.lines[issue].cpxFactors = this.#displayedCode.lines[issue].cpxFactors.add(childTree.cpxFactors);
             this.#displayedCode.lines[issue].treeNodes.push(childTree);
             this.setCpxFactorsToDisplayedCode(childTree);

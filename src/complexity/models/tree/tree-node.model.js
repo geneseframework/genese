@@ -66,7 +66,6 @@ class TreeNode extends evaluable_model_1.Evaluable {
     get cpxFactors() {
         var _a;
         return (_a = __classPrivateFieldGet(this, _cpxFactors)) !== null && _a !== void 0 ? _a : this.calculateCpxFactors();
-        // return this.#cpxFactors ?? this.nodeFeatureService.getCpxFactors(this.feature);
     }
     set cpxFactors(cpxFactors) {
         __classPrivateFieldSet(this, _cpxFactors, cpxFactors);
@@ -101,7 +100,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
                 this.addBinaryCpxFactors();
                 break;
             case node_feature_enum_1.NodeFeature.CONDITIONAL:
-                this.cpxFactors.nesting.conditional = cpx_factors_1.cpxFactors.nesting.conditional;
+                this.cpxFactors.nesting.conditional = ast_service_1.Ast.isElseIfStatement(this.node) ? 0 : cpx_factors_1.cpxFactors.nesting.conditional;
                 this.cpxFactors.structural.conditional = cpx_factors_1.cpxFactors.structural.conditional;
                 break;
             case node_feature_enum_1.NodeFeature.FUNC:
