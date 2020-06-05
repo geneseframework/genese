@@ -31,6 +31,9 @@ export class Code {
     }
 
 
+    /**
+     * Sets the nesting complexity to each CodeLine
+     */
     setLinesNestingCpx(): void {
         for (const line of this.lines) {
             line.setNestingCpx();

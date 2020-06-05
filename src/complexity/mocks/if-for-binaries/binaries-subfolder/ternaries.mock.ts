@@ -1,11 +1,17 @@
-export class DebugMock {
+export class TernariesMock {
 
 
-    ifAlone(a, b) {
+    ternary(a) {
+        return a ? 5 : 3;
+    }
+
+
+    nestedTernaries(a, b) {
         return a ? 1 : b ? 0 : 2;
     }
 
-    ifAll(a, b) {
+
+    ifWithTernary(a, b) {
         if (a) {
             return 1;
         } else {
@@ -13,7 +19,8 @@ export class DebugMock {
         }
     }
 
-    ifAll2(a, b) {
+
+    ifElseIf(a, b) {
         if (a) {
             return 1;
         } else if (b) {
@@ -22,4 +29,10 @@ export class DebugMock {
             return 2;
         }
     }
+
+
+    ternaries(a) {
+        return  a > 10 ? 5 : ((a <5) ? 3 : 2);
+    }
+
 }

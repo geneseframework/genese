@@ -14,12 +14,14 @@ class CodeLine {
         this.text = ''; // The text of the line
         this.treeNodes = [];
     }
+    /**
+     * Sets the nesting complexity to this CodeLine
+     */
     setNestingCpx() {
         var _a, _b, _c, _d;
         let nestingCpx = 0;
         this.cpxFactors.nesting = new nesting_cpx_model_1.NestingCpx();
         for (const treeNode of this.treeNodes) {
-            // console.log('KIND', Ast.getType(treeNode.node), 'NESTING', treeNode.cpxFactors.totalNesting, 'INTRS NEST', treeNode.intrinsicNestingCpx, 'FEATURE', treeNode.feature)
             if (treeNode.intrinsicNestingCpx > 0) {
                 nestingCpx += (_b = (_a = treeNode.parent) === null || _a === void 0 ? void 0 : _a.cpxFactors) === null || _b === void 0 ? void 0 : _b.totalNesting;
                 this.cpxFactors.nesting = tools_service_1.addObjects(this.cpxFactors.nesting, (_d = (_c = treeNode.parent) === null || _c === void 0 ? void 0 : _c.cpxFactors) === null || _d === void 0 ? void 0 : _d.nesting);

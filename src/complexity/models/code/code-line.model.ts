@@ -16,11 +16,13 @@ export class CodeLine {
     treeNodes?: TreeNode[] = [];
 
 
+    /**
+     * Sets the nesting complexity to this CodeLine
+     */
     setNestingCpx(): number {
         let nestingCpx = 0;
         this.cpxFactors.nesting = new NestingCpx();
         for (const treeNode of this.treeNodes) {
-            // console.log('KIND', Ast.getType(treeNode.node), 'NESTING', treeNode.cpxFactors.totalNesting, 'INTRS NEST', treeNode.intrinsicNestingCpx, 'FEATURE', treeNode.feature)
             if (treeNode.intrinsicNestingCpx > 0) {
                 nestingCpx += treeNode.parent?.cpxFactors?.totalNesting;
                 this.cpxFactors.nesting = addObjects(this.cpxFactors.nesting, treeNode.parent?.cpxFactors?.nesting);

@@ -113,7 +113,7 @@ export class Ast {
      * Checks if an AST node of type ConditionalExpression (a ternary expression) is trivial, ie if the true case and the false case are only some literals
      * @param node      // The node to analyse
      */
-    static isTrivialConditionalExpression(node: ts.Node): boolean {
+    static isTrivialTernary(node: ts.Node): boolean {
         return (Ast.isBasic(node?.['whenTrue']) && Ast.isBasic(node?.['whenFalse']));
     }
 
