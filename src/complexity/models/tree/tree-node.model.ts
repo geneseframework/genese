@@ -158,6 +158,8 @@ export class TreeNode extends Evaluable implements IsAstNode {
     private setAggregationCpxFactors(): void {
         if (Ast.isArrayOfArray(this.node)) {
             this.cpxFactors.aggregation.arr = cpxFactors.aggregation.arr;
+        } else if (Ast.isDifferentLogicDoor(this.node)) {
+            this.cpxFactors.aggregation.differentLogicDoor = cpxFactors.aggregation.differentLogicDoor;
         }
     }
 
@@ -189,8 +191,4 @@ export class TreeNode extends Evaluable implements IsAstNode {
         }
     }
 
-
-    private addBinaryCpxFactors(): void {
-        this.cpxFactors = this.cpxFactors.add(this.nodeFeatureService.getBinaryCpxFactors(this));
-    }
 }

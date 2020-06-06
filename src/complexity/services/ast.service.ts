@@ -1,6 +1,9 @@
 import * as fs from 'fs-extra';
 import * as ts from 'typescript';
 import { getFilename } from './file.service';
+import { TreeNode } from '../models/tree/tree-node.model';
+import { CpxFactors } from '../models/cpx-factor/cpx-factors.model';
+import { cpxFactors } from '../cpx-factors';
 
 /**
  * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)
@@ -174,6 +177,33 @@ export class Ast {
      */
     static isArrayIndex(node: ts.Node): boolean {
         return(node?.parent?.kind === ts.SyntaxKind.ElementAccessExpression && node?.pos === node.parent['argumentExpression'].pos);
+    }
+
+
+    /**
+     * Increases the cognitive complexity when there is a binary succeeding to a binary of different type
+     * For example, the second && is not increasing the cognitive complexity :
+     *      if (a && b && c)
+     * but in the next example, the || will increase it because it succeeds to a binary of different type (a &&)
+     *      if (a && b || c)
+     * Furthermore, when there are brackets separating the "and" and the "or", the cognitive complexity don't increase
+     *      if ((a && b) || c)
+     * @param tree      // The TreeNode to analyse
+     */
+    static isDifferentLogicDoor(node: ts.Node): boolean {
+        // if (!node || !tree.parent.node) {
+        //     return cpxFact;
+        // }
+        if (Ast.isBinary(node) && Ast.isLogicDoor(node)) {
+            // cpxFact.structural.logicDoor = cpxFactors.structural.logicDoor;
+            if (Ast.isBinary(node.parent)
+                && !Ast.isSameOperatorToken(node, node.parent)
+                && !Ast.isOrTokenBetweenBinaries(node)
+            ) {
+               return true;
+            }
+        }
+        return false;
     }
 
 }
