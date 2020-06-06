@@ -38,7 +38,7 @@ export class LogService {
             } else {
                 color = childTree.cpxFactors.total > 1 ? 'red' : 'yellow';
             }
-            console.log(indent, chalk[color](childTree.kind), 'nesting', childTree.nestingCpx, 'depth', childTree.depthCpx, 'parent', tsTree.kind);
+            console.log(indent, chalk[color](childTree.kind), 'nesting', childTree.nestingCpx, 'depth', childTree.depthCpx, 'aggr', childTree.aggregationCpx, 'parent', tsTree.kind);
             const newIndent = indent + '  ';
             this.printChildren(childTree, newIndent);
         }

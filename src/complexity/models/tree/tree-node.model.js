@@ -48,6 +48,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
     get depthCpx() {
         return this.cpxFactors.totalDepth;
     }
+    get aggregationCpx() {
+        return this.cpxFactors.totalAggregation;
+    }
     get nestingCpx() {
         return this.cpxFactors.totalNesting;
     }
@@ -55,20 +58,26 @@ class TreeNode extends evaluable_model_1.Evaluable {
         __classPrivateFieldSet(this, _nestingCpx, cpx);
     }
     /**
-     * Gets the complexity of the node itself, not from its parents
+     * Gets the nesting complexity of the node itself, not from its parents
      */
     get intrinsicNestingCpx() {
         return __classPrivateFieldGet(this, _intrinsicNestingCpx);
     }
+    /**
+     * Sets the nesting complexity of the node itself, not from its parents
+     */
     set intrinsicNestingCpx(cpx) {
         __classPrivateFieldSet(this, _intrinsicNestingCpx, cpx);
     }
     /**
-     * Gets the complexity of the node itself, not from its parents
+     * Gets the depth complexity of the node itself, not from its parents
      */
     get intrinsicDepthCpx() {
         return __classPrivateFieldGet(this, _intrinsicDepthCpx);
     }
+    /**
+     * Sets the depth complexity of the node itself, not from its parents
+     */
     set intrinsicDepthCpx(cpx) {
         __classPrivateFieldSet(this, _intrinsicDepthCpx, cpx);
     }
@@ -123,7 +132,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
     }
     setAggregationCpxFactors() {
         if (ast_service_1.Ast.isArrayOfArray(this.node)) {
-            this.cpxFactors.aggregation.arr = cpx_factors_1.cpxFactors.depth.arr;
+            this.cpxFactors.aggregation.arr = cpx_factors_1.cpxFactors.aggregation.arr;
         }
     }
     setElseCpxFactors() {

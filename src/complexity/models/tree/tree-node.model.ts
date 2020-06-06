@@ -46,6 +46,10 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
+    get aggregationCpx(): number {
+        return this.cpxFactors.totalAggregation;
+    }
+
 
     get nestingCpx(): number {
         return this.cpxFactors.totalNesting;
@@ -58,26 +62,32 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
 
     /**
-     * Gets the complexity of the node itself, not from its parents
+     * Gets the nesting complexity of the node itself, not from its parents
      */
     get intrinsicNestingCpx(): number {
         return this.#intrinsicNestingCpx;
     }
 
 
+    /**
+     * Sets the nesting complexity of the node itself, not from its parents
+     */
     set intrinsicNestingCpx(cpx: number) {
         this.#intrinsicNestingCpx = cpx;
     }
 
 
     /**
-     * Gets the complexity of the node itself, not from its parents
+     * Gets the depth complexity of the node itself, not from its parents
      */
     get intrinsicDepthCpx(): number {
         return this.#intrinsicDepthCpx;
     }
 
 
+    /**
+     * Sets the depth complexity of the node itself, not from its parents
+     */
     set intrinsicDepthCpx(cpx: number) {
         this.#intrinsicDepthCpx = cpx;
     }
@@ -147,7 +157,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
     private setAggregationCpxFactors(): void {
         if (Ast.isArrayOfArray(this.node)) {
-            this.cpxFactors.aggregation.arr = cpxFactors.depth.arr;
+            this.cpxFactors.aggregation.arr = cpxFactors.aggregation.arr;
         }
     }
 

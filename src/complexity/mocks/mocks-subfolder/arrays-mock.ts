@@ -15,6 +15,11 @@ export class ArraysMock {
     }
 
 
+    aggregateElementAccessX2(a, b, c, d) {
+        return c[a][b][d];
+    }
+
+
     aggregateArrayLiteral(a, b) {
         return [a][b];
     }
@@ -22,6 +27,11 @@ export class ArraysMock {
 
     nestingElementAccessElementAccess(a, b, c) {
         return a[b[c]];
+    }
+
+
+    nestingElementAccessElementAccessX2(a, b, c, d) {
+        return a[b[c[d]]];
     }
 
 

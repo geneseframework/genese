@@ -159,11 +159,19 @@ export class Ast {
     }
 
 
+    /**
+     * Checks if an AST node is an array of array, ie if it's an ElementAccessExpression which is the first son of another ElementAccessExpression
+     * @param node      // The node to analyse
+     */
     static isArrayOfArray(node: ts.Node): boolean {
-        return(node?.parent?.kind === ts.SyntaxKind.ElementAccessExpression && node?.kind === ts.SyntaxKind.ElementAccessExpression);
+        return(node?.parent?.kind === ts.SyntaxKind.ElementAccessExpression && node?.kind === ts.SyntaxKind.ElementAccessExpression && node?.pos === node.parent['expression'].pos);
     }
 
 
+    /**
+     * Checks if an AST node is an index of an array, ie if it's a Node which is the second son of an ElementAccessExpression
+     * @param node      // The node to analyse
+     */
     static isArrayIndex(node: ts.Node): boolean {
         return(node?.parent?.kind === ts.SyntaxKind.ElementAccessExpression && node?.pos === node.parent['argumentExpression'].pos);
     }
