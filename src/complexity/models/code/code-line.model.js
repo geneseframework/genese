@@ -19,23 +19,19 @@ class CodeLine {
      * Sets the nesting complexity to this CodeLine
      */
     setDepthAndNestingCpx() {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
-        let nestingCpx = 0;
-        let depthCpx = 0;
+        var _a, _b, _c, _d, _e;
         this.cpxFactors.nesting = new nesting_cpx_model_1.NestingCpx();
         this.cpxFactors.depth = new depth_cpx_model_1.DepthCpx();
         for (const treeNode of this.treeNodes) {
             if (treeNode.intrinsicNestingCpx > 0) {
-                nestingCpx += (_b = (_a = treeNode.parent) === null || _a === void 0 ? void 0 : _a.cpxFactors) === null || _b === void 0 ? void 0 : _b.totalNesting;
-                this.cpxFactors.depth = tools_service_1.addObjects(this.cpxFactors.depth, (_d = (_c = treeNode.parent) === null || _c === void 0 ? void 0 : _c.cpxFactors) === null || _d === void 0 ? void 0 : _d.depth);
-                this.cpxFactors.nesting = tools_service_1.addObjects(this.cpxFactors.nesting, (_f = (_e = treeNode.parent) === null || _e === void 0 ? void 0 : _e.cpxFactors) === null || _f === void 0 ? void 0 : _f.nesting);
+                // console.log('KIND', Ast.getType(treeNode.node), 'NESTING', treeNode.parent?.cpxFactors?.nesting, 'DEPTH', treeNode.cpxFactors?.depth)
+                this.cpxFactors.depth = tools_service_1.addObjects(this.cpxFactors.depth, (_a = treeNode.cpxFactors) === null || _a === void 0 ? void 0 : _a.depth);
+                this.cpxFactors.nesting = tools_service_1.addObjects(this.cpxFactors.nesting, (_c = (_b = treeNode.parent) === null || _b === void 0 ? void 0 : _b.cpxFactors) === null || _c === void 0 ? void 0 : _c.nesting);
             }
             if (treeNode.intrinsicDepthCpx > 0) {
-                depthCpx += (_h = (_g = treeNode.parent) === null || _g === void 0 ? void 0 : _g.cpxFactors) === null || _h === void 0 ? void 0 : _h.totalDepth;
-                this.cpxFactors.depth = tools_service_1.addObjects(this.cpxFactors.depth, (_k = (_j = treeNode.parent) === null || _j === void 0 ? void 0 : _j.cpxFactors) === null || _k === void 0 ? void 0 : _k.depth);
+                this.cpxFactors.depth = tools_service_1.addObjects(this.cpxFactors.depth, (_e = (_d = treeNode.parent) === null || _d === void 0 ? void 0 : _d.cpxFactors) === null || _e === void 0 ? void 0 : _e.depth);
             }
         }
-        return nestingCpx;
     }
 }
 exports.CodeLine = CodeLine;

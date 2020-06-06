@@ -15,7 +15,7 @@ complexityFactors.basic = {
     node: 0.1,                          // Any AST node ("Identifier", "Parameter", "Block", IfStatement, ...)
 };
 complexityFactors.depth = {
-    arr: 2,                             // Inside an array
+    arr: 1.5,                             // Inside an array
 };
 complexityFactors.nesting = {
     conditional: 0.5,                   // Inside a conditional

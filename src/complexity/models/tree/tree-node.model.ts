@@ -21,7 +21,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
     #feature?: NodeFeature = undefined;                                     // The NodeFeature of the node of the TreeNode
     #intrinsicDepthCpx: number = undefined;                                 // The depth of the TreeNode inside its method (not including its parent's depth)
     #intrinsicNestingCpx: number = undefined;                               // The nesting of the TreeNode inside its method (not including its parent's nesting)
-    #isArray: boolean = undefined;                                          // True is the TreeNode is an array, false if not
+    #isArrayIndex: boolean = undefined;                                          // True is the TreeNode is an array, false if not
     kind ?= '';                                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
     #nestingCpx: number = undefined;                                        // The nesting of the TreeNode inside its method (including its parent's nesting)
     node?: ts.Node = undefined;                                             // The current node in the AST
@@ -120,17 +120,17 @@ export class TreeNode extends Evaluable implements IsAstNode {
      * Checks if an AST node inside a method is a recursion, ie a call to this method.
      * The current TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
-    get isArray(): boolean {
-        return Ast.isArray(this.node);
+    get isArrayIndex(): boolean {
+        return this.#isArrayIndex ?? Ast.isArrayIndex(this.node);
     }
 
 
     calculateAndSetCpxFactors(): CpxFactors {
-        const zzz = this.isArray
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
         this.setRecursionCpxFactors();
         this.setElseCpxFactors();
+        this.setDepthCpxFactors();
         this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
         this.intrinsicDepthCpx = this.cpxFactors.totalDepth;
         return this.#cpxFactors;
@@ -138,7 +138,6 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
 
     private setGeneralCaseCpxFactors(): void {
-        this.cpxFactors.depth[this.feature] = cpxFactors.depth[this.feature];
         this.cpxFactors.nesting[this.feature] = cpxFactors.nesting[this.feature];
         this.cpxFactors.structural[this.feature] = cpxFactors.structural[this.feature];
         if (Ast.isAggregated(this.node)) {
@@ -149,6 +148,14 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
     private setBasicCpxFactors(): void {
         this.cpxFactors.basic.node = this.feature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
+    }
+
+
+    // TODO : refacto when depths different than arrays will be discovered
+    private setDepthCpxFactors(): void {
+        if (this.isArrayIndex) {
+            this.cpxFactors.depth.arr = cpxFactors.depth.arr;
+        }
     }
 
 
@@ -164,11 +171,6 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
     private setRecursionCpxFactors(): void {
         this.cpxFactors.structural.recursion = this.isRecursion ? cpxFactors.structural.recursion : 0;
-    }
-
-
-    private setArrayCpxFactors(): void {
-
     }
 
 

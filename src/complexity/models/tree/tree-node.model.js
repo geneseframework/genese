@@ -12,7 +12,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     }
     return privateMap.get(receiver);
 };
-var _cpxFactors, _feature, _intrinsicDepthCpx, _intrinsicNestingCpx, _isArray, _nestingCpx;
+var _cpxFactors, _feature, _intrinsicDepthCpx, _intrinsicNestingCpx, _isArrayIndex, _nestingCpx;
 Object.defineProperty(exports, "__esModule", { value: true });
 const evaluable_model_1 = require("../evaluable.model");
 const node_feature_enum_1 = require("../../enums/node-feature.enum");
@@ -33,7 +33,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
         _feature.set(this, undefined); // The NodeFeature of the node of the TreeNode
         _intrinsicDepthCpx.set(this, undefined); // The depth of the TreeNode inside its method (not including its parent's depth)
         _intrinsicNestingCpx.set(this, undefined); // The nesting of the TreeNode inside its method (not including its parent's nesting)
-        _isArray.set(this, undefined); // True is the TreeNode is an array, false if not
+        _isArrayIndex.set(this, undefined); // True is the TreeNode is an array, false if not
         this.kind = ''; // The kind of the node ('MethodDeclaration, IfStatement, ...)
         _nestingCpx.set(this, undefined); // The nesting of the TreeNode inside its method (including its parent's nesting)
         this.node = undefined; // The current node in the AST
@@ -103,21 +103,21 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * Checks if an AST node inside a method is a recursion, ie a call to this method.
      * The current TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
-    get isArray() {
-        return ast_service_1.Ast.isArray(this.node);
+    get isArrayIndex() {
+        var _a;
+        return (_a = __classPrivateFieldGet(this, _isArrayIndex)) !== null && _a !== void 0 ? _a : ast_service_1.Ast.isArrayIndex(this.node);
     }
     calculateAndSetCpxFactors() {
-        const zzz = this.isArray;
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
         this.setRecursionCpxFactors();
         this.setElseCpxFactors();
+        this.setDepthCpxFactors();
         this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
         this.intrinsicDepthCpx = this.cpxFactors.totalDepth;
         return __classPrivateFieldGet(this, _cpxFactors);
     }
     setGeneralCaseCpxFactors() {
-        this.cpxFactors.depth[this.feature] = cpx_factors_1.cpxFactors.depth[this.feature];
         this.cpxFactors.nesting[this.feature] = cpx_factors_1.cpxFactors.nesting[this.feature];
         this.cpxFactors.structural[this.feature] = cpx_factors_1.cpxFactors.structural[this.feature];
         if (ast_service_1.Ast.isAggregated(this.node)) {
@@ -126,6 +126,12 @@ class TreeNode extends evaluable_model_1.Evaluable {
     }
     setBasicCpxFactors() {
         this.cpxFactors.basic.node = this.feature === node_feature_enum_1.NodeFeature.EMPTY ? 0 : cpx_factors_1.cpxFactors.basic.node;
+    }
+    // TODO : refacto when depths different than arrays will be discovered
+    setDepthCpxFactors() {
+        if (this.isArrayIndex) {
+            this.cpxFactors.depth.arr = cpx_factors_1.cpxFactors.depth.arr;
+        }
     }
     setElseCpxFactors() {
         if (ast_service_1.Ast.isElseStatement(this.node)) {
@@ -191,4 +197,4 @@ class TreeNode extends evaluable_model_1.Evaluable {
     }
 }
 exports.TreeNode = TreeNode;
-_cpxFactors = new WeakMap(), _feature = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _isArray = new WeakMap(), _nestingCpx = new WeakMap();
+_cpxFactors = new WeakMap(), _feature = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _isArrayIndex = new WeakMap(), _nestingCpx = new WeakMap();

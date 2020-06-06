@@ -13,9 +13,6 @@ export class NodeFeatureService {
             return undefined;
         }
         switch (node.kind) {
-            case ts.SyntaxKind.ArrayLiteralExpression:
-            case ts.SyntaxKind.ElementAccessExpression:
-                return NodeFeature.ARR;
             case ts.SyntaxKind.FalseKeyword:
             case ts.SyntaxKind.FirstLiteralToken:
             case ts.SyntaxKind.NumericLiteral:
