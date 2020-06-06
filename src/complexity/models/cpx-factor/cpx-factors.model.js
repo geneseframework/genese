@@ -6,10 +6,12 @@ const aggregation_cpx_model_1 = require("./aggregation-cpx.model");
 const nesting_cpx_model_1 = require("./nesting-cpx.model");
 const basic_cpx_model_1 = require("./basic-cpx.model");
 const structural_cpx_model_1 = require("./structural-cpx.model");
+const depth_cpx_model_1 = require("./depth-cpx.model");
 class CpxFactors {
     constructor() {
         this.aggregation = new aggregation_cpx_model_1.AggregationCpx();
         this.basic = new basic_cpx_model_1.BasicCpx();
+        this.depth = new depth_cpx_model_1.DepthCpx();
         this.nesting = new nesting_cpx_model_1.NestingCpx();
         this.structural = new structural_cpx_model_1.StructuralCpx();
     }
@@ -26,6 +28,9 @@ class CpxFactors {
     }
     get totalBasic() {
         return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.BASIC);
+    }
+    get totalDepth() {
+        return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.DEPTH);
     }
     get totalNesting() {
         return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.NESTING);

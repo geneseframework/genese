@@ -110,7 +110,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
     createDisplayedCode(tree = this.tree) {
         this.setDisplayedCodeLines();
         this.setCpxFactorsToDisplayedCode(tree);
-        __classPrivateFieldGet(this, _displayedCode).setLinesNestingCpx();
+        __classPrivateFieldGet(this, _displayedCode).setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
         this.calculateCpxIndex();
         __classPrivateFieldGet(this, _displayedCode).setTextWithLines();
@@ -152,6 +152,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
             let comment = `+${line.cpxFactors.total.toFixed(1)} Complexity index (+${line.cpxFactors.totalBasic.toFixed(1)} ${factor_category_enum_1.FactorCategory.BASIC}`;
             comment = line.cpxFactors.totalAggregation > 0 ? `${comment}, +${line.cpxFactors.totalAggregation} ${factor_category_enum_1.FactorCategory.AGGREGATION}` : comment;
             comment = line.cpxFactors.totalNesting > 0 ? `${comment}, +${line.cpxFactors.totalNesting} nesting` : comment;
+            comment = line.cpxFactors.totalDepth > 0 ? `${comment}, +${line.cpxFactors.totalDepth} depth` : comment;
             comment = line.cpxFactors.totalStructural > 0 ? `${comment}, +${line.cpxFactors.totalStructural} ${factor_category_enum_1.FactorCategory.STRUCTURAL}` : comment;
             comment = `${comment})`;
             __classPrivateFieldGet(this, _displayedCode).lines[line.issue - 1].text = __classPrivateFieldGet(this, _originalCode).addComment(comment, __classPrivateFieldGet(this, _originalCode).lines[line.issue - 1]);

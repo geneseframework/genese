@@ -19,6 +19,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
     children?: TreeNode[] = [];                                             // The children trees corresponding to children AST nodes of the current AST node
     #cpxFactors?: CpxFactors = new CpxFactors();                            // The complexity factors of the TreeNode
     #feature?: NodeFeature = undefined;                                     // The NodeFeature of the node of the TreeNode
+    #intrinsicDepthCpx: number = undefined;                                 // The depth of the TreeNode inside its method (not including its parent's depth)
     #intrinsicNestingCpx: number = undefined;                               // The nesting of the TreeNode inside its method (not including its parent's nesting)
     #isArray: boolean = undefined;                                          // True is the TreeNode is an array, false if not
     kind ?= '';                                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
@@ -39,8 +40,14 @@ export class TreeNode extends Evaluable implements IsAstNode {
      */
     evaluate(): void {
         this.calculateAndSetCpxFactors();
-        this.addParentNestingCpx();
+        this.addParentCpx();
     }
+
+
+    get depthCpx(): number {
+        return this.cpxFactors.totalDepth;
+    }
+
 
 
     get nestingCpx(): number {
@@ -63,6 +70,19 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
     set intrinsicNestingCpx(cpx: number) {
         this.#intrinsicNestingCpx = cpx;
+    }
+
+
+    /**
+     * Gets the complexity of the node itself, not from its parents
+     */
+    get intrinsicDepthCpx(): number {
+        return this.#intrinsicDepthCpx;
+    }
+
+
+    set intrinsicDepthCpx(cpx: number) {
+        this.#intrinsicDepthCpx = cpx;
     }
 
 
@@ -101,24 +121,24 @@ export class TreeNode extends Evaluable implements IsAstNode {
      * The current TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
     get isArray(): boolean {
-        if (!this.treeMethod) {
-            return false;
-        }
-        return this.node?.['name']?.['escapedText'] === this.treeMethod.name;
+        return Ast.isArray(this.node);
     }
 
 
     calculateAndSetCpxFactors(): CpxFactors {
+        const zzz = this.isArray
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
         this.setRecursionCpxFactors();
         this.setElseCpxFactors();
         this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
+        this.intrinsicDepthCpx = this.cpxFactors.totalDepth;
         return this.#cpxFactors;
     }
 
 
     private setGeneralCaseCpxFactors(): void {
+        this.cpxFactors.depth[this.feature] = cpxFactors.depth[this.feature];
         this.cpxFactors.nesting[this.feature] = cpxFactors.nesting[this.feature];
         this.cpxFactors.structural[this.feature] = cpxFactors.structural[this.feature];
         if (Ast.isAggregated(this.node)) {
@@ -147,12 +167,20 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
+    private setArrayCpxFactors(): void {
+
+    }
+
+
     /**
      * Sets the global nesting cpx of the node (the cpx from the node itself and from its parents)
      */
-    private addParentNestingCpx(): void {
+    private addParentCpx(): void {
         if (this.node && this.parent?.parent?.node && this.parent?.cpxFactors?.nesting) {
             this.cpxFactors.nesting = addObjects(this.parent.cpxFactors.nesting, this.cpxFactors.nesting);
+        }
+        if (this.node && this.parent?.parent?.node && this.parent?.cpxFactors?.depth) {
+            this.cpxFactors.depth = addObjects(this.parent.cpxFactors.depth, this.cpxFactors.depth);
         }
     }
 
@@ -194,7 +222,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
             } else {
                 color = childTree.cpxFactors.total > 1 ? 'red' : 'yellow';
             }
-            console.log(indent, chalk[color](childTree.kind), 'nesting', childTree.nestingCpx, 'parent', tsTree.kind);
+            console.log(indent, chalk[color](childTree.kind), 'nesting', childTree.nestingCpx, 'depth', childTree.depthCpx, 'parent', tsTree.kind);
             const newIndent = indent + '  ';
             this.printChildren(childTree, newIndent);
         }

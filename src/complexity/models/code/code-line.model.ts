@@ -3,6 +3,7 @@ import { NestingCpx } from '../cpx-factor/nesting-cpx.model';
 import { TreeNode } from '../tree/tree-node.model';
 import { addObjects } from '../../services/tools.service';
 import { Ast } from '../../services/ast.service';
+import { DepthCpx } from '../cpx-factor/depth-cpx.model';
 
 /**
  * A line of a Code object
@@ -19,13 +20,20 @@ export class CodeLine {
     /**
      * Sets the nesting complexity to this CodeLine
      */
-    setNestingCpx(): number {
+    setDepthAndNestingCpx(): number {
         let nestingCpx = 0;
+        let depthCpx = 0;
         this.cpxFactors.nesting = new NestingCpx();
+        this.cpxFactors.depth = new DepthCpx();
         for (const treeNode of this.treeNodes) {
             if (treeNode.intrinsicNestingCpx > 0) {
                 nestingCpx += treeNode.parent?.cpxFactors?.totalNesting;
+                this.cpxFactors.depth = addObjects(this.cpxFactors.depth, treeNode.parent?.cpxFactors?.depth);
                 this.cpxFactors.nesting = addObjects(this.cpxFactors.nesting, treeNode.parent?.cpxFactors?.nesting);
+            }
+            if (treeNode.intrinsicDepthCpx > 0) {
+                depthCpx += treeNode.parent?.cpxFactors?.totalDepth;
+                this.cpxFactors.depth = addObjects(this.cpxFactors.depth, treeNode.parent?.cpxFactors?.depth);
             }
         }
         return nestingCpx;

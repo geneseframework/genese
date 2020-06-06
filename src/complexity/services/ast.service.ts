@@ -165,7 +165,19 @@ export class Ast {
 
 
     static isArray(node: ts.Node): boolean {
-        return false;
+        return(node?.parent?.kind === ts.SyntaxKind.ElementAccessExpression && node?.pos === node.parent['expression'].pos);
+        // console.log('NODE KIND', Ast.getType(node));
+        // console.log('CHILDREN', node.parent['expression'].pos);
+        // if (node?.pos === node.parent['expression'].pos) {
+        //     console.log('IS ARRAY');
+        // }
+        // }
+        // return false;
+    }
+
+
+    static isArrayIndex(node: ts.Node): boolean {
+        return(node?.parent?.kind === ts.SyntaxKind.ElementAccessExpression && node?.pos === node.parent['argumentExpression'].pos);
     }
 
 }
