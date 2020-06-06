@@ -1,9 +1,8 @@
 import * as fs from 'fs-extra';
 import * as ts from 'typescript';
 import { getFilename } from './file.service';
-import { TreeNode } from '../models/tree/tree-node.model';
-import { CpxFactors } from '../models/cpx-factor/cpx-factors.model';
-import { cpxFactors } from '../cpx-factors';
+import { NodeFeature } from '../enums/node-feature.enum';
+import { NodeFeatureService } from './node-feature.service';
 
 /**
  * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)
@@ -42,23 +41,18 @@ export class Ast {
     }
 
 
-    /**
-     * Returns the number of AST nodes which are children of a given AST node
-     * @param node
-     */
-    static getNodeCount(node: ts.Node): number {
-        let count = 0;
-        ts.forEachChild(node, function cb(childNode) {
-            count++
-            ts.forEachChild(childNode, cb);
-        });
-        return count;
-    }
-
-
     // ------------------------------------------------------------------------------------------------
     // -------------------------------------   TYPE CHECKS   ------------------------------------------
     // ------------------------------------------------------------------------------------------------
+
+
+    /**
+     * Checks if an AST node is a Parameter
+     * @param node // The AST node
+     */
+    static isParam(node: ts.Node): boolean {
+        return node?.kind === ts.SyntaxKind.Parameter ?? false;
+    }
 
 
     /**
@@ -113,27 +107,6 @@ export class Ast {
 
 
     /**
-     * Checks if an AST node of type ConditionalExpression (a ternary expression) is trivial, ie if the true case and the false case are only some literals
-     * @param node      // The node to analyse
-     */
-    static isTrivialTernary(node: ts.Node): boolean {
-        return (Ast.isBasic(node?.['whenTrue']) && Ast.isBasic(node?.['whenFalse']));
-    }
-
-
-    /**
-     * Checks if an AST node is a primitive (a string, a number or a boolean)
-     * @param node      // The node to analyse
-     */
-    static isBasic(node: ts.Node): boolean {
-        return node?.kind === ts.SyntaxKind.StringLiteral
-            || node?.kind === ts.SyntaxKind.NumericLiteral
-            || node?.kind === ts.SyntaxKind.TrueKeyword
-            || node?.kind === ts.SyntaxKind.FalseKeyword;
-    }
-
-
-    /**
      * Checks if an AST node is a Block which is a "else"
      * @param node      // The node to analyse
      */
@@ -181,21 +154,14 @@ export class Ast {
 
 
     /**
-     * Increases the cognitive complexity when there is a binary succeeding to a binary of different type
-     * For example, the second && is not increasing the cognitive complexity :
-     *      if (a && b && c)
-     * but in the next example, the || will increase it because it succeeds to a binary of different type (a &&)
-     *      if (a && b || c)
-     * Furthermore, when there are brackets separating the "and" and the "or", the cognitive complexity don't increase
-     *      if ((a && b) || c)
-     * @param tree      // The TreeNode to analyse
+     * Returns true when the AST node is a logic door succeeding to a different logic door
+     * a && b && c => returns false
+     * a && b || c => returns true
+     * (a && b) || c => returns false because of the brackets
+     * @param node      // The node to analyse
      */
     static isDifferentLogicDoor(node: ts.Node): boolean {
-        // if (!node || !tree.parent.node) {
-        //     return cpxFact;
-        // }
         if (Ast.isBinary(node) && Ast.isLogicDoor(node)) {
-            // cpxFact.structural.logicDoor = cpxFactors.structural.logicDoor;
             if (Ast.isBinary(node.parent)
                 && !Ast.isSameOperatorToken(node, node.parent)
                 && !Ast.isOrTokenBetweenBinaries(node)

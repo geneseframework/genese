@@ -8,6 +8,7 @@ import { cpxFactors } from '../../cpx-factors';
 import { addObjects } from '../../services/tools.service';
 import { NodeFeatureService } from '../../services/node-feature.service';
 import { Ast } from '../../services/ast.service';
+import { TreeNodeService } from '../../services/tree/tree-node.service';
 
 /**
  * The formatted tree of elements corresponding to an Abstract Syntax TreeNode (AST)
@@ -111,6 +112,11 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
+    get name(): string {
+        return this.node?.['name']?.['escapedText'] ?? '';
+    }
+
+
     /**
      * Checks if an AST node inside a method is a recursion, ie a call to this method.
      * The current TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
@@ -119,11 +125,27 @@ export class TreeNode extends Evaluable implements IsAstNode {
         if (!this.treeMethod) {
             return false;
         }
-        return this.node?.['name']?.['escapedText'] === this.treeMethod.name;
+        return this.name === this.treeMethod.name;
+    }
+
+
+    get isFunction(): boolean {
+        return this.feature === NodeFeature.FUNC;
+    }
+
+
+    get params(): string[] {
+        console.log('THIS NODE', Ast.getType(this.node));
+        if (!this.isFunction) {
+            return undefined;
+        }
+        return this.children.filter(c => Ast.isParam(c.node)).map(e => e.name);
     }
 
 
     calculateAndSetCpxFactors(): CpxFactors {
+        const params = this.params;
+        // console.log('PARAMS', params)
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
         this.setRecursionCpxFactors();

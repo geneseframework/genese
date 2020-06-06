@@ -95,18 +95,38 @@ class TreeNode extends evaluable_model_1.Evaluable {
         var _a;
         return (_a = __classPrivateFieldGet(this, _feature)) !== null && _a !== void 0 ? _a : this.nodeFeatureService.getFeature(this.node);
     }
+    get name() {
+        var _a, _b, _c;
+        return (_c = (_b = (_a = this.node) === null || _a === void 0 ? void 0 : _a['name']) === null || _b === void 0 ? void 0 : _b['escapedText']) !== null && _c !== void 0 ? _c : '';
+    }
     /**
      * Checks if an AST node inside a method is a recursion, ie a call to this method.
      * The current TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
     get isRecursion() {
-        var _a, _b;
         if (!this.treeMethod) {
             return false;
         }
-        return ((_b = (_a = this.node) === null || _a === void 0 ? void 0 : _a['name']) === null || _b === void 0 ? void 0 : _b['escapedText']) === this.treeMethod.name;
+        return this.name === this.treeMethod.name;
+    }
+    get isFunction() {
+        return this.feature === node_feature_enum_1.NodeFeature.FUNC;
+    }
+    get params() {
+        console.log('THIS NODE', ast_service_1.Ast.getType(this.node));
+        if (!this.isFunction) {
+            return undefined;
+        }
+        return this.children.filter(c => ast_service_1.Ast.isParam(c.node)).map(e => e.name);
+        // console.log('CHILDREN', this.children);
+        // for (const treeChild of this.children) {
+        // console.log('CHILD', treeChild.node);
+        // console.log('CHILD', Ast.getType(treeChild.node));
+        // }
     }
     calculateAndSetCpxFactors() {
+        const params = this.params;
+        // console.log('PARAMS', params)
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
         this.setRecursionCpxFactors();
@@ -160,8 +180,6 @@ class TreeNode extends evaluable_model_1.Evaluable {
         if (this.node && ((_f = (_e = this.parent) === null || _e === void 0 ? void 0 : _e.parent) === null || _f === void 0 ? void 0 : _f.node) && ((_h = (_g = this.parent) === null || _g === void 0 ? void 0 : _g.cpxFactors) === null || _h === void 0 ? void 0 : _h.depth)) {
             this.cpxFactors.depth = tools_service_1.addObjects(this.parent.cpxFactors.depth, this.cpxFactors.depth);
         }
-    }
-    addBinaryCpxFactors() {
     }
 }
 exports.TreeNode = TreeNode;

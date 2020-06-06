@@ -35,8 +35,8 @@ export class TreeNodeService {
             newTree.treeMethod = treeNode.treeMethod;
             newTree.parent = treeNode;
             newTree.kind = Ast.getType(childNode);
-            newTree.evaluate();
             treeNode.children.push(this.addTreeToChildren(newTree));
+            newTree.evaluate();
         });
         return treeNode;
     }

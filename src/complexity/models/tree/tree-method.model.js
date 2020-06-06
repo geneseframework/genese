@@ -58,6 +58,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         this.cyclomaticCpx = cyclomaticComplexityService_1.CyclomaticComplexityService.calculateCyclomaticComplexity(this.node);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
         this.filename = (_c = (_b = (_a = this.treeFile) === null || _a === void 0 ? void 0 : _a.sourceFile) === null || _b === void 0 ? void 0 : _b.fileName) !== null && _c !== void 0 ? _c : '';
+        console.log('KINNNN PARAMSSS', this.treeNode.params);
     }
     /**
      * Get the complexity status of the method for a given complexity type

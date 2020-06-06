@@ -1,9 +1,5 @@
 import * as ts from 'typescript';
 import { NodeFeature } from '../enums/node-feature.enum';
-import { CpxFactors } from '../models/cpx-factor/cpx-factors.model';
-import { cpxFactors } from '../cpx-factors';
-import { TreeNode } from '../models/tree/tree-node.model';
-import { Ast } from './ast.service';
 
 export class NodeFeatureService {
 
@@ -56,33 +52,5 @@ export class NodeFeatureService {
             default:
                 return NodeFeature.BASIC;
         }
-    }
-
-
-    /**
-     * Increases the cognitive complexity when there is a binary succeeding to a binary of different type
-     * For example, the second && is not increasing the cognitive complexity :
-     *      if (a && b && c)
-     * but in the next example, the || will increase it because it succeeds to a binary of different type (a &&)
-     *      if (a && b || c)
-     * Furthermore, when there are brackets separating the "and" and the "or", the cognitive complexity don't increase
-     *      if ((a && b) || c)
-     * @param tree      // The TreeNode to analyse
-     */
-    getBinaryCpxFactors(tree: TreeNode): CpxFactors {
-        const cpxFact = new CpxFactors();
-        if (!tree?.node || !tree.parent.node) {
-            return cpxFact;
-        }
-        if (Ast.isBinary(tree.node) && Ast.isLogicDoor(tree.node)) {
-            cpxFact.structural.logicDoor = cpxFactors.structural.logicDoor;
-            if (Ast.isBinary(tree.parent?.node)
-                && !Ast.isSameOperatorToken(tree.node, tree.parent.node)
-                && !Ast.isOrTokenBetweenBinaries(tree.node)
-            ) {
-                cpxFact.aggregation.differentLogicDoor = cpxFactors.aggregation.differentLogicDoor;
-            }
-        }
-        return cpxFact;
     }
 }

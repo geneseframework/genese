@@ -1,9 +1,15 @@
+import * as ts from 'typescript';
+
 export class DebugMock {
 
-    binary(a, b) {
-        if (a && b) {
-            console.log('b');
-        }
+    methodWithCallback(a, callback) {
+        callback(a + 3);
     }
+    //
+    // getNodeCount(node) {
+    //     ts.forEachChild(node, function cb(childNode) {
+    //         ts.forEachChild(childNode, cb);
+    //     });
+    // }
 
 }
