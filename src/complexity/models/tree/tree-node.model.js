@@ -42,7 +42,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * Mandatory method for IsAstNode interface
      */
     evaluate() {
-        this.calculateCpxFactors();
+        this.calculateAndSetCpxFactors();
         this.addParentNestingCpx();
     }
     get nestingCpx() {
@@ -65,7 +65,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
      */
     get cpxFactors() {
         var _a;
-        return (_a = __classPrivateFieldGet(this, _cpxFactors)) !== null && _a !== void 0 ? _a : this.calculateCpxFactors();
+        return (_a = __classPrivateFieldGet(this, _cpxFactors)) !== null && _a !== void 0 ? _a : this.calculateAndSetCpxFactors();
     }
     set cpxFactors(cpxFactors) {
         __classPrivateFieldSet(this, _cpxFactors, cpxFactors);
@@ -85,7 +85,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
         }
         return ((_b = (_a = this.node) === null || _a === void 0 ? void 0 : _a['name']) === null || _b === void 0 ? void 0 : _b['escapedText']) === this.treeMethod.name;
     }
-    calculateCpxFactors() {
+    calculateAndSetCpxFactors() {
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
         this.setRecursionCpxFactors();

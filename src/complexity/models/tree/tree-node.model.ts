@@ -36,7 +36,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
      * Mandatory method for IsAstNode interface
      */
     evaluate(): void {
-        this.calculateCpxFactors();
+        this.calculateAndSetCpxFactors();
         this.addParentNestingCpx();
     }
 
@@ -68,7 +68,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
      * Gets the global nesting complexity of the node, including the nesting cpx of its parents
      */
     get cpxFactors(): CpxFactors {
-        return this.#cpxFactors ?? this.calculateCpxFactors();
+        return this.#cpxFactors ?? this.calculateAndSetCpxFactors();
     }
 
 
@@ -94,7 +94,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
-    calculateCpxFactors(): CpxFactors {
+    calculateAndSetCpxFactors(): CpxFactors {
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
         this.setRecursionCpxFactors();
