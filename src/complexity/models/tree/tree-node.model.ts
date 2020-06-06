@@ -3,11 +3,11 @@ import { TreeMethod } from './tree-method.model';
 import { IsAstNode } from '../../interfaces/is-ast-node';
 import { Evaluable } from '../evaluable.model';
 import { NodeFeature } from '../../enums/node-feature.enum';
-import { Ast } from '../../services/ast.service';
 import { CpxFactors } from '../cpx-factor/cpx-factors.model';
 import { cpxFactors } from '../../cpx-factors';
 import { addObjects } from '../../services/tools.service';
 import { NodeFeatureService } from '../../services/node-feature.service';
+import { Ast } from '../../services/ast.service';
 
 const chalk = require('chalk');
 
@@ -16,15 +16,16 @@ const chalk = require('chalk');
  */
 export class TreeNode extends Evaluable implements IsAstNode {
 
-    children?: TreeNode[] = [];                 // The children trees corresponding to children AST nodes of the current AST node
-    #cpxFactors?: CpxFactors = new CpxFactors();
-    #feature?: NodeFeature = undefined;
-    kind ?= '';                                 // The kind of the node ('MethodDeclaration, IfStatement, ...)
-    #nestingCpx: number = undefined;            // The nesting of the node inside a given method
-    node?: ts.Node = undefined;                 // The current node in the AST
-    nodeFeatureService?: NodeFeatureService = new NodeFeatureService();
-    parent?: TreeNode;                          // The tree of the parent of the current node
-    treeMethod?: TreeMethod = undefined;        // The method at the root of the current tree (if this tree is inside a method)
+    children?: TreeNode[] = [];                                             // The children trees corresponding to children AST nodes of the current AST node
+    #cpxFactors?: CpxFactors = new CpxFactors();                            // The complexity factors of the TreeNode
+    #feature?: NodeFeature = undefined;                                     // The NodeFeature of the node of the TreeNode
+    #intrinsicNestingCpx: number = undefined;                               // The nesting of the TreeNode inside its method (not including its parent's nesting)
+    kind ?= '';                                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
+    #nestingCpx: number = undefined;                                        // The nesting of the TreeNode inside its method (including its parent's nesting)
+    node?: ts.Node = undefined;                                             // The current node in the AST
+    nodeFeatureService?: NodeFeatureService = new NodeFeatureService();     // The service managing NodeFeatures
+    parent?: TreeNode;                                                      // The tree of the parent of the current node
+    treeMethod?: TreeMethod = undefined;                                    // The method at the root of the current tree (if this tree is inside a method)
 
 
     constructor() {
@@ -35,7 +36,8 @@ export class TreeNode extends Evaluable implements IsAstNode {
      * Mandatory method for IsAstNode interface
      */
     evaluate(): void {
-        this.calculateCpxFactors();
+        this.calculateAndSetCpxFactors();
+        this.addParentNestingCpx();
     }
 
 
@@ -49,23 +51,34 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
+    /**
+     * Gets the complexity of the node itself, not from its parents
+     */
     get intrinsicNestingCpx(): number {
-        return this.nodeFeatureService.getCpxFactors(this.nodeFeatureService.getFeature(this.node)).totalNesting;
+        return this.#intrinsicNestingCpx;
     }
 
 
-    get feature(): NodeFeature {
-        return this.#feature ?? this.nodeFeatureService.getFeature(this.node);
+    set intrinsicNestingCpx(cpx: number) {
+        this.#intrinsicNestingCpx = cpx;
     }
 
 
+    /**
+     * Gets the global nesting complexity of the node, including the nesting cpx of its parents
+     */
     get cpxFactors(): CpxFactors {
-        return this.#cpxFactors ?? this.nodeFeatureService.getCpxFactors(this.feature);
+        return this.#cpxFactors ?? this.calculateAndSetCpxFactors();
     }
 
 
     set cpxFactors(cpxFactors) {
         this.#cpxFactors = cpxFactors;
+    }
+
+
+    get feature(): NodeFeature {
+        return this.#feature ?? this.nodeFeatureService.getFeature(this.node);
     }
 
 
@@ -81,40 +94,46 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
-    calculateCpxFactors(): void {
-        this.cpxFactors.basic.node = this.feature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
-        if (this.isRecursion()) {
-            this.cpxFactors.structural.recursion = cpxFactors.structural.recursion;
-        }
-        switch (this.feature) {
-            case NodeFeature.BASIC:
-                break;
-            case NodeFeature.BINARY:
-                this.addBinaryCpxFactors();
-                break;
-            case NodeFeature.CONDITIONAL:
-                this.cpxFactors.nesting.conditional = cpxFactors.nesting.conditional;
-                this.cpxFactors.structural.conditional = cpxFactors.structural.conditional;
-                break;
-            case NodeFeature.FUNC:
-                this.cpxFactors.structural.func = cpxFactors.structural.func;
-                break;
-            case NodeFeature.LOGIC_DOOR:
-                this.cpxFactors.structural.logicDoor = cpxFactors.structural.logicDoor;
-                break;
-            case NodeFeature.REGEX:
-                this.cpxFactors.structural.regex = cpxFactors.structural.regex;
-                break;
-            case NodeFeature.TERNARY:
-                this.cpxFactors.nesting.ternary = cpxFactors.nesting.ternary;
-                this.cpxFactors.structural.ternary = cpxFactors.structural.ternary;
-                break;
-        }
-        this.calculateNestingCpx();
+    calculateAndSetCpxFactors(): CpxFactors {
+        this.setGeneralCaseCpxFactors();
+        this.setBasicCpxFactors();
+        this.setRecursionCpxFactors();
+        this.setElseCpxFactors();
+        this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
+        return this.#cpxFactors;
     }
 
 
-    private calculateNestingCpx(): void {
+    private setGeneralCaseCpxFactors(): void {
+        this.cpxFactors.nesting[this.feature] = cpxFactors.nesting[this.feature];
+        this.cpxFactors.structural[this.feature] = cpxFactors.structural[this.feature];
+        if (Ast.isAggregated(this.node)) {
+            this.cpxFactors.aggregation[this.feature] = cpxFactors.aggregation[this.feature];
+        }
+    }
+
+
+    private setBasicCpxFactors(): void {
+        this.cpxFactors.basic.node = this.feature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
+    }
+
+
+    private setElseCpxFactors(): void {
+        if (Ast.isElseStatement(this.node)) {
+            this.cpxFactors.structural.conditional = cpxFactors.structural.conditional;
+        }
+    }
+
+
+    private setRecursionCpxFactors(): void {
+        this.cpxFactors.structural.recursion = this.isRecursion() ? cpxFactors.structural.recursion : 0;
+    }
+
+
+    /**
+     * Sets the global nesting cpx of the node (the cpx from the node itself and from its parents)
+     */
+    private addParentNestingCpx(): void {
         if (this.node && this.parent?.parent?.node && this.parent?.cpxFactors?.nesting) {
             this.cpxFactors.nesting = addObjects(this.parent.cpxFactors.nesting, this.cpxFactors.nesting);
         }
@@ -137,6 +156,9 @@ export class TreeNode extends Evaluable implements IsAstNode {
      * This method runs, but is not yet used
      */
     printAllChildren(){
+        console.log('------------------------------------');
+        console.log('METHOD ', this.treeMethod?.name);
+        console.log('------------------------------------');
         this.printChildren(this, ' ');
     }
 

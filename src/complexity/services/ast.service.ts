@@ -113,7 +113,7 @@ export class Ast {
      * Checks if an AST node of type ConditionalExpression (a ternary expression) is trivial, ie if the true case and the false case are only some literals
      * @param node      // The node to analyse
      */
-    static conditionalExpressionIsTrivial(node: ts.Node): boolean {
+    static isTrivialTernary(node: ts.Node): boolean {
         return (Ast.isBasic(node?.['whenTrue']) && Ast.isBasic(node?.['whenFalse']));
     }
 
@@ -127,6 +127,40 @@ export class Ast {
             || node?.kind === ts.SyntaxKind.NumericLiteral
             || node?.kind === ts.SyntaxKind.TrueKeyword
             || node?.kind === ts.SyntaxKind.FalseKeyword;
+    }
+
+
+    /**
+     * Checks if an AST node is a Block which is a "else"
+     * @param node      // The node to analyse
+     */
+    static isElseStatement(node: ts.Node): boolean {
+        return (Ast.isBlock(node)
+            && node?.parent?.kind === ts.SyntaxKind.IfStatement
+            && node?.parent['elseStatement']?.pos === node?.pos);
+    }
+
+
+    /**
+     * Checks if an AST node is a IfStatement which is an "else if"
+     * @param node      // The node to analyse
+     */
+    static isElseIfStatement(node: ts.Node): boolean {
+        return (node?.kind === ts.SyntaxKind.IfStatement && node?.parent?.kind === ts.SyntaxKind.IfStatement);
+    }
+
+
+    /**
+     * Checks if an AST node is a Block which is a "else"
+     * @param node      // The node to analyse
+     */
+    static isBlock(node: ts.Node): boolean {
+        return (node?.kind === ts.SyntaxKind.Block);
+    }
+
+
+    static isAggregated(node: ts.Node): boolean {
+        return false;
     }
 
 }

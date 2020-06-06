@@ -16,7 +16,7 @@ var _cpxIndex, _displayedCode, _originalCode;
 Object.defineProperty(exports, "__esModule", { value: true });
 const tree_file_model_1 = require("./tree-file.model");
 const ast_service_1 = require("../../services/ast.service");
-const complexity_service_1 = require("../../services/complexity.service");
+const cyclomaticComplexityService_1 = require("../../services/cyclomaticComplexityService");
 const options_1 = require("../options");
 const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
@@ -25,6 +25,7 @@ const code_model_1 = require("../code/code.model");
 const code_service_1 = require("../../services/code.service");
 const factor_category_enum_1 = require("../../enums/factor-category.enum");
 const code_line_model_1 = require("../code/code-line.model");
+const cpx_factors_1 = require("../../cpx-factors");
 /**
  * Element of the TreeNode structure corresponding to a given method
  */
@@ -53,7 +54,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         var _a, _b, _c;
         this.tree.printAllChildren();
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
-        this.cyclomaticCpx = complexity_service_1.ComplexityService.calculateCyclomaticComplexity(this.node);
+        this.cyclomaticCpx = cyclomaticComplexityService_1.CyclomaticComplexityService.calculateCyclomaticComplexity(this.node);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
         this.filename = (_c = (_b = (_a = this.treeFile) === null || _a === void 0 ? void 0 : _a.sourceFile) === null || _b === void 0 ? void 0 : _b.fileName) !== null && _c !== void 0 ? _c : '';
     }
@@ -131,7 +132,11 @@ class TreeMethod extends evaluable_model_1.Evaluable {
     setCpxFactorsToDisplayedCode(tree) {
         var _a;
         for (const childTree of tree.children) {
-            const issue = this.codeService.getLineIssue(__classPrivateFieldGet(this, _originalCode), ((_a = childTree.node) === null || _a === void 0 ? void 0 : _a.pos) - this.astPosition);
+            let issue = this.codeService.getLineIssue(__classPrivateFieldGet(this, _originalCode), ((_a = childTree.node) === null || _a === void 0 ? void 0 : _a.pos) - this.astPosition);
+            if (ast_service_1.Ast.isElseStatement(childTree.node)) {
+                childTree.cpxFactors.basic.node = cpx_factors_1.cpxFactors.basic.node;
+                issue--;
+            }
             __classPrivateFieldGet(this, _displayedCode).lines[issue].cpxFactors = __classPrivateFieldGet(this, _displayedCode).lines[issue].cpxFactors.add(childTree.cpxFactors);
             __classPrivateFieldGet(this, _displayedCode).lines[issue].treeNodes.push(childTree);
             this.setCpxFactorsToDisplayedCode(childTree);
