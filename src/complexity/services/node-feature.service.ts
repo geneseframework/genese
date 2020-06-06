@@ -13,6 +13,9 @@ export class NodeFeatureService {
             return undefined;
         }
         switch (node.kind) {
+            case ts.SyntaxKind.ArrayLiteralExpression:
+            case ts.SyntaxKind.ElementAccessExpression:
+                return NodeFeature.ARR;
             case ts.SyntaxKind.FalseKeyword:
             case ts.SyntaxKind.FirstLiteralToken:
             case ts.SyntaxKind.NumericLiteral:
@@ -52,38 +55,6 @@ export class NodeFeatureService {
             default:
                 return NodeFeature.BASIC;
         }
-    }
-
-
-
-    // TODO : remove ?
-    getCpxFactors(nodeFeature: NodeFeature): CpxFactors {
-        const cpxFact = new CpxFactors();
-        cpxFact.basic.node = nodeFeature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
-        switch (nodeFeature) {
-            case NodeFeature.BASIC:
-                break;
-            case NodeFeature.CONDITIONAL:
-                cpxFact.nesting.conditional = cpxFactors.nesting.conditional;
-                cpxFact.structural.conditional = cpxFactors.structural.conditional;
-                break;
-            case NodeFeature.FUNC:
-                cpxFact.nesting.func = cpxFactors.nesting.func;
-                cpxFact.structural.func = cpxFactors.structural.func;
-                break;
-            case NodeFeature.LOOP:
-                cpxFact.nesting.loop = cpxFactors.nesting.loop;
-                cpxFact.structural.loop = cpxFactors.structural.loop;
-                break;
-            case NodeFeature.REGEX:
-                cpxFact.structural.regex = cpxFactors.structural.regex;
-                break;
-            case NodeFeature.TERNARY:
-                cpxFact.nesting.ternary = cpxFactors.nesting.ternary;
-                cpxFact.structural.ternary = cpxFactors.structural.ternary;
-                break;
-        }
-        return cpxFact;
     }
 
 

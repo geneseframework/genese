@@ -1,5 +1,4 @@
 import { CodeLine } from './code-line.model';
-import { TreeNode } from '../tree/tree-node.model';
 
 /**
     The TypeScript code seen as an array of CodeLine
@@ -32,6 +31,9 @@ export class Code {
     }
 
 
+    /**
+     * Sets the nesting complexity to each CodeLine
+     */
     setLinesNestingCpx(): void {
         for (const line of this.lines) {
             line.setNestingCpx();

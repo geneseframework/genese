@@ -1,7 +1,8 @@
-import { EvaluationValuesInterface } from '../../interfaces/evaluation-values.interface';
+export class CallbacksMock<T> {
 
-export class CallbacksMock {
 
+    constructor(object) {
+    }
 
     recursion(a) {
         this.recursion(a);
@@ -14,7 +15,6 @@ export class CallbacksMock {
                 console.log(b)
             }
         })
-        return {cyclomaticValue: 3, cpxIndex: 3};
     }
 
 
@@ -24,13 +24,11 @@ export class CallbacksMock {
                 console.log('b', b)
             }
         })
-        return {cyclomaticValue: 3, cpxIndex: 3};
     }
 
 
     methodWithCallback(a, callback) {
         callback(a + 3);
-        return {cyclomaticValue: 0, cpxIndex: 0};
     }
 
 }

@@ -24,6 +24,9 @@ class Code {
         const txt = `${line === null || line === void 0 ? void 0 : line.text} // `;
         return `${txt.padEnd(this.maxLineLength + 10, '-')} ${comment}`;
     }
+    /**
+     * Sets the nesting complexity to each CodeLine
+     */
     setLinesNestingCpx() {
         for (const line of this.lines) {
             line.setNestingCpx();

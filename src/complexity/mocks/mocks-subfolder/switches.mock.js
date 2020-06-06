@@ -23,7 +23,6 @@ class SwitchesMock {
             default:
                 console.log("lots");
         }
-        return { cyclomaticValue: 3, cpxIndex: 1 };
     }
     tryCatch() {
         try {
@@ -32,11 +31,9 @@ class SwitchesMock {
         catch (e) {
             console.log(e);
         }
-        return { cyclomaticValue: 2, cpxIndex: 1 };
     }
     questionDotToken(time) {
         time = time === null || time === void 0 ? void 0 : time.name;
-        return { cyclomaticValue: 1, cpxIndex: 0 };
     }
 }
 exports.SwitchesMock = SwitchesMock;
