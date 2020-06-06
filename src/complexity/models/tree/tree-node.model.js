@@ -86,39 +86,30 @@ class TreeNode extends evaluable_model_1.Evaluable {
         return ((_b = (_a = this.node) === null || _a === void 0 ? void 0 : _a['name']) === null || _b === void 0 ? void 0 : _b['escapedText']) === this.treeMethod.name;
     }
     calculateCpxFactors() {
-        this.cpxFactors.basic.node = this.feature === node_feature_enum_1.NodeFeature.EMPTY ? 0 : cpx_factors_1.cpxFactors.basic.node;
-        if (this.isRecursion()) {
-            this.cpxFactors.structural.recursion = cpx_factors_1.cpxFactors.structural.recursion;
+        this.setGeneralCaseCpxFactors();
+        this.setBasicCpxFactors();
+        this.setRecursionCpxFactors();
+        this.setElseCpxFactors();
+        this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
+        return __classPrivateFieldGet(this, _cpxFactors);
+    }
+    setGeneralCaseCpxFactors() {
+        this.cpxFactors.nesting[this.feature] = cpx_factors_1.cpxFactors.nesting[this.feature];
+        this.cpxFactors.structural[this.feature] = cpx_factors_1.cpxFactors.structural[this.feature];
+        if (ast_service_1.Ast.isAggregated(this.node)) {
+            this.cpxFactors.aggregation[this.feature] = cpx_factors_1.cpxFactors.aggregation[this.feature];
         }
+    }
+    setBasicCpxFactors() {
+        this.cpxFactors.basic.node = this.feature === node_feature_enum_1.NodeFeature.EMPTY ? 0 : cpx_factors_1.cpxFactors.basic.node;
+    }
+    setElseCpxFactors() {
         if (ast_service_1.Ast.isElseStatement(this.node)) {
             this.cpxFactors.structural.conditional = cpx_factors_1.cpxFactors.structural.conditional;
         }
-        switch (this.feature) {
-            case node_feature_enum_1.NodeFeature.BASIC:
-                break;
-            case node_feature_enum_1.NodeFeature.BINARY:
-                this.addBinaryCpxFactors();
-                break;
-            case node_feature_enum_1.NodeFeature.CONDITIONAL:
-                this.cpxFactors.nesting.conditional = ast_service_1.Ast.isElseIfStatement(this.node) ? 0 : cpx_factors_1.cpxFactors.nesting.conditional;
-                this.cpxFactors.structural.conditional = cpx_factors_1.cpxFactors.structural.conditional;
-                break;
-            case node_feature_enum_1.NodeFeature.FUNC:
-                this.cpxFactors.structural.func = cpx_factors_1.cpxFactors.structural.func;
-                break;
-            case node_feature_enum_1.NodeFeature.LOGIC_DOOR:
-                this.cpxFactors.structural.logicDoor = cpx_factors_1.cpxFactors.structural.logicDoor;
-                break;
-            case node_feature_enum_1.NodeFeature.REGEX:
-                this.cpxFactors.structural.regex = cpx_factors_1.cpxFactors.structural.regex;
-                break;
-            case node_feature_enum_1.NodeFeature.TERNARY:
-                this.cpxFactors.nesting.ternary = cpx_factors_1.cpxFactors.nesting.ternary;
-                this.cpxFactors.structural.ternary = cpx_factors_1.cpxFactors.structural.ternary;
-                break;
-        }
-        this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
-        return __classPrivateFieldGet(this, _cpxFactors);
+    }
+    setRecursionCpxFactors() {
+        this.cpxFactors.structural.recursion = this.isRecursion() ? cpx_factors_1.cpxFactors.structural.recursion : 0;
     }
     /**
      * Sets the global nesting cpx of the node (the cpx from the node itself and from its parents)
@@ -140,6 +131,10 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * This method runs, but is not yet used
      */
     printAllChildren() {
+        var _a;
+        console.log('------------------------------------');
+        console.log('METHOD ', (_a = this.treeMethod) === null || _a === void 0 ? void 0 : _a.name);
+        console.log('------------------------------------');
         this.printChildren(this, ' ');
     }
     /**

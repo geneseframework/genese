@@ -95,39 +95,38 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
 
     calculateCpxFactors(): CpxFactors {
-        this.cpxFactors.basic.node = this.feature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
-        if (this.isRecursion()) {
-            this.cpxFactors.structural.recursion = cpxFactors.structural.recursion;
+        this.setGeneralCaseCpxFactors();
+        this.setBasicCpxFactors();
+        this.setRecursionCpxFactors();
+        this.setElseCpxFactors();
+        this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
+        return this.#cpxFactors;
+    }
+
+
+    private setGeneralCaseCpxFactors(): void {
+        this.cpxFactors.nesting[this.feature] = cpxFactors.nesting[this.feature];
+        this.cpxFactors.structural[this.feature] = cpxFactors.structural[this.feature];
+        if (Ast.isAggregated(this.node)) {
+            this.cpxFactors.aggregation[this.feature] = cpxFactors.aggregation[this.feature];
         }
+    }
+
+
+    private setBasicCpxFactors(): void {
+        this.cpxFactors.basic.node = this.feature === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
+    }
+
+
+    private setElseCpxFactors(): void {
         if (Ast.isElseStatement(this.node)) {
             this.cpxFactors.structural.conditional = cpxFactors.structural.conditional;
         }
-        switch (this.feature) {
-            case NodeFeature.BASIC:
-                break;
-            case NodeFeature.BINARY:
-                this.addBinaryCpxFactors();
-                break;
-            case NodeFeature.CONDITIONAL:
-                this.cpxFactors.nesting.conditional = Ast.isElseIfStatement(this.node) ? 0 : cpxFactors.nesting.conditional;
-                this.cpxFactors.structural.conditional = cpxFactors.structural.conditional;
-                break;
-            case NodeFeature.FUNC:
-                this.cpxFactors.structural.func = cpxFactors.structural.func;
-                break;
-            case NodeFeature.LOGIC_DOOR:
-                this.cpxFactors.structural.logicDoor = cpxFactors.structural.logicDoor;
-                break;
-            case NodeFeature.REGEX:
-                this.cpxFactors.structural.regex = cpxFactors.structural.regex;
-                break;
-            case NodeFeature.TERNARY:
-                this.cpxFactors.nesting.ternary = cpxFactors.nesting.ternary;
-                this.cpxFactors.structural.ternary = cpxFactors.structural.ternary;
-                break;
-        }
-        this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
-        return this.#cpxFactors;
+    }
+
+
+    private setRecursionCpxFactors(): void {
+        this.cpxFactors.structural.recursion = this.isRecursion() ? cpxFactors.structural.recursion : 0;
     }
 
 
@@ -157,6 +156,9 @@ export class TreeNode extends Evaluable implements IsAstNode {
      * This method runs, but is not yet used
      */
     printAllChildren(){
+        console.log('------------------------------------');
+        console.log('METHOD ', this.treeMethod?.name);
+        console.log('------------------------------------');
         this.printChildren(this, ' ');
     }
 

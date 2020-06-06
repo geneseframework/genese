@@ -6,6 +6,7 @@ import * as utils from 'tsutils';
  */
 export class CyclomaticComplexityService {
 
+
     /**
      * Returns the cyclomatic complexity of an AST node
      * @param node      // The AST node

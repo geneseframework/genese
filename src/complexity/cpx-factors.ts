@@ -15,13 +15,14 @@ complexityFactors.basic = {
     node: 0.1,                          // Any AST node ("Identifier", "Parameter", "Block", IfStatement, ...)
 };
 complexityFactors.nesting = {
+    arr: 2,                             // Inside an array
     conditional: 0.5,                   // Inside a conditional
     func: 1,                            // Usage of a function or method inside a block of code
     loop: 0.5,                          // Inside a loop
     ternary: 2                          // Ternaries inside other ternaries
 };
 complexityFactors.structural = {
-    arr: 1,                             // "Array", "Set"
+    arr: 0.1,                           // "Array", "Set"
     asynchronicity: 1,                  // "Promise", "Observable"
     conditional: 1,                     // "if", "else", "else if", "switch", "catch", nullish coalescing
     externalBinding: 3,                 // A "this" inside a method which not refers to the method context (its class)

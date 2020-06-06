@@ -158,4 +158,9 @@ export class Ast {
         return (node?.kind === ts.SyntaxKind.Block);
     }
 
+
+    static isAggregated(node: ts.Node): boolean {
+        return false;
+    }
+
 }

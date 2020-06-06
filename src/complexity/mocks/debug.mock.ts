@@ -1,25 +1,23 @@
+import { CallbacksMock } from './callbacks-complex-switches/callbacks.mock';
+
 export class DebugMock {
 
-
-    ifAlone(a, b) {
-        return a ? 1 : b ? 0 : 2;
+    hyperComplex<T>(object: Object, path: string | string[] = '', value: any): CallbacksMock<T> {
+        path = path.toString().match(/[^.[\]]+/g);
+        path.slice(0, -1).reduce((acc: Object, curr: any, index: number) => {
+            const arg = Math.round(index) % 3;
+            return Object(acc[curr]) === acc[curr + arg];
+        }, object)[path[path.length - 1]] = value;
+        return new CallbacksMock<T>(object);
     }
 
-    ifAll(a, b) {
-        if (a) {
-            return 1;
-        } else {
-            return b ? 0 : 2;
-        }
+    elementAccessExpression(a, b) {
+        return a[0];
     }
 
-    ifAll2(a, b) {
-        if (a) {
-            return 1;
-        } else if (b) {
-            return 0;
-        } else {
-            return 2;
-        }
+    arrayLiteralExpression(a, b) {
+        const c = [b];
+        return c;
     }
+
 }
