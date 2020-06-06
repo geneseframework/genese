@@ -134,6 +134,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
         if (ast_service_1.Ast.isArrayOfArray(this.node)) {
             this.cpxFactors.aggregation.arr = cpx_factors_1.cpxFactors.aggregation.arr;
         }
+        else if (ast_service_1.Ast.isDifferentLogicDoor(this.node)) {
+            this.cpxFactors.aggregation.differentLogicDoor = cpx_factors_1.cpxFactors.aggregation.differentLogicDoor;
+        }
     }
     setElseCpxFactors() {
         if (ast_service_1.Ast.isElseStatement(this.node)) {
@@ -159,7 +162,6 @@ class TreeNode extends evaluable_model_1.Evaluable {
         }
     }
     addBinaryCpxFactors() {
-        this.cpxFactors = this.cpxFactors.add(this.nodeFeatureService.getBinaryCpxFactors(this));
     }
 }
 exports.TreeNode = TreeNode;

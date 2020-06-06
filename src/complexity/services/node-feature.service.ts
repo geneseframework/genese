@@ -40,6 +40,9 @@ export class NodeFeatureService {
             case ts.SyntaxKind.FunctionExpression:
             case ts.SyntaxKind.MethodDeclaration:
                 return NodeFeature.FUNC;
+            case ts.SyntaxKind.AmpersandAmpersandToken:
+            case ts.SyntaxKind.BarBarToken:
+                return NodeFeature.LOGIC_DOOR;
             case ts.SyntaxKind.DoStatement:
             case ts.SyntaxKind.ForStatement:
             case ts.SyntaxKind.ForInStatement:
