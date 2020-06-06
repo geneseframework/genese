@@ -13,8 +13,10 @@ complexityFactors.basic = {
     imp: 0.1,
     node: 0.1,
 };
+complexityFactors.depth = {
+    arr: 1.5,
+};
 complexityFactors.nesting = {
-    arr: 2,
     conditional: 0.5,
     func: 1,
     loop: 0.5,

@@ -15,7 +15,7 @@ class TernariesMock {
             return b ? 0 : 2;
         }
     }
-    ifElseIf(a, b) {
+    NoTernary(a, b) {
         if (a) {
             return 1;
         }
