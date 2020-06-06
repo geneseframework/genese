@@ -9,8 +9,6 @@ import { addObjects } from '../../services/tools.service';
 import { NodeFeatureService } from '../../services/node-feature.service';
 import { Ast } from '../../services/ast.service';
 
-const chalk = require('chalk');
-
 /**
  * The formatted tree of elements corresponding to an Abstract Syntax TreeNode (AST)
  */
@@ -21,7 +19,6 @@ export class TreeNode extends Evaluable implements IsAstNode {
     #feature?: NodeFeature = undefined;                                     // The NodeFeature of the node of the TreeNode
     #intrinsicDepthCpx: number = undefined;                                 // The depth of the TreeNode inside its method (not including its parent's depth)
     #intrinsicNestingCpx: number = undefined;                               // The nesting of the TreeNode inside its method (not including its parent's nesting)
-    #isArrayIndex: boolean = undefined;                                          // True is the TreeNode is an array, false if not
     kind ?= '';                                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
     #nestingCpx: number = undefined;                                        // The nesting of the TreeNode inside its method (including its parent's nesting)
     node?: ts.Node = undefined;                                             // The current node in the AST
@@ -116,21 +113,13 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
-    /**
-     * Checks if an AST node inside a method is a recursion, ie a call to this method.
-     * The current TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
-     */
-    get isArrayIndex(): boolean {
-        return this.#isArrayIndex ?? Ast.isArrayIndex(this.node);
-    }
-
-
     calculateAndSetCpxFactors(): CpxFactors {
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
         this.setRecursionCpxFactors();
         this.setElseCpxFactors();
         this.setDepthCpxFactors();
+        this.setAggregationCpxFactors();
         this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
         this.intrinsicDepthCpx = this.cpxFactors.totalDepth;
         return this.#cpxFactors;
@@ -140,9 +129,6 @@ export class TreeNode extends Evaluable implements IsAstNode {
     private setGeneralCaseCpxFactors(): void {
         this.cpxFactors.nesting[this.feature] = cpxFactors.nesting[this.feature];
         this.cpxFactors.structural[this.feature] = cpxFactors.structural[this.feature];
-        if (Ast.isAggregated(this.node)) {
-            this.cpxFactors.aggregation[this.feature] = cpxFactors.aggregation[this.feature];
-        }
     }
 
 
@@ -153,8 +139,15 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
     // TODO : refacto when depths different than arrays will be discovered
     private setDepthCpxFactors(): void {
-        if (this.isArrayIndex) {
+        if (Ast.isArrayIndex(this.node)) {
             this.cpxFactors.depth.arr = cpxFactors.depth.arr;
+        }
+    }
+
+
+    private setAggregationCpxFactors(): void {
+        if (Ast.isArrayOfArray(this.node)) {
+            this.cpxFactors.aggregation.arr = cpxFactors.depth.arr;
         }
     }
 
@@ -190,44 +183,4 @@ export class TreeNode extends Evaluable implements IsAstNode {
     private addBinaryCpxFactors(): void {
         this.cpxFactors = this.cpxFactors.add(this.nodeFeatureService.getBinaryCpxFactors(this));
     }
-
-
-    // ------------------------------------------------------------------------------------------------
-    // ---------------------------------------   PRINT AST   ------------------------------------------
-    // ------------------------------------------------------------------------------------------------
-
-
-
-    /**
-     * Logs all the AST
-     * This method runs, but is not yet used
-     */
-    printAllChildren(){
-        console.log('------------------------------------');
-        console.log('METHOD ', this.treeMethod?.name);
-        console.log('------------------------------------');
-        this.printChildren(this, ' ');
-    }
-
-
-    /**
-     * Logs the AST of the children trees
-     * This method runs, but is not yet used
-     * @tree // The tree to print
-     * @indent // the indentation to use for the print
-     */
-    printChildren(tsTree: TreeNode, indent: string) {
-        for (const childTree of tsTree.children) {
-            let color = '';
-            if (childTree.cpxFactors.total < 0.5) {
-                color = 'white';
-            } else {
-                color = childTree.cpxFactors.total > 1 ? 'red' : 'yellow';
-            }
-            console.log(indent, chalk[color](childTree.kind), 'nesting', childTree.nestingCpx, 'depth', childTree.depthCpx, 'parent', tsTree.kind);
-            const newIndent = indent + '  ';
-            this.printChildren(childTree, newIndent);
-        }
-    }
-
 }

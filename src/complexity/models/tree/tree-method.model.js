@@ -26,6 +26,7 @@ const code_service_1 = require("../../services/code.service");
 const factor_category_enum_1 = require("../../enums/factor-category.enum");
 const code_line_model_1 = require("../code/code-line.model");
 const cpx_factors_1 = require("../../cpx-factors");
+const log_service_1 = require("../../services/tree/log.service");
 /**
  * Element of the TreeNode structure corresponding to a given method
  */
@@ -43,7 +44,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         this.node = undefined; // The AST node corresponding to the method
         _originalCode.set(this, undefined); // The original Code of the method (as Code object)
         this.treeFile = new tree_file_model_1.TreeFile(); // The TreeFile which contains the TreeMethod
-        this.tree = undefined; // The AST of the method itself
+        this.treeNode = undefined; // The AST of the method itself
         this.node = node;
         this.name = ast_service_1.Ast.getMethodName(node);
     }
@@ -52,7 +53,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
      */
     evaluate() {
         var _a, _b, _c;
-        this.tree.printAllChildren();
+        log_service_1.LogService.printAllChildren(this.treeNode);
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
         this.cyclomaticCpx = cyclomaticComplexityService_1.CyclomaticComplexityService.calculateCyclomaticComplexity(this.node);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
@@ -107,7 +108,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
      * Creates the code to display with the original code of a TreeNode
      * @param tree  // The TreeNode to analyse
      */
-    createDisplayedCode(tree = this.tree) {
+    createDisplayedCode(tree = this.treeNode) {
         this.setDisplayedCodeLines();
         this.setCpxFactorsToDisplayedCode(tree);
         __classPrivateFieldGet(this, _displayedCode).setLinesDepthAndNestingCpx();

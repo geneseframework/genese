@@ -159,8 +159,8 @@ export class Ast {
     }
 
 
-    static isAggregated(node: ts.Node): boolean {
-        return false;
+    static isArrayOfArray(node: ts.Node): boolean {
+        return(node?.parent?.kind === ts.SyntaxKind.ElementAccessExpression && node?.kind === ts.SyntaxKind.ElementAccessExpression);
     }
 
 

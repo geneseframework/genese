@@ -27,7 +27,7 @@ class TreeMethodService {
                 const originalText = node.getFullText(treeFile.sourceFile);
                 const codeService = new code_service_1.CodeService();
                 newMethod.originalCode = codeService.createCode(originalText);
-                newMethod.tree = __self.treeNodeService.generateTree(newMethod);
+                newMethod.treeNode = __self.treeNodeService.generateTree(newMethod);
                 newMethod.evaluate();
                 newMethod.createDisplayedCode();
                 methods.push(newMethod);
