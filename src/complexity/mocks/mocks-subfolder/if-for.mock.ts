@@ -4,51 +4,75 @@ class IfForMock {
     }
 
 
-
-    ifAlone(data) {
-        if (data === 'a') {
-            data = 'b';
+    ifAlone(a) {
+        if (a) {
+            return 'b';
         }
     }
 
 
-    ifElse(data) {
-        if (data === 'a') {
-            data = 'b';
+    ifElse(a) {
+        if (a) {
+            return 'b';
         } else {
-            data = 'c';
+            return 'c';
         }
     }
 
 
-    ifNestedIf(data) {
-        if (data === 'a') {
-            data = 'b';
-            if (data === 'v') {
-                data = 'c';
+    ifElseIfElse(a, b) {
+        if (a) {
+            return 'b';
+        } else if (b) {
+            return 'c';
+        } else {
+            return 'c';
+        }
+    }
+
+
+    ifElseIfIfElse(a, b, c) {
+        if (a) {
+            return 1;
+        } else if (b) {
+            if (c) {
+                return 0;
+            }
+        } else {
+            return 2;
+        }
+    }
+
+
+    ifElseIfInside(a, b) {
+        if (a) {
+            return 'b';
+        } else {
+            if (b) {
+                return 'c';
             }
         }
     }
 
 
-    ifElseIfInside(data) {
-        if (data === 'a') {
-            data = 'b';
-        } else {
-            if (data === 'v') {
-                data = 'c';
+    ifNestedIf(a) {
+        if (a) {
+            return 'b';
+            if (a === 'v') {
+                return 'c';
             }
         }
     }
 
 
-    ifIfElseInside(data) {
-        if (data === 'a') {
-            data = 'b';
-            if (data === 'v') {
-                data = 'c';
+
+    ifIfElseInside(a) {
+        if (a) {
+            return 'b';
+            if (a === 'v') {
+                return 'c';
             } else {
-                data = 'f';
+                return 'f';
             }
         }
     }
@@ -96,54 +120,27 @@ class IfForMock {
     }
 
 
-    ifIfIf(data: number) {
-        if (data > 2) {
-            if (data > 3) {
-                if (data > 4) {
-                    console.log('data > 4');
+    ifIfIf(a: number) {
+        if (a > 2) {
+            if (a > 3) {
+                if (a > 4) {
+                    console.log('a > 4');
                 }
             }
         }
     }
 
 
-    ifIfIfElse(data: number) {
-        if (data > 2) {
-            if (data > 3) {
-                if (data > 4) {
-                    console.log('data > 4');
+    ifIfIfElse(a: number) {
+        if (a > 2) {
+            if (a > 3) {
+                if (a > 4) {
+                    console.log('a > 4');
                 } else {
-                    console.log('data <= 4');
+                    console.log('a <= 4');
                 }
             }
         }
     }
-
-
-    forMethod(data) {
-        for (const elt of data) {
-            console.log(elt);
-        }
-    }
-
-
-    forEachMethod(data) {
-        data.forEach(e => {
-            console.log(e);
-        })
-    }
-
-
-    forForFor(max: number) {
-        let total = 0;
-        for (let i = 1; i < max; ++i) {
-            for (let j = 2; j < i; ++j) {
-                for (let k = 2; k < 10; ++k) {
-                    console.log(`k = ${k}`);
-                }
-            }
-            total += i;
-        }
-        }
 
 }

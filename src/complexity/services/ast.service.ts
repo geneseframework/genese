@@ -163,4 +163,9 @@ export class Ast {
         return false;
     }
 
+
+    static isArray(node: ts.Node): boolean {
+        return false;
+    }
+
 }

@@ -20,6 +20,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
     #cpxFactors?: CpxFactors = new CpxFactors();                            // The complexity factors of the TreeNode
     #feature?: NodeFeature = undefined;                                     // The NodeFeature of the node of the TreeNode
     #intrinsicNestingCpx: number = undefined;                               // The nesting of the TreeNode inside its method (not including its parent's nesting)
+    #isArray: boolean = undefined;                                          // True is the TreeNode is an array, false if not
     kind ?= '';                                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
     #nestingCpx: number = undefined;                                        // The nesting of the TreeNode inside its method (including its parent's nesting)
     node?: ts.Node = undefined;                                             // The current node in the AST
@@ -31,6 +32,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
     constructor() {
         super();
     }
+
 
     /**
      * Mandatory method for IsAstNode interface
@@ -86,7 +88,19 @@ export class TreeNode extends Evaluable implements IsAstNode {
      * Checks if an AST node inside a method is a recursion, ie a call to this method.
      * The current TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
-    isRecursion(): boolean {
+    get isRecursion(): boolean {
+        if (!this.treeMethod) {
+            return false;
+        }
+        return this.node?.['name']?.['escapedText'] === this.treeMethod.name;
+    }
+
+
+    /**
+     * Checks if an AST node inside a method is a recursion, ie a call to this method.
+     * The current TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
+     */
+    get isArray(): boolean {
         if (!this.treeMethod) {
             return false;
         }
@@ -122,11 +136,14 @@ export class TreeNode extends Evaluable implements IsAstNode {
         if (Ast.isElseStatement(this.node)) {
             this.cpxFactors.structural.conditional = cpxFactors.structural.conditional;
         }
+        if (Ast.isElseIfStatement(this.node)) {
+            this.cpxFactors.nesting.conditional = 0;
+        }
     }
 
 
     private setRecursionCpxFactors(): void {
-        this.cpxFactors.structural.recursion = this.isRecursion() ? cpxFactors.structural.recursion : 0;
+        this.cpxFactors.structural.recursion = this.isRecursion ? cpxFactors.structural.recursion : 0;
     }
 
 

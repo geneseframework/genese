@@ -12,7 +12,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     }
     return privateMap.get(receiver);
 };
-var _cpxFactors, _feature, _intrinsicNestingCpx, _nestingCpx;
+var _cpxFactors, _feature, _intrinsicNestingCpx, _isArray, _nestingCpx;
 Object.defineProperty(exports, "__esModule", { value: true });
 const evaluable_model_1 = require("../evaluable.model");
 const node_feature_enum_1 = require("../../enums/node-feature.enum");
@@ -32,6 +32,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
         _cpxFactors.set(this, new cpx_factors_model_1.CpxFactors()); // The complexity factors of the TreeNode
         _feature.set(this, undefined); // The NodeFeature of the node of the TreeNode
         _intrinsicNestingCpx.set(this, undefined); // The nesting of the TreeNode inside its method (not including its parent's nesting)
+        _isArray.set(this, undefined); // True is the TreeNode is an array, false if not
         this.kind = ''; // The kind of the node ('MethodDeclaration, IfStatement, ...)
         _nestingCpx.set(this, undefined); // The nesting of the TreeNode inside its method (including its parent's nesting)
         this.node = undefined; // The current node in the AST
@@ -78,7 +79,18 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * Checks if an AST node inside a method is a recursion, ie a call to this method.
      * The current TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
-    isRecursion() {
+    get isRecursion() {
+        var _a, _b;
+        if (!this.treeMethod) {
+            return false;
+        }
+        return ((_b = (_a = this.node) === null || _a === void 0 ? void 0 : _a['name']) === null || _b === void 0 ? void 0 : _b['escapedText']) === this.treeMethod.name;
+    }
+    /**
+     * Checks if an AST node inside a method is a recursion, ie a call to this method.
+     * The current TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
+     */
+    get isArray() {
         var _a, _b;
         if (!this.treeMethod) {
             return false;
@@ -107,9 +119,12 @@ class TreeNode extends evaluable_model_1.Evaluable {
         if (ast_service_1.Ast.isElseStatement(this.node)) {
             this.cpxFactors.structural.conditional = cpx_factors_1.cpxFactors.structural.conditional;
         }
+        if (ast_service_1.Ast.isElseIfStatement(this.node)) {
+            this.cpxFactors.nesting.conditional = 0;
+        }
     }
     setRecursionCpxFactors() {
-        this.cpxFactors.structural.recursion = this.isRecursion() ? cpx_factors_1.cpxFactors.structural.recursion : 0;
+        this.cpxFactors.structural.recursion = this.isRecursion ? cpx_factors_1.cpxFactors.structural.recursion : 0;
     }
     /**
      * Sets the global nesting cpx of the node (the cpx from the node itself and from its parents)
@@ -159,4 +174,4 @@ class TreeNode extends evaluable_model_1.Evaluable {
     }
 }
 exports.TreeNode = TreeNode;
-_cpxFactors = new WeakMap(), _feature = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _nestingCpx = new WeakMap();
+_cpxFactors = new WeakMap(), _feature = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _isArray = new WeakMap(), _nestingCpx = new WeakMap();
