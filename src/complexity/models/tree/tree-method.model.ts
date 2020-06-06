@@ -113,7 +113,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     createDisplayedCode(tree: TreeNode = this.tree): void {
         this.setDisplayedCodeLines();
         this.setCpxFactorsToDisplayedCode(tree);
-        this.#displayedCode.setLinesNestingCpx();
+        this.#displayedCode.setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
         this.calculateCpxIndex();
         this.#displayedCode.setTextWithLines();
@@ -160,6 +160,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
                 let comment = `+${line.cpxFactors.total.toFixed(1)} Complexity index (+${line.cpxFactors.totalBasic.toFixed(1)} ${FactorCategory.BASIC}`;
                 comment = line.cpxFactors.totalAggregation > 0 ? `${comment}, +${line.cpxFactors.totalAggregation} ${FactorCategory.AGGREGATION}` : comment;
                 comment = line.cpxFactors.totalNesting > 0 ? `${comment}, +${line.cpxFactors.totalNesting} nesting` : comment;
+                comment = line.cpxFactors.totalDepth > 0 ? `${comment}, +${line.cpxFactors.totalDepth} depth` : comment;
                 comment = line.cpxFactors.totalStructural > 0 ? `${comment}, +${line.cpxFactors.totalStructural} ${FactorCategory.STRUCTURAL}` : comment;
                 comment = `${comment})`;
                 this.#displayedCode.lines[line.issue - 1].text = this.#originalCode.addComment(comment, this.#originalCode.lines[line.issue - 1]);

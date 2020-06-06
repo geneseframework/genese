@@ -20,7 +20,7 @@ export class TernariesMock {
     }
 
 
-    ifElseIf(a, b) {
+    NoTernary(a, b) {
         if (a) {
             return 1;
         } else if (b) {

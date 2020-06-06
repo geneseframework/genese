@@ -14,8 +14,10 @@ complexityFactors.basic = {
     imp: 0.1,                           // Element imported from another file
     node: 0.1,                          // Any AST node ("Identifier", "Parameter", "Block", IfStatement, ...)
 };
+complexityFactors.depth = {
+    arr: 1.5,                             // Inside an array
+};
 complexityFactors.nesting = {
-    arr: 2,                             // Inside an array
     conditional: 0.5,                   // Inside a conditional
     func: 1,                            // Usage of a function or method inside a block of code
     loop: 0.5,                          // Inside a loop

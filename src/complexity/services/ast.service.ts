@@ -163,4 +163,9 @@ export class Ast {
         return false;
     }
 
+
+    static isArrayIndex(node: ts.Node): boolean {
+        return(node?.parent?.kind === ts.SyntaxKind.ElementAccessExpression && node?.pos === node.parent['argumentExpression'].pos);
+    }
+
 }
