@@ -13,6 +13,7 @@ import { CodeService } from '../../services/code.service';
 import { FactorCategory } from '../../enums/factor-category.enum';
 import { CodeLine } from '../code/code-line.model';
 import { cpxFactors } from '../../cpx-factors';
+import { LogService } from '../../services/tree/log.service';
 
 /**
  * Element of the TreeNode structure corresponding to a given method
@@ -30,7 +31,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     node: ts.Node = undefined;                                      // The AST node corresponding to the method
     #originalCode?: Code = undefined;                               // The original Code of the method (as Code object)
     treeFile?: TreeFile = new TreeFile();                           // The TreeFile which contains the TreeMethod
-    tree?: TreeNode = undefined;                                    // The AST of the method itself
+    treeNode?: TreeNode = undefined;                                    // The AST of the method itself
 
 
     constructor(node: ts.Node) {
@@ -44,7 +45,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
      * Evaluates the complexities of this TreeMethod
      */
     evaluate(): void {
-        this.tree.printAllChildren();
+        LogService.printAllChildren(this.treeNode);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.node);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
@@ -110,7 +111,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
      * Creates the code to display with the original code of a TreeNode
      * @param tree  // The TreeNode to analyse
      */
-    createDisplayedCode(tree: TreeNode = this.tree): void {
+    createDisplayedCode(tree: TreeNode = this.treeNode): void {
         this.setDisplayedCodeLines();
         this.setCpxFactorsToDisplayedCode(tree);
         this.#displayedCode.setLinesDepthAndNestingCpx();
