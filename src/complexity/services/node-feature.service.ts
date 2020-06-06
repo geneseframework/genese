@@ -27,6 +27,7 @@ export class NodeFeatureService {
                 return NodeFeature.CONDITIONAL;
             case ts.SyntaxKind.Block:
             case ts.SyntaxKind.CallExpression:
+            case ts.SyntaxKind.ElementAccessExpression:
             case ts.SyntaxKind.EndOfFileToken:
             case ts.SyntaxKind.ExpressionStatement:
             case ts.SyntaxKind.Parameter:

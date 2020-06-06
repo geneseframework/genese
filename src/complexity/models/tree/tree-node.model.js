@@ -144,8 +144,6 @@ class TreeNode extends evaluable_model_1.Evaluable {
     setRecursionCpxFactors() {
         this.cpxFactors.structural.recursion = this.isRecursion ? cpx_factors_1.cpxFactors.structural.recursion : 0;
     }
-    setArrayCpxFactors() {
-    }
     /**
      * Sets the global nesting cpx of the node (the cpx from the node itself and from its parents)
      */

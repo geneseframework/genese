@@ -1,4 +1,4 @@
-class IfForMock {
+class IfMock {
     constructor() {
     }
     ifAlone(a) {
