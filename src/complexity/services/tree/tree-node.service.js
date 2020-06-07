@@ -62,11 +62,11 @@ class TreeNodeService {
     }
     isCallback(treeNode) {
         // return false
-        return treeNode.parentFunction.params.includes(treeNode.name);
+        return treeNode.isMethodIdentifier && treeNode.parentFunction.params.includes(treeNode.name);
     }
     isRecursion(treeNode) {
         var _a, _b;
-        return treeNode.name === treeNode.parentFunction.name && treeNode.isIdentifier && !((_a = treeNode.parent) === null || _a === void 0 ? void 0 : _a.isFunction) && !((_b = treeNode.parent) === null || _b === void 0 ? void 0 : _b.isParam);
+        return treeNode.name === treeNode.parentFunction.name && treeNode.isMethodIdentifier && !((_a = treeNode.parent) === null || _a === void 0 ? void 0 : _a.isFunction) && !((_b = treeNode.parent) === null || _b === void 0 ? void 0 : _b.isParam);
     }
 }
 exports.TreeNodeService = TreeNodeService;

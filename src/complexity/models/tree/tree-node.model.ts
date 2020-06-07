@@ -122,7 +122,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
     get isCallback(): boolean {
         const zzz = this.treeNodeService.isCallback(this);
         if (zzz) {
-            // console.log('IS CALLBACK', Ast.getType(this.node), this.name, 'PARENT KIND', this.parent?.kind, this.parent?.name, 'CTXT', this.parentFunction.name)
+            console.log('IS CALLBACK', Ast.getType(this.node), this.name, 'PARENT KIND', this.parent?.kind, this.parent?.name, 'CTXT', this.parentFunction.name)
         }
         return zzz;
         // return this.treeNodeService.isCallback(this);
@@ -134,8 +134,13 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
-    get isIdentifier(): boolean {
-        return Ast.isIdentifier(this.node);
+    get isCallExpression(): boolean {
+        return Ast.isCallExpression(this.node);
+    }
+
+
+    get isMethodIdentifier(): boolean {
+        return Ast.isMethodIdentifier(this.node);
     }
 
 

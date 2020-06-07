@@ -71,12 +71,11 @@ export class TreeNodeService {
 
 
     isCallback(treeNode: TreeNode): boolean {
-        // return false
-        return treeNode.parentFunction.params.includes(treeNode.name);
+        return treeNode.isMethodIdentifier && treeNode.parentFunction.params.includes(treeNode.name);
     }
 
 
     isRecursion(treeNode: TreeNode): boolean {
-        return treeNode.name === treeNode.parentFunction.name && treeNode.isIdentifier && !treeNode.parent?.isFunction && !treeNode.parent?.isParam;
+        return treeNode.name === treeNode.parentFunction.name && treeNode.isMethodIdentifier && !treeNode.parent?.isFunction && !treeNode.parent?.isParam;
     }
 }

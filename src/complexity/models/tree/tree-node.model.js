@@ -105,9 +105,10 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
     get isCallback() {
+        var _a, _b;
         const zzz = this.treeNodeService.isCallback(this);
         if (zzz) {
-            // console.log('IS CALLBACK', Ast.getType(this.node), this.name, 'PARENT KIND', this.parent?.kind, this.parent?.name, 'CTXT', this.parentFunction.name)
+            console.log('IS CALLBACK', ast_service_1.Ast.getType(this.node), this.name, 'PARENT KIND', (_a = this.parent) === null || _a === void 0 ? void 0 : _a.kind, (_b = this.parent) === null || _b === void 0 ? void 0 : _b.name, 'CTXT', this.parentFunction.name);
         }
         return zzz;
         // return this.treeNodeService.isCallback(this);
@@ -115,8 +116,11 @@ class TreeNode extends evaluable_model_1.Evaluable {
     get isFunction() {
         return this.feature === node_feature_enum_1.NodeFeature.FUNC;
     }
-    get isIdentifier() {
-        return ast_service_1.Ast.isIdentifier(this.node);
+    get isCallExpression() {
+        return ast_service_1.Ast.isCallExpression(this.node);
+    }
+    get isMethodIdentifier() {
+        return ast_service_1.Ast.isMethodIdentifier(this.node);
     }
     get isParam() {
         return ast_service_1.Ast.isParam(this.node);

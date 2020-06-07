@@ -50,6 +50,15 @@ export class Ast {
      * Checks if an AST node is a Parameter
      * @param node // The AST node
      */
+    static isCallExpression(node: ts.Node): boolean {
+        return node?.kind === ts.SyntaxKind.CallExpression ?? false;
+    }
+
+
+    /**
+     * Checks if an AST node is a Parameter
+     * @param node // The AST node
+     */
     static isIdentifier(node: ts.Node): boolean {
         return node?.kind === ts.SyntaxKind.Identifier ?? false;
     }
@@ -158,6 +167,15 @@ export class Ast {
      */
     static isArrayIndex(node: ts.Node): boolean {
         return(node?.parent?.kind === ts.SyntaxKind.ElementAccessExpression && node?.pos === node.parent['argumentExpression'].pos);
+    }
+
+
+    /**
+     * Checks if an AST node is an index of an array, ie if it's a Node which is the second son of an ElementAccessExpression
+     * @param node      // The node to analyse
+     */
+    static isMethodIdentifier(node: ts.Node): boolean {
+        return(Ast.isCallExpression(node.parent) && node?.pos === node.parent?.pos);
     }
 
 
