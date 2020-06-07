@@ -46,15 +46,8 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * Mandatory method for IsAstNode interface
      */
     evaluate() {
-        var _a;
         this.calculateAndSetCpxFactors();
-        if (this.kind === 'IfStatement') {
-            console.log('CALC CPXFCT', this.kind, 'NEST', this.cpxFactors.totalNesting, 'PT', (_a = this.parent) === null || _a === void 0 ? void 0 : _a.cpxFactors.totalNesting);
-        }
         this.addParentCpx();
-        if (this.kind === 'IfStatement') {
-            console.log('ADD PTSSSS', this.cpxFactors.totalNesting);
-        }
     }
     get aggregationCpx() {
         return this.cpxFactors.totalAggregation;
@@ -156,7 +149,6 @@ class TreeNode extends evaluable_model_1.Evaluable {
     }
     calculateAndSetCpxFactors() {
         this.setGeneralCaseCpxFactors();
-        // console.log('START KIND', this.kind, 'NEST', this.cpxFactors.totalNesting)
         this.setBasicCpxFactors();
         this.setRecursionOrCallbackCpxFactors();
         this.setElseCpxFactors();
@@ -168,7 +160,6 @@ class TreeNode extends evaluable_model_1.Evaluable {
     }
     setGeneralCaseCpxFactors() {
         this.cpxFactors.nesting[this.feature] = cpx_factors_1.cpxFactors.nesting[this.feature];
-        // console.log('KIND', this.kind, 'NEST', this.cpxFactors.nesting[this.feature])
         this.cpxFactors.structural[this.feature] = cpx_factors_1.cpxFactors.structural[this.feature];
     }
     setBasicCpxFactors() {
@@ -204,15 +195,11 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * Sets the global nesting cpx of the node (the cpx from the node itself and from its parents)
      */
     addParentCpx() {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
-        if (this.kind === 'IfStatement') {
-            console.log('NESTING ???', this.kind, this.cpxFactors.totalNesting, 'PARENT', this.parent.kind, (_a = this.parent) === null || _a === void 0 ? void 0 : _a.cpxFactors.nesting);
-        }
-        if (this.node && ((_b = this.parent) === null || _b === void 0 ? void 0 : _b.node) && ((_d = (_c = this.parent) === null || _c === void 0 ? void 0 : _c.cpxFactors) === null || _d === void 0 ? void 0 : _d.nesting)) {
-            // console.log('NESTING', this.kind, 'NEST', this.cpxFactors.totalNesting, 'pt', this.parent.kind, 'PT NEST', this.parent.cpxFactors.totalNesting)
+        var _a, _b, _c, _d, _e, _f, _g;
+        if (this.node && ((_a = this.parent) === null || _a === void 0 ? void 0 : _a.node) && ((_c = (_b = this.parent) === null || _b === void 0 ? void 0 : _b.cpxFactors) === null || _c === void 0 ? void 0 : _c.nesting)) {
             this.cpxFactors.nesting = tools_service_1.addObjects(this.parent.cpxFactors.nesting, this.cpxFactors.nesting);
         }
-        if (this.node && ((_f = (_e = this.parent) === null || _e === void 0 ? void 0 : _e.parent) === null || _f === void 0 ? void 0 : _f.node) && ((_h = (_g = this.parent) === null || _g === void 0 ? void 0 : _g.cpxFactors) === null || _h === void 0 ? void 0 : _h.depth)) {
+        if (this.node && ((_e = (_d = this.parent) === null || _d === void 0 ? void 0 : _d.parent) === null || _e === void 0 ? void 0 : _e.node) && ((_g = (_f = this.parent) === null || _f === void 0 ? void 0 : _f.cpxFactors) === null || _g === void 0 ? void 0 : _g.depth)) {
             this.cpxFactors.depth = tools_service_1.addObjects(this.parent.cpxFactors.depth, this.cpxFactors.depth);
         }
     }

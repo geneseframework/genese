@@ -1,8 +1,6 @@
 import * as fs from 'fs-extra';
 import * as ts from 'typescript';
 import { getFilename } from './file.service';
-import { NodeFeature } from '../enums/node-feature.enum';
-import { NodeFeatureService } from './node-feature.service';
 
 /**
  * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)
@@ -54,14 +52,6 @@ export class Ast {
         return node?.kind === ts.SyntaxKind.CallExpression ?? false;
     }
 
-
-    /**
-     * Checks if an AST node is a Parameter
-     * @param node // The AST node
-     */
-    static isIdentifier(node: ts.Node): boolean {
-        return node?.kind === ts.SyntaxKind.Identifier ?? false;
-    }
 
     /**
      * Checks if an AST node is a Parameter
