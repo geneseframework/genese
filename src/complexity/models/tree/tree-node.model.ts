@@ -135,7 +135,6 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
 
     get params(): string[] {
-        console.log('THIS NODE', Ast.getType(this.node));
         if (!this.isFunction) {
             return undefined;
         }
@@ -144,8 +143,9 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
 
     calculateAndSetCpxFactors(): CpxFactors {
-        const params = this.params;
-        // console.log('PARAMS', params)
+        if (this.params) {
+            console.log('PARAMS', this.name, this.params);
+        }
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
         this.setRecursionCpxFactors();

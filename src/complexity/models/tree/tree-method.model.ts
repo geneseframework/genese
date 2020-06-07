@@ -50,7 +50,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
         this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.node);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
         this.filename = this.treeFile?.sourceFile?.fileName ?? '';
-        console.log('KINNNN PARAMSSS', this.treeNode.params)
+        console.log('METHOD PARAMSSS', this.treeNode.params)
     }
 
 

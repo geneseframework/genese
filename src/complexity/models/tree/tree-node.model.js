@@ -113,20 +113,15 @@ class TreeNode extends evaluable_model_1.Evaluable {
         return this.feature === node_feature_enum_1.NodeFeature.FUNC;
     }
     get params() {
-        console.log('THIS NODE', ast_service_1.Ast.getType(this.node));
         if (!this.isFunction) {
             return undefined;
         }
         return this.children.filter(c => ast_service_1.Ast.isParam(c.node)).map(e => e.name);
-        // console.log('CHILDREN', this.children);
-        // for (const treeChild of this.children) {
-        // console.log('CHILD', treeChild.node);
-        // console.log('CHILD', Ast.getType(treeChild.node));
-        // }
     }
     calculateAndSetCpxFactors() {
-        const params = this.params;
-        // console.log('PARAMS', params)
+        if (this.params) {
+            console.log('PARAMS', this.name, this.params);
+        }
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
         this.setRecursionCpxFactors();
