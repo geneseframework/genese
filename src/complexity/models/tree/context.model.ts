@@ -4,6 +4,7 @@ import { NodeFeature } from '../../enums/node-feature.enum';
 
 export class Context {
 
+    #name?: string = undefined;
     #params?: string[] = undefined;
     #treeNode?: TreeNode = undefined;
 
@@ -13,6 +14,11 @@ export class Context {
 
     get isFunction(): boolean {
         return this.treeNode.feature === NodeFeature.FUNC;
+    }
+
+
+    get name(): string {
+        return this.#name ?? this.treeNode.name;
     }
 
 
@@ -26,11 +32,6 @@ export class Context {
     }
 
 
-    // set treeNode(treeNode: TreeNode) {
-    //     this.#treeNode = treeNode;
-    // }
-
-
     init(treeNode?: TreeNode): Context {
         this.#treeNode = treeNode ?? new TreeNode();
         this.initParams();
@@ -40,7 +41,7 @@ export class Context {
 
     private initParams(): string[] {
         if (!this.isFunction) {
-            return undefined;
+            return [];
         }
         this.#params = this.treeNode.children.filter(c => Ast.isParam(c.node)).map(e => e.name);
         return this.#params;

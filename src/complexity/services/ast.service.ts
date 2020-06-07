@@ -50,6 +50,14 @@ export class Ast {
      * Checks if an AST node is a Parameter
      * @param node // The AST node
      */
+    static isIdentifier(node: ts.Node): boolean {
+        return node?.kind === ts.SyntaxKind.Identifier ?? false;
+    }
+
+    /**
+     * Checks if an AST node is a Parameter
+     * @param node // The AST node
+     */
     static isParam(node: ts.Node): boolean {
         return node?.kind === ts.SyntaxKind.Parameter ?? false;
     }

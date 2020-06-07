@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _context, _cpxFactors, _feature, _intrinsicDepthCpx, _intrinsicNestingCpx, _kind, _nestingCpx;
+var _context, _cpxFactors, _feature, _intrinsicDepthCpx, _intrinsicNestingCpx, _kind, _name, _nestingCpx;
 Object.defineProperty(exports, "__esModule", { value: true });
 const evaluable_model_1 = require("../evaluable.model");
 const node_feature_enum_1 = require("../../enums/node-feature.enum");
@@ -36,6 +36,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
         _intrinsicDepthCpx.set(this, undefined); // The depth of the TreeNode inside its method (not including its parent's depth)
         _intrinsicNestingCpx.set(this, undefined); // The nesting of the TreeNode inside its method (not including its parent's nesting)
         _kind.set(this, undefined); // The kind of the node ('MethodDeclaration, IfStatement, ...)
+        _name.set(this, undefined);
         _nestingCpx.set(this, undefined); // The nesting of the TreeNode inside its method (including its parent's nesting)
         this.node = undefined; // The current node in the AST
         this.nodeFeatureService = new node_feature_service_1.NodeFeatureService(); // The service managing NodeFeatures
@@ -61,7 +62,13 @@ class TreeNode extends evaluable_model_1.Evaluable {
         }
         const context = new context_model_1.Context();
         context.init(this);
+        __classPrivateFieldSet(this, _context, context);
+        // console.log('GET CTXT')
+        // console.log('TREENODE NAME', this.name, 'TYPE CTXT', context.treeNode.kind, 'NAME CTXT', context.name)
         return context;
+    }
+    set context(ctx) {
+        __classPrivateFieldSet(this, _context, ctx);
     }
     /**
      * Gets the global nesting complexity of the node, including the nesting cpx of its parents
@@ -104,18 +111,33 @@ class TreeNode extends evaluable_model_1.Evaluable {
     set intrinsicNestingCpx(cpx) {
         __classPrivateFieldSet(this, _intrinsicNestingCpx, cpx);
     }
+    /**
+     * Checks if this TreeNode is a recursion, ie a call to a parameter of its Context.
+     * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
+     */
+    get isCallback() {
+        return this.treeNodeService.isCallback(this);
+    }
     get isFunction() {
         return this.feature === node_feature_enum_1.NodeFeature.FUNC;
     }
+    get isIdentifier() {
+        return ast_service_1.Ast.isIdentifier(this.node);
+    }
+    get isParam() {
+        return ast_service_1.Ast.isParam(this.node);
+    }
     /**
-     * Checks if an AST node inside a method is a recursion, ie a call to this method.
-     * The current TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
+     * Checks if this TreeNode is a recursion, ie a call to this Context.
+     * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
     get isRecursion() {
-        if (!this.treeMethod) {
-            return false;
+        var _a, _b;
+        const zzz = this.treeNodeService.isRecursion(this);
+        if (zzz) {
+            console.log('IS RECURSION', ast_service_1.Ast.getType(this.node), 'PARENT KIND', (_a = this.parent) === null || _a === void 0 ? void 0 : _a.kind, '& NAME', (_b = this.parent) === null || _b === void 0 ? void 0 : _b.name, 'CTXT', this.context.name);
         }
-        return this.name === this.treeMethod.name;
+        return zzz;
     }
     get kind() {
         var _a;
@@ -125,8 +147,15 @@ class TreeNode extends evaluable_model_1.Evaluable {
         __classPrivateFieldSet(this, _kind, kind);
     }
     get name() {
-        var _a, _b, _c;
-        return (_c = (_b = (_a = this.node) === null || _a === void 0 ? void 0 : _a['name']) === null || _b === void 0 ? void 0 : _b['escapedText']) !== null && _c !== void 0 ? _c : '';
+        var _a, _b, _c, _d, _e;
+        if (__classPrivateFieldGet(this, _name)) {
+            return __classPrivateFieldGet(this, _name);
+        }
+        // console.log('NAME EXCPED', this.node?.['name']?.['escapedText'], 'ESCAPE', this.node?.['escapedText'], 'AST', Ast.getType(this.node))
+        const name = (_e = (_c = (_b = (_a = this.node) === null || _a === void 0 ? void 0 : _a['name']) === null || _b === void 0 ? void 0 : _b['escapedText']) !== null && _c !== void 0 ? _c : (_d = this.node) === null || _d === void 0 ? void 0 : _d['escapedText']) !== null && _e !== void 0 ? _e : ast_service_1.Ast.getType(this.node);
+        // console.log('AST', Ast.getType(this.node), '    NAME', name, 'PARENT KIND', this.parent?.kind, 'PARENT NAME', this.parent?.name)
+        __classPrivateFieldSet(this, _name, name);
+        return name;
     }
     get nestingCpx() {
         return this.cpxFactors.totalNesting;
@@ -137,7 +166,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
     calculateAndSetCpxFactors() {
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
-        this.setRecursionCpxFactors();
+        this.setRecursionOrCallbackCpxFactors();
         this.setElseCpxFactors();
         this.setDepthCpxFactors();
         this.setAggregationCpxFactors();
@@ -154,7 +183,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
         else {
             __classPrivateFieldSet(this, _context, this.treeNodeService.getContext(this));
         }
-        console.log('KIND', this.kind, 'CONTEXT', this.context.params);
+        // console.log('KIND', this.kind, 'CONTEXT', this.context.params);
     }
     setGeneralCaseCpxFactors() {
         this.cpxFactors.nesting[this.feature] = cpx_factors_1.cpxFactors.nesting[this.feature];
@@ -185,8 +214,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
             this.cpxFactors.nesting.conditional = 0;
         }
     }
-    setRecursionCpxFactors() {
+    setRecursionOrCallbackCpxFactors() {
         this.cpxFactors.structural.recursion = this.isRecursion ? cpx_factors_1.cpxFactors.structural.recursion : 0;
+        // this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
     }
     /**
      * Sets the global nesting cpx of the node (the cpx from the node itself and from its parents)
@@ -202,4 +232,4 @@ class TreeNode extends evaluable_model_1.Evaluable {
     }
 }
 exports.TreeNode = TreeNode;
-_context = new WeakMap(), _cpxFactors = new WeakMap(), _feature = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _kind = new WeakMap(), _nestingCpx = new WeakMap();
+_context = new WeakMap(), _cpxFactors = new WeakMap(), _feature = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _kind = new WeakMap(), _name = new WeakMap(), _nestingCpx = new WeakMap();

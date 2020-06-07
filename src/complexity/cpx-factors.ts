@@ -26,13 +26,14 @@ complexityFactors.nesting = {
 complexityFactors.structural = {
     arr: 0.1,                           // "Array", "Set"
     asynchronicity: 1,                  // "Promise", "Observable"
+    callback: 3,                        // Callback (call to a parameter of the context (ie method) of the node)
     conditional: 1,                     // "if", "else", "else if", "switch", "catch", nullish coalescing
     externalBinding: 3,                 // A "this" inside a method which not refers to the method context (its class)
     func: 1,                            // Usage of a function or method inside a block of code
     jump: 1,                            // "break", "continue"
     logicDoor: 1,                       // "and", "or", "not"
     loop: 1,                            // "for", "foreach", "while"
-    recursion: 3,                       // Recursion or callback
+    recursion: 3,                       // Recursion (call to the node's method)
     regex: 1,                           // Regular expression
     ternary: 1                          // Ternary expression
 };

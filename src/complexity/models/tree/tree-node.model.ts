@@ -23,6 +23,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
     #intrinsicDepthCpx: number = undefined;                                 // The depth of the TreeNode inside its method (not including its parent's depth)
     #intrinsicNestingCpx: number = undefined;                               // The nesting of the TreeNode inside its method (not including its parent's nesting)
     #kind: string = undefined;                                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
+    #name: string = undefined;
     #nestingCpx: number = undefined;                                        // The nesting of the TreeNode inside its method (including its parent's nesting)
     node?: ts.Node = undefined;                                             // The current node in the AST
     nodeFeatureService?: NodeFeatureService = new NodeFeatureService();     // The service managing NodeFeatures
@@ -60,7 +61,15 @@ export class TreeNode extends Evaluable implements IsAstNode {
         }
         const context = new Context();
         context.init(this);
+        this.#context = context;
+        // console.log('GET CTXT')
+        // console.log('TREENODE NAME', this.name, 'TYPE CTXT', context.treeNode.kind, 'NAME CTXT', context.name)
         return context;
+    }
+
+
+    set context(ctx: Context) {
+        this.#context = ctx;
     }
 
 
@@ -119,20 +128,40 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
+    /**
+     * Checks if this TreeNode is a recursion, ie a call to a parameter of its Context.
+     * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
+     */
+    get isCallback(): boolean {
+        return this.treeNodeService.isCallback(this);
+    }
+
+
     get isFunction(): boolean {
         return this.feature === NodeFeature.FUNC;
     }
 
 
+    get isIdentifier(): boolean {
+        return Ast.isIdentifier(this.node);
+    }
+
+
+    get isParam(): boolean {
+        return Ast.isParam(this.node);
+    }
+
+
     /**
-     * Checks if an AST node inside a method is a recursion, ie a call to this method.
-     * The current TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
+     * Checks if this TreeNode is a recursion, ie a call to this Context.
+     * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
     get isRecursion(): boolean {
-        if (!this.treeMethod) {
-            return false;
+        const zzz = this.treeNodeService.isRecursion(this);
+        if (zzz) {
+            console.log('IS RECURSION', Ast.getType(this.node), 'PARENT KIND', this.parent?.kind, '& NAME', this.parent?.name, 'CTXT', this.context.name)
         }
-        return this.name === this.treeMethod.name;
+        return zzz;
     }
 
 
@@ -147,7 +176,14 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
 
     get name(): string {
-        return this.node?.['name']?.['escapedText'] ?? '';
+        if (this.#name) {
+            return this.#name;
+        }
+        // console.log('NAME EXCPED', this.node?.['name']?.['escapedText'], 'ESCAPE', this.node?.['escapedText'], 'AST', Ast.getType(this.node))
+        const name = this.node?.['name']?.['escapedText'] ?? this.node?.['escapedText'] ?? Ast.getType(this.node);
+        // console.log('AST', Ast.getType(this.node), '    NAME', name, 'PARENT KIND', this.parent?.kind, 'PARENT NAME', this.parent?.name)
+        this.#name = name
+        return name;
     }
 
 
@@ -164,7 +200,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
     calculateAndSetCpxFactors(): CpxFactors {
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
-        this.setRecursionCpxFactors();
+        this.setRecursionOrCallbackCpxFactors();
         this.setElseCpxFactors();
         this.setDepthCpxFactors();
         this.setAggregationCpxFactors();
@@ -224,8 +260,9 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
-    private setRecursionCpxFactors(): void {
+    private setRecursionOrCallbackCpxFactors(): void {
         this.cpxFactors.structural.recursion = this.isRecursion ? cpxFactors.structural.recursion : 0;
+        // this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
     }
 
 
