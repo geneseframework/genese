@@ -36,9 +36,16 @@ export class TreeNodeService {
             newTree.treeMethod = treeNode.treeMethod;
             newTree.parent = treeNode;
             newTree.kind = Ast.getType(childNode);
+            newTree.evaluate();
             treeNode.children.push(this.addTreeToChildren(newTree));
             this.setParentFunction(newTree);
-            newTree.evaluate();
+            console.log('KIND', newTree.kind, newTree.name)
+            if (newTree.kind ==='IfStatement') {
+                console.log('IFFFFF', newTree.name, 'NEST', newTree.cpxFactors.totalNesting, 'PT ', newTree.parent.cpxFactors.nesting)
+            }
+            if (newTree.parent.kind ==='IfStatement') {
+                console.log('PARENT IFFFF', newTree.name, 'NEST', newTree.cpxFactors.totalNesting, 'PT ', newTree.parent.cpxFactors.nesting)
+            }
         });
         return treeNode;
     }

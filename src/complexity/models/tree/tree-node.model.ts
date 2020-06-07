@@ -42,7 +42,13 @@ export class TreeNode extends Evaluable implements IsAstNode {
      */
     evaluate(): void {
         this.calculateAndSetCpxFactors();
+        if (this.kind === 'IfStatement') {
+            console.log('CALC CPXFCT', this.kind, 'NEST', this.cpxFactors.totalNesting, 'PT', this.parent?.cpxFactors.totalNesting)
+        }
         this.addParentCpx();
+        if (this.kind === 'IfStatement') {
+            console.log('ADD PTSSSS', this.cpxFactors.totalNesting)
+        }
     }
 
 
@@ -120,12 +126,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
      * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
     get isCallback(): boolean {
-        const zzz = this.treeNodeService.isCallback(this);
-        if (zzz) {
-            console.log('IS CALLBACK', Ast.getType(this.node), this.name, 'PARENT KIND', this.parent?.kind, this.parent?.name, 'CTXT', this.parentFunction.name)
-        }
-        return zzz;
-        // return this.treeNodeService.isCallback(this);
+        return this.treeNodeService.isCallback(this);
     }
 
 
@@ -154,11 +155,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
      * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
     get isRecursion(): boolean {
-        const zzz = this.treeNodeService.isRecursion(this);
-        if (zzz) {
-            console.log('IS RECURSION', Ast.getType(this.node), this.name, 'PARENT KIND', this.parent?.kind, this.parent?.name, 'CTXT', this.parentFunction.name)
-        }
-        return zzz;
+        return this.treeNodeService.isRecursion(this);
     }
 
 
@@ -193,6 +190,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
     calculateAndSetCpxFactors(): CpxFactors {
         this.setGeneralCaseCpxFactors();
+        // console.log('START KIND', this.kind, 'NEST', this.cpxFactors.totalNesting)
         this.setBasicCpxFactors();
         this.setRecursionOrCallbackCpxFactors();
         this.setElseCpxFactors();
@@ -204,8 +202,9 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
-    private setGeneralCaseCpxFactors(): void {
+    private setGeneralCaseCpxFactors(): void{
         this.cpxFactors.nesting[this.feature] = cpxFactors.nesting[this.feature];
+        // console.log('KIND', this.kind, 'NEST', this.cpxFactors.nesting[this.feature])
         this.cpxFactors.structural[this.feature] = cpxFactors.structural[this.feature];
     }
 
@@ -252,7 +251,11 @@ export class TreeNode extends Evaluable implements IsAstNode {
      * Sets the global nesting cpx of the node (the cpx from the node itself and from its parents)
      */
     private addParentCpx(): void {
-        if (this.node && this.parent?.parent?.node && this.parent?.cpxFactors?.nesting) {
+        if (this.kind === 'IfStatement') {
+            console.log('NESTING ???', this.kind, this.cpxFactors.totalNesting, 'PARENT', this.parent.kind, this.parent?.cpxFactors.nesting)
+        }
+        if (this.node && this.parent?.node && this.parent?.cpxFactors?.nesting) {
+            // console.log('NESTING', this.kind, 'NEST', this.cpxFactors.totalNesting, 'pt', this.parent.kind, 'PT NEST', this.parent.cpxFactors.totalNesting)
             this.cpxFactors.nesting = addObjects(this.parent.cpxFactors.nesting, this.cpxFactors.nesting);
         }
         if (this.node && this.parent?.parent?.node && this.parent?.cpxFactors?.depth) {

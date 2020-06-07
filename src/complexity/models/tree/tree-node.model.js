@@ -46,8 +46,15 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * Mandatory method for IsAstNode interface
      */
     evaluate() {
+        var _a;
         this.calculateAndSetCpxFactors();
+        if (this.kind === 'IfStatement') {
+            console.log('CALC CPXFCT', this.kind, 'NEST', this.cpxFactors.totalNesting, 'PT', (_a = this.parent) === null || _a === void 0 ? void 0 : _a.cpxFactors.totalNesting);
+        }
         this.addParentCpx();
+        if (this.kind === 'IfStatement') {
+            console.log('ADD PTSSSS', this.cpxFactors.totalNesting);
+        }
     }
     get aggregationCpx() {
         return this.cpxFactors.totalAggregation;
@@ -105,13 +112,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
     get isCallback() {
-        var _a, _b;
-        const zzz = this.treeNodeService.isCallback(this);
-        if (zzz) {
-            console.log('IS CALLBACK', ast_service_1.Ast.getType(this.node), this.name, 'PARENT KIND', (_a = this.parent) === null || _a === void 0 ? void 0 : _a.kind, (_b = this.parent) === null || _b === void 0 ? void 0 : _b.name, 'CTXT', this.parentFunction.name);
-        }
-        return zzz;
-        // return this.treeNodeService.isCallback(this);
+        return this.treeNodeService.isCallback(this);
     }
     get isFunction() {
         return this.feature === node_feature_enum_1.NodeFeature.FUNC;
@@ -130,12 +131,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
     get isRecursion() {
-        var _a, _b;
-        const zzz = this.treeNodeService.isRecursion(this);
-        if (zzz) {
-            console.log('IS RECURSION', ast_service_1.Ast.getType(this.node), this.name, 'PARENT KIND', (_a = this.parent) === null || _a === void 0 ? void 0 : _a.kind, (_b = this.parent) === null || _b === void 0 ? void 0 : _b.name, 'CTXT', this.parentFunction.name);
-        }
-        return zzz;
+        return this.treeNodeService.isRecursion(this);
     }
     get kind() {
         var _a;
@@ -160,6 +156,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
     }
     calculateAndSetCpxFactors() {
         this.setGeneralCaseCpxFactors();
+        // console.log('START KIND', this.kind, 'NEST', this.cpxFactors.totalNesting)
         this.setBasicCpxFactors();
         this.setRecursionOrCallbackCpxFactors();
         this.setElseCpxFactors();
@@ -171,6 +168,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
     }
     setGeneralCaseCpxFactors() {
         this.cpxFactors.nesting[this.feature] = cpx_factors_1.cpxFactors.nesting[this.feature];
+        // console.log('KIND', this.kind, 'NEST', this.cpxFactors.nesting[this.feature])
         this.cpxFactors.structural[this.feature] = cpx_factors_1.cpxFactors.structural[this.feature];
     }
     setBasicCpxFactors() {
@@ -207,7 +205,11 @@ class TreeNode extends evaluable_model_1.Evaluable {
      */
     addParentCpx() {
         var _a, _b, _c, _d, _e, _f, _g, _h;
-        if (this.node && ((_b = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.parent) === null || _b === void 0 ? void 0 : _b.node) && ((_d = (_c = this.parent) === null || _c === void 0 ? void 0 : _c.cpxFactors) === null || _d === void 0 ? void 0 : _d.nesting)) {
+        if (this.kind === 'IfStatement') {
+            console.log('NESTING ???', this.kind, this.cpxFactors.totalNesting, 'PARENT', this.parent.kind, (_a = this.parent) === null || _a === void 0 ? void 0 : _a.cpxFactors.nesting);
+        }
+        if (this.node && ((_b = this.parent) === null || _b === void 0 ? void 0 : _b.node) && ((_d = (_c = this.parent) === null || _c === void 0 ? void 0 : _c.cpxFactors) === null || _d === void 0 ? void 0 : _d.nesting)) {
+            // console.log('NESTING', this.kind, 'NEST', this.cpxFactors.totalNesting, 'pt', this.parent.kind, 'PT NEST', this.parent.cpxFactors.totalNesting)
             this.cpxFactors.nesting = tools_service_1.addObjects(this.parent.cpxFactors.nesting, this.cpxFactors.nesting);
         }
         if (this.node && ((_f = (_e = this.parent) === null || _e === void 0 ? void 0 : _e.parent) === null || _f === void 0 ? void 0 : _f.node) && ((_h = (_g = this.parent) === null || _g === void 0 ? void 0 : _g.cpxFactors) === null || _h === void 0 ? void 0 : _h.depth)) {

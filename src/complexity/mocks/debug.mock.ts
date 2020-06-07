@@ -1,17 +1,24 @@
-import * as ts from 'typescript';
 
 export class DebugMock {
 
-    methodWithCallback(a, callback) {
-        callback(a);
-        this.methodWithCallback(a + 3, 1);
+
+
+    ifIfNested(a, b) {
+        if (a) {
+            return 'b';
+            if (b) {
+                return 'c';
+            }
+        }
+    }
+
+    recursion(a) {
+        this.recursion(a);
     }
 
 
-    // getNodeCount(node) {
-    //     ts.forEachChild(node, function cb(childNode) {
-    //         ts.forEachChild(childNode, cb);
-    //     });
-    // }
+    methodWithCallback(a, callback) {
+        callback(3);
+    }
 
 }
