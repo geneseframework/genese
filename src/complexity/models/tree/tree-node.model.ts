@@ -62,8 +62,6 @@ export class TreeNode extends Evaluable implements IsAstNode {
         const context = new Context();
         context.init(this);
         this.#context = context;
-        // console.log('GET CTXT')
-        // console.log('TREENODE NAME', this.name, 'TYPE CTXT', context.treeNode.kind, 'NAME CTXT', context.name)
         return context;
     }
 
@@ -159,7 +157,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
     get isRecursion(): boolean {
         const zzz = this.treeNodeService.isRecursion(this);
         if (zzz) {
-            console.log('IS RECURSION', Ast.getType(this.node), 'PARENT KIND', this.parent?.kind, '& NAME', this.parent?.name, 'CTXT', this.context.name)
+            console.log('IS RECURSION', Ast.getType(this.node), this.name, 'PARENT KIND', this.parent?.kind, this.parent?.name, 'CTXT', this.context.name)
         }
         return zzz;
     }
@@ -179,11 +177,8 @@ export class TreeNode extends Evaluable implements IsAstNode {
         if (this.#name) {
             return this.#name;
         }
-        // console.log('NAME EXCPED', this.node?.['name']?.['escapedText'], 'ESCAPE', this.node?.['escapedText'], 'AST', Ast.getType(this.node))
-        const name = this.node?.['name']?.['escapedText'] ?? this.node?.['escapedText'] ?? Ast.getType(this.node);
-        // console.log('AST', Ast.getType(this.node), '    NAME', name, 'PARENT KIND', this.parent?.kind, 'PARENT NAME', this.parent?.name)
-        this.#name = name
-        return name;
+        this.#name = this.node?.['name']?.['escapedText'] ?? this.node?.['escapedText'] ?? Ast.getType(this.node);
+        return this.#name;
     }
 
 
@@ -218,7 +213,6 @@ export class TreeNode extends Evaluable implements IsAstNode {
         } else {
             this.#context = this.treeNodeService.getContext(this);
         }
-        // console.log('KIND', this.kind, 'CONTEXT', this.context.params);
     }
 
 

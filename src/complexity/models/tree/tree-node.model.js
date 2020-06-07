@@ -63,8 +63,6 @@ class TreeNode extends evaluable_model_1.Evaluable {
         const context = new context_model_1.Context();
         context.init(this);
         __classPrivateFieldSet(this, _context, context);
-        // console.log('GET CTXT')
-        // console.log('TREENODE NAME', this.name, 'TYPE CTXT', context.treeNode.kind, 'NAME CTXT', context.name)
         return context;
     }
     set context(ctx) {
@@ -135,7 +133,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
         var _a, _b;
         const zzz = this.treeNodeService.isRecursion(this);
         if (zzz) {
-            console.log('IS RECURSION', ast_service_1.Ast.getType(this.node), 'PARENT KIND', (_a = this.parent) === null || _a === void 0 ? void 0 : _a.kind, '& NAME', (_b = this.parent) === null || _b === void 0 ? void 0 : _b.name, 'CTXT', this.context.name);
+            console.log('IS RECURSION', ast_service_1.Ast.getType(this.node), this.name, 'PARENT KIND', (_a = this.parent) === null || _a === void 0 ? void 0 : _a.kind, (_b = this.parent) === null || _b === void 0 ? void 0 : _b.name, 'CTXT', this.context.name);
         }
         return zzz;
     }
@@ -151,11 +149,8 @@ class TreeNode extends evaluable_model_1.Evaluable {
         if (__classPrivateFieldGet(this, _name)) {
             return __classPrivateFieldGet(this, _name);
         }
-        // console.log('NAME EXCPED', this.node?.['name']?.['escapedText'], 'ESCAPE', this.node?.['escapedText'], 'AST', Ast.getType(this.node))
-        const name = (_e = (_c = (_b = (_a = this.node) === null || _a === void 0 ? void 0 : _a['name']) === null || _b === void 0 ? void 0 : _b['escapedText']) !== null && _c !== void 0 ? _c : (_d = this.node) === null || _d === void 0 ? void 0 : _d['escapedText']) !== null && _e !== void 0 ? _e : ast_service_1.Ast.getType(this.node);
-        // console.log('AST', Ast.getType(this.node), '    NAME', name, 'PARENT KIND', this.parent?.kind, 'PARENT NAME', this.parent?.name)
-        __classPrivateFieldSet(this, _name, name);
-        return name;
+        __classPrivateFieldSet(this, _name, (_e = (_c = (_b = (_a = this.node) === null || _a === void 0 ? void 0 : _a['name']) === null || _b === void 0 ? void 0 : _b['escapedText']) !== null && _c !== void 0 ? _c : (_d = this.node) === null || _d === void 0 ? void 0 : _d['escapedText']) !== null && _e !== void 0 ? _e : ast_service_1.Ast.getType(this.node));
+        return __classPrivateFieldGet(this, _name);
     }
     get nestingCpx() {
         return this.cpxFactors.totalNesting;

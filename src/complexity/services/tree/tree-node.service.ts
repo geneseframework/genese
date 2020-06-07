@@ -20,7 +20,6 @@ export class TreeNodeService {
         treeNode.treeMethod = treeMethod;
         treeNode.kind = Ast.getType(treeMethod.node);
         treeNode = this.addTreeToChildren(treeNode);
-        // console.log('TREENODE NAME', treeNode.name, 'NAME PARENT', treeNode.parent?.name)
         return treeNode;
     }
 
@@ -38,13 +37,9 @@ export class TreeNodeService {
             newTree.parent = treeNode;
             newTree.kind = Ast.getType(childNode);
             treeNode.children.push(this.addTreeToChildren(newTree));
-            // this.getContext(newTree);
             newTree.context = this.getContext(newTree);
             newTree.evaluate();
-            // console.log('CHILD KIND', newTree.kind, 'TREENODE NAME', newTree.name, 'NAME PARENT', newTree.parent?.name)
-            // console.log('----KIND', treeNode.kind, 'TREENODE NAME   ', treeNode.name, 'NAME PARENT', treeNode.parent?.name)
         });
-        // console.log('KIND', treeNode.kind, 'TREENODE NAMEc', treeNode.name, 'NAME PARENT', treeNode.parent?.name)
         return treeNode;
     }
 
@@ -74,14 +69,6 @@ export class TreeNodeService {
 
 
     isRecursion(treeNode: TreeNode): boolean {
-        // if (treeNode.name === treeNode.context.name && !treeNode.isFunction && !treeNode.parent?.isFunction) {
-            // console.log('    IS RECURSION', treeNode.name, 'PARENT NAME', treeNode.parent.name)
-            // console.log('    KIND', treeNode.kind, 'NAME', treeNode.name, 'CTXT NAME', treeNode.context.name)
-        // }
-        // console.log('BEFORE TR NAME', treeNode.name)
-        const zzz = treeNode.context;
-        console.log('ZZZ NAME', treeNode.name, ' CTXT', zzz.name)
         return treeNode.name === treeNode.context.name && treeNode.isIdentifier && !treeNode.parent?.isFunction && !treeNode.parent?.isParam;
-        // return false
     }
 }
