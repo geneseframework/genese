@@ -56,17 +56,12 @@ export class TreeNode extends Evaluable implements IsAstNode {
      * Gets the global nesting complexity of the node, including the nesting cpx of its parents
      */
     get context(): Context {
-        if (this.#context) {
-            return this.#context;
-        }
-        const context = new Context();
-        context.init(this);
-        this.#context = context;
-        return context;
+        return this.#context ?? this.treeNodeService.setParentFunction(this);
     }
 
 
     set context(ctx: Context) {
+        // ctx.init(this);
         this.#context = ctx;
     }
 
@@ -131,7 +126,12 @@ export class TreeNode extends Evaluable implements IsAstNode {
      * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
     get isCallback(): boolean {
-        return this.treeNodeService.isCallback(this);
+        const zzz = this.treeNodeService.isCallback(this);
+        if (zzz) {
+            // console.log('IS CALLBACK', Ast.getType(this.node), this.name, 'PARENT KIND', this.parent?.kind, this.parent?.name, 'CTXT', this.context.name)
+        }
+        return zzz;
+        // return this.treeNodeService.isCallback(this);
     }
 
 
@@ -201,18 +201,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
         this.setAggregationCpxFactors();
         this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
         this.intrinsicDepthCpx = this.cpxFactors.totalDepth;
-        this.initContext();
         return this.#cpxFactors;
-    }
-
-
-    private initContext(): void {
-        if (this.isFunction) {
-            this.#context = new Context();
-            this.context.init(this);
-        } else {
-            this.#context = this.treeNodeService.getContext(this);
-        }
     }
 
 
@@ -256,7 +245,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
     private setRecursionOrCallbackCpxFactors(): void {
         this.cpxFactors.structural.recursion = this.isRecursion ? cpxFactors.structural.recursion : 0;
-        // this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
+        this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
     }
 
 

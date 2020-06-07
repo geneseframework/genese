@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ts = require("typescript");
 const ast_service_1 = require("../ast.service");
 const tree_node_model_1 = require("../../models/tree/tree-node.model");
+const context_model_1 = require("../../models/tree/context.model");
 /**
  * Service managing TreeNodes
  */
@@ -33,31 +34,37 @@ class TreeNodeService {
             newTree.parent = treeNode;
             newTree.kind = ast_service_1.Ast.getType(childNode);
             treeNode.children.push(this.addTreeToChildren(newTree));
-            newTree.context = this.getContext(newTree);
+            this.setParentFunction(newTree);
+            // newTree.context = this.getContext(newTree);
             newTree.evaluate();
         });
         return treeNode;
+    }
+    setParentFunction(treeNode) {
+        return (treeNode.isFunction) ? this.createParentFunction(treeNode) : this.getContext(treeNode);
+    }
+    createParentFunction(treeNode) {
+        const context = new context_model_1.Context();
+        context.init(treeNode);
+        return context;
     }
     getContext(treeNode) {
         if (!treeNode) {
             return undefined;
         }
         if (treeNode.isFunction) {
-            // console.log('    IS FUNCTION', treeNode.kind, 'CTXT NAME', treeNode.context.name);
             return treeNode.context;
         }
         if (treeNode.parent.isFunction) {
-            // console.log('    PARENT IS FUNCTION', treeNode.kind, 'CTXT NAME', treeNode.parent.context.name);
             return treeNode.parent.context;
         }
         else {
-            // console.log('    ELSE ', treeNode.kind, 'CTXT NAME', treeNode.parent.context.name);
             return this.getContext(treeNode.parent);
         }
     }
     isCallback(treeNode) {
-        return false;
-        // return treeNode.context.params.includes(treeNode.name);
+        // return false
+        return treeNode.context.params.includes(treeNode.name);
     }
     isRecursion(treeNode) {
         var _a, _b;

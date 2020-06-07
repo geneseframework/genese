@@ -37,10 +37,23 @@ export class TreeNodeService {
             newTree.parent = treeNode;
             newTree.kind = Ast.getType(childNode);
             treeNode.children.push(this.addTreeToChildren(newTree));
-            newTree.context = this.getContext(newTree);
+            this.setParentFunction(newTree);
+            // newTree.context = this.getContext(newTree);
             newTree.evaluate();
         });
         return treeNode;
+    }
+
+
+    setParentFunction(treeNode: TreeNode): Context {
+        return (treeNode.isFunction) ? this.createParentFunction(treeNode) : this.getContext(treeNode);
+    }
+
+
+    createParentFunction(treeNode: TreeNode): Context {
+        const context = new Context();
+        context.init(treeNode);
+        return context;
     }
 
 
@@ -49,22 +62,19 @@ export class TreeNodeService {
             return undefined;
         }
         if (treeNode.isFunction) {
-            // console.log('    IS FUNCTION', treeNode.kind, 'CTXT NAME', treeNode.context.name);
             return treeNode.context;
         }
         if (treeNode.parent.isFunction) {
-            // console.log('    PARENT IS FUNCTION', treeNode.kind, 'CTXT NAME', treeNode.parent.context.name);
             return treeNode.parent.context;
         } else {
-            // console.log('    ELSE ', treeNode.kind, 'CTXT NAME', treeNode.parent.context.name);
             return this.getContext(treeNode.parent);
         }
     }
 
 
     isCallback(treeNode: TreeNode): boolean {
-        return false
-        // return treeNode.context.params.includes(treeNode.name);
+        // return false
+        return treeNode.context.params.includes(treeNode.name);
     }
 
 

@@ -21,7 +21,6 @@ const cpx_factors_1 = require("../../cpx-factors");
 const tools_service_1 = require("../../services/tools.service");
 const node_feature_service_1 = require("../../services/node-feature.service");
 const ast_service_1 = require("../../services/ast.service");
-const context_model_1 = require("./context.model");
 const tree_node_service_1 = require("../../services/tree/tree-node.service");
 /**
  * The formatted tree of elements corresponding to an Abstract Syntax TreeNode (AST)
@@ -57,15 +56,11 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * Gets the global nesting complexity of the node, including the nesting cpx of its parents
      */
     get context() {
-        if (__classPrivateFieldGet(this, _context)) {
-            return __classPrivateFieldGet(this, _context);
-        }
-        const context = new context_model_1.Context();
-        context.init(this);
-        __classPrivateFieldSet(this, _context, context);
-        return context;
+        var _a;
+        return (_a = __classPrivateFieldGet(this, _context)) !== null && _a !== void 0 ? _a : this.treeNodeService.setParentFunction(this);
     }
     set context(ctx) {
+        // ctx.init(this);
         __classPrivateFieldSet(this, _context, ctx);
     }
     /**
@@ -114,7 +109,12 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
     get isCallback() {
-        return this.treeNodeService.isCallback(this);
+        const zzz = this.treeNodeService.isCallback(this);
+        if (zzz) {
+            // console.log('IS CALLBACK', Ast.getType(this.node), this.name, 'PARENT KIND', this.parent?.kind, this.parent?.name, 'CTXT', this.context.name)
+        }
+        return zzz;
+        // return this.treeNodeService.isCallback(this);
     }
     get isFunction() {
         return this.feature === node_feature_enum_1.NodeFeature.FUNC;
@@ -167,18 +167,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
         this.setAggregationCpxFactors();
         this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
         this.intrinsicDepthCpx = this.cpxFactors.totalDepth;
-        this.initContext();
         return __classPrivateFieldGet(this, _cpxFactors);
-    }
-    initContext() {
-        if (this.isFunction) {
-            __classPrivateFieldSet(this, _context, new context_model_1.Context());
-            this.context.init(this);
-        }
-        else {
-            __classPrivateFieldSet(this, _context, this.treeNodeService.getContext(this));
-        }
-        // console.log('KIND', this.kind, 'CONTEXT', this.context.params);
     }
     setGeneralCaseCpxFactors() {
         this.cpxFactors.nesting[this.feature] = cpx_factors_1.cpxFactors.nesting[this.feature];
@@ -211,7 +200,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
     }
     setRecursionOrCallbackCpxFactors() {
         this.cpxFactors.structural.recursion = this.isRecursion ? cpx_factors_1.cpxFactors.structural.recursion : 0;
-        // this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
+        this.cpxFactors.structural.callback = this.isCallback ? cpx_factors_1.cpxFactors.structural.callback : 0;
     }
     /**
      * Sets the global nesting cpx of the node (the cpx from the node itself and from its parents)
