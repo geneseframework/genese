@@ -61,7 +61,6 @@ class TreeNodeService {
         }
     }
     isCallback(treeNode) {
-        // return false
         return treeNode.isMethodIdentifier && treeNode.parentFunction.params.includes(treeNode.name);
     }
     isRecursion(treeNode) {
