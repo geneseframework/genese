@@ -8,7 +8,7 @@ import { cpxFactors } from '../../cpx-factors';
 import { addObjects } from '../../services/tools.service';
 import { NodeFeatureService } from '../../services/node-feature.service';
 import { Ast } from '../../services/ast.service';
-import { Context } from './context.model';
+import { ParentFunction } from './parent-function.model';
 import { TreeNodeService } from '../../services/tree/tree-node.service';
 
 /**
@@ -17,7 +17,6 @@ import { TreeNodeService } from '../../services/tree/tree-node.service';
 export class TreeNode extends Evaluable implements IsAstNode {
 
     children?: TreeNode[] = [];                                             // The children trees corresponding to children AST nodes of the current AST node
-    #context?: Context = undefined;
     #cpxFactors?: CpxFactors = new CpxFactors();                            // The complexity factors of the TreeNode
     #feature?: NodeFeature = undefined;                                     // The NodeFeature of the node of the TreeNode
     #intrinsicDepthCpx: number = undefined;                                 // The depth of the TreeNode inside its method (not including its parent's depth)
@@ -28,6 +27,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
     node?: ts.Node = undefined;                                             // The current node in the AST
     nodeFeatureService?: NodeFeatureService = new NodeFeatureService();     // The service managing NodeFeatures
     parent?: TreeNode;                                                      // The tree of the parent of the current node
+    #parentFunction?: ParentFunction = undefined;
     treeMethod?: TreeMethod = undefined;                                    // The method at the root of the current tree (if this tree is inside a method)
     treeNodeService?: TreeNodeService = new TreeNodeService();     // The service managing NodeFeatures
 
@@ -55,14 +55,8 @@ export class TreeNode extends Evaluable implements IsAstNode {
     /**
      * Gets the global nesting complexity of the node, including the nesting cpx of its parents
      */
-    get context(): Context {
-        return this.#context ?? this.treeNodeService.setParentFunction(this);
-    }
-
-
-    set context(ctx: Context) {
-        // ctx.init(this);
-        this.#context = ctx;
+    get parentFunction(): ParentFunction {
+        return this.#parentFunction ?? this.treeNodeService.setParentFunction(this);
     }
 
 
@@ -122,13 +116,13 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
 
     /**
-     * Checks if this TreeNode is a recursion, ie a call to a parameter of its Context.
+     * Checks if this TreeNode is a recursion, ie a call to a parameter of its ParentFunction.
      * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
     get isCallback(): boolean {
         const zzz = this.treeNodeService.isCallback(this);
         if (zzz) {
-            // console.log('IS CALLBACK', Ast.getType(this.node), this.name, 'PARENT KIND', this.parent?.kind, this.parent?.name, 'CTXT', this.context.name)
+            // console.log('IS CALLBACK', Ast.getType(this.node), this.name, 'PARENT KIND', this.parent?.kind, this.parent?.name, 'CTXT', this.parentFunction.name)
         }
         return zzz;
         // return this.treeNodeService.isCallback(this);
@@ -151,13 +145,13 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
 
     /**
-     * Checks if this TreeNode is a recursion, ie a call to this Context.
+     * Checks if this TreeNode is a recursion, ie a call to this ParentFunction.
      * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
     get isRecursion(): boolean {
         const zzz = this.treeNodeService.isRecursion(this);
         if (zzz) {
-            console.log('IS RECURSION', Ast.getType(this.node), this.name, 'PARENT KIND', this.parent?.kind, this.parent?.name, 'CTXT', this.context.name)
+            console.log('IS RECURSION', Ast.getType(this.node), this.name, 'PARENT KIND', this.parent?.kind, this.parent?.name, 'CTXT', this.parentFunction.name)
         }
         return zzz;
     }

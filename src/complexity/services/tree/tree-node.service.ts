@@ -2,7 +2,7 @@ import * as ts from 'typescript';
 import { Ast } from '../ast.service';
 import { TreeNode } from '../../models/tree/tree-node.model';
 import { TreeMethod } from '../../models/tree/tree-method.model';
-import { Context } from '../../models/tree/context.model';
+import { ParentFunction } from '../../models/tree/parent-function.model';
 
 /**
  * Service managing TreeNodes
@@ -38,47 +38,45 @@ export class TreeNodeService {
             newTree.kind = Ast.getType(childNode);
             treeNode.children.push(this.addTreeToChildren(newTree));
             this.setParentFunction(newTree);
-            // newTree.context = this.getContext(newTree);
             newTree.evaluate();
         });
         return treeNode;
     }
 
 
-    setParentFunction(treeNode: TreeNode): Context {
-        return (treeNode.isFunction) ? this.createParentFunction(treeNode) : this.getContext(treeNode);
+    setParentFunction(treeNode: TreeNode): ParentFunction {
+        return (treeNode.isFunction) ? this.createParentFunction(treeNode) : this.getParentFunction(treeNode);
     }
 
 
-    createParentFunction(treeNode: TreeNode): Context {
-        const context = new Context();
-        context.init(treeNode);
-        return context;
+    createParentFunction(treeNode: TreeNode): ParentFunction {
+        const parentFunction = new ParentFunction();
+        return parentFunction.init(treeNode);
     }
 
 
-    getContext(treeNode: TreeNode): Context {
+    getParentFunction(treeNode: TreeNode): ParentFunction {
         if (!treeNode) {
             return undefined;
         }
         if (treeNode.isFunction) {
-            return treeNode.context;
+            return treeNode.parentFunction;
         }
         if (treeNode.parent.isFunction) {
-            return treeNode.parent.context;
+            return treeNode.parent.parentFunction;
         } else {
-            return this.getContext(treeNode.parent);
+            return this.getParentFunction(treeNode.parent);
         }
     }
 
 
     isCallback(treeNode: TreeNode): boolean {
         // return false
-        return treeNode.context.params.includes(treeNode.name);
+        return treeNode.parentFunction.params.includes(treeNode.name);
     }
 
 
     isRecursion(treeNode: TreeNode): boolean {
-        return treeNode.name === treeNode.context.name && treeNode.isIdentifier && !treeNode.parent?.isFunction && !treeNode.parent?.isParam;
+        return treeNode.name === treeNode.parentFunction.name && treeNode.isIdentifier && !treeNode.parent?.isFunction && !treeNode.parent?.isParam;
     }
 }

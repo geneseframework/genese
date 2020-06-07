@@ -2,7 +2,7 @@ import { TreeNode } from './tree-node.model';
 import { Ast } from '../../services/ast.service';
 import { NodeFeature } from '../../enums/node-feature.enum';
 
-export class Context {
+export class ParentFunction {
 
     #name?: string = undefined;
     #params?: string[] = undefined;
@@ -32,7 +32,7 @@ export class Context {
     }
 
 
-    init(treeNode?: TreeNode): Context {
+    init(treeNode?: TreeNode): ParentFunction {
         this.#treeNode = treeNode ?? new TreeNode();
         this.initParams();
         return this;

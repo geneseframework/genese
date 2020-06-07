@@ -17,7 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const tree_node_model_1 = require("./tree-node.model");
 const ast_service_1 = require("../../services/ast.service");
 const node_feature_enum_1 = require("../../enums/node-feature.enum");
-class Context {
+class ParentFunction {
     constructor() {
         _name.set(this, undefined);
         _params.set(this, undefined);
@@ -51,5 +51,5 @@ class Context {
         return __classPrivateFieldGet(this, _params);
     }
 }
-exports.Context = Context;
+exports.ParentFunction = ParentFunction;
 _name = new WeakMap(), _params = new WeakMap(), _treeNode = new WeakMap();

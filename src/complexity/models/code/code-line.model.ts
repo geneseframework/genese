@@ -11,7 +11,7 @@ import { DepthCpx } from '../cpx-factor/depth-cpx.model';
 export class CodeLine {
 
     cpxFactors?: CpxFactors = new CpxFactors();             // The complexity factors relative to this line (breakFlows, increments,...)
-    issue ?= 0;                                             // The number of the line in its Code context (method)
+    issue ?= 0;                                             // The number of the line in its Code parentFunction (method)
     position ?= 0;                                          // The position (in number of characters) of the start of the line
     text ?= '';                                             // The text of the line
     treeNodes?: TreeNode[] = [];
