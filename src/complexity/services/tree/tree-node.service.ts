@@ -2,6 +2,7 @@ import * as ts from 'typescript';
 import { Ast } from '../ast.service';
 import { TreeNode } from '../../models/tree/tree-node.model';
 import { TreeMethod } from '../../models/tree/tree-method.model';
+import { ParentFunction } from '../../models/tree/parent-function.model';
 
 /**
  * Service managing TreeNodes
@@ -37,7 +38,44 @@ export class TreeNodeService {
             newTree.kind = Ast.getType(childNode);
             newTree.evaluate();
             treeNode.children.push(this.addTreeToChildren(newTree));
+            this.setParentFunction(newTree);
         });
         return treeNode;
+    }
+
+
+    setParentFunction(treeNode: TreeNode): ParentFunction {
+        return (treeNode.isFunction) ? this.createParentFunction(treeNode) : this.getParentFunction(treeNode);
+    }
+
+
+    createParentFunction(treeNode: TreeNode): ParentFunction {
+        const parentFunction = new ParentFunction();
+        return parentFunction.init(treeNode);
+    }
+
+
+    getParentFunction(treeNode: TreeNode): ParentFunction {
+        if (!treeNode) {
+            return undefined;
+        }
+        if (treeNode.isFunction) {
+            return treeNode.parentFunction;
+        }
+        if (treeNode.parent.isFunction) {
+            return treeNode.parent.parentFunction;
+        } else {
+            return this.getParentFunction(treeNode.parent);
+        }
+    }
+
+
+    isCallback(treeNode: TreeNode): boolean {
+        return treeNode.isMethodIdentifier && treeNode.parentFunction.params.includes(treeNode.name);
+    }
+
+
+    isRecursion(treeNode: TreeNode): boolean {
+        return treeNode.name === treeNode.parentFunction.name && treeNode.isMethodIdentifier && !treeNode.parent?.isFunction && !treeNode.parent?.isParam;
     }
 }

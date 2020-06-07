@@ -10,7 +10,7 @@ const depth_cpx_model_1 = require("../cpx-factor/depth-cpx.model");
 class CodeLine {
     constructor() {
         this.cpxFactors = new cpx_factors_model_1.CpxFactors(); // The complexity factors relative to this line (breakFlows, increments,...)
-        this.issue = 0; // The number of the line in its Code context (method)
+        this.issue = 0; // The number of the line in its Code parentFunction (method)
         this.position = 0; // The position (in number of characters) of the start of the line
         this.text = ''; // The text of the line
         this.treeNodes = [];

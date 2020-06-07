@@ -14,6 +14,7 @@ class LogService {
         console.log('------------------------------------');
         console.log('METHOD ', (_a = treeNode.treeMethod) === null || _a === void 0 ? void 0 : _a.name);
         console.log('------------------------------------');
+        this.logTreeNode(treeNode, '');
         this.printChildren(treeNode, ' ');
     }
     /**
@@ -22,19 +23,23 @@ class LogService {
      * @tree // The tree to print
      * @indent // the indentation to use for the print
      */
-    static printChildren(tsTree, indent) {
-        for (const childTree of tsTree.children) {
-            let color = '';
-            if (childTree.cpxFactors.total < 0.5) {
-                color = 'white';
-            }
-            else {
-                color = childTree.cpxFactors.total > 1 ? 'red' : 'yellow';
-            }
-            console.log(indent, chalk[color](childTree.kind), 'nesting', childTree.nestingCpx, 'depth', childTree.depthCpx, 'aggr', childTree.aggregationCpx, 'parent', tsTree.kind);
+    static printChildren(treeNode, indent) {
+        for (const childTree of treeNode.children) {
+            this.logTreeNode(childTree, indent);
             const newIndent = indent + '  ';
             this.printChildren(childTree, newIndent);
         }
+    }
+    static logTreeNode(childTree, indent) {
+        var _a;
+        let color = '';
+        if (childTree.cpxFactors.total < 0.5) {
+            color = 'white';
+        }
+        else {
+            color = childTree.cpxFactors.total > 1 ? 'red' : 'yellow';
+        }
+        console.log(indent, chalk[color](childTree.kind), 'nesting', childTree.nestingCpx, 'depth', childTree.depthCpx, 'aggr', childTree.aggregationCpx, 'parent', (_a = childTree.parent) === null || _a === void 0 ? void 0 : _a.kind);
     }
 }
 exports.LogService = LogService;

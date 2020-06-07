@@ -9,6 +9,11 @@ export class CallbacksMock<T> {
     }
 
 
+    methodWithCallback(a, callback) {
+        callback(3);
+    }
+
+
     caller(a) {
         this.methodWithCallback(a, (b) => {
             if (a < 2) {
@@ -24,11 +29,6 @@ export class CallbacksMock<T> {
                 console.log('b', b)
             }
         })
-    }
-
-
-    methodWithCallback(a, callback) {
-        callback(a + 3);
     }
 
 }
