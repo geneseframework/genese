@@ -2,6 +2,7 @@ import * as ts from 'typescript';
 import { Ast } from '../ast.service';
 import { TreeNode } from '../../models/tree/tree-node.model';
 import { TreeMethod } from '../../models/tree/tree-method.model';
+import { Context } from '../../models/tree/context.model';
 
 /**
  * Service managing TreeNodes
@@ -39,5 +40,20 @@ export class TreeNodeService {
             newTree.evaluate();
         });
         return treeNode;
+    }
+
+
+    getContext(treeNode: TreeNode): Context {
+        if (!treeNode) {
+            return undefined;
+        }
+        if (treeNode.isFunction) {
+            return treeNode.context;
+        }
+        if (treeNode.parent.isFunction) {
+            return treeNode.parent.context;
+        } else {
+            return this.getContext(treeNode.parent);
+        }
     }
 }

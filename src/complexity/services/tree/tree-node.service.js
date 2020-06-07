@@ -37,5 +37,19 @@ class TreeNodeService {
         });
         return treeNode;
     }
+    getContext(treeNode) {
+        if (!treeNode) {
+            return undefined;
+        }
+        if (treeNode.isFunction) {
+            return treeNode.context;
+        }
+        if (treeNode.parent.isFunction) {
+            return treeNode.parent.context;
+        }
+        else {
+            return this.getContext(treeNode.parent);
+        }
+    }
 }
 exports.TreeNodeService = TreeNodeService;
