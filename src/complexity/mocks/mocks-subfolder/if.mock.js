@@ -14,6 +14,14 @@ class IfMock {
             return 'c';
         }
     }
+    ifIfNested(a, b) {
+        if (a) {
+            return 'b';
+            if (b) {
+                return 'c';
+            }
+        }
+    }
     ifElseIfElse(a, b) {
         if (a) {
             return 'b';

@@ -25,6 +25,7 @@ complexityFactors.nesting = {
 complexityFactors.structural = {
     arr: 0.1,
     asynchronicity: 1,
+    callback: 3,
     conditional: 1,
     externalBinding: 3,
     func: 1,

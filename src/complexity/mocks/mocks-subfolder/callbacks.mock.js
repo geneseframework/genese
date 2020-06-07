@@ -6,6 +6,9 @@ class CallbacksMock {
     recursion(a) {
         this.recursion(a);
     }
+    methodWithCallback(a, callback) {
+        callback(3);
+    }
     caller(a) {
         this.methodWithCallback(a, (b) => {
             if (a < 2) {
@@ -19,9 +22,6 @@ class CallbacksMock {
                 console.log('b', b);
             }
         });
-    }
-    methodWithCallback(a, callback) {
-        callback(a + 3);
     }
 }
 exports.CallbacksMock = CallbacksMock;

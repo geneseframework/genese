@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ts = require("typescript");
 const ast_service_1 = require("../ast.service");
 const tree_node_model_1 = require("../../models/tree/tree-node.model");
+const parent_function_model_1 = require("../../models/tree/parent-function.model");
 /**
  * Service managing TreeNodes
  */
@@ -34,8 +35,37 @@ class TreeNodeService {
             newTree.kind = ast_service_1.Ast.getType(childNode);
             newTree.evaluate();
             treeNode.children.push(this.addTreeToChildren(newTree));
+            this.setParentFunction(newTree);
         });
         return treeNode;
+    }
+    setParentFunction(treeNode) {
+        return (treeNode.isFunction) ? this.createParentFunction(treeNode) : this.getParentFunction(treeNode);
+    }
+    createParentFunction(treeNode) {
+        const parentFunction = new parent_function_model_1.ParentFunction();
+        return parentFunction.init(treeNode);
+    }
+    getParentFunction(treeNode) {
+        if (!treeNode) {
+            return undefined;
+        }
+        if (treeNode.isFunction) {
+            return treeNode.parentFunction;
+        }
+        if (treeNode.parent.isFunction) {
+            return treeNode.parent.parentFunction;
+        }
+        else {
+            return this.getParentFunction(treeNode.parent);
+        }
+    }
+    isCallback(treeNode) {
+        return treeNode.isMethodIdentifier && treeNode.parentFunction.params.includes(treeNode.name);
+    }
+    isRecursion(treeNode) {
+        var _a, _b;
+        return treeNode.name === treeNode.parentFunction.name && treeNode.isMethodIdentifier && !((_a = treeNode.parent) === null || _a === void 0 ? void 0 : _a.isFunction) && !((_b = treeNode.parent) === null || _b === void 0 ? void 0 : _b.isParam);
     }
 }
 exports.TreeNodeService = TreeNodeService;

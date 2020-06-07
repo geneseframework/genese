@@ -77,7 +77,7 @@ class TreeFileService extends stats_service_1.StatsService {
         }
     }
     /**
-     * Returns the filename of the TreeFile linked to this service
+     * Adds the filename to the stats
      */
     getNameOrPath() {
         this._stats.subject = this.treeFile.name;

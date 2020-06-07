@@ -1,9 +1,11 @@
 export class DebugMock {
 
-    binary(a, b) {
-        if (a && b) {
-            console.log('b');
-        }
+    recursion(a) {
+        this.recursion(a);
     }
 
+
+    methodWithCallback(a, callback) {
+        callback(3);
+    }
 }
