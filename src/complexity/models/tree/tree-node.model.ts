@@ -8,7 +8,6 @@ import { cpxFactors } from '../../cpx-factors';
 import { addObjects } from '../../services/tools.service';
 import { NodeFeatureService } from '../../services/node-feature.service';
 import { Ast } from '../../services/ast.service';
-import { TreeNodeService } from '../../services/tree/tree-node.service';
 
 /**
  * The formatted tree of elements corresponding to an Abstract Syntax TreeNode (AST)
@@ -16,7 +15,7 @@ import { TreeNodeService } from '../../services/tree/tree-node.service';
 export class TreeNode extends Evaluable implements IsAstNode {
 
     children?: TreeNode[] = [];                                             // The children trees corresponding to children AST nodes of the current AST node
-    #cpxFactors?: CpxFactors = new CpxFactors();                            // The complexity factors of the TreeNode
+     #cpxFactors?: CpxFactors = new CpxFactors();                            // The complexity factors of the TreeNode
     #feature?: NodeFeature = undefined;                                     // The NodeFeature of the node of the TreeNode
     #intrinsicDepthCpx: number = undefined;                                 // The depth of the TreeNode inside its method (not including its parent's depth)
     #intrinsicNestingCpx: number = undefined;                               // The nesting of the TreeNode inside its method (not including its parent's nesting)
