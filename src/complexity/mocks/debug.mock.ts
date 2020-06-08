@@ -1,15 +1,16 @@
 export class DebugMock {
-
-    shortRegex() {
-        return /[^.[\]]+/g;
+    keycloakService;
+    logout() {
+        this.keycloakService.logout();
     }
 
-    email() {
-        return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    recursion(a) {
+        this.recursion(a);
     }
 
-    frenchPhoneNumber() {
-        return /^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/;
+
+    methodWithCallback(a, callback) {
+        callback(3);
     }
 
 }
