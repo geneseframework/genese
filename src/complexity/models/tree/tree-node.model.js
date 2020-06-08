@@ -42,13 +42,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
         this.treeMethod = undefined; // The method at the root of the current tree (if this tree is inside a method)
         this.treeNodeService = new tree_node_service_1.TreeNodeService(); // The service managing NodeFeatures
     }
-    /**
-     * Mandatory method for IsAstNode interface
-     */
-    evaluate() {
-        this.calculateAndSetCpxFactors();
-        this.addParentCpx();
-    }
+    // ---------------------------------------------------------------------------------
+    //                                Getters and setters
+    // ---------------------------------------------------------------------------------
     get aggregationCpx() {
         return this.cpxFactors.totalAggregation;
     }
@@ -110,9 +106,6 @@ class TreeNode extends evaluable_model_1.Evaluable {
     get isFunction() {
         return this.feature === node_feature_enum_1.NodeFeature.FUNC;
     }
-    get isCallExpression() {
-        return ast_service_1.Ast.isCallExpression(this.node);
-    }
     get isMethodIdentifier() {
         return ast_service_1.Ast.isMethodIdentifier(this.node);
     }
@@ -147,11 +140,22 @@ class TreeNode extends evaluable_model_1.Evaluable {
     set nestingCpx(cpx) {
         __classPrivateFieldSet(this, _nestingCpx, cpx);
     }
+    // ---------------------------------------------------------------------------------
+    //                                  Other methods
+    // ---------------------------------------------------------------------------------
+    /**
+     * Mandatory method for IsAstNode interface
+     */
+    evaluate() {
+        this.calculateAndSetCpxFactors();
+        this.addParentCpx();
+    }
     calculateAndSetCpxFactors() {
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
         this.setRecursionOrCallbackCpxFactors();
         this.setElseCpxFactors();
+        this.setRegexCpxFactors();
         this.setDepthCpxFactors();
         this.setAggregationCpxFactors();
         this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
@@ -190,6 +194,13 @@ class TreeNode extends evaluable_model_1.Evaluable {
     setRecursionOrCallbackCpxFactors() {
         this.cpxFactors.structural.recursion = this.isRecursion ? cpx_factors_1.cpxFactors.structural.recursion : 0;
         this.cpxFactors.structural.callback = this.isCallback ? cpx_factors_1.cpxFactors.structural.callback : 0;
+    }
+    setRegexCpxFactors() {
+        // console.log('REGEX ?')
+        if (this.feature === node_feature_enum_1.NodeFeature.REGEX) {
+            console.log('REGXP', this.node['text'].length);
+            this.cpxFactors.aggregation.regex = +((this.node['text'].length - 2) * cpx_factors_1.cpxFactors.aggregation.regex).toFixed(2);
+        }
     }
     /**
      * Sets the global nesting cpx of the node (the cpx from the node itself and from its parents)

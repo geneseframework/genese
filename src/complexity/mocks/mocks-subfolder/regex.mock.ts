@@ -1,4 +1,4 @@
-export class DebugMock {
+export class RegexMock {
 
     shortRegex() {
         return /[^.[\]]+/g;
