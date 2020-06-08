@@ -37,13 +37,9 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
-    /**
-     * Mandatory method for IsAstNode interface
-     */
-    evaluate(): void {
-        this.calculateAndSetCpxFactors();
-        this.addParentCpx();
-    }
+    // ---------------------------------------------------------------------------------
+    //                                Getters and setters
+    // ---------------------------------------------------------------------------------
 
 
 
@@ -129,11 +125,6 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
-    get isCallExpression(): boolean {
-        return Ast.isCallExpression(this.node);
-    }
-
-
     get isMethodIdentifier(): boolean {
         return Ast.isMethodIdentifier(this.node);
     }
@@ -182,11 +173,26 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
+    // ---------------------------------------------------------------------------------
+    //                                  Other methods
+    // ---------------------------------------------------------------------------------
+
+
+    /**
+     * Mandatory method for IsAstNode interface
+     */
+    evaluate(): void {
+        this.calculateAndSetCpxFactors();
+        this.addParentCpx();
+    }
+
+
     calculateAndSetCpxFactors(): CpxFactors {
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
         this.setRecursionOrCallbackCpxFactors();
         this.setElseCpxFactors();
+        this.setRegexCpxFactors();
         this.setDepthCpxFactors();
         this.setAggregationCpxFactors();
         this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
@@ -236,6 +242,13 @@ export class TreeNode extends Evaluable implements IsAstNode {
     private setRecursionOrCallbackCpxFactors(): void {
         this.cpxFactors.structural.recursion = this.isRecursion ? cpxFactors.structural.recursion : 0;
         this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
+    }
+
+
+    private setRegexCpxFactors(): void {
+        if (this.feature === NodeFeature.REGEX) {
+            this.cpxFactors.aggregation.regex = +((this.node['text'].length - 2) * cpxFactors.aggregation.regex).toFixed(2);
+        }
     }
 
 
