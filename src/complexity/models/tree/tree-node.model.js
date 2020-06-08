@@ -196,9 +196,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
         this.cpxFactors.structural.callback = this.isCallback ? cpx_factors_1.cpxFactors.structural.callback : 0;
     }
     setRegexCpxFactors() {
-        // console.log('REGEX ?')
         if (this.feature === node_feature_enum_1.NodeFeature.REGEX) {
-            console.log('REGXP', this.node['text'].length);
             this.cpxFactors.aggregation.regex = +((this.node['text'].length - 2) * cpx_factors_1.cpxFactors.aggregation.regex).toFixed(2);
         }
     }
