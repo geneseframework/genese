@@ -1,4 +1,18 @@
 "use strict";
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+};
+var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, privateMap, value) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to set private field on non-instance");
+    }
+    privateMap.set(receiver, value);
+    return value;
+};
+var _treeNode;
 Object.defineProperty(exports, "__esModule", { value: true });
 const tree_folder_model_1 = require("./tree-folder.model");
 const tree_file_service_1 = require("../../services/tree/tree-file.service");
@@ -13,13 +27,29 @@ class TreeFile extends evaluable_model_1.Evaluable {
         this.complexitiesByStatus = undefined; // The file complexities spread by complexity status
         this.cpxIndex = 0; // The complexity index of this file
         this.name = ''; // The name of this file
-        this.sourceFile = undefined; // The sourceFile corresponding to this TreeFile
+        // sourceFile?: ts.SourceFile = undefined;                     // The sourceFile corresponding to this TreeFile
         this.stats = undefined; // The statistics of the file
         this.treeFileService = new tree_file_service_1.TreeFileService(); // The service for TreeFiles
         this.treeFolder = new tree_folder_model_1.TreeFolder(); // The TreeFolder which includes this TreeFile
         this.treeMethods = []; // The TreeMethods included in this TreeFile
+        _treeNode.set(this, undefined); // The TreeNode corresponding to the file itself
         this.treeFileService.treeFile = this;
     }
+    // ---------------------------------------------------------------------------------
+    //                                Getters and setters
+    // ---------------------------------------------------------------------------------
+    get sourceFile() {
+        return __classPrivateFieldGet(this, _treeNode).sourceFile;
+    }
+    get treeNode() {
+        return __classPrivateFieldGet(this, _treeNode);
+    }
+    set treeNode(treeNode) {
+        __classPrivateFieldSet(this, _treeNode, treeNode);
+    }
+    // ---------------------------------------------------------------------------------
+    //                                  Other methods
+    // ---------------------------------------------------------------------------------
     /**
      * Evaluates the complexities of this TreeFile
      */
@@ -42,3 +72,4 @@ class TreeFile extends evaluable_model_1.Evaluable {
     }
 }
 exports.TreeFile = TreeFile;
+_treeNode = new WeakMap();

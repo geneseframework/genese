@@ -7,26 +7,53 @@ import { ComplexitiesByStatus } from '../../interfaces/complexities-by-status.in
 import { Evaluable } from '../evaluable.model';
 import { HasStats } from '../../interfaces/has-stats';
 import { TreeMethodService } from '../../services/tree/tree-method.service';
+import { TreeNode } from './tree-node.model';
+import { HasTreeNode } from '../../interfaces/has-tree-node';
 
 /**
  * Element of the TreeNode structure corresponding to a given file (AST sourceFile)
  */
-export class TreeFile extends Evaluable implements HasStats {
+export class TreeFile extends Evaluable implements HasStats, HasTreeNode {
 
     complexitiesByStatus?: ComplexitiesByStatus = undefined;    // The file complexities spread by complexity status
     cpxIndex ?= 0;                                              // The complexity index of this file
     name ?= '';                                                 // The name of this file
-    sourceFile?: ts.SourceFile = undefined;                     // The sourceFile corresponding to this TreeFile
     stats?: Stats = undefined;                                  // The statistics of the file
     treeFileService: TreeFileService = new TreeFileService();   // The service for TreeFiles
     treeFolder?: TreeFolder = new TreeFolder();                 // The TreeFolder which includes this TreeFile
     treeMethods?: TreeMethod[] = [];                            // The TreeMethods included in this TreeFile
-
+    #treeNode?: TreeNode = undefined;                           // The TreeNode corresponding to the file itself
 
     constructor() {
         super();
         this.treeFileService.treeFile = this;
     }
+
+
+
+    // ---------------------------------------------------------------------------------
+    //                                Getters and setters
+    // ---------------------------------------------------------------------------------
+
+
+    get sourceFile(): ts.SourceFile {
+        return this.#treeNode.sourceFile;
+    }
+
+
+    get treeNode(): TreeNode {
+        return this.#treeNode;
+    }
+
+
+    set treeNode(treeNode: TreeNode) {
+        this.#treeNode = treeNode;
+    }
+
+
+    // ---------------------------------------------------------------------------------
+    //                                  Other methods
+    // ---------------------------------------------------------------------------------
 
 
     /**

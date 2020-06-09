@@ -7,7 +7,7 @@ import { Options } from '../options';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
 import { ComplexityType } from '../../enums/complexity-type.enum';
 import { Evaluable } from '../evaluable.model';
-import { IsAstNode } from '../../interfaces/is-ast-node';
+import { HasTreeNode } from '../../interfaces/has-tree-node';
 import { Code } from '../code/code.model';
 import { CodeService } from '../../services/code.service';
 import { FactorCategory } from '../../enums/factor-category.enum';
@@ -18,7 +18,7 @@ import { LogService } from '../../services/tree/log.service';
 /**
  * Element of the TreeNode structure corresponding to a given method
  */
-export class TreeMethod extends Evaluable implements IsAstNode {
+export class TreeMethod extends Evaluable implements HasTreeNode {
 
     astPosition = 0;                                                // The position of the AST node of the method in the code of its file
     codeService: CodeService = new CodeService();                   // The service managing Code objects
@@ -32,7 +32,7 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     #originalCode?: Code = undefined;                               // The original Code of the method (as Code object)
     #sourceFile?: ts.SourceFile = undefined;
     treeFile?: TreeFile = new TreeFile();                           // The TreeFile which contains the TreeMethod
-    treeNode?: TreeNode = undefined;                                // The AST of the method itself
+    #treeNode?: TreeNode = undefined;                                // The AST of the method itself
 
 
     constructor(node: ts.Node) {
@@ -40,6 +40,54 @@ export class TreeMethod extends Evaluable implements IsAstNode {
         this.node = node;
         this.name = Ast.getMethodName(node);
     }
+
+
+    // ---------------------------------------------------------------------------------
+    //                                Getters and setters
+    // ---------------------------------------------------------------------------------
+
+
+    /**
+     * Gets the full originalText of the method
+     */
+    get displayedCode(): Code {
+        return this.#displayedCode;
+    }
+
+
+    get cpxIndex(): number {
+        return this.#cpxIndex ?? this.calculateCpxIndex();
+    }
+
+
+    /**
+     * Gets the full originalText of the method
+     */
+    set originalCode(code : Code) {
+        this.#originalCode = code;
+    }
+
+
+    get sourceFile(): ts.SourceFile {
+        return this.treeFile?.sourceFile;
+    }
+
+
+    get treeNode(): TreeNode {
+        return this.#treeNode;
+    }
+
+
+    set treeNode(treeNode: TreeNode) {
+        this.#treeNode = treeNode;
+    }
+
+
+
+    // ---------------------------------------------------------------------------------
+    //                                  Other methods
+    // ---------------------------------------------------------------------------------
+
 
 
     /**
@@ -51,6 +99,18 @@ export class TreeMethod extends Evaluable implements IsAstNode {
         this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.node);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
         this.filename = this.treeFile?.sourceFile?.fileName ?? '';
+    }
+
+
+    private calculateCpxIndex(): number {
+        if (!(this.#displayedCode?.lines?.length > 0)) {
+            this.createDisplayedCode();
+        }
+        let count = 0;
+        for (const line of this.#displayedCode?.lines) {
+            count += line.cpxFactors.total;
+        }
+        return +count.toFixed(2);
     }
 
 
@@ -72,44 +132,6 @@ export class TreeMethod extends Evaluable implements IsAstNode {
             status = MethodStatus.ERROR;
         }
         return status;
-    }
-
-
-    /**
-     * Gets the full originalText of the method
-     */
-    set originalCode(code : Code) {
-        this.#originalCode = code;
-    }
-
-
-    /**
-     * Gets the full originalText of the method
-     */
-    get displayedCode(): Code {
-        return this.#displayedCode;
-    }
-
-
-    get cpxIndex(): number {
-        return this.#cpxIndex ?? this.calculateCpxIndex();
-    }
-
-
-    get sourceFile(): ts.SourceFile {
-        return this.treeFile?.sourceFile;
-    }
-
-
-    private calculateCpxIndex(): number {
-        if (!(this.#displayedCode?.lines?.length > 0)) {
-            this.createDisplayedCode();
-        }
-        let count = 0;
-        for (const line of this.#displayedCode?.lines) {
-            count += line.cpxFactors.total;
-        }
-        return +count.toFixed(2);
     }
 
 

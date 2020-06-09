@@ -1,6 +1,6 @@
 import * as ts from 'typescript';
 import { TreeMethod } from './tree-method.model';
-import { IsAstNode } from '../../interfaces/is-ast-node';
+import { HasTreeNode } from '../../interfaces/has-tree-node';
 import { Evaluable } from '../evaluable.model';
 import { NodeFeature } from '../../enums/node-feature.enum';
 import { CpxFactors } from '../cpx-factor/cpx-factors.model';
@@ -14,7 +14,7 @@ import { TreeNodeService } from '../../services/tree/tree-node.service';
 /**
  * The formatted tree of elements corresponding to an Abstract Syntax TreeNode (AST)
  */
-export class TreeNode extends Evaluable implements IsAstNode {
+export class TreeNode extends Evaluable {
 
     children?: TreeNode[] = [];                                             // The children trees corresponding to children AST nodes of the current AST node
     #context?: TreeNode = undefined;                                         // The context of the TreeNode
@@ -227,7 +227,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
 
     /**
-     * Mandatory method for IsAstNode interface
+     * Mandatory method for HasTreeNode interface
      */
     evaluate(): void {
         this.calculateAndSetCpxFactors();

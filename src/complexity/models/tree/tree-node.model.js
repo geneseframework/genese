@@ -182,7 +182,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
     //                                  Other methods
     // ---------------------------------------------------------------------------------
     /**
-     * Mandatory method for IsAstNode interface
+     * Mandatory method for HasTreeNode interface
      */
     evaluate() {
         this.calculateAndSetCpxFactors();

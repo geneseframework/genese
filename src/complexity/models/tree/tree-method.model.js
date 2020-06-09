@@ -1,4 +1,10 @@
 "use strict";
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+};
 var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, privateMap, value) {
     if (!privateMap.has(receiver)) {
         throw new TypeError("attempted to set private field on non-instance");
@@ -6,13 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to get private field on non-instance");
-    }
-    return privateMap.get(receiver);
-};
-var _cpxIndex, _displayedCode, _originalCode, _sourceFile;
+var _cpxIndex, _displayedCode, _originalCode, _sourceFile, _treeNode;
 Object.defineProperty(exports, "__esModule", { value: true });
 const tree_file_model_1 = require("./tree-file.model");
 const ast_service_1 = require("../../services/ast.service");
@@ -45,10 +45,42 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         _originalCode.set(this, undefined); // The original Code of the method (as Code object)
         _sourceFile.set(this, undefined);
         this.treeFile = new tree_file_model_1.TreeFile(); // The TreeFile which contains the TreeMethod
-        this.treeNode = undefined; // The AST of the method itself
+        _treeNode.set(this, undefined); // The AST of the method itself
         this.node = node;
         this.name = ast_service_1.Ast.getMethodName(node);
     }
+    // ---------------------------------------------------------------------------------
+    //                                Getters and setters
+    // ---------------------------------------------------------------------------------
+    /**
+     * Gets the full originalText of the method
+     */
+    get displayedCode() {
+        return __classPrivateFieldGet(this, _displayedCode);
+    }
+    get cpxIndex() {
+        var _a;
+        return (_a = __classPrivateFieldGet(this, _cpxIndex)) !== null && _a !== void 0 ? _a : this.calculateCpxIndex();
+    }
+    /**
+     * Gets the full originalText of the method
+     */
+    set originalCode(code) {
+        __classPrivateFieldSet(this, _originalCode, code);
+    }
+    get sourceFile() {
+        var _a;
+        return (_a = this.treeFile) === null || _a === void 0 ? void 0 : _a.sourceFile;
+    }
+    get treeNode() {
+        return __classPrivateFieldGet(this, _treeNode);
+    }
+    set treeNode(treeNode) {
+        __classPrivateFieldSet(this, _treeNode, treeNode);
+    }
+    // ---------------------------------------------------------------------------------
+    //                                  Other methods
+    // ---------------------------------------------------------------------------------
     /**
      * Evaluates the complexities of this TreeMethod
      */
@@ -59,6 +91,17 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         this.cyclomaticCpx = cyclomatic_complexity_service_1.CyclomaticComplexityService.calculateCyclomaticComplexity(this.node);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
         this.filename = (_c = (_b = (_a = this.treeFile) === null || _a === void 0 ? void 0 : _a.sourceFile) === null || _b === void 0 ? void 0 : _b.fileName) !== null && _c !== void 0 ? _c : '';
+    }
+    calculateCpxIndex() {
+        var _a, _b, _c;
+        if (!(((_b = (_a = __classPrivateFieldGet(this, _displayedCode)) === null || _a === void 0 ? void 0 : _a.lines) === null || _b === void 0 ? void 0 : _b.length) > 0)) {
+            this.createDisplayedCode();
+        }
+        let count = 0;
+        for (const line of (_c = __classPrivateFieldGet(this, _displayedCode)) === null || _c === void 0 ? void 0 : _c.lines) {
+            count += line.cpxFactors.total;
+        }
+        return +count.toFixed(2);
     }
     /**
      * Get the complexity status of the method for a given complexity type
@@ -77,37 +120,6 @@ class TreeMethod extends evaluable_model_1.Evaluable {
             status = evaluation_status_enum_1.MethodStatus.ERROR;
         }
         return status;
-    }
-    /**
-     * Gets the full originalText of the method
-     */
-    set originalCode(code) {
-        __classPrivateFieldSet(this, _originalCode, code);
-    }
-    /**
-     * Gets the full originalText of the method
-     */
-    get displayedCode() {
-        return __classPrivateFieldGet(this, _displayedCode);
-    }
-    get cpxIndex() {
-        var _a;
-        return (_a = __classPrivateFieldGet(this, _cpxIndex)) !== null && _a !== void 0 ? _a : this.calculateCpxIndex();
-    }
-    get sourceFile() {
-        var _a;
-        return (_a = this.treeFile) === null || _a === void 0 ? void 0 : _a.sourceFile;
-    }
-    calculateCpxIndex() {
-        var _a, _b, _c;
-        if (!(((_b = (_a = __classPrivateFieldGet(this, _displayedCode)) === null || _a === void 0 ? void 0 : _a.lines) === null || _b === void 0 ? void 0 : _b.length) > 0)) {
-            this.createDisplayedCode();
-        }
-        let count = 0;
-        for (const line of (_c = __classPrivateFieldGet(this, _displayedCode)) === null || _c === void 0 ? void 0 : _c.lines) {
-            count += line.cpxFactors.total;
-        }
-        return +count.toFixed(2);
     }
     /**
      * Creates the code to display with the original code of a TreeNode
@@ -166,4 +178,4 @@ class TreeMethod extends evaluable_model_1.Evaluable {
     }
 }
 exports.TreeMethod = TreeMethod;
-_cpxIndex = new WeakMap(), _displayedCode = new WeakMap(), _originalCode = new WeakMap(), _sourceFile = new WeakMap();
+_cpxIndex = new WeakMap(), _displayedCode = new WeakMap(), _originalCode = new WeakMap(), _sourceFile = new WeakMap(), _treeNode = new WeakMap();

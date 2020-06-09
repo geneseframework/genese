@@ -7,6 +7,7 @@ import { ComplexityType } from '../../enums/complexity-type.enum';
 import { StatsService } from '../report/stats.service';
 import { Stats } from '../../models/stats.model';
 import { TreeMethodService } from './tree-method.service';
+import { TreeNode } from '../../models/tree/tree-node.model';
 
 /**
  * - TreeFiles generation from Abstract Syntax TreeNode of a file
@@ -30,13 +31,15 @@ export class TreeFileService extends StatsService{
      * @param treeFolder      // The TreeFolder containing the TreeFile
      */
     generateTree(path: string, treeFolder: TreeFolder = new TreeFolder()): TreeFile {
-        const tsFile: TreeFile = new TreeFile();
-        tsFile.sourceFile = Ast.getSourceFile(path);
-        tsFile.treeFolder = treeFolder;
-        tsFile.name = tsFile.sourceFile?.fileName;
-        tsFile.treeMethods = this.treeMethodService.generateTree(tsFile);
-        tsFile.evaluate();
-        return tsFile;
+        const treeFile: TreeFile = new TreeFile();
+        const treeNode = new TreeNode();
+        treeNode.sourceFile = Ast.getSourceFile(path);
+        treeFile.name = treeNode.sourceFile?.fileName;
+        treeFile.treeNode = treeNode;
+        treeFile.treeFolder = treeFolder;
+        treeFile.treeMethods = this.treeMethodService.generateTree(treeFile);
+        treeFile.evaluate();
+        return treeFile;
     }
 
 
