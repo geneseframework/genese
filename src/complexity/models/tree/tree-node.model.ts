@@ -10,7 +10,6 @@ import { NodeFeatureService } from '../../services/node-feature.service';
 import { Ast } from '../../services/ast.service';
 import { ParentFunction } from './parent-function.model';
 import { TreeNodeService } from '../../services/tree/tree-node.service';
-import { Context } from './context.model';
 
 /**
  * The formatted tree of elements corresponding to an Abstract Syntax TreeNode (AST)
@@ -31,6 +30,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
     nodeFeatureService?: NodeFeatureService = new NodeFeatureService();     // The service managing NodeFeatures
     parent?: TreeNode;                                                      // The tree of the parent of the current node
     #parentFunction?: ParentFunction = undefined;                           // The first function or method which a parent of the TreeNode
+    #sourceFile?: ts.SourceFile = undefined;
     treeMethod?: TreeMethod = undefined;                                    // The method at the root of the current tree (if this tree is inside a method)
     treeNodeService?: TreeNodeService = new TreeNodeService();              // The service managing NodeFeatures
 
@@ -208,6 +208,16 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
     set nestingCpx(cpx) {
         this.#nestingCpx = cpx;
+    }
+
+
+    get sourceFile(): ts.SourceFile {
+        return this.#sourceFile;
+    }
+
+
+    set sourceFile(sourceFile: ts.SourceFile) {
+        this.#sourceFile = sourceFile;
     }
 
 

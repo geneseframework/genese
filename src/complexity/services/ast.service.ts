@@ -45,100 +45,11 @@ export class Ast {
 
 
     /**
-     * Checks if an AST node is a Parameter
-     * @param node // The AST node
-     */
-    static isCallExpression(node: ts.Node): boolean {
-        return node?.kind === ts.SyntaxKind.CallExpression ?? false;
-    }
-
-
-    /**
-     * Checks if an AST node is a Parameter
-     * @param node // The AST node
-     */
-    static isParam(node: ts.Node): boolean {
-        return node?.kind === ts.SyntaxKind.Parameter ?? false;
-    }
-
-
-    /**
-     * Checks if an AST node is a BinaryExpression
-     * @param node // The AST node
-     */
-    static isBinary(node: ts.Node): boolean {
-        return node?.kind === ts.SyntaxKind.BinaryExpression ?? false;
-    }
-
-
-    /**
-     * Checks if an AST node is a logic door (ie : || or &&)
-     * @param node // The AST node to check
-     */
-    static isLogicDoor(node: ts.Node): boolean {
-        return (node?.['operatorToken']?.kind === ts.SyntaxKind.AmpersandAmpersandToken
-            || node?.['operatorToken']?.kind === ts.SyntaxKind.BarBarToken)
-            ?? false;
-    }
-
-
-    /**
-     * Checks if an AST node is "||" anf if this node is between two binary expressions
-     * @param node
-     */
-    static isOrTokenBetweenBinaries(node: ts.Node): boolean {
-        return (node?.['operatorToken']?.kind === ts.SyntaxKind.BarBarToken
-            && node?.['left']?.kind === ts.SyntaxKind.BinaryExpression
-            && node?.['right']?.kind === ts.SyntaxKind.BinaryExpression)
-            ?? false;
-    }
-
-
-    /**
-     * Checks if two AST nodes have the same type
-     * @param firstNode   // The first AST node
-     * @param secondNode  // The second AST node
-     */
-    static isSameOperatorToken(firstNode: ts.Node, secondNode: ts.Node): boolean {
-        return firstNode?.['operatorToken']?.kind === secondNode?.['operatorToken']?.kind ?? false;
-    }
-
-
-    /**
-     * Checks if an AST node is a function or a method
-     * @param node
-     */
-    static isFunctionOrMethod(node: ts.Node): boolean {
-        return node?.kind === ts.SyntaxKind.MethodDeclaration || node?.kind === ts.SyntaxKind.FunctionDeclaration || false;
-    }
-
-
-    /**
-     * Checks if an AST node is a Block which is a "else"
+     * Checks if an AST node is an index of an array, ie if it's a Node which is the second son of an ElementAccessExpression
      * @param node      // The node to analyse
      */
-    static isElseStatement(node: ts.Node): boolean {
-        return (Ast.isBlock(node)
-            && node?.parent?.kind === ts.SyntaxKind.IfStatement
-            && node?.parent['elseStatement']?.pos === node?.pos);
-    }
-
-
-    /**
-     * Checks if an AST node is a IfStatement which is an "else if"
-     * @param node      // The node to analyse
-     */
-    static isElseIfStatement(node: ts.Node): boolean {
-        return (node?.kind === ts.SyntaxKind.IfStatement && node?.parent?.kind === ts.SyntaxKind.IfStatement);
-    }
-
-
-    /**
-     * Checks if an AST node is a Block which is a "else"
-     * @param node      // The node to analyse
-     */
-    static isBlock(node: ts.Node): boolean {
-        return (node?.kind === ts.SyntaxKind.Block);
+    static isArrayIndex(node: ts.Node): boolean {
+        return(node?.parent?.kind === ts.SyntaxKind.ElementAccessExpression && node?.pos === node.parent['argumentExpression'].pos);
     }
 
 
@@ -152,20 +63,29 @@ export class Ast {
 
 
     /**
-     * Checks if an AST node is an index of an array, ie if it's a Node which is the second son of an ElementAccessExpression
-     * @param node      // The node to analyse
+     * Checks if an AST node is a BinaryExpression
+     * @param node // The AST node
      */
-    static isArrayIndex(node: ts.Node): boolean {
-        return(node?.parent?.kind === ts.SyntaxKind.ElementAccessExpression && node?.pos === node.parent['argumentExpression'].pos);
+    static isBinary(node: ts.Node): boolean {
+        return node?.kind === ts.SyntaxKind.BinaryExpression ?? false;
     }
 
 
     /**
-     * Checks if an AST node is an index of an array, ie if it's a Node which is the second son of an ElementAccessExpression
+     * Checks if an AST node is a Block which is a "else"
      * @param node      // The node to analyse
      */
-    static isMethodIdentifier(node: ts.Node): boolean {
-        return(Ast.isCallExpression(node.parent) && node?.pos === node.parent?.pos);
+    static isBlock(node: ts.Node): boolean {
+        return (node?.kind === ts.SyntaxKind.Block);
+    }
+
+
+    /**
+     * Checks if an AST node is a Parameter
+     * @param node // The AST node
+     */
+    static isCallExpression(node: ts.Node): boolean {
+        return node?.kind === ts.SyntaxKind.CallExpression ?? false;
     }
 
 
@@ -182,10 +102,117 @@ export class Ast {
                 && !Ast.isSameOperatorToken(node, node.parent)
                 && !Ast.isOrTokenBetweenBinaries(node)
             ) {
-               return true;
+                return true;
             }
         }
         return false;
+    }
+
+
+    /**
+     * Checks if an AST node is a IfStatement which is an "else if"
+     * @param node      // The node to analyse
+     */
+    static isElseIfStatement(node: ts.Node): boolean {
+        return (node?.kind === ts.SyntaxKind.IfStatement && node?.parent?.kind === ts.SyntaxKind.IfStatement);
+    }
+
+
+    /**
+     * Checks if an AST node is a Block which is a "else"
+     * @param node      // The node to analyse
+     */
+    static isElseStatement(node: ts.Node): boolean {
+        return (Ast.isBlock(node)
+            && node?.parent?.kind === ts.SyntaxKind.IfStatement
+            && node?.parent['elseStatement']?.pos === node?.pos);
+    }
+
+
+    /**
+     * Checks if an AST node is a function or a method
+     * @param node
+     */
+    static isFunctionOrMethod(node: ts.Node): boolean {
+        return node?.kind === ts.SyntaxKind.MethodDeclaration || node?.kind === ts.SyntaxKind.FunctionDeclaration || false;
+    }
+
+
+    /**
+     * Checks if an AST node is a function or a method
+     * @param node
+     */
+    static isIdentifier(node: ts.Node): boolean {
+        return node?.kind === ts.SyntaxKind.Identifier;
+    }
+
+
+    /**
+     * Checks if an AST node is a logic door (ie : || or &&)
+     * @param node // The AST node to check
+     */
+    static isLogicDoor(node: ts.Node): boolean {
+        return (node?.['operatorToken']?.kind === ts.SyntaxKind.AmpersandAmpersandToken
+            || node?.['operatorToken']?.kind === ts.SyntaxKind.BarBarToken)
+            ?? false;
+    }
+
+
+    /**
+     * Checks if an AST node is an index of an array, ie if it's a Node which is the second son of an ElementAccessExpression
+     * @param node      // The node to analyse
+     */
+    static isMethodIdentifier(node: ts.Node): boolean {
+        return(Ast.isCallExpression(node.parent) && node?.pos === node.parent?.pos);
+    }
+
+
+    /**
+     * Checks if an AST node is "||" anf if this node is between two binary expressions
+     * @param node
+     */
+    static isOrTokenBetweenBinaries(node: ts.Node): boolean {
+        return (node?.['operatorToken']?.kind === ts.SyntaxKind.BarBarToken
+            && node?.['left']?.kind === ts.SyntaxKind.BinaryExpression
+            && node?.['right']?.kind === ts.SyntaxKind.BinaryExpression)
+            ?? false;
+    }
+
+
+    /**
+     * Checks if an AST node is a Parameter
+     * @param node // The AST node
+     */
+    static isParam(node: ts.Node): boolean {
+        return node?.kind === ts.SyntaxKind.Parameter ?? false;
+    }
+
+
+    /**
+     * Checks if an AST node is a PropertyAccessExpression
+     * @param node // The AST node
+     */
+    static isPropertyAccessExpression(node: ts.Node): boolean {
+        return node?.kind === ts.SyntaxKind.PropertyAccessExpression ?? false;
+    }
+
+
+    /**
+     * Checks if two AST nodes have the same type
+     * @param firstNode   // The first AST node
+     * @param secondNode  // The second AST node
+     */
+    static isSameOperatorToken(firstNode: ts.Node, secondNode: ts.Node): boolean {
+        return firstNode?.['operatorToken']?.kind === secondNode?.['operatorToken']?.kind ?? false;
+    }
+
+
+    /**
+     * Checks if an AST node is an index of an array, ie if it's a Node which is the second son of an ElementAccessExpression
+     * @param node      // The node to analyse
+     */
+    static isSon(node: ts.Node, sourceFile: ts.SourceFile, sonNumber = 1): boolean {
+        return(node?.pos === node.parent['argumentExpression'].pos);
     }
 
 }

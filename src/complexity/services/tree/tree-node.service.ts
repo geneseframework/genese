@@ -4,7 +4,7 @@ import { TreeNode } from '../../models/tree/tree-node.model';
 import { TreeMethod } from '../../models/tree/tree-method.model';
 import { ParentFunction } from '../../models/tree/parent-function.model';
 import { Context } from '../../models/tree/context.model';
-import { NewContext } from '../../enums/new-context.enum';
+import { TreeNodeContext } from '../../enums/new-context.enum';
 
 /**
  * Service managing TreeNodes
@@ -56,16 +56,29 @@ export class TreeNodeService {
             // console.log('CONTEXT OF', treeNode.name)
             treeNode.context = treeNode;
             context = treeNode;
-        } else {
+        } else if (!Ast.isIdentifier(treeNode.node)) {
             context = this.getNodeContext(treeNode.parent);
+        } else {
+            context = this.getIdentifierContext(treeNode);
         }
         // console.log('ZZZ CONTEXT OF ', treeNode.kind, treeNode.name, ' = ', context.kind);
         return context;
     }
 
 
+    private getIdentifierContext(treeNode: TreeNode): TreeNode {
+        let context: TreeNode;
+        if (Ast.isPropertyAccessExpression(treeNode.parent?.context?.node)) {
+
+        } else {
+            context = this.getNodeContext(treeNode.parent);
+        }
+        return context;
+    }
+
+
     isContext(treeNode: TreeNode): boolean {
-        return Object.values(NewContext).includes(treeNode.kind);
+        return Object.values(TreeNodeContext).includes(treeNode.kind);
     }
 
 

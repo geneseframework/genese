@@ -52,14 +52,27 @@ class TreeNodeService {
             treeNode.context = treeNode;
             context = treeNode;
         }
-        else {
+        else if (!ast_service_1.Ast.isIdentifier(treeNode.node)) {
             context = this.getNodeContext(treeNode.parent);
+        }
+        else {
+            context = this.getIdentifierContext(treeNode);
         }
         // console.log('ZZZ CONTEXT OF ', treeNode.kind, treeNode.name, ' = ', context.kind);
         return context;
     }
+    getIdentifierContext(treeNode) {
+        var _a, _b;
+        let context;
+        if (ast_service_1.Ast.isPropertyAccessExpression((_b = (_a = treeNode.parent) === null || _a === void 0 ? void 0 : _a.context) === null || _b === void 0 ? void 0 : _b.node)) {
+        }
+        else {
+            context = this.getNodeContext(treeNode.parent);
+        }
+        return context;
+    }
     isContext(treeNode) {
-        return Object.values(new_context_enum_1.NewContext).includes(treeNode.kind);
+        return Object.values(new_context_enum_1.TreeNodeContext).includes(treeNode.kind);
     }
     createContext(treeNode) {
         const context = new context_model_1.Context();

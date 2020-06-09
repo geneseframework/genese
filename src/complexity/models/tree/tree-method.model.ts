@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 import { TreeFile } from './tree-file.model';
 import { Ast } from '../../services/ast.service';
-import { CyclomaticComplexityService as CS } from '../../services/cyclomaticComplexityService';
+import { CyclomaticComplexityService as CS } from '../../services/cyclomatic-complexity.service';
 import { TreeNode } from './tree-node.model';
 import { Options } from '../options';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
@@ -30,8 +30,9 @@ export class TreeMethod extends Evaluable implements IsAstNode {
     name ?= '';                                                     // The name of the method
     node: ts.Node = undefined;                                      // The AST node corresponding to the method
     #originalCode?: Code = undefined;                               // The original Code of the method (as Code object)
+    #sourceFile?: ts.SourceFile = undefined;
     treeFile?: TreeFile = new TreeFile();                           // The TreeFile which contains the TreeMethod
-    treeNode?: TreeNode = undefined;                                    // The AST of the method itself
+    treeNode?: TreeNode = undefined;                                // The AST of the method itself
 
 
     constructor(node: ts.Node) {
@@ -92,6 +93,11 @@ export class TreeMethod extends Evaluable implements IsAstNode {
 
     get cpxIndex(): number {
         return this.#cpxIndex ?? this.calculateCpxIndex();
+    }
+
+
+    get sourceFile(): ts.SourceFile {
+        return this.treeFile?.sourceFile;
     }
 
 
