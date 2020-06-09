@@ -4,13 +4,13 @@ export class DebugMock {
         this.keycloakService.logout();
     }
 
-    recursion(a) {
-        this.recursion(a);
-    }
-
-
-    methodWithCallback(a, callback) {
-        callback(3);
-    }
+    // recursion(a) {
+    //     this.recursion(a);
+    // }
+    //
+    //
+    // methodWithCallback(a, callback) {
+    //     callback(3);
+    // }
 
 }

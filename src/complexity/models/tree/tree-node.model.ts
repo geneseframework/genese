@@ -10,6 +10,7 @@ import { NodeFeatureService } from '../../services/node-feature.service';
 import { Ast } from '../../services/ast.service';
 import { ParentFunction } from './parent-function.model';
 import { TreeNodeService } from '../../services/tree/tree-node.service';
+import { Context } from './context.model';
 
 /**
  * The formatted tree of elements corresponding to an Abstract Syntax TreeNode (AST)
@@ -17,19 +18,21 @@ import { TreeNodeService } from '../../services/tree/tree-node.service';
 export class TreeNode extends Evaluable implements IsAstNode {
 
     children?: TreeNode[] = [];                                             // The children trees corresponding to children AST nodes of the current AST node
+    #context?: TreeNode = undefined;                                         // The context of the TreeNode
     #cpxFactors?: CpxFactors = new CpxFactors();                            // The complexity factors of the TreeNode
     #feature?: NodeFeature = undefined;                                     // The NodeFeature of the node of the TreeNode
     #intrinsicDepthCpx: number = undefined;                                 // The depth of the TreeNode inside its method (not including its parent's depth)
     #intrinsicNestingCpx: number = undefined;                               // The nesting of the TreeNode inside its method (not including its parent's nesting)
-    #kind: string = undefined;                                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
-    #name: string = undefined;
+    #isNodeContext: boolean = undefined;                                    // The node defines a new context : VariableDeclaration, FunctionExpression, ...
+    #kind: string = undefined;                                              // The kind of the node ('MethodDeclaration, IfStatement, ...)
+    #name: string = undefined;                                              // The name of the TreeNode
     #nestingCpx: number = undefined;                                        // The nesting of the TreeNode inside its method (including its parent's nesting)
     node?: ts.Node = undefined;                                             // The current node in the AST
     nodeFeatureService?: NodeFeatureService = new NodeFeatureService();     // The service managing NodeFeatures
     parent?: TreeNode;                                                      // The tree of the parent of the current node
-    #parentFunction?: ParentFunction = undefined;
+    #parentFunction?: ParentFunction = undefined;                           // The first function or method which a parent of the TreeNode
     treeMethod?: TreeMethod = undefined;                                    // The method at the root of the current tree (if this tree is inside a method)
-    treeNodeService?: TreeNodeService = new TreeNodeService();     // The service managing NodeFeatures
+    treeNodeService?: TreeNodeService = new TreeNodeService();              // The service managing NodeFeatures
 
 
     constructor() {
@@ -49,7 +52,24 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
 
     /**
-     * Gets the global nesting complexity of the node, including the nesting cpx of its parents
+     * Gets the context of this TreeNode
+     */
+    get context(): TreeNode {
+        // return
+        return this.#context ?? this.treeNodeService.getNodeContext(this);
+    }
+
+
+    /**
+     * Sets the context of this TreeNode
+     */
+    set context(treeNode: TreeNode) {
+        this.#context = treeNode;
+    }
+
+
+    /**
+     * Gets the first function or method which is a parent of this TreeNode
      */
     get parentFunction(): ParentFunction {
         return this.#parentFunction ?? this.treeNodeService.setParentFunction(this);
@@ -127,6 +147,24 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
     get isMethodIdentifier(): boolean {
         return Ast.isMethodIdentifier(this.node);
+    }
+
+
+    /**
+     * Checks if this TreeNode defines a new context
+     * Examples: VariableDeclaration, FunctionExpression, ...
+     */
+    get isNodeContext(): boolean {
+        return this.#isNodeContext ?? this.treeNodeService.isContext(this);
+    }
+
+
+    /**
+     * Sets the value of #isNodeContext
+     * @param bool      // The value to set
+     */
+    set isNodeContext(bool: boolean) {
+        this.#isNodeContext = bool;
     }
 
 

@@ -4,6 +4,8 @@ const ts = require("typescript");
 const ast_service_1 = require("../ast.service");
 const tree_node_model_1 = require("../../models/tree/tree-node.model");
 const parent_function_model_1 = require("../../models/tree/parent-function.model");
+const context_model_1 = require("../../models/tree/context.model");
+const new_context_enum_1 = require("../../enums/new-context.enum");
 /**
  * Service managing TreeNodes
  */
@@ -33,12 +35,49 @@ class TreeNodeService {
             newTree.treeMethod = treeNode.treeMethod;
             newTree.parent = treeNode;
             newTree.kind = ast_service_1.Ast.getType(childNode);
+            newTree.context = this.getNodeContext(newTree);
+            // newTree.isNodeContext = this.isContext(newTree);
+            console.log('CONTEXT OF ', newTree.kind, newTree.name, ' = ', newTree.context.kind);
             newTree.evaluate();
             treeNode.children.push(this.addTreeToChildren(newTree));
             this.setParentFunction(newTree);
         });
         return treeNode;
     }
+    getNodeContext(treeNode) {
+        let context;
+        // console.log('NAME', treeNode.kind, treeNode.name, treeNode.isNodeContext, 'parent', treeNode.parent?.name);
+        if (this.isContext(treeNode) || !treeNode.parent) {
+            // console.log('CONTEXT OF', treeNode.name)
+            treeNode.context = treeNode;
+            context = treeNode;
+        }
+        else {
+            context = this.getNodeContext(treeNode.parent);
+        }
+        // console.log('ZZZ CONTEXT OF ', treeNode.kind, treeNode.name, ' = ', context.kind);
+        return context;
+    }
+    isContext(treeNode) {
+        return Object.values(new_context_enum_1.NewContext).includes(treeNode.kind);
+    }
+    createContext(treeNode) {
+        const context = new context_model_1.Context();
+        return context.init(treeNode);
+    }
+    // getContext(treeNode: TreeNode): Context {
+    //     if (!treeNode) {
+    //         return undefined;
+    //     }
+    //     if (treeNode.isFunction) {
+    //         return treeNode.context;
+    //     }
+    //     if (treeNode.parent.isFunction) {
+    //         return treeNode.parent.context;
+    //     } else {
+    //         return this.getContext(treeNode.parent);
+    //     }
+    // }
     setParentFunction(treeNode) {
         return (treeNode.isFunction) ? this.createParentFunction(treeNode) : this.getParentFunction(treeNode);
     }

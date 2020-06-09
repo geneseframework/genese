@@ -47,7 +47,7 @@ export class LogService {
         } else {
             color = childTree.cpxFactors.total > 1 ? 'red' : 'yellow';
         }
-        console.log(indent, chalk[color](childTree.kind), 'nesting', childTree.nestingCpx, 'depth', childTree.depthCpx, 'aggr', childTree.aggregationCpx, 'parent', childTree.parent?.kind);
+        console.log(indent, chalk[color](childTree.kind), 'nesting', childTree.nestingCpx, 'depth', childTree.depthCpx, 'aggr', childTree.aggregationCpx, 'context', chalk['blueBright'](childTree.context?.name), 'parent', childTree.parent?.kind);
 
 
     }
