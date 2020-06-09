@@ -29,8 +29,7 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
     filename ?= '';                                                 // The name of the file containing the method
     #name: string = undefined;                                                     // The name of the method
     #originalCode?: Code = undefined;                               // The original Code of the method (as Code object)
-    // #sourceFile?: ts.SourceFile = undefined;
-    treeFile?: TreeFile = new TreeFile();                           // The TreeFile which contains the TreeMethod
+    #treeFile?: TreeFile = undefined;                           // The TreeFile which contains the TreeMethod
     #treeNode?: TreeNode = undefined;                               // The AST of the method itself
 
 
@@ -75,7 +74,17 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
 
 
     get sourceFile(): ts.SourceFile {
-        return this.treeFile?.sourceFile;
+        return this.#treeFile?.sourceFile;
+    }
+
+
+    get treeFile(): TreeFile {
+        return this.#treeFile;
+    }
+
+
+    set treeFile(treeFile: TreeFile) {
+        this.#treeFile = treeFile;
     }
 
 
@@ -104,7 +113,7 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.#treeNode?.node);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
-        this.filename = this.treeFile?.sourceFile?.fileName ?? '';
+        this.filename = this.treeNode?.sourceFile?.fileName ?? '';
     }
 
 

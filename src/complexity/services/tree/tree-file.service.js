@@ -7,7 +7,6 @@ const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const stats_service_1 = require("../report/stats.service");
 const tree_method_service_1 = require("./tree-method.service");
-const tree_node_model_1 = require("../../models/tree/tree-node.model");
 /**
  * - TreeFiles generation from Abstract Syntax TreeNode of a file
  * - Other services for TreeFiles
@@ -28,10 +27,10 @@ class TreeFileService extends stats_service_1.StatsService {
     generateTree(path, treeFolder = new tree_folder_model_1.TreeFolder()) {
         var _a;
         const treeFile = new tree_file_model_1.TreeFile();
-        const treeNode = new tree_node_model_1.TreeNode();
-        treeNode.sourceFile = ast_service_1.Ast.getSourceFile(path);
-        treeFile.name = (_a = treeNode.sourceFile) === null || _a === void 0 ? void 0 : _a.fileName;
-        treeFile.treeNode = treeNode;
+        // const treeNode = new TreeNode();
+        treeFile.sourceFile = ast_service_1.Ast.getSourceFile(path);
+        treeFile.name = (_a = treeFile.sourceFile) === null || _a === void 0 ? void 0 : _a.fileName;
+        // treeFile.treeNode = treeNode;
         treeFile.treeFolder = treeFolder;
         treeFile.treeMethods = this.treeMethodService.generateTree(treeFile);
         treeFile.evaluate();

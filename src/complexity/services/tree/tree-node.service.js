@@ -13,6 +13,7 @@ class TreeNodeService {
     /**
      * Generates the TreeNode corresponding to a given TreeMethod
      * @param treeMethod    // The TreeMethod in question
+     * @param node
      */
     generateTree(treeMethod, node) {
         let treeNode = new tree_node_model_1.TreeNode();

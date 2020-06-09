@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _context, _cpxFactors, _feature, _intrinsicDepthCpx, _intrinsicNestingCpx, _isNodeContext, _kind, _name, _nestingCpx, _parentFunction, _sourceFile;
+var _context, _cpxFactors, _feature, _intrinsicDepthCpx, _intrinsicNestingCpx, _isNodeContext, _kind, _name, _nestingCpx, _parentFunction, _treeFile;
 Object.defineProperty(exports, "__esModule", { value: true });
 const evaluable_model_1 = require("../evaluable.model");
 const node_feature_enum_1 = require("../../enums/node-feature.enum");
@@ -41,7 +41,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
         this.node = undefined; // The current node in the AST
         this.nodeFeatureService = new node_feature_service_1.NodeFeatureService(); // The service managing NodeFeatures
         _parentFunction.set(this, undefined); // The first function or method which a parent of the TreeNode
-        _sourceFile.set(this, undefined);
+        _treeFile.set(this, undefined); // The TreeFile containing the AST node of the TreeNode
         this.treeMethod = undefined; // The method at the root of the current tree (if this tree is inside a method)
         this.treeNodeService = new tree_node_service_1.TreeNodeService(); // The service managing NodeFeatures
     }
@@ -56,7 +56,6 @@ class TreeNode extends evaluable_model_1.Evaluable {
      */
     get context() {
         var _a;
-        // return
         return (_a = __classPrivateFieldGet(this, _context)) !== null && _a !== void 0 ? _a : this.treeNodeService.getNodeContext(this);
     }
     /**
@@ -173,10 +172,14 @@ class TreeNode extends evaluable_model_1.Evaluable {
         __classPrivateFieldSet(this, _nestingCpx, cpx);
     }
     get sourceFile() {
-        return __classPrivateFieldGet(this, _sourceFile);
+        var _a;
+        return (_a = __classPrivateFieldGet(this, _treeFile)) === null || _a === void 0 ? void 0 : _a.sourceFile;
     }
-    set sourceFile(sourceFile) {
-        __classPrivateFieldSet(this, _sourceFile, sourceFile);
+    get treeFile() {
+        return __classPrivateFieldGet(this, _treeFile);
+    }
+    set treeFile(treeFile) {
+        __classPrivateFieldSet(this, _treeFile, treeFile);
     }
     // ---------------------------------------------------------------------------------
     //                                  Other methods
@@ -252,4 +255,4 @@ class TreeNode extends evaluable_model_1.Evaluable {
     }
 }
 exports.TreeNode = TreeNode;
-_context = new WeakMap(), _cpxFactors = new WeakMap(), _feature = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _isNodeContext = new WeakMap(), _kind = new WeakMap(), _name = new WeakMap(), _nestingCpx = new WeakMap(), _parentFunction = new WeakMap(), _sourceFile = new WeakMap();
+_context = new WeakMap(), _cpxFactors = new WeakMap(), _feature = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _isNodeContext = new WeakMap(), _kind = new WeakMap(), _name = new WeakMap(), _nestingCpx = new WeakMap(), _parentFunction = new WeakMap(), _treeFile = new WeakMap();

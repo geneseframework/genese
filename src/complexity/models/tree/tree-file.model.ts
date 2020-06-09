@@ -18,6 +18,7 @@ export class TreeFile extends Evaluable implements HasStats, HasTreeNode {
     complexitiesByStatus?: ComplexitiesByStatus = undefined;    // The file complexities spread by complexity status
     cpxIndex ?= 0;                                              // The complexity index of this file
     name ?= '';                                                 // The name of this file
+    #sourceFile?: ts.SourceFile = undefined;
     stats?: Stats = undefined;                                  // The statistics of the file
     treeFileService: TreeFileService = new TreeFileService();   // The service for TreeFiles
     treeFolder?: TreeFolder = new TreeFolder();                 // The TreeFolder which includes this TreeFile
@@ -37,7 +38,12 @@ export class TreeFile extends Evaluable implements HasStats, HasTreeNode {
 
 
     get sourceFile(): ts.SourceFile {
-        return this.#treeNode.sourceFile;
+        return this.#sourceFile;
+    }
+
+
+    set sourceFile(source: ts.SourceFile) {
+        this.#sourceFile = source;
     }
 
 

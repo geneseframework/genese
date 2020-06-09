@@ -10,6 +10,7 @@ import { NodeFeatureService } from '../../services/node-feature.service';
 import { Ast } from '../../services/ast.service';
 import { ParentFunction } from './parent-function.model';
 import { TreeNodeService } from '../../services/tree/tree-node.service';
+import { TreeFile } from './tree-file.model';
 
 /**
  * The formatted tree of elements corresponding to an Abstract Syntax TreeNode (AST)
@@ -17,7 +18,7 @@ import { TreeNodeService } from '../../services/tree/tree-node.service';
 export class TreeNode extends Evaluable {
 
     children?: TreeNode[] = [];                                             // The children trees corresponding to children AST nodes of the current AST node
-    #context?: TreeNode = undefined;                                         // The context of the TreeNode
+    #context?: TreeNode = undefined;                                        // The context of the TreeNode
     #cpxFactors?: CpxFactors = new CpxFactors();                            // The complexity factors of the TreeNode
     #feature?: NodeFeature = undefined;                                     // The NodeFeature of the node of the TreeNode
     #intrinsicDepthCpx: number = undefined;                                 // The depth of the TreeNode inside its method (not including its parent's depth)
@@ -30,7 +31,7 @@ export class TreeNode extends Evaluable {
     nodeFeatureService?: NodeFeatureService = new NodeFeatureService();     // The service managing NodeFeatures
     parent?: TreeNode;                                                      // The tree of the parent of the current node
     #parentFunction?: ParentFunction = undefined;                           // The first function or method which a parent of the TreeNode
-    #sourceFile?: ts.SourceFile = undefined;
+    #treeFile?: TreeFile = undefined;                                       // The TreeFile containing the AST node of the TreeNode
     treeMethod?: TreeMethod = undefined;                                    // The method at the root of the current tree (if this tree is inside a method)
     treeNodeService?: TreeNodeService = new TreeNodeService();              // The service managing NodeFeatures
 
@@ -55,7 +56,6 @@ export class TreeNode extends Evaluable {
      * Gets the context of this TreeNode
      */
     get context(): TreeNode {
-        // return
         return this.#context ?? this.treeNodeService.getNodeContext(this);
     }
 
@@ -212,12 +212,17 @@ export class TreeNode extends Evaluable {
 
 
     get sourceFile(): ts.SourceFile {
-        return this.#sourceFile;
+        return this.#treeFile?.sourceFile;
     }
 
 
-    set sourceFile(sourceFile: ts.SourceFile) {
-        this.#sourceFile = sourceFile;
+    get treeFile(): TreeFile {
+        return this.#treeFile;
+    }
+
+
+    set treeFile(treeFile: TreeFile) {
+        this.#treeFile = treeFile;
     }
 
 

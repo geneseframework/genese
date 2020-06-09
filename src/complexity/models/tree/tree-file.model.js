@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _treeNode;
+var _sourceFile, _treeNode;
 Object.defineProperty(exports, "__esModule", { value: true });
 const tree_folder_model_1 = require("./tree-folder.model");
 const tree_file_service_1 = require("../../services/tree/tree-file.service");
@@ -27,6 +27,7 @@ class TreeFile extends evaluable_model_1.Evaluable {
         this.complexitiesByStatus = undefined; // The file complexities spread by complexity status
         this.cpxIndex = 0; // The complexity index of this file
         this.name = ''; // The name of this file
+        _sourceFile.set(this, undefined);
         this.stats = undefined; // The statistics of the file
         this.treeFileService = new tree_file_service_1.TreeFileService(); // The service for TreeFiles
         this.treeFolder = new tree_folder_model_1.TreeFolder(); // The TreeFolder which includes this TreeFile
@@ -38,7 +39,10 @@ class TreeFile extends evaluable_model_1.Evaluable {
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
     get sourceFile() {
-        return __classPrivateFieldGet(this, _treeNode).sourceFile;
+        return __classPrivateFieldGet(this, _sourceFile);
+    }
+    set sourceFile(source) {
+        __classPrivateFieldSet(this, _sourceFile, source);
     }
     get treeNode() {
         return __classPrivateFieldGet(this, _treeNode);
@@ -71,4 +75,4 @@ class TreeFile extends evaluable_model_1.Evaluable {
     }
 }
 exports.TreeFile = TreeFile;
-_treeNode = new WeakMap();
+_sourceFile = new WeakMap(), _treeNode = new WeakMap();

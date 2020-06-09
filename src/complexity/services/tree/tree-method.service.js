@@ -22,11 +22,8 @@ class TreeMethodService {
         ts.forEachChild(treeFile.sourceFile, function cb(node) {
             if (ast_service_1.Ast.isFunctionOrMethod(node)) {
                 const newMethod = new tree_method_model_1.TreeMethod();
-                // const newMethod: TreeMethod = new TreeMethod(node);
-                // const treeNode = new TreeNode();
-                // treeNode.node = node;
-                newMethod.treeFile = treeFile;
                 newMethod.astPosition = node.pos;
+                newMethod.treeFile = treeFile;
                 const originalText = node.getFullText(treeFile.sourceFile);
                 const codeService = new code_service_1.CodeService();
                 newMethod.originalCode = codeService.createCode(originalText);

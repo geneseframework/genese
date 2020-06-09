@@ -12,9 +12,8 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _cpxIndex, _displayedCode, _name, _originalCode, _treeNode;
+var _cpxIndex, _displayedCode, _name, _originalCode, _treeFile, _treeNode;
 Object.defineProperty(exports, "__esModule", { value: true });
-const tree_file_model_1 = require("./tree-file.model");
 const ast_service_1 = require("../../services/ast.service");
 const cyclomatic_complexity_service_1 = require("../../services/cyclomatic-complexity.service");
 const options_1 = require("../options");
@@ -42,8 +41,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         this.filename = ''; // The name of the file containing the method
         _name.set(this, undefined); // The name of the method
         _originalCode.set(this, undefined); // The original Code of the method (as Code object)
-        // #sourceFile?: ts.SourceFile = undefined;
-        this.treeFile = new tree_file_model_1.TreeFile(); // The TreeFile which contains the TreeMethod
+        _treeFile.set(this, undefined); // The TreeFile which contains the TreeMethod
         _treeNode.set(this, undefined); // The AST of the method itself
     }
     // ---------------------------------------------------------------------------------
@@ -75,7 +73,13 @@ class TreeMethod extends evaluable_model_1.Evaluable {
     }
     get sourceFile() {
         var _a;
-        return (_a = this.treeFile) === null || _a === void 0 ? void 0 : _a.sourceFile;
+        return (_a = __classPrivateFieldGet(this, _treeFile)) === null || _a === void 0 ? void 0 : _a.sourceFile;
+    }
+    get treeFile() {
+        return __classPrivateFieldGet(this, _treeFile);
+    }
+    set treeFile(treeFile) {
+        __classPrivateFieldSet(this, _treeFile, treeFile);
     }
     get treeNode() {
         return __classPrivateFieldGet(this, _treeNode);
@@ -95,7 +99,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
         this.cyclomaticCpx = cyclomatic_complexity_service_1.CyclomaticComplexityService.calculateCyclomaticComplexity((_a = __classPrivateFieldGet(this, _treeNode)) === null || _a === void 0 ? void 0 : _a.node);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
-        this.filename = (_d = (_c = (_b = this.treeFile) === null || _b === void 0 ? void 0 : _b.sourceFile) === null || _c === void 0 ? void 0 : _c.fileName) !== null && _d !== void 0 ? _d : '';
+        this.filename = (_d = (_c = (_b = this.treeNode) === null || _b === void 0 ? void 0 : _b.sourceFile) === null || _c === void 0 ? void 0 : _c.fileName) !== null && _d !== void 0 ? _d : '';
     }
     calculateCpxIndex() {
         var _a, _b, _c;
@@ -183,4 +187,4 @@ class TreeMethod extends evaluable_model_1.Evaluable {
     }
 }
 exports.TreeMethod = TreeMethod;
-_cpxIndex = new WeakMap(), _displayedCode = new WeakMap(), _name = new WeakMap(), _originalCode = new WeakMap(), _treeNode = new WeakMap();
+_cpxIndex = new WeakMap(), _displayedCode = new WeakMap(), _name = new WeakMap(), _originalCode = new WeakMap(), _treeFile = new WeakMap(), _treeNode = new WeakMap();
