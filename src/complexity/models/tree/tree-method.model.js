@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _cpxIndex, _displayedCode, _originalCode, _sourceFile, _treeNode;
+var _cpxIndex, _displayedCode, _name, _originalCode, _treeNode;
 Object.defineProperty(exports, "__esModule", { value: true });
 const tree_file_model_1 = require("./tree-file.model");
 const ast_service_1 = require("../../services/ast.service");
@@ -31,7 +31,7 @@ const log_service_1 = require("../../services/tree/log.service");
  * Element of the TreeNode structure corresponding to a given method
  */
 class TreeMethod extends evaluable_model_1.Evaluable {
-    constructor(node) {
+    constructor() {
         super();
         this.astPosition = 0; // The position of the AST node of the method in the code of its file
         this.codeService = new code_service_1.CodeService(); // The service managing Code objects
@@ -40,14 +40,11 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         this.cyclomaticStatus = evaluation_status_enum_1.MethodStatus.CORRECT; // The cyclomatic status of the method
         _displayedCode.set(this, undefined); // The code to display in the report
         this.filename = ''; // The name of the file containing the method
-        this.name = ''; // The name of the method
-        this.node = undefined; // The AST node corresponding to the method
+        _name.set(this, undefined); // The name of the method
         _originalCode.set(this, undefined); // The original Code of the method (as Code object)
-        _sourceFile.set(this, undefined);
+        // #sourceFile?: ts.SourceFile = undefined;
         this.treeFile = new tree_file_model_1.TreeFile(); // The TreeFile which contains the TreeMethod
         _treeNode.set(this, undefined); // The AST of the method itself
-        this.node = node;
-        this.name = ast_service_1.Ast.getMethodName(node);
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
@@ -61,6 +58,14 @@ class TreeMethod extends evaluable_model_1.Evaluable {
     get cpxIndex() {
         var _a;
         return (_a = __classPrivateFieldGet(this, _cpxIndex)) !== null && _a !== void 0 ? _a : this.calculateCpxIndex();
+    }
+    get name() {
+        var _a;
+        if (__classPrivateFieldGet(this, _name)) {
+            return __classPrivateFieldGet(this, _name);
+        }
+        __classPrivateFieldSet(this, _name, ast_service_1.Ast.getMethodName((_a = __classPrivateFieldGet(this, _treeNode)) === null || _a === void 0 ? void 0 : _a.node));
+        return __classPrivateFieldGet(this, _name);
     }
     /**
      * Gets the full originalText of the method
@@ -85,12 +90,12 @@ class TreeMethod extends evaluable_model_1.Evaluable {
      * Evaluates the complexities of this TreeMethod
      */
     evaluate() {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         log_service_1.LogService.printAllChildren(this.treeNode);
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
-        this.cyclomaticCpx = cyclomatic_complexity_service_1.CyclomaticComplexityService.calculateCyclomaticComplexity(this.node);
+        this.cyclomaticCpx = cyclomatic_complexity_service_1.CyclomaticComplexityService.calculateCyclomaticComplexity((_a = __classPrivateFieldGet(this, _treeNode)) === null || _a === void 0 ? void 0 : _a.node);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
-        this.filename = (_c = (_b = (_a = this.treeFile) === null || _a === void 0 ? void 0 : _a.sourceFile) === null || _b === void 0 ? void 0 : _b.fileName) !== null && _c !== void 0 ? _c : '';
+        this.filename = (_d = (_c = (_b = this.treeFile) === null || _b === void 0 ? void 0 : _b.sourceFile) === null || _c === void 0 ? void 0 : _c.fileName) !== null && _d !== void 0 ? _d : '';
     }
     calculateCpxIndex() {
         var _a, _b, _c;
@@ -178,4 +183,4 @@ class TreeMethod extends evaluable_model_1.Evaluable {
     }
 }
 exports.TreeMethod = TreeMethod;
-_cpxIndex = new WeakMap(), _displayedCode = new WeakMap(), _originalCode = new WeakMap(), _sourceFile = new WeakMap(), _treeNode = new WeakMap();
+_cpxIndex = new WeakMap(), _displayedCode = new WeakMap(), _name = new WeakMap(), _originalCode = new WeakMap(), _treeNode = new WeakMap();

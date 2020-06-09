@@ -27,18 +27,15 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
     cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;          // The cyclomatic status of the method
     #displayedCode?: Code = undefined;                              // The code to display in the report
     filename ?= '';                                                 // The name of the file containing the method
-    name ?= '';                                                     // The name of the method
-    node: ts.Node = undefined;                                      // The AST node corresponding to the method
+    #name: string = undefined;                                                     // The name of the method
     #originalCode?: Code = undefined;                               // The original Code of the method (as Code object)
-    #sourceFile?: ts.SourceFile = undefined;
+    // #sourceFile?: ts.SourceFile = undefined;
     treeFile?: TreeFile = new TreeFile();                           // The TreeFile which contains the TreeMethod
-    #treeNode?: TreeNode = undefined;                                // The AST of the method itself
+    #treeNode?: TreeNode = undefined;                               // The AST of the method itself
 
 
-    constructor(node: ts.Node) {
+    constructor() {
         super();
-        this.node = node;
-        this.name = Ast.getMethodName(node);
     }
 
 
@@ -57,6 +54,15 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
 
     get cpxIndex(): number {
         return this.#cpxIndex ?? this.calculateCpxIndex();
+    }
+
+
+    get name(): string {
+        if (this.#name) {
+            return this.#name;
+        }
+        this.#name = Ast.getMethodName(this.#treeNode?.node);
+        return this.#name;
     }
 
 
@@ -96,7 +102,7 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
     evaluate(): void {
         LogService.printAllChildren(this.treeNode);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
-        this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.node);
+        this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.#treeNode?.node);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
         this.filename = this.treeFile?.sourceFile?.fileName ?? '';
     }

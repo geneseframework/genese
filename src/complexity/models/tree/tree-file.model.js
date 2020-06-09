@@ -27,7 +27,6 @@ class TreeFile extends evaluable_model_1.Evaluable {
         this.complexitiesByStatus = undefined; // The file complexities spread by complexity status
         this.cpxIndex = 0; // The complexity index of this file
         this.name = ''; // The name of this file
-        // sourceFile?: ts.SourceFile = undefined;                     // The sourceFile corresponding to this TreeFile
         this.stats = undefined; // The statistics of the file
         this.treeFileService = new tree_file_service_1.TreeFileService(); // The service for TreeFiles
         this.treeFolder = new tree_folder_model_1.TreeFolder(); // The TreeFolder which includes this TreeFile

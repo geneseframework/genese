@@ -21,13 +21,16 @@ class TreeMethodService {
         let __self = this;
         ts.forEachChild(treeFile.sourceFile, function cb(node) {
             if (ast_service_1.Ast.isFunctionOrMethod(node)) {
-                const newMethod = new tree_method_model_1.TreeMethod(node);
+                const newMethod = new tree_method_model_1.TreeMethod();
+                // const newMethod: TreeMethod = new TreeMethod(node);
+                // const treeNode = new TreeNode();
+                // treeNode.node = node;
                 newMethod.treeFile = treeFile;
                 newMethod.astPosition = node.pos;
                 const originalText = node.getFullText(treeFile.sourceFile);
                 const codeService = new code_service_1.CodeService();
                 newMethod.originalCode = codeService.createCode(originalText);
-                newMethod.treeNode = __self.treeNodeService.generateTree(newMethod);
+                newMethod.treeNode = __self.treeNodeService.generateTree(newMethod, node);
                 newMethod.evaluate();
                 newMethod.createDisplayedCode();
                 methods.push(newMethod);

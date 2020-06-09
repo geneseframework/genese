@@ -7,6 +7,7 @@ import { ComplexityType } from '../../enums/complexity-type.enum';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
 import { Ast } from '../ast.service';
 import { CodeService } from '../code.service';
+import { TreeNode } from '../../models/tree/tree-node.model';
 
 export class TreeMethodService {
 
@@ -21,13 +22,16 @@ export class TreeMethodService {
         let __self = this;
         ts.forEachChild(treeFile.sourceFile, function cb(node) {
             if (Ast.isFunctionOrMethod(node)) {
-                const newMethod: TreeMethod = new TreeMethod(node);
+                const newMethod: TreeMethod = new TreeMethod();
+                // const newMethod: TreeMethod = new TreeMethod(node);
+                // const treeNode = new TreeNode();
+                // treeNode.node = node;
                 newMethod.treeFile = treeFile;
                 newMethod.astPosition = node.pos;
                 const originalText = node.getFullText(treeFile.sourceFile);
                 const codeService = new CodeService();
                 newMethod.originalCode = codeService.createCode(originalText);
-                newMethod.treeNode = __self.treeNodeService.generateTree(newMethod);
+                newMethod.treeNode = __self.treeNodeService.generateTree(newMethod, node);
                 newMethod.evaluate();
                 newMethod.createDisplayedCode();
                 methods.push(newMethod);

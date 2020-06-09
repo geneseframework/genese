@@ -14,12 +14,12 @@ class TreeNodeService {
      * Generates the TreeNode corresponding to a given TreeMethod
      * @param treeMethod    // The TreeMethod in question
      */
-    generateTree(treeMethod) {
+    generateTree(treeMethod, node) {
         let treeNode = new tree_node_model_1.TreeNode();
-        treeNode.node = treeMethod.node;
+        treeNode.node = node;
         treeNode.nestingCpx = 0;
         treeNode.treeMethod = treeMethod;
-        treeNode.kind = ast_service_1.Ast.getType(treeMethod.node);
+        treeNode.kind = ast_service_1.Ast.getType(node);
         treeNode = this.addTreeToChildren(treeNode);
         return treeNode;
     }
