@@ -98,7 +98,7 @@ export class TreeNodeService {
             console.log(treeNode.kind, treeNode.name, 'IS SECOND SON OF', treeNode.parent.kind, treeNode.parent?.name);
             context = treeNode.parent?.firstSon?.mayDefineContext ? treeNode.parent?.firstSon : treeNode.parent?.firstSon.context;
         } else {
-            console.log(treeNode.kind, treeNode.name, 'HAS CONTEXT', treeNode.parent.context.kind, treeNode.parent.context?.name);
+            console.log(treeNode.kind, treeNode.name, 'HAS CONTEXT WITH PARENT', treeNode.parent.context.kind, treeNode.parent.context?.name);
             context = treeNode.parent?.context;
             // context = this.getContext(treeNode.parent);
         }

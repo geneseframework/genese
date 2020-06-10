@@ -16,22 +16,23 @@ export class TreeMethodService {
     // treeNodeService?: TreeNodeService = new TreeNodeService();
 
 
-    /**
-     * Generates the array of TreeMethods corresponding to the methods included in a given TreeFile
-     * @param treeFile  // The TreeFile containing the methods
-     */
-    generateTree(treeNode: TreeNode): TreeMethod {
-        if (!treeNode) {
-            return undefined;
+    createTreeMethods(treeNode: TreeNode): TreeMethod[] {
+        const treeMethods: TreeMethod[] = [];
+        for (const childTreeNode of treeNode.children) {
+            if (childTreeNode.isFunctionOrMethod) {
+                treeMethods.push(this.createMethod(treeNode));
+            }
         }
+        return treeMethods;
+    }
+
+
+    private createMethod(treeNode: TreeNode): TreeMethod {
         const treeMethod = new TreeMethod();
         treeMethod.treeNode = treeNode;
         console.log('METHODDD', treeMethod.treeNode)
         treeMethod.originalCode = this.codeService.getNodeCode(treeNode.node, treeNode.sourceFile);
         treeMethod.createDisplayedCode();
-        // treeMethod.treeNode.context = treeFile.treeNode;
-        // treeMethod.treeNode.context = this.treeNodeService.getContext(treeMethod.treeNode);
-        // this.setContextToTreeNodeChildren(treeMethod.treeNode);
         treeMethod.evaluate();
         return treeMethod;
     }

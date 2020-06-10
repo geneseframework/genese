@@ -40,13 +40,14 @@ class TreeFileService extends stats_service_1.StatsService {
         this.treeNodeService.createTreeNodeChildren(treeFile.treeNode);
         // this.generateTreeNodes(treeFile.treeNode);
         this.setContextToTreeNodeChildren(treeFile.treeNode);
+        treeFile.treeMethods = this.treeMethodService.createTreeMethods(treeFile.treeNode);
         treeFile.evaluate();
         return treeFile;
     }
     setContextToTreeNodeChildren(treeNode) {
         var _a, _b;
         for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
-            console.log(chalk.blueBright('SEARCH CONTEXT OF '), childTreeNode.kind, childTreeNode.name);
+            // console.log(chalk.blueBright('SEARCH CONTEXT OF '), childTreeNode.kind, childTreeNode.name);
             childTreeNode.context = this.treeNodeService.getContext(childTreeNode);
             console.log(chalk.blueBright('CONTEXT OF '), childTreeNode.kind, childTreeNode.name, ' = ', (_a = childTreeNode.context) === null || _a === void 0 ? void 0 : _a.kind, (_b = childTreeNode.context) === null || _b === void 0 ? void 0 : _b.name);
             this.setContextToTreeNodeChildren(childTreeNode);

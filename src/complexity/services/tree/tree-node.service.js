@@ -93,7 +93,7 @@ class TreeNodeService {
             context = ((_c = (_b = treeNode.parent) === null || _b === void 0 ? void 0 : _b.firstSon) === null || _c === void 0 ? void 0 : _c.mayDefineContext) ? (_d = treeNode.parent) === null || _d === void 0 ? void 0 : _d.firstSon : (_e = treeNode.parent) === null || _e === void 0 ? void 0 : _e.firstSon.context;
         }
         else {
-            console.log(treeNode.kind, treeNode.name, 'HAS CONTEXT', treeNode.parent.context.kind, (_f = treeNode.parent.context) === null || _f === void 0 ? void 0 : _f.name);
+            console.log(treeNode.kind, treeNode.name, 'HAS CONTEXT WITH PARENT', treeNode.parent.context.kind, (_f = treeNode.parent.context) === null || _f === void 0 ? void 0 : _f.name);
             context = (_g = treeNode.parent) === null || _g === void 0 ? void 0 : _g.context;
             // context = this.getContext(treeNode.parent);
         }

@@ -122,7 +122,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
     // get isCallback(): boolean {
     //     return this.treeNodeService.isCallback(this);
     // }
-    get isFunction() {
+    get isFunctionOrMethod() {
         return this.feature === node_feature_enum_1.NodeFeature.FUNC;
     }
     get isMethodDeclaration() {
