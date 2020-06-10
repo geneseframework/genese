@@ -32,10 +32,11 @@ export class NodeFeatureService {
             case ts.SyntaxKind.VariableStatement:
                 return NodeFeature.EMPTY;
             case ts.SyntaxKind.ArrowFunction:
-            case ts.SyntaxKind.FunctionDeclaration:
             case ts.SyntaxKind.FunctionExpression:
-            case ts.SyntaxKind.MethodDeclaration:
                 return NodeFeature.FUNC;
+            case ts.SyntaxKind.FunctionDeclaration:
+            case ts.SyntaxKind.MethodDeclaration:
+                return NodeFeature.DECLARATION;
             case ts.SyntaxKind.AmpersandAmpersandToken:
             case ts.SyntaxKind.BarBarToken:
                 return NodeFeature.LOGIC_DOOR;

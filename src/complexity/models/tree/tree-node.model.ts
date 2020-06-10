@@ -146,7 +146,7 @@ export class TreeNode extends Evaluable {
 
 
     get isFunctionOrMethod(): boolean {
-        return this.feature === NodeFeature.FUNC;
+        return this.feature === NodeFeature.DECLARATION;
     }
 
 

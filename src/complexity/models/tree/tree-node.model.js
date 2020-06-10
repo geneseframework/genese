@@ -123,7 +123,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
     //     return this.treeNodeService.isCallback(this);
     // }
     get isFunctionOrMethod() {
-        return this.feature === node_feature_enum_1.NodeFeature.FUNC;
+        return this.feature === node_feature_enum_1.NodeFeature.DECLARATION;
     }
     get isMethodDeclaration() {
         return ast_service_1.Ast.isMethodDeclaration(this.node);
