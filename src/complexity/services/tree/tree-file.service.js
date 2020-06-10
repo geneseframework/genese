@@ -28,15 +28,17 @@ class TreeFileService extends stats_service_1.StatsService {
     generateTree(path, treeFolder = new tree_folder_model_1.TreeFolder()) {
         var _a;
         const treeFile = new tree_file_model_1.TreeFile();
-        // const treeNode = new TreeNode();
         treeFile.sourceFile = ast_service_1.Ast.getSourceFile(path);
         treeFile.name = (_a = treeFile.sourceFile) === null || _a === void 0 ? void 0 : _a.fileName;
         treeFile.treeNode = new tree_node_model_1.TreeNode();
         treeFile.treeNode.node = treeFile.sourceFile;
         treeFile.treeFolder = treeFolder;
-        treeFile.treeMethods = this.treeMethodService.generateTree(treeFile);
+        this.generateTreeNodes(treeFile);
         treeFile.evaluate();
         return treeFile;
+    }
+    generateTreeNodes(treeFile, cb) {
+        treeFile.treeMethods = this.treeMethodService.generateTree(treeFile);
     }
     /**
      * Calculates the statistics of the TreeFile

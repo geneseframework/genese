@@ -32,15 +32,20 @@ export class TreeFileService extends StatsService{
      */
     generateTree(path: string, treeFolder: TreeFolder = new TreeFolder()): TreeFile {
         const treeFile: TreeFile = new TreeFile();
-        // const treeNode = new TreeNode();
         treeFile.sourceFile = Ast.getSourceFile(path);
         treeFile.name = treeFile.sourceFile?.fileName;
         treeFile.treeNode = new TreeNode();
         treeFile.treeNode.node = treeFile.sourceFile;
         treeFile.treeFolder = treeFolder;
-        treeFile.treeMethods = this.treeMethodService.generateTree(treeFile);
+        this.generateTreeNodes(treeFile);
         treeFile.evaluate();
         return treeFile;
+    }
+
+
+    private generateTreeNodes(treeFile: TreeFile, cb?: (treeNode: TreeNode) => void): void {
+        treeFile.treeMethods = this.treeMethodService.generateTree(treeFile);
+
     }
 
 
