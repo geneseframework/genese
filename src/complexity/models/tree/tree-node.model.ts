@@ -27,9 +27,9 @@ export class TreeNode extends Evaluable {
     #kind: string = undefined;                                              // The kind of the node ('MethodDeclaration, IfStatement, ...)
     #name: string = undefined;                                              // The name of the TreeNode
     #nestingCpx: number = undefined;                                        // The nesting of the TreeNode inside its method (including its parent's nesting)
-    node?: ts.Node = undefined;                                             // The current node in the AST
+    #node?: ts.Node = undefined;                                             // The current node in the AST
     nodeFeatureService?: NodeFeatureService = new NodeFeatureService();     // The service managing NodeFeatures
-    parent?: TreeNode;                                                      // The tree of the parent of the current node
+    #parent?: TreeNode;                                                      // The tree of the parent of the current node
     #parentFunction?: ParentFunction = undefined;                           // The first function or method which a parent of the TreeNode
     #treeFile?: TreeFile = undefined;                                       // The TreeFile containing the AST node of the TreeNode
     treeMethod?: TreeMethod = undefined;                                    // The method at the root of the current tree (if this tree is inside a method)
@@ -192,6 +192,11 @@ export class TreeNode extends Evaluable {
     }
 
 
+    get mayDefineContext(): boolean {
+        return Ast.mayDefineContext(this.node);
+    }
+
+
     get name(): string {
         if (this.#name) {
             return this.#name;
@@ -208,6 +213,26 @@ export class TreeNode extends Evaluable {
 
     set nestingCpx(cpx) {
         this.#nestingCpx = cpx;
+    }
+
+
+    get node(): ts.Node {
+        return this.#node;
+    }
+
+
+    set node(node: ts.Node) {
+        this.#node = node;
+    }
+
+
+    get parent(): TreeNode {
+        return this.#parent;
+    }
+
+
+    set parent(treeNode: TreeNode) {
+        this.#parent = treeNode;
     }
 
 

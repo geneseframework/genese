@@ -1,6 +1,7 @@
 import * as fs from 'fs-extra';
 import * as ts from 'typescript';
 import { getFilename } from './file.service';
+import { MayDefineContext } from '../enums/may-define-context.enum';
 
 /**
  * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)
@@ -45,6 +46,11 @@ export class Ast {
         } else {
             return '';
         }
+    }
+
+
+    static mayDefineContext(node: ts.Node): boolean {
+        return Object.values(MayDefineContext).includes(+node.kind);
     }
 
 

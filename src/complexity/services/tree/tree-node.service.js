@@ -15,9 +15,11 @@ class TreeNodeService {
      * @param node
      */
     generateTree(treeMethod, node) {
+        var _a;
         let treeNode = new tree_node_model_1.TreeNode();
         treeNode.node = node;
         treeNode.nestingCpx = 0;
+        treeNode.parent = (_a = treeMethod === null || treeMethod === void 0 ? void 0 : treeMethod.treeFile) === null || _a === void 0 ? void 0 : _a.treeNode;
         treeNode.treeMethod = treeMethod;
         treeNode.kind = ast_service_1.Ast.getType(node);
         treeNode.treeFile = treeMethod.treeFile;
@@ -30,6 +32,7 @@ class TreeNodeService {
      */
     addTreeToChildren(treeNode) {
         ts.forEachChild(treeNode.node, (childNode) => {
+            var _a;
             const newTree = new tree_node_model_1.TreeNode();
             childNode.parent = treeNode.node;
             newTree.node = childNode;
@@ -38,7 +41,7 @@ class TreeNodeService {
             newTree.kind = ast_service_1.Ast.getType(childNode);
             newTree.context = this.getContext(newTree);
             // newTree.isNodeContext = this.mayDefineContext(newTree);
-            console.log('CONTEXT OF ', newTree.kind, newTree.name, ' = ', newTree.context.kind);
+            console.log('CONTEXT OF ', newTree.kind, newTree.name, ' = ', (_a = newTree.context) === null || _a === void 0 ? void 0 : _a.kind);
             newTree.evaluate();
             treeNode.children.push(this.addTreeToChildren(newTree));
             // this.setParentFunction(newTree);
@@ -46,13 +49,23 @@ class TreeNodeService {
         return treeNode;
     }
     getContext(treeNode) {
-        var _a, _b;
+        var _a, _b, _c;
+        if (!treeNode) {
+            return undefined;
+        }
         let context;
-        switch ((_a = treeNode === null || treeNode === void 0 ? void 0 : treeNode.node) === null || _a === void 0 ? void 0 : _a.kind) {
+        switch ((_a = treeNode.node) === null || _a === void 0 ? void 0 : _a.kind) {
             case ts.SyntaxKind.SourceFile:
                 return treeNode;
             case ts.SyntaxKind.ClassDeclaration:
-                return (_b = treeNode === null || treeNode === void 0 ? void 0 : treeNode.treeFile) === null || _b === void 0 ? void 0 : _b.treeNode;
+                return (_b = treeNode.treeFile) === null || _b === void 0 ? void 0 : _b.treeNode;
+            default:
+                if ((_c = treeNode.parent) === null || _c === void 0 ? void 0 : _c.mayDefineContext) {
+                    return treeNode.parent;
+                }
+                else {
+                    return this.getContext(treeNode.parent);
+                }
         }
         // console.log('NAME', treeNode.kind, treeNode.name, treeNode.isNodeContext, 'parent', treeNode.parent?.name);
         if (this.mayDefineContext(treeNode) || !treeNode.parent) {

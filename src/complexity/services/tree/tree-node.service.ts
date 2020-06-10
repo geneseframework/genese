@@ -20,6 +20,7 @@ export class TreeNodeService {
         let treeNode: TreeNode = new TreeNode();
         treeNode.node = node;
         treeNode.nestingCpx = 0;
+        treeNode.parent = treeMethod?.treeFile?.treeNode;
         treeNode.treeMethod = treeMethod;
         treeNode.kind = Ast.getType(node);
         treeNode.treeFile = treeMethod.treeFile;
@@ -42,7 +43,7 @@ export class TreeNodeService {
             newTree.kind = Ast.getType(childNode);
             newTree.context = this.getContext(newTree);
             // newTree.isNodeContext = this.mayDefineContext(newTree);
-            console.log('CONTEXT OF ', newTree.kind, newTree.name, ' = ', newTree.context.kind);
+            console.log('CONTEXT OF ', newTree.kind, newTree.name, ' = ', newTree.context?.kind);
             newTree.evaluate();
             treeNode.children.push(this.addTreeToChildren(newTree));
             // this.setParentFunction(newTree);
@@ -52,12 +53,21 @@ export class TreeNodeService {
 
 
     getContext(treeNode: TreeNode): TreeNode {
+        if (!treeNode) {
+            return undefined;
+        }
         let context: TreeNode;
-        switch (treeNode?.node?.kind) {
+        switch (treeNode.node?.kind) {
             case ts.SyntaxKind.SourceFile:
                 return treeNode;
             case ts.SyntaxKind.ClassDeclaration:
-                return treeNode?.treeFile?.treeNode;
+                return treeNode.treeFile?.treeNode;
+            default:
+                if (treeNode.parent?.mayDefineContext) {
+                    return treeNode.parent;
+                } else {
+                    return this.getContext(treeNode.parent);
+                }
         }
         // console.log('NAME', treeNode.kind, treeNode.name, treeNode.isNodeContext, 'parent', treeNode.parent?.name);
         if (this.mayDefineContext(treeNode) || !treeNode.parent) {
