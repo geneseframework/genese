@@ -22,13 +22,12 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
 
     codeService: CodeService = new CodeService();                   // The service managing Code objects
     cognitiveStatus: MethodStatus = MethodStatus.CORRECT;           // The cognitive status of the method
-    #cpxIndex = undefined;
+    #cpxIndex = undefined;                                          // The complexity index of the method
     cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;          // The cyclomatic status of the method
     #displayedCode?: Code = undefined;                              // The code to display in the report
-    filename ?= '';                                                 // The name of the file containing the method
-    #name: string = undefined;                                                     // The name of the method
+    #name: string = undefined;                                      // The name of the method
     #originalCode?: Code = undefined;                               // The original Code of the method (as Code object)
-    #treeFile?: TreeFile = undefined;                           // The TreeFile which contains the TreeMethod
+    #treeFile?: TreeFile = undefined;                               // The TreeFile which contains the TreeMethod
     #treeNode?: TreeNode = undefined;                               // The AST of the method itself
 
 
@@ -42,9 +41,7 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
     // ---------------------------------------------------------------------------------
 
 
-    /**
-     * Gets the full originalText of the method
-     */
+
     get displayedCode(): Code {
         return this.#displayedCode;
     }
@@ -64,9 +61,11 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
     }
 
 
-    /**
-     * Gets the full originalText of the method
-     */
+    get originalCode(): Code {
+        return this.#originalCode;
+    }
+
+
     set originalCode(code : Code) {
         this.#originalCode = code;
     }
@@ -117,10 +116,12 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.#treeNode?.node);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
-        this.filename = this.treeNode?.sourceFile?.fileName ?? '';
     }
 
 
+    /**
+     * Calculates the Complexity Index of the method
+     */
     private calculateCpxIndex(): number {
         if (!(this.#displayedCode?.lines?.length > 0)) {
             this.createDisplayedCode();
@@ -168,9 +169,12 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
     }
 
 
+    /**
+     * Sets the code to display in the TreeFile's report
+     */
     private setDisplayedCodeLines(): void {
         this.#displayedCode = new Code();
-        for (const line of this.#originalCode.lines) {
+        for (const line of this.originalCode.lines) {
             const displayedLine = new CodeLine();
             displayedLine.issue = line.issue;
             displayedLine.text = line.text;

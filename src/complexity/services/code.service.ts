@@ -1,5 +1,7 @@
+import * as ts from 'typescript';
 import { Code } from '../models/code/code.model';
 import { CodeLine } from '../models/code/code-line.model';
+import { TreeNode } from '../models/tree/tree-node.model';
 
 /**
  * Service managing Code objects
@@ -9,11 +11,28 @@ export class CodeService {
     constructor() {
     }
 
+
+    /**
+     * Gets the Code of a given AST node
+     */
+    getTreeNodeCode(treeNode: TreeNode): Code {
+        return treeNode?.node ? this.getCode(treeNode.node.getFullText(treeNode.sourceFile)) : undefined;
+    }
+
+
+    /**
+     * Gets the Code of a given AST node
+     */
+    getNodeCode(node: ts.Node, sourceFile: ts.SourceFile): Code {
+        return this.getCode(node?.getFullText(sourceFile));
+    }
+
+
     /**
      * Creates a Code object from the content of a given code (as string)
      * @param text  // The content of the code
      */
-    createCode(text: string): Code {
+    getCode(text: string): Code {
         const code: Code = new Code();
         code.text = text;
         const textLines: string[] = text.split('\n');

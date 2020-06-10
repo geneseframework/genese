@@ -56,7 +56,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
      */
     get context() {
         var _a;
-        return (_a = __classPrivateFieldGet(this, _context)) !== null && _a !== void 0 ? _a : this.treeNodeService.getNodeContext(this);
+        return (_a = __classPrivateFieldGet(this, _context)) !== null && _a !== void 0 ? _a : this.treeNodeService.getContext(this);
     }
     /**
      * Sets the context of this TreeNode
@@ -67,10 +67,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
     /**
      * Gets the first function or method which is a parent of this TreeNode
      */
-    get parentFunction() {
-        var _a;
-        return (_a = __classPrivateFieldGet(this, _parentFunction)) !== null && _a !== void 0 ? _a : this.treeNodeService.setParentFunction(this);
-    }
+    // get parentFunction(): ParentFunction {
+    //     return this.#parentFunction ?? this.treeNodeService.setParentFunction(this);
+    // }
     /**
      * Gets the global nesting complexity of the node, including the nesting cpx of its parents
      */
@@ -116,9 +115,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * Checks if this TreeNode is a recursion, ie a call to a parameter of its ParentFunction.
      * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
-    get isCallback() {
-        return this.treeNodeService.isCallback(this);
-    }
+    // get isCallback(): boolean {
+    //     return this.treeNodeService.isCallback(this);
+    // }
     get isFunction() {
         return this.feature === node_feature_enum_1.NodeFeature.FUNC;
     }
@@ -131,7 +130,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
      */
     get isNodeContext() {
         var _a;
-        return (_a = __classPrivateFieldGet(this, _isNodeContext)) !== null && _a !== void 0 ? _a : this.treeNodeService.isContext(this);
+        return (_a = __classPrivateFieldGet(this, _isNodeContext)) !== null && _a !== void 0 ? _a : this.treeNodeService.mayDefineContext(this);
     }
     /**
      * Sets the value of #isNodeContext
@@ -147,9 +146,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * Checks if this TreeNode is a recursion, ie a call to this ParentFunction.
      * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
-    get isRecursion() {
-        return this.treeNodeService.isRecursion(this);
-    }
+    // get isRecursion(): boolean {
+    //     return this.treeNodeService.isRecursion(this);
+    // }
     get kind() {
         var _a;
         return (_a = __classPrivateFieldGet(this, _kind)) !== null && _a !== void 0 ? _a : ast_service_1.Ast.getType(this.node);
@@ -236,8 +235,8 @@ class TreeNode extends evaluable_model_1.Evaluable {
         }
     }
     setRecursionOrCallbackCpxFactors() {
-        this.cpxFactors.structural.recursion = this.isRecursion ? cpx_factors_1.cpxFactors.structural.recursion : 0;
-        this.cpxFactors.structural.callback = this.isCallback ? cpx_factors_1.cpxFactors.structural.callback : 0;
+        // this.cpxFactors.structural.recursion = this.isRecursion ? cpxFactors.structural.recursion : 0;
+        // this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
     }
     setRegexCpxFactors() {
         if (this.feature === node_feature_enum_1.NodeFeature.REGEX) {

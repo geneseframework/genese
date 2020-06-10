@@ -35,7 +35,8 @@ export class TreeFileService extends StatsService{
         // const treeNode = new TreeNode();
         treeFile.sourceFile = Ast.getSourceFile(path);
         treeFile.name = treeFile.sourceFile?.fileName;
-        // treeFile.treeNode = treeNode;
+        treeFile.treeNode = new TreeNode();
+        treeFile.treeNode.node = treeFile.sourceFile;
         treeFile.treeFolder = treeFolder;
         treeFile.treeMethods = this.treeMethodService.generateTree(treeFile);
         treeFile.evaluate();

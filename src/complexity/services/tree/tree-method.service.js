@@ -10,6 +10,7 @@ const ast_service_1 = require("../ast.service");
 const code_service_1 = require("../code.service");
 class TreeMethodService {
     constructor() {
+        this.codeService = new code_service_1.CodeService();
         this.treeNodeService = new tree_node_service_1.TreeNodeService();
     }
     /**
@@ -22,11 +23,8 @@ class TreeMethodService {
         ts.forEachChild(treeFile.sourceFile, function cb(node) {
             if (ast_service_1.Ast.isFunctionOrMethod(node)) {
                 const newMethod = new tree_method_model_1.TreeMethod();
-                // newMethod.astPosition = node.pos;
                 newMethod.treeFile = treeFile;
-                const originalText = node.getFullText(treeFile.sourceFile);
-                const codeService = new code_service_1.CodeService();
-                newMethod.originalCode = codeService.createCode(originalText);
+                newMethod.originalCode = __self.codeService.getNodeCode(node, treeFile.sourceFile);
                 newMethod.treeNode = __self.treeNodeService.generateTree(newMethod, node);
                 newMethod.evaluate();
                 newMethod.createDisplayedCode();

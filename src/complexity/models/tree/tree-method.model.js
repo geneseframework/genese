@@ -32,13 +32,11 @@ const log_service_1 = require("../../services/tree/log.service");
 class TreeMethod extends evaluable_model_1.Evaluable {
     constructor() {
         super();
-        // astPosition = 0;                                                // The position of the AST node of the method in the code of its file
         this.codeService = new code_service_1.CodeService(); // The service managing Code objects
         this.cognitiveStatus = evaluation_status_enum_1.MethodStatus.CORRECT; // The cognitive status of the method
-        _cpxIndex.set(this, undefined);
+        _cpxIndex.set(this, undefined); // The complexity index of the method
         this.cyclomaticStatus = evaluation_status_enum_1.MethodStatus.CORRECT; // The cyclomatic status of the method
         _displayedCode.set(this, undefined); // The code to display in the report
-        this.filename = ''; // The name of the file containing the method
         _name.set(this, undefined); // The name of the method
         _originalCode.set(this, undefined); // The original Code of the method (as Code object)
         _treeFile.set(this, undefined); // The TreeFile which contains the TreeMethod
@@ -47,9 +45,6 @@ class TreeMethod extends evaluable_model_1.Evaluable {
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
-    /**
-     * Gets the full originalText of the method
-     */
     get displayedCode() {
         return __classPrivateFieldGet(this, _displayedCode);
     }
@@ -65,9 +60,9 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         __classPrivateFieldSet(this, _name, ast_service_1.Ast.getMethodName((_a = __classPrivateFieldGet(this, _treeNode)) === null || _a === void 0 ? void 0 : _a.node));
         return __classPrivateFieldGet(this, _name);
     }
-    /**
-     * Gets the full originalText of the method
-     */
+    get originalCode() {
+        return __classPrivateFieldGet(this, _originalCode);
+    }
     set originalCode(code) {
         __classPrivateFieldSet(this, _originalCode, code);
     }
@@ -98,13 +93,15 @@ class TreeMethod extends evaluable_model_1.Evaluable {
      * Evaluates the complexities of this TreeMethod
      */
     evaluate() {
-        var _a, _b, _c, _d;
+        var _a;
         log_service_1.LogService.printAllChildren(this.treeNode);
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
         this.cyclomaticCpx = cyclomatic_complexity_service_1.CyclomaticComplexityService.calculateCyclomaticComplexity((_a = __classPrivateFieldGet(this, _treeNode)) === null || _a === void 0 ? void 0 : _a.node);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
-        this.filename = (_d = (_c = (_b = this.treeNode) === null || _b === void 0 ? void 0 : _b.sourceFile) === null || _c === void 0 ? void 0 : _c.fileName) !== null && _d !== void 0 ? _d : '';
     }
+    /**
+     * Calculates the Complexity Index of the method
+     */
     calculateCpxIndex() {
         var _a, _b, _c;
         if (!(((_b = (_a = __classPrivateFieldGet(this, _displayedCode)) === null || _a === void 0 ? void 0 : _a.lines) === null || _b === void 0 ? void 0 : _b.length) > 0)) {
@@ -146,9 +143,12 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         this.calculateCpxIndex();
         __classPrivateFieldGet(this, _displayedCode).setTextWithLines();
     }
+    /**
+     * Sets the code to display in the TreeFile's report
+     */
     setDisplayedCodeLines() {
         __classPrivateFieldSet(this, _displayedCode, new code_model_1.Code());
-        for (const line of __classPrivateFieldGet(this, _originalCode).lines) {
+        for (const line of this.originalCode.lines) {
             const displayedLine = new code_line_model_1.CodeLine();
             displayedLine.issue = line.issue;
             displayedLine.text = line.text;

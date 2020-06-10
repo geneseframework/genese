@@ -3,9 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ts = require("typescript");
 const ast_service_1 = require("../ast.service");
 const tree_node_model_1 = require("../../models/tree/tree-node.model");
-const parent_function_model_1 = require("../../models/tree/parent-function.model");
 const context_model_1 = require("../../models/tree/context.model");
-const new_context_enum_1 = require("../../enums/new-context.enum");
+const may_define_context_enum_1 = require("../../enums/may-define-context.enum");
 /**
  * Service managing TreeNodes
  */
@@ -37,25 +36,32 @@ class TreeNodeService {
             newTree.treeMethod = treeNode.treeMethod;
             newTree.parent = treeNode;
             newTree.kind = ast_service_1.Ast.getType(childNode);
-            newTree.context = this.getNodeContext(newTree);
-            // newTree.isNodeContext = this.isContext(newTree);
+            newTree.context = this.getContext(newTree);
+            // newTree.isNodeContext = this.mayDefineContext(newTree);
             console.log('CONTEXT OF ', newTree.kind, newTree.name, ' = ', newTree.context.kind);
             newTree.evaluate();
             treeNode.children.push(this.addTreeToChildren(newTree));
-            this.setParentFunction(newTree);
+            // this.setParentFunction(newTree);
         });
         return treeNode;
     }
-    getNodeContext(treeNode) {
+    getContext(treeNode) {
+        var _a, _b;
         let context;
+        switch ((_a = treeNode === null || treeNode === void 0 ? void 0 : treeNode.node) === null || _a === void 0 ? void 0 : _a.kind) {
+            case ts.SyntaxKind.SourceFile:
+                return treeNode;
+            case ts.SyntaxKind.ClassDeclaration:
+                return (_b = treeNode === null || treeNode === void 0 ? void 0 : treeNode.treeFile) === null || _b === void 0 ? void 0 : _b.treeNode;
+        }
         // console.log('NAME', treeNode.kind, treeNode.name, treeNode.isNodeContext, 'parent', treeNode.parent?.name);
-        if (this.isContext(treeNode) || !treeNode.parent) {
+        if (this.mayDefineContext(treeNode) || !treeNode.parent) {
             // console.log('CONTEXT OF', treeNode.name)
             treeNode.context = treeNode;
             context = treeNode;
         }
         else if (!ast_service_1.Ast.isIdentifier(treeNode.node)) {
-            context = this.getNodeContext(treeNode.parent);
+            context = this.getContext(treeNode.parent);
         }
         else {
             context = this.getIdentifierContext(treeNode);
@@ -69,57 +75,16 @@ class TreeNodeService {
         if (ast_service_1.Ast.isPropertyAccessExpression((_b = (_a = treeNode.parent) === null || _a === void 0 ? void 0 : _a.context) === null || _b === void 0 ? void 0 : _b.node)) {
         }
         else {
-            context = this.getNodeContext(treeNode.parent);
+            context = this.getContext(treeNode.parent);
         }
         return context;
     }
-    isContext(treeNode) {
-        return Object.values(new_context_enum_1.TreeNodeContext).includes(treeNode.kind);
+    mayDefineContext(treeNode) {
+        return Object.values(may_define_context_enum_1.MayDefineContext).includes(treeNode.kind);
     }
     createContext(treeNode) {
         const context = new context_model_1.Context();
         return context.init(treeNode);
-    }
-    // getContext(treeNode: TreeNode): Context {
-    //     if (!treeNode) {
-    //         return undefined;
-    //     }
-    //     if (treeNode.isFunction) {
-    //         return treeNode.context;
-    //     }
-    //     if (treeNode.parent.isFunction) {
-    //         return treeNode.parent.context;
-    //     } else {
-    //         return this.getContext(treeNode.parent);
-    //     }
-    // }
-    setParentFunction(treeNode) {
-        return (treeNode.isFunction) ? this.createParentFunction(treeNode) : this.getParentFunction(treeNode);
-    }
-    createParentFunction(treeNode) {
-        const parentFunction = new parent_function_model_1.ParentFunction();
-        return parentFunction.init(treeNode);
-    }
-    getParentFunction(treeNode) {
-        if (!treeNode) {
-            return undefined;
-        }
-        if (treeNode.isFunction) {
-            return treeNode.parentFunction;
-        }
-        if (treeNode.parent.isFunction) {
-            return treeNode.parent.parentFunction;
-        }
-        else {
-            return this.getParentFunction(treeNode.parent);
-        }
-    }
-    isCallback(treeNode) {
-        return treeNode.isMethodIdentifier && treeNode.parentFunction.params.includes(treeNode.name);
-    }
-    isRecursion(treeNode) {
-        var _a, _b;
-        return treeNode.name === treeNode.parentFunction.name && treeNode.isMethodIdentifier && !((_a = treeNode.parent) === null || _a === void 0 ? void 0 : _a.isFunction) && !((_b = treeNode.parent) === null || _b === void 0 ? void 0 : _b.isParam);
     }
 }
 exports.TreeNodeService = TreeNodeService;

@@ -11,7 +11,9 @@ import { TreeNode } from '../../models/tree/tree-node.model';
 
 export class TreeMethodService {
 
+    codeService?: CodeService = new CodeService();
     treeNodeService?: TreeNodeService = new TreeNodeService();
+
 
     /**
      * Generates the array of TreeMethods corresponding to the methods included in a given TreeFile
@@ -24,9 +26,7 @@ export class TreeMethodService {
             if (Ast.isFunctionOrMethod(node)) {
                 const newMethod: TreeMethod = new TreeMethod();
                 newMethod.treeFile = treeFile;
-                const originalText = node.getFullText(treeFile.sourceFile);
-                const codeService = new CodeService();
-                newMethod.originalCode = codeService.createCode(originalText);
+                newMethod.originalCode = __self.codeService.getNodeCode(node, treeFile.sourceFile);
                 newMethod.treeNode = __self.treeNodeService.generateTree(newMethod, node);
                 newMethod.evaluate();
                 newMethod.createDisplayedCode();

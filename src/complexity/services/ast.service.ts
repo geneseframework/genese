@@ -9,20 +9,20 @@ export class Ast {
 
 
     /**
-     * Gets the typescript SourceFile of a given file
-     * @param path // The absolute path of the file
-     */
-    static getSourceFile(path: string): ts.SourceFile {
-        return ts.createSourceFile(getFilename(path), fs.readFileSync(path, 'utf-8'), ts.ScriptTarget.Latest);
-    }
-
-
-    /**
      * Gets the position of a node in the AST
      * @param node // The node in the AST
      */
     static getPosition(node: ts.Node): number {
         return node?.pos;
+    }
+
+
+    /**
+     * Gets the typescript SourceFile of a given file
+     * @param path // The absolute path of the file
+     */
+    static getSourceFile(path: string): ts.SourceFile {
+        return ts.createSourceFile(getFilename(path), fs.readFileSync(path, 'utf-8'), ts.ScriptTarget.Latest);
     }
 
 
@@ -222,6 +222,15 @@ export class Ast {
      */
     static isSon(node: ts.Node, sourceFile: ts.SourceFile, sonNumber = 1): boolean {
         return(node?.pos === node.parent['argumentExpression'].pos);
+    }
+
+
+    /**
+     * Checks if an AST node is the SourceFile itself
+     * @param node      // The node to analyse
+     */
+    static isSourceFile(node: ts.Node): boolean {
+        return node?.kind === ts.SyntaxKind.SourceFile;
     }
 
 }

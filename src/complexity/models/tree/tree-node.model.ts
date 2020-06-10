@@ -56,7 +56,7 @@ export class TreeNode extends Evaluable {
      * Gets the context of this TreeNode
      */
     get context(): TreeNode {
-        return this.#context ?? this.treeNodeService.getNodeContext(this);
+        return this.#context ?? this.treeNodeService.getContext(this);
     }
 
 
@@ -71,9 +71,9 @@ export class TreeNode extends Evaluable {
     /**
      * Gets the first function or method which is a parent of this TreeNode
      */
-    get parentFunction(): ParentFunction {
-        return this.#parentFunction ?? this.treeNodeService.setParentFunction(this);
-    }
+    // get parentFunction(): ParentFunction {
+    //     return this.#parentFunction ?? this.treeNodeService.setParentFunction(this);
+    // }
 
 
     /**
@@ -135,9 +135,9 @@ export class TreeNode extends Evaluable {
      * Checks if this TreeNode is a recursion, ie a call to a parameter of its ParentFunction.
      * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
-    get isCallback(): boolean {
-        return this.treeNodeService.isCallback(this);
-    }
+    // get isCallback(): boolean {
+    //     return this.treeNodeService.isCallback(this);
+    // }
 
 
     get isFunction(): boolean {
@@ -155,7 +155,7 @@ export class TreeNode extends Evaluable {
      * Examples: VariableDeclaration, FunctionExpression, ...
      */
     get isNodeContext(): boolean {
-        return this.#isNodeContext ?? this.treeNodeService.isContext(this);
+        return this.#isNodeContext ?? this.treeNodeService.mayDefineContext(this);
     }
 
 
@@ -177,9 +177,9 @@ export class TreeNode extends Evaluable {
      * Checks if this TreeNode is a recursion, ie a call to this ParentFunction.
      * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
-    get isRecursion(): boolean {
-        return this.treeNodeService.isRecursion(this);
-    }
+    // get isRecursion(): boolean {
+    //     return this.treeNodeService.isRecursion(this);
+    // }
 
 
     get kind(): string {
@@ -298,8 +298,8 @@ export class TreeNode extends Evaluable {
 
 
     private setRecursionOrCallbackCpxFactors(): void {
-        this.cpxFactors.structural.recursion = this.isRecursion ? cpxFactors.structural.recursion : 0;
-        this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
+        // this.cpxFactors.structural.recursion = this.isRecursion ? cpxFactors.structural.recursion : 0;
+        // this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
     }
 
 
