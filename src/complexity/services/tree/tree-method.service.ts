@@ -8,6 +8,7 @@ import { MethodStatus } from '../../enums/evaluation-status.enum';
 import { Ast } from '../ast.service';
 import { CodeService } from '../code.service';
 import { TreeNode } from '../../models/tree/tree-node.model';
+import * as chalk from 'chalk';
 
 export class TreeMethodService {
 
@@ -28,13 +29,26 @@ export class TreeMethodService {
                 newMethod.treeFile = treeFile;
                 newMethod.originalCode = __self.codeService.getNodeCode(node, treeFile.sourceFile);
                 newMethod.treeNode = __self.treeNodeService.generateTree(newMethod, node);
-                newMethod.evaluate();
                 newMethod.createDisplayedCode();
+                newMethod.treeNode.context = treeFile.treeNode;
+                // newMethod.treeNode.context = __self.treeNodeService.getContext(newMethod.treeNode);
+                __self.setContextToTreeNodeChildren(newMethod.treeNode);
+                newMethod.evaluate();
                 methods.push(newMethod);
             }
             ts.forEachChild(node, cb);
         });
         return methods;
+    }
+
+
+    private setContextToTreeNodeChildren(treeNode: TreeNode): void {
+        for (const childTreeNode of treeNode?.children) {
+            console.log(chalk.blueBright('SEARCH CONTEXT OF '), childTreeNode.kind, childTreeNode.name);
+            childTreeNode.context = this.treeNodeService.getContext(childTreeNode);
+            console.log(chalk.blueBright('CONTEXT OF '), childTreeNode.kind, childTreeNode.name, ' = ', childTreeNode.context?.kind,  childTreeNode.context?.name);
+            this.setContextToTreeNodeChildren(childTreeNode);
+        }
     }
 
 

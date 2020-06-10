@@ -88,6 +88,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
         var _a;
         return (_a = __classPrivateFieldGet(this, _feature)) !== null && _a !== void 0 ? _a : this.nodeFeatureService.getFeature(this.node);
     }
+    get firstSon() {
+        return this.treeNodeService.getSon(this, 0);
+    }
     /**
      * Gets the depth complexity of the node itself, not from its parents
      */
@@ -188,6 +191,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
     }
     get position() {
         return ast_service_1.Ast.getPosition(this.node);
+    }
+    get secondSon() {
+        return this.treeNodeService.getSon(this, 1);
     }
     get sourceFile() {
         var _a;

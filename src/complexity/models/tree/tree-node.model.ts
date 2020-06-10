@@ -99,6 +99,11 @@ export class TreeNode extends Evaluable {
     }
 
 
+    get firstSon(): TreeNode {
+        return this.treeNodeService.getSon(this, 0);
+    }
+
+
     /**
      * Gets the depth complexity of the node itself, not from its parents
      */
@@ -238,6 +243,11 @@ export class TreeNode extends Evaluable {
 
     get position(): number {
         return Ast.getPosition(this.node);
+    }
+
+
+    get secondSon(): TreeNode {
+        return this.treeNodeService.getSon(this, 1);
     }
 
 

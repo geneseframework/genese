@@ -159,6 +159,9 @@ class TreeFolderReportService {
         this.template = Handlebars.compile(reportTemplate);
         this.writeReport();
     }
+    /**
+     * Fills the HandleBar's template
+     */
     writeReport() {
         const template = this.template({
             colors: options_1.Options.colors,
@@ -176,6 +179,11 @@ class TreeFolderReportService {
         const pathReport = `${options_1.Options.pathOutDir}/${this.treeFolder.relativePath}/folder-report.html`;
         fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
     }
+    /**
+     * Registers a HandleBar's partial
+     * @param partialName
+     * @param filename
+     */
     registerPartial(partialName, filename) {
         const partial = eol.auto(fs.readFileSync(`${options_1.Options.pathGeneseNodeJs}/src/complexity/templates/handlebars/${filename}.handlebars`, 'utf-8'));
         Handlebars.registerPartial(partialName, partial);

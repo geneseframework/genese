@@ -1,4 +1,4 @@
-import { ChartColor } from '../enums/colors.enum';
+import { ChartColor } from '../enums/chart-color.enum';
 
 /**
  * Bar of a bar chart

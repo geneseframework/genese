@@ -186,6 +186,9 @@ export class TreeFolderReportService {
     }
 
 
+    /**
+     * Fills the HandleBar's template
+     */
     private writeReport() {
         const template = this.template({
             colors: Options.colors,
@@ -205,6 +208,11 @@ export class TreeFolderReportService {
     }
 
 
+    /**
+     * Registers a HandleBar's partial
+     * @param partialName
+     * @param filename
+     */
     private registerPartial(partialName: string, filename: string): void {
         const partial = eol.auto(fs.readFileSync(`${Options.pathGeneseNodeJs}/src/complexity/templates/handlebars/${filename}.handlebars`, 'utf-8'));
         Handlebars.registerPartial(partialName, partial);

@@ -32,65 +32,68 @@ class TreeNodeService {
      */
     addTreeToChildren(treeNode) {
         ts.forEachChild(treeNode.node, (childNode) => {
-            var _a;
             const newTree = new tree_node_model_1.TreeNode();
             childNode.parent = treeNode.node;
             newTree.node = childNode;
             newTree.treeMethod = treeNode.treeMethod;
             newTree.parent = treeNode;
             newTree.kind = ast_service_1.Ast.getType(childNode);
-            newTree.context = this.getContext(newTree);
+            newTree.treeFile = treeNode.treeFile;
             // newTree.isNodeContext = this.mayDefineContext(newTree);
-            console.log('CONTEXT OF ', newTree.kind, newTree.name, ' = ', (_a = newTree.context) === null || _a === void 0 ? void 0 : _a.kind);
+            // console.log('CONTEXT OF ', newTree.kind, newTree.name, ' = ', newTree.context?.kind);
             newTree.evaluate();
             treeNode.children.push(this.addTreeToChildren(newTree));
+            // newTree.context = this.getContext(newTree);
             // this.setParentFunction(newTree);
         });
         return treeNode;
     }
     getContext(treeNode) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d, _e;
         if (!treeNode) {
             return undefined;
         }
-        let context;
         switch ((_a = treeNode.node) === null || _a === void 0 ? void 0 : _a.kind) {
             case ts.SyntaxKind.SourceFile:
                 return treeNode;
-            case ts.SyntaxKind.ClassDeclaration:
-                return (_b = treeNode.treeFile) === null || _b === void 0 ? void 0 : _b.treeNode;
+            case ts.SyntaxKind.Identifier:
+                return this.getIdentifierContext(treeNode);
+            case ts.SyntaxKind.ThisKeyword:
+                return (_c = (_b = treeNode.parent) === null || _b === void 0 ? void 0 : _b.context) === null || _c === void 0 ? void 0 : _c.context;
             default:
-                if ((_c = treeNode.parent) === null || _c === void 0 ? void 0 : _c.mayDefineContext) {
+                if ((_d = treeNode.parent) === null || _d === void 0 ? void 0 : _d.mayDefineContext) {
                     return treeNode.parent;
                 }
                 else {
-                    return this.getContext(treeNode.parent);
+                    return (_e = treeNode.parent) === null || _e === void 0 ? void 0 : _e.context;
+                    // return this.getContext(treeNode.parent);
                 }
         }
-        // console.log('NAME', treeNode.kind, treeNode.name, treeNode.isNodeContext, 'parent', treeNode.parent?.name);
-        if (this.mayDefineContext(treeNode) || !treeNode.parent) {
-            // console.log('CONTEXT OF', treeNode.name)
-            treeNode.context = treeNode;
-            context = treeNode;
-        }
-        else if (!ast_service_1.Ast.isIdentifier(treeNode.node)) {
-            context = this.getContext(treeNode.parent);
-        }
-        else {
-            context = this.getIdentifierContext(treeNode);
-        }
-        // console.log('ZZZ CONTEXT OF ', treeNode.kind, treeNode.name, ' = ', context.kind);
-        return context;
     }
     getIdentifierContext(treeNode) {
-        var _a, _b;
+        var _a, _b, _c, _d, _e, _f, _g;
         let context;
-        if (ast_service_1.Ast.isPropertyAccessExpression((_b = (_a = treeNode.parent) === null || _a === void 0 ? void 0 : _a.context) === null || _b === void 0 ? void 0 : _b.node)) {
+        if (this.isSecondSonOfPropertyAccessExpression(treeNode)) {
+            console.log(treeNode.kind, treeNode.name, 'IS SECOND SON OF', treeNode.parent.kind, (_a = treeNode.parent) === null || _a === void 0 ? void 0 : _a.name);
+            context = ((_c = (_b = treeNode.parent) === null || _b === void 0 ? void 0 : _b.firstSon) === null || _c === void 0 ? void 0 : _c.mayDefineContext) ? (_d = treeNode.parent) === null || _d === void 0 ? void 0 : _d.firstSon : (_e = treeNode.parent) === null || _e === void 0 ? void 0 : _e.firstSon.context;
         }
         else {
-            context = this.getContext(treeNode.parent);
+            console.log(treeNode.kind, treeNode.name, 'HAS CONTEXT', treeNode.parent.context.kind, (_f = treeNode.parent.context) === null || _f === void 0 ? void 0 : _f.name);
+            context = (_g = treeNode.parent) === null || _g === void 0 ? void 0 : _g.context;
+            // context = this.getContext(treeNode.parent);
         }
         return context;
+    }
+    isSecondSonOfPropertyAccessExpression(treeNode) {
+        var _a;
+        // if (Ast.isPropertyAccessExpression(treeNode?.parent?.node) && treeNode === treeNode?.parent.secondSon) {
+        //     console.log(treeNode.kind, treeNode.name, 'IS SON OF', treeNode.parent?.kind,  treeNode.parent?.name);
+        // }
+        return ast_service_1.Ast.isPropertyAccessExpression((_a = treeNode === null || treeNode === void 0 ? void 0 : treeNode.parent) === null || _a === void 0 ? void 0 : _a.node) && treeNode === (treeNode === null || treeNode === void 0 ? void 0 : treeNode.parent.secondSon);
+    }
+    getSon(treeNode, sonNumber) {
+        return treeNode.children[sonNumber];
+        // return Ast.getSon(treeNode?.node, treeNode?.sourceFile, sonNumber);
     }
     mayDefineContext(treeNode) {
         return Object.values(may_define_context_enum_1.MayDefineContext).includes(treeNode.kind);

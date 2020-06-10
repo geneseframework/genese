@@ -19,6 +19,23 @@ export class Ast {
 
 
     /**
+     * Checks if an AST node is an index of an array, ie if it's a Node which is the second son of an ElementAccessExpression
+     * @param node      // The node to analyse
+     * @param sourceFile
+     * @param sonNumber
+     */
+    static getSon(node: ts.Node, sourceFile: ts.SourceFile, sonNumber): ts.Node {
+        if (!(!node || !sourceFile || !sonNumber || sonNumber < 1)) {
+            return undefined;
+        }
+        // console.log('NODE', node);
+        console.log('NODE SRDCIFLE', sourceFile);
+        console.log('NODE CHILDREN', node.getChildren(sourceFile));
+        return node.getChildren(sourceFile)[sonNumber - 1];
+    }
+
+
+    /**
      * Gets the typescript SourceFile of a given file
      * @param path // The absolute path of the file
      */
@@ -219,15 +236,6 @@ export class Ast {
      */
     static isSameOperatorToken(firstNode: ts.Node, secondNode: ts.Node): boolean {
         return firstNode?.['operatorToken']?.kind === secondNode?.['operatorToken']?.kind ?? false;
-    }
-
-
-    /**
-     * Checks if an AST node is an index of an array, ie if it's a Node which is the second son of an ElementAccessExpression
-     * @param node      // The node to analyse
-     */
-    static isSon(node: ts.Node, sourceFile: ts.SourceFile, sonNumber = 1): boolean {
-        return(node?.pos === node.parent['argumentExpression'].pos);
     }
 
 

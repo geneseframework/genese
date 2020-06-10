@@ -8,6 +8,7 @@ const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
 const ast_service_1 = require("../ast.service");
 const code_service_1 = require("../code.service");
+const chalk = require("chalk");
 class TreeMethodService {
     constructor() {
         this.codeService = new code_service_1.CodeService();
@@ -26,13 +27,25 @@ class TreeMethodService {
                 newMethod.treeFile = treeFile;
                 newMethod.originalCode = __self.codeService.getNodeCode(node, treeFile.sourceFile);
                 newMethod.treeNode = __self.treeNodeService.generateTree(newMethod, node);
-                newMethod.evaluate();
                 newMethod.createDisplayedCode();
+                newMethod.treeNode.context = treeFile.treeNode;
+                // newMethod.treeNode.context = __self.treeNodeService.getContext(newMethod.treeNode);
+                __self.setContextToTreeNodeChildren(newMethod.treeNode);
+                newMethod.evaluate();
                 methods.push(newMethod);
             }
             ts.forEachChild(node, cb);
         });
         return methods;
+    }
+    setContextToTreeNodeChildren(treeNode) {
+        var _a, _b;
+        for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
+            console.log(chalk.blueBright('SEARCH CONTEXT OF '), childTreeNode.kind, childTreeNode.name);
+            childTreeNode.context = this.treeNodeService.getContext(childTreeNode);
+            console.log(chalk.blueBright('CONTEXT OF '), childTreeNode.kind, childTreeNode.name, ' = ', (_a = childTreeNode.context) === null || _a === void 0 ? void 0 : _a.kind, (_b = childTreeNode.context) === null || _b === void 0 ? void 0 : _b.name);
+            this.setContextToTreeNodeChildren(childTreeNode);
+        }
     }
     /**
      * Returns the addition of a ComplexitiesByStatus object and the complexities scores of a given treeMethod
