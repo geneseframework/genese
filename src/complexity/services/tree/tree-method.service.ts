@@ -1,29 +1,23 @@
-import * as ts from 'typescript';
-import { TreeFile } from '../../models/tree/tree-file.model';
 import { TreeMethod } from '../../models/tree/tree-method.model';
-import { TreeNodeService } from './tree-node.service';
 import { ComplexitiesByStatus } from '../../interfaces/complexities-by-status.interface';
 import { ComplexityType } from '../../enums/complexity-type.enum';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
-import { Ast } from '../ast.service';
 import { CodeService } from '../code.service';
 import { TreeNode } from '../../models/tree/tree-node.model';
-import * as chalk from 'chalk';
 
 export class TreeMethodService {
 
     codeService?: CodeService = new CodeService();
-    // treeNodeService?: TreeNodeService = new TreeNodeService();
 
 
     createTreeMethods(treeNode: TreeNode): TreeMethod[] {
-        const treeMethods: TreeMethod[] = [];
+        let treeMethods: TreeMethod[] = [];
         for (const childTreeNode of treeNode.children) {
-            console.log(childTreeNode.kind, 'IS FUNC', childTreeNode.isFunctionOrMethod)
+            // console.log(childTreeNode.kind, 'IS FUNC', childTreeNode.isFunctionOrMethod)
             if (childTreeNode.isFunctionOrMethod) {
                 treeMethods.push(this.createMethod(childTreeNode));
             }
-            this.createTreeMethods(childTreeNode);
+            treeMethods = treeMethods.concat(this.createTreeMethods(childTreeNode));
         }
         return treeMethods;
     }
@@ -32,7 +26,6 @@ export class TreeMethodService {
     private createMethod(treeNode: TreeNode): TreeMethod {
         const treeMethod = new TreeMethod();
         treeMethod.treeNode = treeNode;
-        console.log('METHODDD', treeMethod.treeNode)
         treeMethod.originalCode = this.codeService.getNodeCode(treeNode.node, treeNode.sourceFile);
         treeMethod.createDisplayedCode();
         treeMethod.evaluate();

@@ -9,22 +9,20 @@ class TreeMethodService {
     constructor() {
         this.codeService = new code_service_1.CodeService();
     }
-    // treeNodeService?: TreeNodeService = new TreeNodeService();
     createTreeMethods(treeNode) {
-        const treeMethods = [];
+        let treeMethods = [];
         for (const childTreeNode of treeNode.children) {
-            console.log(childTreeNode.kind, 'IS FUNC', childTreeNode.isFunctionOrMethod);
+            // console.log(childTreeNode.kind, 'IS FUNC', childTreeNode.isFunctionOrMethod)
             if (childTreeNode.isFunctionOrMethod) {
                 treeMethods.push(this.createMethod(childTreeNode));
             }
-            this.createTreeMethods(childTreeNode);
+            treeMethods = treeMethods.concat(this.createTreeMethods(childTreeNode));
         }
         return treeMethods;
     }
     createMethod(treeNode) {
         const treeMethod = new tree_method_model_1.TreeMethod();
         treeMethod.treeNode = treeNode;
-        console.log('METHODDD', treeMethod.treeNode);
         treeMethod.originalCode = this.codeService.getNodeCode(treeNode.node, treeNode.sourceFile);
         treeMethod.createDisplayedCode();
         treeMethod.evaluate();

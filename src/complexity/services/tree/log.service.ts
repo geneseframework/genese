@@ -18,7 +18,7 @@ export class LogService {
      */
     static printAllChildren(treeNode: TreeNode){
         console.log('------------------------------------');
-        console.log('METHOD ', treeNode.treeMethod?.name);
+        console.log('METHOD ', treeNode.name);
         console.log('------------------------------------');
         this.logTreeNode(treeNode, '');
         this.printChildren(treeNode, ' ');

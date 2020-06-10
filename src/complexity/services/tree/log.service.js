@@ -10,9 +10,8 @@ class LogService {
      * This method runs, but is not yet used
      */
     static printAllChildren(treeNode) {
-        var _a;
         console.log('------------------------------------');
-        console.log('METHOD ', (_a = treeNode.treeMethod) === null || _a === void 0 ? void 0 : _a.name);
+        console.log('METHOD ', treeNode.name);
         console.log('------------------------------------');
         this.logTreeNode(treeNode, '');
         this.printChildren(treeNode, ' ');
