@@ -3,4 +3,9 @@ export class DebugMock {
     logout() {
         this.keycloakService.logout();
     }
+
+}
+
+function ctxt () {
+    console.log(this);
 }

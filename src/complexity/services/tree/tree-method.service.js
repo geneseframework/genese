@@ -13,9 +13,11 @@ class TreeMethodService {
     createTreeMethods(treeNode) {
         const treeMethods = [];
         for (const childTreeNode of treeNode.children) {
+            console.log(childTreeNode.kind, 'IS FUNC', childTreeNode.isFunctionOrMethod);
             if (childTreeNode.isFunctionOrMethod) {
-                treeMethods.push(this.createMethod(treeNode));
+                treeMethods.push(this.createMethod(childTreeNode));
             }
+            this.createTreeMethods(childTreeNode);
         }
         return treeMethods;
     }
