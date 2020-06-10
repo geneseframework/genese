@@ -21,6 +21,7 @@ class TreeNodeService {
         treeNode.nestingCpx = 0;
         treeNode.treeMethod = treeMethod;
         treeNode.kind = ast_service_1.Ast.getType(node);
+        treeNode.treeFile = treeMethod.treeFile;
         treeNode = this.addTreeToChildren(treeNode);
         return treeNode;
     }

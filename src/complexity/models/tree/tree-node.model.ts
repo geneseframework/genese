@@ -211,6 +211,11 @@ export class TreeNode extends Evaluable {
     }
 
 
+    get position(): number {
+        return Ast.getPosition(this.node);
+    }
+
+
     get sourceFile(): ts.SourceFile {
         return this.#treeFile?.sourceFile;
     }

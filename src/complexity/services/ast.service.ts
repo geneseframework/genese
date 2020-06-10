@@ -18,6 +18,15 @@ export class Ast {
 
 
     /**
+     * Gets the position of a node in the AST
+     * @param node // The node in the AST
+     */
+    static getPosition(node: ts.Node): number {
+        return node?.pos;
+    }
+
+
+    /**
      * Gets the type of a node in the AST (MethodDeclaration, IfStatement, ...)
      * @param node // The node in the AST
      */

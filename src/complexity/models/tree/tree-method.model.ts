@@ -20,7 +20,6 @@ import { LogService } from '../../services/tree/log.service';
  */
 export class TreeMethod extends Evaluable implements HasTreeNode {
 
-    astPosition = 0;                                                // The position of the AST node of the method in the code of its file
     codeService: CodeService = new CodeService();                   // The service managing Code objects
     cognitiveStatus: MethodStatus = MethodStatus.CORRECT;           // The cognitive status of the method
     #cpxIndex = undefined;
@@ -70,6 +69,11 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
      */
     set originalCode(code : Code) {
         this.#originalCode = code;
+    }
+
+
+    get position() {
+        return this.treeNode?.position;
     }
 
 
@@ -182,7 +186,7 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
      */
     private setCpxFactorsToDisplayedCode(tree: TreeNode): void {
         for (const childTree of tree.children) {
-            let issue = this.codeService.getLineIssue(this.#originalCode, childTree.node?.pos - this.astPosition);
+            let issue = this.codeService.getLineIssue(this.#originalCode, childTree.position - this.position);
             if (Ast.isElseStatement(childTree.node)) {
                 childTree.cpxFactors.basic.node = cpxFactors.basic.node;
                 issue--;

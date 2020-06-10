@@ -23,7 +23,6 @@ export class TreeMethodService {
         ts.forEachChild(treeFile.sourceFile, function cb(node) {
             if (Ast.isFunctionOrMethod(node)) {
                 const newMethod: TreeMethod = new TreeMethod();
-                newMethod.astPosition = node.pos;
                 newMethod.treeFile = treeFile;
                 const originalText = node.getFullText(treeFile.sourceFile);
                 const codeService = new CodeService();

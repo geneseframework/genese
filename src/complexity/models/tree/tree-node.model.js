@@ -171,6 +171,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
     set nestingCpx(cpx) {
         __classPrivateFieldSet(this, _nestingCpx, cpx);
     }
+    get position() {
+        return ast_service_1.Ast.getPosition(this.node);
+    }
     get sourceFile() {
         var _a;
         return (_a = __classPrivateFieldGet(this, _treeFile)) === null || _a === void 0 ? void 0 : _a.sourceFile;

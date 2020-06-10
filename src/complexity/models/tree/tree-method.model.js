@@ -32,7 +32,7 @@ const log_service_1 = require("../../services/tree/log.service");
 class TreeMethod extends evaluable_model_1.Evaluable {
     constructor() {
         super();
-        this.astPosition = 0; // The position of the AST node of the method in the code of its file
+        // astPosition = 0;                                                // The position of the AST node of the method in the code of its file
         this.codeService = new code_service_1.CodeService(); // The service managing Code objects
         this.cognitiveStatus = evaluation_status_enum_1.MethodStatus.CORRECT; // The cognitive status of the method
         _cpxIndex.set(this, undefined);
@@ -70,6 +70,10 @@ class TreeMethod extends evaluable_model_1.Evaluable {
      */
     set originalCode(code) {
         __classPrivateFieldSet(this, _originalCode, code);
+    }
+    get position() {
+        var _a;
+        return (_a = this.treeNode) === null || _a === void 0 ? void 0 : _a.position;
     }
     get sourceFile() {
         var _a;
@@ -157,9 +161,8 @@ class TreeMethod extends evaluable_model_1.Evaluable {
      * @param tree
      */
     setCpxFactorsToDisplayedCode(tree) {
-        var _a;
         for (const childTree of tree.children) {
-            let issue = this.codeService.getLineIssue(__classPrivateFieldGet(this, _originalCode), ((_a = childTree.node) === null || _a === void 0 ? void 0 : _a.pos) - this.astPosition);
+            let issue = this.codeService.getLineIssue(__classPrivateFieldGet(this, _originalCode), childTree.position - this.position);
             if (ast_service_1.Ast.isElseStatement(childTree.node)) {
                 childTree.cpxFactors.basic.node = cpx_factors_1.cpxFactors.basic.node;
                 issue--;
