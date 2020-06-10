@@ -1,52 +1,62 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const ts = require("typescript");
 const tree_method_model_1 = require("../../models/tree/tree-method.model");
-const tree_node_service_1 = require("./tree-node.service");
 const complexities_by_status_interface_1 = require("../../interfaces/complexities-by-status.interface");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
-const ast_service_1 = require("../ast.service");
 const code_service_1 = require("../code.service");
-const chalk = require("chalk");
 class TreeMethodService {
     constructor() {
         this.codeService = new code_service_1.CodeService();
-        this.treeNodeService = new tree_node_service_1.TreeNodeService();
     }
+    // treeNodeService?: TreeNodeService = new TreeNodeService();
     /**
      * Generates the array of TreeMethods corresponding to the methods included in a given TreeFile
      * @param treeFile  // The TreeFile containing the methods
      */
-    generateTree(treeFile) {
-        const methods = [];
-        let __self = this;
-        ts.forEachChild(treeFile.sourceFile, function cb(node) {
-            if (ast_service_1.Ast.isFunctionOrMethod(node)) {
-                const newMethod = new tree_method_model_1.TreeMethod();
-                newMethod.treeFile = treeFile;
-                newMethod.originalCode = __self.codeService.getNodeCode(node, treeFile.sourceFile);
-                newMethod.treeNode = __self.treeNodeService.generateTree(newMethod, node);
-                newMethod.createDisplayedCode();
-                newMethod.treeNode.context = treeFile.treeNode;
-                // newMethod.treeNode.context = __self.treeNodeService.getContext(newMethod.treeNode);
-                __self.setContextToTreeNodeChildren(newMethod.treeNode);
-                newMethod.evaluate();
-                methods.push(newMethod);
-            }
-            ts.forEachChild(node, cb);
-        });
-        return methods;
-    }
-    setContextToTreeNodeChildren(treeNode) {
-        var _a, _b;
-        for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
-            console.log(chalk.blueBright('SEARCH CONTEXT OF '), childTreeNode.kind, childTreeNode.name);
-            childTreeNode.context = this.treeNodeService.getContext(childTreeNode);
-            console.log(chalk.blueBright('CONTEXT OF '), childTreeNode.kind, childTreeNode.name, ' = ', (_a = childTreeNode.context) === null || _a === void 0 ? void 0 : _a.kind, (_b = childTreeNode.context) === null || _b === void 0 ? void 0 : _b.name);
-            this.setContextToTreeNodeChildren(childTreeNode);
+    generateTree(treeNode) {
+        if (!treeNode) {
+            return undefined;
         }
+        const treeMethod = new tree_method_model_1.TreeMethod();
+        treeMethod.treeNode = treeNode;
+        console.log('METHODDD', treeMethod.treeNode);
+        treeMethod.originalCode = this.codeService.getNodeCode(treeNode.node, treeNode.sourceFile);
+        treeMethod.createDisplayedCode();
+        // treeMethod.treeNode.context = treeFile.treeNode;
+        // treeMethod.treeNode.context = this.treeNodeService.getContext(treeMethod.treeNode);
+        // this.setContextToTreeNodeChildren(treeMethod.treeNode);
+        treeMethod.evaluate();
+        return treeMethod;
     }
+    // generateTree(treeFile: TreeFile): TreeMethod[] {
+    //     const methods: TreeMethod[] = [];
+    //     let __self = this;
+    //     ts.forEachChild(treeFile.sourceFile, function cb(node) {
+    //         if (Ast.isFunctionOrMethod(node)) {
+    //             const newMethod: TreeMethod = new TreeMethod();
+    //             newMethod.treeFile = treeFile;
+    //             newMethod.originalCode = __self.codeService.getNodeCode(node, treeFile.sourceFile);
+    //             newMethod.treeNode = __self.treeNodeService.generateTree(newMethod, node);
+    //             newMethod.createDisplayedCode();
+    //             newMethod.treeNode.context = treeFile.treeNode;
+    //             // newMethod.treeNode.context = __self.treeNodeService.getContext(newMethod.treeNode);
+    //             __self.setContextToTreeNodeChildren(newMethod.treeNode);
+    //             newMethod.evaluate();
+    //             methods.push(newMethod);
+    //         }
+    //         ts.forEachChild(node, cb);
+    //     });
+    //     return methods;
+    // }
+    // private setContextToTreeNodeChildren(treeNode: TreeNode): void {
+    //     for (const childTreeNode of treeNode?.children) {
+    //         console.log(chalk.blueBright('SEARCH CONTEXT OF '), childTreeNode.kind, childTreeNode.name);
+    //         childTreeNode.context = this.treeNodeService.getContext(childTreeNode);
+    //         console.log(chalk.blueBright('CONTEXT OF '), childTreeNode.kind, childTreeNode.name, ' = ', childTreeNode.context?.kind,  childTreeNode.context?.name);
+    //         this.setContextToTreeNodeChildren(childTreeNode);
+    //     }
+    // }
     /**
      * Returns the addition of a ComplexitiesByStatus object and the complexities scores of a given treeMethod
      * @param cpxByStatus   // The object to add

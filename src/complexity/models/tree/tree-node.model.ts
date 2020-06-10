@@ -32,7 +32,7 @@ export class TreeNode extends Evaluable {
     #parent?: TreeNode;                                                      // The tree of the parent of the current node
     #parentFunction?: ParentFunction = undefined;                           // The first function or method which a parent of the TreeNode
     #treeFile?: TreeFile = undefined;                                       // The TreeFile containing the AST node of the TreeNode
-    treeMethod?: TreeMethod = undefined;                                    // The method at the root of the current tree (if this tree is inside a method)
+    #treeMethod?: TreeMethod = undefined;                                    // The method at the root of the current tree (if this tree is inside a method)
     treeNodeService?: TreeNodeService = new TreeNodeService();              // The service managing NodeFeatures
 
 
@@ -150,6 +150,11 @@ export class TreeNode extends Evaluable {
     }
 
 
+    get isMethodDeclaration(): boolean {
+        return Ast.isMethodDeclaration(this.node);
+    }
+
+
     get isMethodIdentifier(): boolean {
         return Ast.isMethodIdentifier(this.node);
     }
@@ -256,6 +261,11 @@ export class TreeNode extends Evaluable {
     }
 
 
+    // set sourceFile(source: ts.SourceFile) {
+        // th
+    // }
+
+
     get treeFile(): TreeFile {
         return this.#treeFile;
     }
@@ -263,6 +273,16 @@ export class TreeNode extends Evaluable {
 
     set treeFile(treeFile: TreeFile) {
         this.#treeFile = treeFile;
+    }
+
+
+    get treeMethod(): TreeMethod {
+        return this.#treeMethod;
+    }
+
+
+    set treeMethod(treeMethod: TreeMethod) {
+        this.#treeMethod = treeMethod;
     }
 
 

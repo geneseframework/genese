@@ -13,43 +13,59 @@ import * as chalk from 'chalk';
 export class TreeMethodService {
 
     codeService?: CodeService = new CodeService();
-    treeNodeService?: TreeNodeService = new TreeNodeService();
+    // treeNodeService?: TreeNodeService = new TreeNodeService();
 
 
     /**
      * Generates the array of TreeMethods corresponding to the methods included in a given TreeFile
      * @param treeFile  // The TreeFile containing the methods
      */
-    generateTree(treeFile: TreeFile): TreeMethod[] {
-        const methods: TreeMethod[] = [];
-        let __self = this;
-        ts.forEachChild(treeFile.sourceFile, function cb(node) {
-            if (Ast.isFunctionOrMethod(node)) {
-                const newMethod: TreeMethod = new TreeMethod();
-                newMethod.treeFile = treeFile;
-                newMethod.originalCode = __self.codeService.getNodeCode(node, treeFile.sourceFile);
-                newMethod.treeNode = __self.treeNodeService.generateTree(newMethod, node);
-                newMethod.createDisplayedCode();
-                newMethod.treeNode.context = treeFile.treeNode;
-                // newMethod.treeNode.context = __self.treeNodeService.getContext(newMethod.treeNode);
-                __self.setContextToTreeNodeChildren(newMethod.treeNode);
-                newMethod.evaluate();
-                methods.push(newMethod);
-            }
-            ts.forEachChild(node, cb);
-        });
-        return methods;
-    }
-
-
-    private setContextToTreeNodeChildren(treeNode: TreeNode): void {
-        for (const childTreeNode of treeNode?.children) {
-            console.log(chalk.blueBright('SEARCH CONTEXT OF '), childTreeNode.kind, childTreeNode.name);
-            childTreeNode.context = this.treeNodeService.getContext(childTreeNode);
-            console.log(chalk.blueBright('CONTEXT OF '), childTreeNode.kind, childTreeNode.name, ' = ', childTreeNode.context?.kind,  childTreeNode.context?.name);
-            this.setContextToTreeNodeChildren(childTreeNode);
+    generateTree(treeNode: TreeNode): TreeMethod {
+        if (!treeNode) {
+            return undefined;
         }
+        const treeMethod = new TreeMethod();
+        treeMethod.treeNode = treeNode;
+        console.log('METHODDD', treeMethod.treeNode)
+        treeMethod.originalCode = this.codeService.getNodeCode(treeNode.node, treeNode.sourceFile);
+        treeMethod.createDisplayedCode();
+        // treeMethod.treeNode.context = treeFile.treeNode;
+        // treeMethod.treeNode.context = this.treeNodeService.getContext(treeMethod.treeNode);
+        // this.setContextToTreeNodeChildren(treeMethod.treeNode);
+        treeMethod.evaluate();
+        return treeMethod;
     }
+
+    // generateTree(treeFile: TreeFile): TreeMethod[] {
+    //     const methods: TreeMethod[] = [];
+    //     let __self = this;
+    //     ts.forEachChild(treeFile.sourceFile, function cb(node) {
+    //         if (Ast.isFunctionOrMethod(node)) {
+    //             const newMethod: TreeMethod = new TreeMethod();
+    //             newMethod.treeFile = treeFile;
+    //             newMethod.originalCode = __self.codeService.getNodeCode(node, treeFile.sourceFile);
+    //             newMethod.treeNode = __self.treeNodeService.generateTree(newMethod, node);
+    //             newMethod.createDisplayedCode();
+    //             newMethod.treeNode.context = treeFile.treeNode;
+    //             // newMethod.treeNode.context = __self.treeNodeService.getContext(newMethod.treeNode);
+    //             __self.setContextToTreeNodeChildren(newMethod.treeNode);
+    //             newMethod.evaluate();
+    //             methods.push(newMethod);
+    //         }
+    //         ts.forEachChild(node, cb);
+    //     });
+    //     return methods;
+    // }
+
+
+    // private setContextToTreeNodeChildren(treeNode: TreeNode): void {
+    //     for (const childTreeNode of treeNode?.children) {
+    //         console.log(chalk.blueBright('SEARCH CONTEXT OF '), childTreeNode.kind, childTreeNode.name);
+    //         childTreeNode.context = this.treeNodeService.getContext(childTreeNode);
+    //         console.log(chalk.blueBright('CONTEXT OF '), childTreeNode.kind, childTreeNode.name, ' = ', childTreeNode.context?.kind,  childTreeNode.context?.name);
+    //         this.setContextToTreeNodeChildren(childTreeNode);
+    //     }
+    // }
 
 
     /**

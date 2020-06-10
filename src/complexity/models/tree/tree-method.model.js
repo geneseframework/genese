@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _cpxIndex, _displayedCode, _name, _originalCode, _treeFile, _treeNode;
+var _cpxIndex, _displayedCode, _name, _originalCode, _treeNode;
 Object.defineProperty(exports, "__esModule", { value: true });
 const ast_service_1 = require("../../services/ast.service");
 const cyclomatic_complexity_service_1 = require("../../services/cyclomatic-complexity.service");
@@ -39,7 +39,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         _displayedCode.set(this, undefined); // The code to display in the report
         _name.set(this, undefined); // The name of the method
         _originalCode.set(this, undefined); // The original Code of the method (as Code object)
-        _treeFile.set(this, undefined); // The TreeFile which contains the TreeMethod
+        // #treeFile?: TreeFile = undefined;                               // The TreeFile which contains the TreeMethod
         _treeNode.set(this, undefined); // The AST of the method itself
     }
     // ---------------------------------------------------------------------------------
@@ -72,14 +72,16 @@ class TreeMethod extends evaluable_model_1.Evaluable {
     }
     get sourceFile() {
         var _a;
-        return (_a = __classPrivateFieldGet(this, _treeFile)) === null || _a === void 0 ? void 0 : _a.sourceFile;
+        return (_a = __classPrivateFieldGet(this, _treeNode)) === null || _a === void 0 ? void 0 : _a.sourceFile;
     }
-    get treeFile() {
-        return __classPrivateFieldGet(this, _treeFile);
-    }
-    set treeFile(treeFile) {
-        __classPrivateFieldSet(this, _treeFile, treeFile);
-    }
+    // get treeFile(): TreeFile {
+    //     return this.#treeFile;
+    // }
+    //
+    //
+    // set treeFile(treeFile: TreeFile) {
+    //     this.#treeFile = treeFile;
+    // }
     get treeNode() {
         return __classPrivateFieldGet(this, _treeNode);
     }
@@ -190,4 +192,4 @@ class TreeMethod extends evaluable_model_1.Evaluable {
     }
 }
 exports.TreeMethod = TreeMethod;
-_cpxIndex = new WeakMap(), _displayedCode = new WeakMap(), _name = new WeakMap(), _originalCode = new WeakMap(), _treeFile = new WeakMap(), _treeNode = new WeakMap();
+_cpxIndex = new WeakMap(), _displayedCode = new WeakMap(), _name = new WeakMap(), _originalCode = new WeakMap(), _treeNode = new WeakMap();

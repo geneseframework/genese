@@ -1,3 +1,4 @@
+import * as ts from 'typescript';
 import { TreeFolder } from '../../models/tree/tree-folder.model';
 import { TreeFile } from '../../models/tree/tree-file.model';
 import { Ast } from '../ast.service';
@@ -8,6 +9,8 @@ import { StatsService } from '../report/stats.service';
 import { Stats } from '../../models/stats.model';
 import { TreeMethodService } from './tree-method.service';
 import { TreeNode } from '../../models/tree/tree-node.model';
+import * as chalk from 'chalk';
+import { TreeNodeService } from './tree-node.service';
 
 /**
  * - TreeFiles generation from Abstract Syntax TreeNode of a file
@@ -18,6 +21,7 @@ export class TreeFileService extends StatsService{
     protected _stats: Stats = undefined;            // The statistics of the TreeFile
     treeFile: TreeFile = undefined;                 // The TreeFile corresponding to this service
     treeMethodService?: TreeMethodService = new TreeMethodService();
+    treeNodeService?: TreeNodeService = new TreeNodeService();
 
     constructor() {
         super();
@@ -36,16 +40,24 @@ export class TreeFileService extends StatsService{
         treeFile.name = treeFile.sourceFile?.fileName;
         treeFile.treeNode = new TreeNode();
         treeFile.treeNode.node = treeFile.sourceFile;
+        treeFile.treeNode.treeFile = treeFile;
         treeFile.treeFolder = treeFolder;
-        this.generateTreeNodes(treeFile);
+        this.treeNodeService.createTreeNodeChildren(treeFile.treeNode);
+        // this.generateTreeNodes(treeFile.treeNode);
+        this.setContextToTreeNodeChildren(treeFile.treeNode);
         treeFile.evaluate();
         return treeFile;
     }
 
 
-    private generateTreeNodes(treeFile: TreeFile, cb?: (treeNode: TreeNode) => void): void {
-        treeFile.treeMethods = this.treeMethodService.generateTree(treeFile);
 
+    private setContextToTreeNodeChildren(treeNode: TreeNode): void {
+        for (const childTreeNode of treeNode?.children) {
+            console.log(chalk.blueBright('SEARCH CONTEXT OF '), childTreeNode.kind, childTreeNode.name);
+            childTreeNode.context = this.treeNodeService.getContext(childTreeNode);
+            console.log(chalk.blueBright('CONTEXT OF '), childTreeNode.kind, childTreeNode.name, ' = ', childTreeNode.context?.kind,  childTreeNode.context?.name);
+            this.setContextToTreeNodeChildren(childTreeNode);
+        }
     }
 
 

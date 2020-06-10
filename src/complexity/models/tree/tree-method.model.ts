@@ -27,7 +27,7 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
     #displayedCode?: Code = undefined;                              // The code to display in the report
     #name: string = undefined;                                      // The name of the method
     #originalCode?: Code = undefined;                               // The original Code of the method (as Code object)
-    #treeFile?: TreeFile = undefined;                               // The TreeFile which contains the TreeMethod
+    // #treeFile?: TreeFile = undefined;                               // The TreeFile which contains the TreeMethod
     #treeNode?: TreeNode = undefined;                               // The AST of the method itself
 
 
@@ -77,18 +77,18 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
 
 
     get sourceFile(): ts.SourceFile {
-        return this.#treeFile?.sourceFile;
+        return this.#treeNode?.sourceFile;
     }
 
 
-    get treeFile(): TreeFile {
-        return this.#treeFile;
-    }
-
-
-    set treeFile(treeFile: TreeFile) {
-        this.#treeFile = treeFile;
-    }
+    // get treeFile(): TreeFile {
+    //     return this.#treeFile;
+    // }
+    //
+    //
+    // set treeFile(treeFile: TreeFile) {
+    //     this.#treeFile = treeFile;
+    // }
 
 
     get treeNode(): TreeNode {

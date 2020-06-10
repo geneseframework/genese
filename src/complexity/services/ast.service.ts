@@ -191,6 +191,15 @@ export class Ast {
 
 
     /**
+     * Checks if an AST node is a MethodDeclaration
+     * @param node      // The node to analyse
+     */
+    static isMethodDeclaration(node: ts.Node): boolean {
+        return node?.kind === ts.SyntaxKind.MethodDeclaration;
+    }
+
+
+    /**
      * Checks if an AST node is an index of an array, ie if it's a Node which is the second son of an ElementAccessExpression
      * @param node      // The node to analyse
      */
