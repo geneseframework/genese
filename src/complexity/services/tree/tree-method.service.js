@@ -28,34 +28,6 @@ class TreeMethodService {
         treeMethod.evaluate();
         return treeMethod;
     }
-    // generateTree(treeFile: TreeFile): TreeMethod[] {
-    //     const methods: TreeMethod[] = [];
-    //     let __self = this;
-    //     ts.forEachChild(treeFile.sourceFile, function cb(node) {
-    //         if (Ast.isFunctionOrMethod(node)) {
-    //             const newMethod: TreeMethod = new TreeMethod();
-    //             newMethod.treeFile = treeFile;
-    //             newMethod.originalCode = __self.codeService.getNodeCode(node, treeFile.sourceFile);
-    //             newMethod.treeNode = __self.treeNodeService.generateTree(newMethod, node);
-    //             newMethod.createDisplayedCode();
-    //             newMethod.treeNode.context = treeFile.treeNode;
-    //             // newMethod.treeNode.context = __self.treeNodeService.getContext(newMethod.treeNode);
-    //             __self.setContextToTreeNodeChildren(newMethod.treeNode);
-    //             newMethod.evaluate();
-    //             methods.push(newMethod);
-    //         }
-    //         ts.forEachChild(node, cb);
-    //     });
-    //     return methods;
-    // }
-    // private setContextToTreeNodeChildren(treeNode: TreeNode): void {
-    //     for (const childTreeNode of treeNode?.children) {
-    //         console.log(chalk.blueBright('SEARCH CONTEXT OF '), childTreeNode.kind, childTreeNode.name);
-    //         childTreeNode.context = this.treeNodeService.getContext(childTreeNode);
-    //         console.log(chalk.blueBright('CONTEXT OF '), childTreeNode.kind, childTreeNode.name, ' = ', childTreeNode.context?.kind,  childTreeNode.context?.name);
-    //         this.setContextToTreeNodeChildren(childTreeNode);
-    //     }
-    // }
     /**
      * Returns the addition of a ComplexitiesByStatus object and the complexities scores of a given treeMethod
      * @param cpxByStatus   // The object to add

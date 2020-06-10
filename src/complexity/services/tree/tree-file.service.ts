@@ -1,4 +1,3 @@
-import * as ts from 'typescript';
 import { TreeFolder } from '../../models/tree/tree-folder.model';
 import { TreeFile } from '../../models/tree/tree-file.model';
 import { Ast } from '../ast.service';
@@ -9,7 +8,6 @@ import { StatsService } from '../report/stats.service';
 import { Stats } from '../../models/stats.model';
 import { TreeMethodService } from './tree-method.service';
 import { TreeNode } from '../../models/tree/tree-node.model';
-import * as chalk from 'chalk';
 import { TreeNodeService } from './tree-node.service';
 
 /**
@@ -43,7 +41,6 @@ export class TreeFileService extends StatsService{
         treeFile.treeNode.treeFile = treeFile;
         treeFile.treeFolder = treeFolder;
         this.treeNodeService.createTreeNodeChildren(treeFile.treeNode);
-        // this.generateTreeNodes(treeFile.treeNode);
         this.setContextToTreeNodeChildren(treeFile.treeNode);
         treeFile.treeMethods = this.treeMethodService.createTreeMethods(treeFile.treeNode);
         treeFile.evaluate();
@@ -54,9 +51,8 @@ export class TreeFileService extends StatsService{
 
     private setContextToTreeNodeChildren(treeNode: TreeNode): void {
         for (const childTreeNode of treeNode?.children) {
-            // console.log(chalk.blueBright('SEARCH CONTEXT OF '), childTreeNode.kind, childTreeNode.name);
             childTreeNode.context = this.treeNodeService.getContext(childTreeNode);
-            console.log(chalk.blueBright('CONTEXT OF '), childTreeNode.kind, childTreeNode.name, ' = ', childTreeNode.context?.kind,  childTreeNode.context?.name);
+            // console.log(chalk.blueBright('CONTEXT OF '), childTreeNode.kind, childTreeNode.name, ' = ', childTreeNode.context?.kind,  childTreeNode.context?.name);
             this.setContextToTreeNodeChildren(childTreeNode);
         }
     }

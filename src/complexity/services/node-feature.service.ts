@@ -21,6 +21,9 @@ export class NodeFeatureService {
             case ts.SyntaxKind.IfStatement:
             case ts.SyntaxKind.SwitchStatement:
                 return NodeFeature.CONDITIONAL;
+            case ts.SyntaxKind.FunctionDeclaration:
+            case ts.SyntaxKind.MethodDeclaration:
+                return NodeFeature.DECLARATION;
             case ts.SyntaxKind.Block:
             case ts.SyntaxKind.CallExpression:
             case ts.SyntaxKind.ElementAccessExpression:
@@ -34,9 +37,6 @@ export class NodeFeatureService {
             case ts.SyntaxKind.ArrowFunction:
             case ts.SyntaxKind.FunctionExpression:
                 return NodeFeature.FUNC;
-            case ts.SyntaxKind.FunctionDeclaration:
-            case ts.SyntaxKind.MethodDeclaration:
-                return NodeFeature.DECLARATION;
             case ts.SyntaxKind.AmpersandAmpersandToken:
             case ts.SyntaxKind.BarBarToken:
                 return NodeFeature.LOGIC_DOOR;

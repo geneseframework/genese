@@ -8,7 +8,6 @@ const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const stats_service_1 = require("../report/stats.service");
 const tree_method_service_1 = require("./tree-method.service");
 const tree_node_model_1 = require("../../models/tree/tree-node.model");
-const chalk = require("chalk");
 const tree_node_service_1 = require("./tree-node.service");
 /**
  * - TreeFiles generation from Abstract Syntax TreeNode of a file
@@ -38,18 +37,15 @@ class TreeFileService extends stats_service_1.StatsService {
         treeFile.treeNode.treeFile = treeFile;
         treeFile.treeFolder = treeFolder;
         this.treeNodeService.createTreeNodeChildren(treeFile.treeNode);
-        // this.generateTreeNodes(treeFile.treeNode);
         this.setContextToTreeNodeChildren(treeFile.treeNode);
         treeFile.treeMethods = this.treeMethodService.createTreeMethods(treeFile.treeNode);
         treeFile.evaluate();
         return treeFile;
     }
     setContextToTreeNodeChildren(treeNode) {
-        var _a, _b;
         for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
-            // console.log(chalk.blueBright('SEARCH CONTEXT OF '), childTreeNode.kind, childTreeNode.name);
             childTreeNode.context = this.treeNodeService.getContext(childTreeNode);
-            console.log(chalk.blueBright('CONTEXT OF '), childTreeNode.kind, childTreeNode.name, ' = ', (_a = childTreeNode.context) === null || _a === void 0 ? void 0 : _a.kind, (_b = childTreeNode.context) === null || _b === void 0 ? void 0 : _b.name);
+            // console.log(chalk.blueBright('CONTEXT OF '), childTreeNode.kind, childTreeNode.name, ' = ', childTreeNode.context?.kind,  childTreeNode.context?.name);
             this.setContextToTreeNodeChildren(childTreeNode);
         }
     }

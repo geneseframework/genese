@@ -68,7 +68,6 @@ export class TreeFile extends Evaluable implements HasStats, HasTreeNode {
     evaluate(): void {
         const treeMethodService = new TreeMethodService();
         for (const method of this.treeMethods) {
-            console.log('METHOD FILEE', method.name)
             this.cpxIndex += method.cpxIndex;
             this.cyclomaticCpx += method.cyclomaticCpx;
             this.complexitiesByStatus = treeMethodService.addMethodCpxByStatus(this.complexitiesByStatus, method);

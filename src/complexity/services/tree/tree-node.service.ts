@@ -93,30 +93,21 @@ export class TreeNodeService {
 
 
     private getIdentifierContext(treeNode: TreeNode): TreeNode {
-        let context: TreeNode;
         if (this.isSecondSonOfPropertyAccessExpression(treeNode)) {
-            console.log(treeNode.kind, treeNode.name, 'IS SECOND SON OF', treeNode.parent.kind, treeNode.parent?.name);
-            context = treeNode.parent?.firstSon?.mayDefineContext ? treeNode.parent?.firstSon : treeNode.parent?.firstSon.context;
+            return treeNode.parent?.firstSon?.mayDefineContext ? treeNode.parent?.firstSon : treeNode.parent?.firstSon.context;
         } else {
-            console.log(treeNode.kind, treeNode.name, 'HAS CONTEXT WITH PARENT', treeNode.parent.context.kind, treeNode.parent.context?.name);
-            context = treeNode.parent?.context;
-            // context = this.getContext(treeNode.parent);
+            return treeNode.parent?.context;
         }
-        return context;
     }
 
 
     isSecondSonOfPropertyAccessExpression(treeNode: TreeNode): boolean {
-        // if (Ast.isPropertyAccessExpression(treeNode?.parent?.node) && treeNode === treeNode?.parent.secondSon) {
-        //     console.log(treeNode.kind, treeNode.name, 'IS SON OF', treeNode.parent?.kind,  treeNode.parent?.name);
-        // }
         return Ast.isPropertyAccessExpression(treeNode?.parent?.node) && treeNode === treeNode?.parent.secondSon;
     }
 
 
     getSon(treeNode: TreeNode, sonNumber: number) {
         return treeNode.children[sonNumber];
-        // return Ast.getSon(treeNode?.node, treeNode?.sourceFile, sonNumber);
     }
 
 
@@ -125,54 +116,6 @@ export class TreeNodeService {
     }
 
 
-    createContext(treeNode: TreeNode): Context {
-        const context = new Context();
-        return context.init(treeNode);
-    }
-
-
-    // getContext(treeNode: TreeNode): Context {
-    //     if (!treeNode) {
-    //         return undefined;
-    //     }
-    //     if (treeNode.isFunction) {
-    //         return treeNode.context;
-    //     }
-    //     if (treeNode.parent.isFunction) {
-    //         return treeNode.parent.context;
-    //     } else {
-    //         return this.getContext(treeNode.parent);
-    //     }
-    // }
-
-
-    // setParentFunction(treeNode: TreeNode): ParentFunction {
-    //     return (treeNode.isFunction) ? this.createParentFunction(treeNode) : this.getParentFunction(treeNode);
-    // }
-    //
-    //
-    //
-    // createParentFunction(treeNode: TreeNode): ParentFunction {
-    //     const parentFunction = new ParentFunction();
-    //     return parentFunction.init(treeNode);
-    // }
-
-
-    // getParentFunction(treeNode: TreeNode): ParentFunction {
-    //     if (!treeNode) {
-    //         return undefined;
-    //     }
-    //     if (treeNode.isFunction) {
-    //         return treeNode.parentFunction;
-    //     }
-    //     if (treeNode.parent.isFunction) {
-    //         return treeNode.parent.parentFunction;
-    //     } else {
-    //         return this.getParentFunction(treeNode.parent);
-    //     }
-    // }
-    //
-    //
     // isCallback(treeNode: TreeNode): boolean {
     //     return treeNode.isMethodIdentifier && treeNode.parentFunction.params.includes(treeNode.name);
     // }
