@@ -13,10 +13,15 @@ export class TreeMethodService {
     createTreeMethods(treeNode: TreeNode): TreeMethod[] {
         let treeMethods: TreeMethod[] = [];
         for (const childTreeNode of treeNode.children) {
-            // console.log(childTreeNode.kind, 'IS FUNC', childTreeNode.isFunctionOrMethod)
-            if (childTreeNode.isFunctionOrMethod) {
-                treeMethods.push(this.createMethod(childTreeNode));
+            // console.log(childTreeNode.kind, 'IS FUNC', childTreeNode.isFunctionOrMethodDeclaration)
+            if (childTreeNode.isFunctionOrMethodDeclaration) {
+                childTreeNode.treeMethod = this.createMethod(childTreeNode);
+                // TODO : Link the method to the node
+                treeMethods.push(childTreeNode.treeMethod);
+            } else {
+                childTreeNode.treeMethod = treeNode.treeMethod;
             }
+            // console.log('Node MeTHOD', childTreeNode.treeMethod)
             treeMethods = treeMethods.concat(this.createTreeMethods(childTreeNode));
         }
         return treeMethods;
@@ -26,6 +31,7 @@ export class TreeMethodService {
     private createMethod(treeNode: TreeNode): TreeMethod {
         const treeMethod = new TreeMethod();
         treeMethod.treeNode = treeNode;
+        // console.log('CHILDRRR', treeNode.children)
         treeMethod.originalCode = this.codeService.getNodeCode(treeNode.node, treeNode.sourceFile);
         treeMethod.createDisplayedCode();
         treeMethod.evaluate();

@@ -1,11 +1,11 @@
 export class DebugMock {
-    keycloakService;
+    // keycloakService;
     logout() {
-        this.keycloakService.logout();
+        this.logout();
     }
 
 }
 
-function ctxt () {
-    console.log(this);
-}
+// function ctxt () {
+//     console.log(this);
+// }

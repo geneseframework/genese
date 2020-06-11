@@ -122,7 +122,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
     // get isCallback(): boolean {
     //     return this.treeNodeService.isCallback(this);
     // }
-    get isFunctionOrMethod() {
+    get isFunctionOrMethodDeclaration() {
         return this.feature === node_feature_enum_1.NodeFeature.DECLARATION;
     }
     get isMethodDeclaration() {
@@ -150,15 +150,14 @@ class TreeNode extends evaluable_model_1.Evaluable {
         return ast_service_1.Ast.isParam(this.node);
     }
     /**
-     * Checks if this TreeNode is a recursion, ie a call to this ParentFunction.
-     * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
+     * Checks if this TreeNode is a recursive method.
      */
-    // get isRecursion(): boolean {
-    //     return this.treeNodeService.isRecursion(this);
-    // }
+    get isRecursiveMethod() {
+        return this.treeNodeService.isRecursiveMethod(this);
+    }
     get kind() {
         var _a;
-        return (_a = __classPrivateFieldGet(this, _kind)) !== null && _a !== void 0 ? _a : ast_service_1.Ast.getType(this.node);
+        return (_a = __classPrivateFieldGet(this, _kind)) !== null && _a !== void 0 ? _a : ast_service_1.Ast.getKind(this.node);
     }
     set kind(kind) {
         __classPrivateFieldSet(this, _kind, kind);
@@ -171,7 +170,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
         if (__classPrivateFieldGet(this, _name)) {
             return __classPrivateFieldGet(this, _name);
         }
-        __classPrivateFieldSet(this, _name, (_e = (_c = (_b = (_a = this.node) === null || _a === void 0 ? void 0 : _a['name']) === null || _b === void 0 ? void 0 : _b['escapedText']) !== null && _c !== void 0 ? _c : (_d = this.node) === null || _d === void 0 ? void 0 : _d['escapedText']) !== null && _e !== void 0 ? _e : ast_service_1.Ast.getType(this.node));
+        __classPrivateFieldSet(this, _name, (_e = (_c = (_b = (_a = this.node) === null || _a === void 0 ? void 0 : _a['name']) === null || _b === void 0 ? void 0 : _b['escapedText']) !== null && _c !== void 0 ? _c : (_d = this.node) === null || _d === void 0 ? void 0 : _d['escapedText']) !== null && _e !== void 0 ? _e : ast_service_1.Ast.getKind(this.node));
         return __classPrivateFieldGet(this, _name);
     }
     get nestingCpx() {
@@ -269,7 +268,8 @@ class TreeNode extends evaluable_model_1.Evaluable {
         }
     }
     setRecursionOrCallbackCpxFactors() {
-        // this.cpxFactors.structural.recursion = this.isRecursion ? cpxFactors.structural.recursion : 0;
+        this.cpxFactors.structural.recursion = this.isRecursiveMethod ? cpx_factors_1.cpxFactors.structural.recursion : 0;
+        // console.log('RECURSION', this.kind, this.cpxFactors.structural.recursion)
         // this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
     }
     setRegexCpxFactors() {

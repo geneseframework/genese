@@ -145,7 +145,7 @@ export class TreeNode extends Evaluable {
     // }
 
 
-    get isFunctionOrMethod(): boolean {
+    get isFunctionOrMethodDeclaration(): boolean {
         return this.feature === NodeFeature.DECLARATION;
     }
 
@@ -184,16 +184,15 @@ export class TreeNode extends Evaluable {
 
 
     /**
-     * Checks if this TreeNode is a recursion, ie a call to this ParentFunction.
-     * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
+     * Checks if this TreeNode is a recursive method.
      */
-    // get isRecursion(): boolean {
-    //     return this.treeNodeService.isRecursion(this);
-    // }
+    get isRecursiveMethod(): boolean {
+        return this.treeNodeService.isRecursiveMethod(this);
+    }
 
 
     get kind(): string {
-        return this.#kind ?? Ast.getType(this.node);
+        return this.#kind ?? Ast.getKind(this.node);
     }
 
 
@@ -211,7 +210,7 @@ export class TreeNode extends Evaluable {
         if (this.#name) {
             return this.#name;
         }
-        this.#name = this.node?.['name']?.['escapedText'] ?? this.node?.['escapedText'] ?? Ast.getType(this.node);
+        this.#name = this.node?.['name']?.['escapedText'] ?? this.node?.['escapedText'] ?? Ast.getKind(this.node);
         return this.#name;
     }
 
@@ -353,7 +352,8 @@ export class TreeNode extends Evaluable {
 
 
     private setRecursionOrCallbackCpxFactors(): void {
-        // this.cpxFactors.structural.recursion = this.isRecursion ? cpxFactors.structural.recursion : 0;
+        this.cpxFactors.structural.recursion = this.isRecursiveMethod ? cpxFactors.structural.recursion : 0;
+        // console.log('RECURSION', this.kind, this.cpxFactors.structural.recursion)
         // this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
     }
 

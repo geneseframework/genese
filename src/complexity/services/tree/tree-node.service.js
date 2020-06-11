@@ -23,7 +23,7 @@ class TreeNodeService {
     //     treeNode.nestingCpx = 0;
     //     treeNode.parent = parentTreeNode;
     //     treeNode.treeMethod = Ast.isMethodDeclaration(node) ? this.treeMethodService.generateTree(treeNode) : parentTreeNode.treeMethod;
-    //     // treeNode.kind = Ast.getType(node);
+    //     // treeNode.kind = Ast.getKind(node);
     //     treeNode.treeFile = parentTreeNode?.treeFile;
     //     treeNode = this.createTreeNodeChildren(treeNode);
     //     return treeNode;
@@ -34,7 +34,7 @@ class TreeNodeService {
     //     treeNode.nestingCpx = 0;
     //     treeNode.parent = treeMethod?.treeFile?.treeNode;
     //     treeNode.treeMethod = treeMethod;
-    //     treeNode.kind = Ast.getType(node);
+    //     treeNode.kind = Ast.getKind(node);
     //     treeNode.treeFile = treeMethod.treeFile;
     //     treeNode = this.createTreeNodeChildren(treeNode);
     //     return treeNode;
@@ -50,16 +50,17 @@ class TreeNodeService {
             newTree.node = childNode;
             newTree.treeMethod = treeNode.treeMethod;
             newTree.parent = treeNode;
-            newTree.kind = ast_service_1.Ast.getType(childNode);
+            newTree.kind = ast_service_1.Ast.getKind(childNode);
             newTree.treeFile = treeNode.treeFile;
             // newTree.isNodeContext = this.mayDefineContext(newTree);
             // console.log('CONTEXT OF ', newTree.kind, newTree.name, ' = ', newTree.context?.kind);
-            newTree.evaluate();
             // treeNode.treeMethod = Ast.isMethodDeclaration(treeNode.node) ? this.treeMethodService.generatefTree(treeNode) : treeNode.treeMethod;
             treeNode.children.push(this.createTreeNodeChildren(newTree));
+            newTree.evaluate();
             // newTree.context = this.getContext(newTree);
             // this.setParentFunction(newTree);
         });
+        // console.log('CHILDRENNN', treeNode.kind, treeNode.children.length)
         return treeNode;
     }
     getContext(treeNode) {
@@ -102,6 +103,30 @@ class TreeNodeService {
     }
     mayDefineContext(treeNode) {
         return Object.values(may_define_context_enum_1.MayDefineContext).includes(treeNode.kind);
+    }
+    // isCallback(treeNode: TreeNode): boolean {
+    //     return treeNode.isMethodIdentifier && treeNode.parentFunction.params.includes(treeNode.name);
+    // }
+    //
+    //
+    isRecursiveMethod(treeNodeMethod) {
+        if (!treeNodeMethod.isFunctionOrMethodDeclaration) {
+            return false;
+        }
+        return this.hasRecursiveNode(treeNodeMethod, treeNodeMethod);
+    }
+    hasRecursiveNode(treeNodeMethod, treeNode) {
+        // console.log('HAS RECURSIVE ? ', treeNode)
+        for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
+            // console.log('METHOF', treeNodeMethod.name, 'NODE', treeNode.name)
+            if (treeNode.name === treeNodeMethod.name && treeNode.context === treeNodeMethod.context) {
+                return true;
+            }
+            if (this.hasRecursiveNode(treeNodeMethod, childTreeNode)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 exports.TreeNodeService = TreeNodeService;

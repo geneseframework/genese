@@ -48,7 +48,7 @@ export class Ast {
      * Gets the type of a node in the AST (MethodDeclaration, IfStatement, ...)
      * @param node // The node in the AST
      */
-    static getType(node: ts.Node): string {
+    static getKind(node: ts.Node): string {
         return node ? ts.SyntaxKind[node.kind] : '';
     }
 

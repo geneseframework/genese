@@ -169,10 +169,15 @@ class TreeMethod extends evaluable_model_1.Evaluable {
                 childTree.cpxFactors.basic.node = cpx_factors_1.cpxFactors.basic.node;
                 issue--;
             }
-            __classPrivateFieldGet(this, _displayedCode).lines[issue].cpxFactors = __classPrivateFieldGet(this, _displayedCode).lines[issue].cpxFactors.add(childTree.cpxFactors);
+            if (!__classPrivateFieldGet(this, _displayedCode).lines[issue].isCommented) {
+                this.increaseLineCpxFactors(tree, childTree, __classPrivateFieldGet(this, _displayedCode).lines[issue]);
+            }
             __classPrivateFieldGet(this, _displayedCode).lines[issue].treeNodes.push(childTree);
             this.setCpxFactorsToDisplayedCode(childTree);
         }
+    }
+    increaseLineCpxFactors(tree, childTree, codeLine) {
+        codeLine.cpxFactors = tree.isFunctionOrMethodDeclaration ? codeLine.cpxFactors.add(tree.cpxFactors) : codeLine.cpxFactors.add(childTree.cpxFactors);
     }
     /**
      * Adds information about complexity increment reasons for each line of the displayed code

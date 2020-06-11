@@ -195,10 +195,17 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
                 childTree.cpxFactors.basic.node = cpxFactors.basic.node;
                 issue--;
             }
-            this.#displayedCode.lines[issue].cpxFactors = this.#displayedCode.lines[issue].cpxFactors.add(childTree.cpxFactors);
+            if (!this.#displayedCode.lines[issue].isCommented) {
+                this.increaseLineCpxFactors(tree, childTree, this.#displayedCode.lines[issue]);
+            }
             this.#displayedCode.lines[issue].treeNodes.push(childTree);
             this.setCpxFactorsToDisplayedCode(childTree);
         }
+    }
+
+
+    private increaseLineCpxFactors(tree: TreeNode, childTree: TreeNode, codeLine: CodeLine): void {
+            codeLine.cpxFactors = tree.isFunctionOrMethodDeclaration ? codeLine.cpxFactors.add(tree.cpxFactors) : codeLine.cpxFactors.add(childTree.cpxFactors);
     }
 
 
