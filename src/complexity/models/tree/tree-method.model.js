@@ -162,7 +162,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
                 childTree.cpxFactors.basic.node = cpx_factors_1.cpxFactors.basic.node;
                 issue--;
             }
-            console.log('NOGGG CPx CB = ', tree.kind, tree.name, startedUncommentedLines, tree.isFunctionOrMethodDeclaration, codeLine.isCommented);
+            // console.log('NOGGG CPx CB = ', tree.kind, tree.name, startedUncommentedLines, tree.isFunctionOrMethodDeclaration, codeLine.isCommented)
             if (!startedUncommentedLines && tree.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
                 this.increaseLineCpxFactors(tree, codeLine);
                 startedUncommentedLines = true;
@@ -176,7 +176,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         }
     }
     increaseLineCpxFactors(tree, codeLine) {
-        console.log('CPXFACTORS CB = ', tree.kind, tree.name, tree.cpxFactors.structural.callback);
+        // console.log('CPXFACTORS CB = ', tree.kind, tree.name, tree.cpxFactors.structural.callback)
         if (!codeLine.isCommented) {
             codeLine.cpxFactors = codeLine.cpxFactors.add(tree === null || tree === void 0 ? void 0 : tree.cpxFactors);
             // console.log('CPXFACTORS CB = ', tree.kind, tree.name, tree.cpxFactors.structural.callback)

@@ -114,7 +114,10 @@ class TreeNode extends evaluable_model_1.Evaluable {
         return this.treeNodeService.isCallback(this);
     }
     get isCallIdentifier() {
-        return ast_service_1.Ast.isCallIdentifier(this.node);
+        if (ast_service_1.Ast.isCallIdentifier(this.node)) {
+            console.log('IS CALL IDTF', this.kind, this.name, this === this.parent.secondSon);
+        }
+        return ast_service_1.Ast.isCallIdentifier(this.node) && this === this.parent.firstSon;
     }
     get isFunctionOrMethodDeclaration() {
         return this.feature === node_feature_enum_1.NodeFeature.DECLARATION;

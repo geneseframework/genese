@@ -185,7 +185,7 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
                 childTree.cpxFactors.basic.node = cpxFactors.basic.node;
                 issue--;
             }
-            console.log('NOGGG CPx CB = ', tree.kind, tree.name, startedUncommentedLines, tree.isFunctionOrMethodDeclaration, codeLine.isCommented)
+            // console.log('NOGGG CPx CB = ', tree.kind, tree.name, startedUncommentedLines, tree.isFunctionOrMethodDeclaration, codeLine.isCommented)
             if (!startedUncommentedLines && tree.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
                 this.increaseLineCpxFactors(tree, codeLine);
                 startedUncommentedLines = true;
@@ -202,7 +202,7 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
 
 
     private increaseLineCpxFactors(tree: TreeNode, codeLine: CodeLine): void {
-        console.log('CPXFACTORS CB = ', tree.kind, tree.name, tree.cpxFactors.structural.callback)
+        // console.log('CPXFACTORS CB = ', tree.kind, tree.name, tree.cpxFactors.structural.callback)
         if (!codeLine.isCommented) {
             codeLine.cpxFactors = codeLine.cpxFactors.add(tree?.cpxFactors);
             // console.log('CPXFACTORS CB = ', tree.kind, tree.name, tree.cpxFactors.structural.callback)

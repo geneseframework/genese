@@ -133,7 +133,10 @@ export class TreeNode extends Evaluable {
 
 
     get isCallIdentifier(): boolean {
-        return Ast.isCallIdentifier(this.node);
+        if (Ast.isCallIdentifier(this.node)) {
+            console.log('IS CALL IDTF', this.kind, this.name, this === this.parent.secondSon)
+        }
+        return Ast.isCallIdentifier(this.node) && this === this.parent.firstSon;
     }
 
 
