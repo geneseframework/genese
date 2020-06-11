@@ -18,7 +18,7 @@ export class TreeNodeService {
 
     /**
      * Returns the TreeNode obtained by setting recursively TreeNodes for its children and subChildren
-     * @param treeNode
+     * @param treeNode      // The TreeNode to update
      */
     createTreeNodeChildren(treeNode: TreeNode): TreeNode {
         ts.forEachChild(treeNode.node, (childNode: ts.Node) => {
@@ -35,6 +35,10 @@ export class TreeNodeService {
     }
 
 
+    /**
+     * Gets the javascript context of the AST node of a TreeNode
+     * @param treeNode      // The TreeNode for which we search the context
+     */
     getContext(treeNode: TreeNode): TreeNode {
         if (!treeNode) {
             return undefined;
@@ -56,6 +60,10 @@ export class TreeNodeService {
     }
 
 
+    /**
+     * Gets the javascript context of an Identifier AST node of a given TreeNode
+     * @param treeNode      // The concerned TreeNode
+     */
     private getIdentifierContext(treeNode: TreeNode): TreeNode {
         if (this.isSecondSonOfPropertyAccessExpression(treeNode)) {
             return treeNode.parent?.firstSon?.mayDefineContext ? treeNode.parent?.firstSon : treeNode.parent?.firstSon.context;
@@ -65,13 +73,8 @@ export class TreeNodeService {
     }
 
 
-    isSecondSonOfPropertyAccessExpression(treeNode: TreeNode): boolean {
+    private isSecondSonOfPropertyAccessExpression(treeNode: TreeNode): boolean {
         return Ast.isPropertyAccessExpression(treeNode?.parent?.node) && treeNode === treeNode?.parent.secondSon;
-    }
-
-
-    getSon(treeNode: TreeNode, sonNumber: number) {
-        return treeNode.children[sonNumber];
     }
 
 

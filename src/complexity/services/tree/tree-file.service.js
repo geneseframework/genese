@@ -24,40 +24,59 @@ class TreeFileService extends stats_service_1.StatsService {
     /**
      * Generates the TreeFile for a given file of a given folder
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the file
-     * @param path          // The path of the file
+     * @param path            // The path of the file
      * @param treeFolder      // The TreeFolder containing the TreeFile
      */
     generateTree(path, treeFolder = new tree_folder_model_1.TreeFolder()) {
         var _a;
-        let treeFile = new tree_file_model_1.TreeFile();
-        treeFile.sourceFile = ast_service_1.Ast.getSourceFile(path);
-        treeFile.name = (_a = treeFile.sourceFile) === null || _a === void 0 ? void 0 : _a.fileName;
-        treeFile.treeNode = new tree_node_model_1.TreeNode();
-        treeFile.treeNode.node = treeFile.sourceFile;
-        treeFile.treeNode.treeFile = treeFile;
-        treeFile.treeFolder = treeFolder;
-        this.treeNodeService.createTreeNodeChildren(treeFile.treeNode);
-        this.setContextToTreeNodeChildren(treeFile.treeNode);
-        treeFile.treeNodes = this.setTreeNodes(treeFile.treeNode, [treeFile.treeNode]);
-        for (let treeNode of treeFile.treeNodes) {
+        this.treeFile = new tree_file_model_1.TreeFile();
+        this.treeFile.sourceFile = ast_service_1.Ast.getSourceFile(path);
+        this.treeFile.name = (_a = this.treeFile.sourceFile) === null || _a === void 0 ? void 0 : _a.fileName;
+        this.treeFile.treeFolder = treeFolder;
+        this.generateTreeNodes();
+        this.treeFile.treeMethods = this.setTreeMethods(this.treeFile.treeNodes);
+        this.treeFile.evaluate();
+        return this.treeFile;
+    }
+    /**
+     * Generates all the TreeNodes and updates this.treeFile
+     */
+    generateTreeNodes() {
+        this.treeFile.treeNode = new tree_node_model_1.TreeNode();
+        this.treeFile.treeNode.node = this.treeFile.sourceFile;
+        this.treeFile.treeNode.treeFile = this.treeFile;
+        this.treeNodeService.createTreeNodeChildren(this.treeFile.treeNode);
+        this.setContextToTreeNodeChildren(this.treeFile.treeNode);
+        this.treeFile.treeNodes = this.flatMapTreeNodes(this.treeFile.treeNode, [this.treeFile.treeNode]);
+        for (let treeNode of this.treeFile.treeNodes) {
             treeNode = this.setNodeMethod(treeNode);
         }
-        treeFile.treeMethods = this.setTreeMethods(treeFile.treeNodes);
-        treeFile.evaluate();
-        return treeFile;
     }
-    setTreeNodes(treeNode, treeNodes) {
+    /**
+     * Returns an array of TreeNodes with all the TreeNode children of the first param concatenated with the second param
+     * @param treeNode      // The "parent" node to parse
+     * @param treeNodes     // The "accumulator"
+     */
+    flatMapTreeNodes(treeNode, treeNodes) {
         for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
             treeNodes.push(childTreeNode);
             if (childTreeNode.children.length > 0) {
-                treeNodes = treeNodes.concat(this.setTreeNodes(childTreeNode, []));
+                treeNodes = treeNodes.concat(this.flatMapTreeNodes(childTreeNode, []));
             }
         }
         return treeNodes;
     }
+    /**
+     * Sets the treeMethod property to a given treeNode
+     * @param treeNode      // The TreeNode to update
+     */
     setNodeMethod(treeNode) {
         return treeNode.isFunctionOrMethodDeclaration ? this.treeMethodService.setNodeMethod(treeNode) : undefined;
     }
+    /**
+     * Returns the array of the TreeMethods corresponding to an array of TreeNodes
+     * @param treeNodes     // The array of TreeNodes
+     */
     setTreeMethods(treeNodes) {
         const treeMethods = [];
         for (const treeNode of treeNodes) {
@@ -67,6 +86,10 @@ class TreeFileService extends stats_service_1.StatsService {
         }
         return treeMethods;
     }
+    /**
+     * Sets the javascript context of each AST node
+     * @param treeNode      // The "parent" Node
+     */
     setContextToTreeNodeChildren(treeNode) {
         for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
             childTreeNode.context = this.treeNodeService.getContext(childTreeNode);

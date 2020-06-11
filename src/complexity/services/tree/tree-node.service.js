@@ -14,7 +14,7 @@ class TreeNodeService {
     }
     /**
      * Returns the TreeNode obtained by setting recursively TreeNodes for its children and subChildren
-     * @param treeNode
+     * @param treeNode      // The TreeNode to update
      */
     createTreeNodeChildren(treeNode) {
         ts.forEachChild(treeNode.node, (childNode) => {
@@ -29,6 +29,10 @@ class TreeNodeService {
         });
         return treeNode;
     }
+    /**
+     * Gets the javascript context of the AST node of a TreeNode
+     * @param treeNode      // The TreeNode for which we search the context
+     */
     getContext(treeNode) {
         var _a, _b, _c, _d, _e;
         if (!treeNode) {
@@ -50,6 +54,10 @@ class TreeNodeService {
                 }
         }
     }
+    /**
+     * Gets the javascript context of an Identifier AST node of a given TreeNode
+     * @param treeNode      // The concerned TreeNode
+     */
     getIdentifierContext(treeNode) {
         var _a, _b, _c, _d, _e;
         if (this.isSecondSonOfPropertyAccessExpression(treeNode)) {
@@ -62,9 +70,6 @@ class TreeNodeService {
     isSecondSonOfPropertyAccessExpression(treeNode) {
         var _a;
         return ast_service_1.Ast.isPropertyAccessExpression((_a = treeNode === null || treeNode === void 0 ? void 0 : treeNode.parent) === null || _a === void 0 ? void 0 : _a.node) && treeNode === (treeNode === null || treeNode === void 0 ? void 0 : treeNode.parent.secondSon);
-    }
-    getSon(treeNode, sonNumber) {
-        return treeNode.children[sonNumber];
     }
     mayDefineContext(treeNode) {
         return Object.values(may_define_context_enum_1.MayDefineContext).includes(treeNode.kind);
