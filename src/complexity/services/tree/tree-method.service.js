@@ -1,40 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const ts = require("typescript");
 const tree_method_model_1 = require("../../models/tree/tree-method.model");
-const tree_node_service_1 = require("./tree-node.service");
 const complexities_by_status_interface_1 = require("../../interfaces/complexities-by-status.interface");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
-const ast_service_1 = require("../ast.service");
 const code_service_1 = require("../code.service");
 class TreeMethodService {
     constructor() {
-        this.treeNodeService = new tree_node_service_1.TreeNodeService();
+        this.codeService = new code_service_1.CodeService();
     }
-    /**
-     * Generates the array of TreeMethods corresponding to the methods included in a given TreeFile
-     * @param treeFile  // The TreeFile containing the methods
-     */
-    generateTree(treeFile) {
-        const methods = [];
-        let __self = this;
-        ts.forEachChild(treeFile.sourceFile, function cb(node) {
-            if (ast_service_1.Ast.isFunctionOrMethod(node)) {
-                const newMethod = new tree_method_model_1.TreeMethod(node);
-                newMethod.treeFile = treeFile;
-                newMethod.astPosition = node.pos;
-                const originalText = node.getFullText(treeFile.sourceFile);
-                const codeService = new code_service_1.CodeService();
-                newMethod.originalCode = codeService.createCode(originalText);
-                newMethod.treeNode = __self.treeNodeService.generateTree(newMethod);
-                newMethod.evaluate();
-                newMethod.createDisplayedCode();
-                methods.push(newMethod);
-            }
-            ts.forEachChild(node, cb);
-        });
-        return methods;
+    setNodeMethod(treeNode) {
+        const treeMethod = new tree_method_model_1.TreeMethod();
+        treeMethod.treeNode = treeNode;
+        treeMethod.originalCode = this.codeService.getNodeCode(treeNode.node, treeNode.sourceFile);
+        treeNode.treeMethod = treeMethod;
+        return treeNode;
     }
     /**
      * Returns the addition of a ComplexitiesByStatus object and the complexities scores of a given treeMethod

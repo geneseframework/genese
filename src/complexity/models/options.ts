@@ -1,6 +1,6 @@
 import { ComplexityType } from '../enums/complexity-type.enum';
 import { Complexity } from '../interfaces/complexity.interface';
-import { ChartColor } from '../enums/colors.enum';
+import { ChartColor } from '../enums/chart-color.enum';
 import { ComplexitiesByStatus } from '../interfaces/complexities-by-status.interface';
 import * as fs from 'fs-extra';
 import { getArrayOfPathsWithDotSlash } from '../services/file.service';

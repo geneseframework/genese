@@ -6,11 +6,13 @@ import { NestingCpx } from './nesting-cpx.model';
 import { BasicCpx } from './basic-cpx.model';
 import { StructuralCpx } from './structural-cpx.model';
 import { DepthCpx } from './depth-cpx.model';
+import { ContextCpx } from './context-cpx.model';
 
 export class CpxFactors implements Addition<CpxFactors>{
 
     aggregation?: AggregationCpx = new AggregationCpx();
     basic?: BasicCpx = new BasicCpx();
+    context?: ContextCpx = new ContextCpx();
     depth?: DepthCpx = new DepthCpx();
     nesting?: NestingCpx = new NestingCpx();
     structural?: StructuralCpx = new StructuralCpx();

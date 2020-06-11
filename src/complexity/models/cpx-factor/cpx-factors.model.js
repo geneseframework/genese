@@ -7,10 +7,12 @@ const nesting_cpx_model_1 = require("./nesting-cpx.model");
 const basic_cpx_model_1 = require("./basic-cpx.model");
 const structural_cpx_model_1 = require("./structural-cpx.model");
 const depth_cpx_model_1 = require("./depth-cpx.model");
+const context_cpx_model_1 = require("./context-cpx.model");
 class CpxFactors {
     constructor() {
         this.aggregation = new aggregation_cpx_model_1.AggregationCpx();
         this.basic = new basic_cpx_model_1.BasicCpx();
+        this.context = new context_cpx_model_1.ContextCpx();
         this.depth = new depth_cpx_model_1.DepthCpx();
         this.nesting = new nesting_cpx_model_1.NestingCpx();
         this.structural = new structural_cpx_model_1.StructuralCpx();

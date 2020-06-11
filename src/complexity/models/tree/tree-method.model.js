@@ -1,4 +1,10 @@
 "use strict";
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+};
 var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, privateMap, value) {
     if (!privateMap.has(receiver)) {
         throw new TypeError("attempted to set private field on non-instance");
@@ -6,17 +12,10 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to get private field on non-instance");
-    }
-    return privateMap.get(receiver);
-};
-var _cpxIndex, _displayedCode, _originalCode;
+var _cpxIndex, _displayedCode, _name, _originalCode, _treeNode;
 Object.defineProperty(exports, "__esModule", { value: true });
-const tree_file_model_1 = require("./tree-file.model");
 const ast_service_1 = require("../../services/ast.service");
-const cyclomaticComplexityService_1 = require("../../services/cyclomaticComplexityService");
+const cyclomatic_complexity_service_1 = require("../../services/cyclomatic-complexity.service");
 const options_1 = require("../options");
 const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
@@ -31,33 +30,82 @@ const log_service_1 = require("../../services/tree/log.service");
  * Element of the TreeNode structure corresponding to a given method
  */
 class TreeMethod extends evaluable_model_1.Evaluable {
-    constructor(node) {
+    constructor() {
         super();
-        this.astPosition = 0; // The position of the AST node of the method in the code of its file
         this.codeService = new code_service_1.CodeService(); // The service managing Code objects
         this.cognitiveStatus = evaluation_status_enum_1.MethodStatus.CORRECT; // The cognitive status of the method
-        _cpxIndex.set(this, undefined);
+        _cpxIndex.set(this, undefined); // The complexity index of the method
         this.cyclomaticStatus = evaluation_status_enum_1.MethodStatus.CORRECT; // The cyclomatic status of the method
         _displayedCode.set(this, undefined); // The code to display in the report
-        this.filename = ''; // The name of the file containing the method
-        this.name = ''; // The name of the method
-        this.node = undefined; // The AST node corresponding to the method
+        _name.set(this, undefined); // The name of the method
         _originalCode.set(this, undefined); // The original Code of the method (as Code object)
-        this.treeFile = new tree_file_model_1.TreeFile(); // The TreeFile which contains the TreeMethod
-        this.treeNode = undefined; // The AST of the method itself
-        this.node = node;
-        this.name = ast_service_1.Ast.getMethodName(node);
+        _treeNode.set(this, undefined); // The AST of the method itself
     }
+    // ---------------------------------------------------------------------------------
+    //                                Getters and setters
+    // ---------------------------------------------------------------------------------
+    get displayedCode() {
+        return __classPrivateFieldGet(this, _displayedCode);
+    }
+    get cpxIndex() {
+        var _a;
+        return (_a = __classPrivateFieldGet(this, _cpxIndex)) !== null && _a !== void 0 ? _a : this.calculateCpxIndex();
+    }
+    get name() {
+        var _a;
+        if (__classPrivateFieldGet(this, _name)) {
+            return __classPrivateFieldGet(this, _name);
+        }
+        __classPrivateFieldSet(this, _name, ast_service_1.Ast.getMethodName((_a = __classPrivateFieldGet(this, _treeNode)) === null || _a === void 0 ? void 0 : _a.node));
+        return __classPrivateFieldGet(this, _name);
+    }
+    get originalCode() {
+        return __classPrivateFieldGet(this, _originalCode);
+    }
+    set originalCode(code) {
+        __classPrivateFieldSet(this, _originalCode, code);
+    }
+    get position() {
+        var _a;
+        return (_a = this.treeNode) === null || _a === void 0 ? void 0 : _a.position;
+    }
+    get sourceFile() {
+        var _a;
+        return (_a = __classPrivateFieldGet(this, _treeNode)) === null || _a === void 0 ? void 0 : _a.sourceFile;
+    }
+    get treeNode() {
+        return __classPrivateFieldGet(this, _treeNode);
+    }
+    set treeNode(treeNode) {
+        __classPrivateFieldSet(this, _treeNode, treeNode);
+    }
+    // ---------------------------------------------------------------------------------
+    //                                  Other methods
+    // ---------------------------------------------------------------------------------
     /**
      * Evaluates the complexities of this TreeMethod
      */
     evaluate() {
-        var _a, _b, _c;
+        var _a;
+        this.createDisplayedCode();
         log_service_1.LogService.printAllChildren(this.treeNode);
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
-        this.cyclomaticCpx = cyclomaticComplexityService_1.CyclomaticComplexityService.calculateCyclomaticComplexity(this.node);
+        this.cyclomaticCpx = cyclomatic_complexity_service_1.CyclomaticComplexityService.calculateCyclomaticComplexity((_a = __classPrivateFieldGet(this, _treeNode)) === null || _a === void 0 ? void 0 : _a.node);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
-        this.filename = (_c = (_b = (_a = this.treeFile) === null || _a === void 0 ? void 0 : _a.sourceFile) === null || _b === void 0 ? void 0 : _b.fileName) !== null && _c !== void 0 ? _c : '';
+    }
+    /**
+     * Calculates the Complexity Index of the method
+     */
+    calculateCpxIndex() {
+        var _a, _b, _c;
+        if (!(((_b = (_a = __classPrivateFieldGet(this, _displayedCode)) === null || _a === void 0 ? void 0 : _a.lines) === null || _b === void 0 ? void 0 : _b.length) > 0)) {
+            this.createDisplayedCode();
+        }
+        let count = 0;
+        for (const line of (_c = __classPrivateFieldGet(this, _displayedCode)) === null || _c === void 0 ? void 0 : _c.lines) {
+            count += line.cpxFactors.total;
+        }
+        return +count.toFixed(2);
     }
     /**
      * Get the complexity status of the method for a given complexity type
@@ -78,47 +126,23 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         return status;
     }
     /**
-     * Gets the full originalText of the method
-     */
-    set originalCode(code) {
-        __classPrivateFieldSet(this, _originalCode, code);
-    }
-    /**
-     * Gets the full originalText of the method
-     */
-    get displayedCode() {
-        return __classPrivateFieldGet(this, _displayedCode);
-    }
-    get cpxIndex() {
-        var _a;
-        return (_a = __classPrivateFieldGet(this, _cpxIndex)) !== null && _a !== void 0 ? _a : this.calculateCpxIndex();
-    }
-    calculateCpxIndex() {
-        var _a, _b, _c;
-        if (!(((_b = (_a = __classPrivateFieldGet(this, _displayedCode)) === null || _a === void 0 ? void 0 : _a.lines) === null || _b === void 0 ? void 0 : _b.length) > 0)) {
-            this.createDisplayedCode();
-        }
-        let count = 0;
-        for (const line of (_c = __classPrivateFieldGet(this, _displayedCode)) === null || _c === void 0 ? void 0 : _c.lines) {
-            count += line.cpxFactors.total;
-        }
-        return +count.toFixed(2);
-    }
-    /**
      * Creates the code to display with the original code of a TreeNode
      * @param tree  // The TreeNode to analyse
      */
     createDisplayedCode(tree = this.treeNode) {
         this.setDisplayedCodeLines();
-        this.setCpxFactorsToDisplayedCode(tree);
+        this.setCpxFactorsToDisplayedCode(tree, false);
         __classPrivateFieldGet(this, _displayedCode).setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
         this.calculateCpxIndex();
         __classPrivateFieldGet(this, _displayedCode).setTextWithLines();
     }
+    /**
+     * Sets the code to display in the TreeFile's report
+     */
     setDisplayedCodeLines() {
         __classPrivateFieldSet(this, _displayedCode, new code_model_1.Code());
-        for (const line of __classPrivateFieldGet(this, _originalCode).lines) {
+        for (const line of this.originalCode.lines) {
             const displayedLine = new code_line_model_1.CodeLine();
             displayedLine.issue = line.issue;
             displayedLine.text = line.text;
@@ -130,17 +154,28 @@ class TreeMethod extends evaluable_model_1.Evaluable {
      * Sets the CodeLines of the displayed Code of this method
      * @param tree
      */
-    setCpxFactorsToDisplayedCode(tree) {
-        var _a;
+    setCpxFactorsToDisplayedCode(tree, startedUncommentedLines = false) {
         for (const childTree of tree.children) {
-            let issue = this.codeService.getLineIssue(__classPrivateFieldGet(this, _originalCode), ((_a = childTree.node) === null || _a === void 0 ? void 0 : _a.pos) - this.astPosition);
+            let issue = this.codeService.getLineIssue(__classPrivateFieldGet(this, _originalCode), childTree.position - this.position);
+            const codeLine = __classPrivateFieldGet(this, _displayedCode).lines[issue];
             if (ast_service_1.Ast.isElseStatement(childTree.node)) {
                 childTree.cpxFactors.basic.node = cpx_factors_1.cpxFactors.basic.node;
                 issue--;
             }
-            __classPrivateFieldGet(this, _displayedCode).lines[issue].cpxFactors = __classPrivateFieldGet(this, _displayedCode).lines[issue].cpxFactors.add(childTree.cpxFactors);
+            if (!startedUncommentedLines && tree.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
+                this.increaseLineCpxFactors(tree, codeLine);
+                startedUncommentedLines = true;
+            }
+            else if (startedUncommentedLines) {
+                this.increaseLineCpxFactors(childTree, codeLine);
+            }
             __classPrivateFieldGet(this, _displayedCode).lines[issue].treeNodes.push(childTree);
-            this.setCpxFactorsToDisplayedCode(childTree);
+            this.setCpxFactorsToDisplayedCode(childTree, startedUncommentedLines);
+        }
+    }
+    increaseLineCpxFactors(tree, codeLine) {
+        if (!codeLine.isCommented) {
+            codeLine.cpxFactors = codeLine.cpxFactors.add(tree === null || tree === void 0 ? void 0 : tree.cpxFactors);
         }
     }
     /**
@@ -161,4 +196,4 @@ class TreeMethod extends evaluable_model_1.Evaluable {
     }
 }
 exports.TreeMethod = TreeMethod;
-_cpxIndex = new WeakMap(), _displayedCode = new WeakMap(), _originalCode = new WeakMap();
+_cpxIndex = new WeakMap(), _displayedCode = new WeakMap(), _name = new WeakMap(), _originalCode = new WeakMap(), _treeNode = new WeakMap();

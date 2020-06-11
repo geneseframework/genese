@@ -1,40 +1,21 @@
-import * as ts from 'typescript';
-import { TreeFile } from '../../models/tree/tree-file.model';
 import { TreeMethod } from '../../models/tree/tree-method.model';
-import { TreeNodeService } from './tree-node.service';
 import { ComplexitiesByStatus } from '../../interfaces/complexities-by-status.interface';
 import { ComplexityType } from '../../enums/complexity-type.enum';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
-import { Ast } from '../ast.service';
 import { CodeService } from '../code.service';
+import { TreeNode } from '../../models/tree/tree-node.model';
 
 export class TreeMethodService {
 
-    treeNodeService?: TreeNodeService = new TreeNodeService();
+    codeService?: CodeService = new CodeService();
 
-    /**
-     * Generates the array of TreeMethods corresponding to the methods included in a given TreeFile
-     * @param treeFile  // The TreeFile containing the methods
-     */
-    generateTree(treeFile: TreeFile): TreeMethod[] {
-        const methods: TreeMethod[] = [];
-        let __self = this;
-        ts.forEachChild(treeFile.sourceFile, function cb(node) {
-            if (Ast.isFunctionOrMethod(node)) {
-                const newMethod: TreeMethod = new TreeMethod(node);
-                newMethod.treeFile = treeFile;
-                newMethod.astPosition = node.pos;
-                const originalText = node.getFullText(treeFile.sourceFile);
-                const codeService = new CodeService();
-                newMethod.originalCode = codeService.createCode(originalText);
-                newMethod.treeNode = __self.treeNodeService.generateTree(newMethod);
-                newMethod.evaluate();
-                newMethod.createDisplayedCode();
-                methods.push(newMethod);
-            }
-            ts.forEachChild(node, cb);
-        });
-        return methods;
+
+    setNodeMethod(treeNode: TreeNode): TreeNode {
+        const treeMethod = new TreeMethod();
+        treeMethod.treeNode = treeNode;
+        treeMethod.originalCode = this.codeService.getNodeCode(treeNode.node, treeNode.sourceFile);
+        treeNode.treeMethod = treeMethod;
+        return treeNode;
     }
 
 

@@ -1,16 +1,23 @@
+var z;
 export class DebugMock {
+
+    hyperComplex() {
+        z((acc: any) => {
+            acc(0);
+        });
+    }
+
+    ifAlone(a) {
+        return a('b');
+    }
+    //
     keycloakService;
-    logout() {
-        this.keycloakService.logout();
+    logout(a) {
+        this.logout(a);
     }
 
-    recursion(a) {
-        this.recursion(a);
-    }
+}
 
-
-    methodWithCallback(a, callback) {
-        callback(3);
-    }
-
+function ctxt (a) {
+    console.log(a('b'));
 }
