@@ -40,37 +40,17 @@ class TreeFileService extends stats_service_1.StatsService {
         this.setContextToTreeNodeChildren(treeFile.treeNode);
         treeFile.treeNodes = this.setTreeNodes(treeFile.treeNode, [treeFile.treeNode]);
         console.log('NODESSSS', treeFile.treeNodes.length);
-        for (const treeNode of treeFile.treeNodes) {
-            console.log('????', treeNode.kind, treeNode.name);
-        }
-        // console.log('NODESSSS', treeFile.treeNodes.map(e => e.kind))
         treeFile.treeMethods = this.treeMethodService.createTreeMethods(treeFile.treeNode);
-        // for (const children of )
         treeFile.evaluate();
         return treeFile;
     }
     setTreeNodes(treeNode, treeNodes) {
-        let acc = [];
-        let nodes = treeNodes;
         for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
             treeNodes.push(childTreeNode);
             if (childTreeNode.children.length > 0) {
                 treeNodes = treeNodes.concat(this.setTreeNodes(childTreeNode, []));
-                // for (const granChild of childTreeNode.children) {
-                //     treeNodes = treeNodes.concat(this.setTreeNodes(granChild, treeNodes));
-                //
-                // }
-                // return treeNodes;
             }
-            // treeNodes.push(childTreeNode);
         }
-        // for (const el of treeNodes) {
-        //     treeNodes.concat(this.setTreeNodes(el, treeNodes))
-        // }
-        // nodes.push(childTreeNode);
-        // console.log('TREENDSss', nodes)
-        // nodes = nodes.concat(this.setTreeNodes(childTreeNode, nodes));
-        // console.log('TREENDSss', nodes)
         return treeNodes;
     }
     setContextToTreeNodeChildren(treeNode) {

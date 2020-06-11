@@ -45,40 +45,19 @@ export class TreeFileService extends StatsService{
         this.setContextToTreeNodeChildren(treeFile.treeNode);
         treeFile.treeNodes = this.setTreeNodes(treeFile.treeNode, [treeFile.treeNode]);
         console.log('NODESSSS', treeFile.treeNodes.length);
-        for (const treeNode of treeFile.treeNodes) {
-            console.log('????', treeNode.kind, treeNode.name)
-        }
-        // console.log('NODESSSS', treeFile.treeNodes.map(e => e.kind))
         treeFile.treeMethods = this.treeMethodService.createTreeMethods(treeFile.treeNode);
-        // for (const children of )
         treeFile.evaluate();
         return treeFile;
     }
 
 
     private setTreeNodes(treeNode: TreeNode, treeNodes: TreeNode[]): TreeNode[] {
-        let acc = [];
-        let nodes: TreeNode[] = treeNodes;
         for (const childTreeNode of treeNode?.children) {
             treeNodes.push(childTreeNode);
             if (childTreeNode.children.length > 0) {
                     treeNodes = treeNodes.concat(this.setTreeNodes(childTreeNode, []));
-                // for (const granChild of childTreeNode.children) {
-                //     treeNodes = treeNodes.concat(this.setTreeNodes(granChild, treeNodes));
-                //
-                // }
-                // return treeNodes;
             }
-
-            // treeNodes.push(childTreeNode);
         }
-        // for (const el of treeNodes) {
-        //     treeNodes.concat(this.setTreeNodes(el, treeNodes))
-        // }
-        // nodes.push(childTreeNode);
-        // console.log('TREENDSss', nodes)
-        // nodes = nodes.concat(this.setTreeNodes(childTreeNode, nodes));
-        // console.log('TREENDSss', nodes)
         return treeNodes;
     }
 
