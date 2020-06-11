@@ -161,7 +161,7 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
      */
     createDisplayedCode(tree: TreeNode = this.treeNode): void {
         this.setDisplayedCodeLines();
-        this.setCpxFactorsToDisplayedCode(tree);
+        this.setCpxFactorsToDisplayedCode(tree, false);
         this.#displayedCode.setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
         this.calculateCpxIndex();
@@ -188,24 +188,41 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
      * Sets the CodeLines of the displayed Code of this method
      * @param tree
      */
-    private setCpxFactorsToDisplayedCode(tree: TreeNode): void {
+    private setCpxFactorsToDisplayedCode(tree: TreeNode, startedUncommentedLines = false): void {
+        // let topNode = isTopNode;
         for (const childTree of tree.children) {
             let issue = this.codeService.getLineIssue(this.#originalCode, childTree.position - this.position);
+            const codeLine: CodeLine = this.#displayedCode.lines[issue];
             if (Ast.isElseStatement(childTree.node)) {
                 childTree.cpxFactors.basic.node = cpxFactors.basic.node;
                 issue--;
             }
-            if (!this.#displayedCode.lines[issue].isCommented) {
-                this.increaseLineCpxFactors(tree, childTree, this.#displayedCode.lines[issue]);
+            console.log('zzz', tree.kind, childTree.kind)
+            if (!startedUncommentedLines && tree.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
+                console.log('FIRSTTTT', codeLine.text)
+                this.increaseLineCpxFactors(tree, codeLine);
+                startedUncommentedLines = true;
+            } else if (startedUncommentedLines) {
+
+                console.log('AFTER FIRST COMMENTED LINE', codeLine.text)
+                this.increaseLineCpxFactors(childTree, codeLine, false);
+
             }
+            // startedUncommentedLines = startedUncommentedLines || !codeLine.isCommented;
             this.#displayedCode.lines[issue].treeNodes.push(childTree);
-            this.setCpxFactorsToDisplayedCode(childTree);
+            this.setCpxFactorsToDisplayedCode(childTree, startedUncommentedLines);
         }
     }
 
 
-    private increaseLineCpxFactors(tree: TreeNode, childTree: TreeNode, codeLine: CodeLine): void {
-            codeLine.cpxFactors = tree.isFunctionOrMethodDeclaration ? codeLine.cpxFactors.add(tree.cpxFactors) : codeLine.cpxFactors.add(childTree.cpxFactors);
+    private increaseLineCpxFactors(tree: TreeNode, codeLine: CodeLine, isTopNode?: boolean): void {
+        console.log('RECURSION ?', tree.kind, tree.isRecursiveMethod, codeLine.cpxFactors.structural.recursion)
+        if (!codeLine.isCommented) {
+            codeLine.cpxFactors = codeLine.cpxFactors.add(tree?.cpxFactors);
+            // console.log('RECURSION EQUALS ', tree.kind, codeLine.cpxFactors.structural.recursion)
+
+        }
+
     }
 
 

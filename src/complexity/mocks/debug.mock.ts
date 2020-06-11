@@ -1,8 +1,14 @@
 export class DebugMock {
-    // keycloakService;
-    logout() {
-        this.logout();
+    ifAlone(a) {
+        if (a) {
+            return 'b';
+        }
     }
+
+    // keycloakService;
+    // logout() {
+    //     this.logout();
+    // }
 
 }
 
