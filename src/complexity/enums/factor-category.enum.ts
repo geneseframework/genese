@@ -5,6 +5,7 @@ export enum FactorCategory {
     CONTEXT = 'context',
     DEPTH = 'depth',
     NESTING = 'nesting',
+    RECURSION = 'recursion',
     STRUCTURAL = 'structural'
 
 }

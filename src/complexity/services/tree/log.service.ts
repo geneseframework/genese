@@ -47,9 +47,26 @@ export class LogService {
         } else {
             color = childTree.cpxFactors.total > 1 ? 'red' : 'yellow';
         }
-        console.log(indent, chalk[color](childTree.kind), 'str', childTree.structuralCpx, 'nest', childTree.nestingCpx, 'depth', childTree.depthCpx, 'aggr', childTree.aggregationCpx, 'context :', chalk['blueBright'](childTree.context?.name), 'parent :', chalk['greenBright'](childTree.parent?.kind));
+        let logs = [];
+        logs.push(indent);
+        logs.push(chalk[color](childTree.kind));
+        logs = logs.concat(LogService.addLog('structural', childTree.structuralCpx));
+        logs = logs.concat(LogService.addLog('nesting', childTree.nestingCpx));
+        logs = logs.concat(LogService.addLog('depth', childTree.depthCpx));
+        logs = logs.concat(LogService.addLog('aggregation', childTree.aggregationCpx));
+        logs = logs.concat(LogService.addLog('recursivity', childTree.recursionCpx));
+        logs.push('context :');
+        logs.push(chalk.blueBright(childTree.context?.name));
+        logs.push('parent :');
+        logs.push(chalk.greenBright(childTree.parent?.kind));
+        console.log(...logs)
 
 
+    }
+
+
+    private static addLog(text: string, value: number): any[] {
+        return value > 0 ? [text, value] : [];
     }
 
 }

@@ -8,6 +8,7 @@ const basic_cpx_model_1 = require("./basic-cpx.model");
 const structural_cpx_model_1 = require("./structural-cpx.model");
 const depth_cpx_model_1 = require("./depth-cpx.model");
 const context_cpx_model_1 = require("./context-cpx.model");
+const recursion_cpx_model_1 = require("./recursion-cpx.model");
 class CpxFactors {
     constructor() {
         this.aggregation = new aggregation_cpx_model_1.AggregationCpx();
@@ -15,6 +16,7 @@ class CpxFactors {
         this.context = new context_cpx_model_1.ContextCpx();
         this.depth = new depth_cpx_model_1.DepthCpx();
         this.nesting = new nesting_cpx_model_1.NestingCpx();
+        this.recursion = new recursion_cpx_model_1.RecursionCpx();
         this.structural = new structural_cpx_model_1.StructuralCpx();
     }
     get total() {
@@ -36,6 +38,9 @@ class CpxFactors {
     }
     get totalNesting() {
         return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.NESTING);
+    }
+    get totalRecursion() {
+        return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.RECURSION);
     }
     get totalStructural() {
         return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.STRUCTURAL);

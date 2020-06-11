@@ -193,6 +193,11 @@ export class TreeNode extends Evaluable {
     }
 
 
+    get recursionCpx(): number {
+        return this.cpxFactors.totalRecursion;
+    }
+
+
     get secondSon(): TreeNode {
         return this.treeNodeService.getSon(this, 1);
     }
@@ -295,8 +300,8 @@ export class TreeNode extends Evaluable {
 
 
     private setRecursionOrCallbackCpxFactors(): void {
-        this.cpxFactors.structural.recursion = this.isRecursiveMethod ? cpxFactors.structural.recursion : 0;
-        this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
+        this.cpxFactors.recursion.recursivity = this.isRecursiveMethod ? cpxFactors.recursion.recursivity : 0;
+        this.cpxFactors.recursion.callback = this.isCallback ? cpxFactors.recursion.callback : 0;
     }
 
 
