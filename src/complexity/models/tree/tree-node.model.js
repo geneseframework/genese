@@ -114,9 +114,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
         return this.treeNodeService.isCallback(this);
     }
     get isCallIdentifier() {
-        if (ast_service_1.Ast.isCallIdentifier(this.node)) {
-            console.log('IS CALL IDTF', this.kind, this.name, this === this.parent.secondSon);
-        }
+        // if (Ast.isCallIdentifier(this.node)) {
+        //     console.log('IS CALL IDTF', this.kind, this.name, this === this.parent.secondSon)
+        // }
         return ast_service_1.Ast.isCallIdentifier(this.node) && this === this.parent.firstSon;
     }
     get isFunctionOrMethodDeclaration() {
@@ -173,6 +173,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
     get sourceFile() {
         var _a;
         return (_a = __classPrivateFieldGet(this, _treeFile)) === null || _a === void 0 ? void 0 : _a.sourceFile;
+    }
+    get structuralCpx() {
+        return this.cpxFactors.totalStructural;
     }
     get treeFile() {
         return __classPrivateFieldGet(this, _treeFile);
@@ -239,10 +242,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
     }
     setRecursionOrCallbackCpxFactors() {
         this.cpxFactors.structural.recursion = this.isRecursiveMethod ? cpx_factors_1.cpxFactors.structural.recursion : 0;
-        // console.log('RECURSION', this.kind, this.cpxFactors.structural.recursion)
-        // console.log('IS CALLBCK', this.kind, this.name, this.isCallback)
         this.cpxFactors.structural.callback = this.isCallback ? cpx_factors_1.cpxFactors.structural.callback : 0;
-        console.log('CPXCALLB', this.kind, this.name, this.cpxFactors.structural.callback);
     }
     setRegexCpxFactors() {
         if (this.feature === node_feature_enum_1.NodeFeature.REGEX) {

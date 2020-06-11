@@ -10,8 +10,9 @@ class LogService {
      * This method runs, but is not yet used
      */
     static printAllChildren(treeNode) {
+        var _a;
         console.log('------------------------------------');
-        console.log('METHOD ', treeNode.name);
+        console.log('METHOD ', treeNode.name, ' : ', (_a = treeNode.treeMethod) === null || _a === void 0 ? void 0 : _a.cpxIndex);
         console.log('------------------------------------');
         this.logTreeNode(treeNode, '');
         this.printChildren(treeNode, ' ');
@@ -38,7 +39,7 @@ class LogService {
         else {
             color = childTree.cpxFactors.total > 1 ? 'red' : 'yellow';
         }
-        console.log(indent, chalk[color](childTree.kind), 'nesting', childTree.nestingCpx, 'depth', childTree.depthCpx, 'aggr', childTree.aggregationCpx, 'context :', chalk['blueBright']((_a = childTree.context) === null || _a === void 0 ? void 0 : _a.name), 'parent :', chalk['greenBright']((_b = childTree.parent) === null || _b === void 0 ? void 0 : _b.kind));
+        console.log(indent, chalk[color](childTree.kind), 'str', childTree.structuralCpx, 'nest', childTree.nestingCpx, 'depth', childTree.depthCpx, 'aggr', childTree.aggregationCpx, 'context :', chalk['blueBright']((_a = childTree.context) === null || _a === void 0 ? void 0 : _a.name), 'parent :', chalk['greenBright']((_b = childTree.parent) === null || _b === void 0 ? void 0 : _b.kind));
     }
 }
 exports.LogService = LogService;

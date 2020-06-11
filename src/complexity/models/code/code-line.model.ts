@@ -29,7 +29,7 @@ export class CodeLine {
         this.cpxFactors.depth = new DepthCpx();
         for (const treeNode of this.treeNodes) {
             if (treeNode.intrinsicNestingCpx > 0) {
-                // console.log('KIND', Ast.getKind(treeNode.node), 'NESTING', treeNode.parent?.cpxFactors?.nesting, 'DEPTH', treeNode.cpxFactors?.depth)
+                // console.log('INTRINSIVV', treeNode.kind, treeNode.name, 'NESTING', treeNode.parent?.cpxFactors?.nesting, 'DEPTH', treeNode.cpxFactors?.depth)
                 this.cpxFactors.depth = addObjects(this.cpxFactors.depth, treeNode.cpxFactors?.depth);
                 this.cpxFactors.nesting = addObjects(this.cpxFactors.nesting, treeNode.parent?.cpxFactors?.nesting);
             }

@@ -168,7 +168,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
                 startedUncommentedLines = true;
             }
             else if (startedUncommentedLines) {
-                codeLine.cpxFactors.structural.callback += tree.cpxFactors.structural.callback;
+                // codeLine.cpxFactors.structural.callback += tree.cpxFactors.structural.callback;
                 this.increaseLineCpxFactors(childTree, codeLine);
             }
             __classPrivateFieldGet(this, _displayedCode).lines[issue].treeNodes.push(childTree);
@@ -179,7 +179,7 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         // console.log('CPXFACTORS CB = ', tree.kind, tree.name, tree.cpxFactors.structural.callback)
         if (!codeLine.isCommented) {
             codeLine.cpxFactors = codeLine.cpxFactors.add(tree === null || tree === void 0 ? void 0 : tree.cpxFactors);
-            // console.log('CPXFACTORS CB = ', tree.kind, tree.name, tree.cpxFactors.structural.callback)
+            console.log('CPXFACTORS STRRRR = ', tree.kind, tree.name, tree.structuralCpx);
         }
     }
     /**

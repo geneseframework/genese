@@ -190,7 +190,7 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
                 this.increaseLineCpxFactors(tree, codeLine);
                 startedUncommentedLines = true;
             } else if (startedUncommentedLines) {
-                codeLine.cpxFactors.structural.callback += tree.cpxFactors.structural.callback;
+                // codeLine.cpxFactors.structural.callback += tree.cpxFactors.structural.callback;
 
                 this.increaseLineCpxFactors(childTree, codeLine);
 
@@ -205,7 +205,7 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
         // console.log('CPXFACTORS CB = ', tree.kind, tree.name, tree.cpxFactors.structural.callback)
         if (!codeLine.isCommented) {
             codeLine.cpxFactors = codeLine.cpxFactors.add(tree?.cpxFactors);
-            // console.log('CPXFACTORS CB = ', tree.kind, tree.name, tree.cpxFactors.structural.callback)
+            console.log('CPXFACTORS STRRRR = ', tree.kind, tree.name, tree.structuralCpx)
         }
 
     }

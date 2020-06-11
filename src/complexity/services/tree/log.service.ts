@@ -18,7 +18,7 @@ export class LogService {
      */
     static printAllChildren(treeNode: TreeNode){
         console.log('------------------------------------');
-        console.log('METHOD ', treeNode.name);
+        console.log('METHOD ', treeNode.name, ' : ', treeNode.treeMethod?.cpxIndex);
         console.log('------------------------------------');
         this.logTreeNode(treeNode, '');
         this.printChildren(treeNode, ' ');
@@ -47,7 +47,7 @@ export class LogService {
         } else {
             color = childTree.cpxFactors.total > 1 ? 'red' : 'yellow';
         }
-        console.log(indent, chalk[color](childTree.kind), 'nesting', childTree.nestingCpx, 'depth', childTree.depthCpx, 'aggr', childTree.aggregationCpx, 'context :', chalk['blueBright'](childTree.context?.name), 'parent :', chalk['greenBright'](childTree.parent?.kind));
+        console.log(indent, chalk[color](childTree.kind), 'str', childTree.structuralCpx, 'nest', childTree.nestingCpx, 'depth', childTree.depthCpx, 'aggr', childTree.aggregationCpx, 'context :', chalk['blueBright'](childTree.context?.name), 'parent :', chalk['greenBright'](childTree.parent?.kind));
 
 
     }

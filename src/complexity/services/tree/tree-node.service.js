@@ -73,11 +73,11 @@ class TreeNodeService {
         if (!treeNode.isParam) {
             return false;
         }
-        console.log('PARAMMMMM', treeNode.kind, treeNode.name, 'CTXT', treeNode.context.name);
+        // console.log('PARAMMMMM', treeNode.kind, treeNode.name, 'CTXT', treeNode.context.name)
         const zzz = this.hasCallBack(treeNode, treeNode.parent);
-        if (zzz) {
-            console.log('ZZZ', zzz);
-        }
+        // if (zzz) {
+        //     console.log('ZZZ', zzz)
+        // }
         return zzz;
         // return treeNode.isCallIdentifier && treeNode.parentFunction.params.includes(treeNode.name);
     }
@@ -100,9 +100,9 @@ class TreeNodeService {
     }
     hasCallBack(treeNodeParam, treeNode) {
         for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
-            console.log('    CHILD', childTreeNode.kind, childTreeNode.name, 'CTXT', childTreeNode.context.name, childTreeNode.isCallIdentifier);
+            // console.log('    CHILD', childTreeNode.kind, childTreeNode.name, 'CTXT', childTreeNode.context.name, childTreeNode.isCallIdentifier)
             if (childTreeNode.name === treeNodeParam.name && childTreeNode.context === treeNodeParam.context && childTreeNode.isCallIdentifier) {
-                console.log('OKKKK');
+                // console.log('OKKKK')
                 return true;
             }
             if (this.hasCallBack(treeNodeParam, childTreeNode)) {

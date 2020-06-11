@@ -133,9 +133,9 @@ export class TreeNode extends Evaluable {
 
 
     get isCallIdentifier(): boolean {
-        if (Ast.isCallIdentifier(this.node)) {
-            console.log('IS CALL IDTF', this.kind, this.name, this === this.parent.secondSon)
-        }
+        // if (Ast.isCallIdentifier(this.node)) {
+        //     console.log('IS CALL IDTF', this.kind, this.name, this === this.parent.secondSon)
+        // }
         return Ast.isCallIdentifier(this.node) && this === this.parent.firstSon;
     }
 
@@ -218,6 +218,11 @@ export class TreeNode extends Evaluable {
 
     get sourceFile(): ts.SourceFile {
         return this.#treeFile?.sourceFile;
+    }
+
+
+    get structuralCpx(): number {
+        return this.cpxFactors.totalStructural;
     }
 
 
@@ -309,10 +314,7 @@ export class TreeNode extends Evaluable {
 
     private setRecursionOrCallbackCpxFactors(): void {
         this.cpxFactors.structural.recursion = this.isRecursiveMethod ? cpxFactors.structural.recursion : 0;
-        // console.log('RECURSION', this.kind, this.cpxFactors.structural.recursion)
-        // console.log('IS CALLBCK', this.kind, this.name, this.isCallback)
         this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
-        console.log('CPXCALLB', this.kind, this.name, this.cpxFactors.structural.callback)
     }
 
 
