@@ -1,14 +1,14 @@
 .mainContainer {
     padding: 20px;
-    /* background-color: #dfe6e9; */
-    background-color: #fd79a8;
+    background-color: #dfe6e9;
+    /* background-color: #fd79a8; */
 }
 
 .header {
-    /* background-color: #e84393; */
+    /* background-color: #e84393;
+    color: #0984e3; */
     background-color: #38ada9;
     color: #0a3d62;
-    /* color: #0984e3; */
     padding: 20px;
     display: flex;
     flex-direction: row;
@@ -78,8 +78,8 @@
 
 .stats-cognitive,
 .stats-cyclomatic {
-    /* background-color: #fff; */
-    background-color: #A3CB38;
+    background-color: #fff;
+    /* background-color: #A3CB38; */
     border-radius: 5px;
 }
 
@@ -130,8 +130,8 @@
 /************ TABLE ************/
 
 .subfolders {
-    /* background-color: #fff; */
-    background-color: #A3CB38;
+    background-color: #fff;
+    /* background-color: #A3CB38; */
     border-radius: 5px;
     padding: 1em;
     margin-top: 1em;
