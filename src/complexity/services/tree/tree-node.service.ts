@@ -84,13 +84,7 @@ export class TreeNodeService {
         if (!treeNode.isParam) {
             return false;
         }
-        // console.log('PARAMMMMM', treeNode.kind, treeNode.name, 'CTXT', treeNode.context.name)
-        const  zzz = this.hasCallBack(treeNode, treeNode.parent);
-        // if (zzz) {
-        //     console.log('ZZZ', zzz)
-        // }
-        return zzz
-        // return treeNode.isCallIdentifier && treeNode.parentFunction.params.includes(treeNode.name);
+        return  this.hasCallBack(treeNode, treeNode.parent);
     }
 
 
@@ -117,9 +111,7 @@ export class TreeNodeService {
 
     private hasCallBack(treeNodeParam: TreeNode, treeNode?: TreeNode): boolean {
         for (const childTreeNode of treeNode?.children) {
-            // console.log('    CHILD', childTreeNode.kind, childTreeNode.name, 'CTXT', childTreeNode.context.name, childTreeNode.isCallIdentifier)
             if (childTreeNode.name === treeNodeParam.name && childTreeNode.context === treeNodeParam.context && childTreeNode.isCallIdentifier) {
-                // console.log('OKKKK')
                 return true;
             }
             if (this.hasCallBack(treeNodeParam, childTreeNode)) {

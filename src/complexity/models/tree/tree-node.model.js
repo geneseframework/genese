@@ -49,22 +49,13 @@ class TreeNode extends evaluable_model_1.Evaluable {
     get aggregationCpx() {
         return this.cpxFactors.totalAggregation;
     }
-    /**
-     * Gets the context of this TreeNode
-     */
     get context() {
         var _a;
         return (_a = __classPrivateFieldGet(this, _context)) !== null && _a !== void 0 ? _a : this.treeNodeService.getContext(this);
     }
-    /**
-     * Sets the context of this TreeNode
-     */
     set context(treeNode) {
         __classPrivateFieldSet(this, _context, treeNode);
     }
-    /**
-     * Gets the global nesting complexity of the node, including the nesting cpx of its parents
-     */
     get cpxFactors() {
         var _a;
         return (_a = __classPrivateFieldGet(this, _cpxFactors)) !== null && _a !== void 0 ? _a : this.calculateAndSetCpxFactors();
@@ -106,17 +97,10 @@ class TreeNode extends evaluable_model_1.Evaluable {
     set intrinsicNestingCpx(cpx) {
         __classPrivateFieldSet(this, _intrinsicNestingCpx, cpx);
     }
-    /**
-     * Checks if this TreeNode is a recursion, ie a call to a parameter of its ParentFunction.
-     * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
-     */
     get isCallback() {
         return this.treeNodeService.isCallback(this);
     }
     get isCallIdentifier() {
-        // if (Ast.isCallIdentifier(this.node)) {
-        //     console.log('IS CALL IDTF', this.kind, this.name, this === this.parent.secondSon)
-        // }
         return ast_service_1.Ast.isCallIdentifier(this.node) && this === this.parent.firstSon;
     }
     get isFunctionOrMethodDeclaration() {
@@ -125,9 +109,6 @@ class TreeNode extends evaluable_model_1.Evaluable {
     get isParam() {
         return ast_service_1.Ast.isParam(this.node);
     }
-    /**
-     * Checks if this TreeNode is a recursive method.
-     */
     get isRecursiveMethod() {
         return this.treeNodeService.isRecursiveMethod(this);
     }

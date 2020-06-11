@@ -1,4 +1,3 @@
-import { CallbacksMock } from './mocks-subfolder/callbacks.mock';
 var z;
 export class DebugMock {
 
@@ -19,6 +18,6 @@ export class DebugMock {
 
 }
 
-// function ctxt (a) {
-//     console.log(a('b'));
-// }
+function ctxt (a) {
+    console.log(a('b'));
+}

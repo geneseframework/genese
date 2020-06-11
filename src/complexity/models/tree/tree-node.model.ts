@@ -47,25 +47,16 @@ export class TreeNode extends Evaluable {
     }
 
 
-    /**
-     * Gets the context of this TreeNode
-     */
     get context(): TreeNode {
         return this.#context ?? this.treeNodeService.getContext(this);
     }
 
 
-    /**
-     * Sets the context of this TreeNode
-     */
     set context(treeNode: TreeNode) {
         this.#context = treeNode;
     }
 
 
-    /**
-     * Gets the global nesting complexity of the node, including the nesting cpx of its parents
-     */
     get cpxFactors(): CpxFactors {
         return this.#cpxFactors ?? this.calculateAndSetCpxFactors();
     }
@@ -123,19 +114,12 @@ export class TreeNode extends Evaluable {
     }
 
 
-    /**
-     * Checks if this TreeNode is a recursion, ie a call to a parameter of its ParentFunction.
-     * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
-     */
     get isCallback(): boolean {
         return this.treeNodeService.isCallback(this);
     }
 
 
     get isCallIdentifier(): boolean {
-        // if (Ast.isCallIdentifier(this.node)) {
-        //     console.log('IS CALL IDTF', this.kind, this.name, this === this.parent.secondSon)
-        // }
         return Ast.isCallIdentifier(this.node) && this === this.parent.firstSon;
     }
 
@@ -149,9 +133,7 @@ export class TreeNode extends Evaluable {
         return Ast.isParam(this.node);
     }
 
-    /**
-     * Checks if this TreeNode is a recursive method.
-     */
+
     get isRecursiveMethod(): boolean {
         return this.treeNodeService.isRecursiveMethod(this);
     }

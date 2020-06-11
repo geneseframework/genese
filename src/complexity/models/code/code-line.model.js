@@ -15,6 +15,7 @@ class CodeLine {
         this.text = ''; // The text of the line
         this.treeNodes = [];
     }
+    // TODO : Add case /* */
     get isCommented() {
         return this.text.trim().slice(0, 2) === `//`;
     }
@@ -27,7 +28,6 @@ class CodeLine {
         this.cpxFactors.depth = new depth_cpx_model_1.DepthCpx();
         for (const treeNode of this.treeNodes) {
             if (treeNode.intrinsicNestingCpx > 0) {
-                // console.log('INTRINSIVV', treeNode.kind, treeNode.name, 'NESTING', treeNode.parent?.cpxFactors?.nesting, 'DEPTH', treeNode.cpxFactors?.depth)
                 this.cpxFactors.depth = tools_service_1.addObjects(this.cpxFactors.depth, (_a = treeNode.cpxFactors) === null || _a === void 0 ? void 0 : _a.depth);
                 this.cpxFactors.nesting = tools_service_1.addObjects(this.cpxFactors.nesting, (_c = (_b = treeNode.parent) === null || _b === void 0 ? void 0 : _b.cpxFactors) === null || _c === void 0 ? void 0 : _c.nesting);
             }
