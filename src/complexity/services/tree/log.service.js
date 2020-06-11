@@ -39,7 +39,22 @@ class LogService {
         else {
             color = childTree.cpxFactors.total > 1 ? 'red' : 'yellow';
         }
-        console.log(indent, chalk[color](childTree.kind), 'str', childTree.structuralCpx, 'nest', childTree.nestingCpx, 'depth', childTree.depthCpx, 'aggr', childTree.aggregationCpx, 'context :', chalk['blueBright']((_a = childTree.context) === null || _a === void 0 ? void 0 : _a.name), 'parent :', chalk['greenBright']((_b = childTree.parent) === null || _b === void 0 ? void 0 : _b.kind));
+        let logs = [];
+        logs.push(indent);
+        logs.push(chalk[color](childTree.kind));
+        logs = logs.concat(LogService.addLog('structural', childTree.structuralCpx));
+        logs = logs.concat(LogService.addLog('nesting', childTree.nestingCpx));
+        logs = logs.concat(LogService.addLog('depth', childTree.depthCpx));
+        logs = logs.concat(LogService.addLog('aggregation', childTree.aggregationCpx));
+        logs = logs.concat(LogService.addLog('recursivity', childTree.recursionCpx));
+        logs.push('context :');
+        logs.push(chalk.blueBright((_a = childTree.context) === null || _a === void 0 ? void 0 : _a.name));
+        logs.push('parent :');
+        logs.push(chalk.greenBright((_b = childTree.parent) === null || _b === void 0 ? void 0 : _b.kind));
+        console.log(...logs);
+    }
+    static addLog(text, value) {
+        return value > 0 ? [text, value] : [];
     }
 }
 exports.LogService = LogService;

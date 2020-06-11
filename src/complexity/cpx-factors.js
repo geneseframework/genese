@@ -22,17 +22,21 @@ complexityFactors.nesting = {
     loop: 0.5,
     ternary: 2 // Ternaries inside other ternaries
 };
+complexityFactors.recursion = {
+    callback: 2,
+    recursivity: 3 // Recursive method (call to the node's method)
+};
 complexityFactors.structural = {
     arr: 0.1,
     asynchronicity: 1,
-    callback: 2,
+    // callback: 2,                        // Callback (call to a parameter of the parentFunction (ie method) of the node)
     conditional: 1,
     externalBinding: 3,
     func: 1,
     jump: 1,
     logicDoor: 1,
     loop: 1,
-    recursion: 3,
+    // recursion: 3,                       // Recursion (call to the node's method)
     regex: 1,
     ternary: 1 // Ternary expression
 };
