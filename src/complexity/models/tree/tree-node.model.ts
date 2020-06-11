@@ -78,7 +78,7 @@ export class TreeNode extends Evaluable {
 
 
     get firstSon(): TreeNode {
-        return this.treeNodeService.getSon(this, 0);
+        return this.getSon(0);
     }
 
 
@@ -199,7 +199,7 @@ export class TreeNode extends Evaluable {
 
 
     get secondSon(): TreeNode {
-        return this.treeNodeService.getSon(this, 1);
+        return this.getSon(1);
     }
 
 
@@ -244,6 +244,11 @@ export class TreeNode extends Evaluable {
     evaluate(): void {
         this.calculateAndSetCpxFactors();
         this.addParentCpx();
+    }
+
+
+    getSon(sonNumber: number): TreeNode {
+        return this.children[sonNumber];
     }
 
 

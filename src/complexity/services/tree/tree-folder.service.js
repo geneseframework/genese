@@ -17,7 +17,7 @@ class TreeFolderService extends stats_service_1.StatsService {
     constructor() {
         super();
         this._stats = undefined; // The statistics of the TreeFolder
-        this.treeFileService = new tree_file_service_1.TreeFileService();
+        this.treeFileService = new tree_file_service_1.TreeFileService(); // The service managing TreeFiles
         this.treeFolder = undefined; // The TreeFolder corresponding to this service
     }
     /**

@@ -71,7 +71,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
         return (_a = __classPrivateFieldGet(this, _feature)) !== null && _a !== void 0 ? _a : this.nodeFeatureService.getFeature(this.node);
     }
     get firstSon() {
-        return this.treeNodeService.getSon(this, 0);
+        return this.getSon(0);
     }
     /**
      * Gets the depth complexity of the node itself, not from its parents
@@ -152,7 +152,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
         return this.cpxFactors.totalRecursion;
     }
     get secondSon() {
-        return this.treeNodeService.getSon(this, 1);
+        return this.getSon(1);
     }
     get sourceFile() {
         var _a;
@@ -182,6 +182,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
     evaluate() {
         this.calculateAndSetCpxFactors();
         this.addParentCpx();
+    }
+    getSon(sonNumber) {
+        return this.children[sonNumber];
     }
     calculateAndSetCpxFactors() {
         this.setGeneralCaseCpxFactors();
