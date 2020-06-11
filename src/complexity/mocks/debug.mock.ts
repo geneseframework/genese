@@ -1,10 +1,13 @@
 export class DebugMock {
-    // ifAlone(a) {
-    //     if (a) {
-    //         return 'b';
-    //     }
-    // }
-    //
+
+    /* comments
+    */
+    ifAlone(a) {
+        if (a) {
+            return 'b';
+        }
+    }
+
     keycloakService;
     logout() {
         this.logout();
@@ -12,6 +15,6 @@ export class DebugMock {
 
 }
 
-// function ctxt () {
-//     console.log(this);
-// }
+function ctxt () {
+    console.log(this);
+}
