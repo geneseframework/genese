@@ -109,23 +109,27 @@ class TreeNodeService {
     // }
     //
     //
-    isRecursiveMethod(treeNodeMethod) {
-        if (!treeNodeMethod.isFunctionOrMethodDeclaration) {
+    isRecursiveMethod(treeNode) {
+        if (!treeNode.isFunctionOrMethodDeclaration) {
             return false;
         }
-        return this.hasRecursiveNode(treeNodeMethod, treeNodeMethod);
+        console.log('TRMTHD', treeNode.treeMethod);
+        return this.hasRecursiveNode(treeNode.treeMethod, treeNode);
     }
     hasRecursiveNode(treeNodeMethod, treeNode) {
-        // console.log('HAS RECURSIVE ? ', treeNode)
-        for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
-            // console.log('METHOF', treeNodeMethod.name, 'NODE', treeNode.name)
-            if (treeNode.name === treeNodeMethod.name && treeNode.context === treeNodeMethod.context) {
-                return true;
-            }
-            if (this.hasRecursiveNode(treeNodeMethod, childTreeNode)) {
-                return true;
-            }
-        }
+        console.log('HAS RECURSIVE ? ', treeNode.kind);
+        // for (const childTreeNode of treeNode?.children) {
+        //     console.log('METHOF', treeNodeMethod.name, 'NODE', treeNode.name)
+        //     if (childTreeNode.name === treeNodeMethod.name && treeNode.context === treeNodeMethod.treeNode.context) {
+        //         console.log('RETURN TRUE 1')
+        //         return true;
+        //     }
+        //     if (this.hasRecursiveNode(treeNodeMethod, childTreeNode)) {
+        //         console.log('RETURN TRUE 2')
+        //         return true;
+        //     }
+        // }
+        console.log('RETURN FALSE');
         return false;
     }
 }

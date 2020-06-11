@@ -16,6 +16,7 @@ class TreeMethodService {
             if (childTreeNode.isFunctionOrMethodDeclaration) {
                 childTreeNode.treeMethod = this.createMethod(childTreeNode);
                 // TODO : Link the method to the node
+                treeNode.treeMethod = childTreeNode.treeMethod;
                 treeMethods.push(childTreeNode.treeMethod);
             }
             else {

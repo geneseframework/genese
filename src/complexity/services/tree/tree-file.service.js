@@ -29,7 +29,7 @@ class TreeFileService extends stats_service_1.StatsService {
      */
     generateTree(path, treeFolder = new tree_folder_model_1.TreeFolder()) {
         var _a;
-        const treeFile = new tree_file_model_1.TreeFile();
+        let treeFile = new tree_file_model_1.TreeFile();
         treeFile.sourceFile = ast_service_1.Ast.getSourceFile(path);
         treeFile.name = (_a = treeFile.sourceFile) === null || _a === void 0 ? void 0 : _a.fileName;
         treeFile.treeNode = new tree_node_model_1.TreeNode();
@@ -38,13 +38,45 @@ class TreeFileService extends stats_service_1.StatsService {
         treeFile.treeFolder = treeFolder;
         this.treeNodeService.createTreeNodeChildren(treeFile.treeNode);
         this.setContextToTreeNodeChildren(treeFile.treeNode);
+        treeFile.treeNodes = this.setTreeNodes(treeFile.treeNode, [treeFile.treeNode]);
+        console.log('NODESSSS', treeFile.treeNodes.length);
+        for (const treeNode of treeFile.treeNodes) {
+            console.log('????', treeNode.kind, treeNode.name);
+        }
+        // console.log('NODESSSS', treeFile.treeNodes.map(e => e.kind))
         treeFile.treeMethods = this.treeMethodService.createTreeMethods(treeFile.treeNode);
+        // for (const children of )
         treeFile.evaluate();
         return treeFile;
+    }
+    setTreeNodes(treeNode, treeNodes) {
+        let acc = [];
+        let nodes = treeNodes;
+        for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
+            treeNodes.push(childTreeNode);
+            if (childTreeNode.children.length > 0) {
+                treeNodes = treeNodes.concat(this.setTreeNodes(childTreeNode, []));
+                // for (const granChild of childTreeNode.children) {
+                //     treeNodes = treeNodes.concat(this.setTreeNodes(granChild, treeNodes));
+                //
+                // }
+                // return treeNodes;
+            }
+            // treeNodes.push(childTreeNode);
+        }
+        // for (const el of treeNodes) {
+        //     treeNodes.concat(this.setTreeNodes(el, treeNodes))
+        // }
+        // nodes.push(childTreeNode);
+        // console.log('TREENDSss', nodes)
+        // nodes = nodes.concat(this.setTreeNodes(childTreeNode, nodes));
+        // console.log('TREENDSss', nodes)
+        return treeNodes;
     }
     setContextToTreeNodeChildren(treeNode) {
         for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
             childTreeNode.context = this.treeNodeService.getContext(childTreeNode);
+            // childTreeNode.treeMethod = new TreeMethod();
             // console.log(chalk.blueBright('CONTEXT OF '), childTreeNode.kind, childTreeNode.name, ' = ', childTreeNode.context?.kind,  childTreeNode.context?.name);
             this.setContextToTreeNodeChildren(childTreeNode);
         }
