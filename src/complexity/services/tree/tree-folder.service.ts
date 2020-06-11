@@ -16,9 +16,9 @@ import { DEBUG } from '../../main';
  */
 export class TreeFolderService extends StatsService {
 
-    protected _stats: Stats = undefined;            // The statistics of the TreeFolder
-    treeFileService?: TreeFileService = new TreeFileService();
-    treeFolder: TreeFolder = undefined;             // The TreeFolder corresponding to this service
+    protected _stats: Stats = undefined;                        // The statistics of the TreeFolder
+    treeFileService?: TreeFileService = new TreeFileService();  // The service managing TreeFiles
+    treeFolder: TreeFolder = undefined;                         // The TreeFolder corresponding to this service
 
     constructor() {
         super();

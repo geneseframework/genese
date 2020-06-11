@@ -10,6 +10,10 @@ export class TreeMethodService {
     codeService?: CodeService = new CodeService();
 
 
+    /**
+     * Updates a TreeNode by adding a new TreeMethod with its code
+     * @param treeNode      // The TreeNode to update
+     */
     setNodeMethod(treeNode: TreeNode): TreeNode {
         const treeMethod = new TreeMethod();
         treeMethod.treeNode = treeNode;

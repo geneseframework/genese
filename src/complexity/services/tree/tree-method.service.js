@@ -9,6 +9,10 @@ class TreeMethodService {
     constructor() {
         this.codeService = new code_service_1.CodeService();
     }
+    /**
+     * Updates a TreeNode by adding a new TreeMethod with its code
+     * @param treeNode      // The TreeNode to update
+     */
     setNodeMethod(treeNode) {
         const treeMethod = new tree_method_model_1.TreeMethod();
         treeMethod.treeNode = treeNode;
