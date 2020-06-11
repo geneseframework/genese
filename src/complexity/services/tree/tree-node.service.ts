@@ -1,7 +1,6 @@
 import * as ts from 'typescript';
 import { Ast } from '../ast.service';
 import { TreeNode } from '../../models/tree/tree-node.model';
-import { MayDefineContext } from '../../enums/may-define-context.enum';
 import { TreeMethodService } from './tree-method.service';
 import { TreeMethod } from '../../models/tree/tree-method.model';
 
@@ -78,11 +77,10 @@ export class TreeNodeService {
     }
 
 
-    mayDefineContext(treeNode: TreeNode): boolean {
-        return Object.values(MayDefineContext).includes(treeNode.kind);
-    }
-
-
+    /**
+     * Checks if a TreeNode is a Callback (ie a parameter which is used later in a CallExpression)
+     * @param treeNode      // The TreeNode to check
+     */
     isCallback(treeNode: TreeNode): boolean {
         if (!treeNode.isParam) {
             return false;
@@ -91,6 +89,28 @@ export class TreeNodeService {
     }
 
 
+    /**
+     * Checks if a Parameter TreeNode is used in a CallExpression of its method
+     * @param treeNodeParam     // The Parameter TreeNode
+     * @param treeNode          // Parameter used for recursion
+     */
+    private hasCallBack(treeNodeParam: TreeNode, treeNode?: TreeNode): boolean {
+        for (const childTreeNode of treeNode?.children) {
+            if (childTreeNode.name === treeNodeParam.name && childTreeNode.context === treeNodeParam.context && childTreeNode.isCallIdentifier) {
+                return true;
+            }
+            if (this.hasCallBack(treeNodeParam, childTreeNode)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * Checks if a TreeNode is a recursive method (ie a MethodDeclaration or a FunctionDeclaration which is called from inside)
+     * @param treeNode      // The TreeNode to check
+     */
     isRecursiveMethod(treeNode: TreeNode): boolean {
         if (!treeNode.isFunctionOrMethodDeclaration) {
             return false;
@@ -99,25 +119,17 @@ export class TreeNodeService {
     }
 
 
+    /**
+     * Checks if a MethodDeclaration or a FunctionDeclaration TreeNode is called by one of its children
+     * @param treeNodeMethod     // The MethodDeclaration or FunctionDeclaration TreeNode
+     * @param treeNode          // Parameter used for recursion
+     */
     private hasRecursiveNode(treeNodeMethod: TreeMethod, treeNode?: TreeNode): boolean {
         for (const childTreeNode of treeNode?.children) {
             if (childTreeNode.name === treeNodeMethod.name && childTreeNode.context === treeNodeMethod.treeNode.context && !treeNode.isFunctionOrMethodDeclaration) {
                 return true;
             }
             if (this.hasRecursiveNode(treeNodeMethod, childTreeNode)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    private hasCallBack(treeNodeParam: TreeNode, treeNode?: TreeNode): boolean {
-        for (const childTreeNode of treeNode?.children) {
-            if (childTreeNode.name === treeNodeParam.name && childTreeNode.context === treeNodeParam.context && childTreeNode.isCallIdentifier) {
-                return true;
-            }
-            if (this.hasCallBack(treeNodeParam, childTreeNode)) {
                 return true;
             }
         }
