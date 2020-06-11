@@ -1,6 +1,5 @@
 import * as ts from 'typescript';
 import { TreeMethod } from './tree-method.model';
-import { IsAstNode } from '../../interfaces/is-ast-node';
 import { Evaluable } from '../evaluable.model';
 import { NodeFeature } from '../../enums/node-feature.enum';
 import { CpxFactors } from '../cpx-factor/cpx-factors.model';
@@ -8,28 +7,28 @@ import { cpxFactors } from '../../cpx-factors';
 import { addObjects } from '../../services/tools.service';
 import { NodeFeatureService } from '../../services/node-feature.service';
 import { Ast } from '../../services/ast.service';
-import { ParentFunction } from './parent-function.model';
 import { TreeNodeService } from '../../services/tree/tree-node.service';
+import { TreeFile } from './tree-file.model';
 
 /**
  * The formatted tree of elements corresponding to an Abstract Syntax TreeNode (AST)
  */
-export class TreeNode extends Evaluable implements IsAstNode {
+export class TreeNode extends Evaluable {
 
     children?: TreeNode[] = [];                                             // The children trees corresponding to children AST nodes of the current AST node
+    #context?: TreeNode = undefined;                                        // The context of the TreeNode
     #cpxFactors?: CpxFactors = new CpxFactors();                            // The complexity factors of the TreeNode
     #feature?: NodeFeature = undefined;                                     // The NodeFeature of the node of the TreeNode
     #intrinsicDepthCpx: number = undefined;                                 // The depth of the TreeNode inside its method (not including its parent's depth)
     #intrinsicNestingCpx: number = undefined;                               // The nesting of the TreeNode inside its method (not including its parent's nesting)
-    #kind: string = undefined;                                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
-    #name: string = undefined;
-    #nestingCpx: number = undefined;                                        // The nesting of the TreeNode inside its method (including its parent's nesting)
-    node?: ts.Node = undefined;                                             // The current node in the AST
+    #kind: string = undefined;                                              // The kind of the node ('MethodDeclaration, IfStatement, ...)
+    #name: string = undefined;                                              // The name of the TreeNode
+    #node?: ts.Node = undefined;                                            // The current node in the AST
     nodeFeatureService?: NodeFeatureService = new NodeFeatureService();     // The service managing NodeFeatures
-    parent?: TreeNode;                                                      // The tree of the parent of the current node
-    #parentFunction?: ParentFunction = undefined;
-    treeMethod?: TreeMethod = undefined;                                    // The method at the root of the current tree (if this tree is inside a method)
-    treeNodeService?: TreeNodeService = new TreeNodeService();     // The service managing NodeFeatures
+    #parent?: TreeNode;                                                     // The tree of the parent of the current node
+    #treeFile?: TreeFile = undefined;                                       // The TreeFile containing the AST node of the TreeNode
+    #treeMethod?: TreeMethod = undefined;                                   // The method at the root of the current tree (if this tree is inside a method)
+    treeNodeService?: TreeNodeService = new TreeNodeService();              // The service managing NodeFeatures
 
 
     constructor() {
@@ -48,17 +47,16 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
-    /**
-     * Gets the global nesting complexity of the node, including the nesting cpx of its parents
-     */
-    get parentFunction(): ParentFunction {
-        return this.#parentFunction ?? this.treeNodeService.setParentFunction(this);
+    get context(): TreeNode {
+        return this.#context ?? this.treeNodeService.getContext(this);
     }
 
 
-    /**
-     * Gets the global nesting complexity of the node, including the nesting cpx of its parents
-     */
+    set context(treeNode: TreeNode) {
+        this.#context = treeNode;
+    }
+
+
     get cpxFactors(): CpxFactors {
         return this.#cpxFactors ?? this.calculateAndSetCpxFactors();
     }
@@ -76,6 +74,11 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
     get feature(): NodeFeature {
         return this.#feature ?? this.nodeFeatureService.getFeature(this.node);
+    }
+
+
+    get firstSon(): TreeNode {
+        return this.treeNodeService.getSon(this, 0);
     }
 
 
@@ -111,22 +114,18 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
-    /**
-     * Checks if this TreeNode is a recursion, ie a call to a parameter of its ParentFunction.
-     * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
-     */
     get isCallback(): boolean {
         return this.treeNodeService.isCallback(this);
     }
 
 
-    get isFunction(): boolean {
-        return this.feature === NodeFeature.FUNC;
+    get isCallIdentifier(): boolean {
+        return Ast.isCallIdentifier(this.node) && this === this.parent.firstSon;
     }
 
 
-    get isMethodIdentifier(): boolean {
-        return Ast.isMethodIdentifier(this.node);
+    get isFunctionOrMethodDeclaration(): boolean {
+        return this.feature === NodeFeature.DECLARATION;
     }
 
 
@@ -135,17 +134,13 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
-    /**
-     * Checks if this TreeNode is a recursion, ie a call to this ParentFunction.
-     * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
-     */
-    get isRecursion(): boolean {
-        return this.treeNodeService.isRecursion(this);
+    get isRecursiveMethod(): boolean {
+        return this.treeNodeService.isRecursiveMethod(this);
     }
 
 
     get kind(): string {
-        return this.#kind ?? Ast.getType(this.node);
+        return this.#kind ?? Ast.getKind(this.node);
     }
 
 
@@ -154,11 +149,16 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
+    get mayDefineContext(): boolean {
+        return Ast.mayDefineContext(this.node);
+    }
+
+
     get name(): string {
         if (this.#name) {
             return this.#name;
         }
-        this.#name = this.node?.['name']?.['escapedText'] ?? this.node?.['escapedText'] ?? Ast.getType(this.node);
+        this.#name = this.node?.['name']?.['escapedText'] ?? this.node?.['escapedText'] ?? Ast.getKind(this.node);
         return this.#name;
     }
 
@@ -168,8 +168,63 @@ export class TreeNode extends Evaluable implements IsAstNode {
     }
 
 
-    set nestingCpx(cpx) {
-        this.#nestingCpx = cpx;
+    get node(): ts.Node {
+        return this.#node;
+    }
+
+
+    set node(node: ts.Node) {
+        this.#node = node;
+    }
+
+
+    get parent(): TreeNode {
+        return this.#parent;
+    }
+
+
+    set parent(treeNode: TreeNode) {
+        this.#parent = treeNode;
+    }
+
+
+    get position(): number {
+        return Ast.getPosition(this.node);
+    }
+
+
+    get secondSon(): TreeNode {
+        return this.treeNodeService.getSon(this, 1);
+    }
+
+
+    get sourceFile(): ts.SourceFile {
+        return this.#treeFile?.sourceFile;
+    }
+
+
+    get structuralCpx(): number {
+        return this.cpxFactors.totalStructural;
+    }
+
+
+    get treeFile(): TreeFile {
+        return this.#treeFile;
+    }
+
+
+    set treeFile(treeFile: TreeFile) {
+        this.#treeFile = treeFile;
+    }
+
+
+    get treeMethod(): TreeMethod {
+        return this.#treeMethod;
+    }
+
+
+    set treeMethod(treeMethod: TreeMethod) {
+        this.#treeMethod = treeMethod;
     }
 
 
@@ -179,7 +234,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
 
     /**
-     * Mandatory method for IsAstNode interface
+     * Mandatory method for HasTreeNode interface
      */
     evaluate(): void {
         this.calculateAndSetCpxFactors();
@@ -240,7 +295,7 @@ export class TreeNode extends Evaluable implements IsAstNode {
 
 
     private setRecursionOrCallbackCpxFactors(): void {
-        this.cpxFactors.structural.recursion = this.isRecursion ? cpxFactors.structural.recursion : 0;
+        this.cpxFactors.structural.recursion = this.isRecursiveMethod ? cpxFactors.structural.recursion : 0;
         this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
     }
 

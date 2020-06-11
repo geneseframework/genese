@@ -3,69 +3,105 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const ts = require("typescript");
 const ast_service_1 = require("../ast.service");
 const tree_node_model_1 = require("../../models/tree/tree-node.model");
-const parent_function_model_1 = require("../../models/tree/parent-function.model");
+const may_define_context_enum_1 = require("../../enums/may-define-context.enum");
+const tree_method_service_1 = require("./tree-method.service");
 /**
  * Service managing TreeNodes
  */
 class TreeNodeService {
-    /**
-     * Generates the TreeNode corresponding to a given TreeMethod
-     * @param treeMethod    // The TreeMethod in question
-     */
-    generateTree(treeMethod) {
-        let treeNode = new tree_node_model_1.TreeNode();
-        treeNode.node = treeMethod.node;
-        treeNode.nestingCpx = 0;
-        treeNode.treeMethod = treeMethod;
-        treeNode.kind = ast_service_1.Ast.getType(treeMethod.node);
-        treeNode = this.addTreeToChildren(treeNode);
-        return treeNode;
+    constructor() {
+        this.treeMethodService = new tree_method_service_1.TreeMethodService();
     }
     /**
      * Returns the TreeNode obtained by setting recursively TreeNodes for its children and subChildren
      * @param treeNode
      */
-    addTreeToChildren(treeNode) {
+    createTreeNodeChildren(treeNode) {
         ts.forEachChild(treeNode.node, (childNode) => {
             const newTree = new tree_node_model_1.TreeNode();
             childNode.parent = treeNode.node;
             newTree.node = childNode;
             newTree.treeMethod = treeNode.treeMethod;
             newTree.parent = treeNode;
-            newTree.kind = ast_service_1.Ast.getType(childNode);
-            newTree.evaluate();
-            treeNode.children.push(this.addTreeToChildren(newTree));
-            this.setParentFunction(newTree);
+            newTree.kind = ast_service_1.Ast.getKind(childNode);
+            newTree.treeFile = treeNode.treeFile;
+            treeNode.children.push(this.createTreeNodeChildren(newTree));
         });
         return treeNode;
     }
-    setParentFunction(treeNode) {
-        return (treeNode.isFunction) ? this.createParentFunction(treeNode) : this.getParentFunction(treeNode);
-    }
-    createParentFunction(treeNode) {
-        const parentFunction = new parent_function_model_1.ParentFunction();
-        return parentFunction.init(treeNode);
-    }
-    getParentFunction(treeNode) {
+    getContext(treeNode) {
+        var _a, _b, _c, _d, _e;
         if (!treeNode) {
             return undefined;
         }
-        if (treeNode.isFunction) {
-            return treeNode.parentFunction;
+        switch ((_a = treeNode.node) === null || _a === void 0 ? void 0 : _a.kind) {
+            case ts.SyntaxKind.SourceFile:
+                return treeNode;
+            case ts.SyntaxKind.Identifier:
+                return this.getIdentifierContext(treeNode);
+            case ts.SyntaxKind.ThisKeyword:
+                return (_c = (_b = treeNode.parent) === null || _b === void 0 ? void 0 : _b.context) === null || _c === void 0 ? void 0 : _c.context;
+            default:
+                if ((_d = treeNode.parent) === null || _d === void 0 ? void 0 : _d.mayDefineContext) {
+                    return treeNode.parent;
+                }
+                else {
+                    return (_e = treeNode.parent) === null || _e === void 0 ? void 0 : _e.context;
+                }
         }
-        if (treeNode.parent.isFunction) {
-            return treeNode.parent.parentFunction;
+    }
+    getIdentifierContext(treeNode) {
+        var _a, _b, _c, _d, _e;
+        if (this.isSecondSonOfPropertyAccessExpression(treeNode)) {
+            return ((_b = (_a = treeNode.parent) === null || _a === void 0 ? void 0 : _a.firstSon) === null || _b === void 0 ? void 0 : _b.mayDefineContext) ? (_c = treeNode.parent) === null || _c === void 0 ? void 0 : _c.firstSon : (_d = treeNode.parent) === null || _d === void 0 ? void 0 : _d.firstSon.context;
         }
         else {
-            return this.getParentFunction(treeNode.parent);
+            return (_e = treeNode.parent) === null || _e === void 0 ? void 0 : _e.context;
         }
     }
-    isCallback(treeNode) {
-        return treeNode.isMethodIdentifier && treeNode.parentFunction.params.includes(treeNode.name);
+    isSecondSonOfPropertyAccessExpression(treeNode) {
+        var _a;
+        return ast_service_1.Ast.isPropertyAccessExpression((_a = treeNode === null || treeNode === void 0 ? void 0 : treeNode.parent) === null || _a === void 0 ? void 0 : _a.node) && treeNode === (treeNode === null || treeNode === void 0 ? void 0 : treeNode.parent.secondSon);
     }
-    isRecursion(treeNode) {
-        var _a, _b;
-        return treeNode.name === treeNode.parentFunction.name && treeNode.isMethodIdentifier && !((_a = treeNode.parent) === null || _a === void 0 ? void 0 : _a.isFunction) && !((_b = treeNode.parent) === null || _b === void 0 ? void 0 : _b.isParam);
+    getSon(treeNode, sonNumber) {
+        return treeNode.children[sonNumber];
+    }
+    mayDefineContext(treeNode) {
+        return Object.values(may_define_context_enum_1.MayDefineContext).includes(treeNode.kind);
+    }
+    isCallback(treeNode) {
+        if (!treeNode.isParam) {
+            return false;
+        }
+        return this.hasCallBack(treeNode, treeNode.parent);
+    }
+    isRecursiveMethod(treeNode) {
+        if (!treeNode.isFunctionOrMethodDeclaration) {
+            return false;
+        }
+        return this.hasRecursiveNode(treeNode.treeMethod, treeNode);
+    }
+    hasRecursiveNode(treeNodeMethod, treeNode) {
+        for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
+            if (childTreeNode.name === treeNodeMethod.name && childTreeNode.context === treeNodeMethod.treeNode.context && !treeNode.isFunctionOrMethodDeclaration) {
+                return true;
+            }
+            if (this.hasRecursiveNode(treeNodeMethod, childTreeNode)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    hasCallBack(treeNodeParam, treeNode) {
+        for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
+            if (childTreeNode.name === treeNodeParam.name && childTreeNode.context === treeNodeParam.context && childTreeNode.isCallIdentifier) {
+                return true;
+            }
+            if (this.hasCallBack(treeNodeParam, childTreeNode)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 exports.TreeNodeService = TreeNodeService;

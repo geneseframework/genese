@@ -7,6 +7,8 @@ import { ComplexityType } from '../../enums/complexity-type.enum';
 import { StatsService } from '../report/stats.service';
 import { Stats } from '../../models/stats.model';
 import { TreeMethodService } from './tree-method.service';
+import { TreeNode } from '../../models/tree/tree-node.model';
+import { TreeNodeService } from './tree-node.service';
 
 /**
  * - TreeFiles generation from Abstract Syntax TreeNode of a file
@@ -17,6 +19,7 @@ export class TreeFileService extends StatsService{
     protected _stats: Stats = undefined;            // The statistics of the TreeFile
     treeFile: TreeFile = undefined;                 // The TreeFile corresponding to this service
     treeMethodService?: TreeMethodService = new TreeMethodService();
+    treeNodeService?: TreeNodeService = new TreeNodeService();
 
     constructor() {
         super();
@@ -30,13 +33,58 @@ export class TreeFileService extends StatsService{
      * @param treeFolder      // The TreeFolder containing the TreeFile
      */
     generateTree(path: string, treeFolder: TreeFolder = new TreeFolder()): TreeFile {
-        const tsFile: TreeFile = new TreeFile();
-        tsFile.sourceFile = Ast.getSourceFile(path);
-        tsFile.treeFolder = treeFolder;
-        tsFile.name = tsFile.sourceFile?.fileName;
-        tsFile.treeMethods = this.treeMethodService.generateTree(tsFile);
-        tsFile.evaluate();
-        return tsFile;
+        let treeFile: TreeFile = new TreeFile();
+        treeFile.sourceFile = Ast.getSourceFile(path);
+        treeFile.name = treeFile.sourceFile?.fileName;
+        treeFile.treeNode = new TreeNode();
+        treeFile.treeNode.node = treeFile.sourceFile;
+        treeFile.treeNode.treeFile = treeFile;
+        treeFile.treeFolder = treeFolder;
+        this.treeNodeService.createTreeNodeChildren(treeFile.treeNode);
+        this.setContextToTreeNodeChildren(treeFile.treeNode);
+        treeFile.treeNodes = this.setTreeNodes(treeFile.treeNode, [treeFile.treeNode]);
+        for (let treeNode of treeFile.treeNodes) {
+            treeNode = this.setNodeMethod(treeNode);
+        }
+        treeFile.treeMethods = this.setTreeMethods(treeFile.treeNodes);
+        treeFile.evaluate();
+        return treeFile;
+    }
+
+
+    private setTreeNodes(treeNode: TreeNode, treeNodes: TreeNode[]): TreeNode[] {
+        for (const childTreeNode of treeNode?.children) {
+            treeNodes.push(childTreeNode);
+            if (childTreeNode.children.length > 0) {
+                    treeNodes = treeNodes.concat(this.setTreeNodes(childTreeNode, []));
+            }
+        }
+        return treeNodes;
+    }
+
+
+    private setNodeMethod(treeNode: TreeNode): TreeNode {
+        return treeNode.isFunctionOrMethodDeclaration ? this.treeMethodService.setNodeMethod(treeNode) : undefined;
+    }
+
+
+    private setTreeMethods(treeNodes: TreeNode[]): TreeMethod[] {
+        const treeMethods: TreeMethod[] = [];
+        for (const treeNode of treeNodes) {
+            if (treeNode.treeMethod) {
+                treeMethods.push(treeNode.treeMethod);
+            }
+        }
+        return treeMethods;
+    }
+
+
+
+    private setContextToTreeNodeChildren(treeNode: TreeNode): void {
+        for (const childTreeNode of treeNode?.children) {
+            childTreeNode.context = this.treeNodeService.getContext(childTreeNode);
+            this.setContextToTreeNodeChildren(childTreeNode);
+        }
     }
 
 
