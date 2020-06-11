@@ -33,9 +33,14 @@ export class TreeMethodService {
         const treeMethod = new TreeMethod();
         treeMethod.treeNode = treeNode;
         // console.log('CHILDRRR', treeNode.children)
+
+
+        // TODO Oooooooooooooo
+
+
         treeMethod.originalCode = this.codeService.getNodeCode(treeNode.node, treeNode.sourceFile);
-        treeMethod.createDisplayedCode();
-        treeMethod.evaluate();
+        // treeMethod.createDisplayedCode();
+        // treeMethod.evaluate();
         treeNode.treeMethod = treeMethod;
         return treeNode;
     }

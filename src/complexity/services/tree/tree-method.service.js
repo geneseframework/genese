@@ -30,9 +30,10 @@ class TreeMethodService {
         const treeMethod = new tree_method_model_1.TreeMethod();
         treeMethod.treeNode = treeNode;
         // console.log('CHILDRRR', treeNode.children)
+        // TODO Oooooooooooooo
         treeMethod.originalCode = this.codeService.getNodeCode(treeNode.node, treeNode.sourceFile);
-        treeMethod.createDisplayedCode();
-        treeMethod.evaluate();
+        // treeMethod.createDisplayedCode();
+        // treeMethod.evaluate();
         treeNode.treeMethod = treeMethod;
         return treeNode;
     }

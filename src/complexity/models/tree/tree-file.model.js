@@ -71,7 +71,11 @@ class TreeFile extends evaluable_model_1.Evaluable {
      */
     evaluate() {
         const treeMethodService = new tree_method_service_1.TreeMethodService();
+        for (const treeNode of __classPrivateFieldGet(this, _treeNodes)) {
+            treeNode.evaluate();
+        }
         for (const method of this.treeMethods) {
+            method.evaluate();
             this.cpxIndex += method.cpxIndex;
             this.cyclomaticCpx += method.cyclomaticCpx;
             this.complexitiesByStatus = treeMethodService.addMethodCpxByStatus(this.complexitiesByStatus, method);

@@ -49,6 +49,7 @@ export class TreeFileService extends StatsService{
         treeFile.treeMethods = this.initTreeMethods(treeFile.treeNodes);
         // treeFile.treeMethods = this.treeMethodService.createTreeMethods(treeFile.treeNode);
         treeFile.evaluate();
+        // console.log('TREEEEFILLEEEE', treeFile)
         return treeFile;
     }
 

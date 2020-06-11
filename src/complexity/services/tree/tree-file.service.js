@@ -43,9 +43,9 @@ class TreeFileService extends stats_service_1.StatsService {
             treeNode = this.setNodeMethod(treeNode);
         }
         treeFile.treeMethods = this.initTreeMethods(treeFile.treeNodes);
-        console.log('METHODSSSS', treeFile.treeMethods);
         // treeFile.treeMethods = this.treeMethodService.createTreeMethods(treeFile.treeNode);
         treeFile.evaluate();
+        // console.log('TREEEEFILLEEEE', treeFile)
         return treeFile;
     }
     setTreeNodes(treeNode, treeNodes) {

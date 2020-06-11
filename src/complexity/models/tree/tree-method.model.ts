@@ -112,6 +112,7 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
      * Evaluates the complexities of this TreeMethod
      */
     evaluate(): void {
+        this.createDisplayedCode();
         LogService.printAllChildren(this.treeNode);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.#treeNode?.node);

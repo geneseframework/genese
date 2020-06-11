@@ -5,6 +5,7 @@ const ast_service_1 = require("../ast.service");
 const tree_node_model_1 = require("../../models/tree/tree-node.model");
 const may_define_context_enum_1 = require("../../enums/may-define-context.enum");
 const tree_method_service_1 = require("./tree-method.service");
+const chalk = require("chalk");
 /**
  * Service managing TreeNodes
  */
@@ -56,7 +57,7 @@ class TreeNodeService {
             // console.log('CONTEXT OF ', newTree.kind, newTree.name, ' = ', newTree.context?.kind);
             // treeNode.treeMethod = Ast.isMethodDeclaration(treeNode.node) ? this.treeMethodService.generatefTree(treeNode) : treeNode.treeMethod;
             treeNode.children.push(this.createTreeNodeChildren(newTree));
-            newTree.evaluate();
+            // newTree.evaluate();
             // newTree.context = this.getContext(newTree);
             // this.setParentFunction(newTree);
         });
@@ -113,22 +114,22 @@ class TreeNodeService {
         if (!treeNode.isFunctionOrMethodDeclaration) {
             return false;
         }
-        console.log('TRMTHD', treeNode.treeMethod);
+        // console.log('TRMTHD', treeNode.kind, treeNode.treeMethod)
         return this.hasRecursiveNode(treeNode.treeMethod, treeNode);
     }
     hasRecursiveNode(treeNodeMethod, treeNode) {
-        console.log('HAS RECURSIVE ? ', treeNode.kind);
-        // for (const childTreeNode of treeNode?.children) {
-        //     console.log('METHOF', treeNodeMethod.name, 'NODE', treeNode.name)
-        //     if (childTreeNode.name === treeNodeMethod.name && treeNode.context === treeNodeMethod.treeNode.context) {
-        //         console.log('RETURN TRUE 1')
-        //         return true;
-        //     }
-        //     if (this.hasRecursiveNode(treeNodeMethod, childTreeNode)) {
-        //         console.log('RETURN TRUE 2')
-        //         return true;
-        //     }
-        // }
+        console.log('HAS RECURSIVE ? ', treeNode.kind, treeNode.name, chalk['blueBright'](treeNode.context.name));
+        for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
+            console.log('METHOD', treeNodeMethod.name, chalk['blueBright'](treeNodeMethod.treeNode.context.name), 'NODE', childTreeNode.kind, childTreeNode.name);
+            if (childTreeNode.name === treeNodeMethod.name && childTreeNode.context === treeNodeMethod.treeNode.context && !treeNode.isFunctionOrMethodDeclaration) {
+                console.log('RETURN TRUE 1');
+                return true;
+            }
+            if (this.hasRecursiveNode(treeNodeMethod, childTreeNode)) {
+                console.log('RETURN TRUE 2');
+                return true;
+            }
+        }
         console.log('RETURN FALSE');
         return false;
     }
