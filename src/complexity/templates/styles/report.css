@@ -3,8 +3,10 @@
 }
 
 .header {
-    background-color: #000066;
-    color: deepskyblue;
+    /* background-color: #e84393; */
+    background-color: #38ada9;
+    color: #0a3d62;
+    /* color: #0984e3; */
     padding: 20px;
     display: flex;
     flex-direction: row;
@@ -41,6 +43,7 @@
     padding-top: 50px;
     width: 310px;
     padding-left: 50px;
+
 }
 
 .stats-cognitive {
