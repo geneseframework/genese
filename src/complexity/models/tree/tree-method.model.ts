@@ -1,5 +1,4 @@
 import * as ts from 'typescript';
-import { TreeFile } from './tree-file.model';
 import { Ast } from '../../services/ast.service';
 import { CyclomaticComplexityService as CS } from '../../services/cyclomatic-complexity.service';
 import { TreeNode } from './tree-node.model';
@@ -27,7 +26,6 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
     #displayedCode?: Code = undefined;                              // The code to display in the report
     #name: string = undefined;                                      // The name of the method
     #originalCode?: Code = undefined;                               // The original Code of the method (as Code object)
-    // #treeFile?: TreeFile = undefined;                               // The TreeFile which contains the TreeMethod
     #treeNode?: TreeNode = undefined;                               // The AST of the method itself
 
 
@@ -79,16 +77,6 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
     get sourceFile(): ts.SourceFile {
         return this.#treeNode?.sourceFile;
     }
-
-
-    // get treeFile(): TreeFile {
-    //     return this.#treeFile;
-    // }
-    //
-    //
-    // set treeFile(treeFile: TreeFile) {
-    //     this.#treeFile = treeFile;
-    // }
 
 
     get treeNode(): TreeNode {
@@ -190,7 +178,6 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
      * @param tree
      */
     private setCpxFactorsToDisplayedCode(tree: TreeNode, startedUncommentedLines = false): void {
-        // let topNode = isTopNode;
         for (const childTree of tree.children) {
             let issue = this.codeService.getLineIssue(this.#originalCode, childTree.position - this.position);
             const codeLine: CodeLine = this.#displayedCode.lines[issue];
@@ -198,18 +185,14 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
                 childTree.cpxFactors.basic.node = cpxFactors.basic.node;
                 issue--;
             }
-            console.log('zzz', tree.kind, childTree.kind)
             if (!startedUncommentedLines && tree.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
-                console.log('FIRSTTTT', codeLine.text)
                 this.increaseLineCpxFactors(tree, codeLine);
                 startedUncommentedLines = true;
             } else if (startedUncommentedLines) {
 
-                console.log('AFTER FIRST COMMENTED LINE', codeLine.text)
                 this.increaseLineCpxFactors(childTree, codeLine, false);
 
             }
-            // startedUncommentedLines = startedUncommentedLines || !codeLine.isCommented;
             this.#displayedCode.lines[issue].treeNodes.push(childTree);
             this.setCpxFactorsToDisplayedCode(childTree, startedUncommentedLines);
         }
@@ -217,11 +200,8 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
 
 
     private increaseLineCpxFactors(tree: TreeNode, codeLine: CodeLine, isTopNode?: boolean): void {
-        console.log('RECURSION ?', tree.kind, tree.isRecursiveMethod, codeLine.cpxFactors.structural.recursion)
         if (!codeLine.isCommented) {
             codeLine.cpxFactors = codeLine.cpxFactors.add(tree?.cpxFactors);
-            // console.log('RECURSION EQUALS ', tree.kind, codeLine.cpxFactors.structural.recursion)
-
         }
 
     }

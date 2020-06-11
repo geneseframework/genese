@@ -1,23 +1,12 @@
 import * as ts from 'typescript';
 import { Code } from '../models/code/code.model';
 import { CodeLine } from '../models/code/code-line.model';
-import { TreeNode } from '../models/tree/tree-node.model';
 
 /**
  * Service managing Code objects
  */
 export class CodeService {
 
-    constructor() {
-    }
-
-
-    /**
-     * Gets the Code of a given AST node
-     */
-    getTreeNodeCode(treeNode: TreeNode): Code {
-        return treeNode?.node ? this.getCode(treeNode.node.getFullText(treeNode.sourceFile)) : undefined;
-    }
 
 
     /**

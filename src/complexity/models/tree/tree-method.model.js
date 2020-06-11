@@ -39,7 +39,6 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         _displayedCode.set(this, undefined); // The code to display in the report
         _name.set(this, undefined); // The name of the method
         _originalCode.set(this, undefined); // The original Code of the method (as Code object)
-        // #treeFile?: TreeFile = undefined;                               // The TreeFile which contains the TreeMethod
         _treeNode.set(this, undefined); // The AST of the method itself
     }
     // ---------------------------------------------------------------------------------
@@ -74,14 +73,6 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         var _a;
         return (_a = __classPrivateFieldGet(this, _treeNode)) === null || _a === void 0 ? void 0 : _a.sourceFile;
     }
-    // get treeFile(): TreeFile {
-    //     return this.#treeFile;
-    // }
-    //
-    //
-    // set treeFile(treeFile: TreeFile) {
-    //     this.#treeFile = treeFile;
-    // }
     get treeNode() {
         return __classPrivateFieldGet(this, _treeNode);
     }
@@ -164,7 +155,6 @@ class TreeMethod extends evaluable_model_1.Evaluable {
      * @param tree
      */
     setCpxFactorsToDisplayedCode(tree, startedUncommentedLines = false) {
-        // let topNode = isTopNode;
         for (const childTree of tree.children) {
             let issue = this.codeService.getLineIssue(__classPrivateFieldGet(this, _originalCode), childTree.position - this.position);
             const codeLine = __classPrivateFieldGet(this, _displayedCode).lines[issue];
@@ -172,26 +162,20 @@ class TreeMethod extends evaluable_model_1.Evaluable {
                 childTree.cpxFactors.basic.node = cpx_factors_1.cpxFactors.basic.node;
                 issue--;
             }
-            console.log('zzz', tree.kind, childTree.kind);
             if (!startedUncommentedLines && tree.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
-                console.log('FIRSTTTT', codeLine.text);
                 this.increaseLineCpxFactors(tree, codeLine);
                 startedUncommentedLines = true;
             }
             else if (startedUncommentedLines) {
-                console.log('AFTER FIRST COMMENTED LINE', codeLine.text);
                 this.increaseLineCpxFactors(childTree, codeLine, false);
             }
-            // startedUncommentedLines = startedUncommentedLines || !codeLine.isCommented;
             __classPrivateFieldGet(this, _displayedCode).lines[issue].treeNodes.push(childTree);
             this.setCpxFactorsToDisplayedCode(childTree, startedUncommentedLines);
         }
     }
     increaseLineCpxFactors(tree, codeLine, isTopNode) {
-        console.log('RECURSION ?', tree.kind, tree.isRecursiveMethod, codeLine.cpxFactors.structural.recursion);
         if (!codeLine.isCommented) {
             codeLine.cpxFactors = codeLine.cpxFactors.add(tree === null || tree === void 0 ? void 0 : tree.cpxFactors);
-            // console.log('RECURSION EQUALS ', tree.kind, codeLine.cpxFactors.structural.recursion)
         }
     }
     /**

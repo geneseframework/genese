@@ -46,10 +46,8 @@ export class TreeFileService extends StatsService{
         for (let treeNode of treeFile.treeNodes) {
             treeNode = this.setNodeMethod(treeNode);
         }
-        treeFile.treeMethods = this.initTreeMethods(treeFile.treeNodes);
-        // treeFile.treeMethods = this.treeMethodService.createTreeMethods(treeFile.treeNode);
+        treeFile.treeMethods = this.setTreeMethods(treeFile.treeNodes);
         treeFile.evaluate();
-        // console.log('TREEEEFILLEEEE', treeFile)
         return treeFile;
     }
 
@@ -70,7 +68,7 @@ export class TreeFileService extends StatsService{
     }
 
 
-    private initTreeMethods(treeNodes: TreeNode[]): TreeMethod[] {
+    private setTreeMethods(treeNodes: TreeNode[]): TreeMethod[] {
         const treeMethods: TreeMethod[] = [];
         for (const treeNode of treeNodes) {
             if (treeNode.treeMethod) {
@@ -85,8 +83,6 @@ export class TreeFileService extends StatsService{
     private setContextToTreeNodeChildren(treeNode: TreeNode): void {
         for (const childTreeNode of treeNode?.children) {
             childTreeNode.context = this.treeNodeService.getContext(childTreeNode);
-            // childTreeNode.treeMethod = new TreeMethod();
-            // console.log(chalk.blueBright('CONTEXT OF '), childTreeNode.kind, childTreeNode.name, ' = ', childTreeNode.context?.kind,  childTreeNode.context?.name);
             this.setContextToTreeNodeChildren(childTreeNode);
         }
     }

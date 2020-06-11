@@ -1,7 +1,5 @@
 export class DebugMock {
 
-    /* comments
-    */
     ifAlone(a) {
         if (a) {
             return 'b';

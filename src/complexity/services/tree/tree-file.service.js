@@ -43,9 +43,7 @@ class TreeFileService extends stats_service_1.StatsService {
             treeNode = this.setNodeMethod(treeNode);
         }
         treeFile.treeMethods = this.initTreeMethods(treeFile.treeNodes);
-        // treeFile.treeMethods = this.treeMethodService.createTreeMethods(treeFile.treeNode);
         treeFile.evaluate();
-        // console.log('TREEEEFILLEEEE', treeFile)
         return treeFile;
     }
     setTreeNodes(treeNode, treeNodes) {
@@ -72,8 +70,6 @@ class TreeFileService extends stats_service_1.StatsService {
     setContextToTreeNodeChildren(treeNode) {
         for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
             childTreeNode.context = this.treeNodeService.getContext(childTreeNode);
-            // childTreeNode.treeMethod = new TreeMethod();
-            // console.log(chalk.blueBright('CONTEXT OF '), childTreeNode.kind, childTreeNode.name, ' = ', childTreeNode.context?.kind,  childTreeNode.context?.name);
             this.setContextToTreeNodeChildren(childTreeNode);
         }
     }

@@ -1,6 +1,5 @@
 import * as ts from 'typescript';
 import { TreeMethod } from './tree-method.model';
-import { HasTreeNode } from '../../interfaces/has-tree-node';
 import { Evaluable } from '../evaluable.model';
 import { NodeFeature } from '../../enums/node-feature.enum';
 import { CpxFactors } from '../cpx-factor/cpx-factors.model';
@@ -8,7 +7,6 @@ import { cpxFactors } from '../../cpx-factors';
 import { addObjects } from '../../services/tools.service';
 import { NodeFeatureService } from '../../services/node-feature.service';
 import { Ast } from '../../services/ast.service';
-import { ParentFunction } from './parent-function.model';
 import { TreeNodeService } from '../../services/tree/tree-node.service';
 import { TreeFile } from './tree-file.model';
 
@@ -23,16 +21,13 @@ export class TreeNode extends Evaluable {
     #feature?: NodeFeature = undefined;                                     // The NodeFeature of the node of the TreeNode
     #intrinsicDepthCpx: number = undefined;                                 // The depth of the TreeNode inside its method (not including its parent's depth)
     #intrinsicNestingCpx: number = undefined;                               // The nesting of the TreeNode inside its method (not including its parent's nesting)
-    #isNodeContext: boolean = undefined;                                    // The node defines a new context : VariableDeclaration, FunctionExpression, ...
     #kind: string = undefined;                                              // The kind of the node ('MethodDeclaration, IfStatement, ...)
     #name: string = undefined;                                              // The name of the TreeNode
-    #nestingCpx: number = undefined;                                        // The nesting of the TreeNode inside its method (including its parent's nesting)
-    #node?: ts.Node = undefined;                                             // The current node in the AST
+    #node?: ts.Node = undefined;                                            // The current node in the AST
     nodeFeatureService?: NodeFeatureService = new NodeFeatureService();     // The service managing NodeFeatures
-    #parent?: TreeNode;                                                      // The tree of the parent of the current node
-    #parentFunction?: ParentFunction = undefined;                           // The first function or method which a parent of the TreeNode
+    #parent?: TreeNode;                                                     // The tree of the parent of the current node
     #treeFile?: TreeFile = undefined;                                       // The TreeFile containing the AST node of the TreeNode
-    #treeMethod?: TreeMethod = undefined;                                    // The method at the root of the current tree (if this tree is inside a method)
+    #treeMethod?: TreeMethod = undefined;                                   // The method at the root of the current tree (if this tree is inside a method)
     treeNodeService?: TreeNodeService = new TreeNodeService();              // The service managing NodeFeatures
 
 
@@ -66,14 +61,6 @@ export class TreeNode extends Evaluable {
     set context(treeNode: TreeNode) {
         this.#context = treeNode;
     }
-
-
-    /**
-     * Gets the first function or method which is a parent of this TreeNode
-     */
-    // get parentFunction(): ParentFunction {
-    //     return this.#parentFunction ?? this.treeNodeService.setParentFunction(this);
-    // }
 
 
     /**
@@ -150,39 +137,6 @@ export class TreeNode extends Evaluable {
     }
 
 
-    get isMethodDeclaration(): boolean {
-        return Ast.isMethodDeclaration(this.node);
-    }
-
-
-    get isMethodIdentifier(): boolean {
-        return Ast.isMethodIdentifier(this.node);
-    }
-
-
-    /**
-     * Checks if this TreeNode defines a new context
-     * Examples: VariableDeclaration, FunctionExpression, ...
-     */
-    get isNodeContext(): boolean {
-        return this.#isNodeContext ?? this.treeNodeService.mayDefineContext(this);
-    }
-
-
-    /**
-     * Sets the value of #isNodeContext
-     * @param bool      // The value to set
-     */
-    set isNodeContext(bool: boolean) {
-        this.#isNodeContext = bool;
-    }
-
-
-    get isParam(): boolean {
-        return Ast.isParam(this.node);
-    }
-
-
     /**
      * Checks if this TreeNode is a recursive method.
      */
@@ -220,11 +174,6 @@ export class TreeNode extends Evaluable {
     }
 
 
-    set nestingCpx(cpx) {
-        this.#nestingCpx = cpx;
-    }
-
-
     get node(): ts.Node {
         return this.#node;
     }
@@ -258,11 +207,6 @@ export class TreeNode extends Evaluable {
     get sourceFile(): ts.SourceFile {
         return this.#treeFile?.sourceFile;
     }
-
-
-    // set sourceFile(source: ts.SourceFile) {
-        // th
-    // }
 
 
     get treeFile(): TreeFile {
