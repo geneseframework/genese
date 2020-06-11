@@ -22,7 +22,7 @@ export class TreeFile extends Evaluable implements HasStats, HasTreeNode {
     stats?: Stats = undefined;                                  // The statistics of the file
     treeFileService: TreeFileService = new TreeFileService();   // The service for TreeFiles
     treeFolder?: TreeFolder = new TreeFolder();                 // The TreeFolder which includes this TreeFile
-    treeMethods?: TreeMethod[] = [];                            // The TreeMethods included in this TreeFile
+    #treeMethods?: TreeMethod[] = [];                            // The TreeMethods included in this TreeFile
     #treeNode?: TreeNode = undefined;                           // The TreeNode corresponding to the file itself
     #treeNodes?: TreeNode[] = undefined;                           // The TreeNode corresponding to the file itself
 
@@ -45,6 +45,16 @@ export class TreeFile extends Evaluable implements HasStats, HasTreeNode {
 
     set sourceFile(source: ts.SourceFile) {
         this.#sourceFile = source;
+    }
+
+
+    get treeMethods(): TreeMethod[] {
+        return this.#treeMethods;
+    }
+
+
+    set treeMethods(treeMethods: TreeMethod[]) {
+        this.#treeMethods = treeMethods;
     }
 
 

@@ -1,8 +1,6 @@
 export class DebugMock {
     ifAlone(a) {
-        if (a) {
-            return 'b';
-        }
+        this.ifAlone(a);
     }
 
     // keycloakService;

@@ -11,30 +11,30 @@ class TreeMethodService {
     }
     createTreeMethods(treeNode) {
         let treeMethods = [];
-        for (const childTreeNode of treeNode.children) {
-            // console.log(childTreeNode.kind, 'IS FUNC', childTreeNode.isFunctionOrMethodDeclaration)
-            if (childTreeNode.isFunctionOrMethodDeclaration) {
-                childTreeNode.treeMethod = this.createMethod(childTreeNode);
-                // TODO : Link the method to the node
-                treeNode.treeMethod = childTreeNode.treeMethod;
-                treeMethods.push(childTreeNode.treeMethod);
-            }
-            else {
-                childTreeNode.treeMethod = treeNode.treeMethod;
-            }
-            // console.log('Node MeTHOD', childTreeNode.treeMethod)
-            treeMethods = treeMethods.concat(this.createTreeMethods(childTreeNode));
-        }
+        // for (const childTreeNode of treeNode.children) {
+        //     // console.log(childTreeNode.kind, 'IS FUNC', childTreeNode.isFunctionOrMethodDeclaration)
+        //     if (childTreeNode.isFunctionOrMethodDeclaration) {
+        //         childTreeNode.treeMethod = this.createMethod(childTreeNode);
+        //         // TODO : Link the method to the node
+        //         treeNode.treeMethod = childTreeNode.treeMethod;
+        //         treeMethods.push(childTreeNode.treeMethod);
+        //     } else {
+        //         childTreeNode.treeMethod = treeNode.treeMethod;
+        //     }
+        //     // console.log('Node MeTHOD', childTreeNode.treeMethod)
+        //     treeMethods = treeMethods.concat(this.createTreeMethods(childTreeNode));
+        // }
         return treeMethods;
     }
-    createMethod(treeNode) {
+    setNodeMethod(treeNode) {
         const treeMethod = new tree_method_model_1.TreeMethod();
         treeMethod.treeNode = treeNode;
         // console.log('CHILDRRR', treeNode.children)
         treeMethod.originalCode = this.codeService.getNodeCode(treeNode.node, treeNode.sourceFile);
         treeMethod.createDisplayedCode();
         treeMethod.evaluate();
-        return treeMethod;
+        treeNode.treeMethod = treeMethod;
+        return treeNode;
     }
     /**
      * Returns the addition of a ComplexitiesByStatus object and the complexities scores of a given treeMethod

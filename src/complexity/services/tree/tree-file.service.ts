@@ -1,4 +1,3 @@
-import * as ts from 'typescript';
 import { TreeFolder } from '../../models/tree/tree-folder.model';
 import { TreeFile } from '../../models/tree/tree-file.model';
 import { Ast } from '../ast.service';
@@ -44,8 +43,11 @@ export class TreeFileService extends StatsService{
         this.treeNodeService.createTreeNodeChildren(treeFile.treeNode);
         this.setContextToTreeNodeChildren(treeFile.treeNode);
         treeFile.treeNodes = this.setTreeNodes(treeFile.treeNode, [treeFile.treeNode]);
-        console.log('NODESSSS', treeFile.treeNodes.length);
-        treeFile.treeMethods = this.treeMethodService.createTreeMethods(treeFile.treeNode);
+        for (let treeNode of treeFile.treeNodes) {
+            treeNode = this.setNodeMethod(treeNode);
+        }
+        treeFile.treeMethods = this.initTreeMethods(treeFile.treeNodes);
+        // treeFile.treeMethods = this.treeMethodService.createTreeMethods(treeFile.treeNode);
         treeFile.evaluate();
         return treeFile;
     }
@@ -59,6 +61,22 @@ export class TreeFileService extends StatsService{
             }
         }
         return treeNodes;
+    }
+
+
+    private setNodeMethod(treeNode: TreeNode): TreeNode {
+        return treeNode.isFunctionOrMethodDeclaration ? this.treeMethodService.setNodeMethod(treeNode) : undefined;
+    }
+
+
+    private initTreeMethods(treeNodes: TreeNode[]): TreeMethod[] {
+        const treeMethods: TreeMethod[] = [];
+        for (const treeNode of treeNodes) {
+            if (treeNode.treeMethod) {
+                treeMethods.push(treeNode.treeMethod);
+            }
+        }
+        return treeMethods;
     }
 
 

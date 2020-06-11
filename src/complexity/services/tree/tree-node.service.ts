@@ -1,10 +1,8 @@
 import * as ts from 'typescript';
 import { Ast } from '../ast.service';
 import { TreeNode } from '../../models/tree/tree-node.model';
-import { Context } from '../../models/tree/context.model';
 import { MayDefineContext } from '../../enums/may-define-context.enum';
 import { TreeMethodService } from './tree-method.service';
-import * as chalk from 'chalk';
 import { TreeMethod } from '../../models/tree/tree-method.model';
 
 /**

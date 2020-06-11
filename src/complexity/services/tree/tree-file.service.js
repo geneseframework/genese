@@ -39,8 +39,12 @@ class TreeFileService extends stats_service_1.StatsService {
         this.treeNodeService.createTreeNodeChildren(treeFile.treeNode);
         this.setContextToTreeNodeChildren(treeFile.treeNode);
         treeFile.treeNodes = this.setTreeNodes(treeFile.treeNode, [treeFile.treeNode]);
-        console.log('NODESSSS', treeFile.treeNodes.length);
-        treeFile.treeMethods = this.treeMethodService.createTreeMethods(treeFile.treeNode);
+        for (let treeNode of treeFile.treeNodes) {
+            treeNode = this.setNodeMethod(treeNode);
+        }
+        treeFile.treeMethods = this.initTreeMethods(treeFile.treeNodes);
+        console.log('METHODSSSS', treeFile.treeMethods);
+        // treeFile.treeMethods = this.treeMethodService.createTreeMethods(treeFile.treeNode);
         treeFile.evaluate();
         return treeFile;
     }
@@ -52,6 +56,18 @@ class TreeFileService extends stats_service_1.StatsService {
             }
         }
         return treeNodes;
+    }
+    setNodeMethod(treeNode) {
+        return treeNode.isFunctionOrMethodDeclaration ? this.treeMethodService.setNodeMethod(treeNode) : undefined;
+    }
+    initTreeMethods(treeNodes) {
+        const treeMethods = [];
+        for (const treeNode of treeNodes) {
+            if (treeNode.treeMethod) {
+                treeMethods.push(treeNode.treeMethod);
+            }
+        }
+        return treeMethods;
     }
     setContextToTreeNodeChildren(treeNode) {
         for (const childTreeNode of treeNode === null || treeNode === void 0 ? void 0 : treeNode.children) {
