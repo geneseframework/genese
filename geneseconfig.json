@@ -1,8 +1,8 @@
 {
     "complexity": {
         "cognitiveCpx": {
-            "errorThreshold": 15,
-            "warningThreshold": 8
+            "errorThreshold": 10,
+            "warningThreshold": 5
         },
         "cyclomaticCpx": {
             "errorThreshold": 10,

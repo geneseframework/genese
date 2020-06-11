@@ -10,10 +10,12 @@ export class DebugMock {
     ifAlone(a) {
         return a('b');
     }
-    //
+
     keycloakService;
     logout(a) {
-        this.logout(a);
+        if (a) {
+            this.logout(a);
+        }
     }
 
 }

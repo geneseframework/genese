@@ -148,6 +148,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
     get position() {
         return ast_service_1.Ast.getPosition(this.node);
     }
+    get recursionCpx() {
+        return this.cpxFactors.totalRecursion;
+    }
     get secondSon() {
         return this.treeNodeService.getSon(this, 1);
     }
@@ -222,8 +225,8 @@ class TreeNode extends evaluable_model_1.Evaluable {
         }
     }
     setRecursionOrCallbackCpxFactors() {
-        this.cpxFactors.structural.recursion = this.isRecursiveMethod ? cpx_factors_1.cpxFactors.structural.recursion : 0;
-        this.cpxFactors.structural.callback = this.isCallback ? cpx_factors_1.cpxFactors.structural.callback : 0;
+        this.cpxFactors.recursion.recursivity = this.isRecursiveMethod ? cpx_factors_1.cpxFactors.recursion.recursivity : 0;
+        this.cpxFactors.recursion.callback = this.isCallback ? cpx_factors_1.cpxFactors.recursion.callback : 0;
     }
     setRegexCpxFactors() {
         if (this.feature === node_feature_enum_1.NodeFeature.REGEX) {

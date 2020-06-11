@@ -7,6 +7,7 @@ import { BasicCpx } from './basic-cpx.model';
 import { StructuralCpx } from './structural-cpx.model';
 import { DepthCpx } from './depth-cpx.model';
 import { ContextCpx } from './context-cpx.model';
+import { RecursionCpx } from './recursion-cpx.model';
 
 export class CpxFactors implements Addition<CpxFactors>{
 
@@ -15,6 +16,7 @@ export class CpxFactors implements Addition<CpxFactors>{
     context?: ContextCpx = new ContextCpx();
     depth?: DepthCpx = new DepthCpx();
     nesting?: NestingCpx = new NestingCpx();
+    recursion?: RecursionCpx = new RecursionCpx();
     structural?: StructuralCpx = new StructuralCpx();
 
 
@@ -44,6 +46,11 @@ export class CpxFactors implements Addition<CpxFactors>{
 
     get totalNesting(): number {
         return this.totalByFactorCategory(FactorCategory.NESTING)
+    }
+
+
+    get totalRecursion(): number {
+        return this.totalByFactorCategory(FactorCategory.RECURSION)
     }
 
 
