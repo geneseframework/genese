@@ -203,8 +203,9 @@ export class Ast {
      * Checks if an AST node is an index of an array, ie if it's a Node which is the second son of an ElementAccessExpression
      * @param node      // The node to analyse
      */
-    static isMethodIdentifier(node: ts.Node): boolean {
-        return(Ast.isCallExpression(node.parent) && node?.pos === node.parent?.pos);
+    static isCallIdentifier(node: ts.Node): boolean {
+        // console.log('NODD', Ast.getKind(node), Ast.isCallExpression(node.parent), Ast.isIdentifier(node))
+        return(Ast.isCallExpression(node.parent) && Ast.isIdentifier(node));
     }
 
 

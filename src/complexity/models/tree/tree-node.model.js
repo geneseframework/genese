@@ -110,11 +110,17 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * Checks if this TreeNode is a recursion, ie a call to a parameter of its ParentFunction.
      * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
-    // get isCallback(): boolean {
-    //     return this.treeNodeService.isCallback(this);
-    // }
+    get isCallback() {
+        return this.treeNodeService.isCallback(this);
+    }
+    get isCallIdentifier() {
+        return ast_service_1.Ast.isCallIdentifier(this.node);
+    }
     get isFunctionOrMethodDeclaration() {
         return this.feature === node_feature_enum_1.NodeFeature.DECLARATION;
+    }
+    get isParam() {
+        return ast_service_1.Ast.isParam(this.node);
     }
     /**
      * Checks if this TreeNode is a recursive method.
@@ -231,7 +237,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
     setRecursionOrCallbackCpxFactors() {
         this.cpxFactors.structural.recursion = this.isRecursiveMethod ? cpx_factors_1.cpxFactors.structural.recursion : 0;
         // console.log('RECURSION', this.kind, this.cpxFactors.structural.recursion)
-        // this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
+        // console.log('IS CALLBCK', this.kind, this.name, this.isCallback)
+        this.cpxFactors.structural.callback = this.isCallback ? cpx_factors_1.cpxFactors.structural.callback : 0;
+        console.log('CPXCALLB', this.kind, this.name, this.cpxFactors.structural.callback);
     }
     setRegexCpxFactors() {
         if (this.feature === node_feature_enum_1.NodeFeature.REGEX) {

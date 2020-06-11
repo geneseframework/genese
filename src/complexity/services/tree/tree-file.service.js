@@ -42,7 +42,7 @@ class TreeFileService extends stats_service_1.StatsService {
         for (let treeNode of treeFile.treeNodes) {
             treeNode = this.setNodeMethod(treeNode);
         }
-        treeFile.treeMethods = this.initTreeMethods(treeFile.treeNodes);
+        treeFile.treeMethods = this.setTreeMethods(treeFile.treeNodes);
         treeFile.evaluate();
         return treeFile;
     }
@@ -58,7 +58,7 @@ class TreeFileService extends stats_service_1.StatsService {
     setNodeMethod(treeNode) {
         return treeNode.isFunctionOrMethodDeclaration ? this.treeMethodService.setNodeMethod(treeNode) : undefined;
     }
-    initTreeMethods(treeNodes) {
+    setTreeMethods(treeNodes) {
         const treeMethods = [];
         for (const treeNode of treeNodes) {
             if (treeNode.treeMethod) {

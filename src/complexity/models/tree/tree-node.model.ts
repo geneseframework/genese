@@ -127,15 +127,24 @@ export class TreeNode extends Evaluable {
      * Checks if this TreeNode is a recursion, ie a call to a parameter of its ParentFunction.
      * This TreeNode must be a descendant of a method (ie a TreeNode with node of type MethodDescription)
      */
-    // get isCallback(): boolean {
-    //     return this.treeNodeService.isCallback(this);
-    // }
+    get isCallback(): boolean {
+        return this.treeNodeService.isCallback(this);
+    }
+
+
+    get isCallIdentifier(): boolean {
+        return Ast.isCallIdentifier(this.node);
+    }
 
 
     get isFunctionOrMethodDeclaration(): boolean {
         return this.feature === NodeFeature.DECLARATION;
     }
 
+
+    get isParam(): boolean {
+        return Ast.isParam(this.node);
+    }
 
     /**
      * Checks if this TreeNode is a recursive method.
@@ -298,7 +307,9 @@ export class TreeNode extends Evaluable {
     private setRecursionOrCallbackCpxFactors(): void {
         this.cpxFactors.structural.recursion = this.isRecursiveMethod ? cpxFactors.structural.recursion : 0;
         // console.log('RECURSION', this.kind, this.cpxFactors.structural.recursion)
-        // this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
+        // console.log('IS CALLBCK', this.kind, this.name, this.isCallback)
+        this.cpxFactors.structural.callback = this.isCallback ? cpxFactors.structural.callback : 0;
+        console.log('CPXCALLB', this.kind, this.name, this.cpxFactors.structural.callback)
     }
 
 
