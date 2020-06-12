@@ -168,7 +168,7 @@
         <div class="subfolders">
             <div class="clearfix cognitive-subtitle">
                 <div class='fl pad1y space-right2'>
-                    <span class="strong">Subfolders of {{stats.subject}}</span>
+                    <span class="strong">Subfolders of <span class="italic">{{stats.subject}}</span></span>
                 </div>
             </div>
             <table class="array-report">
@@ -200,16 +200,16 @@
         <div class="subfolders">
             <div class="clearfix cognitive-subtitle">
                 <div class='fl pad1y space-right2'>
-                    <span class="strong">Files of {{stats.subject}}</span>
+                    <span class="strong">Files of <span class="italic">{{stats.subject}}</span></span>
                 </div>
             </div>
-            <table class="array-report">
+            <table class="array-report short-table">
                 <thead>
                     <tr>
-                        <th>File</th>
-                        <th>Method</th>
-                        <th>Cognitive complexity</th>
-                        <th>Cyclomatic complexity</th>
+                        <th style="width: 40%;">File</th>
+                        <th style="width: 40%;">Method</th>
+                        <th style="width: 10%;">Cognitive complexity</th>
+                        <th style="width: 10%;">Cyclomatic complexity</th>
                     </tr>
                 </thead>
                 {{#each filesArray}}
@@ -223,17 +223,17 @@
         <div class="subfolders">
             <div class="clearfix cognitive-subtitle">
                 <div class='fl pad1y space-right2'>
-                    <span class="strong">Methods of {{stats.subject}} folder and its subfolders</span>
+                    <span class="strong">Methods of <span class="italic">{{stats.subject}}</span> folder and its subfolders</span>
                     <span class="quiet">(ordered by decreasing cognitive complexity)</span>
                 </div>
             </div>
-            <table class="array-report">
+            <table class="array-report short-table">
                 <thead>
                     <tr>
-                        <th>File</th>
-                        <th>Method</th>
-                        <th>Cognitive complexity</th>
-                        <th>Cyclomatic complexity</th>
+                        <th style="width: 40%;">File</th>
+                        <th style="width: 40%;">Method</th>
+                        <th style="width: 10%;">Cognitive complexity</th>
+                        <th style="width: 10%;">Cyclomatic complexity</th>
                     </tr>
                 </thead>
                 {{#each methodsArray}}

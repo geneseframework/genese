@@ -137,10 +137,19 @@
     margin-top: 1em;
 }
 
+.italic {
+    font-style: italic;
+}
+
 .array-report {
     margin-top: 1em !important;
     margin-bottom: 1em !important;
     font-weight: 400 !important;
+}
+
+.short-table {
+    width: 80% !important;
+    margin: auto;
 }
 
 th {
