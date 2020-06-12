@@ -15,7 +15,9 @@ class CodeLine {
         this.text = ''; // The text of the line
         this.treeNodes = []; // The array of TreeNodes corresponding to AST nodes in this line of code
     }
-    // TODO : Add case /* */
+    /**
+     * Checks if a line is commented
+     */
     get isCommented() {
         return this.text.trim().slice(0, 2) === `//` || this.text.trim().slice(0, 2) === `/*`;
     }
