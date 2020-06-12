@@ -1,4 +1,4 @@
-export enum NodeFeature {
+export enum FactorCategory {
 
     ARR = 'arr',
     BASIC = 'basic',

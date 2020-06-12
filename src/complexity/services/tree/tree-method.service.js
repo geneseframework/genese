@@ -7,7 +7,7 @@ const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
 const code_service_1 = require("../code.service");
 class TreeMethodService {
     constructor() {
-        this.codeService = new code_service_1.CodeService();
+        this.codeService = new code_service_1.CodeService(); // The service managing Code objects
     }
     /**
      * Updates a TreeNode by adding a new TreeMethod with its code

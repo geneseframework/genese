@@ -13,14 +13,16 @@ class CodeLine {
         this.issue = 0; // The number of the line in its Code parentFunction (method)
         this.position = 0; // The position (in number of characters) of the start of the line
         this.text = ''; // The text of the line
-        this.treeNodes = [];
-    }
-    // TODO : Add case /* */
-    get isCommented() {
-        return this.text.trim().slice(0, 2) === `//`;
+        this.treeNodes = []; // The array of TreeNodes corresponding to AST nodes in this line of code
     }
     /**
-     * Sets the nesting complexity to this CodeLine
+     * Checks if a line is commented
+     */
+    get isCommented() {
+        return this.text.trim().slice(0, 2) === `//` || this.text.trim().slice(0, 2) === `/*`;
+    }
+    /**
+     * Sets the depth and nesting complexity to this CodeLine
      */
     setDepthAndNestingCpx() {
         var _a, _b, _c, _d, _e;

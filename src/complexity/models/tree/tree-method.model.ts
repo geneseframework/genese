@@ -145,12 +145,12 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
 
 
     /**
-     * Creates the code to display with the original code of a TreeNode
-     * @param tree  // The TreeNode to analyse
+     * Creates the method's code to display, with comments
+     * @param treeNode  // The TreeNode to analyse (by default: the TreeNode associated to this TreeMethod)
      */
-    createDisplayedCode(tree: TreeNode = this.treeNode): void {
+    createDisplayedCode(treeNode: TreeNode = this.treeNode): void {
         this.setDisplayedCodeLines();
-        this.setCpxFactorsToDisplayedCode(tree, false);
+        this.setCpxFactorsToDisplayedCode(treeNode, false);
         this.#displayedCode.setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
         this.calculateCpxIndex();
@@ -159,7 +159,7 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
 
 
     /**
-     * Sets the code to display in the TreeFile's report
+     * Creates the Code object corresponding to the code to display
      */
     private setDisplayedCodeLines(): void {
         this.#displayedCode = new Code();
@@ -174,19 +174,20 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
 
 
     /**
-     * Sets the CodeLines of the displayed Code of this method
-     * @param tree
+     * Calculates the complexity factors of each CodeLine
+     * @param treeNode                  // The TreeNode of the method
+     * @param startedUncommentedLines   // Param for recursion (checks if the current line is the first uncommented one)
      */
-    private setCpxFactorsToDisplayedCode(tree: TreeNode, startedUncommentedLines = false): void {
-        for (const childTree of tree.children) {
+    private setCpxFactorsToDisplayedCode(treeNode: TreeNode, startedUncommentedLines = false): void {
+        for (const childTree of treeNode.children) {
             let issue = this.codeService.getLineIssue(this.#originalCode, childTree.position - this.position);
             const codeLine: CodeLine = this.#displayedCode.lines[issue];
             if (Ast.isElseStatement(childTree.node)) {
                 childTree.cpxFactors.basic.node = cpxFactors.basic.node;
                 issue--;
             }
-            if (!startedUncommentedLines && tree.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
-                this.increaseLineCpxFactors(tree, codeLine);
+            if (!startedUncommentedLines && treeNode.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
+                this.increaseLineCpxFactors(treeNode, codeLine);
                 startedUncommentedLines = true;
             } else if (startedUncommentedLines) {
                 this.increaseLineCpxFactors(childTree, codeLine);
@@ -197,16 +198,21 @@ export class TreeMethod extends Evaluable implements HasTreeNode {
     }
 
 
-    private increaseLineCpxFactors(tree: TreeNode, codeLine: CodeLine): void {
+    /**
+     * Adds the Complexity of a TreeNode to its CodeLine
+     * @param treeNode      // The TreeNode inside the line of code
+     * @param codeLine      // The CodeLine containing the TreeNode
+     */
+    private increaseLineCpxFactors(treeNode: TreeNode, codeLine: CodeLine): void {
         if (!codeLine.isCommented) {
-            codeLine.cpxFactors = codeLine.cpxFactors.add(tree?.cpxFactors);
+            codeLine.cpxFactors = codeLine.cpxFactors.add(treeNode?.cpxFactors);
         }
 
     }
 
 
     /**
-     * Adds information about complexity increment reasons for each line of the displayed code
+     * Adds information about complexity factors for each line of the displayed code
      */
     private addCommentsToDisplayedCode(): void {
         this.#displayedCode.lines

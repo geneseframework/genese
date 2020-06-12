@@ -16,10 +16,11 @@ import { TreeNodeService } from './tree-node.service';
  */
 export class TreeFileService extends StatsService {
 
-    protected _stats: Stats = undefined;            // The statistics of the TreeFile
-    treeFile: TreeFile = undefined;                 // The TreeFile corresponding to this service
-    treeMethodService?: TreeMethodService = new TreeMethodService();
-    treeNodeService?: TreeNodeService = new TreeNodeService();
+    protected _stats: Stats = undefined;                                // The statistics of the TreeFile
+    treeFile: TreeFile = undefined;                                     // The TreeFile corresponding to this service
+    treeMethodService?: TreeMethodService = new TreeMethodService();    // The service managing TreeMethods
+    treeNodeService?: TreeNodeService = new TreeNodeService();          // The service managing TreeNodes
+
 
     constructor() {
         super();

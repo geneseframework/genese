@@ -9,7 +9,7 @@ import { TreeMethod } from '../../models/tree/tree-method.model';
  */
 export class TreeNodeService {
 
-    treeMethodService: TreeMethodService = new TreeMethodService();
+    treeMethodService: TreeMethodService = new TreeMethodService();     // The service managing TreeMethods
 
     constructor() {
     }
@@ -72,6 +72,11 @@ export class TreeNodeService {
     }
 
 
+    /**
+     * Checks if a TreeNode is the second son of an AST node "PropertyAccessExpression"
+     * (the first son is the object and the second is its property)
+     * @param treeNode
+     */
     private isSecondSonOfPropertyAccessExpression(treeNode: TreeNode): boolean {
         return Ast.isPropertyAccessExpression(treeNode?.parent?.node) && treeNode === treeNode?.parent.secondSon;
     }

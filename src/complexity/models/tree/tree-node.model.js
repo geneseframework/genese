@@ -12,14 +12,14 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _context, _cpxFactors, _feature, _intrinsicDepthCpx, _intrinsicNestingCpx, _kind, _name, _node, _parent, _treeFile, _treeMethod;
+var _context, _cpxFactors, _factorCategory, _intrinsicDepthCpx, _intrinsicNestingCpx, _kind, _name, _node, _parent, _treeFile, _treeMethod;
 Object.defineProperty(exports, "__esModule", { value: true });
 const evaluable_model_1 = require("../evaluable.model");
 const node_feature_enum_1 = require("../../enums/node-feature.enum");
 const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
 const cpx_factors_1 = require("../../cpx-factors");
 const tools_service_1 = require("../../services/tools.service");
-const node_feature_service_1 = require("../../services/node-feature.service");
+const factor_category_service_1 = require("../../services/factor-category.service");
 const ast_service_1 = require("../../services/ast.service");
 const tree_node_service_1 = require("../../services/tree/tree-node.service");
 /**
@@ -31,13 +31,13 @@ class TreeNode extends evaluable_model_1.Evaluable {
         this.children = []; // The children trees corresponding to children AST nodes of the current AST node
         _context.set(this, undefined); // The context of the TreeNode
         _cpxFactors.set(this, new cpx_factors_model_1.CpxFactors()); // The complexity factors of the TreeNode
-        _feature.set(this, undefined); // The NodeFeature of the node of the TreeNode
+        _factorCategory.set(this, undefined); // The FactorCategory of the node of the TreeNode
         _intrinsicDepthCpx.set(this, undefined); // The depth of the TreeNode inside its method (not including its parent's depth)
         _intrinsicNestingCpx.set(this, undefined); // The nesting of the TreeNode inside its method (not including its parent's nesting)
         _kind.set(this, undefined); // The kind of the node ('MethodDeclaration, IfStatement, ...)
         _name.set(this, undefined); // The name of the TreeNode
         _node.set(this, undefined); // The current node in the AST
-        this.nodeFeatureService = new node_feature_service_1.NodeFeatureService(); // The service managing NodeFeatures
+        this.nodeFeatureService = new factor_category_service_1.FactorCategoryService(); // The service managing NodeFeatures
         _parent.set(this, void 0); // The tree of the parent of the current node
         _treeFile.set(this, undefined); // The TreeFile containing the AST node of the TreeNode
         _treeMethod.set(this, undefined); // The method at the root of the current tree (if this tree is inside a method)
@@ -66,9 +66,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
     get depthCpx() {
         return this.cpxFactors.totalDepth;
     }
-    get feature() {
+    get factorCategory() {
         var _a;
-        return (_a = __classPrivateFieldGet(this, _feature)) !== null && _a !== void 0 ? _a : this.nodeFeatureService.getFeature(this.node);
+        return (_a = __classPrivateFieldGet(this, _factorCategory)) !== null && _a !== void 0 ? _a : this.nodeFeatureService.getFactorCategory(this.node);
     }
     get firstSon() {
         return this.getSon(0);
@@ -104,7 +104,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
         return ast_service_1.Ast.isCallIdentifier(this.node) && this === this.parent.firstSon;
     }
     get isFunctionOrMethodDeclaration() {
-        return this.feature === node_feature_enum_1.NodeFeature.DECLARATION;
+        return this.factorCategory === node_feature_enum_1.FactorCategory.DECLARATION;
     }
     get isParam() {
         return ast_service_1.Ast.isParam(this.node);
@@ -183,9 +183,16 @@ class TreeNode extends evaluable_model_1.Evaluable {
         this.calculateAndSetCpxFactors();
         this.addParentCpx();
     }
+    /**
+     * Gets the xth son of this TreeNode
+     * @param sonNumber
+     */
     getSon(sonNumber) {
         return this.children[sonNumber];
     }
+    /**
+     * Calculates the complexity index of the TreeNode
+     */
     calculateAndSetCpxFactors() {
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
@@ -198,19 +205,31 @@ class TreeNode extends evaluable_model_1.Evaluable {
         this.intrinsicDepthCpx = this.cpxFactors.totalDepth;
         return __classPrivateFieldGet(this, _cpxFactors);
     }
+    /**
+     * Sets the nesting and structural complexities for "usual" cases
+     */
     setGeneralCaseCpxFactors() {
-        this.cpxFactors.nesting[this.feature] = cpx_factors_1.cpxFactors.nesting[this.feature];
-        this.cpxFactors.structural[this.feature] = cpx_factors_1.cpxFactors.structural[this.feature];
+        this.cpxFactors.nesting[this.factorCategory] = cpx_factors_1.cpxFactors.nesting[this.factorCategory];
+        this.cpxFactors.structural[this.factorCategory] = cpx_factors_1.cpxFactors.structural[this.factorCategory];
     }
+    /**
+     * Sets the complexity index corresponding to "basic" factor (ie basic weight for all the AST nodes)
+     */
     setBasicCpxFactors() {
-        this.cpxFactors.basic.node = this.feature === node_feature_enum_1.NodeFeature.EMPTY ? 0 : cpx_factors_1.cpxFactors.basic.node;
+        this.cpxFactors.basic.node = this.factorCategory === node_feature_enum_1.FactorCategory.EMPTY ? 0 : cpx_factors_1.cpxFactors.basic.node;
     }
-    // TODO : refacto when depths different than arrays will be discovered
+    /**
+     * Sets depth complexity factor
+     * Example : array in array, like a[b[c]]
+     */
     setDepthCpxFactors() {
         if (ast_service_1.Ast.isArrayIndex(this.node)) {
             this.cpxFactors.depth.arr = cpx_factors_1.cpxFactors.depth.arr;
         }
     }
+    /**
+     * Sets aggregation complexity factor
+     */
     setAggregationCpxFactors() {
         if (ast_service_1.Ast.isArrayOfArray(this.node)) {
             this.cpxFactors.aggregation.arr = cpx_factors_1.cpxFactors.aggregation.arr;
@@ -219,6 +238,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
             this.cpxFactors.aggregation.differentLogicDoor = cpx_factors_1.cpxFactors.aggregation.differentLogicDoor;
         }
     }
+    /**
+     * Sets complexity factor for "else" case
+     */
     setElseCpxFactors() {
         if (ast_service_1.Ast.isElseStatement(this.node)) {
             this.cpxFactors.structural.conditional = cpx_factors_1.cpxFactors.structural.conditional;
@@ -227,12 +249,18 @@ class TreeNode extends evaluable_model_1.Evaluable {
             this.cpxFactors.nesting.conditional = 0;
         }
     }
+    /**
+     * Sets complexity factor for callbacks and recursions
+     */
     setRecursionOrCallbackCpxFactors() {
         this.cpxFactors.recursion.recursivity = this.isRecursiveMethod ? cpx_factors_1.cpxFactors.recursion.recursivity : 0;
         this.cpxFactors.recursion.callback = this.isCallback ? cpx_factors_1.cpxFactors.recursion.callback : 0;
     }
+    /**
+     * Sets complexity factor for regex
+     */
     setRegexCpxFactors() {
-        if (this.feature === node_feature_enum_1.NodeFeature.REGEX) {
+        if (this.factorCategory === node_feature_enum_1.FactorCategory.REGEX) {
             this.cpxFactors.aggregation.regex = +((this.node['text'].length - 2) * cpx_factors_1.cpxFactors.aggregation.regex).toFixed(2);
         }
     }
@@ -250,4 +278,4 @@ class TreeNode extends evaluable_model_1.Evaluable {
     }
 }
 exports.TreeNode = TreeNode;
-_context = new WeakMap(), _cpxFactors = new WeakMap(), _feature = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _kind = new WeakMap(), _name = new WeakMap(), _node = new WeakMap(), _parent = new WeakMap(), _treeFile = new WeakMap(), _treeMethod = new WeakMap();
+_context = new WeakMap(), _cpxFactors = new WeakMap(), _factorCategory = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _kind = new WeakMap(), _name = new WeakMap(), _node = new WeakMap(), _parent = new WeakMap(), _treeFile = new WeakMap(), _treeMethod = new WeakMap();

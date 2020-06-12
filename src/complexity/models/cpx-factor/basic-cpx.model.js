@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * The Complexity Category "Basic"
+ */
 class BasicCpx {
     constructor() {
         this.declaration = 0; // Declaration of a Class, a Function, a Method, ...
