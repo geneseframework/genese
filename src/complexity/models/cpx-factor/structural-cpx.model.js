@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * The Complexity Category "Structural"
+ */
 class StructuralCpx {
     constructor() {
         this.arr = 0; // "Array", "Set"

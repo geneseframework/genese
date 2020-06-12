@@ -9,17 +9,23 @@ import { DepthCpx } from './depth-cpx.model';
 import { ContextCpx } from './context-cpx.model';
 import { RecursionCpx } from './recursion-cpx.model';
 
+/**
+ * The Complexity Factors
+ */
 export class CpxFactors implements Addition<CpxFactors>{
 
-    aggregation?: AggregationCpx = new AggregationCpx();
-    basic?: BasicCpx = new BasicCpx();
-    context?: ContextCpx = new ContextCpx();
-    depth?: DepthCpx = new DepthCpx();
-    nesting?: NestingCpx = new NestingCpx();
-    recursion?: RecursionCpx = new RecursionCpx();
-    structural?: StructuralCpx = new StructuralCpx();
+    aggregation?: AggregationCpx = new AggregationCpx();        // Aggregation Complexity
+    basic?: BasicCpx = new BasicCpx();                          // Basic Complexity
+    context?: ContextCpx = new ContextCpx();                    // Context Complexity
+    depth?: DepthCpx = new DepthCpx();                          // Depth Complexity
+    nesting?: NestingCpx = new NestingCpx();                    // Nesting Complexity
+    recursion?: RecursionCpx = new RecursionCpx();              // Recursion Complexity
+    structural?: StructuralCpx = new StructuralCpx();           // Structural Complexity
 
 
+    /**
+     * Returns the total of Complexity Factors (the Complexity Index)
+     */
     get total(): number {
         let total = 0;
         for (const key of Object.keys(this)) {
@@ -59,15 +65,23 @@ export class CpxFactors implements Addition<CpxFactors>{
     }
 
 
-    private totalByFactorCategory(key: FactorCategory): number {
+    /**
+     * Returns the total Complexity Index for a given Category of Factors
+     * @param factorCategory
+     */
+    private totalByFactorCategory(factorCategory: FactorCategory): number {
         let total = 0;
-        for (const keyFeature of Object.keys(this[key])) {
-            total += this[key][keyFeature] ?? 0;
+        for (const keyFeature of Object.keys(this[factorCategory])) {
+            total += this[factorCategory][keyFeature] ?? 0;
         }
         return total;
     }
 
 
+    /**
+     * Adds a CpxFactors object to another one
+     * @param cpxFactors
+     */
     add(cpxFactors: CpxFactors): CpxFactors {
         return addObjects<CpxFactors>(this, cpxFactors, CpxFactors);
     }

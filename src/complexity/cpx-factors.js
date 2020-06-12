@@ -9,8 +9,6 @@ complexityFactors.aggregation = {
     regex: 0.1 // each element in a regex
 };
 complexityFactors.basic = {
-    declaration: 0.1,
-    imp: 0.1,
     node: 0.1,
 };
 complexityFactors.depth = {
@@ -29,14 +27,12 @@ complexityFactors.recursion = {
 complexityFactors.structural = {
     arr: 0.1,
     asynchronicity: 1,
-    // callback: 2,                        // Callback (call to a parameter of the parentFunction (ie method) of the node)
     conditional: 1,
     externalBinding: 3,
     func: 1,
     jump: 1,
     logicDoor: 1,
     loop: 1,
-    // recursion: 3,                       // Recursion (call to the node's method)
     regex: 1,
     ternary: 1 // Ternary expression
 };

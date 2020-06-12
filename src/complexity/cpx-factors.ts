@@ -10,12 +10,10 @@ complexityFactors.aggregation = {
     regex: 0.1                          // each element in a regex
 };
 complexityFactors.basic = {
-    declaration: 0.1,                   // Declaration of a Class, a Function, a Method, ...
-    imp: 0.1,                           // Element imported from another file
     node: 0.1,                          // Any AST node ("Identifier", "Parameter", "Block", IfStatement, ...)
 };
 complexityFactors.depth = {
-    arr: 1.5,                             // Inside an array
+    arr: 1.5,                           // Depth of elements inside an array
 };
 complexityFactors.nesting = {
     conditional: 0.5,                   // Inside a conditional
@@ -30,14 +28,12 @@ complexityFactors.recursion = {
 complexityFactors.structural = {
     arr: 0.1,                           // "Array", "Set"
     asynchronicity: 1,                  // "Promise", "Observable"
-    // callback: 2,                        // Callback (call to a parameter of the parentFunction (ie method) of the node)
     conditional: 1,                     // "if", "else", "else if", "switch", "catch", nullish coalescing
     externalBinding: 3,                 // A "this" inside a method which not refers to the method parentFunction (its class)
     func: 1,                            // Usage of a function or method inside a block of code
     jump: 1,                            // "break", "continue"
     logicDoor: 1,                       // "and", "or", "not"
     loop: 1,                            // "for", "foreach", "while"
-    // recursion: 3,                       // Recursion (call to the node's method)
     regex: 1,                           // Regular expression
     ternary: 1                          // Ternary expression
 };

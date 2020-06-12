@@ -67,7 +67,7 @@ class TreeFile extends evaluable_model_1.Evaluable {
     //                                  Other methods
     // ---------------------------------------------------------------------------------
     /**
-     * Evaluates the complexities of this TreeFile
+     * Evaluates the complexities of the TreeNodes and the TreeMethods of this TreeFile
      */
     evaluate() {
         const treeMethodService = new tree_method_service_1.TreeMethodService();

@@ -1,25 +1,18 @@
-var z;
 export class DebugMock {
 
-    hyperComplex() {
-        z((acc: any) => {
-            acc(0);
-        });
-    }
 
     ifAlone(a) {
-        return a('b');
-    }
-
-    keycloakService;
-    logout(a) {
         if (a) {
-            this.logout(a);
+            return 'b';
         }
+        const obj = {
+            id: 42,
+            counter: function counter() {
+                setTimeout(function() {
+                    console.log(this.id);
+                }.bind(this), 1000);
+            }
+        };
     }
 
-}
-
-function ctxt (a) {
-    console.log(a('b'));
 }

@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * The Complexity Category "Nesting"
+ */
 class NestingCpx {
     constructor() {
         this.conditional = 0; // Inside a conditional

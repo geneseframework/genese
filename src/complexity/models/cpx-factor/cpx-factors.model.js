@@ -9,16 +9,22 @@ const structural_cpx_model_1 = require("./structural-cpx.model");
 const depth_cpx_model_1 = require("./depth-cpx.model");
 const context_cpx_model_1 = require("./context-cpx.model");
 const recursion_cpx_model_1 = require("./recursion-cpx.model");
+/**
+ * The Complexity Factors
+ */
 class CpxFactors {
     constructor() {
-        this.aggregation = new aggregation_cpx_model_1.AggregationCpx();
-        this.basic = new basic_cpx_model_1.BasicCpx();
-        this.context = new context_cpx_model_1.ContextCpx();
-        this.depth = new depth_cpx_model_1.DepthCpx();
-        this.nesting = new nesting_cpx_model_1.NestingCpx();
-        this.recursion = new recursion_cpx_model_1.RecursionCpx();
-        this.structural = new structural_cpx_model_1.StructuralCpx();
+        this.aggregation = new aggregation_cpx_model_1.AggregationCpx(); // Aggregation Complexity
+        this.basic = new basic_cpx_model_1.BasicCpx(); // Basic Complexity
+        this.context = new context_cpx_model_1.ContextCpx(); // Context Complexity
+        this.depth = new depth_cpx_model_1.DepthCpx(); // Depth Complexity
+        this.nesting = new nesting_cpx_model_1.NestingCpx(); // Nesting Complexity
+        this.recursion = new recursion_cpx_model_1.RecursionCpx(); // Recursion Complexity
+        this.structural = new structural_cpx_model_1.StructuralCpx(); // Structural Complexity
     }
+    /**
+     * Returns the total of Complexity Factors (the Complexity Index)
+     */
     get total() {
         var _a;
         let total = 0;
@@ -45,14 +51,22 @@ class CpxFactors {
     get totalStructural() {
         return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.STRUCTURAL);
     }
-    totalByFactorCategory(key) {
+    /**
+     * Returns the total Complexity Index for a given Category of Factors
+     * @param factorCategory
+     */
+    totalByFactorCategory(factorCategory) {
         var _a;
         let total = 0;
-        for (const keyFeature of Object.keys(this[key])) {
-            total += (_a = this[key][keyFeature]) !== null && _a !== void 0 ? _a : 0;
+        for (const keyFeature of Object.keys(this[factorCategory])) {
+            total += (_a = this[factorCategory][keyFeature]) !== null && _a !== void 0 ? _a : 0;
         }
         return total;
     }
+    /**
+     * Adds a CpxFactors object to another one
+     * @param cpxFactors
+     */
     add(cpxFactors) {
         return tools_service_1.addObjects(this, cpxFactors, CpxFactors);
     }

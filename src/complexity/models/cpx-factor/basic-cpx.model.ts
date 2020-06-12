@@ -1,3 +1,6 @@
+/**
+ * The Complexity Category "Basic"
+ */
 export class BasicCpx {
 
     declaration ?= 0;                       // Declaration of a Class, a Function, a Method, ...

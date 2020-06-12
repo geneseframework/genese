@@ -20,7 +20,7 @@ export class TreeFolder extends Evaluable implements HasStats {
     stats: Stats = undefined;                                                   // The stats corresponding to this folder
     subFolders?: TreeFolder[] = [];                                             // The subfolders of this folder
     treeFiles?: TreeFile[] = [];                                                // The array of files of this folder (not in the subfolders)
-    treeFolderService?: TreeFolderService = new TreeFolderService();                          // The TreeFolderService linked to this TreeFolder
+    treeFolderService?: TreeFolderService = new TreeFolderService();            // The TreeFolderService linked to this TreeFolder
 
 
     constructor() {
@@ -41,7 +41,7 @@ export class TreeFolder extends Evaluable implements HasStats {
 
 
     /**
-     * Evaluates the complexities of this TreeFolder
+     * Evaluates the complexities of the TreeFiles of this TreeFolder
      */
     evaluate(): void {
         for (const file of this.treeFiles) {

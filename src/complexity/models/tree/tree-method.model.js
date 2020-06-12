@@ -126,19 +126,19 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         return status;
     }
     /**
-     * Creates the code to display with the original code of a TreeNode
-     * @param tree  // The TreeNode to analyse
+     * Creates the method's code to display, with comments
+     * @param treeNode  // The TreeNode to analyse (by default: the TreeNode associated to this TreeMethod)
      */
-    createDisplayedCode(tree = this.treeNode) {
+    createDisplayedCode(treeNode = this.treeNode) {
         this.setDisplayedCodeLines();
-        this.setCpxFactorsToDisplayedCode(tree, false);
+        this.setCpxFactorsToDisplayedCode(treeNode, false);
         __classPrivateFieldGet(this, _displayedCode).setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
         this.calculateCpxIndex();
         __classPrivateFieldGet(this, _displayedCode).setTextWithLines();
     }
     /**
-     * Sets the code to display in the TreeFile's report
+     * Creates the Code object corresponding to the code to display
      */
     setDisplayedCodeLines() {
         __classPrivateFieldSet(this, _displayedCode, new code_model_1.Code());
@@ -151,19 +151,20 @@ class TreeMethod extends evaluable_model_1.Evaluable {
         }
     }
     /**
-     * Sets the CodeLines of the displayed Code of this method
-     * @param tree
+     * Calculates the complexity factors of each CodeLine
+     * @param treeNode                  // The TreeNode of the method
+     * @param startedUncommentedLines   // Param for recursion (checks if the current line is the first uncommented one)
      */
-    setCpxFactorsToDisplayedCode(tree, startedUncommentedLines = false) {
-        for (const childTree of tree.children) {
+    setCpxFactorsToDisplayedCode(treeNode, startedUncommentedLines = false) {
+        for (const childTree of treeNode.children) {
             let issue = this.codeService.getLineIssue(__classPrivateFieldGet(this, _originalCode), childTree.position - this.position);
             const codeLine = __classPrivateFieldGet(this, _displayedCode).lines[issue];
             if (ast_service_1.Ast.isElseStatement(childTree.node)) {
                 childTree.cpxFactors.basic.node = cpx_factors_1.cpxFactors.basic.node;
                 issue--;
             }
-            if (!startedUncommentedLines && tree.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
-                this.increaseLineCpxFactors(tree, codeLine);
+            if (!startedUncommentedLines && treeNode.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
+                this.increaseLineCpxFactors(treeNode, codeLine);
                 startedUncommentedLines = true;
             }
             else if (startedUncommentedLines) {
@@ -173,13 +174,18 @@ class TreeMethod extends evaluable_model_1.Evaluable {
             this.setCpxFactorsToDisplayedCode(childTree, startedUncommentedLines);
         }
     }
-    increaseLineCpxFactors(tree, codeLine) {
+    /**
+     * Adds the Complexity of a TreeNode to its CodeLine
+     * @param treeNode      // The TreeNode inside the line of code
+     * @param codeLine      // The CodeLine containing the TreeNode
+     */
+    increaseLineCpxFactors(treeNode, codeLine) {
         if (!codeLine.isCommented) {
-            codeLine.cpxFactors = codeLine.cpxFactors.add(tree === null || tree === void 0 ? void 0 : tree.cpxFactors);
+            codeLine.cpxFactors = codeLine.cpxFactors.add(treeNode === null || treeNode === void 0 ? void 0 : treeNode.cpxFactors);
         }
     }
     /**
-     * Adds information about complexity increment reasons for each line of the displayed code
+     * Adds information about complexity factors for each line of the displayed code
      */
     addCommentsToDisplayedCode() {
         __classPrivateFieldGet(this, _displayedCode).lines

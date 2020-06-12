@@ -32,7 +32,7 @@ class TreeFolder extends evaluable_model_1.Evaluable {
         return this.stats;
     }
     /**
-     * Evaluates the complexities of this TreeFolder
+     * Evaluates the complexities of the TreeFiles of this TreeFolder
      */
     evaluate() {
         var _a, _b;
