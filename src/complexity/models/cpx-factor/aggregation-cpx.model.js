@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * The Complexity Category "Aggregation"
+ */
 class AggregationCpx {
     constructor() {
         this.arr = 0; // Array of arrays

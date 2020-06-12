@@ -18,8 +18,8 @@ class TreeFileService extends stats_service_1.StatsService {
         super();
         this._stats = undefined; // The statistics of the TreeFile
         this.treeFile = undefined; // The TreeFile corresponding to this service
-        this.treeMethodService = new tree_method_service_1.TreeMethodService();
-        this.treeNodeService = new tree_node_service_1.TreeNodeService();
+        this.treeMethodService = new tree_method_service_1.TreeMethodService(); // The service managing TreeMethods
+        this.treeNodeService = new tree_node_service_1.TreeNodeService(); // The service managing TreeNodes
     }
     /**
      * Generates the TreeFile for a given file of a given folder

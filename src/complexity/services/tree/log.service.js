@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chalk = require('chalk');
 class LogService {
     // ------------------------------------------------------------------------------------------------
-    // ---------------------------------------   PRINT AST   ------------------------------------------
+    // -----------------------------------------   LOG AST   ------------------------------------------
     // ------------------------------------------------------------------------------------------------
     /**
      * Logs all the AST
@@ -30,6 +30,11 @@ class LogService {
             this.printChildren(childTree, newIndent);
         }
     }
+    /**
+     * Logs the AST of a TreeNode with its complexity factors, its context and its parent
+     * @param childTree
+     * @param indent
+     */
     static logTreeNode(childTree, indent) {
         var _a, _b;
         let color = '';
@@ -53,6 +58,11 @@ class LogService {
         logs.push(chalk.greenBright((_b = childTree.parent) === null || _b === void 0 ? void 0 : _b.kind));
         console.log(...logs);
     }
+    /**
+     * Adds a text with its value in a console.log if the value is positive
+     * @param text      // The text to add
+     * @param value     // The corresponding value
+     */
     static addLog(text, value) {
         return value > 0 ? [text, value] : [];
     }

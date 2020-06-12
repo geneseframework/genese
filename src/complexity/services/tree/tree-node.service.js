@@ -9,7 +9,7 @@ const tree_method_service_1 = require("./tree-method.service");
  */
 class TreeNodeService {
     constructor() {
-        this.treeMethodService = new tree_method_service_1.TreeMethodService();
+        this.treeMethodService = new tree_method_service_1.TreeMethodService(); // The service managing TreeMethods
     }
     /**
      * Returns the TreeNode obtained by setting recursively TreeNodes for its children and subChildren
@@ -66,6 +66,11 @@ class TreeNodeService {
             return (_e = treeNode.parent) === null || _e === void 0 ? void 0 : _e.context;
         }
     }
+    /**
+     * Checks if a TreeNode is the second son of an AST node "PropertyAccessExpression"
+     * (the first son is the object and the second is its property)
+     * @param treeNode
+     */
     isSecondSonOfPropertyAccessExpression(treeNode) {
         var _a;
         return ast_service_1.Ast.isPropertyAccessExpression((_a = treeNode === null || treeNode === void 0 ? void 0 : treeNode.parent) === null || _a === void 0 ? void 0 : _a.node) && treeNode === (treeNode === null || treeNode === void 0 ? void 0 : treeNode.parent.secondSon);
