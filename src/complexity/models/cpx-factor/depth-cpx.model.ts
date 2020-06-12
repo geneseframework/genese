@@ -1,5 +1,8 @@
+/**
+ * The Complexity Category "Depth"
+ */
 export class DepthCpx {
 
-    arr ?= 0;           // Inside an array
+    arr ?= 0;           // Depth inside an array
 
 }

@@ -1,3 +1,6 @@
+/**
+ * The Complexity Category "Structural"
+ */
 export class StructuralCpx {
 
     arr ?= 0;                               // "Array", "Set"

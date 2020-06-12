@@ -183,9 +183,16 @@ class TreeNode extends evaluable_model_1.Evaluable {
         this.calculateAndSetCpxFactors();
         this.addParentCpx();
     }
+    /**
+     * Gets the xth son of this TreeNode
+     * @param sonNumber
+     */
     getSon(sonNumber) {
         return this.children[sonNumber];
     }
+    /**
+     * Calculates the complexity index of the TreeNode
+     */
     calculateAndSetCpxFactors() {
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
@@ -198,19 +205,31 @@ class TreeNode extends evaluable_model_1.Evaluable {
         this.intrinsicDepthCpx = this.cpxFactors.totalDepth;
         return __classPrivateFieldGet(this, _cpxFactors);
     }
+    /**
+     * Sets the nesting and structural complexities for "usual" cases
+     */
     setGeneralCaseCpxFactors() {
         this.cpxFactors.nesting[this.feature] = cpx_factors_1.cpxFactors.nesting[this.feature];
         this.cpxFactors.structural[this.feature] = cpx_factors_1.cpxFactors.structural[this.feature];
     }
+    /**
+     * Sets the complexity index corresponding to "basic" factor (ie basic weight for all the AST nodes)
+     */
     setBasicCpxFactors() {
         this.cpxFactors.basic.node = this.feature === node_feature_enum_1.NodeFeature.EMPTY ? 0 : cpx_factors_1.cpxFactors.basic.node;
     }
-    // TODO : refacto when depths different than arrays will be discovered
+    /**
+     * Sets depth complexity factor
+     * Example : array in array, like a[b[c]]
+     */
     setDepthCpxFactors() {
         if (ast_service_1.Ast.isArrayIndex(this.node)) {
             this.cpxFactors.depth.arr = cpx_factors_1.cpxFactors.depth.arr;
         }
     }
+    /**
+     * Sets aggregation complexity factor
+     */
     setAggregationCpxFactors() {
         if (ast_service_1.Ast.isArrayOfArray(this.node)) {
             this.cpxFactors.aggregation.arr = cpx_factors_1.cpxFactors.aggregation.arr;
@@ -219,6 +238,9 @@ class TreeNode extends evaluable_model_1.Evaluable {
             this.cpxFactors.aggregation.differentLogicDoor = cpx_factors_1.cpxFactors.aggregation.differentLogicDoor;
         }
     }
+    /**
+     * Sets complexity factor for "else" case
+     */
     setElseCpxFactors() {
         if (ast_service_1.Ast.isElseStatement(this.node)) {
             this.cpxFactors.structural.conditional = cpx_factors_1.cpxFactors.structural.conditional;
@@ -227,10 +249,16 @@ class TreeNode extends evaluable_model_1.Evaluable {
             this.cpxFactors.nesting.conditional = 0;
         }
     }
+    /**
+     * Sets complexity factor for callbacks and recursions
+     */
     setRecursionOrCallbackCpxFactors() {
         this.cpxFactors.recursion.recursivity = this.isRecursiveMethod ? cpx_factors_1.cpxFactors.recursion.recursivity : 0;
         this.cpxFactors.recursion.callback = this.isCallback ? cpx_factors_1.cpxFactors.recursion.callback : 0;
     }
+    /**
+     * Sets complexity factor for regex
+     */
     setRegexCpxFactors() {
         if (this.feature === node_feature_enum_1.NodeFeature.REGEX) {
             this.cpxFactors.aggregation.regex = +((this.node['text'].length - 2) * cpx_factors_1.cpxFactors.aggregation.regex).toFixed(2);

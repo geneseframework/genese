@@ -1,3 +1,6 @@
+/**
+ * The Complexity Category "Nesting"
+ */
 export class NestingCpx {
 
     conditional ?= 0;                       // Inside a conditional

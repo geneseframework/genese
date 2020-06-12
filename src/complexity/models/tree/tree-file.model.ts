@@ -84,7 +84,7 @@ export class TreeFile extends Evaluable implements HasStats, HasTreeNode {
 
 
     /**
-     * Evaluates the complexities of this TreeFile
+     * Evaluates the complexities of the TreeNodes and the TreeMethods of this TreeFile
      */
     evaluate(): void {
         const treeMethodService = new TreeMethodService();

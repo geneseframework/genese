@@ -23,7 +23,7 @@ export class CodeLine {
     }
 
     /**
-     * Sets the nesting complexity to this CodeLine
+     * Sets the depth and nesting complexity to this CodeLine
      */
     setDepthAndNestingCpx(): void {
         this.cpxFactors.nesting = new NestingCpx();

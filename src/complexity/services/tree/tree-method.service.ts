@@ -7,7 +7,7 @@ import { TreeNode } from '../../models/tree/tree-node.model';
 
 export class TreeMethodService {
 
-    codeService?: CodeService = new CodeService();
+    codeService?: CodeService = new CodeService();      // The service managing Code objects
 
 
     /**

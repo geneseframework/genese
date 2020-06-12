@@ -7,7 +7,7 @@ export class LogService {
 
 
     // ------------------------------------------------------------------------------------------------
-    // ---------------------------------------   PRINT AST   ------------------------------------------
+    // -----------------------------------------   LOG AST   ------------------------------------------
     // ------------------------------------------------------------------------------------------------
 
 
@@ -40,6 +40,11 @@ export class LogService {
     }
 
 
+    /**
+     * Logs the AST of a TreeNode with its complexity factors, its context and its parent
+     * @param childTree
+     * @param indent
+     */
     private static logTreeNode(childTree: TreeNode, indent: string): void {
         let color = '';
         if (childTree.cpxFactors.total < 0.5) {
@@ -65,6 +70,11 @@ export class LogService {
     }
 
 
+    /**
+     * Adds a text with its value in a console.log if the value is positive
+     * @param text      // The text to add
+     * @param value     // The corresponding value
+     */
     private static addLog(text: string, value: number): any[] {
         return value > 0 ? [text, value] : [];
     }

@@ -1,3 +1,6 @@
+/**
+ * The Complexity Category "Aggregation"
+ */
 export class AggregationCpx {
 
     arr ?= 0;                                   // Array of arrays
