@@ -21,7 +21,7 @@ export class AstFile {
 
 
     set children(astNodes: AstNode[]) {
-        this.children = astNodes;
+        this.#children = astNodes;
     }
 
 
@@ -31,7 +31,7 @@ export class AstFile {
 
 
     set end(end: number) {
-        this.end = end;
+        this.#end = end;
     }
 
 
@@ -41,7 +41,7 @@ export class AstFile {
 
 
     set path(path: string) {
-        this.path = path;
+        this.#path = path;
     }
 
 
@@ -51,7 +51,7 @@ export class AstFile {
 
 
     set text(text: string) {
-        this.text = text;
+        this.#text = text;
     }
 
 }

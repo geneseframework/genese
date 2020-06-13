@@ -5,7 +5,7 @@ class TsToJsonAstService {
     static convert(sourceFile) {
         const debug = './src/complexity/mocks/debug.mock.ts';
         const jsonAst = new ast_model_1.JsonAst();
-        jsonAst.sourceFile.path = debug;
+        jsonAst.astFile.path = debug;
         return jsonAst;
     }
 }

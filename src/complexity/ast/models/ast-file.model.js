@@ -5,6 +5,13 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     }
     return privateMap.get(receiver);
 };
+var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, privateMap, value) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to set private field on non-instance");
+    }
+    privateMap.set(receiver, value);
+    return value;
+};
 var _children, _end, _path, _text;
 Object.defineProperty(exports, "__esModule", { value: true });
 class AstFile {
@@ -21,25 +28,25 @@ class AstFile {
         return __classPrivateFieldGet(this, _children);
     }
     set children(astNodes) {
-        this.children = astNodes;
+        __classPrivateFieldSet(this, _children, astNodes);
     }
     get end() {
         return __classPrivateFieldGet(this, _end);
     }
     set end(end) {
-        this.end = end;
+        __classPrivateFieldSet(this, _end, end);
     }
     get path() {
         return __classPrivateFieldGet(this, _path);
     }
     set path(path) {
-        this.path = path;
+        __classPrivateFieldSet(this, _path, path);
     }
     get text() {
         return __classPrivateFieldGet(this, _text);
     }
     set text(text) {
-        this.text = text;
+        __classPrivateFieldSet(this, _text, text);
     }
 }
 exports.AstFile = AstFile;

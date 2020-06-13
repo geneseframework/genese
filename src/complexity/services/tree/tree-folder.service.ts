@@ -73,13 +73,12 @@ export class TreeFolderService extends StatsService {
             treeFolder.subFolders.push(subFolder);
         } else if (!language || getLanguageExtensions(language).includes(getFileExtension(pathElement))) {
             if (!DEBUG || (DEBUG && pathElement === './src/complexity/mocks/debug.mock.ts')) {
-                // language = Language.PHP;
+                language = Language.PHP;
                 // @ts-ignore
                 if (language === Language.TS) {
                     treeFolder.treeFiles.push(this.treeFileAstService.generateTsTree(pathElement, treeFolder));
                 } else {
                     const jsonAst: JsonAst = LanguageToJsonAstService.convert(pathElement, language);
-                    console.log('JSON AST', jsonAst);
                     treeFolder.treeFiles.push(this.treeFileAstService.generateTree(jsonAst, treeFolder));
                 }
             }

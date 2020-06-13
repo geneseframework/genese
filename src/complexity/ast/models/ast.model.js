@@ -5,21 +5,30 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     }
     return privateMap.get(receiver);
 };
-var _sourceFile;
+var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, privateMap, value) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to set private field on non-instance");
+    }
+    privateMap.set(receiver, value);
+    return value;
+};
+var _astFile;
 Object.defineProperty(exports, "__esModule", { value: true });
+const ast_file_model_1 = require("./ast-file.model");
 class JsonAst {
     constructor() {
-        _sourceFile.set(this, undefined);
+        _astFile.set(this, new ast_file_model_1.AstFile());
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
-    get sourceFile() {
-        return __classPrivateFieldGet(this, _sourceFile);
+    get astFile() {
+        return __classPrivateFieldGet(this, _astFile);
     }
-    set sourceFile(astFile) {
-        this.sourceFile = astFile;
+    set astFile(astFile) {
+        console.log(astFile);
+        __classPrivateFieldSet(this, _astFile, astFile);
     }
 }
 exports.JsonAst = JsonAst;
-_sourceFile = new WeakMap();
+_astFile = new WeakMap();

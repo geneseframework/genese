@@ -4,7 +4,7 @@ export class PhpToJsonAstService {
 
     static convert(path: string): JsonAst {
         const jsonAst = new JsonAst();
-        jsonAst.sourceFile.path = path;
+        jsonAst.astFile.path = path;
         return jsonAst;
     }
 

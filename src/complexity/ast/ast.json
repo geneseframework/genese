@@ -1,9 +1,7 @@
 {
-    "sourcefile": {
+    "astfile": {
         "pos": 0,
         "end": 109,
-        "kind": "SourceFile",
-        "name": "my-file.ts",
         "path": "/Users/my-path/my-file.ts",
         "text": "export class GeneseComplexity {\\n\\n ifAlone(a) {\\n if (a) {\\n return 'b';\\n }\\n }\\n}\\n",
         "children": [

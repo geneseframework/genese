@@ -19,7 +19,7 @@ const tree_file_service_1 = require("../../services/tree/tree-file.service");
 const evaluable_model_1 = require("../evaluable.model");
 const tree_method_service_1 = require("../../services/tree/tree-method.service");
 /**
- * Element of the TreeNode structure corresponding to a given file (AST sourceFile)
+ * Element of the TreeNode structure corresponding to a given file (AST astFile)
  */
 class TreeFile extends evaluable_model_1.Evaluable {
     constructor() {

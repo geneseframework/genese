@@ -11,7 +11,7 @@ import { TreeNode } from './tree-node.model';
 import { HasTreeNode } from '../../interfaces/has-tree-node';
 
 /**
- * Element of the TreeNode structure corresponding to a given file (AST sourceFile)
+ * Element of the TreeNode structure corresponding to a given file (AST astFile)
  */
 export class TreeFile extends Evaluable implements HasStats, HasTreeNode {
 

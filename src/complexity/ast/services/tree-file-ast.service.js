@@ -23,7 +23,7 @@ class TreeFileAstService extends stats_service_1.StatsService {
     }
     static convert(jsonAst, treeFolder) {
         const treeFile = new tree_file_model_1.TreeFile();
-        treeFile.sourceFile = ast_service_1.Ast.getSourceFile(jsonAst.sourceFile.path);
+        treeFile.sourceFile = ast_service_1.Ast.getSourceFile(jsonAst.astFile.path);
         treeFile.treeFolder = treeFolder;
         return treeFile;
     }
@@ -54,8 +54,8 @@ class TreeFileAstService extends stats_service_1.StatsService {
         const debugJsonAst = require('../ast.json');
         console.log('JSONAST', debugJsonAst);
         this.treeFile = new tree_file_model_1.TreeFile();
-        // this.treeFile.sourceFile = Ast.getSourceFile(jsonAst.sourceFile.path);
-        // this.treeFile.name = this.treeFile.sourceFile?.fileName;
+        // this.treeFile.astFile = Ast.getSourceFile(jsonAst.astFile.path);
+        // this.treeFile.name = this.treeFile.astFile?.fileName;
         // this.treeFile.treeFolder = treeFolder;
         // this.generateTreeNodes();
         // this.treeFile.treeMethods = this.setTreeMethods(this.treeFile.treeNodes);

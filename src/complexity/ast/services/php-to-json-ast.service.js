@@ -4,7 +4,7 @@ const ast_model_1 = require("../models/ast.model");
 class PhpToJsonAstService {
     static convert(path) {
         const jsonAst = new ast_model_1.JsonAst();
-        jsonAst.sourceFile.path = path;
+        jsonAst.astFile.path = path;
         return jsonAst;
     }
 }
