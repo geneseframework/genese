@@ -19,7 +19,7 @@ export class Ast {
 
 
     /**
-     * Gets the typescript SourceFile of a given file
+     * Gets the typescript JsonAst of a given file
      * @param path // The absolute path of the file
      */
     static getSourceFile(path: string): ts.SourceFile {
