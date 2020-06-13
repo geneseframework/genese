@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
 import { TreeFolder } from '../../models/tree/tree-folder.model';
-import { getExtension, getRelativePath } from '../file.service';
+import { getFileExtension, getLanguageExtensions, getRelativePath } from '../file.service';
 import { TreeFileService } from './tree-file.service';
 import { TreeFile } from '../../models/tree/tree-file.model';
 import { BarchartService } from '../report/barchart.service';
@@ -9,6 +9,12 @@ import { StatsService } from '../report/stats.service';
 import { Stats } from '../../models/stats.model';
 import { Options } from '../../models/options';
 import { DEBUG } from '../../main';
+import { JsonAst } from '../../ast/models/ast.model';
+import { TsToJsonAstService } from '../../ast/services/ts-to-json-ast.service';
+import { Ast } from '../ast.service';
+import { JsonToTreeFileService } from '../../ast/services/json-to-tree-file.service';
+import { LanguageToJsonAstService } from '../../ast/services/language-to-json-ast.service';
+import { Language } from '../../ast/enums/language.enum';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
@@ -29,10 +35,10 @@ export class TreeFolderService extends StatsService {
      * Generates the TreeFolder for a given folder
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the folder
      * @param path              // The path of the folder
-     * @param extension         // The extension of the files concerned by the generation (actually: only .ts)
+     * @param language         // The extension of the files concerned by the generation (actually: only .ts)
      * @param treeSubFolder     // The TreeFolder of a subfolder (param useful only for recursivity, should not be used outside of the method)
      */
-    generateTree(path: string, extension?: string, treeSubFolder?: TreeFolder): TreeFolder {
+    generateTree(path: string, language?: Language, treeSubFolder?: TreeFolder): TreeFolder {
         if (!path) {
             console.log('ERROR: no path.')
             return undefined;
@@ -44,7 +50,7 @@ export class TreeFolderService extends StatsService {
         filesOrDirs.forEach((elementName: string) => {
             const pathElement = path + elementName;
             if (!Options.isIgnored(pathElement)) {
-                this.generateFileOrDirTree(pathElement, extension, treeSubFolder, treeFolder);
+                this.generateFileOrDirTree(pathElement, language, treeSubFolder, treeFolder);
             }
         });
         treeFolder.evaluate();
@@ -55,21 +61,23 @@ export class TreeFolderService extends StatsService {
     /**
      * Generates the TreeFolder of a treeSubFolder which is a child of a given treeFolder with the path 'pathElement'
      * @param pathElement       // The path of the element
-     * @param extension         // The extension of the files concerned by the generation (actually: only .ts)
+     * @param language         // The extension of the files concerned by the generation (actually: only .ts)
      * @param treeSubFolder     // The TreeFolder of a subfolder of the param treeFolder
      * @param treeFolder        // The parent TreeFolder
      */
-    private generateFileOrDirTree(pathElement: string, extension: string, treeSubFolder: TreeFolder, treeFolder: TreeFolder): void {
+    private generateFileOrDirTree(pathElement: string, language: Language, treeSubFolder: TreeFolder, treeFolder: TreeFolder): void {
         if (fs.statSync(pathElement).isDirectory()) {
             let subFolder = new TreeFolder();
-            subFolder = this.generateTree(`${pathElement}/`, extension, subFolder);
+            subFolder = this.generateTree(`${pathElement}/`, language, subFolder);
             subFolder.parent = treeSubFolder;
             subFolder.path = pathElement;
             treeFolder.subFolders.push(subFolder);
         } else {
-            if (!extension || extension === getExtension(pathElement)) {
+            if (!language || getLanguageExtensions(language).includes(getFileExtension(pathElement))) {
                 if (!DEBUG || (DEBUG && pathElement === './src/complexity/mocks/debug.mock.ts')) {
-                    treeFolder.treeFiles.push(this.treeFileService.generateTree(pathElement, treeFolder));
+                    const jsonAst: JsonAst = LanguageToJsonAstService.convert(pathElement, language);
+                    // treeFolder.treeFiles.push(JsonToTreeFileService.convert(jsonAst, treeFolder));
+                    // treeFolder.treeFiles.push(this.treeFileService.generateTree(pathElement, treeFolder));
                 }
             }
         }

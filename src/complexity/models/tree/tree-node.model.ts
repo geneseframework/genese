@@ -188,7 +188,7 @@ export class TreeNode extends Evaluable {
     }
 
 
-    get posdsition(): number {
+    get position(): number {
         return Ast.getPosition(this.node);
     }
 

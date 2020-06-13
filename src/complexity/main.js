@@ -5,6 +5,7 @@ const file_service_1 = require("./services/file.service");
 const reports_service_1 = require("./services/report/reports.service");
 const tree_folder_service_1 = require("./services/tree/tree-folder.service");
 const ansi_colors_1 = require("ansi-colors");
+const language_enum_1 = require("./ast/enums/language.enum");
 exports.DEBUG = false; // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND when you want to get stats only for debug.mock.ts file
 /**
  * Main process of the analysis
@@ -19,11 +20,11 @@ class Main {
      * @param pathToAnalyze
      * @param pathGeneseNodeJs
      */
-    start(pathCommand, pathToAnalyze, pathGeneseNodeJs) {
+    start(pathCommand, pathToAnalyze, pathGeneseNodeJs, language) {
         console.log('START CALCULATION');
         options_1.Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
         file_service_1.createOutDir();
-        const treeFolder = this.treeFolderService.generateTree(options_1.Options.pathFolderToAnalyze, 'ts');
+        const treeFolder = this.treeFolderService.generateTree(options_1.Options.pathFolderToAnalyze, language_enum_1.Language.TS);
         reports_service_1.ReportsService.generateAllReports(treeFolder);
         console.log(ansi_colors_1.blueBright('COMPLEXITY REPORT GENERATED SUCCESSFULLY'));
     }

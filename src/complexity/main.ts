@@ -1,9 +1,9 @@
-import * as ts from 'typescript';
 import { Options } from './models/options';
 import { createOutDir } from './services/file.service';
 import { ReportsService } from './services/report/reports.service';
 import { TreeFolderService } from './services/tree/tree-folder.service';
 import { blueBright } from 'ansi-colors';
+import { Language } from './ast/enums/language.enum';
 
 export const DEBUG = false;     // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND when you want to get stats only for debug.mock.ts file
 
@@ -23,11 +23,11 @@ export class Main {
      * @param pathToAnalyze
      * @param pathGeneseNodeJs
      */
-    start(pathCommand: string, pathToAnalyze: string, pathGeneseNodeJs: string): void {
+    start(pathCommand: string, pathToAnalyze: string, pathGeneseNodeJs: string, language?: string): void {
         console.log('START CALCULATION');
         Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
         createOutDir();
-        const treeFolder = this.treeFolderService.generateTree(Options.pathFolderToAnalyze, 'ts');
+        const treeFolder = this.treeFolderService.generateTree(Options.pathFolderToAnalyze, Language.TS);
         ReportsService.generateAllReports(treeFolder);
         console.log(blueBright('COMPLEXITY REPORT GENERATED SUCCESSFULLY'));
     }

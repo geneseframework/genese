@@ -18,7 +18,9 @@ try {
 
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
 
-    program.command('cpxFactors [pathToAnalyse]')
+    program.option('-l, --language <language>', 'Language');
+
+    program.command('cpx [pathToAnalyse]')
         .description('Calculates cognitive and cyclomatic complexities')
         .action((pathToAnalyze) => {
             console.log(blueBright("STARTS GENESE COMPLEXITY CLI"));

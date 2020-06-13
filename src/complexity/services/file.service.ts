@@ -113,7 +113,7 @@ export function getRouteToRoot(relativePath: string): string {
  * Returns the extension of a file
  * @param filename      // The name of the file
  */
-export function getExtension(filename: string): string {
+export function getFileExtension(filename: string): string {
     return filename ? filename.split('.').pop() : '';
 }
 
@@ -126,8 +126,25 @@ export function getFilenameWithoutExtension(filename: string): string {
     if (!filename) {
         return '';
     }
-    const extensionLength = getExtension(filename).length;
+    const extensionLength = getFileExtension(filename).length;
     return filename.slice(0, -(extensionLength + 1));
+}
+
+
+export function getLanguageExtensions(language: string): string[] {
+    switch (language) {
+        case 'java':
+            return ['java'];
+        case 'json':
+            return ['json'];
+        case 'php':
+            return ['php'];
+        case 'typescript':
+        case 'ts':
+            return ['ts'];
+        default:
+            return ['json'];
+    }
 }
 
 

@@ -9,6 +9,7 @@ const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const stats_service_1 = require("../report/stats.service");
 const options_1 = require("../../models/options");
 const main_1 = require("../../main");
+const language_to_json_ast_service_1 = require("../../ast/services/language-to-json-ast.service");
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
  * - Other services for TreeFolders
@@ -24,10 +25,10 @@ class TreeFolderService extends stats_service_1.StatsService {
      * Generates the TreeFolder for a given folder
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the folder
      * @param path              // The path of the folder
-     * @param extension         // The extension of the files concerned by the generation (actually: only .ts)
+     * @param language         // The extension of the files concerned by the generation (actually: only .ts)
      * @param treeSubFolder     // The TreeFolder of a subfolder (param useful only for recursivity, should not be used outside of the method)
      */
-    generateTree(path, extension, treeSubFolder) {
+    generateTree(path, language, treeSubFolder) {
         if (!path) {
             console.log('ERROR: no path.');
             return undefined;
@@ -39,7 +40,7 @@ class TreeFolderService extends stats_service_1.StatsService {
         filesOrDirs.forEach((elementName) => {
             const pathElement = path + elementName;
             if (!options_1.Options.isIgnored(pathElement)) {
-                this.generateFileOrDirTree(pathElement, extension, treeSubFolder, treeFolder);
+                this.generateFileOrDirTree(pathElement, language, treeSubFolder, treeFolder);
             }
         });
         treeFolder.evaluate();
@@ -48,22 +49,24 @@ class TreeFolderService extends stats_service_1.StatsService {
     /**
      * Generates the TreeFolder of a treeSubFolder which is a child of a given treeFolder with the path 'pathElement'
      * @param pathElement       // The path of the element
-     * @param extension         // The extension of the files concerned by the generation (actually: only .ts)
+     * @param language         // The extension of the files concerned by the generation (actually: only .ts)
      * @param treeSubFolder     // The TreeFolder of a subfolder of the param treeFolder
      * @param treeFolder        // The parent TreeFolder
      */
-    generateFileOrDirTree(pathElement, extension, treeSubFolder, treeFolder) {
+    generateFileOrDirTree(pathElement, language, treeSubFolder, treeFolder) {
         if (fs.statSync(pathElement).isDirectory()) {
             let subFolder = new tree_folder_model_1.TreeFolder();
-            subFolder = this.generateTree(`${pathElement}/`, extension, subFolder);
+            subFolder = this.generateTree(`${pathElement}/`, language, subFolder);
             subFolder.parent = treeSubFolder;
             subFolder.path = pathElement;
             treeFolder.subFolders.push(subFolder);
         }
         else {
-            if (!extension || extension === file_service_1.getExtension(pathElement)) {
+            if (!language || file_service_1.getLanguageExtensions(language).includes(file_service_1.getFileExtension(pathElement))) {
                 if (!main_1.DEBUG || (main_1.DEBUG && pathElement === './src/complexity/mocks/debug.mock.ts')) {
-                    treeFolder.treeFiles.push(this.treeFileService.generateTree(pathElement, treeFolder));
+                    const jsonAst = language_to_json_ast_service_1.LanguageToJsonAstService.convert(pathElement, language);
+                    // treeFolder.treeFiles.push(JsonToTreeFileService.convert(jsonAst, treeFolder));
+                    // treeFolder.treeFiles.push(this.treeFileService.generateTree(pathElement, treeFolder));
                 }
             }
         }
