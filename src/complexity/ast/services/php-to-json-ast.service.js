@@ -1,12 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const ast_model_1 = require("../models/ast.model");
-class TsToJsonAstService {
-    static convert(sourceFile) {
-        const debug = './src/complexity/mocks/debug.mock.ts';
+class PhpToJsonAstService {
+    static convert(path) {
         const jsonAst = new ast_model_1.JsonAst();
-        jsonAst.sourceFile.path = debug;
+        jsonAst.sourceFile.path = path;
         return jsonAst;
     }
 }
-exports.TsToJsonAstService = TsToJsonAstService;
+exports.PhpToJsonAstService = PhpToJsonAstService;

@@ -10,6 +10,8 @@ const stats_service_1 = require("../report/stats.service");
 const options_1 = require("../../models/options");
 const main_1 = require("../../main");
 const language_to_json_ast_service_1 = require("../../ast/services/language-to-json-ast.service");
+const language_enum_1 = require("../../ast/enums/language.enum");
+const tree_file_ast_service_1 = require("../../ast/services/tree-file-ast.service");
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
  * - Other services for TreeFolders
@@ -18,6 +20,7 @@ class TreeFolderService extends stats_service_1.StatsService {
     constructor() {
         super();
         this._stats = undefined; // The statistics of the TreeFolder
+        this.treeFileAstService = new tree_file_ast_service_1.TreeFileAstService(); // The service managing TreeFiles
         this.treeFileService = new tree_file_service_1.TreeFileService(); // The service managing TreeFiles
         this.treeFolder = undefined; // The TreeFolder corresponding to this service
     }
@@ -49,7 +52,7 @@ class TreeFolderService extends stats_service_1.StatsService {
     /**
      * Generates the TreeFolder of a treeSubFolder which is a child of a given treeFolder with the path 'pathElement'
      * @param pathElement       // The path of the element
-     * @param language         // The extension of the files concerned by the generation (actually: only .ts)
+     * @param language          // The language of the files concerned by the generation (actually: only .ts)
      * @param treeSubFolder     // The TreeFolder of a subfolder of the param treeFolder
      * @param treeFolder        // The parent TreeFolder
      */
@@ -61,12 +64,17 @@ class TreeFolderService extends stats_service_1.StatsService {
             subFolder.path = pathElement;
             treeFolder.subFolders.push(subFolder);
         }
-        else {
-            if (!language || file_service_1.getLanguageExtensions(language).includes(file_service_1.getFileExtension(pathElement))) {
-                if (!main_1.DEBUG || (main_1.DEBUG && pathElement === './src/complexity/mocks/debug.mock.ts')) {
+        else if (!language || file_service_1.getLanguageExtensions(language).includes(file_service_1.getFileExtension(pathElement))) {
+            if (!main_1.DEBUG || (main_1.DEBUG && pathElement === './src/complexity/mocks/debug.mock.ts')) {
+                // language = Language.PHP;
+                // @ts-ignore
+                if (language === language_enum_1.Language.TS) {
+                    treeFolder.treeFiles.push(this.treeFileAstService.generateTsTree(pathElement, treeFolder));
+                }
+                else {
                     const jsonAst = language_to_json_ast_service_1.LanguageToJsonAstService.convert(pathElement, language);
-                    // treeFolder.treeFiles.push(JsonToTreeFileService.convert(jsonAst, treeFolder));
-                    // treeFolder.treeFiles.push(this.treeFileService.generateTree(pathElement, treeFolder));
+                    console.log('JSON AST', jsonAst);
+                    treeFolder.treeFiles.push(this.treeFileAstService.generateTree(jsonAst, treeFolder));
                 }
             }
         }
