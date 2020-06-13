@@ -14,6 +14,8 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 };
 var _children, _end, _path, _text;
 Object.defineProperty(exports, "__esModule", { value: true });
+const ast_node_model_1 = require("./ast-node.model");
+const ast_kind_enum_1 = require("../enums/ast-kind.enum");
 class AstFile {
     constructor() {
         _children.set(this, []);
@@ -24,6 +26,14 @@ class AstFile {
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
+    get astNode() {
+        const astNode = new ast_node_model_1.AstNode();
+        astNode.pos = 0;
+        astNode.end = this.text.length; // TODO: fix
+        astNode.kind = ast_kind_enum_1.AstKind.SOURCE_FILE;
+        astNode.children = this.children;
+        return astNode;
+    }
     get children() {
         return __classPrivateFieldGet(this, _children);
     }

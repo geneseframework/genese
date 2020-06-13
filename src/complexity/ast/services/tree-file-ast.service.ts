@@ -9,7 +9,7 @@ import { StatsService } from '../../services/report/stats.service';
 import { TreeMethodService } from '../../services/tree/tree-method.service';
 import { TreeNodeService } from '../../services/tree/tree-node.service';
 import { Ast } from '../../services/ast.service';
-import { JsonAst } from '../models/ast.model';
+import { JsonAst } from '../models/json-ast.model';
 
 /**
  * - TreeFiles generation from Abstract Syntax TreeNode of a file
@@ -59,8 +59,11 @@ export class TreeFileAstService extends StatsService {
      * @param treeFolder      // The TreeFolder containing the TreeFile
      */
     generateTree(jsonAst: JsonAst, treeFolder: TreeFolder = new TreeFolder()): TreeFile {
-        const debugJsonAst = require('../ast.json')
-        console.log('JSONAST', debugJsonAst);
+        // TODO : remove this dev test code
+        const debugJsonAst = require('../ast.json');
+        jsonAst.astFile = debugJsonAst.astfile;
+        console.log('JSONAST', jsonAst.astFile.path);
+        // End of code to remove
         this.treeFile = new TreeFile();
         // this.treeFile.astFile = Ast.getSourceFile(jsonAst.astFile.path);
         // this.treeFile.name = this.treeFile.astFile?.fileName;

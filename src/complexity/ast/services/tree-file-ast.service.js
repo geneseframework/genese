@@ -51,8 +51,11 @@ class TreeFileAstService extends stats_service_1.StatsService {
      * @param treeFolder      // The TreeFolder containing the TreeFile
      */
     generateTree(jsonAst, treeFolder = new tree_folder_model_1.TreeFolder()) {
+        // TODO : remove this dev test code
         const debugJsonAst = require('../ast.json');
-        console.log('JSONAST', debugJsonAst);
+        jsonAst.astFile = debugJsonAst.astfile;
+        console.log('JSONAST', jsonAst.astFile.path);
+        // End of code to remove
         this.treeFile = new tree_file_model_1.TreeFile();
         // this.treeFile.astFile = Ast.getSourceFile(jsonAst.astFile.path);
         // this.treeFile.name = this.treeFile.astFile?.fileName;

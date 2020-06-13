@@ -1,4 +1,4 @@
-import { JsonAst } from '../models/ast.model';
+import { JsonAst } from '../models/json-ast.model';
 import { Language } from '../enums/language.enum';
 import { PhpToJsonAstService } from './php-to-json-ast.service';
 

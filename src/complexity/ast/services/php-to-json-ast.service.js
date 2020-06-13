@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const ast_model_1 = require("../models/ast.model");
+const json_ast_model_1 = require("../models/json-ast.model");
 class PhpToJsonAstService {
     static convert(path) {
-        const jsonAst = new ast_model_1.JsonAst();
+        const jsonAst = new json_ast_model_1.JsonAst();
         jsonAst.astFile.path = path;
         return jsonAst;
     }
