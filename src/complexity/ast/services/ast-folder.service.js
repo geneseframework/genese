@@ -29,16 +29,20 @@ class AstFolderService {
         astFolder.astFiles = this.generateAstFiles(jsonAst.astFolder);
         astFolder.path = jsonAst.astFolder.path;
         for (const child of (_a = jsonAst.astFolder) === null || _a === void 0 ? void 0 : _a.children) {
-            astFolder.children.push(this.generateAstFolder(child));
+            const newChild = this.generateAstFolder(child);
+            newChild.parent = jsonAst.astFolder;
+            astFolder.children.push(newChild);
         }
+        console.log('AST FILESS', astFolder.astFiles);
         astFolder.evaluate();
         newJsonAst.astFolder = astFolder;
-        newJsonAst.log();
+        // newJsonAst.log();
         return newJsonAst;
     }
     generateAstFolder(astFolder) {
         const newAstFolder = new ast_folder_model_1.AstFolder();
         newAstFolder.path = astFolder.path;
+        newAstFolder.parent = astFolder.parent;
         newAstFolder.astFiles = this.generateAstFiles(astFolder);
         for (const childFolder of astFolder.children) {
             newAstFolder.children.push(this.generateAstFolder(childFolder));
@@ -53,9 +57,31 @@ class AstFolderService {
         return astFiles;
     }
     generateAstFile(astFile) {
-        const nawAstFile = new ast_file_model_1.AstFile();
-        nawAstFile.name = astFile.name;
-        return nawAstFile;
+        const newAstFile = new ast_file_model_1.AstFile();
+        newAstFile.end = astFile.end;
+        newAstFile.name = astFile.name;
+        newAstFile.text = astFile.text;
+        newAstFile.children = this.generateAstNodes(astFile.children);
+        newAstFile.log();
+        return newAstFile;
+    }
+    generateAstNodes(astNodes) {
+        if (!Array.isArray(astNodes)) {
+            return [];
+        }
+        const newAstNodes = [];
+        for (const astNode of astNodes) {
+            newAstNodes.push(this.generateAstNode(astNode));
+        }
+        return newAstNodes;
+    }
+    generateAstNode(astNode) {
+        const newAstNode = astNode;
+        newAstNode.end = astNode.end;
+        newAstNode.kind = astNode.kind; // TODO : check if kind is correct
+        newAstNode.pos = astNode.pos;
+        newAstNode.children = this.generateAstNodes(astNode.children);
+        return newAstNode;
     }
 }
 exports.AstFolderService = AstFolderService;

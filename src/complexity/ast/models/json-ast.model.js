@@ -28,10 +28,15 @@ class JsonAst {
         __classPrivateFieldSet(this, _astFolder, astFolder);
     }
     // ---------------------------------------------------------------------------------
-    //                                Getters and setters
+    //                                Other methods
     // ---------------------------------------------------------------------------------
-    log() {
+    log(message) {
+        console.log('-----------------------------');
         console.log('LOG JSON_AST');
+        console.log('-----------------------------');
+        if (message) {
+            console.log(message);
+        }
         console.log(this.astFolder);
     }
 }

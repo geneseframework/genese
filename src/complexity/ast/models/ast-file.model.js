@@ -29,15 +29,6 @@ class AstFile {
         //                                Other properties
         // ---------------------------------------------------------------------------------
         _treeFolder.set(this, undefined);
-        /**
-         * Gets the stats of this TreeFile
-         */
-        // getStats(): Stats {
-        // if (!this.stats) {
-        //     this.stats = this.astFileService.getStats(this);
-        // }
-        // return this.stats;
-        // }
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
@@ -97,6 +88,28 @@ class AstFile {
         //     this.cyclomaticCpx += method.cyclomaticCpx;
         //     this.complexitiesByStatus = treeMethodService.addMethodCpxByStatus(this.complexitiesByStatus, method);
         // }
+    }
+    /**
+     * Gets the stats of this TreeFile
+     */
+    // getStats(): Stats {
+    // if (!this.stats) {
+    //     this.stats = this.astFileService.getStats(this);
+    // }
+    // return this.stats;
+    // }
+    log(message) {
+        console.log('-----------------------------');
+        console.log('LOG AST_FILE');
+        console.log('-----------------------------');
+        if (message) {
+            console.log(message);
+        }
+        console.log('name', this.name);
+        console.log('end', __classPrivateFieldGet(this, _end));
+        console.log('text', __classPrivateFieldGet(this, _text));
+        console.log('children', __classPrivateFieldGet(this, _children));
+        console.log('treeFolder', __classPrivateFieldGet(this, _treeFolder));
     }
 }
 exports.AstFile = AstFile;

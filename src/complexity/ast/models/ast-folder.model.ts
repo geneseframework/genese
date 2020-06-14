@@ -20,12 +20,12 @@ export class AstFolder extends Evaluable implements HasStats {
     stats: Stats = undefined;                                                   // The stats corresponding to this folder
     children?: AstFolder[] = [];                                             // The subfolders of this folder
     astFiles?: AstFile[] = [];                                                // The array of files of this folder (not in the subfolders)
-    astFolderService?: AstFolderService = new AstFolderService();            // The AstFolderService linked to this AstFolder
+    // astFolderService?: AstFolderService = new AstFolderService();            // The AstFolderService linked to this AstFolder
 
 
     constructor() {
         super();
-        this.astFolderService.treeFolder = this;
+        // this.astFolderService.treeFolder = this;
     }
 
 

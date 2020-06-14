@@ -1,8 +1,9 @@
 import { AstNode } from './ast-node.model';
 import { AstKind } from '../enums/ast-kind.enum';
 import { TreeFolder } from '../../models/tree/tree-folder.model';
+import { LogService } from '../../services/tree/log.service';
 
-export class AstFile {
+export class AstFile implements LogService{
 
 
 
@@ -117,10 +118,26 @@ export class AstFile {
      * Gets the stats of this TreeFile
      */
     // getStats(): Stats {
-        // if (!this.stats) {
-        //     this.stats = this.astFileService.getStats(this);
-        // }
-        // return this.stats;
+    // if (!this.stats) {
+    //     this.stats = this.astFileService.getStats(this);
     // }
+    // return this.stats;
+    // }
+
+
+    log(message?: string): void {
+        console.log('-----------------------------');
+        console.log('LOG AST_FILE');
+        console.log('-----------------------------');
+        if (message) {
+            console.log(message);
+        }
+        console.log('name', this.name);
+        console.log('end', this.#end);
+        console.log('text', this.#text);
+        console.log('children', this.#children);
+        console.log('treeFolder', this.#treeFolder);
+    }
+
 
 }

@@ -23,12 +23,17 @@ export class JsonAst implements PrivateLog {
 
 
     // ---------------------------------------------------------------------------------
-    //                                Getters and setters
+    //                                Other methods
     // ---------------------------------------------------------------------------------
 
 
-    log(): void {
+    log(message?: string): void {
+        console.log('-----------------------------');
         console.log('LOG JSON_AST');
+        console.log('-----------------------------');
+        if (message) {
+            console.log(message);
+        }
         console.log(this.astFolder);
     }
 
