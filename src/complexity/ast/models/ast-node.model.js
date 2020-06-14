@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astFile, _astMethod, _children, _context, _cpxFactors, _cyclomaticCpx, _end, _factorCategory, _intrinsicDepthCpx, _intrinsicNestingCpx, _kind, _name, _parent, _pos;
+var _astFile, _astMethod, _children, _context, _cpxFactors, _cyclomaticCpx, _end, _factorCategory, _intrinsicDepthCpx, _intrinsicNestingCpx, _kind, _name, _parent, _pos, _text;
 Object.defineProperty(exports, "__esModule", { value: true });
 const cpx_factors_model_1 = require("../../models/cpx-factor/cpx-factors.model");
 const node_feature_enum_1 = require("../../enums/node-feature.enum");
@@ -38,6 +38,7 @@ class AstNode {
         _name.set(this, undefined); // The name of the AstNode
         _parent.set(this, void 0); // The ast of the parent of the current node
         _pos.set(this, 0);
+        _text.set(this, undefined);
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
@@ -180,6 +181,12 @@ class AstNode {
     set pos(pos) {
         __classPrivateFieldSet(this, _pos, pos);
     }
+    get text() {
+        return __classPrivateFieldGet(this, _text);
+    }
+    set text(text) {
+        __classPrivateFieldSet(this, _text, text);
+    }
     // ---------------------------------------------------------------------------------
     //                                  Other methods
     // ---------------------------------------------------------------------------------
@@ -294,4 +301,4 @@ class AstNode {
     }
 }
 exports.AstNode = AstNode;
-_astFile = new WeakMap(), _astMethod = new WeakMap(), _children = new WeakMap(), _context = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _factorCategory = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _kind = new WeakMap(), _name = new WeakMap(), _parent = new WeakMap(), _pos = new WeakMap();
+_astFile = new WeakMap(), _astMethod = new WeakMap(), _children = new WeakMap(), _context = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _factorCategory = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _kind = new WeakMap(), _name = new WeakMap(), _parent = new WeakMap(), _pos = new WeakMap(), _text = new WeakMap();

@@ -1,25 +1,24 @@
-import * as ts from 'typescript';
-import { Ast } from '../../services/ast.service';
-import { CyclomaticComplexityService as CS } from '../../services/cyclomatic-complexity.service';
+import { CyclomaticComplexityService as CS } from '../services/cyclomatic-complexity.service';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
 import { ComplexityType } from '../../enums/complexity-type.enum';
-import { HasTreeNode } from '../../interfaces/has-tree-node';
-import { CodeService } from '../../services/code.service';
 import { FactorCategory } from '../../enums/factor-category.enum';
 import { cpxFactors } from '../../cpx-factors';
-import { LogService } from '../../services/tree/log.service';
-import { Code } from '../../models/code/code.model';
-import { TreeNode } from '../../models/tree/tree-node.model';
 import { Options } from '../../models/options';
 import { CodeLine } from '../../models/code/code-line.model';
 import { Evaluate } from '../../interfaces/evaluate.interface';
 import { CpxFactors } from '../../models/cpx-factor/cpx-factors.model';
+import { AstNode } from './ast-node.model';
+import { Code } from './code/code.model';
+import { CodeService } from '../services/code.service';
+import { AstService } from '../services/ast.service';
+import { LogService } from '../services/log.service';
 
 /**
- * Element of the TreeNode structure corresponding to a given method
+ * Element of the AstNode structure corresponding to a given method
  */
-export class AstMethod implements Evaluate, HasTreeNode {
+export class AstMethod implements Evaluate {
 
+    #astNode?: AstNode = undefined;                               // The AST of the method itself
     codeService: CodeService = new CodeService();                   // The service managing Code objects
     cognitiveStatus: MethodStatus = MethodStatus.CORRECT;           // The cognitive status of the method
     #cpxFactors?: CpxFactors = undefined;
@@ -29,7 +28,6 @@ export class AstMethod implements Evaluate, HasTreeNode {
     #displayedCode?: Code = undefined;                              // The code to display in the report
     #name: string = undefined;                                      // The name of the method
     #originalCode?: Code = undefined;                               // The original Code of the method (as Code object)
-    #treeNode?: TreeNode = undefined;                               // The AST of the method itself
 
 
 
@@ -72,7 +70,7 @@ export class AstMethod implements Evaluate, HasTreeNode {
         if (this.#name) {
             return this.#name;
         }
-        this.#name = Ast.getMethodName(this.#treeNode?.node);
+        this.#name = this.#astNode.name;
         return this.#name;
     }
 
@@ -88,22 +86,17 @@ export class AstMethod implements Evaluate, HasTreeNode {
 
 
     get position() {
-        return this.treeNode?.position;
+        return this.astNode?.pos;
     }
 
 
-    get sourceFile(): ts.SourceFile {
-        return this.#treeNode?.sourceFile;
+    get astNode(): AstNode {
+        return this.#astNode;
     }
 
 
-    get treeNode(): TreeNode {
-        return this.#treeNode;
-    }
-
-
-    set treeNode(treeNode: TreeNode) {
-        this.#treeNode = treeNode;
+    set astNode(astNode: AstNode) {
+        this.#astNode = astNode;
     }
 
 
@@ -115,13 +108,13 @@ export class AstMethod implements Evaluate, HasTreeNode {
 
 
     /**
-     * Evaluates the complexities of this TreeMethod
+     * Evaluates the complexities of this AstMethod
      */
     evaluate(): void {
         this.createDisplayedCode();
-        LogService.printAllChildren(this.treeNode);
+        LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
-        this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.#treeNode?.node);
+        this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.astNode);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
     }
 
@@ -164,11 +157,11 @@ export class AstMethod implements Evaluate, HasTreeNode {
 
     /**
      * Creates the method's code to display, with comments
-     * @param treeNode  // The TreeNode to analyse (by default: the TreeNode associated to this TreeMethod)
+     * @param astNode  // The AstNode to analyse (by default: the AstNode associated to this AstMethod)
      */
-    createDisplayedCode(treeNode: TreeNode = this.treeNode): void {
+    createDisplayedCode(astNode: AstNode = this.astNode): void {
         this.setDisplayedCodeLines();
-        this.setCpxFactorsToDisplayedCode(treeNode, false);
+        this.setCpxFactorsToDisplayedCode(astNode, false);
         this.#displayedCode.setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
         this.calculateCpxIndex();
@@ -193,37 +186,37 @@ export class AstMethod implements Evaluate, HasTreeNode {
 
     /**
      * Calculates the complexity factors of each CodeLine
-     * @param treeNode                  // The TreeNode of the method
+     * @param astNode                  // The AstNode of the method
      * @param startedUncommentedLines   // Param for recursion (checks if the current line is the first uncommented one)
      */
-    private setCpxFactorsToDisplayedCode(treeNode: TreeNode, startedUncommentedLines = false): void {
-        for (const childTree of treeNode.children) {
-            let issue = this.codeService.getLineIssue(this.#originalCode, childTree.position - this.position);
+    private setCpxFactorsToDisplayedCode(astNode: AstNode, startedUncommentedLines = false): void {
+        for (const childAst of astNode.children) {
+            let issue = this.codeService.getLineIssue(this.#originalCode, childAst.pos - this.position);
             const codeLine: CodeLine = this.#displayedCode.lines[issue];
-            if (Ast.isElseStatement(childTree.node)) {
-                childTree.cpxFactors.basic.node = cpxFactors.basic.node;
+            if (AstService.isElseStatement(childAst)) {
+                childAst.cpxFactors.basic.node = cpxFactors.basic.node;
                 issue--;
             }
-            if (!startedUncommentedLines && treeNode.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
-                this.increaseLineCpxFactors(treeNode, codeLine);
+            if (!startedUncommentedLines && astNode.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
+                this.increaseLineCpxFactors(astNode, codeLine);
                 startedUncommentedLines = true;
             } else if (startedUncommentedLines) {
-                this.increaseLineCpxFactors(childTree, codeLine);
+                this.increaseLineCpxFactors(childAst, codeLine);
             }
-            this.#displayedCode.lines[issue].treeNodes.push(childTree);
-            this.setCpxFactorsToDisplayedCode(childTree, startedUncommentedLines);
+            this.#displayedCode.lines[issue].astNodes.push(childAst);
+            this.setCpxFactorsToDisplayedCode(childAst, startedUncommentedLines);
         }
     }
 
 
     /**
-     * Adds the Complexity of a TreeNode to its CodeLine
-     * @param treeNode      // The TreeNode inside the line of code
-     * @param codeLine      // The CodeLine containing the TreeNode
+     * Adds the Complexity of a AstNode to its CodeLine
+     * @param astNode      // The AstNode inside the line of code
+     * @param codeLine      // The CodeLine containing the AstNode
      */
-    private increaseLineCpxFactors(treeNode: TreeNode, codeLine: CodeLine): void {
+    private increaseLineCpxFactors(astNode: AstNode, codeLine: CodeLine): void {
         if (!codeLine.isCommented) {
-            codeLine.cpxFactors = codeLine.cpxFactors.add(treeNode?.cpxFactors);
+            codeLine.cpxFactors = codeLine.cpxFactors.add(astNode?.cpxFactors);
         }
 
     }

@@ -37,6 +37,10 @@ export class AstFolder implements Evaluate, HasStats {
 
 
     get cpxFactors(): CpxFactors {
+        if (this.#cpxFactors) {
+            return this.#cpxFactors;
+        }
+        this.evaluate();
         return this.#cpxFactors;
     }
 
@@ -101,8 +105,8 @@ export class AstFolder implements Evaluate, HasStats {
         this.cpxFactors = new CpxFactors();
         for (const file of this.astFiles) {
             this.cpxFactors = this.cpxFactors.add(file.cpxFactors);
-            // this.cpxIndex += file.cpxIndex;
-            this.cyclomaticCpx += file.cyclomaticCpx;
+            console.log('EVAL AST FILE')
+            this.cyclomaticCpx = this.cyclomaticCpx + file.cyclomaticCpx;
             // this.numberOfMethods += file.treeMethods?.length ?? 0;
             // this.numberOfFiles++;
             // this.complexitiesByStatus = this.complexitiesByStatus.add(file.complexitiesByStatus);

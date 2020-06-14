@@ -9,14 +9,12 @@ import { HasStats } from '../../interfaces/has-stats';
 import { TreeMethodService } from '../../services/tree/tree-method.service';
 import { TreeNode } from './tree-node.model';
 import { HasTreeNode } from '../../interfaces/has-tree-node';
-import { AstFile } from '../../ast/models/ast-file.model';
 
 /**
  * Element of the TreeNode structure corresponding to a given file (AST astFile)
  */
 export class TreeFile extends Evaluable implements HasStats, HasTreeNode {
 
-    #astFile: AstFile = undefined;
     complexitiesByStatus?: ComplexitiesByStatus = undefined;    // The file complexities spread by complexity status
     cpxIndex ?= 0;                                              // The complexity index of this file
     name ?= '';                                                 // The name of this file
@@ -38,16 +36,6 @@ export class TreeFile extends Evaluable implements HasStats, HasTreeNode {
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
-
-
-    get astFile(): AstFile {
-        return this.#astFile;
-    }
-
-
-    set astFile(astFile: AstFile) {
-        this.#astFile = astFile;
-    }
 
 
     get sourceFile(): ts.SourceFile {

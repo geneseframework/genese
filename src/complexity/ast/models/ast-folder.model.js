@@ -40,6 +40,10 @@ class AstFolder {
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
     get cpxFactors() {
+        if (__classPrivateFieldGet(this, _cpxFactors)) {
+            return __classPrivateFieldGet(this, _cpxFactors);
+        }
+        this.evaluate();
         return __classPrivateFieldGet(this, _cpxFactors);
     }
     set cpxFactors(cpxFactors) {
@@ -82,8 +86,8 @@ class AstFolder {
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
         for (const file of this.astFiles) {
             this.cpxFactors = this.cpxFactors.add(file.cpxFactors);
-            // this.cpxIndex += file.cpxIndex;
-            this.cyclomaticCpx += file.cyclomaticCpx;
+            console.log('EVAL AST FILE');
+            this.cyclomaticCpx = this.cyclomaticCpx + file.cyclomaticCpx;
             // this.numberOfMethods += file.treeMethods?.length ?? 0;
             // this.numberOfFiles++;
             // this.complexitiesByStatus = this.complexitiesByStatus.add(file.complexitiesByStatus);

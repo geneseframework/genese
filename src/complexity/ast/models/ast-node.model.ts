@@ -28,6 +28,7 @@ export class AstNode implements Evaluate {
     #name: string = undefined;                                                  // The name of the AstNode
     #parent?: AstNode;                                                         // The ast of the parent of the current node
     #pos ?= 0;
+    #text: string = undefined;
 
 
 
@@ -252,6 +253,16 @@ export class AstNode implements Evaluate {
 
     set pos(pos: number) {
         this.#pos = pos;
+    }
+
+
+    get text(): string {
+        return this.#text;
+    }
+
+
+    set text(text: string) {
+        this.#text = text;
     }
 
 

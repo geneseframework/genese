@@ -12,24 +12,25 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _cpxFactors, _cyclomaticCpx, _cpxIndex, _displayedCode, _name, _originalCode, _treeNode;
+var _astNode, _cpxFactors, _cyclomaticCpx, _cpxIndex, _displayedCode, _name, _originalCode;
 Object.defineProperty(exports, "__esModule", { value: true });
-const ast_service_1 = require("../../services/ast.service");
-const cyclomatic_complexity_service_1 = require("../../services/cyclomatic-complexity.service");
+const cyclomatic_complexity_service_1 = require("../services/cyclomatic-complexity.service");
 const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
-const code_service_1 = require("../../services/code.service");
 const factor_category_enum_1 = require("../../enums/factor-category.enum");
 const cpx_factors_1 = require("../../cpx-factors");
-const log_service_1 = require("../../services/tree/log.service");
-const code_model_1 = require("../../models/code/code.model");
 const options_1 = require("../../models/options");
 const code_line_model_1 = require("../../models/code/code-line.model");
+const code_model_1 = require("./code/code.model");
+const code_service_1 = require("../services/code.service");
+const ast_service_1 = require("../services/ast.service");
+const log_service_1 = require("../services/log.service");
 /**
- * Element of the TreeNode structure corresponding to a given method
+ * Element of the AstNode structure corresponding to a given method
  */
 class AstMethod {
     constructor() {
+        _astNode.set(this, undefined); // The AST of the method itself
         this.codeService = new code_service_1.CodeService(); // The service managing Code objects
         this.cognitiveStatus = evaluation_status_enum_1.MethodStatus.CORRECT; // The cognitive status of the method
         _cpxFactors.set(this, undefined);
@@ -39,7 +40,6 @@ class AstMethod {
         _displayedCode.set(this, undefined); // The code to display in the report
         _name.set(this, undefined); // The name of the method
         _originalCode.set(this, undefined); // The original Code of the method (as Code object)
-        _treeNode.set(this, undefined); // The AST of the method itself
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
@@ -64,11 +64,10 @@ class AstMethod {
         return __classPrivateFieldGet(this, _displayedCode);
     }
     get name() {
-        var _a;
         if (__classPrivateFieldGet(this, _name)) {
             return __classPrivateFieldGet(this, _name);
         }
-        __classPrivateFieldSet(this, _name, ast_service_1.Ast.getMethodName((_a = __classPrivateFieldGet(this, _treeNode)) === null || _a === void 0 ? void 0 : _a.node));
+        __classPrivateFieldSet(this, _name, __classPrivateFieldGet(this, _astNode).name);
         return __classPrivateFieldGet(this, _name);
     }
     get originalCode() {
@@ -79,30 +78,25 @@ class AstMethod {
     }
     get position() {
         var _a;
-        return (_a = this.treeNode) === null || _a === void 0 ? void 0 : _a.position;
+        return (_a = this.astNode) === null || _a === void 0 ? void 0 : _a.pos;
     }
-    get sourceFile() {
-        var _a;
-        return (_a = __classPrivateFieldGet(this, _treeNode)) === null || _a === void 0 ? void 0 : _a.sourceFile;
+    get astNode() {
+        return __classPrivateFieldGet(this, _astNode);
     }
-    get treeNode() {
-        return __classPrivateFieldGet(this, _treeNode);
-    }
-    set treeNode(treeNode) {
-        __classPrivateFieldSet(this, _treeNode, treeNode);
+    set astNode(astNode) {
+        __classPrivateFieldSet(this, _astNode, astNode);
     }
     // ---------------------------------------------------------------------------------
     //                                  Other methods
     // ---------------------------------------------------------------------------------
     /**
-     * Evaluates the complexities of this TreeMethod
+     * Evaluates the complexities of this AstMethod
      */
     evaluate() {
-        var _a;
         this.createDisplayedCode();
-        log_service_1.LogService.printAllChildren(this.treeNode);
+        log_service_1.LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
-        this.cyclomaticCpx = cyclomatic_complexity_service_1.CyclomaticComplexityService.calculateCyclomaticComplexity((_a = __classPrivateFieldGet(this, _treeNode)) === null || _a === void 0 ? void 0 : _a.node);
+        this.cyclomaticCpx = cyclomatic_complexity_service_1.CyclomaticComplexityService.calculateCyclomaticComplexity(this.astNode);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
     }
     /**
@@ -139,11 +133,11 @@ class AstMethod {
     }
     /**
      * Creates the method's code to display, with comments
-     * @param treeNode  // The TreeNode to analyse (by default: the TreeNode associated to this TreeMethod)
+     * @param astNode  // The AstNode to analyse (by default: the AstNode associated to this AstMethod)
      */
-    createDisplayedCode(treeNode = this.treeNode) {
+    createDisplayedCode(astNode = this.astNode) {
         this.setDisplayedCodeLines();
-        this.setCpxFactorsToDisplayedCode(treeNode, false);
+        this.setCpxFactorsToDisplayedCode(astNode, false);
         __classPrivateFieldGet(this, _displayedCode).setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
         this.calculateCpxIndex();
@@ -164,36 +158,36 @@ class AstMethod {
     }
     /**
      * Calculates the complexity factors of each CodeLine
-     * @param treeNode                  // The TreeNode of the method
+     * @param astNode                  // The AstNode of the method
      * @param startedUncommentedLines   // Param for recursion (checks if the current line is the first uncommented one)
      */
-    setCpxFactorsToDisplayedCode(treeNode, startedUncommentedLines = false) {
-        for (const childTree of treeNode.children) {
-            let issue = this.codeService.getLineIssue(__classPrivateFieldGet(this, _originalCode), childTree.position - this.position);
+    setCpxFactorsToDisplayedCode(astNode, startedUncommentedLines = false) {
+        for (const childAst of astNode.children) {
+            let issue = this.codeService.getLineIssue(__classPrivateFieldGet(this, _originalCode), childAst.pos - this.position);
             const codeLine = __classPrivateFieldGet(this, _displayedCode).lines[issue];
-            if (ast_service_1.Ast.isElseStatement(childTree.node)) {
-                childTree.cpxFactors.basic.node = cpx_factors_1.cpxFactors.basic.node;
+            if (ast_service_1.AstService.isElseStatement(childAst)) {
+                childAst.cpxFactors.basic.node = cpx_factors_1.cpxFactors.basic.node;
                 issue--;
             }
-            if (!startedUncommentedLines && treeNode.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
-                this.increaseLineCpxFactors(treeNode, codeLine);
+            if (!startedUncommentedLines && astNode.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
+                this.increaseLineCpxFactors(astNode, codeLine);
                 startedUncommentedLines = true;
             }
             else if (startedUncommentedLines) {
-                this.increaseLineCpxFactors(childTree, codeLine);
+                this.increaseLineCpxFactors(childAst, codeLine);
             }
-            __classPrivateFieldGet(this, _displayedCode).lines[issue].treeNodes.push(childTree);
-            this.setCpxFactorsToDisplayedCode(childTree, startedUncommentedLines);
+            __classPrivateFieldGet(this, _displayedCode).lines[issue].astNodes.push(childAst);
+            this.setCpxFactorsToDisplayedCode(childAst, startedUncommentedLines);
         }
     }
     /**
-     * Adds the Complexity of a TreeNode to its CodeLine
-     * @param treeNode      // The TreeNode inside the line of code
-     * @param codeLine      // The CodeLine containing the TreeNode
+     * Adds the Complexity of a AstNode to its CodeLine
+     * @param astNode      // The AstNode inside the line of code
+     * @param codeLine      // The CodeLine containing the AstNode
      */
-    increaseLineCpxFactors(treeNode, codeLine) {
+    increaseLineCpxFactors(astNode, codeLine) {
         if (!codeLine.isCommented) {
-            codeLine.cpxFactors = codeLine.cpxFactors.add(treeNode === null || treeNode === void 0 ? void 0 : treeNode.cpxFactors);
+            codeLine.cpxFactors = codeLine.cpxFactors.add(astNode === null || astNode === void 0 ? void 0 : astNode.cpxFactors);
         }
     }
     /**
@@ -215,4 +209,4 @@ class AstMethod {
     }
 }
 exports.AstMethod = AstMethod;
-_cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _cpxIndex = new WeakMap(), _displayedCode = new WeakMap(), _name = new WeakMap(), _originalCode = new WeakMap(), _treeNode = new WeakMap();
+_astNode = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _cpxIndex = new WeakMap(), _displayedCode = new WeakMap(), _name = new WeakMap(), _originalCode = new WeakMap();
