@@ -155,6 +155,7 @@ export class AstFile implements Evaluate, LogService {
      */
     evaluate(): void {
         this.cpxFactors = new CpxFactors();
+        // TODO : init AstMethods and loop on them
         const astMethodService = new AstMethodService();
         for (const child of this.#children) {
             child.evaluate();

@@ -53,9 +53,9 @@ export class AstFolderReportService {
         let report: RowFolderReport[] = [];
         for (const subfolder of astFolder.children) {
             const subfolderReport: RowFolderReport = {
-                complexitiesByStatus: subfolder.getStats().numberOfMethodsByStatus,
-                numberOfFiles: subfolder.getStats().numberOfFiles,
-                numberOfMethods: subfolder.getStats().numberOfMethods,
+                complexitiesByStatus: subfolder.stats.numberOfMethodsByStatus,
+                numberOfFiles: subfolder.stats.numberOfFiles,
+                numberOfMethods: subfolder.stats.numberOfMethods,
                 path: subfolder.relativePath,
                 routeFromCurrentFolder: this.astFolderService.getRouteFromFolderToSubFolder(this.astFolder, subfolder)
             };
@@ -197,7 +197,7 @@ export class AstFolderReportService {
             isRootFolder: this.isRootFolder,
             methodsArray: this.methodsArray,
             relativeRootReports: this.relativeRootReports,
-            stats: this.astFolder.getStats(),
+            stats: this.astFolder.stats,
             thresholds: Options.getThresholds()
         });
         if (this.astFolder.relativePath) {

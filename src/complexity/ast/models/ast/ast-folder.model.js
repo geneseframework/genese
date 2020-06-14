@@ -12,23 +12,23 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _cpxFactors, _cyclomaticCpx, _parent, _path;
+var _complexitiesByStatus, _cpxFactors, _cyclomaticCpx, _parent, _path, _stats;
 Object.defineProperty(exports, "__esModule", { value: true });
 const complexities_by_status_interface_1 = require("../../interfaces/complexities-by-status.interface");
 const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
 class AstFolder {
     // initService?: InitService = new InitService();            // The InitService linked to this AstFolder
     constructor() {
-        this.complexitiesByStatus = new complexities_by_status_interface_1.ComplexitiesByStatus(); // The folder complexities spread by complexity status
+        _complexitiesByStatus.set(this, new complexities_by_status_interface_1.ComplexitiesByStatus()); // The folder complexities spread by complexity status
         _cpxFactors.set(this, undefined);
-        this.cpxIndex = 0; // The complexity index of this folder
+        // cpxIndex ?= 0;                                                              // The complexity index of this folder
         _cyclomaticCpx.set(this, 0);
-        this.numberOfFiles = 0; // The number of files in this folder and its subfolders
-        this.numberOfMethods = 0; // The number of methods included in all the files of this folder and its subfolders
+        // numberOfFiles ?= 0;                                                         // The number of files in this folder and its subfolders
+        // numberOfMethods ?= 0;                                                       // The number of methods included in all the files of this folder and its subfolders
         _parent.set(this, undefined); // The AstFolder corresponding to the parent folder of this AstFolder
         _path.set(this, undefined); // The absolute path of this folder
         // relativePath ?= '';                                                         // The relative path of this folder
-        this.stats = undefined; // The stats corresponding to this folder
+        _stats.set(this, undefined); // The stats corresponding to this folder
         this.children = []; // The subfolders of this folder
         this.astFiles = []; // The array of files of this folder (not in the subfolders)
         // this.initService.treeFolder = this;
@@ -36,6 +36,12 @@ class AstFolder {
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
+    get complexitiesByStatus() {
+        return __classPrivateFieldGet(this, _complexitiesByStatus);
+    }
+    set complexitiesByStatus(complexitiesByStatus) {
+        __classPrivateFieldSet(this, _complexitiesByStatus, complexitiesByStatus);
+    }
     get cpxFactors() {
         if (__classPrivateFieldGet(this, _cpxFactors)) {
             return __classPrivateFieldGet(this, _cpxFactors);
@@ -68,32 +74,28 @@ class AstFolder {
     get relativePath() {
         return __classPrivateFieldGet(this, _path);
     }
+    get stats() {
+        return __classPrivateFieldGet(this, _stats);
+    }
     // ---------------------------------------------------------------------------------
     //                                  Other methods
     // ---------------------------------------------------------------------------------
-    /**
-     * Gets the stats of this TreeFile
-     */
-    getStats() {
-        // if (!this.stats) {
-        //     this.stats = this.initService.getStats(this);
-        // }
-        return this.stats;
-    }
     /**
      * Evaluates the complexities of the TreeFiles of this AstFolder
      */
     evaluate() {
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
-        for (const file of this.astFiles) {
-            this.cpxFactors = this.cpxFactors.add(file.cpxFactors);
+        for (const astFile of this.astFiles) {
+            // TODO : evaluate AstFile
+            // astFile.evaluate();
+            this.cpxFactors = this.cpxFactors.add(astFile.cpxFactors);
             console.log('EVAL AST FILE');
-            this.cyclomaticCpx = this.cyclomaticCpx + file.cyclomaticCpx;
+            this.cyclomaticCpx = this.cyclomaticCpx + astFile.cyclomaticCpx;
             // this.numberOfMethods += file.treeMethods?.length ?? 0;
             // this.numberOfFiles++;
-            // this.complexitiesByStatus = this.complexitiesByStatus.add(file.complexitiesByStatus);
+            this.complexitiesByStatus = this.complexitiesByStatus.add(astFile.complexitiesByStatus);
         }
     }
 }
 exports.AstFolder = AstFolder;
-_cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _parent = new WeakMap(), _path = new WeakMap();
+_complexitiesByStatus = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _parent = new WeakMap(), _path = new WeakMap(), _stats = new WeakMap();

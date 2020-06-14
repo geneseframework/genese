@@ -117,6 +117,7 @@ class AstFile {
      */
     evaluate() {
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
+        // TODO : init AstMethods and loop on them
         const astMethodService = new ast_method_service_1.AstMethodService();
         for (const child of __classPrivateFieldGet(this, _children)) {
             child.evaluate();
