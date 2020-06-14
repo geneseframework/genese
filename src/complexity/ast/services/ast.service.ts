@@ -104,7 +104,7 @@ er
     static isElseStatement(astNode: AstNode): boolean {
         return (AstService.isBlock(astNode)
             && astNode?.parent?.kind === SyntaxKind.IfStatement
-            && astNode?.parent['elseStatement']?.pos === astNode?.pos);
+            && astNode?.parent['elseStatement']?.pos === astNode?.pos) // TODO : replace by isSecondSon
     }
 
 
@@ -130,6 +130,7 @@ er
      * Checks if an AST node is a logic door (ie : || or &&)
      * @param astNode // The AST node to check
      */
+    // TODO : Use isSecondSon
     static isLogicDoor(astNode: AstNode): boolean {
         return (astNode?.['operatorToken']?.kind === SyntaxKind.AmpersandAmpersandToken
             || astNode?.['operatorToken']?.kind === SyntaxKind.BarBarToken)
@@ -150,6 +151,7 @@ er
      * Checks if an AST node is "||" anf if this node is between two binary expressions
      * @param astNode
      */
+    // TODO : Fix with isSecondSon
     static isOrTokenBetweenBinaries(astNode: AstNode): boolean {
         return (astNode?.['operatorToken']?.kind === SyntaxKind.BarBarToken
             && astNode?.['left']?.kind === SyntaxKind.BinaryExpression
@@ -181,6 +183,7 @@ er
      * @param firstNode   // The first AST node
      * @param secondNode  // The second AST node
      */
+    // TODO : Fix with isSecondSon
     static isSameOperatorToken(firstNode: AstNode, secondNode: AstNode): boolean {
         return firstNode?.['operatorToken']?.kind === secondNode?.['operatorToken']?.kind ?? false;
     }

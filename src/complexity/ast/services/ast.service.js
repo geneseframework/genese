@@ -88,7 +88,7 @@ class AstService {
         var _a, _b;
         return (AstService.isBlock(astNode)
             && ((_a = astNode === null || astNode === void 0 ? void 0 : astNode.parent) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.IfStatement
-            && ((_b = astNode === null || astNode === void 0 ? void 0 : astNode.parent['elseStatement']) === null || _b === void 0 ? void 0 : _b.pos) === (astNode === null || astNode === void 0 ? void 0 : astNode.pos));
+            && ((_b = astNode === null || astNode === void 0 ? void 0 : astNode.parent['elseStatement']) === null || _b === void 0 ? void 0 : _b.pos) === (astNode === null || astNode === void 0 ? void 0 : astNode.pos)); // TODO : replace by isSecondSon
     }
     /**
      * Checks if an AST node is a function or a method
@@ -108,6 +108,7 @@ class AstService {
      * Checks if an AST node is a logic door (ie : || or &&)
      * @param astNode // The AST node to check
      */
+    // TODO : Use isSecondSon
     static isLogicDoor(astNode) {
         var _a, _b, _c;
         return (_c = (((_a = astNode === null || astNode === void 0 ? void 0 : astNode['operatorToken']) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.AmpersandAmpersandToken
@@ -124,6 +125,7 @@ class AstService {
      * Checks if an AST node is "||" anf if this node is between two binary expressions
      * @param astNode
      */
+    // TODO : Fix with isSecondSon
     static isOrTokenBetweenBinaries(astNode) {
         var _a, _b, _c, _d;
         return (_d = (((_a = astNode === null || astNode === void 0 ? void 0 : astNode['operatorToken']) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.BarBarToken
@@ -151,6 +153,7 @@ class AstService {
      * @param firstNode   // The first AST node
      * @param secondNode  // The second AST node
      */
+    // TODO : Fix with isSecondSon
     static isSameOperatorToken(firstNode, secondNode) {
         var _a, _b, _c;
         return (_c = ((_a = firstNode === null || firstNode === void 0 ? void 0 : firstNode['operatorToken']) === null || _a === void 0 ? void 0 : _a.kind) === ((_b = secondNode === null || secondNode === void 0 ? void 0 : secondNode['operatorToken']) === null || _b === void 0 ? void 0 : _b.kind)) !== null && _c !== void 0 ? _c : false;
