@@ -31,7 +31,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
         this.children = []; // The children trees corresponding to children AST nodes of the current AST node
         _context.set(this, undefined); // The context of the TreeNode
         _cpxFactors.set(this, new cpx_factors_model_1.CpxFactors()); // The complexity factors of the TreeNode
-        _factorCategory.set(this, undefined); // The FactorCategory of the node of the TreeNode
+        _factorCategory.set(this, undefined); // The NodeFeature of the node of the TreeNode
         _intrinsicDepthCpx.set(this, undefined); // The depth of the TreeNode inside its method (not including its parent's depth)
         _intrinsicNestingCpx.set(this, undefined); // The nesting of the TreeNode inside its method (not including its parent's nesting)
         _kind.set(this, undefined); // The kind of the node ('MethodDeclaration, IfStatement, ...)
@@ -104,7 +104,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
         return ast_service_1.Ast.isCallIdentifier(this.node) && this === this.parent.firstSon;
     }
     get isFunctionOrMethodDeclaration() {
-        return this.factorCategory === node_feature_enum_1.FactorCategory.DECLARATION;
+        return this.factorCategory === node_feature_enum_1.NodeFeature.DECLARATION;
     }
     get isParam() {
         return ast_service_1.Ast.isParam(this.node);
@@ -216,7 +216,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * Sets the complexity index corresponding to "basic" factor (ie basic weight for all the AST nodes)
      */
     setBasicCpxFactors() {
-        this.cpxFactors.basic.node = this.factorCategory === node_feature_enum_1.FactorCategory.EMPTY ? 0 : cpx_factors_1.cpxFactors.basic.node;
+        this.cpxFactors.basic.node = this.factorCategory === node_feature_enum_1.NodeFeature.EMPTY ? 0 : cpx_factors_1.cpxFactors.basic.node;
     }
     /**
      * Sets depth complexity factor
@@ -260,7 +260,7 @@ class TreeNode extends evaluable_model_1.Evaluable {
      * Sets complexity factor for regex
      */
     setRegexCpxFactors() {
-        if (this.factorCategory === node_feature_enum_1.FactorCategory.REGEX) {
+        if (this.factorCategory === node_feature_enum_1.NodeFeature.REGEX) {
             this.cpxFactors.aggregation.regex = +((this.node['text'].length - 2) * cpx_factors_1.cpxFactors.aggregation.regex).toFixed(2);
         }
     }

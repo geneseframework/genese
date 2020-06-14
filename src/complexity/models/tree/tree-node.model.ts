@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 import { TreeMethod } from './tree-method.model';
 import { Evaluable } from '../evaluable.model';
-import { FactorCategory } from '../../enums/node-feature.enum';
+import { NodeFeature } from '../../enums/node-feature.enum';
 import { CpxFactors } from '../cpx-factor/cpx-factors.model';
 import { cpxFactors } from '../../cpx-factors';
 import { addObjects } from '../../services/tools.service';
@@ -18,7 +18,7 @@ export class TreeNode extends Evaluable {
     children?: TreeNode[] = [];                                                 // The children trees corresponding to children AST nodes of the current AST node
     #context?: TreeNode = undefined;                                            // The context of the TreeNode
     #cpxFactors?: CpxFactors = new CpxFactors();                                // The complexity factors of the TreeNode
-    #factorCategory?: FactorCategory = undefined;                               // The FactorCategory of the node of the TreeNode
+    #factorCategory?: NodeFeature = undefined;                               // The NodeFeature of the node of the TreeNode
     #intrinsicDepthCpx: number = undefined;                                     // The depth of the TreeNode inside its method (not including its parent's depth)
     #intrinsicNestingCpx: number = undefined;                                   // The nesting of the TreeNode inside its method (not including its parent's nesting)
     #kind: string = undefined;                                                  // The kind of the node ('MethodDeclaration, IfStatement, ...)
@@ -72,7 +72,7 @@ export class TreeNode extends Evaluable {
     }
 
 
-    get factorCategory(): FactorCategory {
+    get factorCategory(): NodeFeature {
         return this.#factorCategory ?? this.nodeFeatureService.getFactorCategory(this.node);
     }
 
@@ -125,7 +125,7 @@ export class TreeNode extends Evaluable {
 
 
     get isFunctionOrMethodDeclaration(): boolean {
-        return this.factorCategory === FactorCategory.DECLARATION;
+        return this.factorCategory === NodeFeature.DECLARATION;
     }
 
 
@@ -286,7 +286,7 @@ export class TreeNode extends Evaluable {
      * Sets the complexity index corresponding to "basic" factor (ie basic weight for all the AST nodes)
      */
     private setBasicCpxFactors(): void {
-        this.cpxFactors.basic.node = this.factorCategory === FactorCategory.EMPTY ? 0 : cpxFactors.basic.node;
+        this.cpxFactors.basic.node = this.factorCategory === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
     }
 
 
@@ -339,7 +339,7 @@ export class TreeNode extends Evaluable {
      * Sets complexity factor for regex
      */
     private setRegexCpxFactors(): void {
-        if (this.factorCategory === FactorCategory.REGEX) {
+        if (this.factorCategory === NodeFeature.REGEX) {
             this.cpxFactors.aggregation.regex = +((this.node['text'].length - 2) * cpxFactors.aggregation.regex).toFixed(2);
         }
     }

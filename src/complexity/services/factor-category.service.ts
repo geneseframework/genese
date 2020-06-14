@@ -1,10 +1,10 @@
 import * as ts from 'typescript';
-import { FactorCategory } from '../enums/node-feature.enum';
+import { NodeFeature } from '../enums/node-feature.enum';
 
 export class FactorCategoryService {
 
 
-    getFactorCategory(node: ts.Node): FactorCategory {
+    getFactorCategory(node: ts.Node): NodeFeature {
         if (!node) {
             return undefined;
         }
@@ -14,16 +14,16 @@ export class FactorCategoryService {
             case ts.SyntaxKind.NumericLiteral:
             case ts.SyntaxKind.StringLiteral:
             case ts.SyntaxKind.TrueKeyword:
-                return FactorCategory.BASIC;
+                return NodeFeature.BASIC;
             case ts.SyntaxKind.BinaryExpression:
-                return FactorCategory.BINARY;
+                return NodeFeature.BINARY;
             case ts.SyntaxKind.CatchClause:
             case ts.SyntaxKind.IfStatement:
             case ts.SyntaxKind.SwitchStatement:
-                return FactorCategory.CONDITIONAL;
+                return NodeFeature.CONDITIONAL;
             case ts.SyntaxKind.FunctionDeclaration:
             case ts.SyntaxKind.MethodDeclaration:
-                return FactorCategory.DECLARATION;
+                return NodeFeature.DECLARATION;
             case ts.SyntaxKind.Block:
             case ts.SyntaxKind.CallExpression:
             case ts.SyntaxKind.ElementAccessExpression:
@@ -33,25 +33,25 @@ export class FactorCategoryService {
             case ts.SyntaxKind.PropertyAccessExpression:
             case ts.SyntaxKind.VariableDeclarationList:
             case ts.SyntaxKind.VariableStatement:
-                return FactorCategory.EMPTY;
+                return NodeFeature.EMPTY;
             case ts.SyntaxKind.ArrowFunction:
             case ts.SyntaxKind.FunctionExpression:
-                return FactorCategory.FUNC;
+                return NodeFeature.FUNC;
             case ts.SyntaxKind.AmpersandAmpersandToken:
             case ts.SyntaxKind.BarBarToken:
-                return FactorCategory.LOGIC_DOOR;
+                return NodeFeature.LOGIC_DOOR;
             case ts.SyntaxKind.DoStatement:
             case ts.SyntaxKind.ForStatement:
             case ts.SyntaxKind.ForInStatement:
             case ts.SyntaxKind.ForOfStatement:
             case ts.SyntaxKind.WhileStatement:
-                return FactorCategory.LOOP;
+                return NodeFeature.LOOP;
             case ts.SyntaxKind.RegularExpressionLiteral:
-                return FactorCategory.REGEX;
+                return NodeFeature.REGEX;
             case ts.SyntaxKind.ConditionalExpression:
-                return FactorCategory.TERNARY;
+                return NodeFeature.TERNARY;
             default:
-                return FactorCategory.BASIC;
+                return NodeFeature.BASIC;
         }
     }
 }

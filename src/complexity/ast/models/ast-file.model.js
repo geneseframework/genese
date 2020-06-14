@@ -15,7 +15,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 var _astMethods, _children, _cpxFactors, _cyclomaticCpx, _end, _name, _text, _astFolder;
 Object.defineProperty(exports, "__esModule", { value: true });
 const ast_node_model_1 = require("./ast-node.model");
-const ast_kind_enum_1 = require("../enums/ast-kind.enum");
+const syntax_kind_enum_1 = require("../enums/syntax-kind.enum");
 const cpx_factors_model_1 = require("../../models/cpx-factor/cpx-factors.model");
 class AstFile {
     constructor() {
@@ -41,7 +41,7 @@ class AstFile {
         const astNode = new ast_node_model_1.AstNode();
         astNode.pos = 0;
         astNode.end = this.text.length; // TODO: fix
-        astNode.kind = ast_kind_enum_1.AstKind.SOURCE_FILE;
+        astNode.kind = syntax_kind_enum_1.SyntaxKind.SourceFile;
         astNode.children = this.children;
         return astNode;
     }

@@ -20,7 +20,7 @@ const cpx_factors_model_1 = require("../../models/cpx-factor/cpx-factors.model")
  * Element of the TreeNode structure corresponding to a given folder
  */
 class AstFolder {
-    // astFolderService?: InitService = new InitService();            // The InitService linked to this AstFolder
+    // initService?: InitService = new InitService();            // The InitService linked to this AstFolder
     constructor() {
         this.complexitiesByStatus = new complexities_by_status_interface_1.ComplexitiesByStatus(); // The folder complexities spread by complexity status
         _cpxFactors.set(this, undefined);
@@ -34,7 +34,7 @@ class AstFolder {
         this.stats = undefined; // The stats corresponding to this folder
         this.children = []; // The subfolders of this folder
         this.astFiles = []; // The array of files of this folder (not in the subfolders)
-        // this.astFolderService.treeFolder = this;
+        // this.initService.treeFolder = this;
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
@@ -71,7 +71,7 @@ class AstFolder {
      */
     getStats() {
         // if (!this.stats) {
-        //     this.stats = this.astFolderService.getStats(this);
+        //     this.stats = this.initService.getStats(this);
         // }
         return this.stats;
     }

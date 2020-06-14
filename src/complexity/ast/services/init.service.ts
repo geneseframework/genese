@@ -79,6 +79,7 @@ export class InitService {
         const newAstNode = astNode;
         newAstNode.end = astNode.end;
         newAstNode.kind = astNode.kind; // TODO : check if kind is correct
+        newAstNode.name = astNode.name;
         newAstNode.pos = astNode.pos;
         newAstNode.children = this.generateAstNodes(astNode.children);
         return newAstNode;

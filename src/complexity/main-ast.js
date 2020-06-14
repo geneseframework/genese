@@ -10,7 +10,7 @@ exports.DEBUG = true; // Set to true when you use Genese Complexity in DEBUG mod
  */
 class MainAst {
     constructor() {
-        this.astFolderService = new init_service_1.InitService(); // The service managing TreeFolders
+        this.initService = new init_service_1.InitService(); // The service managing TreeFolders
     }
     /**
      * Starts the analysis
@@ -22,7 +22,7 @@ class MainAst {
         console.log('START CALCULATION');
         options_1.Options.setOptionsFromConfig(pathCommand + geneseConfigPath);
         file_service_1.createOutDir();
-        const jsonAst = this.astFolderService.generateAstFolders(this.getJsonAst(pathCommand + jsonAstPath));
+        const jsonAst = this.initService.generateAstFolders(this.getJsonAst(pathCommand + jsonAstPath));
         jsonAst.evaluate();
         // ReportsService.generateAllReports(astFolder);
         console.log(ansi_colors_1.blueBright('COMPLEXITY REPORT GENERATED SUCCESSFULLY'));

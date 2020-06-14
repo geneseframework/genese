@@ -1,14 +1,32 @@
-import { AstKind } from '../enums/ast-kind.enum';
+import { SyntaxKind } from '../enums/syntax-kind.enum';
 import { Evaluate } from '../../interfaces/evaluate.interface';
 import { CpxFactors } from '../../models/cpx-factor/cpx-factors.model';
+import { NodeFeature } from '../../enums/node-feature.enum';
+import { AstFile } from './ast-file.model';
+import { AstMethod } from './ast-method.model';
+import { AstService } from '../services/ast.service';
+import { addObjects } from '../../services/tools.service';
+import { cpxFactors } from '../../cpx-factors';
+import { NodeFeatureService } from '../services/factor-category.service';
 
 export class AstNode implements Evaluate {
 
+    #astFile?: AstFile = undefined;                                           // The AstFile containing the AST node of the AstNode
+    #astMethod?: AstMethod = undefined;                                       // The method at the root of the current ast (if this ast is inside a method)
+    astNodeService?: any;                  // The service managing NodeFeatures
+    // astNodeService?: AstNodeService = new AstNodeService();                  // The service managing NodeFeatures
     #children?: AstNode[] = [];
-    #cpxFactors?: CpxFactors = undefined;
+    #context?: AstNode = undefined;                                             // The context of the AstNode
+    #cpxFactors?: CpxFactors = undefined;                                       // The complexity factors of the AstNode
     #cyclomaticCpx ?= 0;
     #end ?= 0;
-    #kind?: AstKind = undefined;
+    #factorCategory?: NodeFeature = undefined;                               // The NodeFeature of the node of the AstNode
+    nodeFeatureService?: NodeFeatureService = new NodeFeatureService();   // The service managing NodeFeatures
+    #intrinsicDepthCpx: number = undefined;                                     // The depth of the AstNode inside its method (not including its parent's depth)
+    #intrinsicNestingCpx: number = undefined;                                   // The nesting of the AstNode inside its method (not including its parent's nesting)
+    #kind?: SyntaxKind = undefined;                                                // The kind of the node ('MethodDeclaration, IfStatement, ...)
+    #name: string = undefined;                                                  // The name of the AstNode
+    #parent?: AstNode;                                                         // The ast of the parent of the current node
     #pos ?= 0;
 
 
@@ -19,6 +37,11 @@ export class AstNode implements Evaluate {
 
 
 
+    get aggregationCpx(): number {
+        return this.cpxFactors.totalAggregation;
+    }
+
+
     get children(): AstNode[] {
         return this.#children;
     }
@@ -26,6 +49,17 @@ export class AstNode implements Evaluate {
 
     set children(children: AstNode[]) {
         this.#children = children;
+    }
+
+
+    get context(): AstNode {
+        // return this.#context ?? this.astNodeService.getContext(this);
+        return ;
+    }
+
+
+    set context(treeNode: AstNode) {
+        this.#context = treeNode;
     }
 
 
@@ -49,6 +83,11 @@ export class AstNode implements Evaluate {
     }
 
 
+    get depthCpx(): number {
+        return this.cpxFactors.totalDepth;
+    }
+
+
     get end(): number {
         return this.#end;
     }
@@ -59,13 +98,150 @@ export class AstNode implements Evaluate {
     }
 
 
-    get kind(): AstKind {
+    get factorCategory(): NodeFeature {
+        return this.#factorCategory ?? this.nodeFeatureService.getNodeFeature(this.kind);
+    }
+
+
+    get firstSon(): AstNode {
+        return this.getSon(0);
+    }
+
+
+    /**
+     * Gets the depth complexity of the node itself, not from its parents
+     */
+    get intrinsicDepthCpx(): number {
+        return this.#intrinsicDepthCpx;
+    }
+
+
+    /**
+     * Sets the depth complexity of the node itself, not from its parents
+     */
+    set intrinsicDepthCpx(cpx: number) {
+        this.#intrinsicDepthCpx = cpx;
+    }
+
+
+    /**
+     * Gets the nesting complexity of the node itself, not from its parents
+     */
+    get intrinsicNestingCpx(): number {
+        return this.#intrinsicNestingCpx;
+    }
+
+
+    /**
+     * Sets the nesting complexity of the node itself, not from its parents
+     */
+    set intrinsicNestingCpx(cpx: number) {
+        this.#intrinsicNestingCpx = cpx;
+    }
+
+
+    get isCallback(): boolean {
+        return this.astNodeService.isCallback(this);
+    }
+
+
+    get isCallIdentifier(): boolean {
+        return AstService.isCallIdentifier(this) && this === this.parent.firstSon;
+    }
+
+
+    get isFunctionOrMethodDeclaration(): boolean {
+        return this.factorCategory === NodeFeature.DECLARATION;
+    }
+
+
+    get isParam(): boolean {
+        return AstService.isParam(this);
+    }
+
+
+    get isRecursiveMethod(): boolean {
+        return this.astNodeService.isRecursiveMethod(this);
+    }
+
+
+    get kind(): SyntaxKind {
         return this.#kind;
     }
 
 
-    set kind(kind: AstKind) {
+    set kind(kind: SyntaxKind) {
         this.#kind = kind;
+    }
+
+
+    get mayDefineContext(): boolean {
+        return AstService.mayDefineContext(this);
+    }
+
+
+    get name(): string {
+        return this.#name ?? '';
+    }
+
+
+    set name(name: string) {
+        this.#name = name;
+    }
+
+
+    get nestingCpx(): number {
+        return this.cpxFactors.totalNesting;
+    }
+
+
+    get parent(): AstNode {
+        return this.#parent;
+    }
+
+
+    set parent(treeNode: AstNode) {
+        this.#parent = treeNode;
+    }
+
+
+    get recursionCpx(): number {
+        return this.cpxFactors.totalRecursion;
+    }
+
+
+    get secondSon(): AstNode {
+        return this.getSon(1);
+    }
+
+
+    // get sourceFile(): ts.SourceFile {
+    //     return this.#treeFile?.sourceFile;
+    // }
+
+
+    get structuralCpx(): number {
+        return this.cpxFactors.totalStructural;
+    }
+
+
+    get astFile(): AstFile {
+        return this.#astFile;
+    }
+
+
+    set astFile(astFile: AstFile) {
+        this.#astFile = astFile;
+    }
+
+
+    get astMethod(): AstMethod {
+        return this.#astMethod;
+    }
+
+
+    set astMethod(astMethod: AstMethod) {
+        this.#astMethod = astMethod;
     }
 
 
@@ -85,19 +261,130 @@ export class AstNode implements Evaluate {
 
 
     /**
-     * Evaluates the complexities of the TreeNodes and the TreeMethods of this TreeFile
+     * Evaluates the complexities of the AstNodes and the AstMethods of this AstFile
      */
     evaluate(): void {
         this.cpxFactors = new CpxFactors();
-        // const treeMethodService = new TreeMethodService();
+        // const astMethodService = new AstMethodService();
         for (const child of this.#children) {
             child.evaluate();
         }
-        // for (const method of this.treeMethods) {
+        // for (const method of this.astMethods) {
         //     method.evaluate();
         //     this.cyclomaticCpx += method.cyclomaticCpx;
         //     this.cyclomaticCpx += method.cyclomaticCpx;
-        //     this.complexitiesByStatus = treeMethodService.addMethodCpxByStatus(this.complexitiesByStatus, method);
+        //     this.complexitiesByStatus = astMethodService.addMethodCpxByStatus(this.complexitiesByStatus, method);
         // }
     }
+
+    /**
+     * Gets the xth son of this AstNode
+     * @param sonNumber
+     */
+    getSon(sonNumber: number): AstNode {
+        return this.children[sonNumber];
+    }
+
+
+    /**
+     * Calculates the complexity index of the AstNode
+     */
+    calculateAndSetCpxFactors(): CpxFactors {
+        this.setGeneralCaseCpxFactors();
+        this.setBasicCpxFactors();
+        this.setRecursionOrCallbackCpxFactors();
+        this.setElseCpxFactors();
+        this.setRegexCpxFactors();
+        this.setDepthCpxFactors();
+        this.setAggregationCpxFactors();
+        this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
+        this.intrinsicDepthCpx = this.cpxFactors.totalDepth;
+        return this.#cpxFactors;
+    }
+
+
+    /**
+     * Sets the nesting and structural complexities for "usual" cases
+     */
+    private setGeneralCaseCpxFactors(): void{
+        this.cpxFactors.nesting[this.factorCategory] = cpxFactors.nesting[this.factorCategory];
+        this.cpxFactors.structural[this.factorCategory] = cpxFactors.structural[this.factorCategory];
+    }
+
+
+    /**
+     * Sets the complexity index corresponding to "basic" factor (ie basic weight for all the AST nodes)
+     */
+    private setBasicCpxFactors(): void {
+        this.cpxFactors.basic.node = this.factorCategory === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
+    }
+
+
+    /**
+     * Sets depth complexity factor
+     * Example : array in array, like a[b[c]]
+     */
+    private setDepthCpxFactors(): void {
+        if (AstService.isArrayIndex(this)) {
+            this.cpxFactors.depth.arr = cpxFactors.depth.arr;
+        }
+    }
+
+
+    /**
+     * Sets aggregation complexity factor
+     */
+    private setAggregationCpxFactors(): void {
+        if (AstService.isArrayOfArray(this)) {
+            this.cpxFactors.aggregation.arr = cpxFactors.aggregation.arr;
+        } else if (AstService.isDifferentLogicDoor(this)) {
+            this.cpxFactors.aggregation.differentLogicDoor = cpxFactors.aggregation.differentLogicDoor;
+        }
+    }
+
+
+    /**
+     * Sets complexity factor for "else" case
+     */
+    private setElseCpxFactors(): void {
+        if (AstService.isElseStatement(this)) {
+            this.cpxFactors.structural.conditional = cpxFactors.structural.conditional;
+        }
+        if (AstService.isElseIfStatement(this)) {
+            this.cpxFactors.nesting.conditional = 0;
+        }
+    }
+
+
+    /**
+     * Sets complexity factor for callbacks and recursions
+     */
+    private setRecursionOrCallbackCpxFactors(): void {
+        this.cpxFactors.recursion.recursivity = this.isRecursiveMethod ? cpxFactors.recursion.recursivity : 0;
+        this.cpxFactors.recursion.callback = this.isCallback ? cpxFactors.recursion.callback : 0;
+    }
+
+
+    /**
+     * Sets complexity factor for regex
+     */
+    private setRegexCpxFactors(): void {
+        if (this.factorCategory === NodeFeature.REGEX) {
+            this.cpxFactors.aggregation.regex = +((this['text'].length - 2) * cpxFactors.aggregation.regex).toFixed(2);
+        }
+    }
+
+
+    /**
+     * Sets the global nesting cpx of the node (the cpx from the node itself and from its parents)
+     */
+    private addParentCpx(): void {
+        if (this && this.parent && this.parent?.cpxFactors?.nesting) {
+            this.cpxFactors.nesting = addObjects(this.parent.cpxFactors.nesting, this.cpxFactors.nesting);
+        }
+        if (this && this.parent?.parent && this.parent?.cpxFactors?.depth) {
+            this.cpxFactors.depth = addObjects(this.parent.cpxFactors.depth, this.cpxFactors.depth);
+        }
+    }
+
 }

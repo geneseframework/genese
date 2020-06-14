@@ -1,5 +1,5 @@
 import { AstNode } from './ast-node.model';
-import { AstKind } from '../enums/ast-kind.enum';
+import { SyntaxKind } from '../enums/syntax-kind.enum';
 import { LogService } from '../../services/tree/log.service';
 import { CpxFactors } from '../../models/cpx-factor/cpx-factors.model';
 import { AstFolder } from './ast-folder.model';
@@ -38,7 +38,7 @@ export class AstFile implements Evaluate, LogService {
         const astNode = new AstNode();
         astNode.pos = 0;
         astNode.end = this.text.length; // TODO: fix
-        astNode.kind = AstKind.SOURCE_FILE;
+        astNode.kind = SyntaxKind.SourceFile;
         astNode.children = this.children;
         return astNode;
     }

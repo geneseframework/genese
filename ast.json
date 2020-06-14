@@ -10,25 +10,22 @@
                         "pos": 0,
                         "end": 108,
                         "kind": "ClassDeclaration",
-                        "text": "export class GeneseComplexity { ifAlone(a) { if (a) { return 'b'; } } }",
                         "children": [
                             {
                                 "pos": 0,
                                 "end": 6,
-                                "kind": "ExportKeyword",
-                                "text": "export"
+                                "kind": "ExportKeyword"
                             },
                             {
                                 "pos": 12,
                                 "end": 29,
                                 "kind": "Identifier",
-                                "text": "GeneseComplexity"
+                                "name": "GeneseComplexity"
                             },
                             {
                                 "pos": 31,
                                 "end": 106,
-                                "kind": "MethodDeclaration",
-                                "text": "ifAlone(a) { if (a) { return 'b'; } }"
+                                "kind": "MethodDeclaration"
                             }
                         ]
                     }
