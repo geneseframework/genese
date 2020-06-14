@@ -12,11 +12,13 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astFolder;
+var _astFolder, _cpxFactors, _cyclomaticCpx;
 Object.defineProperty(exports, "__esModule", { value: true });
 class JsonAst {
     constructor() {
-        _astFolder.set(this, void 0);
+        _astFolder.set(this, undefined);
+        _cpxFactors.set(this, undefined);
+        _cyclomaticCpx.set(this, 0);
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
@@ -27,10 +29,26 @@ class JsonAst {
     set astFolder(astFolder) {
         __classPrivateFieldSet(this, _astFolder, astFolder);
     }
+    get cpxFactors() {
+        return __classPrivateFieldGet(this, _cpxFactors);
+    }
+    set cpxFactors(cpxFactors) {
+        __classPrivateFieldSet(this, _cpxFactors, cpxFactors);
+    }
+    get cyclomaticCpx() {
+        return __classPrivateFieldGet(this, _cyclomaticCpx);
+    }
+    set cyclomaticCpx(cyclomaticCpx) {
+        __classPrivateFieldSet(this, _cyclomaticCpx, cyclomaticCpx);
+    }
     // ---------------------------------------------------------------------------------
     //                                Other methods
     // ---------------------------------------------------------------------------------
-    log(message) {
+    evaluate() {
+        this.cpxFactors = __classPrivateFieldGet(this, _astFolder).cpxFactors;
+        __classPrivateFieldSet(this, _cyclomaticCpx, __classPrivateFieldGet(this, _astFolder).cyclomaticCpx);
+    }
+    logg(message) {
         console.log('-----------------------------');
         console.log('LOG JSON_AST');
         console.log('-----------------------------');
@@ -41,4 +59,4 @@ class JsonAst {
     }
 }
 exports.JsonAst = JsonAst;
-_astFolder = new WeakMap();
+_astFolder = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap();

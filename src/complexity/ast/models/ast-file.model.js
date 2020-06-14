@@ -12,23 +12,20 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _children, _end, _name, _text, _treeFolder;
+var _children, _cpxFactors, _cyclomaticCpx, _end, _name, _text, _astFolder;
 Object.defineProperty(exports, "__esModule", { value: true });
 const ast_node_model_1 = require("./ast-node.model");
 const ast_kind_enum_1 = require("../enums/ast-kind.enum");
+const cpx_factors_model_1 = require("../../models/cpx-factor/cpx-factors.model");
 class AstFile {
     constructor() {
-        // ---------------------------------------------------------------------------------
-        //                                Mandatory properties
-        // ---------------------------------------------------------------------------------
         _children.set(this, []);
+        _cpxFactors.set(this, undefined);
+        _cyclomaticCpx.set(this, 0);
         _end.set(this, 0);
         _name.set(this, '');
         _text.set(this, '');
-        // ---------------------------------------------------------------------------------
-        //                                Other properties
-        // ---------------------------------------------------------------------------------
-        _treeFolder.set(this, undefined);
+        _astFolder.set(this, undefined);
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
@@ -46,6 +43,18 @@ class AstFile {
     }
     set children(astNodes) {
         __classPrivateFieldSet(this, _children, astNodes);
+    }
+    get cpxFactors() {
+        return __classPrivateFieldGet(this, _cpxFactors);
+    }
+    set cpxFactors(cpxFactors) {
+        __classPrivateFieldSet(this, _cpxFactors, cpxFactors);
+    }
+    get cyclomaticCpx() {
+        return __classPrivateFieldGet(this, _cyclomaticCpx);
+    }
+    set cyclomaticCpx(cyclomaticCpx) {
+        __classPrivateFieldSet(this, _cyclomaticCpx, cyclomaticCpx);
     }
     get end() {
         return __classPrivateFieldGet(this, _end);
@@ -65,11 +74,11 @@ class AstFile {
     set text(text) {
         __classPrivateFieldSet(this, _text, text);
     }
-    get treeFolder() {
-        return __classPrivateFieldGet(this, _treeFolder);
+    get astFolder() {
+        return __classPrivateFieldGet(this, _astFolder);
     }
-    set treeFolder(treeFolder) {
-        __classPrivateFieldSet(this, _treeFolder, treeFolder);
+    set astFolder(astFolder) {
+        __classPrivateFieldSet(this, _astFolder, astFolder);
     }
     // ---------------------------------------------------------------------------------
     //                                  Other methods
@@ -78,10 +87,11 @@ class AstFile {
      * Evaluates the complexities of the TreeNodes and the TreeMethods of this TreeFile
      */
     evaluate() {
+        this.cpxFactors = new cpx_factors_model_1.CpxFactors();
         // const treeMethodService = new TreeMethodService();
-        // for (const treeNode of this.#treeNodes) {
-        //     treeNode.evaluate();
-        // }
+        for (const child of __classPrivateFieldGet(this, _children)) {
+            child.evaluate();
+        }
         // for (const method of this.treeMethods) {
         //     method.evaluate();
         //     this.cpxIndex += method.cpxIndex;
@@ -98,7 +108,7 @@ class AstFile {
     // }
     // return this.stats;
     // }
-    log(message) {
+    logg(message) {
         console.log('-----------------------------');
         console.log('LOG AST_FILE');
         console.log('-----------------------------');
@@ -109,8 +119,8 @@ class AstFile {
         console.log('end', __classPrivateFieldGet(this, _end));
         console.log('text', __classPrivateFieldGet(this, _text));
         console.log('children', __classPrivateFieldGet(this, _children));
-        console.log('treeFolder', __classPrivateFieldGet(this, _treeFolder));
+        console.log('treeFolder', __classPrivateFieldGet(this, _astFolder));
     }
 }
 exports.AstFile = AstFile;
-_children = new WeakMap(), _end = new WeakMap(), _name = new WeakMap(), _text = new WeakMap(), _treeFolder = new WeakMap();
+_children = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _name = new WeakMap(), _text = new WeakMap(), _astFolder = new WeakMap();

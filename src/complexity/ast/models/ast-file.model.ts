@@ -2,28 +2,19 @@ import { AstNode } from './ast-node.model';
 import { AstKind } from '../enums/ast-kind.enum';
 import { TreeFolder } from '../../models/tree/tree-folder.model';
 import { LogService } from '../../services/tree/log.service';
+import { CpxFactors } from '../../models/cpx-factor/cpx-factors.model';
+import { AstFolder } from './ast-folder.model';
+import { Evaluate } from '../../interfaces/evaluate.interface';
 
-export class AstFile implements LogService{
-
-
-
-    // ---------------------------------------------------------------------------------
-    //                                Mandatory properties
-    // ---------------------------------------------------------------------------------
-
+export class AstFile implements Evaluate, LogService {
 
     #children: AstNode[] = [];
+    #cpxFactors?: CpxFactors = undefined;
+    #cyclomaticCpx ?= 0;
     #end ?= 0;
     #name ?= '';
     #text ?= '';
-
-
-    // ---------------------------------------------------------------------------------
-    //                                Other properties
-    // ---------------------------------------------------------------------------------
-
-
-    #treeFolder?: TreeFolder = undefined;
+    #astFolder?: AstFolder = undefined;
 
 
 
@@ -49,6 +40,26 @@ export class AstFile implements LogService{
 
     set children(astNodes: AstNode[]) {
         this.#children = astNodes;
+    }
+
+
+    get cpxFactors(): CpxFactors {
+        return this.#cpxFactors;
+    }
+
+
+    set cpxFactors(cpxFactors: CpxFactors) {
+        this.#cpxFactors = cpxFactors;
+    }
+
+
+    get cyclomaticCpx(): number {
+        return this.#cyclomaticCpx;
+    }
+
+
+    set cyclomaticCpx(cyclomaticCpx: number) {
+        this.#cyclomaticCpx = cyclomaticCpx;
     }
 
 
@@ -82,13 +93,13 @@ export class AstFile implements LogService{
     }
 
 
-    get treeFolder(): TreeFolder {
-        return this.#treeFolder;
+    get astFolder(): AstFolder {
+        return this.#astFolder;
     }
 
 
-    set treeFolder(treeFolder: TreeFolder) {
-        this.#treeFolder = treeFolder;
+    set astFolder(astFolder: AstFolder) {
+        this.#astFolder = astFolder;
     }
 
 
@@ -101,10 +112,11 @@ export class AstFile implements LogService{
      * Evaluates the complexities of the TreeNodes and the TreeMethods of this TreeFile
      */
     evaluate(): void {
+        this.cpxFactors = new CpxFactors();
         // const treeMethodService = new TreeMethodService();
-        // for (const treeNode of this.#treeNodes) {
-        //     treeNode.evaluate();
-        // }
+        for (const child of this.#children) {
+            child.evaluate();
+        }
         // for (const method of this.treeMethods) {
         //     method.evaluate();
         //     this.cpxIndex += method.cpxIndex;
@@ -125,7 +137,7 @@ export class AstFile implements LogService{
     // }
 
 
-    log(message?: string): void {
+    logg(message?: string): void {
         console.log('-----------------------------');
         console.log('LOG AST_FILE');
         console.log('-----------------------------');
@@ -136,7 +148,7 @@ export class AstFile implements LogService{
         console.log('end', this.#end);
         console.log('text', this.#text);
         console.log('children', this.#children);
-        console.log('treeFolder', this.#treeFolder);
+        console.log('treeFolder', this.#astFolder);
     }
 
 

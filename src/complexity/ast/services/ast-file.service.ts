@@ -70,7 +70,7 @@ export class AstFileService extends StatsService {
     //     TODO : remove this dev test code
         // const debugJsonAst = require('../ast.json');
         // jsonAst.astFile = debugJsonAst.astfile;
-        // console.log('JSONAST', jsonAst.astFile);
+        // console.logg('JSONAST', jsonAst.astFile);
         // End of code to remove
         // this.astFile.end = jsonAst.astFile.end;
         // this.astFile.path = getFilename(jsonAst.astFile.path);

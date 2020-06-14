@@ -1,9 +1,14 @@
 import { AstFolder } from './ast-folder.model';
 import { PrivateLog } from '../../interfaces/private-log.interface';
+import { Evaluate } from '../../interfaces/evaluate.interface';
+import { CpxFactors } from '../../models/cpx-factor/cpx-factors.model';
 
-export class JsonAst implements PrivateLog {
+export class JsonAst implements Evaluate, PrivateLog {
 
-    #astFolder?: AstFolder;
+    #astFolder?: AstFolder = undefined;
+    #cpxFactors?: CpxFactors = undefined;
+    #cyclomaticCpx ?= 0;
+
 
 
     // ---------------------------------------------------------------------------------
@@ -22,12 +27,38 @@ export class JsonAst implements PrivateLog {
     }
 
 
+    get cpxFactors(): CpxFactors {
+        return this.#cpxFactors;
+    }
+
+
+    set cpxFactors(cpxFactors: CpxFactors) {
+        this.#cpxFactors = cpxFactors;
+    }
+
+
+    get cyclomaticCpx(): number {
+        return this.#cyclomaticCpx;
+    }
+
+
+    set cyclomaticCpx(cyclomaticCpx: number) {
+        this.#cyclomaticCpx = cyclomaticCpx;
+    }
+
+
     // ---------------------------------------------------------------------------------
     //                                Other methods
     // ---------------------------------------------------------------------------------
 
 
-    log(message?: string): void {
+    evaluate(): void {
+        this.cpxFactors = this.#astFolder.cpxFactors;
+        this.#cyclomaticCpx = this.#astFolder.cyclomaticCpx;
+    }
+
+
+    logg(message?: string): void {
         console.log('-----------------------------');
         console.log('LOG JSON_AST');
         console.log('-----------------------------');

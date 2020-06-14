@@ -71,7 +71,7 @@ export class LogService {
 
 
     /**
-     * Adds a text with its value in a console.log if the value is positive
+     * Adds a text with its value in a console.logg if the value is positive
      * @param text      // The text to add
      * @param value     // The corresponding value
      */

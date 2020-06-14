@@ -34,9 +34,7 @@ class AstFolderService {
             astFolder.children.push(newChild);
         }
         console.log('AST FILESS', astFolder.astFiles);
-        astFolder.evaluate();
         newJsonAst.astFolder = astFolder;
-        // newJsonAst.log();
         return newJsonAst;
     }
     generateAstFolder(astFolder) {
@@ -62,7 +60,7 @@ class AstFolderService {
         newAstFile.name = astFile.name;
         newAstFile.text = astFile.text;
         newAstFile.children = this.generateAstNodes(astFile.children);
-        newAstFile.log();
+        newAstFile.logg();
         return newAstFile;
     }
     generateAstNodes(astNodes) {

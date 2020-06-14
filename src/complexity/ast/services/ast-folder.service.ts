@@ -39,9 +39,7 @@ export class AstFolderService {
             astFolder.children.push(newChild);
         }
         console.log('AST FILESS', astFolder.astFiles)
-        astFolder.evaluate();
         newJsonAst.astFolder = astFolder;
-        // newJsonAst.log();
         return newJsonAst;
     }
 
@@ -73,7 +71,7 @@ export class AstFolderService {
         newAstFile.name = astFile.name;
         newAstFile.text = astFile.text;
         newAstFile.children = this.generateAstNodes(astFile.children)
-        newAstFile.log();
+        newAstFile.logg();
         return newAstFile;
     }
 
@@ -190,7 +188,7 @@ export class AstFolderService {
     //         return undefined;
     //     }
     //     if (treeFile.treeFolder.path.slice(0, treeFolder.path.length) !== treeFolder.path) {
-    //         console.log(`The file ${treeFile.name} is not inside the folder ${treeFolder.path}`);
+    //         console.logg(`The file ${treeFile.name} is not inside the folder ${treeFolder.path}`);
     //         return undefined;
     //     } else {
     //         const linkStarter = treeFolder.relativePath === '' ? './' : '.';
@@ -209,7 +207,7 @@ export class AstFolderService {
     //         return undefined;
     //     }
     //     if (treeSubfolder.path.slice(0, treeFolder.path.length) !== treeFolder.path) {
-    //         console.log(`The folder ${treeSubfolder.path} is not a subfolder of ${treeFolder.path}`);
+    //         console.logg(`The folder ${treeSubfolder.path} is not a subfolder of ${treeFolder.path}`);
     //         return undefined;
     //     } else {
     //         const linkStarter = treeFolder.relativePath === '' ? './' : '.';

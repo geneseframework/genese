@@ -1,5 +1,5 @@
 export interface PrivateLog {
 
-    log: () => void;
+    logg: () => void;
 
 }

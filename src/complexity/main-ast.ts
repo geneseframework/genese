@@ -30,6 +30,7 @@ export class MainAst {
         Options.setOptionsFromConfig(pathCommand + geneseConfigPath);
         createOutDir();
         const jsonAst = this.astFolderService.generateAstFolders(this.getJsonAst(pathCommand + jsonAstPath));
+        jsonAst.evaluate();
         // ReportsService.generateAllReports(astFolder);
         console.log(blueBright('COMPLEXITY REPORT GENERATED SUCCESSFULLY'));
     }

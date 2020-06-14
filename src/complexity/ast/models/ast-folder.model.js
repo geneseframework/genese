@@ -12,24 +12,25 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _path;
+var _cpxFactors, _cyclomaticCpx, _parent, _path;
 Object.defineProperty(exports, "__esModule", { value: true });
 const complexities_by_status_interface_1 = require("../../interfaces/complexities-by-status.interface");
-const evaluable_model_1 = require("../../models/evaluable.model");
+const cpx_factors_model_1 = require("../../models/cpx-factor/cpx-factors.model");
 /**
  * Element of the TreeNode structure corresponding to a given folder
  */
-class AstFolder extends evaluable_model_1.Evaluable {
+class AstFolder {
     // astFolderService?: AstFolderService = new AstFolderService();            // The AstFolderService linked to this AstFolder
     constructor() {
-        super();
         this.complexitiesByStatus = new complexities_by_status_interface_1.ComplexitiesByStatus(); // The folder complexities spread by complexity status
+        _cpxFactors.set(this, undefined);
         this.cpxIndex = 0; // The complexity index of this folder
+        _cyclomaticCpx.set(this, 0);
         this.numberOfFiles = 0; // The number of files in this folder and its subfolders
         this.numberOfMethods = 0; // The number of methods included in all the files of this folder and its subfolders
-        this.parent = undefined; // The AstFolder corresponding to the parent folder of this AstFolder
+        _parent.set(this, undefined); // The AstFolder corresponding to the parent folder of this AstFolder
         _path.set(this, undefined); // The absolute path of this folder
-        this.relativePath = ''; // The relative path of this folder
+        // relativePath ?= '';                                                         // The relative path of this folder
         this.stats = undefined; // The stats corresponding to this folder
         this.children = []; // The subfolders of this folder
         this.astFiles = []; // The array of files of this folder (not in the subfolders)
@@ -38,6 +39,24 @@ class AstFolder extends evaluable_model_1.Evaluable {
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
+    get cpxFactors() {
+        return __classPrivateFieldGet(this, _cpxFactors);
+    }
+    set cpxFactors(cpxFactors) {
+        __classPrivateFieldSet(this, _cpxFactors, cpxFactors);
+    }
+    get cyclomaticCpx() {
+        return __classPrivateFieldGet(this, _cyclomaticCpx);
+    }
+    set cyclomaticCpx(cyclomaticCpx) {
+        __classPrivateFieldSet(this, _cyclomaticCpx, cyclomaticCpx);
+    }
+    get parent() {
+        return __classPrivateFieldGet(this, _parent);
+    }
+    set parent(parent) {
+        __classPrivateFieldSet(this, _parent, parent);
+    }
     get path() {
         return __classPrivateFieldGet(this, _path);
     }
@@ -60,9 +79,11 @@ class AstFolder extends evaluable_model_1.Evaluable {
      * Evaluates the complexities of the TreeFiles of this AstFolder
      */
     evaluate() {
+        this.cpxFactors = new cpx_factors_model_1.CpxFactors();
         for (const file of this.astFiles) {
+            this.cpxFactors = this.cpxFactors.add(file.cpxFactors);
             // this.cpxIndex += file.cpxIndex;
-            // this.cyclomaticCpx += file.cyclomaticCpx;
+            this.cyclomaticCpx += file.cyclomaticCpx;
             // this.numberOfMethods += file.treeMethods?.length ?? 0;
             // this.numberOfFiles++;
             // this.complexitiesByStatus = this.complexitiesByStatus.add(file.complexitiesByStatus);
@@ -70,4 +91,4 @@ class AstFolder extends evaluable_model_1.Evaluable {
     }
 }
 exports.AstFolder = AstFolder;
-_path = new WeakMap();
+_cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _parent = new WeakMap(), _path = new WeakMap();
