@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tree_folder_model_1 = require("../../models/tree/tree-folder.model");
 const ast_file_service_1 = require("../../ast/services/ast-file.service");
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
@@ -22,13 +21,10 @@ class AstFolderService {
      * @param language         // The extension of the files concerned by the generation (actually: only .ts)
      * @param treeSubFolder     // The TreeFolder of a subfolder (param useful only for recursivity, should not be used outside of the method)
      */
-    generateAstFolders(path, language, treeSubFolder) {
-        if (!path) {
-            console.log('ERROR: no path.');
-            return undefined;
-        }
-        const treeFolder = new tree_folder_model_1.TreeFolder();
-        treeFolder.path = path;
+    generateAstFolders(jsonAst) {
+        console.log('JSON ASTTT', jsonAst);
+        // const treeFolder: TreeFolder = new TreeFolder();
+        // treeFolder.path = path;
         // treeFolder.relativePath = getRelativePath(Options.pathFolderToAnalyze, path);
         // const filesOrDirs = fs.readdirSync(path);
         // filesOrDirs.forEach((elementName: string) => {
@@ -38,7 +34,7 @@ class AstFolderService {
         //     }
         // });
         // treeFolder.evaluate();
-        return treeFolder;
+        return;
     }
 }
 exports.AstFolderService = AstFolderService;

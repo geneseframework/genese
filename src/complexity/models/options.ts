@@ -68,6 +68,7 @@ export class Options {
      * @param geneseConfigPath  // The path of the geneseconfig.json file
      */
     static setOptionsFromConfig(geneseConfigPath: string): void {
+        console.log('GEN PATH', geneseConfigPath)
         const config = require(geneseConfigPath);
         Options.cognitiveCpx.errorThreshold = config.complexity?.cognitiveCpx?.errorThreshold ?? Options.cognitiveCpx.errorThreshold;
         Options.cognitiveCpx.warningThreshold = config.complexity?.cognitiveCpx?.warningThreshold ?? Options.cognitiveCpx.warningThreshold;

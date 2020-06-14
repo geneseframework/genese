@@ -12,7 +12,7 @@ import { TreeFile } from '../../models/tree/tree-file.model';
 export class ReportsService {
 
     /**
-     * Main reports generation process
+     * MainAst reports generation process
      * @param treeFolder        // The main folder
      */
     static generateAllReports(treeFolder: TreeFolder): void {

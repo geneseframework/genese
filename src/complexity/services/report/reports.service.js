@@ -10,7 +10,7 @@ const tree_file_report_service_1 = require("./tree-file-report.service");
  */
 class ReportsService {
     /**
-     * Main reports generation process
+     * MainAst reports generation process
      * @param treeFolder        // The main folder
      */
     static generateAllReports(treeFolder) {

@@ -3,6 +3,7 @@ import { Stats } from '../../models/stats.model';
 import { Language } from '../../ast/enums/language.enum';
 import { AstFileService } from '../../ast/services/ast-file.service';
 import { StatsService } from '../../services/report/stats.service';
+import { JsonAst } from '../models/json-ast.model';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
@@ -28,13 +29,10 @@ export class AstFolderService {
      * @param language         // The extension of the files concerned by the generation (actually: only .ts)
      * @param treeSubFolder     // The TreeFolder of a subfolder (param useful only for recursivity, should not be used outside of the method)
      */
-    generateAstFolders(path: string, language?: Language, treeSubFolder?: TreeFolder): TreeFolder {
-        if (!path) {
-            console.log('ERROR: no path.')
-            return undefined;
-        }
-        const treeFolder: TreeFolder = new TreeFolder();
-        treeFolder.path = path;
+    generateAstFolders(jsonAst: JsonAst): TreeFolder {
+        console.log('JSON ASTTT', jsonAst)
+        // const treeFolder: TreeFolder = new TreeFolder();
+        // treeFolder.path = path;
         // treeFolder.relativePath = getRelativePath(Options.pathFolderToAnalyze, path);
         // const filesOrDirs = fs.readdirSync(path);
         // filesOrDirs.forEach((elementName: string) => {
@@ -44,7 +42,7 @@ export class AstFolderService {
         //     }
         // });
         // treeFolder.evaluate();
-        return treeFolder;
+        return;
     }
 
 
