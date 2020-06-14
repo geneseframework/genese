@@ -29,16 +29,6 @@ export class AstNode implements Evaluate {
     }
 
 
-    get cyclomaticCpx(): number {
-        return this.#cyclomaticCpx;
-    }
-
-
-    set cyclomaticCpx(cyclomaticCpx: number) {
-        this.#cyclomaticCpx = cyclomaticCpx;
-    }
-
-
     get cpxFactors(): CpxFactors {
         return this.#cpxFactors;
     }
@@ -46,6 +36,16 @@ export class AstNode implements Evaluate {
 
     set cpxFactors(cpxFactors: CpxFactors) {
         this.#cpxFactors = cpxFactors;
+    }
+
+
+    get cyclomaticCpx(): number {
+        return this.#cyclomaticCpx;
+    }
+
+
+    set cyclomaticCpx(cyclomaticCpx: number) {
+        this.#cyclomaticCpx = cyclomaticCpx;
     }
 
 

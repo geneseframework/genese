@@ -22,11 +22,11 @@ export class AstFolder implements Evaluate, HasStats {
     stats: Stats = undefined;                                                   // The stats corresponding to this folder
     children?: AstFolder[] = [];                                             // The subfolders of this folder
     astFiles?: AstFile[] = [];                                                // The array of files of this folder (not in the subfolders)
-    // astFolderService?: AstFolderService = new AstFolderService();            // The AstFolderService linked to this AstFolder
+    // initService?: InitService = new InitService();            // The InitService linked to this AstFolder
 
 
     constructor() {
-        // this.astFolderService.treeFolder = this;
+        // this.initService.treeFolder = this;
     }
 
 
@@ -88,7 +88,7 @@ export class AstFolder implements Evaluate, HasStats {
      */
     getStats(): Stats {
         // if (!this.stats) {
-        //     this.stats = this.astFolderService.getStats(this);
+        //     this.stats = this.initService.getStats(this);
         // }
         return this.stats;
     }

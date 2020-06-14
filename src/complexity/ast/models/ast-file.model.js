@@ -12,13 +12,14 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _children, _cpxFactors, _cyclomaticCpx, _end, _name, _text, _astFolder;
+var _astMethods, _children, _cpxFactors, _cyclomaticCpx, _end, _name, _text, _astFolder;
 Object.defineProperty(exports, "__esModule", { value: true });
 const ast_node_model_1 = require("./ast-node.model");
 const ast_kind_enum_1 = require("../enums/ast-kind.enum");
 const cpx_factors_model_1 = require("../../models/cpx-factor/cpx-factors.model");
 class AstFile {
     constructor() {
+        _astMethods.set(this, []); // The TreeMethods included in this TreeFile
         _children.set(this, []);
         _cpxFactors.set(this, undefined);
         _cyclomaticCpx.set(this, 0);
@@ -30,6 +31,12 @@ class AstFile {
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
+    get astMethods() {
+        return __classPrivateFieldGet(this, _astMethods);
+    }
+    set astMethods(astMethods) {
+        __classPrivateFieldSet(this, _astMethods, astMethods);
+    }
     get astNode() {
         const astNode = new ast_node_model_1.AstNode();
         astNode.pos = 0;
@@ -123,4 +130,4 @@ class AstFile {
     }
 }
 exports.AstFile = AstFile;
-_children = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _name = new WeakMap(), _text = new WeakMap(), _astFolder = new WeakMap();
+_astMethods = new WeakMap(), _children = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _name = new WeakMap(), _text = new WeakMap(), _astFolder = new WeakMap();

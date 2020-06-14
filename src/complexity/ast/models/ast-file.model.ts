@@ -1,13 +1,14 @@
 import { AstNode } from './ast-node.model';
 import { AstKind } from '../enums/ast-kind.enum';
-import { TreeFolder } from '../../models/tree/tree-folder.model';
 import { LogService } from '../../services/tree/log.service';
 import { CpxFactors } from '../../models/cpx-factor/cpx-factors.model';
 import { AstFolder } from './ast-folder.model';
 import { Evaluate } from '../../interfaces/evaluate.interface';
+import { AstMethod } from './ast-method.model';
 
 export class AstFile implements Evaluate, LogService {
 
+    #astMethods?: AstMethod[] = [];                           // The TreeMethods included in this TreeFile
     #children: AstNode[] = [];
     #cpxFactors?: CpxFactors = undefined;
     #cyclomaticCpx ?= 0;
@@ -21,6 +22,16 @@ export class AstFile implements Evaluate, LogService {
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
+
+
+    get astMethods(): AstMethod[] {
+        return this.#astMethods;
+    }
+
+
+    set astMethods(astMethods: AstMethod[]) {
+        this.#astMethods = astMethods;
+    }
 
 
     get astNode(): AstNode {

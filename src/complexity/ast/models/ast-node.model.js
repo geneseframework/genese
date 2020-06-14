@@ -33,17 +33,17 @@ class AstNode {
     set children(children) {
         __classPrivateFieldSet(this, _children, children);
     }
-    get cyclomaticCpx() {
-        return __classPrivateFieldGet(this, _cyclomaticCpx);
-    }
-    set cyclomaticCpx(cyclomaticCpx) {
-        __classPrivateFieldSet(this, _cyclomaticCpx, cyclomaticCpx);
-    }
     get cpxFactors() {
         return __classPrivateFieldGet(this, _cpxFactors);
     }
     set cpxFactors(cpxFactors) {
         __classPrivateFieldSet(this, _cpxFactors, cpxFactors);
+    }
+    get cyclomaticCpx() {
+        return __classPrivateFieldGet(this, _cyclomaticCpx);
+    }
+    set cyclomaticCpx(cyclomaticCpx) {
+        __classPrivateFieldSet(this, _cyclomaticCpx, cyclomaticCpx);
     }
     get end() {
         return __classPrivateFieldGet(this, _end);

@@ -3,14 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const options_1 = require("./models/options");
 const file_service_1 = require("./services/file.service");
 const ansi_colors_1 = require("ansi-colors");
-const ast_folder_service_1 = require("./ast/services/ast-folder.service");
+const init_service_1 = require("./ast/services/init.service");
 exports.DEBUG = true; // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND when you want to get stats only for debug.mock.ts file
 /**
  * MainAst process of the analysis
  */
 class MainAst {
     constructor() {
-        this.astFolderService = new ast_folder_service_1.AstFolderService(); // The service managing TreeFolders
+        this.astFolderService = new init_service_1.InitService(); // The service managing TreeFolders
     }
     /**
      * Starts the analysis
