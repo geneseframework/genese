@@ -1,11 +1,11 @@
 /**
  * A line of a Code object
  */
-import { CpxFactors } from '../../../models/cpx-factor/cpx-factors.model';
-import { AstNode } from '../ast-node.model';
-import { NestingCpx } from '../../../models/cpx-factor/nesting-cpx.model';
-import { DepthCpx } from '../../../models/cpx-factor/depth-cpx.model';
-import { addObjects } from '../../../services/tools.service';
+import { AstNode } from '../ast/ast-node.model';
+import { CpxFactors } from '../cpx-factor/cpx-factors.model';
+import { NestingCpx } from '../cpx-factor/nesting-cpx.model';
+import { DepthCpx } from '../cpx-factor/depth-cpx.model';
+import { addObjects } from '../../services/tools.service';
 
 export class CodeLine {
 

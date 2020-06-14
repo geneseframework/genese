@@ -1,7 +1,5 @@
-import * as ts from 'typescript';
 import { Code } from '../models/code/code.model';
 import { CodeLine } from '../models/code/code-line.model';
-import { AstNode } from '../models/ast-node.model';
 
 /**
  * Service managing Code objects

@@ -1,12 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * A line of a Code object
- */
-const cpx_factors_model_1 = require("../../../models/cpx-factor/cpx-factors.model");
-const nesting_cpx_model_1 = require("../../../models/cpx-factor/nesting-cpx.model");
-const depth_cpx_model_1 = require("../../../models/cpx-factor/depth-cpx.model");
-const tools_service_1 = require("../../../services/tools.service");
+const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
+const nesting_cpx_model_1 = require("../cpx-factor/nesting-cpx.model");
+const depth_cpx_model_1 = require("../cpx-factor/depth-cpx.model");
+const tools_service_1 = require("../../services/tools.service");
 class CodeLine {
     constructor() {
         this.astNodes = []; // The array of AstNodes corresponding to AST nodes in this line of code

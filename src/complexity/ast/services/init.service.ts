@@ -1,7 +1,7 @@
-import { JsonAst } from '../models/json-ast.model';
-import { AstFolder } from '../models/ast-folder.model';
-import { AstFile } from '../models/ast-file.model';
-import { AstNode } from '../models/ast-node.model';
+import { JsonAst } from '../models/ast/json-ast.model';
+import { AstFolder } from '../models/ast/ast-folder.model';
+import { AstFile } from '../models/ast/ast-file.model';
+import { AstNode } from '../models/ast/ast-node.model';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder

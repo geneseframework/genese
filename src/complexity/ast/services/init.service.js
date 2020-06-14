@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const json_ast_model_1 = require("../models/json-ast.model");
-const ast_folder_model_1 = require("../models/ast-folder.model");
-const ast_file_model_1 = require("../models/ast-file.model");
+const json_ast_model_1 = require("../models/ast/json-ast.model");
+const ast_folder_model_1 = require("../models/ast/ast-folder.model");
+const ast_file_model_1 = require("../models/ast/ast-file.model");
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
  * - Other services for TreeFolders

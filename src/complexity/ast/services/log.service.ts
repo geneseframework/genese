@@ -1,4 +1,4 @@
-import { AstNode } from '../models/ast-node.model';
+import { AstNode } from '../models/ast/ast-node.model';
 
 const chalk = require('chalk');
 

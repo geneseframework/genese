@@ -9,10 +9,10 @@ import { StatsService } from '../report/stats.service';
 import { Stats } from '../../models/stats.model';
 import { Options } from '../../models/options';
 import { DEBUG } from '../../main';
-import { JsonAst } from '../../ast/models/json-ast.model';
-import { LanguageToJsonAstService } from '../../ast/services/language-to-json-ast.service';
+import { JsonAst } from '../../ast/models/ast/json-ast.model';
+import { LanguageToJsonAstService } from '../../ast/services/conversion/language-to-json-ast.service';
 import { Language } from '../../ast/enums/language.enum';
-import { AstFileService } from '../../ast/services/ast-file.service';
+import { AstFileService } from '../../ast/services/ast/ast-file.service';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
