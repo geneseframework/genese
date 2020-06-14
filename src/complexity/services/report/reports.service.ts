@@ -24,8 +24,8 @@ export class ReportsService {
 
 
     /**
-     * Generates reports of subFolders recursively
-     * @param treeFolder        // The TreeFolder to analyse
+     * Generates reports of children recursively
+     * @param treeFolder        // The AstFolder to analyse
      */
     private static generateSubfoldersReports(treeFolder: TreeFolder): void{
         ReportsService.generateFolderReport(treeFolder);
@@ -37,7 +37,7 @@ export class ReportsService {
 
     /**
      * Generates a report for a given folder
-     * @param treeFolder        // The TreeFolder to analyse
+     * @param treeFolder        // The AstFolder to analyse
      */
     private static generateFolderReport(treeFolder: TreeFolder): void {
         const folderReportService = new TreeFolderReportService(treeFolder);

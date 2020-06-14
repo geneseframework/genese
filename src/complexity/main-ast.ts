@@ -29,7 +29,7 @@ export class MainAst {
         console.log('START CALCULATION');
         Options.setOptionsFromConfig(pathCommand + geneseConfigPath);
         createOutDir();
-        const astFolder = this.astFolderService.generateAstFolders(this.getJsonAst(pathCommand + jsonAstPath));
+        const jsonAst = this.astFolderService.generateAstFolders(this.getJsonAst(pathCommand + jsonAstPath));
         // ReportsService.generateAllReports(astFolder);
         console.log(blueBright('COMPLEXITY REPORT GENERATED SUCCESSFULLY'));
     }

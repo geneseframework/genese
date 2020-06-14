@@ -23,7 +23,7 @@ export class TreeFile extends Evaluable implements HasStats, HasTreeNode {
     #sourceFile?: ts.SourceFile = undefined;                    // The Typescript JsonAst
     stats?: Stats = undefined;                                  // The statistics of the file
     treeFileService: TreeFileService = new TreeFileService();   // The service for TreeFiles
-    treeFolder?: TreeFolder = new TreeFolder();                 // The TreeFolder which includes this TreeFile
+    treeFolder?: TreeFolder = new TreeFolder();                 // The AstFolder which includes this TreeFile
     #treeMethods?: TreeMethod[] = [];                           // The TreeMethods included in this TreeFile
     #treeNode?: TreeNode = undefined;                           // The TreeNode corresponding to the file itself
     #treeNodes?: TreeNode[] = undefined;                        // The TreeNode corresponding to the file itself

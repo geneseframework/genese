@@ -31,7 +31,7 @@ class TreeFile extends evaluable_model_1.Evaluable {
         _sourceFile.set(this, undefined); // The Typescript JsonAst
         this.stats = undefined; // The statistics of the file
         this.treeFileService = new tree_file_service_1.TreeFileService(); // The service for TreeFiles
-        this.treeFolder = new tree_folder_model_1.TreeFolder(); // The TreeFolder which includes this TreeFile
+        this.treeFolder = new tree_folder_model_1.TreeFolder(); // The AstFolder which includes this TreeFile
         _treeMethods.set(this, []); // The TreeMethods included in this TreeFile
         _treeNode.set(this, undefined); // The TreeNode corresponding to the file itself
         _treeNodes.set(this, undefined); // The TreeNode corresponding to the file itself

@@ -31,7 +31,7 @@ class AstFileService extends stats_service_1.StatsService {
      * Generates the TreeFile for a given file of a given folder
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the file
      * @param path
-     * @param treeFolder      // The TreeFolder containing the TreeFile
+     * @param treeFolder      // The AstFolder containing the TreeFile
      */
     generateTsTree(path, treeFolder = new tree_folder_model_1.TreeFolder()) {
         var _a;
@@ -48,9 +48,9 @@ class AstFileService extends stats_service_1.StatsService {
      * Generates the TreeFile for a given file of a given folder
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the file
      * @param jsonAst
-     * @param treeFolder      // The TreeFolder containing the TreeFile
+     * @param treeFolder      // The AstFolder containing the TreeFile
      */
-    // generateAstTree(jsonAst: JsonAst, treeFolder: TreeFolder = new TreeFolder()): AstFile {
+    // generateAstTree(jsonAst: JsonAst, treeFolder: AstFolder = new AstFolder()): AstFile {
     //     this.astFile = new AstFile();
     //     if (!jsonAst?.astFile) {
     //         return this.astFile;

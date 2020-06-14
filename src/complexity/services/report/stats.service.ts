@@ -7,7 +7,7 @@ import { Stats } from '../../models/stats.model';
  */
 export abstract class StatsService {
 
-    protected abstract _stats: Stats = undefined;                                       // The statistics of the TreeFile or the TreeFolder
+    protected abstract _stats: Stats = undefined;                                       // The statistics of the TreeFile or the AstFolder
     protected abstract calculateStats(fileOrFolder: TreeFile | TreeFolder): void;       // The method calculating the statistics
     protected abstract getNameOrPath(element: TreeFile | TreeFolder): void;                                           // The method returning the filename or the folder's path
 

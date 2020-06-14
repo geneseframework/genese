@@ -9,7 +9,6 @@ try {
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
     console.log(ansi_colors_1.blueBright("STARTS GENESE COMPLEXITY AST CLI"));
     var mainProcess = new mainAst.MainAst();
-    console.log('DIRNAME', __dirname)
     mainProcess.start(__dirname);
 }
 catch (err) {

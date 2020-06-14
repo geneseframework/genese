@@ -14,17 +14,17 @@ class TreeFolderReportService {
     constructor(treeFolder) {
         this.filesArray = []; // The array of files reports
         this.foldersArray = []; // The array of subfolders reports
-        this.isRootFolder = false; // True if the TreeFolder relative to this service is the root folder of the analysis
+        this.isRootFolder = false; // True if the AstFolder relative to this service is the root folder of the analysis
         this.methodsArray = []; // The array of methods reports
         this.relativeRootReports = ''; // The route between the position of the current TsFolder and the root of the analysis
-        this.treeFolder = undefined; // The TreeFolder relative to this service
+        this.treeFolder = undefined; // The AstFolder relative to this service
         this.treeFolderService = new tree_folder_service_1.TreeFolderService(); // The service relative to TreeFolders
         this.treeFolder = treeFolder;
         this.treeFolderService.treeFolder = this.treeFolder;
     }
     /**
      * Returns the array of subfolders with their analysis
-     * @param treeFolder    // The TreeFolder to analyse
+     * @param treeFolder    // The AstFolder to analyse
      */
     getFoldersArray(treeFolder) {
         let report = [];
@@ -35,7 +35,7 @@ class TreeFolderReportService {
     }
     /**
      * Recursion returning the array of subfolders reports
-     * @param treeFolder        // The TreeFolder to analyse
+     * @param treeFolder        // The AstFolder to analyse
      * @param isSubfolder       // True if treeFolder is a subfolder (used for recursivity)
      */
     getSubfoldersArray(treeFolder, isSubfolder = false) {
@@ -69,7 +69,7 @@ class TreeFolderReportService {
     }
     /**
      * Returns the array of files with their analysis
-     * @param treeFolder    // The TreeFolder to analyse
+     * @param treeFolder    // The AstFolder to analyse
      */
     getFilesArray(treeFolder) {
         let report = [];
@@ -90,7 +90,7 @@ class TreeFolderReportService {
     }
     /**
      * Returns the array of methods sorted by decreasing cognitive complexity
-     * @param treeFolder    // The TreeFolder to analyse
+     * @param treeFolder    // The AstFolder to analyse
      */
     getMethodsArraySortedByDecreasingCognitiveCpx(treeFolder) {
         const report = this.getMethodsArray(treeFolder);
@@ -98,7 +98,7 @@ class TreeFolderReportService {
     }
     /**
      * Recursion returning the array of methods reports of each subfolder
-     * @param treeFolder    // The TreeFolder to analyse
+     * @param treeFolder    // The AstFolder to analyse
      */
     getMethodsArray(treeFolder) {
         let report = [];

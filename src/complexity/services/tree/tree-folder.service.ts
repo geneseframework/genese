@@ -20,9 +20,9 @@ import { AstFileService } from '../../ast/services/ast-file.service';
  */
 export class TreeFolderService extends StatsService {
 
-    protected _stats: Stats = undefined;                        // The statistics of the TreeFolder
+    protected _stats: Stats = undefined;                        // The statistics of the AstFolder
     treeFileService?: TreeFileService = new TreeFileService();  // The service managing TreeFiles
-    treeFolder: TreeFolder = undefined;                         // The TreeFolder corresponding to this service
+    treeFolder: TreeFolder = undefined;                         // The AstFolder corresponding to this service
 
     constructor() {
         super();
@@ -30,11 +30,11 @@ export class TreeFolderService extends StatsService {
 
 
     /**
-     * Generates the TreeFolder for a given folder
+     * Generates the AstFolder for a given folder
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the folder
      * @param path              // The path of the folder
      * @param language         // The extension of the files concerned by the generation (actually: only .ts)
-     * @param treeSubFolder     // The TreeFolder of a subfolder (param useful only for recursivity, should not be used outside of the method)
+     * @param treeSubFolder     // The AstFolder of a subfolder (param useful only for recursivity, should not be used outside of the method)
      */
     generateTree(path: string, language?: Language, treeSubFolder?: TreeFolder): TreeFolder {
         if (!path) {
@@ -57,11 +57,11 @@ export class TreeFolderService extends StatsService {
 
 
     /**
-     * Generates the TreeFolder of a treeSubFolder which is a child of a given treeFolder with the path 'pathElement'
+     * Generates the AstFolder of a treeSubFolder which is a child of a given treeFolder with the path 'pathElement'
      * @param pathElement       // The path of the element
      * @param language          // The language of the files concerned by the generation (actually: only .ts)
-     * @param treeSubFolder     // The TreeFolder of a subfolder of the param treeFolder
-     * @param treeFolder        // The parent TreeFolder
+     * @param treeSubFolder     // The AstFolder of a subfolder of the param treeFolder
+     * @param treeFolder        // The parent AstFolder
      */
     private generateFileOrDirTree(pathElement: string, language: Language, treeSubFolder: TreeFolder, treeFolder: TreeFolder): void {
         if (fs.statSync(pathElement).isDirectory()) {
@@ -79,8 +79,8 @@ export class TreeFolderService extends StatsService {
 
 
     /**
-     * Calculates the statistics of the TreeFolder
-     * @param treeFolder        // The TreeFolder to analyse
+     * Calculates the statistics of the AstFolder
+     * @param treeFolder        // The AstFolder to analyse
      */
     calculateStats(treeFolder: TreeFolder): void {
         this._stats.numberOfFiles += treeFolder?.treeFiles?.length ?? 0;
@@ -94,7 +94,7 @@ export class TreeFolderService extends StatsService {
 
 
     /**
-     * Increments TreeFolder statistics for a given treeFile
+     * Increments AstFolder statistics for a given treeFile
      * @param treeFile       // The TreeFile to analyse
      */
     incrementFileStats(treeFile: TreeFile): void {
@@ -123,7 +123,7 @@ export class TreeFolderService extends StatsService {
 
 
     /**
-     * Returns the path of the TreeFolder linked to this service
+     * Returns the path of the AstFolder linked to this service
      */
     getNameOrPath(treeFolder: TreeFolder): void {
         this._stats.subject = getRelativePath(Options.pathCommand, treeFolder.path);
@@ -131,8 +131,8 @@ export class TreeFolderService extends StatsService {
 
 
     /**
-     * Returns the path between a TreeFolder's path and a TreeFile's path which is inside it or inside one of its subfolders
-     * @param treeFolder      // The path of the TreeFolder
+     * Returns the path between a AstFolder's path and a TreeFile's path which is inside it or inside one of its subfolders
+     * @param treeFolder      // The path of the AstFolder
      * @param treeFile        // The path of the TreeFile
      */
     getRouteFromFolderToFile(treeFolder: TreeFolder, treeFile: TreeFile): string {
@@ -150,7 +150,7 @@ export class TreeFolderService extends StatsService {
 
 
     /**
-     * Returns the route from the folder of a TreeFolder to one of its subfolders
+     * Returns the route from the folder of a AstFolder to one of its subfolders
      * @param treeFolder
      * @param treeSubfolder
      */

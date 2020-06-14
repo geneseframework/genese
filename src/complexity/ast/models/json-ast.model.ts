@@ -1,8 +1,23 @@
 import { AstFile } from './ast-file.model';
+import { AstFolder } from './ast-folder.model';
 
 export class JsonAst {
 
-    #astFiles?: AstFile[] = [];
+
+    // ---------------------------------------------------------------------------------
+    //                                Mandatory property
+    // ---------------------------------------------------------------------------------
+
+
+    #astFilesFromJson?: AstFile[] = [];
+
+
+    // ---------------------------------------------------------------------------------
+    //                                Other properties
+    // ---------------------------------------------------------------------------------
+
+
+    #astFolders?: AstFolder[] = [];
 
 
     // ---------------------------------------------------------------------------------
@@ -12,12 +27,22 @@ export class JsonAst {
 
 
     get astFiles(): AstFile[] {
-        return this.#astFiles;
+        return this.#astFilesFromJson;
     }
 
 
     set astFiles(astFiles: AstFile[]) {
-        this.#astFiles = astFiles ?? [];
+        this.#astFilesFromJson = astFiles ?? [];
+    }
+
+
+    get astFolders(): AstFolder[] {
+        return this.#astFolders;
+    }
+
+
+    set astFolders(astFolders: AstFolder[]) {
+        this.#astFolders = astFolders ?? [];
     }
 
 }

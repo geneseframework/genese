@@ -17,11 +17,11 @@ export class TreeFolderReportService {
 
     private filesArray: RowFileReport[] = [];                               // The array of files reports
     private foldersArray: RowFolderReport[] = [];                           // The array of subfolders reports
-    private isRootFolder = false;                                           // True if the TreeFolder relative to this service is the root folder of the analysis
+    private isRootFolder = false;                                           // True if the AstFolder relative to this service is the root folder of the analysis
     private methodsArray: RowFileReport[] = [];                             // The array of methods reports
     private relativeRootReports = '';                                       // The route between the position of the current TsFolder and the root of the analysis
     template: HandlebarsTemplateDelegate;                                   // The HandleBar template used to generate the report
-    treeFolder: TreeFolder = undefined;                                     // The TreeFolder relative to this service
+    treeFolder: TreeFolder = undefined;                                     // The AstFolder relative to this service
     treeFolderService: TreeFolderService = new TreeFolderService();         // The service relative to TreeFolders
 
 
@@ -33,7 +33,7 @@ export class TreeFolderReportService {
 
     /**
      * Returns the array of subfolders with their analysis
-     * @param treeFolder    // The TreeFolder to analyse
+     * @param treeFolder    // The AstFolder to analyse
      */
     getFoldersArray(treeFolder: TreeFolder): RowFolderReport[] {
         let report: RowFolderReport[] = [];
@@ -46,7 +46,7 @@ export class TreeFolderReportService {
 
     /**
      * Recursion returning the array of subfolders reports
-     * @param treeFolder        // The TreeFolder to analyse
+     * @param treeFolder        // The AstFolder to analyse
      * @param isSubfolder       // True if treeFolder is a subfolder (used for recursivity)
      */
     getSubfoldersArray(treeFolder: TreeFolder, isSubfolder = false): RowFolderReport[] {
@@ -85,7 +85,7 @@ export class TreeFolderReportService {
 
     /**
      * Returns the array of files with their analysis
-     * @param treeFolder    // The TreeFolder to analyse
+     * @param treeFolder    // The AstFolder to analyse
      */
     getFilesArray(treeFolder: TreeFolder): RowFileReport[] {
         let report: RowFileReport[] = [];
@@ -108,7 +108,7 @@ export class TreeFolderReportService {
 
     /**
      * Returns the array of methods sorted by decreasing cognitive complexity
-     * @param treeFolder    // The TreeFolder to analyse
+     * @param treeFolder    // The AstFolder to analyse
      */
     getMethodsArraySortedByDecreasingCognitiveCpx(treeFolder: TreeFolder): RowFileReport[] {
         const report = this.getMethodsArray(treeFolder);
@@ -118,7 +118,7 @@ export class TreeFolderReportService {
 
     /**
      * Recursion returning the array of methods reports of each subfolder
-     * @param treeFolder    // The TreeFolder to analyse
+     * @param treeFolder    // The AstFolder to analyse
      */
     getMethodsArray(treeFolder: TreeFolder): RowFileReport[] {
         let report: RowFileReport[] = [];

@@ -6,7 +6,7 @@ const stats_model_1 = require("../../models/stats.model");
  */
 class StatsService {
     constructor() {
-        this._stats = undefined; // The statistics of the TreeFile or the TreeFolder
+        this._stats = undefined; // The statistics of the TreeFile or the AstFolder
     }
     /**
      * Calculates and returns all the statistics

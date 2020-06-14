@@ -12,21 +12,34 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astFiles;
+var _astFilesFromJson, _astFolders;
 Object.defineProperty(exports, "__esModule", { value: true });
 class JsonAst {
     constructor() {
-        _astFiles.set(this, []);
+        // ---------------------------------------------------------------------------------
+        //                                Mandatory property
+        // ---------------------------------------------------------------------------------
+        _astFilesFromJson.set(this, []);
+        // ---------------------------------------------------------------------------------
+        //                                Other properties
+        // ---------------------------------------------------------------------------------
+        _astFolders.set(this, []);
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
     get astFiles() {
-        return __classPrivateFieldGet(this, _astFiles);
+        return __classPrivateFieldGet(this, _astFilesFromJson);
     }
     set astFiles(astFiles) {
-        __classPrivateFieldSet(this, _astFiles, astFiles !== null && astFiles !== void 0 ? astFiles : []);
+        __classPrivateFieldSet(this, _astFilesFromJson, astFiles !== null && astFiles !== void 0 ? astFiles : []);
+    }
+    get astFolders() {
+        return __classPrivateFieldGet(this, _astFolders);
+    }
+    set astFolders(astFolders) {
+        __classPrivateFieldSet(this, _astFolders, astFolders !== null && astFolders !== void 0 ? astFolders : []);
     }
 }
 exports.JsonAst = JsonAst;
-_astFiles = new WeakMap();
+_astFilesFromJson = new WeakMap(), _astFolders = new WeakMap();

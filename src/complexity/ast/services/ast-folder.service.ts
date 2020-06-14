@@ -4,6 +4,7 @@ import { Language } from '../../ast/enums/language.enum';
 import { AstFileService } from '../../ast/services/ast-file.service';
 import { StatsService } from '../../services/report/stats.service';
 import { JsonAst } from '../models/json-ast.model';
+import { AstFolder } from '../models/ast-folder.model';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
@@ -12,10 +13,10 @@ import { JsonAst } from '../models/json-ast.model';
 export class AstFolderService {
 // export class AstFolderService extends StatsService {
 
-    protected _stats: Stats = undefined;                        // The statistics of the TreeFolder
+    protected _stats: Stats = undefined;                        // The statistics of the AstFolder
     astFileAstService?: AstFileService = new AstFileService();  // The service managing TreeFiles
     astFileService?: AstFileService = new AstFileService();  // The service managing TreeFiles
-    treeFolder: TreeFolder = undefined;                         // The TreeFolder corresponding to this service
+    treeFolder: TreeFolder = undefined;                         // The AstFolder corresponding to this service
 
     constructor() {
         // super();
@@ -23,15 +24,18 @@ export class AstFolderService {
 
 
     /**
-     * Generates the TreeFolder for a given folder
+     * Generates the AstFolder for a given folder
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the folder
-     * @param path              // The path of the folder
-     * @param language         // The extension of the files concerned by the generation (actually: only .ts)
-     * @param treeSubFolder     // The TreeFolder of a subfolder (param useful only for recursivity, should not be used outside of the method)
+     * @param jsonAst
      */
-    generateAstFolders(jsonAst: JsonAst): TreeFolder {
-        console.log('JSON ASTTT', jsonAst)
-        // const treeFolder: TreeFolder = new TreeFolder();
+    generateAstFolders(jsonAst: JsonAst): JsonAst {
+        jsonAst.astFolders = [];
+        const paths = new Set(jsonAst.astFiles.map(e => e.path))
+        paths.forEach(path => {
+            jsonAst.astFolders.push(this.generateAstFolder(path));
+        });
+        console.log('JSON AST Astfolders', jsonAst)
+        // const treeFolder: AstFolder = new AstFolder();
         // treeFolder.path = path;
         // treeFolder.relativePath = getRelativePath(Options.pathFolderToAnalyze, path);
         // const filesOrDirs = fs.readdirSync(path);
@@ -46,28 +50,35 @@ export class AstFolderService {
     }
 
 
+    generateAstFolder(path: string): AstFolder {
+        const astFolder = new AstFolder();
+        astFolder.path = path;
+        return astFolder;
+    }
+
+
     /**
-     * Generates the TreeFolder of a treeSubFolder which is a child of a given treeFolder with the path 'pathElement'
+     * Generates the AstFolder of a treeSubFolder which is a child of a given treeFolder with the path 'pathElement'
      * @param pathElement       // The path of the element
      * @param language          // The language of the files concerned by the generation (actually: only .ts)
-     * @param treeSubFolder     // The TreeFolder of a subfolder of the param treeFolder
-     * @param treeFolder        // The parent TreeFolder
+     * @param treeSubFolder     // The AstFolder of a subfolder of the param treeFolder
+     * @param treeFolder        // The parent AstFolder
      */
-    // private generateFileOrDirTree(pathElement: string, language: Language, treeSubFolder: TreeFolder, treeFolder: TreeFolder): void {
+    // private generateFileOrDirTree(pathElement: string, language: Language, treeSubFolder: AstFolder, treeFolder: AstFolder): void {
     //     if (fs.statSync(pathElement).isDirectory()) {
-    //         let subFolder = new TreeFolder();
+    //         let subFolder = new AstFolder();
     //         subFolder = this.generateAstFolders(`${pathElement}/`, language, subFolder);
     //         subFolder.parent = treeSubFolder;
     //         subFolder.path = pathElement;
-    //         treeFolder.subFolders.push(subFolder);
+    //         treeFolder.children.push(subFolder);
     //     } else if (!language || getLanguageExtensions(language).includes(getFileExtension(pathElement))) {
     //         if (!DEBUG || (DEBUG && pathElement === './src/complexity/mocks/debug.mock.ts')) {
     //             language = Language.PHP;
                 // if (language === Language.TS) {
-                //     treeFolder.treeFiles.push(this.astFileAstService.generateTsTree(pathElement, treeFolder));
+                //     treeFolder.astFiles.push(this.astFileAstService.generateTsTree(pathElement, treeFolder));
                 // } else {
                 //     const jsonAst: JsonAst = LanguageToJsonAstService.convert(pathElement, language);
-                //     treeFolder.treeFiles.push(this.astFileAstService.generateAstTree(jsonAst, treeFolder));
+                //     treeFolder.astFiles.push(this.astFileAstService.generateAstTree(jsonAst, treeFolder));
                 // }
             // }
         // }
@@ -75,22 +86,22 @@ export class AstFolderService {
 
 
     /**
-     * Calculates the statistics of the TreeFolder
-     * @param treeFolder        // The TreeFolder to analyse
+     * Calculates the statistics of the AstFolder
+     * @param treeFolder        // The AstFolder to analyse
      */
-    // calculateStats(treeFolder: TreeFolder): void {
-    //     this._stats.numberOfFiles += treeFolder?.treeFiles?.length ?? 0;
-    //     for (const file of treeFolder.treeFiles) {
+    // calculateStats(treeFolder: AstFolder): void {
+    //     this._stats.numberOfFiles += treeFolder?.astFiles?.length ?? 0;
+    //     for (const file of treeFolder.astFiles) {
     //         this.incrementFileStats(file);
     //     }
-    //     for (const subFolder of treeFolder.subFolders) {
+    //     for (const subFolder of treeFolder.children) {
     //         this.calculateStats(subFolder);
     //     }
     // }
 
 
     /**
-     * Increments TreeFolder statistics for a given treeFile
+     * Increments AstFolder statistics for a given treeFile
      * @param treeFile       // The TreeFile to analyse
      */
     // incrementFileStats(treeFile: TreeFile): void {
@@ -119,19 +130,19 @@ export class AstFolderService {
 
 
     /**
-     * Returns the path of the TreeFolder linked to this service
+     * Returns the path of the AstFolder linked to this service
      */
-    // getNameOrPath(treeFolder: TreeFolder): void {
+    // getNameOrPath(treeFolder: AstFolder): void {
     //     this._stats.subject = getRelativePath(Options.pathCommand, treeFolder.path);
     // }
 
 
     /**
-     * Returns the path between a TreeFolder's path and a TreeFile's path which is inside it or inside one of its subfolders
-     * @param treeFolder      // The path of the TreeFolder
+     * Returns the path between a AstFolder's path and a TreeFile's path which is inside it or inside one of its subfolders
+     * @param treeFolder      // The path of the AstFolder
      * @param treeFile        // The path of the TreeFile
      */
-    // getRouteFromFolderToFile(treeFolder: TreeFolder, treeFile: TreeFile): string {
+    // getRouteFromFolderToFile(treeFolder: AstFolder, treeFile: TreeFile): string {
     //     if (!treeFile || !treeFolder) {
     //         return undefined;
     //     }
@@ -146,11 +157,11 @@ export class AstFolderService {
 
 
     /**
-     * Returns the route from the folder of a TreeFolder to one of its subfolders
+     * Returns the route from the folder of a AstFolder to one of its subfolders
      * @param treeFolder
      * @param treeSubfolder
      */
-    // getRouteFromFolderToSubFolder(treeFolder: TreeFolder, treeSubfolder: TreeFolder): string {
+    // getRouteFromFolderToSubFolder(treeFolder: AstFolder, treeSubfolder: AstFolder): string {
     //     if (!treeFolder || !treeSubfolder|| treeSubfolder.path === treeFolder.path ) {
     //         return undefined;
     //     }

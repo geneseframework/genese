@@ -25,7 +25,7 @@ class TreeFileService extends stats_service_1.StatsService {
      * Generates the TreeFile for a given file of a given folder
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the file
      * @param path            // The path of the file
-     * @param treeFolder      // The TreeFolder containing the TreeFile
+     * @param treeFolder      // The AstFolder containing the TreeFile
      */
     generateTree(path, treeFolder = new tree_folder_model_1.TreeFolder()) {
         var _a;
