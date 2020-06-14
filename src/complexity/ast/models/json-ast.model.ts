@@ -1,23 +1,9 @@
-import { AstFile } from './ast-file.model';
 import { AstFolder } from './ast-folder.model';
+import { PrivateLog } from '../../interfaces/private-log.interface';
 
-export class JsonAst {
+export class JsonAst implements PrivateLog {
 
-
-    // ---------------------------------------------------------------------------------
-    //                                Mandatory property
-    // ---------------------------------------------------------------------------------
-
-
-    #astFilesFromJson?: AstFile[] = [];
-
-
-    // ---------------------------------------------------------------------------------
-    //                                Other properties
-    // ---------------------------------------------------------------------------------
-
-
-    #astFolders?: AstFolder[] = [];
+    #astFolder?: AstFolder;
 
 
     // ---------------------------------------------------------------------------------
@@ -26,23 +12,24 @@ export class JsonAst {
 
 
 
-    get astFiles(): AstFile[] {
-        return this.#astFilesFromJson;
+    get astFolder(): AstFolder {
+        return this.#astFolder;
     }
 
 
-    set astFiles(astFiles: AstFile[]) {
-        this.#astFilesFromJson = astFiles ?? [];
+    set astFolder(astFolder: AstFolder) {
+        this.#astFolder = astFolder;
     }
 
 
-    get astFolders(): AstFolder[] {
-        return this.#astFolders;
-    }
+    // ---------------------------------------------------------------------------------
+    //                                Getters and setters
+    // ---------------------------------------------------------------------------------
 
 
-    set astFolders(astFolders: AstFolder[]) {
-        this.#astFolders = astFolders ?? [];
+    log(): void {
+        console.log('LOG JSON_AST');
+        console.log(this.astFolder);
     }
 
 }

@@ -1,39 +1,42 @@
 {
-    "astFiles": [
-        {
-            "pos": 0,
-            "end": 109,
-            "path": "/Users/my-path/my-file.ts",
-            "text": "export class GeneseComplexity {\\n\\n ifAlone(a) {\\n if (a) {\\n return 'b';\\n }\\n }\\n}\\n",
-            "children": [
-                {
-                    "pos": 0,
-                    "end": 108,
-                    "kind": "ClassDeclaration",
-                    "text": "export class GeneseComplexity { ifAlone(a) { if (a) { return 'b'; } } }",
-                    "children": [
-                        {
-                            "pos": 0,
-                            "end": 6,
-                            "kind": "ExportKeyword",
-                            "text": "export"
-                        },
-                        {
-                            "pos": 12,
-                            "end": 29,
-                            "kind": "Identifier",
-                            "text": "GeneseComplexity"
-                        },
-                        {
-                            "pos": 31,
-                            "end": 106,
-                            "kind": "MethodDeclaration",
-                            "text": "ifAlone(a) { if (a) { return 'b'; } }"
-                        }
-                    ]
-                }
-            ]
-        }
-    ],
+    "astFolder": {
+        "astFiles": [
+            {
+                "end": 109,
+                "name": "my-file.ts",
+                "text": "export class GeneseComplexity {\\n\\n ifAlone(a) {\\n if (a) {\\n return 'b';\\n }\\n }\\n}\\n",
+                "children": [
+                    {
+                        "pos": 0,
+                        "end": 108,
+                        "kind": "ClassDeclaration",
+                        "text": "export class GeneseComplexity { ifAlone(a) { if (a) { return 'b'; } } }",
+                        "children": [
+                            {
+                                "pos": 0,
+                                "end": 6,
+                                "kind": "ExportKeyword",
+                                "text": "export"
+                            },
+                            {
+                                "pos": 12,
+                                "end": 29,
+                                "kind": "Identifier",
+                                "text": "GeneseComplexity"
+                            },
+                            {
+                                "pos": 31,
+                                "end": 106,
+                                "kind": "MethodDeclaration",
+                                "text": "ifAlone(a) { if (a) { return 'b'; } }"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "children": [],
+        "path": "/Users/my-path/"
+    },
     "language": "php"
 }

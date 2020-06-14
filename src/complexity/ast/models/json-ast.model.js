@@ -12,34 +12,28 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astFilesFromJson, _astFolders;
+var _astFolder;
 Object.defineProperty(exports, "__esModule", { value: true });
 class JsonAst {
     constructor() {
-        // ---------------------------------------------------------------------------------
-        //                                Mandatory property
-        // ---------------------------------------------------------------------------------
-        _astFilesFromJson.set(this, []);
-        // ---------------------------------------------------------------------------------
-        //                                Other properties
-        // ---------------------------------------------------------------------------------
-        _astFolders.set(this, []);
+        _astFolder.set(this, void 0);
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
-    get astFiles() {
-        return __classPrivateFieldGet(this, _astFilesFromJson);
+    get astFolder() {
+        return __classPrivateFieldGet(this, _astFolder);
     }
-    set astFiles(astFiles) {
-        __classPrivateFieldSet(this, _astFilesFromJson, astFiles !== null && astFiles !== void 0 ? astFiles : []);
+    set astFolder(astFolder) {
+        __classPrivateFieldSet(this, _astFolder, astFolder);
     }
-    get astFolders() {
-        return __classPrivateFieldGet(this, _astFolders);
-    }
-    set astFolders(astFolders) {
-        __classPrivateFieldSet(this, _astFolders, astFolders !== null && astFolders !== void 0 ? astFolders : []);
+    // ---------------------------------------------------------------------------------
+    //                                Getters and setters
+    // ---------------------------------------------------------------------------------
+    log() {
+        console.log('LOG JSON_AST');
+        console.log(this.astFolder);
     }
 }
 exports.JsonAst = JsonAst;
-_astFilesFromJson = new WeakMap(), _astFolders = new WeakMap();
+_astFolder = new WeakMap();

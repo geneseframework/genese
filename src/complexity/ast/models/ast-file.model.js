@@ -12,11 +12,10 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _children, _end, _path, _text, _name, _treeFolder;
+var _children, _end, _name, _text, _treeFolder;
 Object.defineProperty(exports, "__esModule", { value: true });
 const ast_node_model_1 = require("./ast-node.model");
 const ast_kind_enum_1 = require("../enums/ast-kind.enum");
-const file_service_1 = require("../../services/file.service");
 class AstFile {
     constructor() {
         // ---------------------------------------------------------------------------------
@@ -24,12 +23,11 @@ class AstFile {
         // ---------------------------------------------------------------------------------
         _children.set(this, []);
         _end.set(this, 0);
-        _path.set(this, '');
+        _name.set(this, '');
         _text.set(this, '');
         // ---------------------------------------------------------------------------------
         //                                Other properties
         // ---------------------------------------------------------------------------------
-        _name.set(this, undefined);
         _treeFolder.set(this, undefined);
         /**
          * Gets the stats of this TreeFile
@@ -65,14 +63,10 @@ class AstFile {
         __classPrivateFieldSet(this, _end, end);
     }
     get name() {
-        var _a;
-        return (_a = __classPrivateFieldGet(this, _name)) !== null && _a !== void 0 ? _a : file_service_1.getFilename(__classPrivateFieldGet(this, _path));
+        return __classPrivateFieldGet(this, _name);
     }
-    get path() {
-        return __classPrivateFieldGet(this, _path);
-    }
-    set path(path) {
-        __classPrivateFieldSet(this, _path, path);
+    set name(name) {
+        __classPrivateFieldSet(this, _name, name);
     }
     get text() {
         return __classPrivateFieldGet(this, _text);
@@ -106,4 +100,4 @@ class AstFile {
     }
 }
 exports.AstFile = AstFile;
-_children = new WeakMap(), _end = new WeakMap(), _path = new WeakMap(), _text = new WeakMap(), _name = new WeakMap(), _treeFolder = new WeakMap();
+_children = new WeakMap(), _end = new WeakMap(), _name = new WeakMap(), _text = new WeakMap(), _treeFolder = new WeakMap();

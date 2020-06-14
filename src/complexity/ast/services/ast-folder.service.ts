@@ -1,10 +1,9 @@
 import { TreeFolder } from '../../models/tree/tree-folder.model';
 import { Stats } from '../../models/stats.model';
-import { Language } from '../../ast/enums/language.enum';
 import { AstFileService } from '../../ast/services/ast-file.service';
-import { StatsService } from '../../services/report/stats.service';
 import { JsonAst } from '../models/json-ast.model';
 import { AstFolder } from '../models/ast-folder.model';
+import { AstFile } from '../models/ast-file.model';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
@@ -29,31 +28,44 @@ export class AstFolderService {
      * @param jsonAst
      */
     generateAstFolders(jsonAst: JsonAst): JsonAst {
-        jsonAst.astFolders = [];
-        const paths = new Set(jsonAst.astFiles.map(e => e.path))
-        paths.forEach(path => {
-            jsonAst.astFolders.push(this.generateAstFolder(path));
-        });
-        console.log('JSON AST Astfolders', jsonAst)
-        // const treeFolder: AstFolder = new AstFolder();
-        // treeFolder.path = path;
-        // treeFolder.relativePath = getRelativePath(Options.pathFolderToAnalyze, path);
-        // const filesOrDirs = fs.readdirSync(path);
-        // filesOrDirs.forEach((elementName: string) => {
-        //     const pathElement = path + elementName;
-        //     if (!Options.isIgnored(pathElement)) {
-        //         this.generateFileOrDirTree(pathElement, language, treeSubFolder, treeFolder);
-        //     }
-        // });
-        // treeFolder.evaluate();
-        return;
+        const newJsonAst = new JsonAst();
+        const astFolder = new AstFolder();
+        astFolder.astFiles = this.generateAstFiles(jsonAst.astFolder);
+        astFolder.path = jsonAst.astFolder.path;
+        for (const child of jsonAst.astFolder?.children) {
+            astFolder.children.push(this.generateAstFolder(child));
+        }
+        astFolder.evaluate();
+        newJsonAst.astFolder = astFolder;
+        newJsonAst.log();
+        return newJsonAst;
     }
 
 
-    generateAstFolder(path: string): AstFolder {
-        const astFolder = new AstFolder();
-        astFolder.path = path;
-        return astFolder;
+    generateAstFolder(astFolder: AstFolder): AstFolder {
+        const newAstFolder = new AstFolder();
+        newAstFolder.path = astFolder.path;
+        newAstFolder.astFiles = this.generateAstFiles(astFolder);
+        for (const childFolder of astFolder.children) {
+            newAstFolder.children.push(this.generateAstFolder(childFolder));
+        }
+        return newAstFolder;
+    }
+
+
+    generateAstFiles(astFolder: AstFolder): AstFile[] {
+        const astFiles: AstFile[] = [];
+        for (const astFile of astFolder.astFiles) {
+            astFiles.push(this.generateAstFile(astFile));
+        }
+        return astFiles;
+    }
+
+
+    generateAstFile(astFile: AstFile): AstFile {
+        const nawAstFile = new AstFile();
+        nawAstFile.name = astFile.name;
+        return nawAstFile;
     }
 
 

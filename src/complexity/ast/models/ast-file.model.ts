@@ -1,8 +1,5 @@
 import { AstNode } from './ast-node.model';
 import { AstKind } from '../enums/ast-kind.enum';
-import { getFilename } from '../../services/file.service';
-import { TreeMethodService } from '../../services/tree/tree-method.service';
-import { Stats } from '../../models/stats.model';
 import { TreeFolder } from '../../models/tree/tree-folder.model';
 
 export class AstFile {
@@ -16,7 +13,7 @@ export class AstFile {
 
     #children: AstNode[] = [];
     #end ?= 0;
-    #path ?= '';
+    #name ?= '';
     #text ?= '';
 
 
@@ -25,7 +22,6 @@ export class AstFile {
     // ---------------------------------------------------------------------------------
 
 
-    #name?: string = undefined;
     #treeFolder?: TreeFolder = undefined;
 
 
@@ -66,17 +62,12 @@ export class AstFile {
 
 
     get name(): string {
-        return this.#name ?? getFilename(this.#path);
+        return this.#name;
     }
 
 
-    get path(): string {
-        return this.#path;
-    }
-
-
-    set path(path: string) {
-        this.#path = path;
+    set name(name: string) {
+        this.#name = name;
     }
 
 

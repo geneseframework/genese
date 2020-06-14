@@ -15,7 +15,7 @@ export class AstFolder extends Evaluable implements HasStats {
     numberOfFiles ?= 0;                                                         // The number of files in this folder and its subfolders
     numberOfMethods ?= 0;                                                       // The number of methods included in all the files of this folder and its subfolders
     parent?: AstFolder = undefined;                                            // The AstFolder corresponding to the parent folder of this AstFolder
-    path ?= '';                                                                 // The absolute path of this folder
+    #path?: string = undefined;                                                                 // The absolute path of this folder
     relativePath ?= '';                                                         // The relative path of this folder
     stats: Stats = undefined;                                                   // The stats corresponding to this folder
     children?: AstFolder[] = [];                                             // The subfolders of this folder
@@ -27,6 +27,29 @@ export class AstFolder extends Evaluable implements HasStats {
         super();
         this.astFolderService.treeFolder = this;
     }
+
+
+    // ---------------------------------------------------------------------------------
+    //                                Getters and setters
+    // ---------------------------------------------------------------------------------
+
+
+
+    get path(): string {
+        return this.#path;
+    }
+
+
+    set path(path: string) {
+        this.#path = path;
+    }
+
+
+
+    // ---------------------------------------------------------------------------------
+    //                                  Other methods
+    // ---------------------------------------------------------------------------------
+
 
 
     /**

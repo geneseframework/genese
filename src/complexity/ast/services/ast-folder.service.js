@@ -1,7 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const ast_file_service_1 = require("../../ast/services/ast-file.service");
+const json_ast_model_1 = require("../models/json-ast.model");
 const ast_folder_model_1 = require("../models/ast-folder.model");
+const ast_file_model_1 = require("../models/ast-file.model");
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
  * - Other services for TreeFolders
@@ -21,30 +23,39 @@ class AstFolderService {
      * @param jsonAst
      */
     generateAstFolders(jsonAst) {
-        console.log('JSON ASTTT', jsonAst);
-        jsonAst.astFolders = [];
-        const paths = new Set(jsonAst.astFiles.map(e => e.path));
-        paths.forEach(path => {
-            jsonAst.astFolders.push(this.generateAstFolder(path));
-        });
-        console.log('JSON AST Astfolders', jsonAst);
-        // const treeFolder: AstFolder = new AstFolder();
-        // treeFolder.path = path;
-        // treeFolder.relativePath = getRelativePath(Options.pathFolderToAnalyze, path);
-        // const filesOrDirs = fs.readdirSync(path);
-        // filesOrDirs.forEach((elementName: string) => {
-        //     const pathElement = path + elementName;
-        //     if (!Options.isIgnored(pathElement)) {
-        //         this.generateFileOrDirTree(pathElement, language, treeSubFolder, treeFolder);
-        //     }
-        // });
-        // treeFolder.evaluate();
-        return;
-    }
-    generateAstFolder(path) {
+        var _a;
+        const newJsonAst = new json_ast_model_1.JsonAst();
         const astFolder = new ast_folder_model_1.AstFolder();
-        astFolder.path = path;
-        return astFolder;
+        astFolder.astFiles = this.generateAstFiles(jsonAst.astFolder);
+        astFolder.path = jsonAst.astFolder.path;
+        for (const child of (_a = jsonAst.astFolder) === null || _a === void 0 ? void 0 : _a.children) {
+            astFolder.children.push(this.generateAstFolder(child));
+        }
+        astFolder.evaluate();
+        newJsonAst.astFolder = astFolder;
+        newJsonAst.log();
+        return newJsonAst;
+    }
+    generateAstFolder(astFolder) {
+        const newAstFolder = new ast_folder_model_1.AstFolder();
+        newAstFolder.path = astFolder.path;
+        newAstFolder.astFiles = this.generateAstFiles(astFolder);
+        for (const childFolder of astFolder.children) {
+            newAstFolder.children.push(this.generateAstFolder(childFolder));
+        }
+        return newAstFolder;
+    }
+    generateAstFiles(astFolder) {
+        const astFiles = [];
+        for (const astFile of astFolder.astFiles) {
+            astFiles.push(this.generateAstFile(astFile));
+        }
+        return astFiles;
+    }
+    generateAstFile(astFile) {
+        const nawAstFile = new ast_file_model_1.AstFile();
+        nawAstFile.name = astFile.name;
+        return nawAstFile;
     }
 }
 exports.AstFolderService = AstFolderService;
