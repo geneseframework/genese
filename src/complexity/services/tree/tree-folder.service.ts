@@ -12,7 +12,7 @@ import { DEBUG } from '../../main';
 import { JsonAst } from '../../ast/models/json-ast.model';
 import { LanguageToJsonAstService } from '../../ast/services/language-to-json-ast.service';
 import { Language } from '../../ast/enums/language.enum';
-import { TreeFileAstService } from '../../ast/services/tree-file-ast.service';
+import { AstFileService } from '../../ast/services/ast-file.service';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
@@ -21,7 +21,6 @@ import { TreeFileAstService } from '../../ast/services/tree-file-ast.service';
 export class TreeFolderService extends StatsService {
 
     protected _stats: Stats = undefined;                        // The statistics of the TreeFolder
-    treeFileAstService?: TreeFileAstService = new TreeFileAstService();  // The service managing TreeFiles
     treeFileService?: TreeFileService = new TreeFileService();  // The service managing TreeFiles
     treeFolder: TreeFolder = undefined;                         // The TreeFolder corresponding to this service
 
@@ -73,14 +72,7 @@ export class TreeFolderService extends StatsService {
             treeFolder.subFolders.push(subFolder);
         } else if (!language || getLanguageExtensions(language).includes(getFileExtension(pathElement))) {
             if (!DEBUG || (DEBUG && pathElement === './src/complexity/mocks/debug.mock.ts')) {
-                language = Language.PHP;
-                // @ts-ignore
-                if (language === Language.TS) {
-                    treeFolder.treeFiles.push(this.treeFileAstService.generateTsTree(pathElement, treeFolder));
-                } else {
-                    const jsonAst: JsonAst = LanguageToJsonAstService.convert(pathElement, language);
-                    treeFolder.treeFiles.push(this.treeFileAstService.generateTree(jsonAst, treeFolder));
-                }
+                treeFolder.treeFiles.push(this.treeFileService.generateTree(pathElement, treeFolder));
             }
         }
     }

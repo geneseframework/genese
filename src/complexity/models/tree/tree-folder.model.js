@@ -19,7 +19,7 @@ class TreeFolder extends evaluable_model_1.Evaluable {
         this.stats = undefined; // The stats corresponding to this folder
         this.subFolders = []; // The subfolders of this folder
         this.treeFiles = []; // The array of files of this folder (not in the subfolders)
-        this.treeFolderService = new tree_folder_service_1.TreeFolderService(); // The TreeFolderService linked to this TreeFolder
+        this.treeFolderService = new tree_folder_service_1.TreeFolderService(); // The AstFolderService linked to this TreeFolder
         this.treeFolderService.treeFolder = this;
     }
     /**

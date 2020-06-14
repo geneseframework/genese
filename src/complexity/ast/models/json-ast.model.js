@@ -12,23 +12,21 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astFile;
+var _astFiles;
 Object.defineProperty(exports, "__esModule", { value: true });
-const ast_file_model_1 = require("./ast-file.model");
 class JsonAst {
     constructor() {
-        _astFile.set(this, new ast_file_model_1.AstFile());
+        _astFiles.set(this, []);
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
-    get astFile() {
-        return __classPrivateFieldGet(this, _astFile);
+    get astFiles() {
+        return __classPrivateFieldGet(this, _astFiles);
     }
-    set astFile(astFile) {
-        console.log(astFile);
-        __classPrivateFieldSet(this, _astFile, astFile);
+    set astFiles(astFiles) {
+        __classPrivateFieldSet(this, _astFiles, astFiles !== null && astFiles !== void 0 ? astFiles : []);
     }
 }
 exports.JsonAst = JsonAst;
-_astFile = new WeakMap();
+_astFiles = new WeakMap();

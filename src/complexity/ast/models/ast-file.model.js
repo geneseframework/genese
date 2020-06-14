@@ -12,16 +12,34 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _children, _end, _path, _text;
+var _children, _end, _path, _text, _name, _treeFolder;
 Object.defineProperty(exports, "__esModule", { value: true });
 const ast_node_model_1 = require("./ast-node.model");
 const ast_kind_enum_1 = require("../enums/ast-kind.enum");
+const file_service_1 = require("../../services/file.service");
 class AstFile {
     constructor() {
+        // ---------------------------------------------------------------------------------
+        //                                Mandatory properties
+        // ---------------------------------------------------------------------------------
         _children.set(this, []);
         _end.set(this, 0);
         _path.set(this, '');
         _text.set(this, '');
+        // ---------------------------------------------------------------------------------
+        //                                Other properties
+        // ---------------------------------------------------------------------------------
+        _name.set(this, undefined);
+        _treeFolder.set(this, undefined);
+        /**
+         * Gets the stats of this TreeFile
+         */
+        // getStats(): Stats {
+        // if (!this.stats) {
+        //     this.stats = this.astFileService.getStats(this);
+        // }
+        // return this.stats;
+        // }
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
@@ -46,6 +64,10 @@ class AstFile {
     set end(end) {
         __classPrivateFieldSet(this, _end, end);
     }
+    get name() {
+        var _a;
+        return (_a = __classPrivateFieldGet(this, _name)) !== null && _a !== void 0 ? _a : file_service_1.getFilename(__classPrivateFieldGet(this, _path));
+    }
     get path() {
         return __classPrivateFieldGet(this, _path);
     }
@@ -58,6 +80,30 @@ class AstFile {
     set text(text) {
         __classPrivateFieldSet(this, _text, text);
     }
+    get treeFolder() {
+        return __classPrivateFieldGet(this, _treeFolder);
+    }
+    set treeFolder(treeFolder) {
+        __classPrivateFieldSet(this, _treeFolder, treeFolder);
+    }
+    // ---------------------------------------------------------------------------------
+    //                                  Other methods
+    // ---------------------------------------------------------------------------------
+    /**
+     * Evaluates the complexities of the TreeNodes and the TreeMethods of this TreeFile
+     */
+    evaluate() {
+        // const treeMethodService = new TreeMethodService();
+        // for (const treeNode of this.#treeNodes) {
+        //     treeNode.evaluate();
+        // }
+        // for (const method of this.treeMethods) {
+        //     method.evaluate();
+        //     this.cpxIndex += method.cpxIndex;
+        //     this.cyclomaticCpx += method.cyclomaticCpx;
+        //     this.complexitiesByStatus = treeMethodService.addMethodCpxByStatus(this.complexitiesByStatus, method);
+        // }
+    }
 }
 exports.AstFile = AstFile;
-_children = new WeakMap(), _end = new WeakMap(), _path = new WeakMap(), _text = new WeakMap();
+_children = new WeakMap(), _end = new WeakMap(), _path = new WeakMap(), _text = new WeakMap(), _name = new WeakMap(), _treeFolder = new WeakMap();

@@ -10,14 +10,18 @@ import { TreeMethodService } from '../../services/tree/tree-method.service';
 import { TreeNodeService } from '../../services/tree/tree-node.service';
 import { Ast } from '../../services/ast.service';
 import { JsonAst } from '../models/json-ast.model';
+import { AstFile } from '../models/ast-file.model';
+import { getFilename } from '../../services/file.service';
+import { AstNode } from '../models/ast-node.model';
 
 /**
  * - TreeFiles generation from Abstract Syntax TreeNode of a file
  * - Other services for TreeFiles
  */
-export class TreeFileAstService extends StatsService {
+export class AstFileService extends StatsService {
 
     protected _stats: Stats = undefined;                                // The statistics of the TreeFile
+    astFile: AstFile = undefined;                                       // The AstFile corresponding to this service
     treeFile: TreeFile = undefined;                                     // The TreeFile corresponding to this service
     treeMethodService?: TreeMethodService = new TreeMethodService();    // The service managing TreeMethods
     treeNodeService?: TreeNodeService = new TreeNodeService();          // The service managing TreeNodes
@@ -29,7 +33,7 @@ export class TreeFileAstService extends StatsService {
 
     static convert(jsonAst: JsonAst, treeFolder: TreeFolder): TreeFile {
         const treeFile = new TreeFile();
-        treeFile.sourceFile = Ast.getSourceFile(jsonAst.astFile.path);
+        // treeFile.sourceFile = Ast.getSourceFile(jsonAst.astFile.path);
         treeFile.treeFolder = treeFolder;
         return treeFile;
     }
@@ -45,7 +49,7 @@ export class TreeFileAstService extends StatsService {
         this.treeFile.sourceFile = Ast.getSourceFile(path);
         this.treeFile.name = this.treeFile.sourceFile?.fileName;
         this.treeFile.treeFolder = treeFolder;
-        this.generateTreeNodes();
+        // this.generateAstChildren();
         this.treeFile.treeMethods = this.setTreeMethods(this.treeFile.treeNodes);
         this.treeFile.evaluate();
         return this.treeFile;
@@ -58,37 +62,47 @@ export class TreeFileAstService extends StatsService {
      * @param jsonAst
      * @param treeFolder      // The TreeFolder containing the TreeFile
      */
-    generateTree(jsonAst: JsonAst, treeFolder: TreeFolder = new TreeFolder()): TreeFile {
-        // TODO : remove this dev test code
-        const debugJsonAst = require('../ast.json');
-        jsonAst.astFile = debugJsonAst.astfile;
-        console.log('JSONAST', jsonAst.astFile.path);
+    // generateAstTree(jsonAst: JsonAst, treeFolder: TreeFolder = new TreeFolder()): AstFile {
+    //     this.astFile = new AstFile();
+    //     if (!jsonAst?.astFile) {
+    //         return this.astFile;
+    //     }
+    //     TODO : remove this dev test code
+        // const debugJsonAst = require('../ast.json');
+        // jsonAst.astFile = debugJsonAst.astfile;
+        // console.log('JSONAST', jsonAst.astFile);
         // End of code to remove
-        this.treeFile = new TreeFile();
-        // this.treeFile.astFile = Ast.getSourceFile(jsonAst.astFile.path);
-        // this.treeFile.name = this.treeFile.astFile?.fileName;
-        // this.treeFile.treeFolder = treeFolder;
-        // this.generateTreeNodes();
+        // this.astFile.end = jsonAst.astFile.end;
+        // this.astFile.path = getFilename(jsonAst.astFile.path);
+        // this.astFile.text = jsonAst.astFile.text
+        // this.astFile.treeFolder = treeFolder;
+        // this.generateAstChildren(jsonAst);
         // this.treeFile.treeMethods = this.setTreeMethods(this.treeFile.treeNodes);
         // this.treeFile.evaluate();
-        return this.treeFile;
-    }
+        // return this.astFile;
+    // }
 
 
     /**
      * Generates all the TreeNodes and updates this.treeFile
      */
-    private generateTreeNodes(): void {
-        this.treeFile.treeNode = new TreeNode();
-        this.treeFile.treeNode.node = this.treeFile.sourceFile;
-        this.treeFile.treeNode.treeFile = this.treeFile;
-        this.treeNodeService.createTreeNodeChildren(this.treeFile.treeNode);
-        this.setContextToTreeNodeChildren(this.treeFile.treeNode);
-        this.treeFile.treeNodes = this.flatMapTreeNodes(this.treeFile.treeNode, [this.treeFile.treeNode]);
-        for (let treeNode of this.treeFile.treeNodes) {
-            treeNode = this.setNodeMethod(treeNode);
-        }
-    }
+    // private generateAstChildren(jsonAst: JsonAst): void {
+    //     if (Array.isArray(jsonAst.astFile.children)) {
+    //         for (const child of jsonAst.astFile.children) {
+    //             const astNode = new AstNode();
+    //             astNode.kind = j
+    //         }
+    //             this.astFile.children = new AstNode();
+    //         this.treeFile.treeNode.node = this.treeFile.sourceFile;
+    //         this.treeFile.treeNode.treeFile = this.treeFile;
+    //         this.treeNodeService.createTreeNodeChildren(this.treeFile.treeNode);
+    //         this.setContextToTreeNodeChildren(this.treeFile.treeNode);
+    //         this.treeFile.treeNodes = this.flatMapTreeNodes(this.treeFile.treeNode, [this.treeFile.treeNode]);
+    //         for (let treeNode of this.treeFile.treeNodes) {
+    //             treeNode = this.setNodeMethod(treeNode);
+    //         }
+    //     }
+    // }
 
 
     /**

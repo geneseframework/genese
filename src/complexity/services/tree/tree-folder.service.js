@@ -9,9 +9,6 @@ const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const stats_service_1 = require("../report/stats.service");
 const options_1 = require("../../models/options");
 const main_1 = require("../../main");
-const language_to_json_ast_service_1 = require("../../ast/services/language-to-json-ast.service");
-const language_enum_1 = require("../../ast/enums/language.enum");
-const tree_file_ast_service_1 = require("../../ast/services/tree-file-ast.service");
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
  * - Other services for TreeFolders
@@ -20,7 +17,6 @@ class TreeFolderService extends stats_service_1.StatsService {
     constructor() {
         super();
         this._stats = undefined; // The statistics of the TreeFolder
-        this.treeFileAstService = new tree_file_ast_service_1.TreeFileAstService(); // The service managing TreeFiles
         this.treeFileService = new tree_file_service_1.TreeFileService(); // The service managing TreeFiles
         this.treeFolder = undefined; // The TreeFolder corresponding to this service
     }
@@ -66,15 +62,7 @@ class TreeFolderService extends stats_service_1.StatsService {
         }
         else if (!language || file_service_1.getLanguageExtensions(language).includes(file_service_1.getFileExtension(pathElement))) {
             if (!main_1.DEBUG || (main_1.DEBUG && pathElement === './src/complexity/mocks/debug.mock.ts')) {
-                language = language_enum_1.Language.PHP;
-                // @ts-ignore
-                if (language === language_enum_1.Language.TS) {
-                    treeFolder.treeFiles.push(this.treeFileAstService.generateTsTree(pathElement, treeFolder));
-                }
-                else {
-                    const jsonAst = language_to_json_ast_service_1.LanguageToJsonAstService.convert(pathElement, language);
-                    treeFolder.treeFiles.push(this.treeFileAstService.generateTree(jsonAst, treeFolder));
-                }
+                treeFolder.treeFiles.push(this.treeFileService.generateTree(pathElement, treeFolder));
             }
         }
     }

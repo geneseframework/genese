@@ -2,7 +2,7 @@ import { AstFile } from './ast-file.model';
 
 export class JsonAst {
 
-    #astFile?: AstFile = new AstFile();
+    #astFiles?: AstFile[] = [];
 
 
     // ---------------------------------------------------------------------------------
@@ -11,14 +11,13 @@ export class JsonAst {
 
 
 
-    get astFile(): AstFile {
-        return this.#astFile;
+    get astFiles(): AstFile[] {
+        return this.#astFiles;
     }
 
 
-    set astFile(astFile: AstFile) {
-        console.log(astFile)
-        this.#astFile = astFile;
+    set astFiles(astFiles: AstFile[]) {
+        this.#astFiles = astFiles ?? [];
     }
 
 }

@@ -4,7 +4,6 @@ const tree_folder_model_1 = require("../../models/tree/tree-folder.model");
 const tree_file_model_1 = require("../../models/tree/tree-file.model");
 const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
-const tree_node_model_1 = require("../../models/tree/tree-node.model");
 const stats_service_1 = require("../../services/report/stats.service");
 const tree_method_service_1 = require("../../services/tree/tree-method.service");
 const tree_node_service_1 = require("../../services/tree/tree-node.service");
@@ -13,17 +12,18 @@ const ast_service_1 = require("../../services/ast.service");
  * - TreeFiles generation from Abstract Syntax TreeNode of a file
  * - Other services for TreeFiles
  */
-class TreeFileAstService extends stats_service_1.StatsService {
+class AstFileService extends stats_service_1.StatsService {
     constructor() {
         super();
         this._stats = undefined; // The statistics of the TreeFile
+        this.astFile = undefined; // The AstFile corresponding to this service
         this.treeFile = undefined; // The TreeFile corresponding to this service
         this.treeMethodService = new tree_method_service_1.TreeMethodService(); // The service managing TreeMethods
         this.treeNodeService = new tree_node_service_1.TreeNodeService(); // The service managing TreeNodes
     }
     static convert(jsonAst, treeFolder) {
         const treeFile = new tree_file_model_1.TreeFile();
-        treeFile.sourceFile = ast_service_1.Ast.getSourceFile(jsonAst.astFile.path);
+        // treeFile.sourceFile = Ast.getSourceFile(jsonAst.astFile.path);
         treeFile.treeFolder = treeFolder;
         return treeFile;
     }
@@ -39,7 +39,7 @@ class TreeFileAstService extends stats_service_1.StatsService {
         this.treeFile.sourceFile = ast_service_1.Ast.getSourceFile(path);
         this.treeFile.name = (_a = this.treeFile.sourceFile) === null || _a === void 0 ? void 0 : _a.fileName;
         this.treeFile.treeFolder = treeFolder;
-        this.generateTreeNodes();
+        // this.generateAstChildren();
         this.treeFile.treeMethods = this.setTreeMethods(this.treeFile.treeNodes);
         this.treeFile.evaluate();
         return this.treeFile;
@@ -50,35 +50,45 @@ class TreeFileAstService extends stats_service_1.StatsService {
      * @param jsonAst
      * @param treeFolder      // The TreeFolder containing the TreeFile
      */
-    generateTree(jsonAst, treeFolder = new tree_folder_model_1.TreeFolder()) {
-        // TODO : remove this dev test code
-        const debugJsonAst = require('../ast.json');
-        jsonAst.astFile = debugJsonAst.astfile;
-        console.log('JSONAST', jsonAst.astFile.path);
-        // End of code to remove
-        this.treeFile = new tree_file_model_1.TreeFile();
-        // this.treeFile.astFile = Ast.getSourceFile(jsonAst.astFile.path);
-        // this.treeFile.name = this.treeFile.astFile?.fileName;
-        // this.treeFile.treeFolder = treeFolder;
-        // this.generateTreeNodes();
-        // this.treeFile.treeMethods = this.setTreeMethods(this.treeFile.treeNodes);
-        // this.treeFile.evaluate();
-        return this.treeFile;
-    }
+    // generateAstTree(jsonAst: JsonAst, treeFolder: TreeFolder = new TreeFolder()): AstFile {
+    //     this.astFile = new AstFile();
+    //     if (!jsonAst?.astFile) {
+    //         return this.astFile;
+    //     }
+    //     TODO : remove this dev test code
+    // const debugJsonAst = require('../ast.json');
+    // jsonAst.astFile = debugJsonAst.astfile;
+    // console.log('JSONAST', jsonAst.astFile);
+    // End of code to remove
+    // this.astFile.end = jsonAst.astFile.end;
+    // this.astFile.path = getFilename(jsonAst.astFile.path);
+    // this.astFile.text = jsonAst.astFile.text
+    // this.astFile.treeFolder = treeFolder;
+    // this.generateAstChildren(jsonAst);
+    // this.treeFile.treeMethods = this.setTreeMethods(this.treeFile.treeNodes);
+    // this.treeFile.evaluate();
+    // return this.astFile;
+    // }
     /**
      * Generates all the TreeNodes and updates this.treeFile
      */
-    generateTreeNodes() {
-        this.treeFile.treeNode = new tree_node_model_1.TreeNode();
-        this.treeFile.treeNode.node = this.treeFile.sourceFile;
-        this.treeFile.treeNode.treeFile = this.treeFile;
-        this.treeNodeService.createTreeNodeChildren(this.treeFile.treeNode);
-        this.setContextToTreeNodeChildren(this.treeFile.treeNode);
-        this.treeFile.treeNodes = this.flatMapTreeNodes(this.treeFile.treeNode, [this.treeFile.treeNode]);
-        for (let treeNode of this.treeFile.treeNodes) {
-            treeNode = this.setNodeMethod(treeNode);
-        }
-    }
+    // private generateAstChildren(jsonAst: JsonAst): void {
+    //     if (Array.isArray(jsonAst.astFile.children)) {
+    //         for (const child of jsonAst.astFile.children) {
+    //             const astNode = new AstNode();
+    //             astNode.kind = j
+    //         }
+    //             this.astFile.children = new AstNode();
+    //         this.treeFile.treeNode.node = this.treeFile.sourceFile;
+    //         this.treeFile.treeNode.treeFile = this.treeFile;
+    //         this.treeNodeService.createTreeNodeChildren(this.treeFile.treeNode);
+    //         this.setContextToTreeNodeChildren(this.treeFile.treeNode);
+    //         this.treeFile.treeNodes = this.flatMapTreeNodes(this.treeFile.treeNode, [this.treeFile.treeNode]);
+    //         for (let treeNode of this.treeFile.treeNodes) {
+    //             treeNode = this.setNodeMethod(treeNode);
+    //         }
+    //     }
+    // }
     /**
      * Returns an array of TreeNodes with all the TreeNode children of the first param concatenated with the second param
      * @param treeNode      // The "parent" node to parse
@@ -172,4 +182,4 @@ class TreeFileAstService extends stats_service_1.StatsService {
         this._stats.subject = this.treeFile.name;
     }
 }
-exports.TreeFileAstService = TreeFileAstService;
+exports.AstFileService = AstFileService;

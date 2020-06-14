@@ -4,7 +4,6 @@ import { ReportsService } from './services/report/reports.service';
 import { blueBright } from 'ansi-colors';
 import { Language } from './ast/enums/language.enum';
 import { AstFolderService } from './ast/services/ast-folder.service';
-import { TreeFolderService } from './services/tree/tree-folder.service';
 
 export const DEBUG = true;     // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND when you want to get stats only for debug.mock.ts file
 
@@ -13,7 +12,7 @@ export const DEBUG = true;     // Set to true when you use Genese Complexity in 
  */
 export class Main {
 
-    treeFolderService?: TreeFolderService = new TreeFolderService();    // The service managing TreeFolders
+    astFolderService?: AstFolderService = new AstFolderService();    // The service managing TreeFolders
 
     constructor() {
     }
@@ -28,8 +27,9 @@ export class Main {
         console.log('START CALCULATION');
         Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
         createOutDir();
-        const treeFolder = this.treeFolderService.generateTree(Options.pathFolderToAnalyze, Language.TS);
-        ReportsService.generateAllReports(treeFolder);
+        const asTFolder = this.astFolderService.generateAstFolders(Options.pathFolderToAnalyze, Language.TS);
+        // const treeFolder = this.treeFolderService.generateAstFolders(Options.pathFolderToAnalyze, Language.TS);
+        ReportsService.generateAllReports(asTFolder);
         console.log(blueBright('COMPLEXITY REPORT GENERATED SUCCESSFULLY'));
     }
 

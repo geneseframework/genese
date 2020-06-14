@@ -1,12 +1,32 @@
 import { AstNode } from './ast-node.model';
 import { AstKind } from '../enums/ast-kind.enum';
+import { getFilename } from '../../services/file.service';
+import { TreeMethodService } from '../../services/tree/tree-method.service';
+import { Stats } from '../../models/stats.model';
+import { TreeFolder } from '../../models/tree/tree-folder.model';
 
 export class AstFile {
+
+
+
+    // ---------------------------------------------------------------------------------
+    //                                Mandatory properties
+    // ---------------------------------------------------------------------------------
+
 
     #children: AstNode[] = [];
     #end ?= 0;
     #path ?= '';
     #text ?= '';
+
+
+    // ---------------------------------------------------------------------------------
+    //                                Other properties
+    // ---------------------------------------------------------------------------------
+
+
+    #name?: string = undefined;
+    #treeFolder?: TreeFolder = undefined;
 
 
 
@@ -45,6 +65,11 @@ export class AstFile {
     }
 
 
+    get name(): string {
+        return this.#name ?? getFilename(this.#path);
+    }
+
+
     get path(): string {
         return this.#path;
     }
@@ -63,5 +88,48 @@ export class AstFile {
     set text(text: string) {
         this.#text = text;
     }
+
+
+    get treeFolder(): TreeFolder {
+        return this.#treeFolder;
+    }
+
+
+    set treeFolder(treeFolder: TreeFolder) {
+        this.#treeFolder = treeFolder;
+    }
+
+
+    // ---------------------------------------------------------------------------------
+    //                                  Other methods
+    // ---------------------------------------------------------------------------------
+
+
+    /**
+     * Evaluates the complexities of the TreeNodes and the TreeMethods of this TreeFile
+     */
+    evaluate(): void {
+        // const treeMethodService = new TreeMethodService();
+        // for (const treeNode of this.#treeNodes) {
+        //     treeNode.evaluate();
+        // }
+        // for (const method of this.treeMethods) {
+        //     method.evaluate();
+        //     this.cpxIndex += method.cpxIndex;
+        //     this.cyclomaticCpx += method.cyclomaticCpx;
+        //     this.complexitiesByStatus = treeMethodService.addMethodCpxByStatus(this.complexitiesByStatus, method);
+        // }
+    }
+
+
+    /**
+     * Gets the stats of this TreeFile
+     */
+    // getStats(): Stats {
+        // if (!this.stats) {
+        //     this.stats = this.astFileService.getStats(this);
+        // }
+        // return this.stats;
+    // }
 
 }
