@@ -25,9 +25,75 @@
                                 {
                                     "pos": 31,
                                     "end": 106,
-                                    "kind": "MethodDeclaration"
+                                    "kind": "MethodDeclaration",
+                                    "children": [
+                                        {
+                                            "pos": 31,
+                                            "end": 44,
+                                            "kind": "Identifier",
+                                            "name": "ifAlone"
+                                        },
+                                        {
+                                            "pos": 45,
+                                            "end": 46,
+                                            "kind": "Parameter",
+                                            "children": [
+                                                {
+                                                    "pos": 45,
+                                                    "end": 46,
+                                                    "kind": "Identifier",
+                                                    "name": "a"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "pos": 47,
+                                            "end": 106,
+                                            "kind": "Block",
+                                            "children": [
+                                                {
+                                                    "pos": 49,
+                                                    "end": 100,
+                                                    "kind": "IfStatement",
+                                                    "children": [
+                                                        {
+                                                            "pos": 62,
+                                                            "end": 63,
+                                                            "kind": "Identifier",
+                                                            "name": "a"
+                                                        },
+                                                        {
+                                                            "pos": 64,
+                                                            "end": 100,
+                                                            "kind": "Block",
+                                                            "children": [
+                                                                {
+                                                                    "pos": 66,
+                                                                    "end": 90,
+                                                                    "kind": "ReturnStatement",
+                                                                    "children": [
+                                                                        {
+                                                                            "pos": 85,
+                                                                            "end": 89,
+                                                                            "kind": "StringLiteral",
+                                                                            "name": "b"
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 }
                             ]
+                        },
+                        {
+                            "pos": 108,
+                            "end": 109,
+                            "kind": "EndOfFileToken"
                         }
                     ]
                 },
