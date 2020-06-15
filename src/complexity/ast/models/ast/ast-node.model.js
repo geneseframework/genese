@@ -17,6 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstNode = void 0;
 const ast_service_1 = require("../../services/ast/ast.service");
 const factor_category_service_1 = require("../../services/factor-category.service");
+const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
 const node_feature_enum_1 = require("../../enums/node-feature.enum");
 const cpx_factors_1 = require("../../../cpx-factors");
 const tools_service_1 = require("../../services/tools.service");
@@ -200,9 +201,9 @@ class AstNode {
     evaluate() {
         this.calculateAndSetCpxFactors();
         // const astMethodService = new AstMethodService();
-        // for (const child of this.#children) {
-        //     child.evaluate();
-        // }
+        for (const child of __classPrivateFieldGet(this, _children)) {
+            child.evaluate();
+        }
         // for (const method of this.astMethods) {
         //     method.evaluate();
         //     this.cyclomaticCpx += method.cyclomaticCpx;
@@ -221,6 +222,7 @@ class AstNode {
      * Calculates the complexity index of the AstNode
      */
     calculateAndSetCpxFactors() {
+        this.cpxFactors = new cpx_factors_model_1.CpxFactors();
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
         this.setRecursionOrCallbackCpxFactors();

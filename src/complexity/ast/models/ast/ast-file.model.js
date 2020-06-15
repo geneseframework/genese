@@ -114,14 +114,8 @@ class AstFile {
      */
     evaluate() {
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
-        console.log('EVAL AST FILE', this.name);
-        // TODO : init AstMethods and loop on them
         const astMethodService = new ast_method_service_1.AstMethodService();
-        console.log('CHILDRENNN', this.astNodes.map(e => e.text));
-        // LogService.printAllChildren(this.#astNode)
-        // for (const child of this.#astNode.children) {
-        //     child.evaluate();
-        // }
+        this.astNode.evaluate();
         for (const method of this.astMethods) {
             method.evaluate();
             // this.cpxIndex += method.cpxIndex;

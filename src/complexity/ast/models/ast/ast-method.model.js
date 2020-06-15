@@ -15,6 +15,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 var _astNode, _cpxFactors, _cyclomaticCpx, _cpxIndex, _displayedCode, _name, _originalCode;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstMethod = void 0;
+const cyclomatic_complexity_service_1 = require("../../services/cyclomatic-complexity.service");
 const code_model_1 = require("../code/code.model");
 const code_service_1 = require("../../services/code.service");
 const ast_service_1 = require("../../services/ast/ast.service");
@@ -92,13 +93,11 @@ class AstMethod {
      * Evaluates the complexities of this AstMethod
      */
     evaluate() {
-        console.log('EVAL METHOD', this.astNode.kind);
-        // this.createDisplayedCode();
-        // console.log('EVAL METHOD CODE', this.displayedCode)
+        this.createDisplayedCode();
         // LogService.printAllChildren(this.astNode);
-        // this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
-        // this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.astNode);
-        // this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
+        this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
+        this.cyclomaticCpx = cyclomatic_complexity_service_1.CyclomaticComplexityService.calculateCyclomaticComplexity(this.astNode);
+        this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
     }
     /**
      * Calculates the Complexity Index of the method

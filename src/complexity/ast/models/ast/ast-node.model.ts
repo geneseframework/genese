@@ -272,9 +272,9 @@ export class AstNode implements Evaluate {
     evaluate(): void {
         this.calculateAndSetCpxFactors();
         // const astMethodService = new AstMethodService();
-        // for (const child of this.#children) {
-        //     child.evaluate();
-        // }
+        for (const child of this.#children) {
+            child.evaluate();
+        }
         // for (const method of this.astMethods) {
         //     method.evaluate();
         //     this.cyclomaticCpx += method.cyclomaticCpx;
@@ -296,6 +296,7 @@ export class AstNode implements Evaluate {
      * Calculates the complexity index of the AstNode
      */
     calculateAndSetCpxFactors(): CpxFactors {
+        this.cpxFactors = new CpxFactors();
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();
         this.setRecursionOrCallbackCpxFactors();

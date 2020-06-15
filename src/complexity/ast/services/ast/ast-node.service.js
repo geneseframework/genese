@@ -9,13 +9,12 @@ const syntax_kind_enum_1 = require("../../enums/syntax-kind.enum");
 class AstNodeService {
     getCode(astNode) {
         var _a;
-        console.log('GET CODDDDEEE', astNode.kind, astNode.name, astNode === null || astNode === void 0 ? void 0 : astNode.pos, astNode === null || astNode === void 0 ? void 0 : astNode.end);
+        // console.log('GET CODDDDEEE', astNode.kind, astNode.name, astNode?.pos, astNode?.end);
         if (!((_a = astNode === null || astNode === void 0 ? void 0 : astNode.astFile) === null || _a === void 0 ? void 0 : _a.text) || (astNode === null || astNode === void 0 ? void 0 : astNode.pos) === undefined || (astNode === null || astNode === void 0 ? void 0 : astNode.end) === undefined) {
-            console.log('RETURNNNNNN');
             return '';
         }
         const zzz = astNode.astFile.text.slice(astNode.pos, astNode.end);
-        console.log('ZZZZ', { zzz: zzz });
+        // console.log('ZZZZ', {zzz: zzz});
         return zzz;
     }
     /**

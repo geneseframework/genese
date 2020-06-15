@@ -10,13 +10,12 @@ export class AstNodeService {
 
 
     getCode(astNode: AstNode): string {
-        console.log('GET CODDDDEEE', astNode.kind, astNode.name, astNode?.pos, astNode?.end);
+        // console.log('GET CODDDDEEE', astNode.kind, astNode.name, astNode?.pos, astNode?.end);
         if (!astNode?.astFile?.text || astNode?.pos === undefined || astNode?.end === undefined) {
-            console.log('RETURNNNNNN')
             return '';
         }
         const zzz = astNode.astFile.text.slice(astNode.pos, astNode.end);
-        console.log('ZZZZ', {zzz: zzz});
+        // console.log('ZZZZ', {zzz: zzz});
         return zzz
     }
 
@@ -76,7 +75,7 @@ export class AstNodeService {
         if (!astNode.isParam) {
             return false;
         }
-        return  this.hasCallBack(astNode, astNode.parent);
+        return this.hasCallBack(astNode, astNode.parent);
     }
 
 

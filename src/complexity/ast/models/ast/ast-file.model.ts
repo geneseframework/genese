@@ -153,14 +153,8 @@ export class AstFile implements Evaluate, LogService {
      */
     evaluate(): void {
         this.cpxFactors = new CpxFactors();
-        console.log('EVAL AST FILE', this.name)
-        // TODO : init AstMethods and loop on them
         const astMethodService = new AstMethodService();
-        console.log('CHILDRENNN', this.astNodes.map(e => e.text))
-        // LogService.printAllChildren(this.#astNode)
-        // for (const child of this.#astNode.children) {
-        //     child.evaluate();
-        // }
+        this.astNode.evaluate();
         for (const method of this.astMethods) {
             method.evaluate();
             // this.cpxIndex += method.cpxIndex;
