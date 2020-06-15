@@ -6,12 +6,16 @@ import { SyntaxKind } from '../enums/syntax-kind.enum';
 import { AstService } from './ast/ast.service';
 import { AstMethod } from '../models/ast/ast-method.model';
 import { CodeService } from './code.service';
+import { AstNodeService } from './ast/ast-node.service';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
  * - Other services for TreeFolders
  */
 export class InitService {
+
+
+    astNodeService: AstNodeService = new AstNodeService();
 
 
     /**
@@ -64,7 +68,13 @@ export class InitService {
         }
         const newAstFile = new AstFile();
         newAstFile.text = astFile.text;
-        newAstFile.astNode = this.getFileAstNode(astFile.astNode)
+        newAstFile.astNode = this.getFileAstNode(astFile.astNode);
+        newAstFile.astNodes = this.astNodeService.flatMapAstNodes(newAstFile.astNode, [newAstFile.astNode]);
+        newAstFile.astMethods = newAstFile.astNodes
+            .filter(e => AstService.isFunctionOrMethod(e))
+            .map(e => e.astMethod);
+        console.log('ASTNOOODSSS', newAstFile.astNodes)
+        console.log('ASTMETHDSSS', newAstFile.astMethods)
         return newAstFile;
     }
 

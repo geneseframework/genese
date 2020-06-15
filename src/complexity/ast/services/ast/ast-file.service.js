@@ -18,20 +18,6 @@ class AstFileService extends stats_service_1.StatsService {
         this.astNodeService = new ast_node_service_1.AstNodeService(); // The service managing AstNodes
     }
     /**
-     * Returns an array of AstNodes with all the AstNode children of the first param concatenated with the second param
-     * @param astNode      // The "parent" node to parse
-     * @param astNodes     // The "accumulator"
-     */
-    flatMapAstNodes(astNode, astNodes) {
-        for (const childAstNode of astNode === null || astNode === void 0 ? void 0 : astNode.children) {
-            astNodes.push(childAstNode);
-            if (childAstNode.children.length > 0) {
-                astNodes = astNodes.concat(this.flatMapAstNodes(childAstNode, []));
-            }
-        }
-        return astNodes;
-    }
-    /**
      * Sets the astMethod property to a given astNode
      * @param astNode      // The AstNode to update
      */

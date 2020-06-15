@@ -8,11 +8,15 @@ const syntax_kind_enum_1 = require("../enums/syntax-kind.enum");
 const ast_service_1 = require("./ast/ast.service");
 const ast_method_model_1 = require("../models/ast/ast-method.model");
 const code_service_1 = require("./code.service");
+const ast_node_service_1 = require("./ast/ast-node.service");
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
  * - Other services for TreeFolders
  */
 class InitService {
+    constructor() {
+        this.astNodeService = new ast_node_service_1.AstNodeService();
+    }
     /**
      * Generates the AstFolder for a given folder
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the folder
@@ -59,6 +63,12 @@ class InitService {
         const newAstFile = new ast_file_model_1.AstFile();
         newAstFile.text = astFile.text;
         newAstFile.astNode = this.getFileAstNode(astFile.astNode);
+        newAstFile.astNodes = this.astNodeService.flatMapAstNodes(newAstFile.astNode, [newAstFile.astNode]);
+        newAstFile.astMethods = newAstFile.astNodes
+            .filter(e => ast_service_1.AstService.isFunctionOrMethod(e))
+            .map(e => e.astMethod);
+        console.log('ASTNOOODSSS', newAstFile.astNodes);
+        console.log('ASTMETHDSSS', newAstFile.astMethods);
         return newAstFile;
     }
     getFileAstNode(astNode) {

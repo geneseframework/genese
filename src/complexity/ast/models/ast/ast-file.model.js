@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astFolder, _astMethods, _astNode, _complexitiesByStatus, _cpxFactors, _cyclomaticCpx, _end, _name, _stats, _text;
+var _astFolder, _astMethods, _astNode, _astNodes, _complexitiesByStatus, _cpxFactors, _cyclomaticCpx, _end, _name, _stats, _text;
 Object.defineProperty(exports, "__esModule", { value: true });
 const ast_file_service_1 = require("../../services/ast/ast-file.service");
 const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
@@ -22,6 +22,7 @@ class AstFile {
         _astFolder.set(this, undefined); // The AstFolder which includes this AstFile
         _astMethods.set(this, []); // The AstMethods included in this AstFile
         _astNode.set(this, undefined); // The AstNode corresponding to the file itself
+        _astNodes.set(this, undefined); // Array of all the AstNodes which are children of this.AstNode (including itself)
         _complexitiesByStatus.set(this, undefined); // The file complexities spread by complexity status
         _cpxFactors.set(this, undefined);
         _cyclomaticCpx.set(this, 0);
@@ -50,19 +51,15 @@ class AstFile {
     }
     get astNode() {
         return __classPrivateFieldGet(this, _astNode);
-        // if (this.#astNode) {
-        //     return this.astNode;
-        // }
-        // const astNode = new AstNode();
-        // astNode.pos = 0;
-        // astNode.end = this.text.length; // TODO: fix
-        // astNode.kind = SyntaxKind.SourceFile;
-        // astNode.children = this.children;
-        // this.#astNode = astNode
-        // return astNode;
     }
     set astNode(astNode) {
         __classPrivateFieldSet(this, _astNode, astNode);
+    }
+    get astNodes() {
+        return __classPrivateFieldGet(this, _astNodes);
+    }
+    set astNodes(astNodes) {
+        __classPrivateFieldSet(this, _astNodes, astNodes);
     }
     get complexitiesByStatus() {
         return __classPrivateFieldGet(this, _complexitiesByStatus);
@@ -156,4 +153,4 @@ class AstFile {
     }
 }
 exports.AstFile = AstFile;
-_astFolder = new WeakMap(), _astMethods = new WeakMap(), _astNode = new WeakMap(), _complexitiesByStatus = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _name = new WeakMap(), _stats = new WeakMap(), _text = new WeakMap();
+_astFolder = new WeakMap(), _astMethods = new WeakMap(), _astNode = new WeakMap(), _astNodes = new WeakMap(), _complexitiesByStatus = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _name = new WeakMap(), _stats = new WeakMap(), _text = new WeakMap();

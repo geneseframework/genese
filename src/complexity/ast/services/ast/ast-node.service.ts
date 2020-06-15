@@ -9,8 +9,6 @@ import { AstMethod } from '../../models/ast/ast-method.model';
 export class AstNodeService {
 
 
-    // getCode()
-
     /**
      * Gets the javascript context of the AST node of a AstNode
      * @param astNode      // The AstNode for which we search the context
@@ -116,5 +114,21 @@ export class AstNodeService {
             }
         }
         return false;
+    }
+
+
+    /**
+     * Returns an array of AstNodes with all the AstNode children of the first param concatenated with the second param
+     * @param astNode      // The "parent" node to parse
+     * @param astNodes     // The "accumulator"
+     */
+    flatMapAstNodes(astNode: AstNode, astNodes: AstNode[]): AstNode[] {
+        for (const childAstNode of astNode?.children) {
+            astNodes.push(childAstNode);
+            if (childAstNode.children.length > 0) {
+                astNodes = astNodes.concat(this.flatMapAstNodes(childAstNode, []));
+            }
+        }
+        return astNodes;
     }
 }

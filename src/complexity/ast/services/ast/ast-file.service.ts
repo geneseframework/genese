@@ -26,22 +26,6 @@ export class AstFileService extends StatsService {
 
 
     /**
-     * Returns an array of AstNodes with all the AstNode children of the first param concatenated with the second param
-     * @param astNode      // The "parent" node to parse
-     * @param astNodes     // The "accumulator"
-     */
-    private flatMapAstNodes(astNode: AstNode, astNodes: AstNode[]): AstNode[] {
-        for (const childAstNode of astNode?.children) {
-            astNodes.push(childAstNode);
-            if (childAstNode.children.length > 0) {
-                    astNodes = astNodes.concat(this.flatMapAstNodes(childAstNode, []));
-            }
-        }
-        return astNodes;
-    }
-
-
-    /**
      * Sets the astMethod property to a given astNode
      * @param astNode      // The AstNode to update
      */

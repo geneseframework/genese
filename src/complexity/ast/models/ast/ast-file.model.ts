@@ -14,6 +14,7 @@ export class AstFile implements Evaluate, LogService {
     #astFolder?: AstFolder = undefined;                         // The AstFolder which includes this AstFile
     #astMethods?: AstMethod[] = [];                             // The AstMethods included in this AstFile
     #astNode?: AstNode = undefined;                             // The AstNode corresponding to the file itself
+    #astNodes?: AstNode[] = undefined;                          // Array of all the AstNodes which are children of this.AstNode (including itself)
     #complexitiesByStatus?: ComplexitiesByStatus = undefined;   // The file complexities spread by complexity status
     #cpxFactors?: CpxFactors = undefined;
     #cyclomaticCpx ?= 0;
@@ -54,21 +55,21 @@ export class AstFile implements Evaluate, LogService {
 
     get astNode(): AstNode {
         return this.#astNode;
-        // if (this.#astNode) {
-        //     return this.astNode;
-        // }
-        // const astNode = new AstNode();
-        // astNode.pos = 0;
-        // astNode.end = this.text.length; // TODO: fix
-        // astNode.kind = SyntaxKind.SourceFile;
-        // astNode.children = this.children;
-        // this.#astNode = astNode
-        // return astNode;
     }
 
 
     set astNode(astNode: AstNode) {
         this.#astNode = astNode;
+    }
+
+
+    get astNodes() : AstNode[] {
+        return this.#astNodes;
+    }
+
+
+    set astNodes(astNodes: AstNode[])  {
+        this.#astNodes = astNodes;
     }
 
 
