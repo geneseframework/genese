@@ -9,6 +9,13 @@ import { SyntaxKind } from '../../enums/syntax-kind.enum';
 export class AstNodeService {
 
 
+    getCode(astNode: AstNode): string {
+        if (!astNode?.astFile?.text || astNode?.pos || astNode?.end) {
+            return '';
+        }
+        return astNode.astFile.text.slice(astNode.pos, astNode.end);
+    }
+
     /**
      * Gets the javascript context of the AST node of a AstNode
      * @param astNode      // The AstNode for which we search the context

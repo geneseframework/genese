@@ -6,6 +6,13 @@ const syntax_kind_enum_1 = require("../../enums/syntax-kind.enum");
  * Service managing AstNodes
  */
 class AstNodeService {
+    getCode(astNode) {
+        var _a;
+        if (!((_a = astNode === null || astNode === void 0 ? void 0 : astNode.astFile) === null || _a === void 0 ? void 0 : _a.text) || (astNode === null || astNode === void 0 ? void 0 : astNode.pos) || (astNode === null || astNode === void 0 ? void 0 : astNode.end)) {
+            return '';
+        }
+        return astNode.astFile.text.slice(astNode.pos, astNode.end);
+    }
     /**
      * Gets the javascript context of the AST node of a AstNode
      * @param astNode      // The AstNode for which we search the context

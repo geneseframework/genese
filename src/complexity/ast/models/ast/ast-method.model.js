@@ -93,8 +93,9 @@ class AstMethod {
      * Evaluates the complexities of this AstMethod
      */
     evaluate() {
-        console.log('EVAL METHOD');
+        console.log('EVAL METHOD', this.astNode.kind);
         this.createDisplayedCode();
+        console.log('EVAL METHOD CODE', this.displayedCode);
         log_service_1.LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
         this.cyclomaticCpx = cyclomatic_complexity_service_1.CyclomaticComplexityService.calculateCyclomaticComplexity(this.astNode);

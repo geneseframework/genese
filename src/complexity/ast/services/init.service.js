@@ -66,12 +66,9 @@ class InitService {
         newAstFile.astNodes = this.astNodeService.flatMapAstNodes(newAstFile.astNode, [newAstFile.astNode]);
         newAstFile.astMethods = newAstFile.astNodes
             .filter(e => {
-            console.log('kinddd', e.kind, ast_service_1.AstService.isFunctionOrMethod(e));
             return ast_service_1.AstService.isFunctionOrMethod(e);
         })
             .map(e => e.astMethod);
-        console.log('ASTNOOODSSS', newAstFile.astNodes);
-        console.log('ASTMETHDSSS', newAstFile.astMethods);
         return newAstFile;
     }
     getFileAstNode(astNode, astFile) {

@@ -11,24 +11,23 @@ import { addObjects } from '../../services/tools.service';
 
 export class AstNode implements Evaluate {
 
-    #astFile?: AstFile = undefined;                                           // The AstFile containing the AST node of the AstNode
-    #astMethod?: AstMethod = undefined;                                       // The method at the root of the current ast (if this ast is inside a method)
-    astNodeService?: any;                  // The service managing NodeFeatures
-    // astNodeService?: AstNodeService = new AstNodeService();                  // The service managing NodeFeatures
+    #astFile?: AstFile = undefined;                                             // The AstFile containing the AST node of the AstNode
+    #astMethod?: AstMethod = undefined;                                         // The method at the root of the current ast (if this ast is inside a method)
+    astNodeService?: any;                                                       // The service managing AstNodes
     #children?: AstNode[] = [];
     #context?: AstNode = undefined;                                             // The context of the AstNode
     #cpxFactors?: CpxFactors = undefined;                                       // The complexity factors of the AstNode
     #cyclomaticCpx ?= 0;
     #end ?= 0;
-    #factorCategory?: NodeFeature = undefined;                               // The NodeFeature of the node of the AstNode
-    nodeFeatureService?: NodeFeatureService = new NodeFeatureService();   // The service managing NodeFeatures
+    #factorCategory?: NodeFeature = undefined;                                  // The NodeFeature of the node of the AstNode
+    nodeFeatureService?: NodeFeatureService = new NodeFeatureService();         // The service managing NodeFeatures
     #intrinsicDepthCpx: number = undefined;                                     // The depth of the AstNode inside its method (not including its parent's depth)
     #intrinsicNestingCpx: number = undefined;                                   // The nesting of the AstNode inside its method (not including its parent's nesting)
-    #kind?: SyntaxKind = undefined;                                                // The kind of the node ('MethodDeclaration, IfStatement, ...)
+    #kind?: SyntaxKind = undefined;                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
     #name: string = undefined;                                                  // The name of the AstNode
-    #parent?: AstNode;                                                         // The ast of the parent of the current node
+    #parent?: AstNode;                                                          // The ast of the parent of the current node
     #pos ?= 0;
-    // #text: string = undefined;
+    #text: string = undefined;
 
 
 
@@ -248,6 +247,16 @@ export class AstNode implements Evaluate {
 
     set pos(pos: number) {
         this.#pos = pos;
+    }
+
+
+    get text(): string {
+        return this.#text;
+    }
+
+
+    set text(text: string) {
+        this.#text = text;
     }
 
 
