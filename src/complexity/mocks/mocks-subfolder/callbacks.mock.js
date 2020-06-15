@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CallbacksMock = void 0;
 class CallbacksMock {
     constructor(object) {
     }

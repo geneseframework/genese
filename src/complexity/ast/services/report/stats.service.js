@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.StatsService = void 0;
 const stats_model_1 = require("../../models/stats.model");
 /**
  * Abstract class managing statistics of files or folders

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeFolder = void 0;
 const tree_folder_service_1 = require("../../services/tree/tree-folder.service");
 const complexities_by_status_interface_1 = require("../../interfaces/complexities-by-status.interface");
 const evaluable_model_1 = require("../evaluable.model");

@@ -14,6 +14,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 };
 var _astFolder, _cpxFactors, _cyclomaticCpx;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.JsonAst = void 0;
 class JsonAst {
     constructor() {
         _astFolder.set(this, undefined);

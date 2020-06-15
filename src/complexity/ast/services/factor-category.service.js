@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.NodeFeatureService = void 0;
 const syntax_kind_enum_1 = require("../enums/syntax-kind.enum");
 const node_feature_enum_1 = require("../enums/node-feature.enum");
 class NodeFeatureService {

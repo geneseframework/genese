@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CodeService = void 0;
 const code_model_1 = require("../models/code/code.model");
 const code_line_model_1 = require("../models/code/code-line.model");
 /**

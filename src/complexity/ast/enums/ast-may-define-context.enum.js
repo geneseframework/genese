@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AstMayDefineContext = void 0;
 var AstMayDefineContext;
 (function (AstMayDefineContext) {
     AstMayDefineContext["CLASS_DECLARATION"] = "ClassDeclaration";

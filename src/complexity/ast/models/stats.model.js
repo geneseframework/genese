@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Stats = void 0;
 const barchart_model_1 = require("./barchart.model");
 const complexities_by_status_interface_1 = require("../interfaces/complexities-by-status.interface");
 const complexity_type_enum_1 = require("../enums/complexity-type.enum");

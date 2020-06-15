@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Code = void 0;
 /**
     The TypeScript code seen as an array of CodeLine
  */

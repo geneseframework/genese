@@ -14,6 +14,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 };
 var _context, _cpxFactors, _factorCategory, _intrinsicDepthCpx, _intrinsicNestingCpx, _kind, _name, _node, _parent, _treeFile, _treeMethod;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeNode = void 0;
 const evaluable_model_1 = require("../evaluable.model");
 const node_feature_enum_1 = require("../../enums/node-feature.enum");
 const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RowFolderReport = void 0;
 /**
 * Defines the model of a row in the arrays of folders reports
 */

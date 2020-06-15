@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LogService = void 0;
 const chalk = require('chalk');
 class LogService {
     // ------------------------------------------------------------------------------------------------

@@ -14,6 +14,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 };
 var _cpxIndex, _displayedCode, _name, _originalCode, _treeNode;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeMethod = void 0;
 const ast_service_1 = require("../../services/ast.service");
 const cyclomatic_complexity_service_1 = require("../../services/cyclomatic-complexity.service");
 const options_1 = require("../options");

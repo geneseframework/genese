@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AstFolderReportService = void 0;
 const fs = require("fs-extra");
 const eol = require("eol");
 const Handlebars = require("handlebars");

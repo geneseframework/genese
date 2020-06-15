@@ -14,6 +14,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 };
 var _sourceFile, _treeMethods, _treeNode, _treeNodes;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeFile = void 0;
 const tree_folder_model_1 = require("./tree-folder.model");
 const tree_file_service_1 = require("../../services/tree/tree-file.service");
 const evaluable_model_1 = require("../evaluable.model");

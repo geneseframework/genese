@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ForMock = void 0;
 class ForMock {
     forMethod(a) {
         for (const elt of a) {

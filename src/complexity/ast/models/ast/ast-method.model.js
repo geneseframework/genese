@@ -14,11 +14,10 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 };
 var _astNode, _cpxFactors, _cyclomaticCpx, _cpxIndex, _displayedCode, _name, _originalCode;
 Object.defineProperty(exports, "__esModule", { value: true });
-const cyclomatic_complexity_service_1 = require("../../services/cyclomatic-complexity.service");
+exports.AstMethod = void 0;
 const code_model_1 = require("../code/code.model");
 const code_service_1 = require("../../services/code.service");
 const ast_service_1 = require("../../services/ast/ast.service");
-const log_service_1 = require("../../services/log.service");
 const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const code_line_model_1 = require("../code/code-line.model");
@@ -94,12 +93,12 @@ class AstMethod {
      */
     evaluate() {
         console.log('EVAL METHOD', this.astNode.kind);
-        this.createDisplayedCode();
-        console.log('EVAL METHOD CODE', this.displayedCode);
-        log_service_1.LogService.printAllChildren(this.astNode);
-        this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
-        this.cyclomaticCpx = cyclomatic_complexity_service_1.CyclomaticComplexityService.calculateCyclomaticComplexity(this.astNode);
-        this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
+        // this.createDisplayedCode();
+        // console.log('EVAL METHOD CODE', this.displayedCode)
+        // LogService.printAllChildren(this.astNode);
+        // this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
+        // this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.astNode);
+        // this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
     }
     /**
      * Calculates the Complexity Index of the method

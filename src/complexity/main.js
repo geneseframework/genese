@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Main = exports.DEBUG = void 0;
 const options_1 = require("./models/options");
 const file_service_1 = require("./services/file.service");
 const reports_service_1 = require("./services/report/reports.service");

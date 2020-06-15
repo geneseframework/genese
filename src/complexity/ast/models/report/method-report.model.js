@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MethodReport = void 0;
 /**
  * Defines the elements included in a method's report
  */

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AstNodeService = void 0;
 const ast_service_1 = require("./ast.service");
 const syntax_kind_enum_1 = require("../../enums/syntax-kind.enum");
 /**
@@ -8,10 +9,14 @@ const syntax_kind_enum_1 = require("../../enums/syntax-kind.enum");
 class AstNodeService {
     getCode(astNode) {
         var _a;
-        if (!((_a = astNode === null || astNode === void 0 ? void 0 : astNode.astFile) === null || _a === void 0 ? void 0 : _a.text) || (astNode === null || astNode === void 0 ? void 0 : astNode.pos) || (astNode === null || astNode === void 0 ? void 0 : astNode.end)) {
+        console.log('GET CODDDDEEE', astNode.kind, astNode.name, astNode === null || astNode === void 0 ? void 0 : astNode.pos, astNode === null || astNode === void 0 ? void 0 : astNode.end);
+        if (!((_a = astNode === null || astNode === void 0 ? void 0 : astNode.astFile) === null || _a === void 0 ? void 0 : _a.text) || (astNode === null || astNode === void 0 ? void 0 : astNode.pos) === undefined || (astNode === null || astNode === void 0 ? void 0 : astNode.end) === undefined) {
+            console.log('RETURNNNNNN');
             return '';
         }
-        return astNode.astFile.text.slice(astNode.pos, astNode.end);
+        const zzz = astNode.astFile.text.slice(astNode.pos, astNode.end);
+        console.log('ZZZZ', { zzz: zzz });
+        return zzz;
     }
     /**
      * Gets the javascript context of the AST node of a AstNode

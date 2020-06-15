@@ -14,6 +14,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 };
 var _astFiles, _children, _complexitiesByStatus, _cpxFactors, _cyclomaticCpx, _parent, _path, _stats;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AstFolder = void 0;
 const complexities_by_status_interface_1 = require("../../interfaces/complexities-by-status.interface");
 const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
 class AstFolder {

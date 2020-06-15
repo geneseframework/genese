@@ -112,12 +112,12 @@ export class AstMethod implements Evaluate {
      */
     evaluate(): void {
         console.log('EVAL METHOD', this.astNode.kind)
-        this.createDisplayedCode();
-        console.log('EVAL METHOD CODE', this.displayedCode)
-        LogService.printAllChildren(this.astNode);
-        this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
-        this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.astNode);
-        this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
+        // this.createDisplayedCode();
+        // console.log('EVAL METHOD CODE', this.displayedCode)
+        // LogService.printAllChildren(this.astNode);
+        // this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
+        // this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.astNode);
+        // this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
     }
 
 

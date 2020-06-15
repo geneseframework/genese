@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SyntaxKindOld = void 0;
 var SyntaxKindOld;
 (function (SyntaxKindOld) {
     SyntaxKindOld[SyntaxKindOld["Unknown"] = 0] = "Unknown";

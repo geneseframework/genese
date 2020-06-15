@@ -14,6 +14,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 };
 var _astFolder, _astMethods, _astNode, _astNodes, _complexitiesByStatus, _cpxFactors, _cyclomaticCpx, _end, _name, _stats, _text;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AstFile = void 0;
 const ast_file_service_1 = require("../../services/ast/ast-file.service");
 const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
 const ast_method_service_1 = require("../../services/ast/ast-method.service");
@@ -116,7 +117,7 @@ class AstFile {
         console.log('EVAL AST FILE', this.name);
         // TODO : init AstMethods and loop on them
         const astMethodService = new ast_method_service_1.AstMethodService();
-        console.log('CHILDRENNN', this.astNode.children);
+        console.log('CHILDRENNN', this.astNodes.map(e => e.text));
         // LogService.printAllChildren(this.#astNode)
         // for (const child of this.#astNode.children) {
         //     child.evaluate();

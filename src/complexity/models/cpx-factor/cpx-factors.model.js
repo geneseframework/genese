@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CpxFactors = void 0;
 const factor_category_enum_1 = require("../../enums/factor-category.enum");
 const tools_service_1 = require("../../services/tools.service");
 const aggregation_cpx_model_1 = require("./aggregation-cpx.model");

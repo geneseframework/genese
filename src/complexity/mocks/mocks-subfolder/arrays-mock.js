@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ArraysMock = void 0;
 class ArraysMock {
     elementAccessExpression(a) {
         return a[0];

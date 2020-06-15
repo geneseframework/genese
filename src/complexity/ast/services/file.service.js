@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.copyFile = exports.createOutDir = exports.createRelativeDir = exports.getLanguageExtensions = exports.getFilenameWithoutExtension = exports.getFileExtension = exports.getRouteToRoot = exports.getPathWithDotSlash = exports.getArrayOfPathsWithDotSlash = exports.getPathWithoutEndSlash = exports.getRelativePath = exports.getAllFiles = exports.getFilename = void 0;
 const fs = require("fs-extra");
 const options_1 = require("../models/options");
 /**

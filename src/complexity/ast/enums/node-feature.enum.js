@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.NodeFeature = void 0;
 var NodeFeature;
 (function (NodeFeature) {
     NodeFeature["ARR"] = "arr";

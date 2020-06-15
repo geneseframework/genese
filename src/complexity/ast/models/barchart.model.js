@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Barchart = void 0;
 const options_1 = require("./options");
 const complexity_type_enum_1 = require("../enums/complexity-type.enum");
 const chart_color_enum_1 = require("../enums/chart-color.enum");

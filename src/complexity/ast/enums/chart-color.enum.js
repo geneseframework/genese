@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ChartColor = void 0;
 /**
  * Colors of the different charts
  */

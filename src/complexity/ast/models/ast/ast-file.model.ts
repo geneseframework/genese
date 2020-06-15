@@ -156,7 +156,7 @@ export class AstFile implements Evaluate, LogService {
         console.log('EVAL AST FILE', this.name)
         // TODO : init AstMethods and loop on them
         const astMethodService = new AstMethodService();
-        console.log('CHILDRENNN', this.astNode.children)
+        console.log('CHILDRENNN', this.astNodes.map(e => e.text))
         // LogService.printAllChildren(this.#astNode)
         // for (const child of this.#astNode.children) {
         //     child.evaluate();

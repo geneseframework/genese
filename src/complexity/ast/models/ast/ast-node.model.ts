@@ -8,12 +8,13 @@ import { CpxFactors } from '../cpx-factor/cpx-factors.model';
 import { NodeFeature } from '../../enums/node-feature.enum';
 import { cpxFactors } from '../../../cpx-factors';
 import { addObjects } from '../../services/tools.service';
+import { AstNodeService } from '../../services/ast/ast-node.service';
 
 export class AstNode implements Evaluate {
 
     #astFile?: AstFile = undefined;                                             // The AstFile containing the AST node of the AstNode
     #astMethod?: AstMethod = undefined;                                         // The method at the root of the current ast (if this ast is inside a method)
-    astNodeService?: any;                                                       // The service managing AstNodes
+    astNodeService?: AstNodeService = new AstNodeService();                                                       // The service managing AstNodes
     #children?: AstNode[] = [];
     #context?: AstNode = undefined;                                             // The context of the AstNode
     #cpxFactors?: CpxFactors = undefined;                                       // The complexity factors of the AstNode
@@ -251,7 +252,7 @@ export class AstNode implements Evaluate {
 
 
     get text(): string {
-        return this.#text;
+        return this.#text ?? this.astNodeService.getCode(this);
     }
 
 

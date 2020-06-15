@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AstService = void 0;
 const ast_may_define_context_enum_1 = require("../../enums/ast-may-define-context.enum");
 const syntax_kind_enum_1 = require("../../enums/syntax-kind.enum");
 /**

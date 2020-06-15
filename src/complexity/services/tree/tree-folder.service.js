@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeFolderService = void 0;
 const fs = require("fs-extra");
 const tree_folder_model_1 = require("../../models/tree/tree-folder.model");
 const file_service_1 = require("../file.service");

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.HyperComplexMock = void 0;
 const callbacks_mock_1 = require("./callbacks.mock");
 class HyperComplexMock {
     hyperComplex(object, path = '', value) {

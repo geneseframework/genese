@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FactorCategory = void 0;
 var FactorCategory;
 (function (FactorCategory) {
     FactorCategory["AGGREGATION"] = "aggregation";

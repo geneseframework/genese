@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CyclomaticComplexityService = void 0;
 const ts = require("typescript");
 /**
  * Service around complexity calculation

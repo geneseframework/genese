@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ComplexitiesByStatus = void 0;
 const statuses_model_1 = require("../models/statuses.model");
 /**
  * Repartition by status for each kind of complexity

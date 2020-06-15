@@ -14,15 +14,18 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 };
 var _astFile, _astMethod, _children, _context, _cpxFactors, _cyclomaticCpx, _end, _factorCategory, _intrinsicDepthCpx, _intrinsicNestingCpx, _kind, _name, _parent, _pos, _text;
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AstNode = void 0;
 const ast_service_1 = require("../../services/ast/ast.service");
 const factor_category_service_1 = require("../../services/factor-category.service");
 const node_feature_enum_1 = require("../../enums/node-feature.enum");
 const cpx_factors_1 = require("../../../cpx-factors");
 const tools_service_1 = require("../../services/tools.service");
+const ast_node_service_1 = require("../../services/ast/ast-node.service");
 class AstNode {
     constructor() {
         _astFile.set(this, undefined); // The AstFile containing the AST node of the AstNode
         _astMethod.set(this, undefined); // The method at the root of the current ast (if this ast is inside a method)
+        this.astNodeService = new ast_node_service_1.AstNodeService(); // The service managing AstNodes
         _children.set(this, []);
         _context.set(this, undefined); // The context of the AstNode
         _cpxFactors.set(this, undefined); // The complexity factors of the AstNode
@@ -182,7 +185,8 @@ class AstNode {
         __classPrivateFieldSet(this, _pos, pos);
     }
     get text() {
-        return __classPrivateFieldGet(this, _text);
+        var _a;
+        return (_a = __classPrivateFieldGet(this, _text)) !== null && _a !== void 0 ? _a : this.astNodeService.getCode(this);
     }
     set text(text) {
         __classPrivateFieldSet(this, _text, text);

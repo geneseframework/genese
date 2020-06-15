@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.RepartitionByStatus = void 0;
 /**
  * Number of elements by complexity status
  */

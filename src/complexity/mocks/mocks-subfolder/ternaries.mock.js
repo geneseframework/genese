@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TernariesMock = void 0;
 class TernariesMock {
     ternary(a) {
         return a ? 5 : 3;

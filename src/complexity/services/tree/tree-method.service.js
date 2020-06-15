@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeMethodService = void 0;
 const tree_method_model_1 = require("../../models/tree/tree-method.model");
 const complexities_by_status_interface_1 = require("../../interfaces/complexities-by-status.interface");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");

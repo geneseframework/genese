@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeNodeService = void 0;
 const ts = require("typescript");
 const ast_service_1 = require("../ast.service");
 const tree_node_model_1 = require("../../models/tree/tree-node.model");

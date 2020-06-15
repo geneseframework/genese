@@ -11,6 +11,7 @@
  * an infringement punishable by criminal or civil law and, more generally, a breach of Naval Group SA’s rights.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SwitchesMock = void 0;
 class SwitchesMock {
     switches(numberOfWords) {
         switch (numberOfWords) {

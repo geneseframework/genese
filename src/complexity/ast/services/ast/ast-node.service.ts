@@ -10,10 +10,14 @@ export class AstNodeService {
 
 
     getCode(astNode: AstNode): string {
-        if (!astNode?.astFile?.text || astNode?.pos || astNode?.end) {
+        console.log('GET CODDDDEEE', astNode.kind, astNode.name, astNode?.pos, astNode?.end);
+        if (!astNode?.astFile?.text || astNode?.pos === undefined || astNode?.end === undefined) {
+            console.log('RETURNNNNNN')
             return '';
         }
-        return astNode.astFile.text.slice(astNode.pos, astNode.end);
+        const zzz = astNode.astFile.text.slice(astNode.pos, astNode.end);
+        console.log('ZZZZ', {zzz: zzz});
+        return zzz
     }
 
     /**

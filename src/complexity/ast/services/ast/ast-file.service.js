@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.AstFileService = void 0;
 const complexity_type_enum_1 = require("../../../enums/complexity-type.enum");
 const ast_method_service_1 = require("./ast-method.service");
 const ast_node_service_1 = require("./ast-node.service");
