@@ -28,7 +28,7 @@ export class AstNode implements Evaluate {
     #name: string = undefined;                                                  // The name of the AstNode
     #parent?: AstNode;                                                         // The ast of the parent of the current node
     #pos ?= 0;
-    #text: string = undefined;
+    // #text: string = undefined;
 
 
 
@@ -39,7 +39,7 @@ export class AstNode implements Evaluate {
 
 
     get aggregationCpx(): number {
-        return this.cpxFactors.totalAggregation;
+        return this.cpxFactors?.totalAggregation;
     }
 
 
@@ -105,7 +105,7 @@ export class AstNode implements Evaluate {
 
 
     get depthCpx(): number {
-        return this.cpxFactors.totalDepth;
+        return this.cpxFactors?.totalDepth;
     }
 
 
@@ -212,7 +212,7 @@ export class AstNode implements Evaluate {
 
 
     get nestingCpx(): number {
-        return this.cpxFactors.totalNesting;
+        return this.cpxFactors?.totalNesting;
     }
 
 
@@ -227,7 +227,7 @@ export class AstNode implements Evaluate {
 
 
     get recursionCpx(): number {
-        return this.cpxFactors.totalRecursion;
+        return this.cpxFactors?.totalRecursion;
     }
 
 
@@ -236,13 +236,8 @@ export class AstNode implements Evaluate {
     }
 
 
-    // get sourceFile(): ts.SourceFile {
-    //     return this.#treeFile?.sourceFile;
-    // }
-
-
     get structuralCpx(): number {
-        return this.cpxFactors.totalStructural;
+        return this.cpxFactors?.totalStructural;
     }
 
 
@@ -253,16 +248,6 @@ export class AstNode implements Evaluate {
 
     set pos(pos: number) {
         this.#pos = pos;
-    }
-
-
-    get text(): string {
-        return this.#text;
-    }
-
-
-    set text(text: string) {
-        this.#text = text;
     }
 
 

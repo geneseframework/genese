@@ -18,26 +18,6 @@ class AstFileService extends stats_service_1.StatsService {
         this.astNodeService = new ast_node_service_1.AstNodeService(); // The service managing AstNodes
     }
     /**
-     * Sets the astMethod property to a given astNode
-     * @param astNode      // The AstNode to update
-     */
-    setNodeMethod(astNode) {
-        return astNode.isFunctionOrMethodDeclaration ? this.astMethodService.setNodeMethod(astNode) : undefined;
-    }
-    /**
-     * Returns the array of the AstMethods corresponding to an array of AstNodes
-     * @param astNodes     // The array of AstNodes
-     */
-    setAstMethods(astNodes) {
-        const astMethods = [];
-        for (const astNode of astNodes) {
-            if (astNode.astMethod) {
-                astMethods.push(astNode.astMethod);
-            }
-        }
-        return astMethods;
-    }
-    /**
      * Sets the javascript context of each AST node
      * @param astNode      // The "parent" Node
      */

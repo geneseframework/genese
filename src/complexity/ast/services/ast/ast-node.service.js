@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const ts = require("typescript");
 const ast_service_1 = require("./ast.service");
+const syntax_kind_enum_1 = require("../../enums/syntax-kind.enum");
 /**
  * Service managing AstNodes
  */
@@ -16,11 +16,11 @@ class AstNodeService {
             return undefined;
         }
         switch (astNode.kind) {
-            case ts.SyntaxKind.SourceFile:
+            case syntax_kind_enum_1.SyntaxKind.SourceFile:
                 return astNode;
-            case ts.SyntaxKind.Identifier:
+            case syntax_kind_enum_1.SyntaxKind.Identifier:
                 return this.getIdentifierContext(astNode);
-            case ts.SyntaxKind.ThisKeyword:
+            case syntax_kind_enum_1.SyntaxKind.ThisKeyword:
                 return (_b = (_a = astNode.parent) === null || _a === void 0 ? void 0 : _a.context) === null || _b === void 0 ? void 0 : _b.context;
             default:
                 if ((_c = astNode.parent) === null || _c === void 0 ? void 0 : _c.mayDefineContext) {

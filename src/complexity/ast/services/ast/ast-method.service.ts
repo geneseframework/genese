@@ -11,19 +11,6 @@ export class AstMethodService {
 
 
     /**
-     * Updates a AstNode by adding a new AstMethod with its code
-     * @param astNode      // The AstNode to update
-     */
-    setNodeMethod(astNode: AstNode): AstNode {
-        const astMethod = new AstMethod();
-        astMethod.astNode = astNode;
-        astMethod.originalCode = CodeService.getCode(astNode.text);
-        astNode.astMethod = astMethod;
-        return astNode;
-    }
-
-
-    /**
      * Returns the addition of a ComplexitiesByStatus object and the complexities scores of a given astMethod
      * @param cpxByStatus   // The object to add
      * @param astMethod    // The AstMethod in question

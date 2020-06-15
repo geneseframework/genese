@@ -24,31 +24,6 @@ export class AstFileService extends StatsService {
         super();
     }
 
-
-    /**
-     * Sets the astMethod property to a given astNode
-     * @param astNode      // The AstNode to update
-     */
-    private setNodeMethod(astNode: AstNode): AstNode {
-        return astNode.isFunctionOrMethodDeclaration ? this.astMethodService.setNodeMethod(astNode) : undefined;
-    }
-
-
-    /**
-     * Returns the array of the AstMethods corresponding to an array of AstNodes
-     * @param astNodes     // The array of AstNodes
-     */
-    private setAstMethods(astNodes: AstNode[]): AstMethod[] {
-        const astMethods: AstMethod[] = [];
-        for (const astNode of astNodes) {
-            if (astNode.astMethod) {
-                astMethods.push(astNode.astMethod);
-            }
-        }
-        return astMethods;
-    }
-
-
     /**
      * Sets the javascript context of each AST node
      * @param astNode      // The "parent" Node

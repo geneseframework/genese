@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astFile, _astMethod, _children, _context, _cpxFactors, _cyclomaticCpx, _end, _factorCategory, _intrinsicDepthCpx, _intrinsicNestingCpx, _kind, _name, _parent, _pos, _text;
+var _astFile, _astMethod, _children, _context, _cpxFactors, _cyclomaticCpx, _end, _factorCategory, _intrinsicDepthCpx, _intrinsicNestingCpx, _kind, _name, _parent, _pos;
 Object.defineProperty(exports, "__esModule", { value: true });
 const ast_service_1 = require("../../services/ast/ast.service");
 const factor_category_service_1 = require("../../services/factor-category.service");
@@ -37,13 +37,14 @@ class AstNode {
         _name.set(this, undefined); // The name of the AstNode
         _parent.set(this, void 0); // The ast of the parent of the current node
         _pos.set(this, 0);
-        _text.set(this, undefined);
     }
+    // #text: string = undefined;
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
     get aggregationCpx() {
-        return this.cpxFactors.totalAggregation;
+        var _a;
+        return (_a = this.cpxFactors) === null || _a === void 0 ? void 0 : _a.totalAggregation;
     }
     get astFile() {
         return __classPrivateFieldGet(this, _astFile);
@@ -83,7 +84,8 @@ class AstNode {
         __classPrivateFieldSet(this, _cyclomaticCpx, cyclomaticCpx);
     }
     get depthCpx() {
-        return this.cpxFactors.totalDepth;
+        var _a;
+        return (_a = this.cpxFactors) === null || _a === void 0 ? void 0 : _a.totalDepth;
     }
     get end() {
         return __classPrivateFieldGet(this, _end);
@@ -154,7 +156,8 @@ class AstNode {
         __classPrivateFieldSet(this, _name, name);
     }
     get nestingCpx() {
-        return this.cpxFactors.totalNesting;
+        var _a;
+        return (_a = this.cpxFactors) === null || _a === void 0 ? void 0 : _a.totalNesting;
     }
     get parent() {
         return __classPrivateFieldGet(this, _parent);
@@ -163,28 +166,21 @@ class AstNode {
         __classPrivateFieldSet(this, _parent, treeNode);
     }
     get recursionCpx() {
-        return this.cpxFactors.totalRecursion;
+        var _a;
+        return (_a = this.cpxFactors) === null || _a === void 0 ? void 0 : _a.totalRecursion;
     }
     get secondSon() {
         return this.getSon(1);
     }
-    // get sourceFile(): ts.SourceFile {
-    //     return this.#treeFile?.sourceFile;
-    // }
     get structuralCpx() {
-        return this.cpxFactors.totalStructural;
+        var _a;
+        return (_a = this.cpxFactors) === null || _a === void 0 ? void 0 : _a.totalStructural;
     }
     get pos() {
         return __classPrivateFieldGet(this, _pos);
     }
     set pos(pos) {
         __classPrivateFieldSet(this, _pos, pos);
-    }
-    get text() {
-        return __classPrivateFieldGet(this, _text);
-    }
-    set text(text) {
-        __classPrivateFieldSet(this, _text, text);
     }
     // ---------------------------------------------------------------------------------
     //                                  Other methods
@@ -300,4 +296,4 @@ class AstNode {
     }
 }
 exports.AstNode = AstNode;
-_astFile = new WeakMap(), _astMethod = new WeakMap(), _children = new WeakMap(), _context = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _factorCategory = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _kind = new WeakMap(), _name = new WeakMap(), _parent = new WeakMap(), _pos = new WeakMap(), _text = new WeakMap();
+_astFile = new WeakMap(), _astMethod = new WeakMap(), _children = new WeakMap(), _context = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _factorCategory = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _kind = new WeakMap(), _name = new WeakMap(), _parent = new WeakMap(), _pos = new WeakMap();

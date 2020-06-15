@@ -1,24 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const code_service_1 = require("../code.service");
-const ast_method_model_1 = require("../../models/ast/ast-method.model");
 const complexities_by_status_interface_1 = require("../../interfaces/complexities-by-status.interface");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
 class AstMethodService {
     constructor() {
         this.codeService = new code_service_1.CodeService(); // The service managing Code objects
-    }
-    /**
-     * Updates a AstNode by adding a new AstMethod with its code
-     * @param astNode      // The AstNode to update
-     */
-    setNodeMethod(astNode) {
-        const astMethod = new ast_method_model_1.AstMethod();
-        astMethod.astNode = astNode;
-        astMethod.originalCode = code_service_1.CodeService.getCode(astNode.text);
-        astNode.astMethod = astMethod;
-        return astNode;
     }
     /**
      * Returns the addition of a ComplexitiesByStatus object and the complexities scores of a given astMethod

@@ -36,13 +36,13 @@ class LogService {
      * @param indent
      */
     static logAstNode(childAst, indent) {
-        var _a, _b;
+        var _a, _b, _c, _d;
         let color = '';
-        if (childAst.cpxFactors.total < 0.5) {
+        if (((_a = childAst.cpxFactors) === null || _a === void 0 ? void 0 : _a.total) < 0.5) {
             color = 'white';
         }
         else {
-            color = childAst.cpxFactors.total > 1 ? 'red' : 'yellow';
+            color = ((_b = childAst.cpxFactors) === null || _b === void 0 ? void 0 : _b.total) > 1 ? 'red' : 'yellow';
         }
         let logs = [];
         logs.push(indent);
@@ -53,9 +53,9 @@ class LogService {
         logs = logs.concat(LogService.addLog('aggregation', childAst.aggregationCpx));
         logs = logs.concat(LogService.addLog('recursivity', childAst.recursionCpx));
         logs.push('context :');
-        logs.push(chalk.blueBright((_a = childAst.context) === null || _a === void 0 ? void 0 : _a.name));
+        logs.push(chalk.blueBright((_c = childAst.context) === null || _c === void 0 ? void 0 : _c.name));
         logs.push('parent :');
-        logs.push(chalk.greenBright((_b = childAst.parent) === null || _b === void 0 ? void 0 : _b.kind));
+        logs.push(chalk.greenBright((_d = childAst.parent) === null || _d === void 0 ? void 0 : _d.kind));
         console.log(...logs);
     }
     /**

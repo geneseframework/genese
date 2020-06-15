@@ -47,10 +47,10 @@ export class LogService {
      */
     private static logAstNode(childAst: AstNode, indent: string): void {
         let color = '';
-        if (childAst.cpxFactors.total < 0.5) {
+        if (childAst.cpxFactors?.total < 0.5) {
             color = 'white';
         } else {
-            color = childAst.cpxFactors.total > 1 ? 'red' : 'yellow';
+            color = childAst.cpxFactors?.total > 1 ? 'red' : 'yellow';
         }
         let logs = [];
         logs.push(indent);

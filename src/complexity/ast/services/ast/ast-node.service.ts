@@ -1,7 +1,7 @@
-import * as ts from 'typescript';
 import { AstNode } from '../../models/ast/ast-node.model';
 import { AstService } from './ast.service';
 import { AstMethod } from '../../models/ast/ast-method.model';
+import { SyntaxKind } from '../../enums/syntax-kind.enum';
 
 /**
  * Service managing AstNodes
@@ -18,11 +18,11 @@ export class AstNodeService {
             return undefined;
         }
         switch (astNode.kind) {
-            case ts.SyntaxKind.SourceFile:
+            case SyntaxKind.SourceFile:
                 return astNode;
-            case ts.SyntaxKind.Identifier:
+            case SyntaxKind.Identifier:
                 return this.getIdentifierContext(astNode);
-            case ts.SyntaxKind.ThisKeyword:
+            case SyntaxKind.ThisKeyword:
                 return astNode.parent?.context?.context;
             default:
                 if (astNode.parent?.mayDefineContext) {

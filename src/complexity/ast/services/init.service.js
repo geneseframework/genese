@@ -62,41 +62,46 @@ class InitService {
         }
         const newAstFile = new ast_file_model_1.AstFile();
         newAstFile.text = astFile.text;
-        newAstFile.astNode = this.getFileAstNode(astFile.astNode);
+        newAstFile.astNode = this.getFileAstNode(astFile.astNode, astFile);
         newAstFile.astNodes = this.astNodeService.flatMapAstNodes(newAstFile.astNode, [newAstFile.astNode]);
         newAstFile.astMethods = newAstFile.astNodes
-            .filter(e => ast_service_1.AstService.isFunctionOrMethod(e))
+            .filter(e => {
+            console.log('kinddd', e.kind, ast_service_1.AstService.isFunctionOrMethod(e));
+            return ast_service_1.AstService.isFunctionOrMethod(e);
+        })
             .map(e => e.astMethod);
         console.log('ASTNOOODSSS', newAstFile.astNodes);
         console.log('ASTMETHDSSS', newAstFile.astMethods);
         return newAstFile;
     }
-    getFileAstNode(astNode) {
+    getFileAstNode(astNode, astFile) {
         const newAstNode = new ast_node_model_1.AstNode();
         newAstNode.pos = 0;
         newAstNode.end = astNode.end; // TODO: fix
         newAstNode.kind = syntax_kind_enum_1.SyntaxKind.SourceFile;
         newAstNode.name = astNode.name;
-        newAstNode.children = this.generateAstNodes(astNode.children);
+        newAstNode.astFile = astFile;
+        newAstNode.children = this.generateAstNodes(astNode.children, astFile);
         return newAstNode;
     }
-    generateAstNodes(astNodes) {
+    generateAstNodes(astNodes, astFile) {
         if (!Array.isArray(astNodes)) {
             return [];
         }
         const newAstNodes = [];
         for (const astNode of astNodes) {
-            newAstNodes.push(this.generateAstNode(astNode));
+            newAstNodes.push(this.generateAstNode(astNode, astFile));
         }
         return newAstNodes;
     }
-    generateAstNode(astNode) {
+    generateAstNode(astNode, astFile) {
         const newAstNode = new ast_node_model_1.AstNode();
+        newAstNode.astFile = astFile;
         newAstNode.end = astNode.end;
         newAstNode.kind = astNode.kind; // TODO : check if kind is correct
         newAstNode.name = astNode.name;
         newAstNode.pos = astNode.pos;
-        newAstNode.children = this.generateAstNodes(astNode.children);
+        newAstNode.children = this.generateAstNodes(astNode.children, astFile);
         if (ast_service_1.AstService.isFunctionOrMethod(astNode)) {
             newAstNode.astMethod = this.generateAstMethod(newAstNode);
         }
@@ -105,7 +110,7 @@ class InitService {
     generateAstMethod(astNode) {
         const astMethod = new ast_method_model_1.AstMethod();
         astMethod.astNode = astNode;
-        astMethod.originalCode = code_service_1.CodeService.getCode(astNode.text);
+        astMethod.originalCode = code_service_1.CodeService.getCode(astNode.astFile.text);
         return astMethod;
     }
 }
