@@ -93,9 +93,8 @@ class AstFolder {
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
         for (const astFile of this.astFiles) {
             // TODO : evaluate AstFile
-            // astFile.evaluate();
+            astFile.evaluate();
             this.cpxFactors = this.cpxFactors.add(astFile.cpxFactors);
-            console.log('EVAL AST FILE');
             this.cyclomaticCpx = this.cyclomaticCpx + astFile.cyclomaticCpx;
             // this.numberOfMethods += file.treeMethods?.length ?? 0;
             // this.numberOfFiles++;

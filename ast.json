@@ -2,7 +2,6 @@
     "astFolder": {
         "astFiles": [
             {
-                "text": "export class GeneseComplexity {\\n\\n ifAlone(a) {\\n if (a) {\\n return 'b';\\n }\\n }\\n}\\n",
                 "astNode": {
                     "end": 109,
                     "name": "my-file.ts",
@@ -32,10 +31,11 @@
                         }
                     ]
                 },
-                "path": "/Users/my-path/"
+                "text": "export class GeneseComplexity {\\n\\n ifAlone(a) {\\n if (a) {\\n return 'b';\\n }\\n }\\n}\\n"
             }
         ],
-        "children": []
+        "children": [],
+        "path": "my/path/folder"
     },
     "language": "php"
 }

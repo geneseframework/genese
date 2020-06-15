@@ -29,7 +29,8 @@ export class InitService {
             newChild.parent = jsonAst.astFolder;
             astFolder.children.push(newChild);
         }
-        console.log('AST FILESS', astFolder.astFiles)
+        console.log('AST FOLDER PATH', astFolder.path)
+        console.log('AST FILESS', astFolder.astFiles[0].name)
         newJsonAst.astFolder = astFolder;
         return newJsonAst;
     }
@@ -57,11 +58,12 @@ export class InitService {
 
 
     generateAstFile(astFile: AstFile): AstFile {
+        if (!astFile.astNode) {
+            console.warn(astFile.name ? `No AstNode for this file : ${astFile.name}` : `AstFile without AstNode`);
+            return undefined;
+        }
         const newAstFile = new AstFile();
-        newAstFile.end = astFile.end;
-        newAstFile.name = astFile.name;
         newAstFile.text = astFile.text;
-        // newAstFile.children = this.generateAstNodes(astFile.children);
         newAstFile.astNode = this.getFileAstNode(astFile.astNode)
         return newAstFile;
     }
@@ -72,6 +74,7 @@ export class InitService {
         newAstNode.pos = 0;
         newAstNode.end = astNode.end; // TODO: fix
         newAstNode.kind = SyntaxKind.SourceFile;
+        newAstNode.name = astNode.name;
         newAstNode.children = this.generateAstNodes(astNode.children);
         return newAstNode;
     }
@@ -90,7 +93,7 @@ export class InitService {
 
 
     generateAstNode(astNode: AstNode): AstNode {
-        const newAstNode = astNode;
+        const newAstNode = new AstNode();
         newAstNode.end = astNode.end;
         newAstNode.kind = astNode.kind; // TODO : check if kind is correct
         newAstNode.name = astNode.name;

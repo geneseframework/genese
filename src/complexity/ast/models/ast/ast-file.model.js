@@ -19,16 +19,14 @@ const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
 const ast_method_service_1 = require("../../services/ast/ast-method.service");
 class AstFile {
     constructor() {
-        this.astFileService = new ast_file_service_1.AstFileService(); // The service for AstFiles
         _astFolder.set(this, undefined); // The AstFolder which includes this AstFile
         _astMethods.set(this, []); // The AstMethods included in this AstFile
         _astNode.set(this, undefined); // The AstNode corresponding to the file itself
-        // #children: AstNode[] = [];
         _complexitiesByStatus.set(this, undefined); // The file complexities spread by complexity status
         _cpxFactors.set(this, undefined);
         _cyclomaticCpx.set(this, 0);
-        _end.set(this, 0);
-        _name.set(this, '');
+        _end.set(this, undefined);
+        _name.set(this, undefined);
         _stats.set(this, undefined); // The statistics of the file
         _text.set(this, '');
     }
@@ -66,14 +64,6 @@ class AstFile {
     set astNode(astNode) {
         __classPrivateFieldSet(this, _astNode, astNode);
     }
-    // get children(): AstNode[] {
-    //     return this.#children;
-    // }
-    //
-    //
-    // set children(astNodes: AstNode[]) {
-    //     this.#children = astNodes;
-    // }
     get complexitiesByStatus() {
         return __classPrivateFieldGet(this, _complexitiesByStatus);
     }
@@ -93,13 +83,15 @@ class AstFile {
         __classPrivateFieldSet(this, _cyclomaticCpx, cyclomaticCpx);
     }
     get end() {
-        return __classPrivateFieldGet(this, _end);
+        var _a, _b;
+        return (_a = __classPrivateFieldGet(this, _end)) !== null && _a !== void 0 ? _a : (_b = __classPrivateFieldGet(this, _astNode)) === null || _b === void 0 ? void 0 : _b.end;
     }
     set end(end) {
         __classPrivateFieldSet(this, _end, end);
     }
     get name() {
-        return __classPrivateFieldGet(this, _name);
+        var _a, _b;
+        return (_a = __classPrivateFieldGet(this, _name)) !== null && _a !== void 0 ? _a : (_b = __classPrivateFieldGet(this, _astNode)) === null || _b === void 0 ? void 0 : _b.name;
     }
     set name(name) {
         __classPrivateFieldSet(this, _name, name);
@@ -124,11 +116,14 @@ class AstFile {
      */
     evaluate() {
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
+        console.log('EVAL AST FILE', this.name);
         // TODO : init AstMethods and loop on them
         const astMethodService = new ast_method_service_1.AstMethodService();
-        for (const child of __classPrivateFieldGet(this, _astNode).children) {
-            child.evaluate();
-        }
+        console.log('CHILDRENNN', this.astNode.children);
+        // LogService.printAllChildren(this.#astNode)
+        // for (const child of this.#astNode.children) {
+        //     child.evaluate();
+        // }
         for (const method of this.astMethods) {
             method.evaluate();
             // this.cpxIndex += method.cpxIndex;
@@ -141,7 +136,8 @@ class AstFile {
      */
     getStats() {
         if (!this.stats) {
-            this.stats = this.astFileService.getStats(this);
+            const astFileService = new ast_file_service_1.AstFileService(); // The service for AstFiles
+            this.stats = astFileService.getStats(this);
         }
         return this.stats;
     }
