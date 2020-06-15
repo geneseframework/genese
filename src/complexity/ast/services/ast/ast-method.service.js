@@ -16,7 +16,7 @@ class AstMethodService {
     setNodeMethod(astNode) {
         const astMethod = new ast_method_model_1.AstMethod();
         astMethod.astNode = astNode;
-        astMethod.originalCode = this.codeService.getCode(astNode.text);
+        astMethod.originalCode = code_service_1.CodeService.getCode(astNode.text);
         astNode.astMethod = astMethod;
         return astNode;
     }

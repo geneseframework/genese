@@ -11,7 +11,7 @@ export class CodeService {
      * Creates a Code object from the content of a given code (as string)
      * @param text  // The content of the code
      */
-    getCode(text: string): Code {
+    static getCode(text: string): Code {
         const code: Code = new Code();
         code.text = text;
         const textLines: string[] = text.split('\n');

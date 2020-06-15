@@ -2,6 +2,10 @@ import { JsonAst } from '../models/ast/json-ast.model';
 import { AstFolder } from '../models/ast/ast-folder.model';
 import { AstFile } from '../models/ast/ast-file.model';
 import { AstNode } from '../models/ast/ast-node.model';
+import { SyntaxKind } from '../enums/syntax-kind.enum';
+import { AstService } from './ast/ast.service';
+import { AstMethod } from '../models/ast/ast-method.model';
+import { CodeService } from './code.service';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
@@ -57,9 +61,19 @@ export class InitService {
         newAstFile.end = astFile.end;
         newAstFile.name = astFile.name;
         newAstFile.text = astFile.text;
-        newAstFile.children = this.generateAstNodes(astFile.children)
-        newAstFile.logg();
+        // newAstFile.children = this.generateAstNodes(astFile.children);
+        newAstFile.astNode = this.getFileAstNode(astFile.astNode)
         return newAstFile;
+    }
+
+
+    getFileAstNode(astNode: AstNode): AstNode {
+        const newAstNode = new AstNode();
+        newAstNode.pos = 0;
+        newAstNode.end = astNode.end; // TODO: fix
+        newAstNode.kind = SyntaxKind.SourceFile;
+        newAstNode.children = this.generateAstNodes(astNode.children);
+        return newAstNode;
     }
 
 
@@ -82,6 +96,17 @@ export class InitService {
         newAstNode.name = astNode.name;
         newAstNode.pos = astNode.pos;
         newAstNode.children = this.generateAstNodes(astNode.children);
+        if (AstService.isFunctionOrMethod(astNode)) {
+            newAstNode.astMethod = this.generateAstMethod(newAstNode);
+        }
         return newAstNode;
+    }
+
+
+    generateAstMethod(astNode: AstNode): AstMethod {
+        const astMethod = new AstMethod();
+        astMethod.astNode = astNode;
+        astMethod.originalCode = CodeService.getCode(astNode.text);
+        return astMethod;
     }
 }

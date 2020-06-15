@@ -3,6 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const json_ast_model_1 = require("../models/ast/json-ast.model");
 const ast_folder_model_1 = require("../models/ast/ast-folder.model");
 const ast_file_model_1 = require("../models/ast/ast-file.model");
+const ast_node_model_1 = require("../models/ast/ast-node.model");
+const syntax_kind_enum_1 = require("../enums/syntax-kind.enum");
+const ast_service_1 = require("./ast/ast.service");
+const ast_method_model_1 = require("../models/ast/ast-method.model");
+const code_service_1 = require("./code.service");
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
  * - Other services for TreeFolders
@@ -50,9 +55,17 @@ class InitService {
         newAstFile.end = astFile.end;
         newAstFile.name = astFile.name;
         newAstFile.text = astFile.text;
-        newAstFile.children = this.generateAstNodes(astFile.children);
-        newAstFile.logg();
+        // newAstFile.children = this.generateAstNodes(astFile.children);
+        newAstFile.astNode = this.getFileAstNode(astFile.astNode);
         return newAstFile;
+    }
+    getFileAstNode(astNode) {
+        const newAstNode = new ast_node_model_1.AstNode();
+        newAstNode.pos = 0;
+        newAstNode.end = astNode.end; // TODO: fix
+        newAstNode.kind = syntax_kind_enum_1.SyntaxKind.SourceFile;
+        newAstNode.children = this.generateAstNodes(astNode.children);
+        return newAstNode;
     }
     generateAstNodes(astNodes) {
         if (!Array.isArray(astNodes)) {
@@ -71,7 +84,16 @@ class InitService {
         newAstNode.name = astNode.name;
         newAstNode.pos = astNode.pos;
         newAstNode.children = this.generateAstNodes(astNode.children);
+        if (ast_service_1.AstService.isFunctionOrMethod(astNode)) {
+            newAstNode.astMethod = this.generateAstMethod(newAstNode);
+        }
         return newAstNode;
+    }
+    generateAstMethod(astNode) {
+        const astMethod = new ast_method_model_1.AstMethod();
+        astMethod.astNode = astNode;
+        astMethod.originalCode = code_service_1.CodeService.getCode(astNode.text);
+        return astMethod;
     }
 }
 exports.InitService = InitService;

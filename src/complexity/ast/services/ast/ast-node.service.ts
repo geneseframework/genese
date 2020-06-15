@@ -9,6 +9,7 @@ import { AstMethod } from '../../models/ast/ast-method.model';
 export class AstNodeService {
 
 
+    // getCode()
 
     /**
      * Gets the javascript context of the AST node of a AstNode

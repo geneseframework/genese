@@ -43,6 +43,26 @@ export class AstNode implements Evaluate {
     }
 
 
+    get astFile(): AstFile {
+        return this.#astFile;
+    }
+
+
+    set astFile(astFile: AstFile) {
+        this.#astFile = astFile;
+    }
+
+
+    get astMethod(): AstMethod {
+        return this.#astMethod;
+    }
+
+
+    set astMethod(astMethod: AstMethod) {
+        this.#astMethod = astMethod;
+    }
+
+
     get children(): AstNode[] {
         return this.#children;
     }
@@ -226,26 +246,6 @@ export class AstNode implements Evaluate {
     }
 
 
-    get astFile(): AstFile {
-        return this.#astFile;
-    }
-
-
-    set astFile(astFile: AstFile) {
-        this.#astFile = astFile;
-    }
-
-
-    get astMethod(): AstMethod {
-        return this.#astMethod;
-    }
-
-
-    set astMethod(astMethod: AstMethod) {
-        this.#astMethod = astMethod;
-    }
-
-
     get pos(): number {
         return this.#pos;
     }
@@ -275,11 +275,11 @@ export class AstNode implements Evaluate {
      * Evaluates the complexities of the AstNodes and the AstMethods of this AstFile
      */
     evaluate(): void {
-        this.cpxFactors = new CpxFactors();
+        this.calculateAndSetCpxFactors();
         // const astMethodService = new AstMethodService();
-        for (const child of this.#children) {
-            child.evaluate();
-        }
+        // for (const child of this.#children) {
+        //     child.evaluate();
+        // }
         // for (const method of this.astMethods) {
         //     method.evaluate();
         //     this.cyclomaticCpx += method.cyclomaticCpx;

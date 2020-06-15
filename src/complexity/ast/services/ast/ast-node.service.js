@@ -6,6 +6,7 @@ const ast_service_1 = require("./ast.service");
  * Service managing AstNodes
  */
 class AstNodeService {
+    // getCode()
     /**
      * Gets the javascript context of the AST node of a AstNode
      * @param astNode      // The AstNode for which we search the context

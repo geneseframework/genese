@@ -93,6 +93,7 @@ class AstMethod {
      * Evaluates the complexities of this AstMethod
      */
     evaluate() {
+        console.log('EVAL METHOD');
         this.createDisplayedCode();
         log_service_1.LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);

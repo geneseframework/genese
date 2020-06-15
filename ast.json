@@ -2,38 +2,40 @@
     "astFolder": {
         "astFiles": [
             {
-                "end": 109,
-                "name": "my-file.ts",
                 "text": "export class GeneseComplexity {\\n\\n ifAlone(a) {\\n if (a) {\\n return 'b';\\n }\\n }\\n}\\n",
-                "children": [
-                    {
-                        "pos": 0,
-                        "end": 108,
-                        "kind": "ClassDeclaration",
-                        "children": [
-                            {
-                                "pos": 0,
-                                "end": 6,
-                                "kind": "ExportKeyword"
-                            },
-                            {
-                                "pos": 12,
-                                "end": 29,
-                                "kind": "Identifier",
-                                "name": "GeneseComplexity"
-                            },
-                            {
-                                "pos": 31,
-                                "end": 106,
-                                "kind": "MethodDeclaration"
-                            }
-                        ]
-                    }
-                ]
+                "astNode": {
+                    "end": 109,
+                    "name": "my-file.ts",
+                    "children": [
+                        {
+                            "pos": 0,
+                            "end": 108,
+                            "kind": "ClassDeclaration",
+                            "children": [
+                                {
+                                    "pos": 0,
+                                    "end": 6,
+                                    "kind": "ExportKeyword"
+                                },
+                                {
+                                    "pos": 12,
+                                    "end": 29,
+                                    "kind": "Identifier",
+                                    "name": "GeneseComplexity"
+                                },
+                                {
+                                    "pos": 31,
+                                    "end": 106,
+                                    "kind": "MethodDeclaration"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "path": "/Users/my-path/"
             }
         ],
-        "children": [],
-        "path": "/Users/my-path/"
+        "children": []
     },
     "language": "php"
 }

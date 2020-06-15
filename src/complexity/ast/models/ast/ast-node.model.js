@@ -16,7 +16,6 @@ var _astFile, _astMethod, _children, _context, _cpxFactors, _cyclomaticCpx, _end
 Object.defineProperty(exports, "__esModule", { value: true });
 const ast_service_1 = require("../../services/ast/ast.service");
 const factor_category_service_1 = require("../../services/factor-category.service");
-const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
 const node_feature_enum_1 = require("../../enums/node-feature.enum");
 const cpx_factors_1 = require("../../../cpx-factors");
 const tools_service_1 = require("../../services/tools.service");
@@ -45,6 +44,18 @@ class AstNode {
     // ---------------------------------------------------------------------------------
     get aggregationCpx() {
         return this.cpxFactors.totalAggregation;
+    }
+    get astFile() {
+        return __classPrivateFieldGet(this, _astFile);
+    }
+    set astFile(astFile) {
+        __classPrivateFieldSet(this, _astFile, astFile);
+    }
+    get astMethod() {
+        return __classPrivateFieldGet(this, _astMethod);
+    }
+    set astMethod(astMethod) {
+        __classPrivateFieldSet(this, _astMethod, astMethod);
     }
     get children() {
         return __classPrivateFieldGet(this, _children);
@@ -163,18 +174,6 @@ class AstNode {
     get structuralCpx() {
         return this.cpxFactors.totalStructural;
     }
-    get astFile() {
-        return __classPrivateFieldGet(this, _astFile);
-    }
-    set astFile(astFile) {
-        __classPrivateFieldSet(this, _astFile, astFile);
-    }
-    get astMethod() {
-        return __classPrivateFieldGet(this, _astMethod);
-    }
-    set astMethod(astMethod) {
-        __classPrivateFieldSet(this, _astMethod, astMethod);
-    }
     get pos() {
         return __classPrivateFieldGet(this, _pos);
     }
@@ -194,11 +193,11 @@ class AstNode {
      * Evaluates the complexities of the AstNodes and the AstMethods of this AstFile
      */
     evaluate() {
-        this.cpxFactors = new cpx_factors_model_1.CpxFactors();
+        this.calculateAndSetCpxFactors();
         // const astMethodService = new AstMethodService();
-        for (const child of __classPrivateFieldGet(this, _children)) {
-            child.evaluate();
-        }
+        // for (const child of this.#children) {
+        //     child.evaluate();
+        // }
         // for (const method of this.astMethods) {
         //     method.evaluate();
         //     this.cyclomaticCpx += method.cyclomaticCpx;

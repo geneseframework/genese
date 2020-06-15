@@ -111,6 +111,7 @@ export class AstMethod implements Evaluate {
      * Evaluates the complexities of this AstMethod
      */
     evaluate(): void {
+        console.log('EVAL METHOD')
         this.createDisplayedCode();
         LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);

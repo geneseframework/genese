@@ -16,7 +16,7 @@ export class AstFile implements Evaluate, LogService {
     #astFolder?: AstFolder = undefined;                         // The AstFolder which includes this AstFile
     #astMethods?: AstMethod[] = [];                             // The AstMethods included in this AstFile
     #astNode?: AstNode = undefined;                             // The AstNode corresponding to the file itself
-    #children: AstNode[] = [];
+    // #children: AstNode[] = [];
     #complexitiesByStatus?: ComplexitiesByStatus = undefined;   // The file complexities spread by complexity status
     #cpxFactors?: CpxFactors = undefined;
     #cyclomaticCpx ?= 0;
@@ -43,7 +43,10 @@ export class AstFile implements Evaluate, LogService {
 
 
     get astMethods(): AstMethod[] {
-        return this.#astMethods;
+        if (this.#astMethods) {
+            return this.#astMethods;
+        }
+        return
     }
 
 
@@ -53,27 +56,33 @@ export class AstFile implements Evaluate, LogService {
 
 
     get astNode(): AstNode {
-        if (this.#astNode) {
-            return this.astNode;
-        }
-        const astNode = new AstNode();
-        astNode.pos = 0;
-        astNode.end = this.text.length; // TODO: fix
-        astNode.kind = SyntaxKind.SourceFile;
-        astNode.children = this.children;
-        this.#astNode = astNode
-        return astNode;
+        return this.#astNode;
+        // if (this.#astNode) {
+        //     return this.astNode;
+        // }
+        // const astNode = new AstNode();
+        // astNode.pos = 0;
+        // astNode.end = this.text.length; // TODO: fix
+        // astNode.kind = SyntaxKind.SourceFile;
+        // astNode.children = this.children;
+        // this.#astNode = astNode
+        // return astNode;
     }
 
 
-    get children(): AstNode[] {
-        return this.#children;
+    set astNode(astNode: AstNode) {
+        this.#astNode = astNode;
     }
 
 
-    set children(astNodes: AstNode[]) {
-        this.#children = astNodes;
-    }
+    // get children(): AstNode[] {
+    //     return this.#children;
+    // }
+    //
+    //
+    // set children(astNodes: AstNode[]) {
+    //     this.#children = astNodes;
+    // }
 
     get complexitiesByStatus(): ComplexitiesByStatus {
         return this.#complexitiesByStatus;
@@ -157,7 +166,7 @@ export class AstFile implements Evaluate, LogService {
         this.cpxFactors = new CpxFactors();
         // TODO : init AstMethods and loop on them
         const astMethodService = new AstMethodService();
-        for (const child of this.#children) {
+        for (const child of this.#astNode.children) {
             child.evaluate();
         }
         for (const method of this.astMethods) {
@@ -190,7 +199,7 @@ export class AstFile implements Evaluate, LogService {
         console.log('name', this.name);
         console.log('end', this.#end);
         console.log('text', this.#text);
-        console.log('children', this.#children);
+        console.log('astNode', this.#astNode);
         console.log('astFolder', this.#astFolder);
     }
 
