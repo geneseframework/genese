@@ -12,7 +12,6 @@ export class CodeService {
      * @param text  // The content of the code
      */
     static getCode(text: string): Code {
-        console.log('TEXTTTT', text)
         const code: Code = new Code();
         code.text = text;
         const textLines: string[] = text.split('\n');

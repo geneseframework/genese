@@ -74,8 +74,7 @@ export class AstNode implements Evaluate {
 
 
     get context(): AstNode {
-        // return this.#context ?? this.astNodeService.getContext(this);
-        return ;
+        return this.#context ?? this.astNodeService.getContext(this);
     }
 
 

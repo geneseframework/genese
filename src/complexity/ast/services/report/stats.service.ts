@@ -22,7 +22,6 @@ export abstract class StatsService {
         } else {
             this._stats = new Stats();
             this.calculateStats(fileOrFolder);
-            console.log('STATS NAME', fileOrFolder['name']);
             this.getNameOrPath(fileOrFolder);
             this._stats.setPercentages();
             this._stats.cumulateComplexities();

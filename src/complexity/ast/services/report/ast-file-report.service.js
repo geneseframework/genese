@@ -22,9 +22,9 @@ class AstFileReportService {
     getMethodsArray() {
         var _a;
         let report = [];
-        console.log('ASTFILE REPORT GET MTHDSSS name', this.astFile.name);
+        // console.log('ASTFILE REPORT GET MTHDSSS name', this.astFile.name)
         for (const method of this.astFile.astMethods) {
-            console.log('ASTFILE REPORT GET MTHDSSS method', method.originalCode);
+            // console.log('ASTFILE REPORT GET MTHDSSS method', method.originalCode)
             const methodReport = {
                 code: (_a = method.displayedCode) === null || _a === void 0 ? void 0 : _a.text,
                 cognitiveColor: method.cognitiveStatus.toLowerCase(),

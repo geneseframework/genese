@@ -71,7 +71,10 @@ class AstNodeService {
         if (!astNode.isParam) {
             return false;
         }
-        return this.hasCallBack(astNode, astNode.parent);
+        const zzz = this.hasCallBack(astNode, astNode.parent);
+        // console.log('ZZZZ CB', zzz)
+        return zzz;
+        // return this.hasCallBack(astNode, astNode.parent);
     }
     /**
      * Checks if a Parameter AstNode is used in a CallExpression of its method
@@ -97,7 +100,9 @@ class AstNodeService {
         if (!astNode.isFunctionOrMethodDeclaration) {
             return false;
         }
-        return this.hasRecursiveNode(astNode.astMethod, astNode);
+        const zzz = this.hasRecursiveNode(astNode.astMethod, astNode);
+        console.log('ZZZZ REC', zzz);
+        return zzz;
     }
     /**
      * Checks if a MethodDeclaration or a FunctionDeclaration AstNode is called by one of its children

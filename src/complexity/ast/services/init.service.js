@@ -111,7 +111,6 @@ class InitService {
         const astMethod = new ast_method_model_1.AstMethod();
         astMethod.astNode = astNode;
         astMethod.astNode.text = this.astNodeService.getCode(astNode);
-        // astMethod.originalCode = CodeService.getCode(astNode.astFile.text);
         astMethod.originalCode = code_service_1.CodeService.getCode(this.astNodeService.getCode(astNode));
         return astMethod;
     }

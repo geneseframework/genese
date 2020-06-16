@@ -75,7 +75,10 @@ export class AstNodeService {
         if (!astNode.isParam) {
             return false;
         }
-        return this.hasCallBack(astNode, astNode.parent);
+        const  zzz = this.hasCallBack(astNode, astNode.parent);
+        // console.log('ZZZZ CB', zzz)
+        return zzz
+        // return this.hasCallBack(astNode, astNode.parent);
     }
 
 
