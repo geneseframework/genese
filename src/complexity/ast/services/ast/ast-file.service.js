@@ -74,7 +74,6 @@ class AstFileService extends stats_service_1.StatsService {
      * Adds the filename to the stats
      */
     getNameOrPath(astFile) {
-        console.log('GETNAMEORPATHHH', astFile.name);
         this._stats.subject = astFile.name;
     }
 }

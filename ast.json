@@ -97,11 +97,11 @@
                         }
                     ]
                 },
-                "text": "export class GeneseComplexity {\n\n ifAlone(a) {\n if (a) {\n return 'b';\n }\n }\n}\n"
+                "text": "export class GeneseComplexity {\n\n    ifAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n}\n"
             }
         ],
         "children": [],
-        "path": "my/path/folder"
+        "path": "myPathFolder"
     },
     "language": "php"
 }
