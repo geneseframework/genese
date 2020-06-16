@@ -1,8 +1,8 @@
-import { JsonAst } from '../models/ast/json-ast.model';
+import { JsonAst } from '../../core/models/json-ast.model';
 import { AstFolder } from '../models/ast/ast-folder.model';
 import { AstFile } from '../models/ast/ast-file.model';
 import { AstNode } from '../models/ast/ast-node.model';
-import { SyntaxKind } from '../enums/syntax-kind.enum';
+import { SyntaxKind } from '../../core/enum/syntax-kind.enum';
 import { AstService } from './ast/ast.service';
 import { AstMethod } from '../models/ast/ast-method.model';
 import { CodeService } from './code.service';

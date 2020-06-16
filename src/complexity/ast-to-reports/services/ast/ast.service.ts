@@ -1,6 +1,6 @@
 import { AstNode } from '../../models/ast/ast-node.model';
 import { AstMayDefineContext } from '../../enums/ast-may-define-context.enum';
-import { SyntaxKind } from '../../enums/syntax-kind.enum';
+import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 
 /**
  * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)

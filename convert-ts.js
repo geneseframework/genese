@@ -3,7 +3,7 @@
 
 exports.__esModule = true;
 var ansi_colors_1 = require("ansi-colors");
-var mainAst = require("./src/complexity/convert-to-json/ts/main-ts-to-json");
+var mainAst = require("./src/complexity/languages-to-ast/main-language-to-ast");
 
 try {
     console.log("WELCOME TO GENESE COMPLEXITY");

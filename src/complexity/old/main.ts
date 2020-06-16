@@ -3,7 +3,7 @@ import { createOutDir } from './services/file.service';
 import { ReportsService } from './services/report/reports.service';
 import { blueBright } from 'ansi-colors';
 import { TreeFolderService } from './services/tree/tree-folder.service';
-import { Language } from '../ast-to-reports/enums/language.enum';
+import { Language } from '../core/enum/language.enum';
 
 export const DEBUG = false;     // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND when you want to get stats only for debug.mock.ts file
 

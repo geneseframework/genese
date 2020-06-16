@@ -1,8 +1,8 @@
 import { blueBright } from 'ansi-colors';
-import { InitConversionService } from './services/init-conversion.service';
-import { ConvertOptions } from '../core/convert-options.model';
-import { JsonAst } from '../../ast-to-reports/models/ast/json-ast.model';
-import { Language } from '../../ast-to-reports/enums/language.enum';
+import { InitConversionService } from './ts/services/init-conversion.service';
+import { ConvertOptions } from './core/convert-options.model';
+import { JsonAst } from '../core/models/json-ast.model';
+import { Language } from '../core/enum/language.enum';
 
 
 /**
@@ -20,7 +20,7 @@ export class MainConvertTs {
      */
     start(pathCommand: string, pathToAnalyze: string, pathGeneseNodeJs: string, language: Language): void {
         console.log('START CONVERSION FROM TS TO JSON');
-        // ConvertOptions.se
+        ConvertOptions.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs)
         const jsonAst: JsonAst = new JsonAst();
         switch (language) {
             case Language.TS:

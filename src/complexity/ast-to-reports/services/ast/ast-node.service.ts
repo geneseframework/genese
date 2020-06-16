@@ -1,7 +1,7 @@
 import { AstNode } from '../../models/ast/ast-node.model';
 import { AstService } from './ast.service';
 import { AstMethod } from '../../models/ast/ast-method.model';
-import { SyntaxKind } from '../../enums/syntax-kind.enum';
+import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 
 /**
  * Service managing AstNodes

@@ -1,8 +1,8 @@
-import { AstFolder } from './ast-folder.model';
-import { Evaluate } from '../../interfaces/evaluate.interface';
-import { PrivateLog } from '../../interfaces/private-log.interface';
-import { CpxFactors } from '../cpx-factor/cpx-factors.model';
-import { Language } from '../../enums/language.enum';
+import { AstFolder } from '../../ast-to-reports/models/ast/ast-folder.model';
+import { Evaluate } from '../../ast-to-reports/interfaces/evaluate.interface';
+import { PrivateLog } from '../../ast-to-reports/interfaces/private-log.interface';
+import { CpxFactors } from '../../ast-to-reports/models/cpx-factor/cpx-factors.model';
+import { Language } from '../enum/language.enum';
 
 export class JsonAst implements Evaluate, PrivateLog {
 

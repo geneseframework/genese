@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InitService = void 0;
-const json_ast_model_1 = require("../models/ast/json-ast.model");
+const json_ast_model_1 = require("../../core/models/json-ast.model");
 const ast_folder_model_1 = require("../models/ast/ast-folder.model");
 const ast_file_model_1 = require("../models/ast/ast-file.model");
 const ast_node_model_1 = require("../models/ast/ast-node.model");
-const syntax_kind_enum_1 = require("../enums/syntax-kind.enum");
+const syntax_kind_enum_1 = require("../../core/enum/syntax-kind.enum");
 const ast_service_1 = require("./ast/ast.service");
 const ast_method_model_1 = require("../models/ast/ast-method.model");
 const code_service_1 = require("./code.service");

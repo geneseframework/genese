@@ -1,4 +1,4 @@
-import { SyntaxKind } from '../../enums/syntax-kind.enum';
+import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 import { AstFile } from './ast-file.model';
 import { AstMethod } from './ast-method.model';
 import { AstService } from '../../services/ast/ast.service';

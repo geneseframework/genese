@@ -9,7 +9,7 @@ import { StatsService } from '../report/stats.service';
 import { Stats } from '../../models/stats.model';
 import { Options } from '../../models/options';
 import { DEBUG } from '../../main';
-import { Language } from '../../../ast-to-reports/enums/language.enum';
+import { Language } from '../../../core/enum/language.enum';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder

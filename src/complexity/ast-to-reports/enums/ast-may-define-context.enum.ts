@@ -1,4 +1,4 @@
-import { SyntaxKind } from './syntax-kind.enum';
+import { SyntaxKind } from '../../core/enum/syntax-kind.enum';
 
 export enum AstMayDefineContext {
 

@@ -2,7 +2,7 @@
 "use strict";
 exports.__esModule = true;
 var ansi_colors_1 = require("ansi-colors");
-var mainAst = require("./src/complexity/main-ast");
+var mainAst = require("./src/complexity/ast-to-reports/main-ast");
 
 try {
     console.log("WELCOME TO GENESE AST");
