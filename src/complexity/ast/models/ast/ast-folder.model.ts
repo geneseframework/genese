@@ -7,6 +7,7 @@ import { ComplexitiesByStatus } from '../../interfaces/complexities-by-status.in
 import { CpxFactors } from '../cpx-factor/cpx-factors.model';
 import { Stats } from '../stats.model';
 import { AstFile } from './ast-file.model';
+import { AstFolderService } from '../../services/ast/ast-folder.service';
 
 export class AstFolder implements Evaluate, HasStats {
 
@@ -115,6 +116,11 @@ export class AstFolder implements Evaluate, HasStats {
     }
 
 
+    set stats(stats: Stats) {
+        this.#stats = stats;
+    }
+
+
 
     // ---------------------------------------------------------------------------------
     //                                  Other methods
@@ -136,6 +142,8 @@ export class AstFolder implements Evaluate, HasStats {
             // this.numberOfFiles++;
             this.complexitiesByStatus = this.complexitiesByStatus.add(astFile.complexitiesByStatus);
         }
+        const astFolderService = new AstFolderService();
+        this.stats = astFolderService.calculateStats(this);
     }
 
 }

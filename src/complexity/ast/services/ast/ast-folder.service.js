@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstFolderService = void 0;
 const stats_service_1 = require("../report/stats.service");
+const stats_model_1 = require("../../models/stats.model");
 const ast_file_service_1 = require("./ast-file.service");
 /**
  * - AstFolders generation from Abstract Syntax AstNode of a folder
@@ -20,6 +21,7 @@ class AstFolderService extends stats_service_1.StatsService {
      */
     calculateStats(astFolder) {
         var _a, _b;
+        this._stats = new stats_model_1.Stats();
         this._stats.numberOfFiles += (_b = (_a = astFolder === null || astFolder === void 0 ? void 0 : astFolder.astFiles) === null || _a === void 0 ? void 0 : _a.length) !== null && _b !== void 0 ? _b : 0;
         for (const file of astFolder.astFiles) {
             this.incrementFileStats(file);
@@ -27,6 +29,7 @@ class AstFolderService extends stats_service_1.StatsService {
         for (const subFolder of astFolder.children) {
             this.calculateStats(subFolder);
         }
+        return this._stats;
     }
     /**
      * Increments AstFolder statistics for a given astFile
@@ -65,9 +68,11 @@ class AstFolderService extends stats_service_1.StatsService {
      * @param astFile        // The path of the AstFile
      */
     getRouteFromFolderToFile(astFolder, astFile) {
+        var _a;
         if (!astFile || !astFolder) {
             return undefined;
         }
+        console.log('ASTFOLDERPATHHH', astFile.name, (_a = astFolder.parent) === null || _a === void 0 ? void 0 : _a.path, astFolder.path);
         if (astFile.astFolder.path.slice(0, astFolder.path.length) !== astFolder.path) {
             console.log(`The file ${astFile.name} is not inside the folder ${astFolder.path}`);
             return undefined;

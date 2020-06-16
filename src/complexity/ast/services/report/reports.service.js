@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReportsService = void 0;
 const options_1 = require("../../models/options");
 const file_service_1 = require("../file.service");
-const ast_folder_model_1 = require("../../models/ast/ast-folder.model");
 const ast_folder_report_service_1 = require("./ast-folder-report.service");
 const ast_file_report_service_1 = require("./ast-file-report.service");
 /**
@@ -12,14 +11,20 @@ const ast_file_report_service_1 = require("./ast-file-report.service");
 class ReportsService {
     /**
      * MainAst reports generation process
-     * @param astFolder        // The main folder
+     * @param jsonAst
      */
-    static generateAllReports(astFolder) {
+    static generateAllReports(jsonAst) {
         ReportsService.createStyleFiles();
-        const parentFolder = new ast_folder_model_1.AstFolder();
-        parentFolder.children.push(astFolder);
-        ReportsService.generateSubfoldersReports(astFolder);
+        const parentFolder = jsonAst.astFolder;
+        // parentFolder.children.push(astFolder);
+        ReportsService.generateSubfoldersReports(parentFolder);
     }
+    // static generateAllReports(astFolder: AstFolder): void {
+    //     ReportsService.createStyleFiles();
+    //     const parentFolder: AstFolder = new AstFolder();
+    //     parentFolder.children.push(astFolder);
+    //     ReportsService.generateSubfoldersReports(astFolder);
+    // }
     /**
      * Generates reports of children recursively
      * @param astFolder        // The AstFolder to analyse

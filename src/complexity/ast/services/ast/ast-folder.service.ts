@@ -25,7 +25,8 @@ export class AstFolderService extends StatsService {
      * Calculates the statistics of the AstFolder
      * @param astFolder        // The AstFolder to analyse
      */
-    calculateStats(astFolder: AstFolder): void {
+    calculateStats(astFolder: AstFolder): Stats {
+        this._stats = new Stats();
         this._stats.numberOfFiles += astFolder?.astFiles?.length ?? 0;
         for (const file of astFolder.astFiles) {
             this.incrementFileStats(file);
@@ -33,6 +34,7 @@ export class AstFolderService extends StatsService {
         for (const subFolder of astFolder.children) {
             this.calculateStats(subFolder);
         }
+        return this._stats;
     }
 
 
@@ -82,6 +84,7 @@ export class AstFolderService extends StatsService {
         if (!astFile || !astFolder) {
             return undefined;
         }
+        console.log('ASTFOLDERPATHHH', astFile.name, astFolder.parent?.path, astFolder.path)
         if (astFile.astFolder.path.slice(0, astFolder.path.length) !== astFolder.path) {
             console.log(`The file ${astFile.name} is not inside the folder ${astFolder.path}`);
             return undefined;

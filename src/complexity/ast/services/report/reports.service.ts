@@ -4,6 +4,7 @@ import { AstFolder } from '../../models/ast/ast-folder.model';
 import { AstFolderReportService } from './ast-folder-report.service';
 import { AstFileReportService } from './ast-file-report.service';
 import { AstFile } from '../../models/ast/ast-file.model';
+import { JsonAst } from '../../models/ast/json-ast.model';
 
 
 /**
@@ -13,14 +14,20 @@ export class ReportsService {
 
     /**
      * MainAst reports generation process
-     * @param astFolder        // The main folder
+     * @param jsonAst
      */
-    static generateAllReports(astFolder: AstFolder): void {
+    static generateAllReports(jsonAst: JsonAst): void {
         ReportsService.createStyleFiles();
-        const parentFolder: AstFolder = new AstFolder();
-        parentFolder.children.push(astFolder);
-        ReportsService.generateSubfoldersReports(astFolder);
+        const parentFolder: AstFolder = jsonAst.astFolder;
+        // parentFolder.children.push(astFolder);
+        ReportsService.generateSubfoldersReports(parentFolder);
     }
+    // static generateAllReports(astFolder: AstFolder): void {
+    //     ReportsService.createStyleFiles();
+    //     const parentFolder: AstFolder = new AstFolder();
+    //     parentFolder.children.push(astFolder);
+    //     ReportsService.generateSubfoldersReports(astFolder);
+    // }
 
 
     /**

@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MainAst = exports.DEBUG = void 0;
-const options_1 = require("./models/options");
 const file_service_1 = require("./services/file.service");
 const ansi_colors_1 = require("ansi-colors");
 const init_service_1 = require("./ast/services/init.service");
 const fs = require("fs-extra");
+const reports_service_1 = require("./ast/services/report/reports.service");
+const options_1 = require("./ast/models/options");
 exports.DEBUG = true; // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND when you want to get stats only for debug.mock.ts file
 /**
  * MainAst process of the analysis
@@ -17,17 +18,19 @@ class MainAst {
     /**
      * Starts the analysis
      * @param pathCommand
-     * @param geneseConfigPath
+     * @param pathToAnalyze
+     * @param pathGeneseNodeJs
      * @param jsonAstPath
      */
-    start(pathCommand, geneseConfigPath = '/geneseconfig.json', jsonAstPath = '/ast.json') {
+    start(pathCommand, pathToAnalyze, pathGeneseNodeJs, jsonAstPath = '/ast.json') {
         console.log('START CALCULATION');
         // this.createSyntaxKindEnum();
-        options_1.Options.setOptionsFromConfig(pathCommand + geneseConfigPath);
+        options_1.Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
+        // Options.setOptionsFromConfig(pathCommand + geneseConfigPath);
         file_service_1.createOutDir();
-        const jsonAst = this.initService.generateAstFolders(this.getJsonAst(pathCommand + jsonAstPath));
+        const jsonAst = this.initService.generateAllFromJsonAst(this.getJsonAst(pathCommand + jsonAstPath));
         jsonAst.evaluate();
-        // ReportsService.generateAllReports(astFolder);
+        reports_service_1.ReportsService.generateAllReports(jsonAst);
         console.log(ansi_colors_1.blueBright('COMPLEXITY REPORT GENERATED SUCCESSFULLY'));
     }
     getJsonAst(jsonAstPath) {

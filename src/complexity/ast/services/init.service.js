@@ -23,45 +23,48 @@ class InitService {
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the folder
      * @param jsonAst
      */
-    generateAstFolders(jsonAst) {
+    generateAllFromJsonAst(jsonAst) {
         var _a;
         const newJsonAst = new json_ast_model_1.JsonAst();
         const astFolder = new ast_folder_model_1.AstFolder();
-        astFolder.astFiles = this.generateAstFiles(jsonAst.astFolder);
         astFolder.path = jsonAst.astFolder.path;
+        astFolder.astFiles = this.generateAstFiles(jsonAst.astFolder, astFolder);
         for (const child of (_a = jsonAst.astFolder) === null || _a === void 0 ? void 0 : _a.children) {
-            const newChild = this.generateAstFolder(child);
+            const newChild = this.generateChildrenAstFolder(jsonAst.astFolder, astFolder);
             newChild.parent = jsonAst.astFolder;
+            // newChild.children = this.generateAllFromJsonAst()
             astFolder.children.push(newChild);
         }
+        // astFolder.children = this.generateChildrenAstFolder(jsonAst.astFolder, )
         newJsonAst.astFolder = astFolder;
         return newJsonAst;
     }
-    generateAstFolder(astFolder) {
+    generateChildrenAstFolder(astFolderFromJsonAst, parentAstFolder) {
         const newAstFolder = new ast_folder_model_1.AstFolder();
-        newAstFolder.path = astFolder.path;
-        newAstFolder.parent = astFolder.parent;
-        newAstFolder.astFiles = this.generateAstFiles(astFolder);
-        for (const childFolder of astFolder.children) {
-            newAstFolder.children.push(this.generateAstFolder(childFolder));
+        newAstFolder.path = astFolderFromJsonAst.path;
+        newAstFolder.parent = parentAstFolder;
+        newAstFolder.astFiles = this.generateAstFiles(astFolderFromJsonAst, newAstFolder);
+        for (const childFolderFromJsonAst of astFolderFromJsonAst.children) {
+            newAstFolder.children.push(this.generateChildrenAstFolder(childFolderFromJsonAst, newAstFolder));
         }
         return newAstFolder;
     }
-    generateAstFiles(astFolder) {
+    generateAstFiles(astFolderFromJsonAst, astFolder) {
         const astFiles = [];
-        for (const astFile of astFolder.astFiles) {
-            astFiles.push(this.generateAstFile(astFile));
+        for (const astFileFromJsonAst of astFolderFromJsonAst.astFiles) {
+            astFiles.push(this.generateAstFile(astFileFromJsonAst, astFolder));
         }
         return astFiles;
     }
-    generateAstFile(astFile) {
-        if (!astFile.astNode) {
-            console.warn(astFile.name ? `No AstNode for this file : ${astFile.name}` : `AstFile without AstNode`);
+    generateAstFile(astFileFromJsonAst, astFolder) {
+        if (!astFileFromJsonAst.astNode) {
+            console.warn(astFileFromJsonAst.name ? `No AstNode for this file : ${astFileFromJsonAst.name}` : `AstFile without AstNode`);
             return undefined;
         }
         const newAstFile = new ast_file_model_1.AstFile();
-        newAstFile.text = astFile.text;
-        newAstFile.astNode = this.getFileAstNode(astFile.astNode, astFile);
+        newAstFile.text = astFileFromJsonAst.text;
+        newAstFile.astFolder = astFolder;
+        newAstFile.astNode = this.getFileAstNode(astFileFromJsonAst.astNode, newAstFile);
         newAstFile.astNodes = this.astNodeService.flatMapAstNodes(newAstFile.astNode, [newAstFile.astNode]);
         newAstFile.astMethods = newAstFile.astNodes
             .filter(e => {
@@ -70,36 +73,36 @@ class InitService {
             .map(e => e.astMethod);
         return newAstFile;
     }
-    getFileAstNode(astNode, astFile) {
+    getFileAstNode(astNodeFromJsonAst, astFile) {
         const newAstNode = new ast_node_model_1.AstNode();
         newAstNode.pos = 0;
-        newAstNode.end = astNode.end; // TODO: fix
+        newAstNode.end = astNodeFromJsonAst.end; // TODO: fix
         newAstNode.kind = syntax_kind_enum_1.SyntaxKind.SourceFile;
-        newAstNode.name = astNode.name;
+        newAstNode.name = astNodeFromJsonAst.name;
         newAstNode.astFile = astFile;
-        newAstNode.children = this.generateAstNodes(astNode.children, newAstNode);
+        newAstNode.children = this.generateAstNodes(astNodeFromJsonAst.children, newAstNode);
         return newAstNode;
     }
-    generateAstNodes(astNodes, astParentNode) {
-        if (!Array.isArray(astNodes)) {
+    generateAstNodes(astNodesFromJsonAst, astParentNode) {
+        if (!Array.isArray(astNodesFromJsonAst)) {
             return [];
         }
         const newAstNodes = [];
-        for (const astNode of astNodes) {
-            newAstNodes.push(this.generateAstNode(astNode, astParentNode));
+        for (const astNodeFromJsonAst of astNodesFromJsonAst) {
+            newAstNodes.push(this.generateAstNode(astNodeFromJsonAst, astParentNode));
         }
         return newAstNodes;
     }
-    generateAstNode(astNode, astParentNode) {
+    generateAstNode(astNodeFromJsonAst, astParentNode) {
         const newAstNode = new ast_node_model_1.AstNode();
         newAstNode.astFile = astParentNode.astFile;
-        newAstNode.end = astNode.end;
-        newAstNode.kind = astNode.kind; // TODO : check if kind is correct
-        newAstNode.name = astNode.name;
+        newAstNode.end = astNodeFromJsonAst.end;
+        newAstNode.kind = astNodeFromJsonAst.kind; // TODO : check if kind is correct
+        newAstNode.name = astNodeFromJsonAst.name;
         newAstNode.parent = astParentNode;
-        newAstNode.pos = astNode.pos;
-        newAstNode.children = this.generateAstNodes(astNode.children, newAstNode);
-        if (ast_service_1.AstService.isFunctionOrMethod(astNode)) {
+        newAstNode.pos = astNodeFromJsonAst.pos;
+        newAstNode.children = this.generateAstNodes(astNodeFromJsonAst.children, newAstNode);
+        if (ast_service_1.AstService.isFunctionOrMethod(astNodeFromJsonAst)) {
             newAstNode.astMethod = this.generateAstMethod(newAstNode);
         }
         return newAstNode;
@@ -107,7 +110,7 @@ class InitService {
     generateAstMethod(astNode) {
         const astMethod = new ast_method_model_1.AstMethod();
         astMethod.astNode = astNode;
-        astMethod.originalCode = code_service_1.CodeService.getCode(astNode.text);
+        astMethod.originalCode = code_service_1.CodeService.getCode(astNode.astFile.text);
         return astMethod;
     }
 }

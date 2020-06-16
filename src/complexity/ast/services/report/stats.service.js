@@ -20,6 +20,7 @@ class StatsService {
         else {
             this._stats = new stats_model_1.Stats();
             this.calculateStats(fileOrFolder);
+            console.log('STATS NAME', fileOrFolder['name']);
             this.getNameOrPath(fileOrFolder);
             this._stats.setPercentages();
             this._stats.cumulateComplexities();

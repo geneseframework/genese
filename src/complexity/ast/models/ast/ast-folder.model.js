@@ -17,6 +17,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstFolder = void 0;
 const complexities_by_status_interface_1 = require("../../interfaces/complexities-by-status.interface");
 const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
+const ast_folder_service_1 = require("../../services/ast/ast-folder.service");
 class AstFolder {
     constructor() {
         _astFiles.set(this, []); // The array of files of this folder (not in the subfolders)
@@ -84,6 +85,9 @@ class AstFolder {
     get stats() {
         return __classPrivateFieldGet(this, _stats);
     }
+    set stats(stats) {
+        __classPrivateFieldSet(this, _stats, stats);
+    }
     // ---------------------------------------------------------------------------------
     //                                  Other methods
     // ---------------------------------------------------------------------------------
@@ -101,6 +105,8 @@ class AstFolder {
             // this.numberOfFiles++;
             this.complexitiesByStatus = this.complexitiesByStatus.add(astFile.complexitiesByStatus);
         }
+        const astFolderService = new ast_folder_service_1.AstFolderService();
+        this.stats = astFolderService.calculateStats(this);
     }
 }
 exports.AstFolder = AstFolder;
