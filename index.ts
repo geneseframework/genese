@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { blueBright, red, yellowBright } from 'ansi-colors';
-import { Main } from './src/complexity/main';
+import { Main } from './src/complexity/old/main';
 import { exec } from 'child_process';
 
 const { program } = require('commander');

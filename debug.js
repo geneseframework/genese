@@ -2,7 +2,7 @@
 "use strict";
 exports.__esModule = true;
 var ansi_colors_1 = require("ansi-colors");
-var main = require("./src/complexity/main");
+var main = require("./src/complexity/old/main");
 
 try {
     console.log("WELCOME TO GENESE DEBUG");

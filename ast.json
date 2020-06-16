@@ -102,6 +102,5 @@
         ],
         "children": [],
         "path": "myPathFolder"
-    },
-    "language": "php"
+    }
 }

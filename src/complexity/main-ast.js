@@ -1,15 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MainAst = exports.DEBUG = void 0;
-const file_service_1 = require("./services/file.service");
+const file_service_1 = require("./old/services/file.service");
 const ansi_colors_1 = require("ansi-colors");
-const init_service_1 = require("./ast/services/init.service");
 const fs = require("fs-extra");
-const reports_service_1 = require("./ast/services/report/reports.service");
-const options_1 = require("./ast/models/options");
+const init_service_1 = require("./ast-to-reports/services/init.service");
+const options_1 = require("./ast-to-reports/models/options");
+const reports_service_1 = require("./ast-to-reports/services/report/reports.service");
 exports.DEBUG = true; // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND when you want to get stats only for debug.mock.ts file
 /**
- * MainAst process of the analysis
+ * MainConvertTs process of the analysis
  */
 class MainAst {
     constructor() {

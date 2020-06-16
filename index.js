@@ -2,7 +2,7 @@
 "use strict";
 exports.__esModule = true;
 var ansi_colors_1 = require("ansi-colors");
-var main_1 = require("./src/complexity/main");
+var main_1 = require("./src/complexity/old/main");
 var child_process_1 = require("child_process");
 var program = require('commander').program;
 // ---------------------------------------------------------------------------------------------------------
