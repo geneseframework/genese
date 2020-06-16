@@ -100,9 +100,7 @@ class AstNodeService {
         if (!astNode.isFunctionOrMethodDeclaration) {
             return false;
         }
-        const zzz = this.hasRecursiveNode(astNode.astMethod, astNode);
-        console.log('ZZZZ REC', zzz);
-        return zzz;
+        return this.hasRecursiveNode(astNode.astMethod, astNode);
     }
     /**
      * Checks if a MethodDeclaration or a FunctionDeclaration AstNode is called by one of its children

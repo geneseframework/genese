@@ -70,7 +70,6 @@ class AstNode {
     get context() {
         var _a;
         return (_a = __classPrivateFieldGet(this, _context)) !== null && _a !== void 0 ? _a : this.astNodeService.getContext(this);
-        // return ;
     }
     set context(treeNode) {
         __classPrivateFieldSet(this, _context, treeNode);

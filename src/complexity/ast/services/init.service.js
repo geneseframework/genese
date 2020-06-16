@@ -94,6 +94,7 @@ class InitService {
         return newAstNodes;
     }
     generateAstNode(astNodeFromJsonAst, astParentNode) {
+        var _a;
         const newAstNode = new ast_node_model_1.AstNode();
         newAstNode.astFile = astParentNode.astFile;
         newAstNode.end = astNodeFromJsonAst.end;
@@ -103,6 +104,9 @@ class InitService {
         newAstNode.pos = astNodeFromJsonAst.pos;
         newAstNode.children = this.generateAstNodes(astNodeFromJsonAst.children, newAstNode);
         if (ast_service_1.AstService.isFunctionOrMethod(astNodeFromJsonAst)) {
+            if (!newAstNode.name && ((_a = newAstNode.firstSon) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.Identifier) {
+                newAstNode.name = newAstNode.children[0].name;
+            }
             newAstNode.astMethod = this.generateAstMethod(newAstNode);
         }
         return newAstNode;
@@ -113,6 +117,8 @@ class InitService {
         astMethod.astNode.text = this.astNodeService.getCode(astNode);
         astMethod.originalCode = code_service_1.CodeService.getCode(this.astNodeService.getCode(astNode));
         return astMethod;
+    }
+    firstChildIsIdentifier() {
     }
 }
 exports.InitService = InitService;

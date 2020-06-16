@@ -114,6 +114,9 @@ export class InitService {
         newAstNode.pos = astNodeFromJsonAst.pos;
         newAstNode.children = this.generateAstNodes(astNodeFromJsonAst.children, newAstNode);
         if (AstService.isFunctionOrMethod(astNodeFromJsonAst)) {
+            if (!newAstNode.name && newAstNode.firstSon?.kind === SyntaxKind.Identifier) {
+                newAstNode.name = newAstNode.children[0].name;
+            }
             newAstNode.astMethod = this.generateAstMethod(newAstNode);
         }
         return newAstNode;
@@ -128,4 +131,5 @@ export class InitService {
 
         return astMethod;
     }
+
 }
