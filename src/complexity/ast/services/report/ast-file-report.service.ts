@@ -27,7 +27,9 @@ export class AstFileReportService {
      */
     getMethodsArray(): MethodReport[] {
         let report: MethodReport[] = [];
+        // console.log('ASTFILE REPORT GET MTHDSSS name', this.astFile.name)
         for (const method of this.astFile.astMethods) {
+            // console.log('ASTFILE REPORT GET MTHDSSS method', method.originalCode)
             const methodReport: MethodReport = {
                 code: method.displayedCode?.text,
                 cognitiveColor: method.cognitiveStatus.toLowerCase(),

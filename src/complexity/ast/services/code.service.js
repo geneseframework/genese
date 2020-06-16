@@ -12,6 +12,7 @@ class CodeService {
      * @param text  // The content of the code
      */
     static getCode(text) {
+        console.log('TEXTTTT', text);
         const code = new code_model_1.Code();
         code.text = text;
         const textLines = text.split('\n');

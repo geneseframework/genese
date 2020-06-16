@@ -123,7 +123,9 @@ export class InitService {
     generateAstMethod(astNode: AstNode): AstMethod {
         const astMethod = new AstMethod();
         astMethod.astNode = astNode;
-        astMethod.originalCode = CodeService.getCode(astNode.astFile.text);
+        astMethod.astNode.text = this.astNodeService.getCode(astNode);
+        astMethod.originalCode = CodeService.getCode(this.astNodeService.getCode(astNode));
+
         return astMethod;
     }
 }
