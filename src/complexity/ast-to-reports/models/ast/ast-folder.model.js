@@ -108,13 +108,25 @@ class AstFolder {
         this.stats = astFolderService.calculateStats(this);
     }
     logg(message) {
-        var _a;
+        var _a, _b;
         console.log('-----------------------------');
         console.log(chalk.yellowBright(message !== null && message !== void 0 ? message : 'AST_FOLDER'));
         console.log(this.path);
         console.log('-----------------------------');
         console.log(chalk.blueBright('parent :'), (_a = this.parent) === null || _a === void 0 ? void 0 : _a.path);
-        console.log(chalk.blueBright('children :'), this.children);
+        for (const astFile of this.astFiles) {
+            const name = (_b = astFile === null || astFile === void 0 ? void 0 : astFile.name) !== null && _b !== void 0 ? _b : '';
+            console.log(chalk.yellowBright(`  ${name}`));
+            this.loggChildren(astFile === null || astFile === void 0 ? void 0 : astFile.astNode, `  `);
+        }
+    }
+    loggChildren(astNode, indent = '') {
+        var _a;
+        for (const childAstNode of astNode === null || astNode === void 0 ? void 0 : astNode.children) {
+            const name = (_a = childAstNode === null || childAstNode === void 0 ? void 0 : childAstNode.name) !== null && _a !== void 0 ? _a : '';
+            console.log(chalk.blueBright(`${indent}${childAstNode.kind}`), name);
+            this.loggChildren(childAstNode, `${indent}  `);
+        }
     }
 }
 exports.AstFolder = AstFolder;

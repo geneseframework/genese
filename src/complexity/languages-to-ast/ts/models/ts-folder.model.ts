@@ -1,6 +1,8 @@
 import { Logg } from '../../../core/interfaces/logg.interface';
 import * as chalk from 'chalk';
 import { TsFile } from './ts-file.model';
+import { AstNode } from '../../../ast-to-reports/models/ast/ast-node.model';
+import { TsNode } from './ts-node.model';
 
 export class TsFolder implements Logg {
 
@@ -69,6 +71,19 @@ export class TsFolder implements Logg {
         console.log(this.path);
         console.log('-----------------------------');
         console.log(chalk.blueBright('parent :'), this.parent?.path);
-        console.log(chalk.blueBright('children :'), this.children);
+        for (const astFile of this.tsFiles) {
+            const name = astFile?.name ?? '';
+            console.log(chalk.blueBright('TsFile'), chalk.yellowBright(`  ${name}`));
+            this.loggChildren(astFile?.tsNode, `  `)
+        }
+    }
+
+
+    loggChildren(tsNode: TsNode, indent = ''): void {
+        for (const childAstNode of tsNode?.children) {
+            const name = childAstNode?.name ?? '';
+            console.log(chalk.blueBright(`${indent}${childAstNode.kind}`), name);
+            this.loggChildren(childAstNode, `${indent}  `)
+        }
     }
 }

@@ -19,18 +19,14 @@ class MainConvertTs {
      * @param language
      */
     start(pathCommand, pathToAnalyze, pathGeneseNodeJs, language) {
-        var _a;
         console.log(chalk.blueBright('STARTS CONVERSION FROM TS TO JSON'));
         convert_options_model_1.ConvertOptions.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
         switch (language) {
             case language_enum_1.Language.TS:
                 const initService = new init_conversion_service_1.InitConversionService();
-                const jsonAst = new json_ast_model_1.JsonAst();
-                const zzz = initService.generateAll(pathToAnalyze);
-                console.log('ZZZ', zzz);
-                jsonAst.astFolder = initService.generateAll(pathToAnalyze);
-                console.log('JSONASTTTT', (_a = jsonAst.astFolder) === null || _a === void 0 ? void 0 : _a.path);
-                jsonAst.logg();
+                let jsonAst = new json_ast_model_1.JsonAst();
+                jsonAst.astFolder = initService.generateAll(pathToAnalyze).tsFolder;
+                jsonAst.astFolder.logg('JSN'); // jsonAst.astFolder = initService.generateAll(pathToAnalyze) as any;
         }
         console.log(chalk.blueBright('CONVERSION GENERATED SUCCESSFULLY'));
     }

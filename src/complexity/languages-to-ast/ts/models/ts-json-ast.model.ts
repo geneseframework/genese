@@ -1,7 +1,6 @@
 import { Logg } from '../../../core/interfaces/logg.interface';
 import { TsFolder } from './ts-folder.model';
 import * as chalk from 'chalk';
-import { AstNode } from '../../../ast-to-reports/models/ast/ast-node.model';
 import { TsNode } from './ts-node.model';
 
 export class TsJsonAst implements Logg {

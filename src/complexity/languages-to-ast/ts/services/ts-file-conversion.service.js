@@ -17,7 +17,7 @@ class TsFileConversionService {
         const tsNode = new ts_node_model_1.TsNode();
         tsNode.node = ts_service_1.Ts.getSourceFile(path);
         tsFile.tsNode = this.createTsNodeChildren(tsNode);
-        tsFile.logg();
+        // tsFile.logg();
         return tsFile;
     }
     createTsNodeChildren(tsNode) {

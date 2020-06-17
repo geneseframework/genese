@@ -26,7 +26,8 @@ export class InitConversionService {
         }
         const tsJsonAst = new TsJsonAst();
         tsJsonAst.tsFolder = this.generateTsFolder(path);
-        tsJsonAst.logg();
+        // tsJsonAst.tsFolder.logg();
+        // console.log('GENERATE ALLLL', tsJsonAst.tsFolder?.path)
         return tsJsonAst;
     }
 
@@ -46,7 +47,6 @@ export class InitConversionService {
                 }
             }
         });
-        tsFolder.logg()
         return tsFolder;
     }
 

@@ -10,6 +10,8 @@ import { AstFile } from './ast-file.model';
 import { AstFolderService } from '../../services/ast/ast-folder.service';
 import { Logg } from '../../../core/interfaces/logg.interface';
 import * as chalk from 'chalk';
+import { TsNode } from '../../../languages-to-ast/ts/models/ts-node.model';
+import { AstNode } from './ast-node.model';
 
 export class AstFolder implements Evaluate, HasStats, Logg {
 
@@ -153,7 +155,20 @@ export class AstFolder implements Evaluate, HasStats, Logg {
         console.log(this.path);
         console.log('-----------------------------');
         console.log(chalk.blueBright('parent :'), this.parent?.path);
-        console.log(chalk.blueBright('children :'), this.children);
+        for (const astFile of this.astFiles) {
+            const name = astFile?.name ?? '';
+            console.log(chalk.yellowBright(`  ${name}`));
+            this.loggChildren(astFile?.astNode, `  `)
+        }
+    }
+
+
+    loggChildren(astNode: AstNode, indent = ''): void {
+        for (const childAstNode of astNode?.children) {
+            const name = childAstNode?.name ?? '';
+            console.log(chalk.blueBright(`${indent}${childAstNode.kind}`), name);
+            this.loggChildren(childAstNode, `${indent}  `)
+        }
     }
 
 }

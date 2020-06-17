@@ -25,12 +25,9 @@ export class MainConvertTs {
         switch (language) {
             case Language.TS:
                 const initService = new InitConversionService();
-                const jsonAst = new JsonAst();
-                const zzz = initService.generateAll(pathToAnalyze);
-                console.log('ZZZ', zzz)
-                jsonAst.astFolder = initService.generateAll(pathToAnalyze) as any;
-                console.log('JSONASTTTT', jsonAst.astFolder?.path)
-                jsonAst.logg();
+                let jsonAst = new JsonAst();
+                jsonAst.astFolder = initService.generateAll(pathToAnalyze).tsFolder as any;
+                // jsonAst.astFolder.logg('JSN');
         }
         console.log(chalk.blueBright('CONVERSION GENERATED SUCCESSFULLY'));
     }
