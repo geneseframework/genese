@@ -63,7 +63,7 @@ class TsFile {
     //                                  Other methods
     // ---------------------------------------------------------------------------------
     logg(message) {
-        var _a;
+        var _a, _b;
         console.log('-----------------------------');
         console.log(chalk.yellowBright(message !== null && message !== void 0 ? message : 'AST_FILE'));
         console.log(this.name);
@@ -71,6 +71,7 @@ class TsFile {
         console.log(chalk.blueBright('end :'), this.end);
         console.log(chalk.blueBright('text :'), this.text);
         console.log(chalk.blueBright('tsNode :'), (_a = this.tsNode) === null || _a === void 0 ? void 0 : _a.kind);
+        console.log(chalk.blueBright('tsNode children :'), (_b = this.tsNode) === null || _b === void 0 ? void 0 : _b.children);
     }
 }
 exports.TsFile = TsFile;

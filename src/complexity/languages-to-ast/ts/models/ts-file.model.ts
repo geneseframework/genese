@@ -83,6 +83,7 @@ export class TsFile implements Logg {
         console.log(chalk.blueBright('end :'), this.end);
         console.log(chalk.blueBright('text :'), this.text);
         console.log(chalk.blueBright('tsNode :'), this.tsNode?.kind);
+        console.log(chalk.blueBright('tsNode children :'), this.tsNode?.children);
     }
 
 

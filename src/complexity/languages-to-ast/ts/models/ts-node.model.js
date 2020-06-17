@@ -69,8 +69,10 @@ class TsNode {
         __classPrivateFieldSet(this, _parent, treeNode);
     }
     get pos() {
-        var _a;
-        return (_a = __classPrivateFieldGet(this, _pos)) !== null && _a !== void 0 ? _a : ts_service_1.Ts.getPosition(this.node);
+        return __classPrivateFieldGet(this, _pos);
+    }
+    set pos(position) {
+        __classPrivateFieldSet(this, _pos, position);
     }
 }
 exports.TsNode = TsNode;

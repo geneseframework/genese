@@ -70,7 +70,12 @@ export class TsNode {
 
 
     get pos(): number {
-        return this.#pos ?? Ts.getPosition(this.node);
+        return this.#pos;
+    }
+
+
+    set pos(position: number) {
+        this.#pos = position;
     }
 
 

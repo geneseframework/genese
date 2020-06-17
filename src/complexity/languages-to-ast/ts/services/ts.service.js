@@ -9,6 +9,13 @@ const file_service_1 = require("../../../core/services/file.service");
  */
 class Ts {
     /**
+     * Gets the end position of a node in the AST
+     * @param node // The node in the AST
+     */
+    static getEnd(node) {
+        return node === null || node === void 0 ? void 0 : node.end;
+    }
+    /**
      * Gets the position of a node in the AST
      * @param node // The node in the AST
      */

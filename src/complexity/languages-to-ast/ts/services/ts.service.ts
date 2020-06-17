@@ -9,6 +9,15 @@ export class Ts {
 
 
     /**
+     * Gets the end position of a node in the AST
+     * @param node // The node in the AST
+     */
+    static getEnd(node: ts.Node): number {
+        return node?.end;
+    }
+
+
+    /**
      * Gets the position of a node in the AST
      * @param node // The node in the AST
      */
