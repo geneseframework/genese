@@ -3,7 +3,7 @@ import { ConvertOptions } from '../../core/convert-options.model';
 import { LIMIT_CONVERSIONS } from '../../main-language-to-ast';
 import { TsFolder } from '../models/ts-folder.model';
 import { TsFileConversionService } from './ts-file-conversion.service';
-import { TsJsonAst } from '../models/ts-ast.model';
+import { TsJsonAst } from '../models/ts-json-ast.model';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
@@ -24,9 +24,10 @@ export class InitConversionService {
             console.log('ERROR: no path.')
             return undefined;
         }
-        const jsonAst = new TsJsonAst();
-        jsonAst.tsFolder = this.generateTsFolder(path);
-        return jsonAst;
+        const tsJsonAst = new TsJsonAst();
+        tsJsonAst.tsFolder = this.generateTsFolder(path);
+        tsJsonAst.logg();
+        return tsJsonAst;
     }
 
 
@@ -41,7 +42,7 @@ export class InitConversionService {
                 if (fs.statSync(pathElement).isDirectory() && !LIMIT_CONVERSIONS) {
                     tsFolder.children.push(this.generateTsFolder(`${pathElement}/`, tsFolder))
                 } else if (!LIMIT_CONVERSIONS || pathElement === '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.js') {
-                    tsFolder.astFiles.push(this.tsFileConversionService.generateTsFile(pathElement, tsFolder));
+                    tsFolder.tsFiles.push(this.tsFileConversionService.generateTsFile(pathElement, tsFolder));
                 }
             }
         });

@@ -6,7 +6,7 @@ const convert_options_model_1 = require("../../core/convert-options.model");
 const main_language_to_ast_1 = require("../../main-language-to-ast");
 const ts_folder_model_1 = require("../models/ts-folder.model");
 const ts_file_conversion_service_1 = require("./ts-file-conversion.service");
-const ts_ast_model_1 = require("../models/ts-ast.model");
+const ts_json_ast_model_1 = require("../models/ts-json-ast.model");
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
  * - Other services for TreeFolders
@@ -25,9 +25,10 @@ class InitConversionService {
             console.log('ERROR: no path.');
             return undefined;
         }
-        const jsonAst = new ts_ast_model_1.TsJsonAst();
-        jsonAst.tsFolder = this.generateTsFolder(path);
-        return jsonAst;
+        const tsJsonAst = new ts_json_ast_model_1.TsJsonAst();
+        tsJsonAst.tsFolder = this.generateTsFolder(path);
+        tsJsonAst.logg();
+        return tsJsonAst;
     }
     generateTsFolder(path, astFolderParent) {
         let tsFolder = new ts_folder_model_1.TsFolder();
@@ -41,7 +42,7 @@ class InitConversionService {
                     tsFolder.children.push(this.generateTsFolder(`${pathElement}/`, tsFolder));
                 }
                 else if (!main_language_to_ast_1.LIMIT_CONVERSIONS || pathElement === '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.js') {
-                    tsFolder.astFiles.push(this.tsFileConversionService.generateTsFile(pathElement, tsFolder));
+                    tsFolder.tsFiles.push(this.tsFileConversionService.generateTsFile(pathElement, tsFolder));
                 }
             }
         });

@@ -9,8 +9,10 @@ import { NodeFeature } from '../../enums/node-feature.enum';
 import { cpxFactors } from '../../../cpx-factors';
 import { addObjects } from '../../../core/services/tools.service';
 import { AstNodeService } from '../../services/ast/ast-node.service';
+import * as chalk from 'chalk';
+import { Logg } from '../../../core/interfaces/logg.interface';
 
-export class AstNode implements Evaluate {
+export class AstNode implements Evaluate, Logg {
 
     #astFile?: AstFile = undefined;                                             // The AstFile containing the AST node of the AstNode
     #astMethod?: AstMethod = undefined;                                         // The method at the root of the current ast (if this ast is inside a method)
@@ -392,5 +394,15 @@ export class AstNode implements Evaluate {
             this.cpxFactors.depth = addObjects(this.parent.cpxFactors.depth, this.cpxFactors.depth);
         }
     }
+
+
+
+    logg(message?: string): void {
+        console.log('-----------------------------');
+        console.log(chalk.yellowBright(message ?? 'AST NODE'));
+        console.log(this.kind, this.name);
+        console.log('-----------------------------');
+    }
+
 
 }

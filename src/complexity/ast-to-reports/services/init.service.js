@@ -24,19 +24,21 @@ class InitService {
      * @param jsonAst
      */
     generateAllFromJsonAst(jsonAst) {
-        var _a;
+        var _a, _b;
         const newJsonAst = new json_ast_model_1.JsonAst();
         const astFolder = new ast_folder_model_1.AstFolder();
         astFolder.path = jsonAst.astFolder.path;
         astFolder.astFiles = this.generateAstFiles(jsonAst.astFolder, astFolder);
-        for (const child of (_a = jsonAst.astFolder) === null || _a === void 0 ? void 0 : _a.children) {
-            const newChild = this.generateChildrenAstFolder(jsonAst.astFolder, astFolder);
-            newChild.parent = jsonAst.astFolder;
-            // newChild.children = this.generateAllFromJsonAst()
-            astFolder.children.push(newChild);
+        if (Array.isArray((_a = jsonAst.astFolder) === null || _a === void 0 ? void 0 : _a.children)) {
+            for (const child of (_b = jsonAst.astFolder) === null || _b === void 0 ? void 0 : _b.children) {
+                const newChild = this.generateChildrenAstFolder(jsonAst.astFolder, astFolder);
+                newChild.parent = jsonAst.astFolder;
+                // newChild.children = this.generateAllFromJsonAst()
+                astFolder.children.push(newChild);
+            }
         }
-        // astFolder.children = this.generateChildrenAstFolder(jsonAst.astFolder, )
         newJsonAst.astFolder = astFolder;
+        newJsonAst.logg();
         return newJsonAst;
     }
     generateChildrenAstFolder(astFolderFromJsonAst, parentAstFolder) {

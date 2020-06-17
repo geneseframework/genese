@@ -28,14 +28,16 @@ export class InitService {
         const astFolder = new AstFolder();
         astFolder.path = jsonAst.astFolder.path;
         astFolder.astFiles = this.generateAstFiles(jsonAst.astFolder, astFolder);
-        for (const child of jsonAst.astFolder?.children) {
-            const newChild = this.generateChildrenAstFolder(jsonAst.astFolder, astFolder);
-            newChild.parent = jsonAst.astFolder;
-            // newChild.children = this.generateAllFromJsonAst()
-            astFolder.children.push(newChild);
+        if (Array.isArray(jsonAst.astFolder?.children)) {
+            for (const child of jsonAst.astFolder?.children) {
+                const newChild = this.generateChildrenAstFolder(jsonAst.astFolder, astFolder);
+                newChild.parent = jsonAst.astFolder;
+                // newChild.children = this.generateAllFromJsonAst()
+                astFolder.children.push(newChild);
+            }
         }
-        // astFolder.children = this.generateChildrenAstFolder(jsonAst.astFolder, )
         newJsonAst.astFolder = astFolder;
+        newJsonAst.logg();
         return newJsonAst;
     }
 

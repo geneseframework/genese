@@ -22,7 +22,7 @@ class MainAst {
      * @param pathGeneseNodeJs
      * @param jsonAstPath
      */
-    start(pathCommand, pathToAnalyze, pathGeneseNodeJs, jsonAstPath = '/ast.json') {
+    start(pathCommand, pathToAnalyze, pathGeneseNodeJs, jsonAstPath = '/ast-php.json') {
         console.log('START CALCULATION');
         // this.createSyntaxKindEnum();
         options_1.Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);

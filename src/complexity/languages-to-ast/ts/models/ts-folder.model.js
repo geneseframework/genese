@@ -12,13 +12,13 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astFiles, _children, _parent, _path;
+var _tsFiles, _children, _parent, _path;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TsFolder = void 0;
 const chalk = require("chalk");
 class TsFolder {
     constructor() {
-        _astFiles.set(this, []); // The array of files of this folder (not in the subfolders)
+        _tsFiles.set(this, []); // The array of files of this folder (not in the subfolders)
         _children.set(this, []); // The subfolders of this folder
         _parent.set(this, undefined); // The TsFolder corresponding to the parent folder of this TsFolder
         _path.set(this, undefined); // The absolute path of this folder
@@ -26,11 +26,11 @@ class TsFolder {
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
-    get astFiles() {
-        return __classPrivateFieldGet(this, _astFiles);
+    get tsFiles() {
+        return __classPrivateFieldGet(this, _tsFiles);
     }
-    set astFiles(astFiles) {
-        __classPrivateFieldSet(this, _astFiles, astFiles);
+    set tsFiles(tsFiles) {
+        __classPrivateFieldSet(this, _tsFiles, tsFiles);
     }
     get children() {
         return __classPrivateFieldGet(this, _children);
@@ -64,4 +64,4 @@ class TsFolder {
     }
 }
 exports.TsFolder = TsFolder;
-_astFiles = new WeakMap(), _children = new WeakMap(), _parent = new WeakMap(), _path = new WeakMap();
+_tsFiles = new WeakMap(), _children = new WeakMap(), _parent = new WeakMap(), _path = new WeakMap();

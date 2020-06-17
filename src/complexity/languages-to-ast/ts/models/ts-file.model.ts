@@ -2,6 +2,7 @@ import * as chalk from 'chalk';
 import * as ts from 'typescript';
 import { Logg } from '../../../core/interfaces/logg.interface';
 import { TsNode } from './ts-node.model';
+import { AstNode } from '../../../ast-to-reports/models/ast/ast-node.model';
 
 export class TsFile implements Logg {
 
@@ -83,7 +84,16 @@ export class TsFile implements Logg {
         console.log(chalk.blueBright('end :'), this.end);
         console.log(chalk.blueBright('text :'), this.text);
         console.log(chalk.blueBright('tsNode :'), this.tsNode?.kind);
-        console.log(chalk.blueBright('tsNode children :'), this.tsNode?.children);
+        this.loggChildren(this.tsNode, '  ')
+    }
+
+
+    loggChildren(tsNode: TsNode, indent = ''): void {
+        for (const childAstNode of tsNode?.children) {
+            const name = childAstNode?.name ?? '';
+            console.log(chalk.blueBright(`${indent}${childAstNode.kind}`), name);
+            this.loggChildren(childAstNode, `${indent}  `)
+        }
     }
 
 

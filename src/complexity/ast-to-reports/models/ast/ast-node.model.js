@@ -22,6 +22,7 @@ const node_feature_enum_1 = require("../../enums/node-feature.enum");
 const cpx_factors_1 = require("../../../cpx-factors");
 const tools_service_1 = require("../../../core/services/tools.service");
 const ast_node_service_1 = require("../../services/ast/ast-node.service");
+const chalk = require("chalk");
 class AstNode {
     constructor() {
         _astFile.set(this, undefined); // The AstFile containing the AST node of the AstNode
@@ -304,6 +305,12 @@ class AstNode {
         if (this && ((_c = this.parent) === null || _c === void 0 ? void 0 : _c.parent) && ((_e = (_d = this.parent) === null || _d === void 0 ? void 0 : _d.cpxFactors) === null || _e === void 0 ? void 0 : _e.depth)) {
             this.cpxFactors.depth = tools_service_1.addObjects(this.parent.cpxFactors.depth, this.cpxFactors.depth);
         }
+    }
+    logg(message) {
+        console.log('-----------------------------');
+        console.log(chalk.yellowBright(message !== null && message !== void 0 ? message : 'AST NODE'));
+        console.log(this.kind, this.name);
+        console.log('-----------------------------');
     }
 }
 exports.AstNode = AstNode;

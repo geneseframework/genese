@@ -44,7 +44,7 @@ export class TsNode {
         if (this.#name) {
             return this.#name;
         }
-        this.#name = this.node?.['name']?.['escapedText'] ?? this.node?.['escapedText'] ?? Ts.getKind(this.node);
+        this.#name = this.node?.['name']?.['escapedText'] ?? this.node?.['escapedText'] ?? '';
         return this.#name;
     }
 

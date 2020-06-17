@@ -1,5 +1,8 @@
 import { Logg } from '../../../core/interfaces/logg.interface';
 import { TsFolder } from './ts-folder.model';
+import * as chalk from 'chalk';
+import { AstNode } from '../../../ast-to-reports/models/ast/ast-node.model';
+import { TsNode } from './ts-node.model';
 
 export class TsJsonAst implements Logg {
 
@@ -31,12 +34,23 @@ export class TsJsonAst implements Logg {
 
     logg(message?: string): void {
         console.log('-----------------------------');
-        console.log('LOG JSON_AST');
+        console.log(chalk.yellowBright(message ?? 'TS JSON_AST'));
+        console.log(this.tsFolder?.path);
         console.log('-----------------------------');
-        if (message) {
-            console.log(message);
+        for (const tsFile of this.tsFolder?.tsFiles ?? []) {
+            console.log(chalk.blueBright('tsFile'), tsFile?.name);
+            console.log(chalk.blueBright('tsFile astNode'), tsFile?.tsNode?.kind);
+            this.loggChildren(tsFile.tsNode, '  ');
         }
-        console.log(this.tsFolder);
+        console.log(chalk.blueBright('children'), this.tsFolder?.children);
     }
 
+
+    loggChildren(tsNode: TsNode, indent = ''): void {
+        for (const childAstNode of tsNode?.children) {
+            const name = childAstNode?.name ?? '';
+            console.log(chalk.blueBright(`${indent}${childAstNode.kind}`), name);
+            this.loggChildren(childAstNode, `${indent}  `)
+        }
+    }
 }

@@ -53,7 +53,7 @@ class TsNode {
         if (__classPrivateFieldGet(this, _name)) {
             return __classPrivateFieldGet(this, _name);
         }
-        __classPrivateFieldSet(this, _name, (_e = (_c = (_b = (_a = this.node) === null || _a === void 0 ? void 0 : _a['name']) === null || _b === void 0 ? void 0 : _b['escapedText']) !== null && _c !== void 0 ? _c : (_d = this.node) === null || _d === void 0 ? void 0 : _d['escapedText']) !== null && _e !== void 0 ? _e : ts_service_1.Ts.getKind(this.node));
+        __classPrivateFieldSet(this, _name, (_e = (_c = (_b = (_a = this.node) === null || _a === void 0 ? void 0 : _a['name']) === null || _b === void 0 ? void 0 : _b['escapedText']) !== null && _c !== void 0 ? _c : (_d = this.node) === null || _d === void 0 ? void 0 : _d['escapedText']) !== null && _e !== void 0 ? _e : '');
         return __classPrivateFieldGet(this, _name);
     }
     get node() {

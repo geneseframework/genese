@@ -5,7 +5,7 @@ import { TsFile } from './ts-file.model';
 export class TsFolder implements Logg {
 
 
-    #astFiles?: TsFile[] = [];                                                // The array of files of this folder (not in the subfolders)
+    #tsFiles?: TsFile[] = [];                                                // The array of files of this folder (not in the subfolders)
     #children?: TsFolder[] = [];                                             // The subfolders of this folder
     #parent?: TsFolder = undefined;                                            // The TsFolder corresponding to the parent folder of this TsFolder
     #path?: string = undefined;                                                                 // The absolute path of this folder
@@ -17,13 +17,13 @@ export class TsFolder implements Logg {
     // ---------------------------------------------------------------------------------
 
 
-    get astFiles(): TsFile[] {
-        return this.#astFiles;
+    get tsFiles(): TsFile[] {
+        return this.#tsFiles;
     }
 
 
-    set astFiles(astFiles: TsFile[]) {
-        this.#astFiles = astFiles;
+    set tsFiles(tsFiles: TsFile[]) {
+        this.#tsFiles = tsFiles;
     }
 
 
