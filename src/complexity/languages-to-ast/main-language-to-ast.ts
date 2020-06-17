@@ -1,7 +1,7 @@
 import { blueBright } from 'ansi-colors';
 import { InitConversionService } from './ts/services/init-conversion.service';
 import { ConvertOptions } from './core/convert-options.model';
-import { JsonAst } from '../core/models/ast/json-ast.model';
+import { JsonAst } from '../ast-to-reports/models/ast/json-ast.model';
 import { Language } from '../core/enum/language.enum';
 
 export const LIMIT_CONVERSIONS = true;
@@ -25,7 +25,8 @@ export class MainConvertTs {
         switch (language) {
             case Language.TS:
                 const initService = new InitConversionService();
-                const jsonAst: JsonAst = initService.generateAll(pathToAnalyze);
+                const jsonAst = new JsonAst();
+                jsonAst.astFolder = initService.generateAll(pathToAnalyze) as any;
                 jsonAst.logg();
         }
         console.log(blueBright('CONVERSION GENERATED SUCCESSFULLY'));

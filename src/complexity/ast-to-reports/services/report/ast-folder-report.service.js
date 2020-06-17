@@ -6,7 +6,7 @@ const eol = require("eol");
 const Handlebars = require("handlebars");
 const options_1 = require("../../models/options");
 const file_service_1 = require("../../../core/services/file.service");
-const ast_folder_model_1 = require("../../../core/models/ast/ast-folder.model");
+const ast_folder_model_1 = require("../../models/ast/ast-folder.model");
 const ast_folder_service_1 = require("../ast/ast-folder.service");
 /**
  * Service generating folders reports

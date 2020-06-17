@@ -3,21 +3,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.InitConversionService = void 0;
 const fs = require("fs-extra");
 const convert_options_model_1 = require("../../core/convert-options.model");
-const ast_folder_model_1 = require("../../../core/models/ast/ast-folder.model");
-const json_ast_model_1 = require("../../../core/models/ast/json-ast.model");
-const ast_file_conversion_service_1 = require("./ast-file-conversion.service");
 const main_language_to_ast_1 = require("../../main-language-to-ast");
+const ts_folder_model_1 = require("../models/ts-folder.model");
+const ts_file_conversion_service_1 = require("./ts-file-conversion.service");
+const ts_ast_model_1 = require("../models/ts-ast.model");
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
  * - Other services for TreeFolders
  */
 class InitConversionService {
     constructor() {
-        this.jsonAst = new json_ast_model_1.JsonAst();
-        this.astFileConversionService = new ast_file_conversion_service_1.AstFileConversionService(); // The service managing TreeFiles
+        this.tsFileConversionService = new ts_file_conversion_service_1.TsFileConversionService(); // The service managing TreeFiles
     }
     /**
-     * Generates the AstFolder for a given folder
+     * Generates the TsFolder for a given folder
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the folder
      * @param path              // The path of the folder
      */
@@ -26,30 +25,28 @@ class InitConversionService {
             console.log('ERROR: no path.');
             return undefined;
         }
-        this.jsonAst.astFolder = this.generateAstFolder(path);
-        return this.jsonAst;
+        const jsonAst = new ts_ast_model_1.TsJsonAst();
+        jsonAst.tsFolder = this.generateTsFolder(path);
+        return jsonAst;
     }
-    generateAstFolder(path, astFolderParent) {
-        let astFolder = new ast_folder_model_1.AstFolder();
-        astFolder.parent = astFolderParent;
-        astFolder.path = path;
+    generateTsFolder(path, astFolderParent) {
+        let tsFolder = new ts_folder_model_1.TsFolder();
+        tsFolder.parent = astFolderParent;
+        tsFolder.path = path;
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach((elementName) => {
-            console.log('ELTTT', elementName);
             const pathElement = path + elementName;
             if (!convert_options_model_1.ConvertOptions.isIgnored(pathElement)) {
                 if (fs.statSync(pathElement).isDirectory() && !main_language_to_ast_1.LIMIT_CONVERSIONS) {
-                    console.log('NO LIMITS');
-                    astFolder.children.push(this.generateAstFolder(`${pathElement}/`, astFolder));
+                    tsFolder.children.push(this.generateTsFolder(`${pathElement}/`, tsFolder));
                 }
                 else if (!main_language_to_ast_1.LIMIT_CONVERSIONS || pathElement === '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.js') {
-                    console.log('PATHELTTT', pathElement);
-                    astFolder.astFiles.push(this.astFileConversionService.generateAstFile(pathElement, astFolder));
+                    tsFolder.astFiles.push(this.tsFileConversionService.generateTsFile(pathElement, tsFolder));
                 }
             }
         });
-        astFolder.logg();
-        return astFolder;
+        tsFolder.logg();
+        return tsFolder;
     }
 }
 exports.InitConversionService = InitConversionService;

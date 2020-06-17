@@ -1,14 +1,14 @@
-import { SyntaxKind } from '../../enum/syntax-kind.enum';
+import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 import { AstFile } from './ast-file.model';
 import { AstMethod } from './ast-method.model';
-import { Ast } from '../../services/ast.service';
-import { NodeFeatureService } from '../../../ast-to-reports/services/factor-category.service';
-import { Evaluate } from '../../../ast-to-reports/interfaces/evaluate.interface';
-import { CpxFactors } from '../../../ast-to-reports/models/cpx-factor/cpx-factors.model';
-import { NodeFeature } from '../../../ast-to-reports/enums/node-feature.enum';
+import { Ast } from '../../../core/services/ast.service';
+import { NodeFeatureService } from '../../services/factor-category.service';
+import { Evaluate } from '../../interfaces/evaluate.interface';
+import { CpxFactors } from '../cpx-factor/cpx-factors.model';
+import { NodeFeature } from '../../enums/node-feature.enum';
 import { cpxFactors } from '../../../cpx-factors';
-import { addObjects } from '../../services/tools.service';
-import { AstNodeService } from '../../../ast-to-reports/services/ast/ast-node.service';
+import { addObjects } from '../../../core/services/tools.service';
+import { AstNodeService } from '../../services/ast/ast-node.service';
 
 export class AstNode implements Evaluate {
 

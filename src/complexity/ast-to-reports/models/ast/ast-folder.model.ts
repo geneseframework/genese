@@ -1,14 +1,14 @@
 /**
  * Element of the TreeNode structure corresponding to a given folder
  */
-import { Evaluate } from '../../../ast-to-reports/interfaces/evaluate.interface';
-import { HasStats } from '../../../ast-to-reports/interfaces/has-stats';
-import { ComplexitiesByStatus } from '../../../ast-to-reports/interfaces/complexities-by-status.interface';
-import { CpxFactors } from '../../../ast-to-reports/models/cpx-factor/cpx-factors.model';
-import { Stats } from '../../../ast-to-reports/models/stats.model';
+import { Evaluate } from '../../interfaces/evaluate.interface';
+import { HasStats } from '../../interfaces/has-stats';
+import { ComplexitiesByStatus } from '../../interfaces/complexities-by-status.interface';
+import { CpxFactors } from '../cpx-factor/cpx-factors.model';
+import { Stats } from '../stats.model';
 import { AstFile } from './ast-file.model';
-import { AstFolderService } from '../../../ast-to-reports/services/ast/ast-folder.service';
-import { Logg } from '../../interfaces/logg.interface';
+import { AstFolderService } from '../../services/ast/ast-folder.service';
+import { Logg } from '../../../core/interfaces/logg.interface';
 import * as chalk from 'chalk';
 
 export class AstFolder implements Evaluate, HasStats, Logg {

@@ -1,6 +1,6 @@
-import { AstNode } from '../../../core/models/ast/ast-node.model';
+import { AstNode } from '../../models/ast/ast-node.model';
 import { Ast } from '../../../core/services/ast.service';
-import { AstMethod } from '../../../core/models/ast/ast-method.model';
+import { AstMethod } from '../../models/ast/ast-method.model';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 
 /**

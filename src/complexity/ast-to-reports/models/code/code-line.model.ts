@@ -1,7 +1,7 @@
 /**
  * A line of a Code object
  */
-import { AstNode } from '../../../core/models/ast/ast-node.model';
+import { AstNode } from '../ast/ast-node.model';
 import { CpxFactors } from '../cpx-factor/cpx-factors.model';
 import { NestingCpx } from '../cpx-factor/nesting-cpx.model';
 import { DepthCpx } from '../cpx-factor/depth-cpx.model';

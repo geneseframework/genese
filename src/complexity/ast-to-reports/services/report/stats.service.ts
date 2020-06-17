@@ -1,6 +1,6 @@
 import { Stats } from '../../models/stats.model';
-import { AstFile } from '../../../core/models/ast/ast-file.model';
-import { AstFolder } from '../../../core/models/ast/ast-folder.model';
+import { AstFile } from '../../models/ast/ast-file.model';
+import { AstFolder } from '../../models/ast/ast-folder.model';
 
 /**
  * Abstract class managing statistics of files or folders

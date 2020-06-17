@@ -15,9 +15,9 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 var _astFolder, _astMethods, _astNode, _astNodes, _complexitiesByStatus, _cpxFactors, _cyclomaticCpx, _end, _name, _stats, _text;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstFile = void 0;
-const ast_file_service_1 = require("../../../ast-to-reports/services/ast/ast-file.service");
-const cpx_factors_model_1 = require("../../../ast-to-reports/models/cpx-factor/cpx-factors.model");
-const ast_method_service_1 = require("../../../ast-to-reports/services/ast/ast-method.service");
+const ast_file_service_1 = require("../../services/ast/ast-file.service");
+const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
+const ast_method_service_1 = require("../../services/ast/ast-method.service");
 const chalk = require("chalk");
 class AstFile {
     constructor() {

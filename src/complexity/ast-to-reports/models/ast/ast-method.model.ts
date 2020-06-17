@@ -1,17 +1,17 @@
-import { CyclomaticComplexityService as CS } from '../../../ast-to-reports/services/cyclomatic-complexity.service';
+import { CyclomaticComplexityService as CS } from '../../services/cyclomatic-complexity.service';
 import { AstNode } from './ast-node.model';
-import { Code } from '../../../ast-to-reports/models/code/code.model';
-import { CodeService } from '../../../ast-to-reports/services/code.service';
-import { Ast } from '../../services/ast.service';
-import { LogService } from '../../../ast-to-reports/services/log.service';
-import { Evaluate } from '../../../ast-to-reports/interfaces/evaluate.interface';
-import { MethodStatus } from '../../../ast-to-reports/enums/evaluation-status.enum';
-import { CpxFactors } from '../../../ast-to-reports/models/cpx-factor/cpx-factors.model';
-import { ComplexityType } from '../../../ast-to-reports/enums/complexity-type.enum';
-import { CodeLine } from '../../../ast-to-reports/models/code/code-line.model';
+import { Code } from '../code/code.model';
+import { CodeService } from '../../services/code.service';
+import { Ast } from '../../../core/services/ast.service';
+import { LogService } from '../../services/log.service';
+import { Evaluate } from '../../interfaces/evaluate.interface';
+import { MethodStatus } from '../../enums/evaluation-status.enum';
+import { CpxFactors } from '../cpx-factor/cpx-factors.model';
+import { ComplexityType } from '../../enums/complexity-type.enum';
+import { CodeLine } from '../code/code-line.model';
 import { cpxFactors } from '../../../cpx-factors';
-import { FactorCategory } from '../../../ast-to-reports/enums/factor-category.enum';
-import { Options } from '../../../ast-to-reports/models/options';
+import { FactorCategory } from '../../enums/factor-category.enum';
+import { Options } from '../options';
 
 /**
  * Element of the AstNode structure corresponding to a given method

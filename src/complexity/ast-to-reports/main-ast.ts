@@ -4,7 +4,7 @@ import * as fs from 'fs-extra';
 import { InitService } from './services/init.service';
 import { Options } from './models/options';
 import { ReportsService } from './services/report/reports.service';
-import { JsonAst } from '../core/models/ast/json-ast.model';
+import { JsonAst } from './models/ast/json-ast.model';
 
 export const DEBUG = true;     // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND when you want to get stats only for debug.mock.ts file
 

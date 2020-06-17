@@ -1,16 +1,13 @@
 import { AstFolder } from './ast-folder.model';
-import { Evaluate } from '../../../ast-to-reports/interfaces/evaluate.interface';
-import { Logg } from '../../interfaces/logg.interface';
-import { CpxFactors } from '../../../ast-to-reports/models/cpx-factor/cpx-factors.model';
-import { Language } from '../../enum/language.enum';
-import * as chalk from 'chalk';
+import { Evaluate } from '../../interfaces/evaluate.interface';
+import { Logg } from '../../../core/interfaces/logg.interface';
+import { CpxFactors } from '../cpx-factor/cpx-factors.model';
 
 export class JsonAst implements Evaluate, Logg {
 
     #astFolder?: AstFolder = undefined;
     #cpxFactors?: CpxFactors = undefined;
     #cyclomaticCpx ?= 0;
-    // #language?: Language = undefined;
 
 
 
@@ -50,16 +47,6 @@ export class JsonAst implements Evaluate, Logg {
     }
 
 
-    // get language(): Language {
-    //     return this.#language;
-    // }
-    //
-    //
-    // set language(language: Language) {
-    //     this.#language = language;
-    // }
-
-
     // ---------------------------------------------------------------------------------
     //                                Other methods
     // ---------------------------------------------------------------------------------
@@ -73,9 +60,12 @@ export class JsonAst implements Evaluate, Logg {
 
     logg(message?: string): void {
         console.log('-----------------------------');
-        console.log(chalk.yellowBright(message ?? 'JSON_AST'));
+        console.log('LOG JSON_AST');
         console.log('-----------------------------');
-        console.log(chalk.blueBright('astFolder :'), this.astFolder?.path);
+        if (message) {
+            console.log(message);
+        }
+        console.log(this.astFolder);
     }
 
 }

@@ -1,9 +1,9 @@
 import { ComplexityType } from '../../../old/enums/complexity-type.enum';
-import { AstFile } from '../../../core/models/ast/ast-file.model';
-import { AstNode } from '../../../core/models/ast/ast-node.model';
+import { AstFile } from '../../models/ast/ast-file.model';
+import { AstNode } from '../../models/ast/ast-node.model';
 import { AstMethodService } from './ast-method.service';
 import { AstNodeService } from './ast-node.service';
-import { AstMethod } from '../../../core/models/ast/ast-method.model';
+import { AstMethod } from '../../models/ast/ast-method.model';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
 import { StatsService } from '../report/stats.service';
 import { Stats } from '../../models/stats.model';

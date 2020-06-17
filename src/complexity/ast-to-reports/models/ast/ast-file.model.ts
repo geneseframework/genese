@@ -1,13 +1,13 @@
 import { AstNode } from './ast-node.model';
-import { Evaluate } from '../../../ast-to-reports/interfaces/evaluate.interface';
-import { AstFileService } from '../../../ast-to-reports/services/ast/ast-file.service';
+import { Evaluate } from '../../interfaces/evaluate.interface';
+import { AstFileService } from '../../services/ast/ast-file.service';
 import { AstFolder } from './ast-folder.model';
 import { AstMethod } from './ast-method.model';
-import { ComplexitiesByStatus } from '../../../ast-to-reports/interfaces/complexities-by-status.interface';
-import { CpxFactors } from '../../../ast-to-reports/models/cpx-factor/cpx-factors.model';
-import { Stats } from '../../../ast-to-reports/models/stats.model';
-import { AstMethodService } from '../../../ast-to-reports/services/ast/ast-method.service';
-import { Logg } from '../../interfaces/logg.interface';
+import { ComplexitiesByStatus } from '../../interfaces/complexities-by-status.interface';
+import { CpxFactors } from '../cpx-factor/cpx-factors.model';
+import { Stats } from '../stats.model';
+import { AstMethodService } from '../../services/ast/ast-method.service';
+import { Logg } from '../../../core/interfaces/logg.interface';
 import * as chalk from 'chalk';
 
 export class AstFile implements Evaluate, Logg {

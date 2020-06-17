@@ -1,4 +1,4 @@
-import { AstNode } from '../models/ast/ast-node.model';
+import { AstNode } from '../../ast-to-reports/models/ast/ast-node.model';
 import { AstMayDefineContext } from '../../ast-to-reports/enums/ast-may-define-context.enum';
 import { SyntaxKind } from '../enum/syntax-kind.enum';
 

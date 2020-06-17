@@ -1,6 +1,6 @@
 import { CodeService } from '../code.service';
-import { AstMethod } from '../../../core/models/ast/ast-method.model';
-import { AstNode } from '../../../core/models/ast/ast-node.model';
+import { AstMethod } from '../../models/ast/ast-method.model';
+import { AstNode } from '../../models/ast/ast-node.model';
 import { ComplexitiesByStatus } from '../../interfaces/complexities-by-status.interface';
 import { ComplexityType } from '../../enums/complexity-type.enum';
 import { MethodStatus } from '../../enums/evaluation-status.enum';

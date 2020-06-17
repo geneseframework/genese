@@ -15,13 +15,13 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 var _astFile, _astMethod, _children, _context, _cpxFactors, _cyclomaticCpx, _end, _factorCategory, _intrinsicDepthCpx, _intrinsicNestingCpx, _kind, _name, _parent, _pos, _text;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstNode = void 0;
-const ast_service_1 = require("../../services/ast.service");
-const factor_category_service_1 = require("../../../ast-to-reports/services/factor-category.service");
-const cpx_factors_model_1 = require("../../../ast-to-reports/models/cpx-factor/cpx-factors.model");
-const node_feature_enum_1 = require("../../../ast-to-reports/enums/node-feature.enum");
+const ast_service_1 = require("../../../core/services/ast.service");
+const factor_category_service_1 = require("../../services/factor-category.service");
+const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
+const node_feature_enum_1 = require("../../enums/node-feature.enum");
 const cpx_factors_1 = require("../../../cpx-factors");
-const tools_service_1 = require("../../services/tools.service");
-const ast_node_service_1 = require("../../../ast-to-reports/services/ast/ast-node.service");
+const tools_service_1 = require("../../../core/services/tools.service");
+const ast_node_service_1 = require("../../services/ast/ast-node.service");
 class AstNode {
     constructor() {
         _astFile.set(this, undefined); // The AstFile containing the AST node of the AstNode

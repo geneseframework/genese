@@ -1,5 +1,5 @@
 import * as ts from 'typescript';
-import { AstNode } from '../../core/models/ast/ast-node.model';
+import { AstNode } from '../models/ast/ast-node.model';
 
 /**
  * Service around complexity calculation
