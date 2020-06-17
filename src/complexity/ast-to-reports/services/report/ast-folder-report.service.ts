@@ -6,8 +6,8 @@ import { RowFolderReport } from '../../models/report/row-folder-report.model';
 import { RowFileReport } from '../../models/report/row-file-report.model';
 import { createRelativeDir, getFilenameWithoutExtension, getRouteToRoot } from '../../../core/services/file.service';
 import { MethodReport } from '../../models/report/method-report.model';
-import { AstFile } from '../../models/ast/ast-file.model';
-import { AstFolder } from '../../models/ast/ast-folder.model';
+import { AstFile } from '../../../core/models/ast/ast-file.model';
+import { AstFolder } from '../../../core/models/ast/ast-folder.model';
 import { AstFolderService } from '../ast/ast-folder.service';
 
 /**

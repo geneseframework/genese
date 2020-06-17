@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InitService = void 0;
-const json_ast_model_1 = require("../../core/models/json-ast.model");
-const ast_folder_model_1 = require("../models/ast/ast-folder.model");
-const ast_file_model_1 = require("../models/ast/ast-file.model");
-const ast_node_model_1 = require("../models/ast/ast-node.model");
+const json_ast_model_1 = require("../../core/models/ast/json-ast.model");
+const ast_folder_model_1 = require("../../core/models/ast/ast-folder.model");
+const ast_file_model_1 = require("../../core/models/ast/ast-file.model");
+const ast_node_model_1 = require("../../core/models/ast/ast-node.model");
 const syntax_kind_enum_1 = require("../../core/enum/syntax-kind.enum");
-const ast_service_1 = require("./ast/ast.service");
-const ast_method_model_1 = require("../models/ast/ast-method.model");
+const ast_service_1 = require("../../core/services/ast.service");
+const ast_method_model_1 = require("../../core/models/ast/ast-method.model");
 const code_service_1 = require("./code.service");
 const ast_node_service_1 = require("./ast/ast-node.service");
 /**
@@ -68,7 +68,7 @@ class InitService {
         newAstFile.astNodes = this.astNodeService.flatMapAstNodes(newAstFile.astNode, [newAstFile.astNode]);
         newAstFile.astMethods = newAstFile.astNodes
             .filter(e => {
-            return ast_service_1.AstService.isFunctionOrMethod(e);
+            return ast_service_1.Ast.isFunctionOrMethod(e);
         })
             .map(e => e.astMethod);
         return newAstFile;
@@ -103,7 +103,7 @@ class InitService {
         newAstNode.parent = astParentNode;
         newAstNode.pos = astNodeFromJsonAst.pos;
         newAstNode.children = this.generateAstNodes(astNodeFromJsonAst.children, newAstNode);
-        if (ast_service_1.AstService.isFunctionOrMethod(astNodeFromJsonAst)) {
+        if (ast_service_1.Ast.isFunctionOrMethod(astNodeFromJsonAst)) {
             if (!newAstNode.name && ((_a = newAstNode.firstSon) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.Identifier) {
                 newAstNode.name = newAstNode.children[0].name;
             }

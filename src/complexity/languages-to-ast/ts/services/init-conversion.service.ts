@@ -1,6 +1,9 @@
 import * as fs from 'fs-extra';
 import { ConvertOptions } from '../../core/convert-options.model';
-import { AstFolder } from '../../../ast-to-reports/models/ast/ast-folder.model';
+import { AstFolder } from '../../../core/models/ast/ast-folder.model';
+import { JsonAst } from '../../../core/models/ast/json-ast.model';
+import { AstFile } from '../../../core/models/ast/ast-file.model';
+import { AstFileService } from './ast-file.service';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
@@ -8,7 +11,10 @@ import { AstFolder } from '../../../ast-to-reports/models/ast/ast-folder.model';
  */
 export class InitConversionService {
 
-    // treeFileService?: TreeFileService = new TreeFileService();  // The service managing TreeFiles
+
+    jsonAst?: JsonAst = new JsonAst();
+
+    astFileService?: AstFileService = new AstFileService();  // The service managing TreeFiles
     // treeFolder: TreeFolder = undefined;                         // The AstFolder corresponding to this service
 
     /**
@@ -16,23 +22,34 @@ export class InitConversionService {
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the folder
      * @param path              // The path of the folder
      */
-    generateTree(path: string, astFolder?: AstFolder): AstFolder {
+    generateAll(path: string): JsonAst {
         if (!path) {
             console.log('ERROR: no path.')
             return undefined;
         }
-        const folder = new AstFolder();
+        this.jsonAst.astFolder = this.generateAstFolder(path);
+        // this.jsonAst.astFolder = new AstFolder();
+        return this.jsonAst;
+    }
+
+
+    private generateAstFolder(path: string, astFolderParent?: AstFolder): AstFolder {
+        let astFolder = new AstFolder();
+        astFolder.parent = astFolderParent;
+        astFolder.path = path;
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach((elementName: string) => {
             const pathElement = path + elementName;
             if (!ConvertOptions.isIgnored(pathElement)) {
-                console.log('PATHELEMENTTT', pathElement)
-                // this.generateFileOrDirTree(pathElement, treeSubFolder, treeFolder);
+                if (fs.statSync(pathElement).isDirectory()) {
+                    astFolder.children.push(this.generateAstFolder(`${pathElement}/`, astFolder))
+                }
+                astFolder.astFiles.push(this.astFileService.generateAstFile(pathElement, astFolder));
             }
         });
-        return folder;
+        astFolder.logg()
+        return astFolder;
     }
-
 
     /**
      * Generates the AstFolder of a treeSubFolder which is a child of a given treeFolder with the path 'pathElement'
@@ -44,7 +61,7 @@ export class InitConversionService {
     // private generateFileOrDirTree(pathElement: string, treeSubFolder: TreeFolder, treeFolder: TreeFolder): void {
     //     if (fs.statSync(pathElement).isDirectory()) {
     //         let subFolder = new AstFolder();
-    //         subFolder = this.generateTree(`${pathElement}/`, subFolder);
+    //         subFolder = this.generateAll(`${pathElement}/`, subFolder);
     //         subFolder.parent = treeSubFolder;
     //         subFolder.path = pathElement;
     //         treeFolder.subFolders.push(subFolder);

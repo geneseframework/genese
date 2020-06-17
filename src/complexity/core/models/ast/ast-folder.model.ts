@@ -1,15 +1,17 @@
 /**
  * Element of the TreeNode structure corresponding to a given folder
  */
-import { Evaluate } from '../../interfaces/evaluate.interface';
-import { HasStats } from '../../interfaces/has-stats';
-import { ComplexitiesByStatus } from '../../interfaces/complexities-by-status.interface';
-import { CpxFactors } from '../cpx-factor/cpx-factors.model';
-import { Stats } from '../stats.model';
+import { Evaluate } from '../../../ast-to-reports/interfaces/evaluate.interface';
+import { HasStats } from '../../../ast-to-reports/interfaces/has-stats';
+import { ComplexitiesByStatus } from '../../../ast-to-reports/interfaces/complexities-by-status.interface';
+import { CpxFactors } from '../../../ast-to-reports/models/cpx-factor/cpx-factors.model';
+import { Stats } from '../../../ast-to-reports/models/stats.model';
 import { AstFile } from './ast-file.model';
-import { AstFolderService } from '../../services/ast/ast-folder.service';
+import { AstFolderService } from '../../../ast-to-reports/services/ast/ast-folder.service';
+import { Logg } from '../../interfaces/logg.interface';
+import * as chalk from 'chalk';
 
-export class AstFolder implements Evaluate, HasStats {
+export class AstFolder implements Evaluate, HasStats, Logg {
 
     #astFiles?: AstFile[] = [];                                                // The array of files of this folder (not in the subfolders)
     #children?: AstFolder[] = [];                                             // The subfolders of this folder
@@ -138,12 +140,23 @@ export class AstFolder implements Evaluate, HasStats {
             astFile.evaluate();
             this.cpxFactors = this.cpxFactors.add(astFile.cpxFactors);
             this.cyclomaticCpx = this.cyclomaticCpx + astFile.cyclomaticCpx;
-            // this.numberOfMethods += file.treeMethods?.length ?? 0;
-            // this.numberOfFiles++;
             this.complexitiesByStatus = this.complexitiesByStatus.add(astFile.complexitiesByStatus);
         }
         const astFolderService = new AstFolderService();
         this.stats = astFolderService.calculateStats(this);
+    }
+
+
+    logg(message?: string): void {
+        console.log('-----------------------------');
+        console.log(chalk.yellowBright(message ?? 'AST_FOLDER'));
+        console.log(this.path);
+        console.log('-----------------------------');
+        if (message) {
+            console.log(message);
+        }
+        console.log(chalk.blueBright('parent :'), this.parent?.path);
+        console.log(chalk.blueBright('children :'), this.children);
     }
 
 }

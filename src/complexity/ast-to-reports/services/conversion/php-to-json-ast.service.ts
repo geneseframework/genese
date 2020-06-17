@@ -1,4 +1,4 @@
-import { JsonAst } from '../../../core/models/json-ast.model';
+import { JsonAst } from '../../../core/models/ast/json-ast.model';
 
 export class PhpToJsonAstService {
 

@@ -15,9 +15,9 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 var _astFolder, _astMethods, _astNode, _astNodes, _complexitiesByStatus, _cpxFactors, _cyclomaticCpx, _end, _name, _stats, _text;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstFile = void 0;
-const ast_file_service_1 = require("../../services/ast/ast-file.service");
-const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
-const ast_method_service_1 = require("../../services/ast/ast-method.service");
+const ast_file_service_1 = require("../../../ast-to-reports/services/ast/ast-file.service");
+const cpx_factors_model_1 = require("../../../ast-to-reports/models/cpx-factor/cpx-factors.model");
+const ast_method_service_1 = require("../../../ast-to-reports/services/ast/ast-method.service");
 class AstFile {
     constructor() {
         _astFolder.set(this, undefined); // The AstFolder which includes this AstFile
@@ -134,17 +134,17 @@ class AstFile {
         return this.stats;
     }
     logg(message) {
+        var _a, _b;
         console.log('-----------------------------');
-        console.log('LOG AST_FILE');
+        console.log(message !== null && message !== void 0 ? message : 'AST_FILE', this.name);
         console.log('-----------------------------');
         if (message) {
             console.log(message);
         }
-        console.log('name', this.name);
-        console.log('end', __classPrivateFieldGet(this, _end));
-        console.log('text', __classPrivateFieldGet(this, _text));
-        console.log('astNode', __classPrivateFieldGet(this, _astNode));
-        console.log('astFolder', __classPrivateFieldGet(this, _astFolder));
+        console.log('END', this.end);
+        console.log('TEXT', this.text);
+        console.log('AST_NODE', (_a = this.astNode) === null || _a === void 0 ? void 0 : _a.kind);
+        console.log('AST_FOLDERE', (_b = this.astFolder) === null || _b === void 0 ? void 0 : _b.path);
     }
 }
 exports.AstFile = AstFile;

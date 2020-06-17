@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstNodeService = void 0;
-const ast_service_1 = require("./ast.service");
+const ast_service_1 = require("../../../core/services/ast.service");
 const syntax_kind_enum_1 = require("../../../core/enum/syntax-kind.enum");
 /**
  * Service managing AstNodes
@@ -61,7 +61,7 @@ class AstNodeService {
      * @param astNode
      */
     isSecondSonOfPropertyAccessExpression(astNode) {
-        return ast_service_1.AstService.isPropertyAccessExpression(astNode === null || astNode === void 0 ? void 0 : astNode.parent) && astNode === (astNode === null || astNode === void 0 ? void 0 : astNode.parent.secondSon);
+        return ast_service_1.Ast.isPropertyAccessExpression(astNode === null || astNode === void 0 ? void 0 : astNode.parent) && astNode === (astNode === null || astNode === void 0 ? void 0 : astNode.parent.secondSon);
     }
     /**
      * Checks if a AstNode is a Callback (ie a parameter which is used later in a CallExpression)

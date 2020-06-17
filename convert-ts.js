@@ -10,7 +10,7 @@ try {
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
     console.log(ansi_colors_1.blueBright("STARTS GENESE CONVERSION TO JSON AST"));
     var mainProcess = new mainAst.MainConvertTs();
-    mainProcess.start(__dirname, './', __dirname, 'typescript');
+    mainProcess.start(__dirname, __dirname + '/src/complexity/core/mocks/', __dirname, 'typescript');
 }
 catch (err) {
     console.error(ansi_colors_1.red("Error in conversion process : " + err.stack));

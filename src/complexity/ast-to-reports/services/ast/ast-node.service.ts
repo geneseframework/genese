@@ -1,6 +1,6 @@
-import { AstNode } from '../../models/ast/ast-node.model';
-import { AstService } from './ast.service';
-import { AstMethod } from '../../models/ast/ast-method.model';
+import { AstNode } from '../../../core/models/ast/ast-node.model';
+import { Ast } from '../../../core/services/ast.service';
+import { AstMethod } from '../../../core/models/ast/ast-method.model';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 
 /**
@@ -63,7 +63,7 @@ export class AstNodeService {
      * @param astNode
      */
     private isSecondSonOfPropertyAccessExpression(astNode: AstNode): boolean {
-        return AstService.isPropertyAccessExpression(astNode?.parent) && astNode === astNode?.parent.secondSon;
+        return Ast.isPropertyAccessExpression(astNode?.parent) && astNode === astNode?.parent.secondSon;
     }
 
 

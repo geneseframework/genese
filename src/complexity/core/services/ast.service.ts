@@ -1,11 +1,11 @@
-import { AstNode } from '../../models/ast/ast-node.model';
-import { AstMayDefineContext } from '../../enums/ast-may-define-context.enum';
-import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
+import { AstNode } from '../models/ast/ast-node.model';
+import { AstMayDefineContext } from '../../ast-to-reports/enums/ast-may-define-context.enum';
+import { SyntaxKind } from '../enum/syntax-kind.enum';
 
 /**
  * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)
  */
-export class AstService {
+export class Ast {
 
 
 
@@ -76,10 +76,10 @@ er
      * @param astNode      // The node to analyse
      */
     static isDifferentLogicDoor(astNode: AstNode): boolean {
-        if (AstService.isBinary(astNode) && AstService.isLogicDoor(astNode)) {
-            if (AstService.isBinary(astNode.parent)
-                && !AstService.isSameOperatorToken(astNode, astNode.parent)
-                && !AstService.isOrTokenBetweenBinaries(astNode)
+        if (Ast.isBinary(astNode) && Ast.isLogicDoor(astNode)) {
+            if (Ast.isBinary(astNode.parent)
+                && !Ast.isSameOperatorToken(astNode, astNode.parent)
+                && !Ast.isOrTokenBetweenBinaries(astNode)
             ) {
                 return true;
             }
@@ -102,7 +102,7 @@ er
      * @param astNode      // The node to analyse
      */
     static isElseStatement(astNode: AstNode): boolean {
-        return (AstService.isBlock(astNode)
+        return (Ast.isBlock(astNode)
             && astNode?.parent?.kind === SyntaxKind.IfStatement
             && astNode?.parent['elseStatement']?.pos === astNode?.pos) // TODO : replace by isSecondSon
     }
@@ -143,7 +143,7 @@ er
      * @param astNode      // The node to analyse
      */
     static isCallIdentifier(astNode: AstNode): boolean {
-        return(AstService.isCallExpression(astNode.parent) && AstService.isIdentifier(astNode));
+        return(Ast.isCallExpression(astNode.parent) && Ast.isIdentifier(astNode));
     }
 
 

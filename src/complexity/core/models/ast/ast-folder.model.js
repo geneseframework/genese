@@ -15,9 +15,10 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 var _astFiles, _children, _complexitiesByStatus, _cpxFactors, _cyclomaticCpx, _parent, _path, _stats;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstFolder = void 0;
-const complexities_by_status_interface_1 = require("../../interfaces/complexities-by-status.interface");
-const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
-const ast_folder_service_1 = require("../../services/ast/ast-folder.service");
+const complexities_by_status_interface_1 = require("../../../ast-to-reports/interfaces/complexities-by-status.interface");
+const cpx_factors_model_1 = require("../../../ast-to-reports/models/cpx-factor/cpx-factors.model");
+const ast_folder_service_1 = require("../../../ast-to-reports/services/ast/ast-folder.service");
+const chalk = require("chalk");
 class AstFolder {
     constructor() {
         _astFiles.set(this, []); // The array of files of this folder (not in the subfolders)
@@ -101,12 +102,22 @@ class AstFolder {
             astFile.evaluate();
             this.cpxFactors = this.cpxFactors.add(astFile.cpxFactors);
             this.cyclomaticCpx = this.cyclomaticCpx + astFile.cyclomaticCpx;
-            // this.numberOfMethods += file.treeMethods?.length ?? 0;
-            // this.numberOfFiles++;
             this.complexitiesByStatus = this.complexitiesByStatus.add(astFile.complexitiesByStatus);
         }
         const astFolderService = new ast_folder_service_1.AstFolderService();
         this.stats = astFolderService.calculateStats(this);
+    }
+    logg(message) {
+        var _a;
+        console.log('-----------------------------');
+        console.log(chalk.yellowBright(message !== null && message !== void 0 ? message : 'AST_FOLDER'));
+        console.log(this.path);
+        console.log('-----------------------------');
+        if (message) {
+            console.log(message);
+        }
+        console.log(chalk.blueBright('parent :'), (_a = this.parent) === null || _a === void 0 ? void 0 : _a.path);
+        console.log(chalk.blueBright('children :'), this.children);
     }
 }
 exports.AstFolder = AstFolder;

@@ -15,16 +15,16 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 var _astNode, _cpxFactors, _cyclomaticCpx, _cpxIndex, _displayedCode, _name, _originalCode;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstMethod = void 0;
-const cyclomatic_complexity_service_1 = require("../../services/cyclomatic-complexity.service");
-const code_model_1 = require("../code/code.model");
-const code_service_1 = require("../../services/code.service");
-const ast_service_1 = require("../../services/ast/ast.service");
-const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
-const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
-const code_line_model_1 = require("../code/code-line.model");
+const cyclomatic_complexity_service_1 = require("../../../ast-to-reports/services/cyclomatic-complexity.service");
+const code_model_1 = require("../../../ast-to-reports/models/code/code.model");
+const code_service_1 = require("../../../ast-to-reports/services/code.service");
+const ast_service_1 = require("../../services/ast.service");
+const evaluation_status_enum_1 = require("../../../ast-to-reports/enums/evaluation-status.enum");
+const complexity_type_enum_1 = require("../../../ast-to-reports/enums/complexity-type.enum");
+const code_line_model_1 = require("../../../ast-to-reports/models/code/code-line.model");
 const cpx_factors_1 = require("../../../cpx-factors");
-const factor_category_enum_1 = require("../../enums/factor-category.enum");
-const options_1 = require("../options");
+const factor_category_enum_1 = require("../../../ast-to-reports/enums/factor-category.enum");
+const options_1 = require("../../../ast-to-reports/models/options");
 /**
  * Element of the AstNode structure corresponding to a given method
  */
@@ -165,7 +165,7 @@ class AstMethod {
         for (const childAst of astNode.children) {
             let issue = this.codeService.getLineIssue(__classPrivateFieldGet(this, _originalCode), childAst.pos - this.position);
             const codeLine = __classPrivateFieldGet(this, _displayedCode).lines[issue];
-            if (ast_service_1.AstService.isElseStatement(childAst)) {
+            if (ast_service_1.Ast.isElseStatement(childAst)) {
                 childAst.cpxFactors.basic.node = cpx_factors_1.cpxFactors.basic.node;
                 issue--;
             }

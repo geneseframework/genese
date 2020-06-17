@@ -1,8 +1,8 @@
 import { StatsService } from '../report/stats.service';
 import { Stats } from '../../models/stats.model';
 import { AstFileService } from './ast-file.service';
-import { AstFolder } from '../../models/ast/ast-folder.model';
-import { AstFile } from '../../models/ast/ast-file.model';
+import { AstFolder } from '../../../core/models/ast/ast-folder.model';
+import { AstFile } from '../../../core/models/ast/ast-file.model';
 import { ComplexityType } from '../../enums/complexity-type.enum';
 
 /**

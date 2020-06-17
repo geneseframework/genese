@@ -1,7 +1,7 @@
 import { blueBright } from 'ansi-colors';
 import { InitConversionService } from './ts/services/init-conversion.service';
 import { ConvertOptions } from './core/convert-options.model';
-import { JsonAst } from '../core/models/json-ast.model';
+import { JsonAst } from '../core/models/ast/json-ast.model';
 import { Language } from '../core/enum/language.enum';
 
 
@@ -21,12 +21,12 @@ export class MainConvertTs {
     start(pathCommand: string, pathToAnalyze: string, pathGeneseNodeJs: string, language: Language): void {
         console.log('START CONVERSION FROM TS TO JSON');
         ConvertOptions.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs)
-        const jsonAst: JsonAst = new JsonAst();
+        console.log(console.log('IGNORRRR', ConvertOptions.ignore))
         switch (language) {
             case Language.TS:
                 const initService = new InitConversionService();
-                jsonAst.astFolder = initService.generateTree(pathToAnalyze);
-                console.log('JSONASTTTT', jsonAst)
+                const jsonAst: JsonAst = initService.generateAll(pathToAnalyze);
+                jsonAst.logg();
         }
         console.log(blueBright('CONVERSION GENERATED SUCCESSFULLY'));
     }

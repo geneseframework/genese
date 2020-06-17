@@ -1,10 +1,10 @@
-import { JsonAst } from '../../core/models/json-ast.model';
-import { AstFolder } from '../models/ast/ast-folder.model';
-import { AstFile } from '../models/ast/ast-file.model';
-import { AstNode } from '../models/ast/ast-node.model';
+import { JsonAst } from '../../core/models/ast/json-ast.model';
+import { AstFolder } from '../../core/models/ast/ast-folder.model';
+import { AstFile } from '../../core/models/ast/ast-file.model';
+import { AstNode } from '../../core/models/ast/ast-node.model';
 import { SyntaxKind } from '../../core/enum/syntax-kind.enum';
-import { AstService } from './ast/ast.service';
-import { AstMethod } from '../models/ast/ast-method.model';
+import { Ast } from '../../core/services/ast.service';
+import { AstMethod } from '../../core/models/ast/ast-method.model';
 import { CodeService } from './code.service';
 import { AstNodeService } from './ast/ast-node.service';
 
@@ -73,7 +73,7 @@ export class InitService {
         newAstFile.astNodes = this.astNodeService.flatMapAstNodes(newAstFile.astNode, [newAstFile.astNode]);
         newAstFile.astMethods = newAstFile.astNodes
             .filter(e => {
-                return AstService.isFunctionOrMethod(e)
+                return Ast.isFunctionOrMethod(e)
             })
             .map(e => e.astMethod);
         return newAstFile;
@@ -113,7 +113,7 @@ export class InitService {
         newAstNode.parent = astParentNode;
         newAstNode.pos = astNodeFromJsonAst.pos;
         newAstNode.children = this.generateAstNodes(astNodeFromJsonAst.children, newAstNode);
-        if (AstService.isFunctionOrMethod(astNodeFromJsonAst)) {
+        if (Ast.isFunctionOrMethod(astNodeFromJsonAst)) {
             if (!newAstNode.name && newAstNode.firstSon?.kind === SyntaxKind.Identifier) {
                 newAstNode.name = newAstNode.children[0].name;
             }

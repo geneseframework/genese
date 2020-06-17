@@ -15,6 +15,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 var _astFolder, _cpxFactors, _cyclomaticCpx;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JsonAst = void 0;
+const chalk = require("chalk");
 class JsonAst {
     constructor() {
         _astFolder.set(this, undefined);
@@ -59,13 +60,14 @@ class JsonAst {
         __classPrivateFieldSet(this, _cyclomaticCpx, __classPrivateFieldGet(this, _astFolder).cyclomaticCpx);
     }
     logg(message) {
+        var _a;
         console.log('-----------------------------');
-        console.log('LOG JSON_AST');
+        console.log(chalk.yellowBright(message !== null && message !== void 0 ? message : 'JSON_AST'));
         console.log('-----------------------------');
         if (message) {
             console.log(message);
         }
-        console.log(this.astFolder);
+        console.log(chalk.blueBright('astFolder :'), (_a = this.astFolder) === null || _a === void 0 ? void 0 : _a.path);
     }
 }
 exports.JsonAst = JsonAst;

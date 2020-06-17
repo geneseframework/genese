@@ -15,13 +15,13 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 var _astFile, _astMethod, _children, _context, _cpxFactors, _cyclomaticCpx, _end, _factorCategory, _intrinsicDepthCpx, _intrinsicNestingCpx, _kind, _name, _parent, _pos, _text;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstNode = void 0;
-const ast_service_1 = require("../../services/ast/ast.service");
-const factor_category_service_1 = require("../../services/factor-category.service");
-const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
-const node_feature_enum_1 = require("../../enums/node-feature.enum");
+const ast_service_1 = require("../../services/ast.service");
+const factor_category_service_1 = require("../../../ast-to-reports/services/factor-category.service");
+const cpx_factors_model_1 = require("../../../ast-to-reports/models/cpx-factor/cpx-factors.model");
+const node_feature_enum_1 = require("../../../ast-to-reports/enums/node-feature.enum");
 const cpx_factors_1 = require("../../../cpx-factors");
-const tools_service_1 = require("../../../core/services/tools.service");
-const ast_node_service_1 = require("../../services/ast/ast-node.service");
+const tools_service_1 = require("../../services/tools.service");
+const ast_node_service_1 = require("../../../ast-to-reports/services/ast/ast-node.service");
 class AstNode {
     constructor() {
         _astFile.set(this, undefined); // The AstFile containing the AST node of the AstNode
@@ -131,13 +131,13 @@ class AstNode {
         return this.astNodeService.isCallback(this);
     }
     get isCallIdentifier() {
-        return ast_service_1.AstService.isCallIdentifier(this) && this === this.parent.firstSon;
+        return ast_service_1.Ast.isCallIdentifier(this) && this === this.parent.firstSon;
     }
     get isFunctionOrMethodDeclaration() {
         return this.factorCategory === node_feature_enum_1.NodeFeature.DECLARATION;
     }
     get isParam() {
-        return ast_service_1.AstService.isParam(this);
+        return ast_service_1.Ast.isParam(this);
     }
     get isRecursiveMethod() {
         return this.astNodeService.isRecursiveMethod(this);
@@ -149,7 +149,7 @@ class AstNode {
         __classPrivateFieldSet(this, _kind, kind);
     }
     get mayDefineContext() {
-        return ast_service_1.AstService.mayDefineContext(this);
+        return ast_service_1.Ast.mayDefineContext(this);
     }
     get name() {
         var _a;
@@ -252,7 +252,7 @@ class AstNode {
      * Example : array in array, like a[b[c]]
      */
     setDepthCpxFactors() {
-        if (ast_service_1.AstService.isArrayIndex(this)) {
+        if (ast_service_1.Ast.isArrayIndex(this)) {
             this.cpxFactors.depth.arr = cpx_factors_1.cpxFactors.depth.arr;
         }
     }
@@ -260,10 +260,10 @@ class AstNode {
      * Sets aggregation complexity factor
      */
     setAggregationCpxFactors() {
-        if (ast_service_1.AstService.isArrayOfArray(this)) {
+        if (ast_service_1.Ast.isArrayOfArray(this)) {
             this.cpxFactors.aggregation.arr = cpx_factors_1.cpxFactors.aggregation.arr;
         }
-        else if (ast_service_1.AstService.isDifferentLogicDoor(this)) {
+        else if (ast_service_1.Ast.isDifferentLogicDoor(this)) {
             this.cpxFactors.aggregation.differentLogicDoor = cpx_factors_1.cpxFactors.aggregation.differentLogicDoor;
         }
     }
@@ -271,10 +271,10 @@ class AstNode {
      * Sets complexity factor for "else" case
      */
     setElseCpxFactors() {
-        if (ast_service_1.AstService.isElseStatement(this)) {
+        if (ast_service_1.Ast.isElseStatement(this)) {
             this.cpxFactors.structural.conditional = cpx_factors_1.cpxFactors.structural.conditional;
         }
-        if (ast_service_1.AstService.isElseIfStatement(this)) {
+        if (ast_service_1.Ast.isElseIfStatement(this)) {
             this.cpxFactors.nesting.conditional = 0;
         }
     }

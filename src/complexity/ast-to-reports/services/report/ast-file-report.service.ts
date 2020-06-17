@@ -4,7 +4,7 @@ import * as Handlebars from "handlebars";
 import { Options } from '../../models/options';
 import { getFilenameWithoutExtension, getPathWithDotSlash, getRouteToRoot } from '../../../core/services/file.service';
 import { MethodReport } from '../../models/report/method-report.model';
-import { AstFile } from '../../models/ast/ast-file.model';
+import { AstFile } from '../../../core/models/ast/ast-file.model';
 
 /**
  * Service generating files reports

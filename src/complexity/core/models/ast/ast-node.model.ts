@@ -1,14 +1,14 @@
-import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
+import { SyntaxKind } from '../../enum/syntax-kind.enum';
 import { AstFile } from './ast-file.model';
 import { AstMethod } from './ast-method.model';
-import { AstService } from '../../services/ast/ast.service';
-import { NodeFeatureService } from '../../services/factor-category.service';
-import { Evaluate } from '../../interfaces/evaluate.interface';
-import { CpxFactors } from '../cpx-factor/cpx-factors.model';
-import { NodeFeature } from '../../enums/node-feature.enum';
+import { Ast } from '../../services/ast.service';
+import { NodeFeatureService } from '../../../ast-to-reports/services/factor-category.service';
+import { Evaluate } from '../../../ast-to-reports/interfaces/evaluate.interface';
+import { CpxFactors } from '../../../ast-to-reports/models/cpx-factor/cpx-factors.model';
+import { NodeFeature } from '../../../ast-to-reports/enums/node-feature.enum';
 import { cpxFactors } from '../../../cpx-factors';
-import { addObjects } from '../../../core/services/tools.service';
-import { AstNodeService } from '../../services/ast/ast-node.service';
+import { addObjects } from '../../services/tools.service';
+import { AstNodeService } from '../../../ast-to-reports/services/ast/ast-node.service';
 
 export class AstNode implements Evaluate {
 
@@ -166,7 +166,7 @@ export class AstNode implements Evaluate {
 
 
     get isCallIdentifier(): boolean {
-        return AstService.isCallIdentifier(this) && this === this.parent.firstSon;
+        return Ast.isCallIdentifier(this) && this === this.parent.firstSon;
     }
 
 
@@ -176,7 +176,7 @@ export class AstNode implements Evaluate {
 
 
     get isParam(): boolean {
-        return AstService.isParam(this);
+        return Ast.isParam(this);
     }
 
 
@@ -196,7 +196,7 @@ export class AstNode implements Evaluate {
 
 
     get mayDefineContext(): boolean {
-        return AstService.mayDefineContext(this);
+        return Ast.mayDefineContext(this);
     }
 
 
@@ -331,7 +331,7 @@ export class AstNode implements Evaluate {
      * Example : array in array, like a[b[c]]
      */
     private setDepthCpxFactors(): void {
-        if (AstService.isArrayIndex(this)) {
+        if (Ast.isArrayIndex(this)) {
             this.cpxFactors.depth.arr = cpxFactors.depth.arr;
         }
     }
@@ -341,9 +341,9 @@ export class AstNode implements Evaluate {
      * Sets aggregation complexity factor
      */
     private setAggregationCpxFactors(): void {
-        if (AstService.isArrayOfArray(this)) {
+        if (Ast.isArrayOfArray(this)) {
             this.cpxFactors.aggregation.arr = cpxFactors.aggregation.arr;
-        } else if (AstService.isDifferentLogicDoor(this)) {
+        } else if (Ast.isDifferentLogicDoor(this)) {
             this.cpxFactors.aggregation.differentLogicDoor = cpxFactors.aggregation.differentLogicDoor;
         }
     }
@@ -353,10 +353,10 @@ export class AstNode implements Evaluate {
      * Sets complexity factor for "else" case
      */
     private setElseCpxFactors(): void {
-        if (AstService.isElseStatement(this)) {
+        if (Ast.isElseStatement(this)) {
             this.cpxFactors.structural.conditional = cpxFactors.structural.conditional;
         }
-        if (AstService.isElseIfStatement(this)) {
+        if (Ast.isElseIfStatement(this)) {
             this.cpxFactors.nesting.conditional = 0;
         }
     }

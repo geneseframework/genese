@@ -1,15 +1,15 @@
 import { AstNode } from './ast-node.model';
-import { Evaluate } from '../../interfaces/evaluate.interface';
-import { LogService } from '../../services/log.service';
-import { AstFileService } from '../../services/ast/ast-file.service';
+import { Evaluate } from '../../../ast-to-reports/interfaces/evaluate.interface';
+import { AstFileService } from '../../../ast-to-reports/services/ast/ast-file.service';
 import { AstFolder } from './ast-folder.model';
 import { AstMethod } from './ast-method.model';
-import { ComplexitiesByStatus } from '../../interfaces/complexities-by-status.interface';
-import { CpxFactors } from '../cpx-factor/cpx-factors.model';
-import { Stats } from '../stats.model';
-import { AstMethodService } from '../../services/ast/ast-method.service';
+import { ComplexitiesByStatus } from '../../../ast-to-reports/interfaces/complexities-by-status.interface';
+import { CpxFactors } from '../../../ast-to-reports/models/cpx-factor/cpx-factors.model';
+import { Stats } from '../../../ast-to-reports/models/stats.model';
+import { AstMethodService } from '../../../ast-to-reports/services/ast/ast-method.service';
+import { Logg } from '../../interfaces/logg.interface';
 
-export class AstFile implements Evaluate, LogService {
+export class AstFile implements Evaluate, Logg {
 
     #astFolder?: AstFolder = undefined;                         // The AstFolder which includes this AstFile
     #astMethods?: AstMethod[] = [];                             // The AstMethods included in this AstFile
@@ -178,16 +178,15 @@ export class AstFile implements Evaluate, LogService {
 
     logg(message?: string): void {
         console.log('-----------------------------');
-        console.log('LOG AST_FILE');
+        console.log(message ?? 'AST_FILE', this.name);
         console.log('-----------------------------');
         if (message) {
             console.log(message);
         }
-        console.log('name', this.name);
-        console.log('end', this.#end);
-        console.log('text', this.#text);
-        console.log('astNode', this.#astNode);
-        console.log('astFolder', this.#astFolder);
+        console.log('END', this.end);
+        console.log('TEXT', this.text);
+        console.log('AST_NODE', this.astNode?.kind);
+        console.log('AST_FOLDERE', this.astFolder?.path);
     }
 
 

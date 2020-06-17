@@ -1,12 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AstService = void 0;
-const ast_may_define_context_enum_1 = require("../../enums/ast-may-define-context.enum");
-const syntax_kind_enum_1 = require("../../../core/enum/syntax-kind.enum");
+exports.Ast = void 0;
+const ast_may_define_context_enum_1 = require("../../ast-to-reports/enums/ast-may-define-context.enum");
+const syntax_kind_enum_1 = require("../enum/syntax-kind.enum");
 /**
  * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)
  */
-class AstService {
+class Ast {
     /**
      * Checks if an AstNode may define context
      * @param astNode
@@ -64,10 +64,10 @@ class AstService {
      * @param astNode      // The node to analyse
      */
     static isDifferentLogicDoor(astNode) {
-        if (AstService.isBinary(astNode) && AstService.isLogicDoor(astNode)) {
-            if (AstService.isBinary(astNode.parent)
-                && !AstService.isSameOperatorToken(astNode, astNode.parent)
-                && !AstService.isOrTokenBetweenBinaries(astNode)) {
+        if (Ast.isBinary(astNode) && Ast.isLogicDoor(astNode)) {
+            if (Ast.isBinary(astNode.parent)
+                && !Ast.isSameOperatorToken(astNode, astNode.parent)
+                && !Ast.isOrTokenBetweenBinaries(astNode)) {
                 return true;
             }
         }
@@ -87,7 +87,7 @@ class AstService {
      */
     static isElseStatement(astNode) {
         var _a, _b;
-        return (AstService.isBlock(astNode)
+        return (Ast.isBlock(astNode)
             && ((_a = astNode === null || astNode === void 0 ? void 0 : astNode.parent) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.IfStatement
             && ((_b = astNode === null || astNode === void 0 ? void 0 : astNode.parent['elseStatement']) === null || _b === void 0 ? void 0 : _b.pos) === (astNode === null || astNode === void 0 ? void 0 : astNode.pos)); // TODO : replace by isSecondSon
     }
@@ -120,7 +120,7 @@ class AstService {
      * @param astNode      // The node to analyse
      */
     static isCallIdentifier(astNode) {
-        return (AstService.isCallExpression(astNode.parent) && AstService.isIdentifier(astNode));
+        return (Ast.isCallExpression(astNode.parent) && Ast.isIdentifier(astNode));
     }
     /**
      * Checks if an AST node is "||" anf if this node is between two binary expressions
@@ -160,4 +160,4 @@ class AstService {
         return (_c = ((_a = firstNode === null || firstNode === void 0 ? void 0 : firstNode['operatorToken']) === null || _a === void 0 ? void 0 : _a.kind) === ((_b = secondNode === null || secondNode === void 0 ? void 0 : secondNode['operatorToken']) === null || _b === void 0 ? void 0 : _b.kind)) !== null && _c !== void 0 ? _c : false;
     }
 }
-exports.AstService = AstService;
+exports.Ast = Ast;

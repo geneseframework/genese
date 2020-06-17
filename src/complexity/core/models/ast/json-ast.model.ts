@@ -1,10 +1,11 @@
-import { AstFolder } from '../../ast-to-reports/models/ast/ast-folder.model';
-import { Evaluate } from '../../ast-to-reports/interfaces/evaluate.interface';
-import { PrivateLog } from '../../ast-to-reports/interfaces/private-log.interface';
-import { CpxFactors } from '../../ast-to-reports/models/cpx-factor/cpx-factors.model';
-import { Language } from '../enum/language.enum';
+import { AstFolder } from './ast-folder.model';
+import { Evaluate } from '../../../ast-to-reports/interfaces/evaluate.interface';
+import { Logg } from '../../interfaces/logg.interface';
+import { CpxFactors } from '../../../ast-to-reports/models/cpx-factor/cpx-factors.model';
+import { Language } from '../../enum/language.enum';
+import * as chalk from 'chalk';
 
-export class JsonAst implements Evaluate, PrivateLog {
+export class JsonAst implements Evaluate, Logg {
 
     #astFolder?: AstFolder = undefined;
     #cpxFactors?: CpxFactors = undefined;
@@ -72,12 +73,12 @@ export class JsonAst implements Evaluate, PrivateLog {
 
     logg(message?: string): void {
         console.log('-----------------------------');
-        console.log('LOG JSON_AST');
+        console.log(chalk.yellowBright(message ?? 'JSON_AST'));
         console.log('-----------------------------');
         if (message) {
             console.log(message);
         }
-        console.log(this.astFolder);
+        console.log(chalk.blueBright('astFolder :'), this.astFolder?.path);
     }
 
 }
