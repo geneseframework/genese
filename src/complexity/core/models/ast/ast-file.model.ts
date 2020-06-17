@@ -8,6 +8,7 @@ import { CpxFactors } from '../../../ast-to-reports/models/cpx-factor/cpx-factor
 import { Stats } from '../../../ast-to-reports/models/stats.model';
 import { AstMethodService } from '../../../ast-to-reports/services/ast/ast-method.service';
 import { Logg } from '../../interfaces/logg.interface';
+import * as chalk from 'chalk';
 
 export class AstFile implements Evaluate, Logg {
 
@@ -178,15 +179,13 @@ export class AstFile implements Evaluate, Logg {
 
     logg(message?: string): void {
         console.log('-----------------------------');
-        console.log(message ?? 'AST_FILE', this.name);
+        console.log(chalk.yellowBright(message ?? 'AST_FILE'));
+        console.log(this.name);
         console.log('-----------------------------');
-        if (message) {
-            console.log(message);
-        }
-        console.log('END', this.end);
-        console.log('TEXT', this.text);
-        console.log('AST_NODE', this.astNode?.kind);
-        console.log('AST_FOLDERE', this.astFolder?.path);
+        console.log(chalk.blueBright('end :'), this.end);
+        console.log(chalk.blueBright('text :'), this.text);
+        console.log(chalk.blueBright('astNode :'), this.astNode?.kind);
+        console.log(chalk.blueBright('astFolder :'), this.astFolder?.path);
     }
 
 

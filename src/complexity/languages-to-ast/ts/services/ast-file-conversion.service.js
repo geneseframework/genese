@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AstFileService = void 0;
+exports.AstFileConversionService = void 0;
 const ast_file_model_1 = require("../../../core/models/ast/ast-file.model");
 const file_service_1 = require("../../../core/services/file.service");
-class AstFileService {
+class AstFileConversionService {
     generateAstFile(path, astFolder) {
         if (!path || !astFolder) {
             console.warn('No path or AstFolder : impossible to create AstFile');
@@ -16,4 +16,4 @@ class AstFileService {
         return astFile;
     }
 }
-exports.AstFileService = AstFileService;
+exports.AstFileConversionService = AstFileConversionService;

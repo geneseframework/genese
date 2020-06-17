@@ -113,9 +113,6 @@ class AstFolder {
         console.log(chalk.yellowBright(message !== null && message !== void 0 ? message : 'AST_FOLDER'));
         console.log(this.path);
         console.log('-----------------------------');
-        if (message) {
-            console.log(message);
-        }
         console.log(chalk.blueBright('parent :'), (_a = this.parent) === null || _a === void 0 ? void 0 : _a.path);
         console.log(chalk.blueBright('children :'), this.children);
     }

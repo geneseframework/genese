@@ -64,9 +64,6 @@ class JsonAst {
         console.log('-----------------------------');
         console.log(chalk.yellowBright(message !== null && message !== void 0 ? message : 'JSON_AST'));
         console.log('-----------------------------');
-        if (message) {
-            console.log(message);
-        }
         console.log(chalk.blueBright('astFolder :'), (_a = this.astFolder) === null || _a === void 0 ? void 0 : _a.path);
     }
 }

@@ -18,6 +18,7 @@ exports.AstFile = void 0;
 const ast_file_service_1 = require("../../../ast-to-reports/services/ast/ast-file.service");
 const cpx_factors_model_1 = require("../../../ast-to-reports/models/cpx-factor/cpx-factors.model");
 const ast_method_service_1 = require("../../../ast-to-reports/services/ast/ast-method.service");
+const chalk = require("chalk");
 class AstFile {
     constructor() {
         _astFolder.set(this, undefined); // The AstFolder which includes this AstFile
@@ -136,15 +137,13 @@ class AstFile {
     logg(message) {
         var _a, _b;
         console.log('-----------------------------');
-        console.log(message !== null && message !== void 0 ? message : 'AST_FILE', this.name);
+        console.log(chalk.yellowBright(message !== null && message !== void 0 ? message : 'AST_FILE'));
+        console.log(this.name);
         console.log('-----------------------------');
-        if (message) {
-            console.log(message);
-        }
-        console.log('END', this.end);
-        console.log('TEXT', this.text);
-        console.log('AST_NODE', (_a = this.astNode) === null || _a === void 0 ? void 0 : _a.kind);
-        console.log('AST_FOLDERE', (_b = this.astFolder) === null || _b === void 0 ? void 0 : _b.path);
+        console.log(chalk.blueBright('end :'), this.end);
+        console.log(chalk.blueBright('text :'), this.text);
+        console.log(chalk.blueBright('astNode :'), (_a = this.astNode) === null || _a === void 0 ? void 0 : _a.kind);
+        console.log(chalk.blueBright('astFolder :'), (_b = this.astFolder) === null || _b === void 0 ? void 0 : _b.path);
     }
 }
 exports.AstFile = AstFile;

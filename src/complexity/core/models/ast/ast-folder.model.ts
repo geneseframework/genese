@@ -152,9 +152,6 @@ export class AstFolder implements Evaluate, HasStats, Logg {
         console.log(chalk.yellowBright(message ?? 'AST_FOLDER'));
         console.log(this.path);
         console.log('-----------------------------');
-        if (message) {
-            console.log(message);
-        }
         console.log(chalk.blueBright('parent :'), this.parent?.path);
         console.log(chalk.blueBright('children :'), this.children);
     }

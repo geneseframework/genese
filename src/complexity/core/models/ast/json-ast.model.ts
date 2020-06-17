@@ -75,9 +75,6 @@ export class JsonAst implements Evaluate, Logg {
         console.log('-----------------------------');
         console.log(chalk.yellowBright(message ?? 'JSON_AST'));
         console.log('-----------------------------');
-        if (message) {
-            console.log(message);
-        }
         console.log(chalk.blueBright('astFolder :'), this.astFolder?.path);
     }
 
