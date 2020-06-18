@@ -12,25 +12,28 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astFolder, _cpxFactors, _cyclomaticCpx;
+var _cpxFactors, _cyclomaticCpx;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JsonAst = void 0;
 const chalk = require("chalk");
 class JsonAst {
     constructor() {
-        _astFolder.set(this, undefined);
+        this.astFolder = undefined;
+        // #astFolder?: AstFolder = undefined;
         _cpxFactors.set(this, undefined);
         _cyclomaticCpx.set(this, 0);
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
-    get astFolder() {
-        return __classPrivateFieldGet(this, _astFolder);
-    }
-    set astFolder(astFolder) {
-        __classPrivateFieldSet(this, _astFolder, astFolder);
-    }
+    // get astFolder(): AstFolder {
+    //     return this.#astFolder;
+    // }
+    //
+    //
+    // set astFolder(astFolder: AstFolder) {
+    //     this.#astFolder = astFolder;
+    // }
     get cpxFactors() {
         return __classPrivateFieldGet(this, _cpxFactors);
     }
@@ -47,8 +50,8 @@ class JsonAst {
     //                                Other methods
     // ---------------------------------------------------------------------------------
     evaluate() {
-        this.cpxFactors = __classPrivateFieldGet(this, _astFolder).cpxFactors;
-        __classPrivateFieldSet(this, _cyclomaticCpx, __classPrivateFieldGet(this, _astFolder).cyclomaticCpx);
+        this.cpxFactors = this.astFolder.cpxFactors;
+        __classPrivateFieldSet(this, _cyclomaticCpx, this.astFolder.cyclomaticCpx);
     }
     logg(message) {
         var _a, _b, _c, _d, _e, _f;
@@ -74,4 +77,4 @@ class JsonAst {
     }
 }
 exports.JsonAst = JsonAst;
-_astFolder = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap();
+_cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap();

@@ -1,34 +1,22 @@
 "use strict";
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to get private field on non-instance");
-    }
-    return privateMap.get(receiver);
-};
-var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, privateMap, value) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to set private field on non-instance");
-    }
-    privateMap.set(receiver, value);
-    return value;
-};
-var _tsFolder;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TsJsonAst = void 0;
 const chalk = require("chalk");
 class TsJsonAst {
     constructor() {
-        _tsFolder.set(this, undefined);
+        this.tsFolder = undefined;
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
-    get tsFolder() {
-        return __classPrivateFieldGet(this, _tsFolder);
-    }
-    set tsFolder(tsFolder) {
-        __classPrivateFieldSet(this, _tsFolder, tsFolder);
-    }
+    // get tsFolder(): TsFolder {
+    //     return this.#tsFolder;
+    // }
+    //
+    //
+    // set tsFolder(tsFolder: TsFolder) {
+    //     this.#tsFolder = tsFolder;
+    // }
     // ---------------------------------------------------------------------------------
     //                                Other methods
     // ---------------------------------------------------------------------------------
@@ -55,4 +43,3 @@ class TsJsonAst {
     }
 }
 exports.TsJsonAst = TsJsonAst;
-_tsFolder = new WeakMap();

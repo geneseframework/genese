@@ -5,7 +5,7 @@ import { TsNode } from './ts-node.model';
 
 export class TsJsonAst implements Logg {
 
-    #tsFolder?: TsFolder = undefined;
+    tsFolder?: TsFolder = undefined;
 
 
 
@@ -15,14 +15,14 @@ export class TsJsonAst implements Logg {
 
 
 
-    get tsFolder(): TsFolder {
-        return this.#tsFolder;
-    }
-
-
-    set tsFolder(tsFolder: TsFolder) {
-        this.#tsFolder = tsFolder;
-    }
+    // get tsFolder(): TsFolder {
+    //     return this.#tsFolder;
+    // }
+    //
+    //
+    // set tsFolder(tsFolder: TsFolder) {
+    //     this.#tsFolder = tsFolder;
+    // }
 
 
     // ---------------------------------------------------------------------------------

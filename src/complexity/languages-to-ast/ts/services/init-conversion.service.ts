@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import { ConvertOptions } from '../../core/convert-options.model';
+import { ConvertOptions } from '../../core/models/convert-options.model';
 import { LIMIT_CONVERSIONS } from '../../main-language-to-ast';
 import { TsFolder } from '../models/ts-folder.model';
 import { TsFileConversionService } from './ts-file-conversion.service';

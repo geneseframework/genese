@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InitConversionService = void 0;
 const fs = require("fs-extra");
-const convert_options_model_1 = require("../../core/convert-options.model");
+const convert_options_model_1 = require("../../core/models/convert-options.model");
 const main_language_to_ast_1 = require("../../main-language-to-ast");
 const ts_folder_model_1 = require("../models/ts-folder.model");
 const ts_file_conversion_service_1 = require("./ts-file-conversion.service");

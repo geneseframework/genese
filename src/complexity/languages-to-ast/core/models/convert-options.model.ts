@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import { getArrayOfPathsWithDotSlash } from '../../core/services/file.service';
+import { getArrayOfPathsWithDotSlash } from '../../../core/services/file.service';
 
 
 /**

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConvertOptions = void 0;
 const fs = require("fs-extra");
-const file_service_1 = require("../../core/services/file.service");
+const file_service_1 = require("../../../core/services/file.service");
 /**
  * The options used by genese-complexity
  * Some options can be override by command-line options or with geneseconfig.json
