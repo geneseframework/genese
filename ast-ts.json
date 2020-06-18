@@ -1,6 +1,9 @@
 {
 	"astFolder": {
-		"tsFiles": [
+		"children": [
+		],
+		"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/",
+		"astFiles": [
 			{
 				"name": "debug.mock.ts",
 				"text": "",
@@ -121,9 +124,6 @@
 					]
 				}
 			}
-		],
-		"children": [
-		],
-		"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/"
+		]
 	}
 }

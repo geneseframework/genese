@@ -89,5 +89,22 @@ class JsonService {
     static jsonObject(obj, key, indentation, json) {
         return `${json}${JsonService.prettifyJson(obj[key], indentation)}${JsonService.comma(key, obj)}\n`;
     }
+    static astPropertyNames(obj) {
+        for (const key of Object.keys(obj)) {
+            switch (key) {
+                case 'tsFiles':
+                    obj['astFiles'] = JsonService.astPropertyNames(obj[key]);
+                    delete obj[key];
+                    break;
+                case 'tsNode':
+                    obj['astNode'] = JsonService.astPropertyNames(obj[key]);
+                    delete obj[key];
+                    break;
+                default:
+                // obj[key] = JsonService.astPropertyNames(obj[key]);
+            }
+        }
+        return obj;
+    }
 }
 exports.JsonService = JsonService;

@@ -98,4 +98,23 @@ export class JsonService {
     private static jsonObject(obj: object, key: string, indentation: string, json: string): string {
         return `${json}${JsonService.prettifyJson(obj[key], indentation)}${JsonService.comma(key, obj)}\n`;
     }
+
+
+    static astPropertyNames(obj: object): object {
+        for (const key of Object.keys(obj)) {
+            switch (key) {
+                case 'tsFiles':
+                    obj['astFiles'] = JsonService.astPropertyNames(obj[key]);
+                    delete obj[key];
+                    break;
+                case 'tsNode':
+                    obj['astNode'] = JsonService.astPropertyNames(obj[key]);
+                    delete obj[key];
+                    break;
+                default:
+                    // obj[key] = JsonService.astPropertyNames(obj[key]);
+            }
+        }
+        return obj;
+    }
 }

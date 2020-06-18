@@ -56,6 +56,7 @@ export class InitService {
 
     generateAstFiles(astFolderFromJsonAst: any, astFolder: AstFolder): AstFile[] {
         const astFiles: AstFile[] = [];
+        console.log('ASTFLDR DFROM JSONNNN', astFolderFromJsonAst)
         for (const astFileFromJsonAst of astFolderFromJsonAst.astFiles) {
             astFiles.push(this.generateAstFile(astFileFromJsonAst, astFolder));
         }
