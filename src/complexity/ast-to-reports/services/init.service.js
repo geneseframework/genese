@@ -33,12 +33,11 @@ class InitService {
             for (const child of (_b = jsonAst.astFolder) === null || _b === void 0 ? void 0 : _b.children) {
                 const newChild = this.generateChildrenAstFolder(jsonAst.astFolder, astFolder);
                 newChild.parent = jsonAst.astFolder;
-                // newChild.children = this.generateAllFromJsonAst()
                 astFolder.children.push(newChild);
             }
         }
         newJsonAst.astFolder = astFolder;
-        newJsonAst.logg();
+        // newJsonAst.logg();
         return newJsonAst;
     }
     generateChildrenAstFolder(astFolderFromJsonAst, parentAstFolder) {
@@ -53,7 +52,6 @@ class InitService {
     }
     generateAstFiles(astFolderFromJsonAst, astFolder) {
         const astFiles = [];
-        console.log('ASTFLDR DFROM JSONNNN', astFolderFromJsonAst);
         for (const astFileFromJsonAst of astFolderFromJsonAst.astFiles) {
             astFiles.push(this.generateAstFile(astFileFromJsonAst, astFolder));
         }
