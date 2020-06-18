@@ -15,10 +15,10 @@ exports.LIMIT_CONVERSIONS = true;
 class MainConvertTs {
     /**
      * Starts the conversion
-     * @param pathCommand
-     * @param pathToAnalyze
-     * @param pathGeneseNodeJs
-     * @param language
+     * @param pathCommand           // The path to the directory where the user enters the command line
+     * @param pathToAnalyze         // The path of the folder to analyse
+     * @param pathGeneseNodeJs      // The path to Genese module installed globally on the user's device
+     * @param language              // The language to parse and convert into JsonAst
      */
     start(pathCommand, pathToAnalyze, pathGeneseNodeJs, language) {
         console.log(chalk.blueBright('STARTS CONVERSION FROM TS TO JSON'));
@@ -27,7 +27,9 @@ class MainConvertTs {
         switch (language) {
             case language_enum_1.Language.TS:
                 const initService = new init_conversion_service_1.InitConversionService();
-                jsonAst.astFolder = initService.generateAll(pathToAnalyze).tsFolder;
+                let astFolder = initService.generateAll(pathToAnalyze).tsFolder;
+                astFolder = json_service_1.JsonService.astPropertyNames(astFolder);
+                jsonAst.astFolder = astFolder;
         }
         file_service_1.createFile(`./ast-ts.json`, json_service_1.JsonService.prettifyJson(jsonAst));
         console.log(chalk.blueBright('CONVERSION GENERATED SUCCESSFULLY'));
