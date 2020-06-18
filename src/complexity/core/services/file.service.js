@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.copyFile = exports.createOutDir = exports.createRelativeDir = exports.getLanguageExtensions = exports.getFilenameWithoutExtension = exports.getFileExtension = exports.getRouteToRoot = exports.getPathWithDotSlash = exports.getArrayOfPathsWithDotSlash = exports.getPathWithoutEndSlash = exports.getRelativePath = exports.getAllFiles = exports.getFilename = void 0;
+exports.createFile = exports.copyFile = exports.createOutDir = exports.createRelativeDir = exports.getLanguageExtensions = exports.getFilenameWithoutExtension = exports.getFileExtension = exports.getRouteToRoot = exports.getPathWithDotSlash = exports.getArrayOfPathsWithDotSlash = exports.getPathWithoutEndSlash = exports.getRelativePath = exports.getAllFiles = exports.getFilename = void 0;
 const fs = require("fs-extra");
 const options_1 = require("../../ast-to-reports/models/options");
 /**
@@ -173,3 +173,12 @@ function copyFile(originPath, targetPath) {
     fs.copyFileSync(originPath, targetPath);
 }
 exports.copyFile = copyFile;
+/**
+ * Copy a file from a path to another one
+ * @param path
+ * @param content
+ */
+function createFile(path, content) {
+    fs.writeFileSync(path, content, { encoding: 'utf-8' });
+}
+exports.createFile = createFile;

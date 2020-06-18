@@ -5,6 +5,7 @@ import { JsonAst } from '../ast-to-reports/models/ast/json-ast.model';
 import { Language } from '../core/enum/language.enum';
 import * as chalk from 'chalk';
 import { JsonService } from './core/services/json.service';
+import { createFile } from '../core/services/file.service';
 
 export const LIMIT_CONVERSIONS = true;
 
@@ -16,10 +17,10 @@ export class MainConvertTs {
 
     /**
      * Starts the conversion
-     * @param pathCommand
-     * @param pathToAnalyze
-     * @param pathGeneseNodeJs
-     * @param language
+     * @param pathCommand           // The path to the directory where the user enters the command line
+     * @param pathToAnalyze         // The path of the folder to analyse
+     * @param pathGeneseNodeJs      // The path to Genese module installed globally on the user's device
+     * @param language              // The language to parse and convert into JsonAst
      */
     start(pathCommand: string, pathToAnalyze: string, pathGeneseNodeJs: string, language: Language): void {
         console.log(chalk.blueBright('STARTS CONVERSION FROM TS TO JSON'));
@@ -30,8 +31,7 @@ export class MainConvertTs {
                 const initService = new InitConversionService();
                 jsonAst.astFolder = initService.generateAll(pathToAnalyze).tsFolder as any;
         }
-        const pathReport = `./ast-ts.json`;
-        fs.writeFileSync(pathReport, JsonService.prettifyJson(jsonAst), {encoding: 'utf-8'});
+        createFile(`./ast-ts.json`, JsonService.prettifyJson(jsonAst));
         console.log(chalk.blueBright('CONVERSION GENERATED SUCCESSFULLY'));
     }
 
