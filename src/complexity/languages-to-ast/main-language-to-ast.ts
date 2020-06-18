@@ -29,7 +29,9 @@ export class MainConvertTs {
         switch (language) {
             case Language.TS:
                 const initService = new InitConversionService();
-                jsonAst.astFolder = initService.generateAll(pathToAnalyze).tsFolder as any;
+                let astFolder = initService.generateAll(pathToAnalyze).tsFolder as any;
+                astFolder = JsonService.astPropertyNames(astFolder);
+                jsonAst.astFolder = astFolder;
         }
         createFile(`./ast-ts.json`, JsonService.prettifyJson(jsonAst));
         console.log(chalk.blueBright('CONVERSION GENERATED SUCCESSFULLY'));

@@ -7,9 +7,9 @@ export class TsFolder implements Logg {
 
 
     tsFiles?: TsFile[] = [];                                                // The array of files of this folder (not in the subfolders)
-    children?: TsFolder[] = [];                                             // The subfolders of this folder
     parent?: TsFolder = undefined;                                            // The TsFolder corresponding to the parent folder of this TsFolder
     path?: string = undefined;                                                                 // The absolute path of this folder
+    children?: TsFolder[] = [];                                             // The subfolders of this folder
 
 
 
