@@ -33,19 +33,6 @@ export class MainConvertTs {
                 astFolder = JsonService.astPropertyNames(astFolder);
                 jsonAst.astFolder = astFolder;
         }
-        const zzz = {
-            astFolder: {
-                tsFiles: [
-                    {
-                        name: 'debug.mock.ts',
-                        tsNode: {
-                            children: []
-                        }
-                    }
-                ]
-            }
-        }
-        console.log('REFACTO PROPSSS', JsonService.astPropertyNames(zzz));
         createFile(`./ast-ts.json`, JsonService.prettifyJson(jsonAst));
         console.log(chalk.blueBright('CONVERSION GENERATED SUCCESSFULLY'));
     }

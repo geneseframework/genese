@@ -5,9 +5,9 @@ const chalk = require("chalk");
 class TsFolder {
     constructor() {
         this.tsFiles = []; // The array of files of this folder (not in the subfolders)
-        this.children = []; // The subfolders of this folder
         this.parent = undefined; // The TsFolder corresponding to the parent folder of this TsFolder
         this.path = undefined; // The absolute path of this folder
+        this.children = []; // The subfolders of this folder
     }
     // ---------------------------------------------------------------------------------
     //                                  Other methods
