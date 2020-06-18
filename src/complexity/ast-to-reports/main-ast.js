@@ -24,9 +24,7 @@ class MainAst {
      */
     start(pathCommand, pathToAnalyze, pathGeneseNodeJs, jsonAstPath = '/ast-ts.json') {
         console.log('START CALCULATION');
-        // this.createSyntaxKindEnum();
         options_1.Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
-        // Options.setOptionsFromConfig(pathCommand + geneseConfigPath);
         file_service_1.createOutDir();
         const jsonAst = this.initService.generateAllFromJsonAst(this.getJsonAst(pathCommand + jsonAstPath));
         jsonAst.evaluate();

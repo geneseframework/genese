@@ -45,3 +45,20 @@ export function addObjects<T>(first: T, second: T, tConstructor?: TConstructor<T
     return t as T;
 }
 
+
+
+
+export function isLastKey(key: string, obj: object): boolean {
+    return (key === Object.keys(obj).slice(-1)[0]);
+}
+
+
+export function isLastIndex(i: number, arr: any[]): boolean {
+    return (i === arr.length - 1);
+}
+
+
+export function isLastElement(element: any, arr: any[]): boolean {
+    return element === arr.pop();
+}
+

@@ -27,9 +27,7 @@ export class MainAst {
      */
     start(pathCommand: string, pathToAnalyze: string, pathGeneseNodeJs: string, jsonAstPath = '/ast-ts.json'): void {
         console.log('START CALCULATION');
-        // this.createSyntaxKindEnum();
         Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
-        // Options.setOptionsFromConfig(pathCommand + geneseConfigPath);
         createOutDir();
         const jsonAst = this.initService.generateAllFromJsonAst(this.getJsonAst(pathCommand + jsonAstPath));
         jsonAst.evaluate();
