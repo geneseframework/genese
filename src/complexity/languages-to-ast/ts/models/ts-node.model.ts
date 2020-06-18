@@ -1,18 +1,17 @@
 import * as ts from 'typescript';
-import { Ts } from '../services/ts.service';
 
 /**
  * The formatted tree of elements corresponding to an Abstract Syntax TsNode (AST)
  */
 export class TsNode {
 
-    children?: TsNode[] = [];                                                 // The children trees corresponding to children AST nodes of the current AST node
     end: number = undefined;
     kind: string = undefined;                                                  // The kind of the node ('MethodDeclaration, IfStatement, ...)
     name: string = undefined;                                                  // The name of the TsNode
     #node?: ts.Node = undefined;                                                // The current node in the AST
     #parent?: TsNode;                                                         // The tree of the parent of the current node
     pos?: number = undefined;
+    children?: TsNode[] = [];                                                 // The children trees corresponding to children AST nodes of the current AST node
 
 
     // ---------------------------------------------------------------------------------

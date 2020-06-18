@@ -1,11 +1,10 @@
-/**
- * Capitalize the given string (i.e. convert the string to upper lower case).
- * @param {string} text - The text to capitalize.
- * @return {string}
- */
 import { TConstructor } from '../../ast-to-reports/interfaces/t-constructor.interface';
 
 
+/**
+ * Sets in capitals the first letter of a text
+ * @param text
+ */
 export function capitalize(text: string): string {
     return `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
 }
@@ -24,8 +23,14 @@ export function percent(numerator: number, denominator: number): number {
 }
 
 
+/**
+ * Adds two objects with properties which have numeric values
+ * Returns the result of the addition with the same type (if given) of the two objects
+ * @param first             // The first object
+ * @param second            // The second object
+ * @param tConstructor      // The class of the objects
+ */
 export function addObjects<T>(first: T, second: T, tConstructor?: TConstructor<T>): T {
-
     if (!(typeof first === 'object') || !(typeof second === 'object')) {
         return first;
     }
@@ -46,13 +51,21 @@ export function addObjects<T>(first: T, second: T, tConstructor?: TConstructor<T
 }
 
 
-
-
+/**
+ * Checks if a key is the last one of a given object
+ * @param key       // The key of the object
+ * @param obj       // The object
+ */
 export function isLastKey(key: string, obj: object): boolean {
     return (key === Object.keys(obj).slice(-1)[0]);
 }
 
 
+/**
+ * Checks if a number is the last index of a given array
+ * @param i         // The index
+ * @param arr       // The array
+ */
 export function isLastIndex(i: number, arr: any[]): boolean {
     return (i === arr.length - 1);
 }

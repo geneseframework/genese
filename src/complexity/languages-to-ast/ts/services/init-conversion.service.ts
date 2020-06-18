@@ -26,8 +26,6 @@ export class InitConversionService {
         }
         const tsJsonAst = new TsJsonAst();
         tsJsonAst.tsFolder = this.generateTsFolder(path);
-        // tsJsonAst.tsFolder.logg();
-        // console.log('GENERATE ALLLL', tsJsonAst.tsFolder?.path)
         return tsJsonAst;
     }
 
@@ -42,7 +40,7 @@ export class InitConversionService {
             if (!ConvertOptions.isIgnored(pathElement)) {
                 if (fs.statSync(pathElement).isDirectory() && !LIMIT_CONVERSIONS) {
                     tsFolder.children.push(this.generateTsFolder(`${pathElement}/`, tsFolder))
-                } else if (!LIMIT_CONVERSIONS || pathElement === '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.js') {
+                } else if (!LIMIT_CONVERSIONS || pathElement === '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts') {
                     tsFolder.tsFiles.push(this.tsFileConversionService.generateTsFile(pathElement, tsFolder));
                 }
             }

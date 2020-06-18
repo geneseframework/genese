@@ -40,6 +40,19 @@ class Ts {
      * Gets the name of the method of a node with type = MethodDeclaration
      * @param node // The AST node
      */
+    static getName(node) {
+        var _a, _b;
+        if (Ts.isFunctionOrMethod(node)) {
+            return (_b = (_a = node === null || node === void 0 ? void 0 : node['name']) === null || _a === void 0 ? void 0 : _a['escapedText']) !== null && _b !== void 0 ? _b : '';
+        }
+        else {
+            return '';
+        }
+    }
+    /**
+     * Gets the name of the method of a node with type = MethodDeclaration
+     * @param node // The AST node
+     */
     static getMethodName(node) {
         var _a, _b;
         if (Ts.isFunctionOrMethod(node)) {

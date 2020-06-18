@@ -20,13 +20,13 @@ exports.TsNode = void 0;
  */
 class TsNode {
     constructor() {
-        this.children = []; // The children trees corresponding to children AST nodes of the current AST node
         this.end = undefined;
         this.kind = undefined; // The kind of the node ('MethodDeclaration, IfStatement, ...)
         this.name = undefined; // The name of the TsNode
         _node.set(this, undefined); // The current node in the AST
         _parent.set(this, void 0); // The tree of the parent of the current node
         this.pos = undefined;
+        this.children = []; // The children trees corresponding to children AST nodes of the current AST node
         // ---------------------------------------------------------------------------------
         //                                  Other methods
         // ---------------------------------------------------------------------------------

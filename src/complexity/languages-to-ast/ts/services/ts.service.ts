@@ -48,6 +48,19 @@ export class Ts {
      * Gets the name of the method of a node with type = MethodDeclaration
      * @param node // The AST node
      */
+    static getName(node: ts.Node): string {
+        if (Ts.isFunctionOrMethod(node)) {
+            return node?.['name']?.['escapedText'] ?? '';
+        } else {
+            return '';
+        }
+    }
+
+
+    /**
+     * Gets the name of the method of a node with type = MethodDeclaration
+     * @param node // The AST node
+     */
     static getMethodName(node: ts.Node): string {
         if (Ts.isFunctionOrMethod(node)) {
             return node?.['name']?.['escapedText'] ?? '';
