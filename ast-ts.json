@@ -1,0 +1,129 @@
+{
+	"astFolder": {
+		"tsFiles": [
+			{
+				"name": "debug.mock.ts",
+				"text": "",
+				"tsNode": {
+					"children": [
+						{
+							"end": 108,
+							"kind": "ClassDeclaration",
+							"name": "",
+							"pos": 0,
+							"children": [
+								{
+									"end": 6,
+									"kind": "ExportKeyword",
+									"name": "",
+									"pos": 0,
+									"children": [
+									]
+								},
+								{
+									"end": 29,
+									"kind": "Identifier",
+									"name": "",
+									"pos": 12,
+									"children": [
+									]
+								},
+								{
+									"end": 106,
+									"kind": "MethodDeclaration",
+									"name": "ifAlone",
+									"pos": 31,
+									"children": [
+										{
+											"end": 44,
+											"kind": "Identifier",
+											"name": "",
+											"pos": 31,
+											"children": [
+											]
+										},
+										{
+											"end": 46,
+											"kind": "Parameter",
+											"name": "",
+											"pos": 45,
+											"children": [
+												{
+													"end": 46,
+													"kind": "Identifier",
+													"name": "",
+													"pos": 45,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 106,
+											"kind": "Block",
+											"name": "",
+											"pos": 47,
+											"children": [
+												{
+													"end": 100,
+													"kind": "IfStatement",
+													"name": "",
+													"pos": 49,
+													"children": [
+														{
+															"end": 63,
+															"kind": "Identifier",
+															"name": "",
+															"pos": 62,
+															"children": [
+															]
+														},
+														{
+															"end": 100,
+															"kind": "Block",
+															"name": "",
+															"pos": 64,
+															"children": [
+																{
+																	"end": 90,
+																	"kind": "ReturnStatement",
+																	"name": "",
+																	"pos": 66,
+																	"children": [
+																		{
+																			"end": 89,
+																			"kind": "StringLiteral",
+																			"name": "",
+																			"pos": 85,
+																			"children": [
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"end": 109,
+							"kind": "EndOfFileToken",
+							"name": "",
+							"pos": 108,
+							"children": [
+							]
+						}
+					]
+				}
+			}
+		],
+		"children": [
+		],
+		"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/"
+	}
+}

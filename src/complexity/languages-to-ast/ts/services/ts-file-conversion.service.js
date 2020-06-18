@@ -17,7 +17,6 @@ class TsFileConversionService {
         const tsNode = new ts_node_model_1.TsNode();
         tsNode.node = ts_service_1.Ts.getSourceFile(path);
         tsFile.tsNode = this.createTsNodeChildren(tsNode);
-        // tsFile.logg();
         return tsFile;
     }
     createTsNodeChildren(tsNode) {
@@ -26,7 +25,8 @@ class TsFileConversionService {
             newTsNode.node = childTsNode;
             newTsNode.pos = ts_service_1.Ts.getPosition(newTsNode.node);
             newTsNode.end = ts_service_1.Ts.getEnd(newTsNode.node);
-            // newTsNode.logg();
+            newTsNode.name = ts_service_1.Ts.getName(newTsNode.node);
+            newTsNode.kind = ts_service_1.Ts.getKind(newTsNode.node);
             tsNode.children.push(this.createTsNodeChildren(newTsNode));
         });
         return tsNode;

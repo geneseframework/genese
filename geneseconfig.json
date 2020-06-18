@@ -15,7 +15,7 @@
             "/node_modules",
             "./genese"
         ],
-        "pathFolderToAnalyze": "./src/complexity/old/mocks/",
+        "pathFolderToAnalyze": "./src/complexity/languages-to-ast/core/",
         "pathReports": "./genese"
     }
 }
