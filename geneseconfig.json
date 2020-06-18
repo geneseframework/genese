@@ -15,7 +15,7 @@
             "/node_modules",
             "./genese"
         ],
-        "pathFolderToAnalyze": "./src/complexity/mocks/",
+        "pathFolderToAnalyze": "./src/complexity/old/mocks/",
         "pathReports": "./genese"
     }
 }
