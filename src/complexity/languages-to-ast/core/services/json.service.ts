@@ -22,24 +22,16 @@ export class JsonService {
                     obj[key] = JsonService.deletePropertiesWithUndefinedValues(obj[key]);
                     if (Array.isArray(obj[key])) {
                         json = `${json}[\n`;
+                        let index = 0;
                         for (const element of obj[key]) {
-                            json = `${json}${indentation}\t${JsonService.prettifyJson(element, `${indentation}\t`)},\n`;
+                            index++;
+                            json = `${json}${indentation}\t${JsonService.prettifyJson(element, `${indentation}\t`)}`;
+                            json = (index === obj[key].length) ? `${json}\n` : `${json},\n`;
                         }
                         json = `${json}${indentation}]`;
                         json = (key === Object.keys(obj).slice(-1)[0]) ? `${json}\n` : `${json},\n`;
                     } else {
                         json = `${json}${JsonService.prettifyJson(obj[key], indentation)}`;
-                        // let keyIndex = 0;
-                        // for (const keyChild of Object.keys(obj[key])) {
-                        //     console.log('KEYCHILDDD', keyChild, Object.keys(obj[key]), Object.keys(obj[key]).slice(-1)[0])
-                        //     if (keyIndex === 0) {
-                        //         json = `${json}${JsonService.prettifyJson(obj[key], `${indentation}`)}`;
-                        //     } else {
-                        //         json = `${json}${indentation}${JsonService.prettifyJson(obj[key], `${indentation}`)}`;
-                        //     }
-                        //     json = (keyChild === Object.keys(obj[key]).slice(-1)[0]) ? `${json}\n` : `${json},\n`;
-                        //     keyIndex ++;
-                        // }
                         break;
                     }
                     break;
@@ -50,7 +42,7 @@ export class JsonService {
             }
             // }
         }
-        json = `${json}${indentation.slice(0, -1)}}\n`;
+        json = `${json}${indentation.slice(0, -1)}}`;
         // console.log('PRETTIFIED JSONNNN', json);
         return json;
     }

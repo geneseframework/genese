@@ -31,16 +31,6 @@ export class MainConvertTs {
                 jsonAst.astFolder = initService.generateAll(pathToAnalyze).tsFolder as any;
         }
         const pathReport = `./ast-ts.json`;
-        console.log('PATH REPORT', pathReport)
-        console.log('JSONNNNN', jsonAst)
-        // jsonAst.astFolder.logg('JSN');
-        // const zzz = 	{
-        //     "children": {
-        //         "end": 2,
-        //         "pos": 5
-        //     }
-        // }
-        // fs.writeFileSync(pathReport, JsonService.prettifyJson(zzz), {encoding: 'utf-8'});
         fs.writeFileSync(pathReport, JsonService.prettifyJson(jsonAst), {encoding: 'utf-8'});
         console.log(chalk.blueBright('CONVERSION GENERATED SUCCESSFULLY'));
     }
