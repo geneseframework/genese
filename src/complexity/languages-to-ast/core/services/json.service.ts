@@ -28,22 +28,18 @@ export class JsonService {
                         json = `${json}${indentation}]`;
                         json = (key === Object.keys(obj).slice(-1)[0]) ? `${json}\n` : `${json},\n`;
                     } else {
-                        let keyIndex = 0;
-                        for (const keyChild of Object.keys(obj[key])) {
-                            console.log('KEYCHILDDD', keyChild, Object.keys(obj[key]), Object.keys(obj[key]).slice(-1)[0])
-                            if (keyIndex === 0) {
-                                json = `${json}${JsonService.prettifyJson(obj[key], `${indentation}`)}`;
-                            } else {
-                                json = `${json}${indentation}${JsonService.prettifyJson(obj[key], `${indentation}`)}`;
-                            }
-                            json = (keyChild === Object.keys(obj[key]).slice(-1)[0]) ? `${json}\n` : `${json},\n`;
-                            if (keyChild === Object.keys(obj[key]).slice(-1)[0]) {
-                                console.log(keyChild, Object.keys(obj[key]), Object.keys(obj[key]).slice(-1)[0])
-                                // throw keyChild;
-                            }
-                            keyIndex ++;
-                        }
-                        // json = `${json}}\n`;
+                        json = `${json}${JsonService.prettifyJson(obj[key], indentation)}`;
+                        // let keyIndex = 0;
+                        // for (const keyChild of Object.keys(obj[key])) {
+                        //     console.log('KEYCHILDDD', keyChild, Object.keys(obj[key]), Object.keys(obj[key]).slice(-1)[0])
+                        //     if (keyIndex === 0) {
+                        //         json = `${json}${JsonService.prettifyJson(obj[key], `${indentation}`)}`;
+                        //     } else {
+                        //         json = `${json}${indentation}${JsonService.prettifyJson(obj[key], `${indentation}`)}`;
+                        //     }
+                        //     json = (keyChild === Object.keys(obj[key]).slice(-1)[0]) ? `${json}\n` : `${json},\n`;
+                        //     keyIndex ++;
+                        // }
                         break;
                     }
                     break;
@@ -54,7 +50,7 @@ export class JsonService {
             }
             // }
         }
-        json = `${json}}\n`;
+        json = `${json}${indentation.slice(0, -1)}}\n`;
         // console.log('PRETTIFIED JSONNNN', json);
         return json;
     }

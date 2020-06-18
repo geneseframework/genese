@@ -32,11 +32,13 @@ class MainConvertTs {
         const pathReport = `./ast-ts.json`;
         console.log('PATH REPORT', pathReport);
         console.log('JSONNNNN', jsonAst);
-        // const zzz = 	{
-        //     "end": 12,
-        //     "pos": 0,
-        // }
         // jsonAst.astFolder.logg('JSN');
+        // const zzz = 	{
+        //     "children": {
+        //         "end": 2,
+        //         "pos": 5
+        //     }
+        // }
         // fs.writeFileSync(pathReport, JsonService.prettifyJson(zzz), {encoding: 'utf-8'});
         fs.writeFileSync(pathReport, json_service_1.JsonService.prettifyJson(jsonAst), { encoding: 'utf-8' });
         console.log(chalk.blueBright('CONVERSION GENERATED SUCCESSFULLY'));
