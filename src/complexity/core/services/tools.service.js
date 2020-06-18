@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isLastElement = exports.isLastIndex = exports.isLastKey = exports.addObjects = exports.percent = exports.capitalize = void 0;
+exports.isLastIndex = exports.isLastKey = exports.addObjects = exports.percent = exports.capitalize = void 0;
 function capitalize(text) {
     return `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
 }
@@ -47,7 +47,3 @@ function isLastIndex(i, arr) {
     return (i === arr.length - 1);
 }
 exports.isLastIndex = isLastIndex;
-function isLastElement(element, arr) {
-    return element === arr.pop();
-}
-exports.isLastElement = isLastElement;

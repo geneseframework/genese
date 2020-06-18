@@ -57,8 +57,3 @@ export function isLastIndex(i: number, arr: any[]): boolean {
     return (i === arr.length - 1);
 }
 
-
-export function isLastElement(element: any, arr: any[]): boolean {
-    return element === arr.pop();
-}
-

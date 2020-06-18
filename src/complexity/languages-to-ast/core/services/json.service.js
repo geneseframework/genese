@@ -7,6 +7,11 @@ class JsonService {
         const indentation = `${indent}\t`;
         let json = `{\n`;
         obj = JsonService.deleteUndefinedProperties(obj);
+        json = JsonService.addProperties(obj, indentation, json);
+        json = `${json}${indentation.slice(0, -1)}}`;
+        return json;
+    }
+    static addProperties(obj, indentation, json) {
         for (const key of Object.keys(obj)) {
             json = `${json}${indentation}"${key}": `;
             switch (typeof obj[key]) {
@@ -20,26 +25,12 @@ class JsonService {
                     break;
                 case 'object':
                     obj[key] = JsonService.deleteUndefinedProperties(obj[key]);
-                    if (Array.isArray(obj[key])) {
-                        json = `${json}[\n`;
-                        // let index = 0;
-                        // for (const element of obj[key]) {
-                        for (let i = 0; i < obj[key].length; i++) {
-                            // index++;
-                            json = `${json}${indentation}\t${JsonService.prettifyJson(obj[key][i], `${indentation}\t`)}`;
-                            json = tools_service_1.isLastIndex(i, obj[key]) ? `${json}\n` : `${json},\n`;
-                        }
-                        json = `${json}${indentation}]`;
-                        json = (key === Object.keys(obj).slice(-1)[0]) ? `${json}\n` : `${json},\n`;
-                    }
-                    else {
-                        json = `${json}${JsonService.prettifyJson(obj[key], indentation)}`;
-                        break;
-                    }
+                    json = Array.isArray(obj[key])
+                        ? JsonService.jsonArray(obj, key, indentation, json)
+                        : `${json}${JsonService.prettifyJson(obj[key], indentation)}`;
                     break;
             }
         }
-        json = `${json}${indentation.slice(0, -1)}}`;
         return json;
     }
     static deleteUndefinedProperties(obj) {
@@ -52,6 +43,14 @@ class JsonService {
     }
     static comma(key, obj) {
         return tools_service_1.isLastKey(key, obj) ? '' : ',';
+    }
+    static jsonArray(obj, key, indentation, json) {
+        json = `${json}[\n`;
+        for (let i = 0; i < obj[key].length; i++) {
+            json = `${json}${indentation}\t${JsonService.prettifyJson(obj[key][i], `${indentation}\t`)}`;
+            json = tools_service_1.isLastIndex(i, obj[key]) ? `${json}\n` : `${json},\n`;
+        }
+        return `${json}${indentation}]${JsonService.comma(key, obj)}\n`;
     }
 }
 exports.JsonService = JsonService;
