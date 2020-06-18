@@ -5,55 +5,73 @@ class JsonService {
     static prettifyJson(obj, indent = '') {
         const indentation = `${indent}\t`;
         let json = `{\n`;
+        obj = JsonService.deletePropertiesWithUndefinedValues(obj);
         for (const key of Object.keys(obj)) {
-            if (obj[key]) {
-                json = `${json}${indentation}"${key}": `;
-                switch (typeof obj[key]) {
-                    case 'number':
-                    case 'bigint':
-                    case 'boolean':
-                        json = `${json}${obj[key]},\n`;
-                        break;
-                    case 'string':
-                        json = `${json}"${obj[key]}",\n`;
-                        break;
-                    case 'object':
-                        if (Array.isArray(obj[key])) {
-                            json = `${json}[\n`;
-                            for (const element of obj[key]) {
-                                json = `${json}${indentation}\t${JsonService.prettifyJson(element, `${indentation}\t`)},\n`;
-                            }
-                            json = `${json}${indentation}]\n`;
+            // if (obj[key]) {
+            json = `${json}${indentation}"${key}": `;
+            switch (typeof obj[key]) {
+                case 'number':
+                case 'bigint':
+                case 'boolean':
+                    json = `${json}${obj[key]}`;
+                    json = JsonService.isLastKey(key, obj) ? `${json}\n` : `${json},\n`;
+                    break;
+                case 'string':
+                    json = `${json}"${obj[key]}"`;
+                    json = JsonService.isLastKey(key, obj) ? `${json}\n` : `${json},\n`;
+                    break;
+                case 'object':
+                    obj[key] = JsonService.deletePropertiesWithUndefinedValues(obj[key]);
+                    if (Array.isArray(obj[key])) {
+                        json = `${json}[\n`;
+                        for (const element of obj[key]) {
+                            json = `${json}${indentation}\t${JsonService.prettifyJson(element, `${indentation}\t`)},\n`;
                         }
-                        else {
-                            // json = `${json}{\n`;
-                            let keyIndex = 0;
-                            for (const keyChild of Object.keys(obj[key])) {
-                                if (keyIndex === 0) {
-                                    json = `${json}${JsonService.prettifyJson(obj[key], `${indentation}`)},\n`;
-                                }
-                                else {
-                                    console.log('KEYINDEX', keyIndex);
-                                    json = `${json}${indentation}${JsonService.prettifyJson(obj[key], `${indentation}`)},\n`;
-                                }
-                                keyIndex++;
+                        json = `${json}${indentation}]`;
+                        json = (key === Object.keys(obj).slice(-1)[0]) ? `${json}\n` : `${json},\n`;
+                    }
+                    else {
+                        let keyIndex = 0;
+                        for (const keyChild of Object.keys(obj[key])) {
+                            console.log('KEYCHILDDD', keyChild, Object.keys(obj[key]), Object.keys(obj[key]).slice(-1)[0]);
+                            if (keyIndex === 0) {
+                                json = `${json}${JsonService.prettifyJson(obj[key], `${indentation}`)}`;
                             }
-                            // json = `${json}}\n`;
-                            break;
+                            else {
+                                json = `${json}${indentation}${JsonService.prettifyJson(obj[key], `${indentation}`)}`;
+                            }
+                            json = (keyChild === Object.keys(obj[key]).slice(-1)[0]) ? `${json}\n` : `${json},\n`;
+                            if (keyChild === Object.keys(obj[key]).slice(-1)[0]) {
+                                console.log(keyChild, Object.keys(obj[key]), Object.keys(obj[key]).slice(-1)[0]);
+                                // throw keyChild;
+                            }
+                            keyIndex++;
                         }
+                        // json = `${json}}\n`;
                         break;
-                    default:
-                        console.log('KEY', key, obj[key]);
-                        json = `${json}${obj[key]},\n`;
-                        break;
-                }
+                    }
+                    break;
+                default:
+                    console.log('KEY', key, obj[key]);
+                    json = `${json}${obj[key]},\n`;
+                    break;
             }
+            // }
         }
         json = `${json}}\n`;
         // console.log('PRETTIFIED JSONNNN', json);
         return json;
     }
-    static addProperty(key, value) {
+    static deletePropertiesWithUndefinedValues(obj) {
+        for (const key of Object.keys(obj)) {
+            if (obj[key] === undefined) {
+                delete obj[key];
+            }
+        }
+        return obj;
+    }
+    static isLastKey(key, obj) {
+        return (key === Object.keys(obj).slice(-1)[0]);
     }
     static prettyJson(obj) {
         if (!obj) {
