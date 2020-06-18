@@ -1,0 +1,73 @@
+{
+    "astFolder": {
+        "astFiles": [
+            {
+                "astNode": {
+                    "end": 44,
+                    "name": "Bar.ts",
+                    "children": [
+                        {
+                            "pos": 4,
+                            "end": 44,
+                            "kind": "ClassDeclaration",
+                            "children": [
+                                {
+                                    "pos": 11,
+                                    "end": 18,
+                                    "kind": "MethodDeclaration",
+                                    "name": "ifMethod",
+                                    "children": [
+                                        {
+                                            "pos": 13,
+                                            "end": 15,
+                                            "kind": "IfStatement"
+                                        },
+                                        {
+                                            "pos": 17,
+                                            "end": 17,
+                                            "kind": "ReturnStatement"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "pos": 25,
+                                    "end": 32,
+                                    "kind": "MethodDeclaration",
+                                    "name": "recursion",
+                                    "children": [
+                                        {
+                                            "pos": 27,
+                                            "end": 29,
+                                            "kind": "IfStatement"
+                                        },
+                                        {
+                                            "pos": 31,
+                                            "end": 31,
+                                            "kind": "ReturnStatement"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "pos": 40,
+                                    "end": 43,
+                                    "kind": "MethodDeclaration",
+                                    "name": "methodWithCallback",
+                                    "children": [
+                                        {
+                                            "pos": 42,
+                                            "end": 42,
+                                            "kind": "ReturnStatement"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "text": "<?php\ndeclare(strict_types=1);\n\nclass Bar\n{\n    \/**\n     * @param int $a\n     *\n     * @return string\n     *\/\n    public function ifMethod(int $a)\n    {\n        if ($a > 0) {\n            return 'a';\n        }\n\n        return 'none';\n    }\n\n    \/**\n     * @param int $a\n     *\n     * @return int\n     *\/\n    public function recursion(int $a)\n    {\n        if (0 <= $a) {\n            return 0;\n        }\n\n        return $this->recursion($a - 10);\n    }\n\n    \/**\n     * @param string  $a\n     * @param Closure $callback\n     *\n     * @return string\n     *\/\n    public function methodWithCallback(string $a, \\Closure $callback)\n    {\n        return (string) $callback($a);\n    }\n}\n"
+            }
+        ],
+        "path": "my-path"
+    },
+    "language": "php"
+}

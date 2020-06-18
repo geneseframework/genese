@@ -2,7 +2,9 @@
     "name": "genese",
     "version": "0.1.0",
     "scripts": {
-        "cleanjs": "rm -rf src/complexity/enums/*.js && rm -rf src/complexity/interfaces/*.js && rm -rf src/complexity/mocks/*.js && rm -rf src/complexity/models/*.js && rm -rf src/complexity/services/*.js",
+        "ast": "tsc && node ast.js && npm run cleanjs",
+        "cleanjs": "rm -rf src/complexity/old/enums/*.js && rm -rf src/complexity/old/interfaces/*.js && rm -rf src/complexity/old/mocks/*.js && rm -rf src/complexity/old/models/*.js && rm -rf src/complexity/old/services/*.js",
+        "conversion": "tsc && node convert-ts.js && npm run cleanjs",
         "debug": "tsc && node debug.js && npm run cleanjs",
         "start": "tsc && npm publish"
     },
@@ -32,6 +34,6 @@
         "tsutils": "^3.17.1"
     },
     "devDependencies": {
-        "typescript": "^3.8.3"
+        "typescript": "^3.9.5"
     }
 }

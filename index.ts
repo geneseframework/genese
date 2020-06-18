@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { blueBright, red, yellowBright } from 'ansi-colors';
-import { Main } from './src/complexity/main';
+import { Main } from './src/complexity/old/main';
 import { exec } from 'child_process';
 
 const { program } = require('commander');
@@ -18,7 +18,9 @@ try {
 
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
 
-    program.command('cpxFactors [pathToAnalyse]')
+    program.option('-l, --language <language>', 'Language');
+
+    program.command('cpx [pathToAnalyse]')
         .description('Calculates cognitive and cyclomatic complexities')
         .action((pathToAnalyze) => {
             console.log(blueBright("STARTS GENESE COMPLEXITY CLI"));
