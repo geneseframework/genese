@@ -1,5 +1,6 @@
 import * as fs from 'fs-extra';
 import { Options } from '../../ast-to-reports/models/options';
+import { JsonService } from '../../languages-to-ast/core/services/json.service';
 
 /**
  * Tools about files or folders
@@ -181,4 +182,14 @@ export function createOutDir(): void {
  */
 export function copyFile(originPath: string, targetPath: string): void {
     fs.copyFileSync(originPath, targetPath);
+}
+
+
+/**
+ * Copy a file from a path to another one
+ * @param path
+ * @param content
+ */
+export function createFile(path: string, content: string): void {
+    fs.writeFileSync(path, content, {encoding: 'utf-8'});
 }

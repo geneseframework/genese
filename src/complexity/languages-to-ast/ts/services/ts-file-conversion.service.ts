@@ -18,7 +18,6 @@ export class TsFileConversionService {
         const tsNode = new TsNode();
         tsNode.node = Ts.getSourceFile(path);
         tsFile.tsNode = this.createTsNodeChildren(tsNode);
-        // tsFile.logg();
         return tsFile;
     }
 
@@ -29,7 +28,8 @@ export class TsFileConversionService {
             newTsNode.node = childTsNode;
             newTsNode.pos = Ts.getPosition(newTsNode.node);
             newTsNode.end = Ts.getEnd(newTsNode.node);
-            // newTsNode.logg();
+            newTsNode.name = Ts.getName(newTsNode.node);
+            newTsNode.kind = Ts.getKind(newTsNode.node);
             tsNode.children.push(this.createTsNodeChildren(newTsNode))
         });
         return tsNode;
