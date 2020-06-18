@@ -29,11 +29,11 @@ class MainConvertTs {
                 const initService = new init_conversion_service_1.InitConversionService();
                 jsonAst.astFolder = initService.generateAll(pathToAnalyze).tsFolder;
         }
-        const pathReport = `./genese/ts-ast.json`;
+        const pathReport = `./ast-ts.json`;
         console.log('PATH REPORT', pathReport);
         console.log('JSONNNNN', jsonAst);
         // jsonAst.astFolder.logg('JSN');
-        fs.writeFileSync(pathReport, json_service_1.JsonService.prettyJson(jsonAst), { encoding: 'utf-8' });
+        fs.writeFileSync(pathReport, json_service_1.JsonService.prettifyJson(jsonAst), { encoding: 'utf-8' });
         console.log(chalk.blueBright('CONVERSION GENERATED SUCCESSFULLY'));
     }
 }

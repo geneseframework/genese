@@ -30,11 +30,11 @@ export class MainConvertTs {
                 const initService = new InitConversionService();
                 jsonAst.astFolder = initService.generateAll(pathToAnalyze).tsFolder as any;
         }
-        const pathReport = `./genese/ts-ast.json`;
+        const pathReport = `./ast-ts.json`;
         console.log('PATH REPORT', pathReport)
         console.log('JSONNNNN', jsonAst)
         // jsonAst.astFolder.logg('JSN');
-        fs.writeFileSync(pathReport, JsonService.prettyJson(jsonAst), {encoding: 'utf-8'});
+        fs.writeFileSync(pathReport, JsonService.prettifyJson(jsonAst), {encoding: 'utf-8'});
         console.log(chalk.blueBright('CONVERSION GENERATED SUCCESSFULLY'));
     }
 
