@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 
@@ -25,7 +24,8 @@
         </div>
         <div class="pad1y">
             {{#if relativeRootReports}}
-                <a class="backLink" href="../folder-report.html"><-</a>
+            <a class="backLink" href="../folder-report.html">
+                <-< /a>
             {{/if}}
             {{stats.subject}}
         </div>
@@ -67,9 +67,11 @@
         <!--        -----------------------------------   Cognitive complexity   ---------------------------->
 
         <div class="stats-cognitive">
-            <div class="stats-and-doughnut">
+            <div class="stats-and-doughnut stats-and-doughnut-cognitive">
+                <div class="doughnut">
+                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>
+                </div>
                 <div class="stats">
-
                     <div class="clearfix">
                         <div class='fl pad1y space-right2'>
                             <span class="strong">Cognitive complexity</span>
@@ -79,14 +81,16 @@
                         <div class='fl pad1y space-right2'>
                             <span class="strong">{{stats.percentsByStatus.cognitive.correct}} %</span>
                             <span class="quiet"> Correct</span>
-                            <span class='fraction'>{{stats.numberOfMethodsByStatus.cognitive.correct}}/{{stats.numberOfMethods}}</span>
+                            <span
+                                    class='fraction'>{{stats.numberOfMethodsByStatus.cognitive.correct}}/{{stats.numberOfMethods}}</span>
                         </div>
                     </div>
                     <div class="clearfix">
                         <div class='fl pad1y space-right2'>
                             <span class="strong">{{stats.percentsByStatus.cognitive.warning}} %</span>
                             <span class="quiet"> Warning</span>
-                            <span class='fraction'>{{stats.numberOfMethodsByStatus.cognitive.warning}}/{{stats.numberOfMethods}}</span>
+                            <span
+                                    class='fraction'>{{stats.numberOfMethodsByStatus.cognitive.warning}}/{{stats.numberOfMethods}}</span>
                             <span class="quiet">(threshold : {{thresholds.cognitive.warning}})</span>
                         </div>
                     </div>
@@ -94,27 +98,27 @@
                         <div class='fl pad1y space-right2'>
                             <span class="strong">{{stats.percentsByStatus.cognitive.error}} %</span>
                             <span class="quiet"> Error</span>
-                            <span class='fraction'>{{stats.numberOfMethodsByStatus.cognitive.error}}/{{stats.numberOfMethods}}</span>
+                            <span
+                                    class='fraction'>{{stats.numberOfMethodsByStatus.cognitive.error}}/{{stats.numberOfMethods}}</span>
                             <span class="quiet">(threshold : {{thresholds.cognitive.error}})</span>
                         </div>
                     </div>
                 </div>
-
-                <div class="doughnut">
-                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>
-                </div>
             </div>
 
-            <div class="bar">
-                <canvas id="bar-cognitive-cpx" height="400" width="750"></canvas>
+            <div class="bar bar-cognitive">
+                <canvas id="bar-cognitive-cpx" class="cognitive-charts"></canvas>
             </div>
         </div>
 
         <!--        -----------------------------------   Cyclomatic complexity   ---------------------------->
 
         <div class="stats-cyclomatic">
-            <div class="stats-and-doughnut">
-                <div class="stats">
+            <div class="stats-and-doughnut-cyclomatic">
+                <div class="doughnut">
+                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>
+                </div>
+                <div class="stats-cy">
                     <div class="clearfix cyclomatic-subtitle">
                         <div class='fl pad1y space-right2'>
                             <span class="strong">Cyclomatic complexity</span>
@@ -124,14 +128,16 @@
                         <div class='fl pad1y space-right2'>
                             <span class="strong">{{stats.percentsByStatus.cyclomatic.correct}} %</span>
                             <span class="quiet"> Correct</span>
-                            <span class='fraction'>{{stats.numberOfMethodsByStatus.cyclomatic.correct}}/{{stats.numberOfMethods}}</span>
+                            <span
+                                    class='fraction'>{{stats.numberOfMethodsByStatus.cyclomatic.correct}}/{{stats.numberOfMethods}}</span>
                         </div>
                     </div>
                     <div class="clearfix">
                         <div class='fl pad1y space-right2'>
                             <span class="strong">{{stats.percentsByStatus.cyclomatic.warning}} %</span>
                             <span class="quiet"> Warning</span>
-                            <span class='fraction'>{{stats.numberOfMethodsByStatus.cyclomatic.warning}}/{{stats.numberOfMethods}}</span>
+                            <span
+                                    class='fraction'>{{stats.numberOfMethodsByStatus.cyclomatic.warning}}/{{stats.numberOfMethods}}</span>
                             <span class="quiet">(threshold : {{thresholds.cyclomatic.warning}})</span>
                         </div>
                     </div>
@@ -139,20 +145,16 @@
                         <div class='fl pad1y space-right2'>
                             <span class="strong">{{stats.percentsByStatus.cyclomatic.error}} %</span>
                             <span class="quiet"> Error</span>
-                            <span class='fraction'>{{stats.numberOfMethodsByStatus.cyclomatic.error}}/{{stats.numberOfMethods}}</span>
+                            <span
+                                    class='fraction'>{{stats.numberOfMethodsByStatus.cyclomatic.error}}/{{stats.numberOfMethods}}</span>
                             <span class="quiet">(threshold : {{thresholds.cyclomatic.error}})</span>
                         </div>
                     </div>
                 </div>
-
-                <div class="doughnut">
-                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>
-                </div>
             </div>
-            <div class="bar">
-                <canvas id="bar-cyclomatic-cpx" height="400" width="750"></canvas>
+            <div class="bar bar-cyclomatic">
+                <canvas id="bar-cyclomatic-cpx" class="cyclomatic-charts"></canvas>
             </div>
-
         </div>
     </div>
 
@@ -163,92 +165,97 @@
 
     <!--        ----------------------------------   Folders array   --------------------------------->
 
-    <div class="clearfix cognitive-subtitle">
-        <div class='fl pad1y space-right2'>
-            <span class="strong">Subfolders of {{stats.subject}}</span>
+    <div class="subfolders">
+        <div class="clearfix cognitive-subtitle">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">Subfolders of <span class="italic">{{stats.subject}}</span></span>
+            </div>
         </div>
+        <table class="array-report">
+            <thead>
+            <tr>
+                <th rowspan="2">Folders</th>
+                <th rowspan="2">Number of files</th>
+                <th rowspan="2">Number of methods</th>
+                <th colspan="3">Cognitive complexity of methods</th>
+                <th colspan="3">Cyclomatic complexity of methods</th>
+            </tr>
+            <tr>
+                <th>Correct</th>
+                <th>Warning</th>
+                <th>Error</th>
+                <th>Correct</th>
+                <th>Warning</th>
+                <th>Error</th>
+            </tr>
+            </thead>
+            {{#each foldersArray}}
+                {{>rowFolder rowFolder=.}}
+            {{/each}}
+        </table>
     </div>
-    <table class="array-report">
-        <thead>
-        <tr>
-            <th rowspan="2">Folders</th>
-            <th rowspan="2">Number of files</th>
-            <th rowspan="2">Number of methods</th>
-            <th colspan="3">Cognitive complexity of methods</th>
-            <th colspan="3">Cyclomatic complexity of methods</th>
-        </tr>
-        <tr>
-            <th>Correct</th>
-            <th>Warning</th>
-            <th>Error</th>
-            <th>Correct</th>
-            <th>Warning</th>
-            <th>Error</th>
-        </tr>
-        </thead>
-        {{#each foldersArray}}
-            {{>rowFolder rowFolder=.}}
-        {{/each}}
-    </table>
 
     <!--        ----------------------------------   Files array   --------------------------------->
 
-    <div class="clearfix cognitive-subtitle">
-        <div class='fl pad1y space-right2'>
-            <span class="strong">Files of {{stats.subject}}</span>
+    <div class="subfolders">
+        <div class="clearfix cognitive-subtitle">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">Files of <span class="italic">{{stats.subject}}</span></span>
+            </div>
         </div>
+        <table class="array-report short-table">
+            <thead>
+            <tr>
+                <th style="width: 40%;">File</th>
+                <th style="width: 40%;">Method</th>
+                <th style="width: 10%;">Cognitive complexity</th>
+                <th style="width: 10%;">Cyclomatic complexity</th>
+            </tr>
+            </thead>
+            {{#each filesArray}}
+                {{>rowFile rowFile=.}}
+            {{/each}}
+        </table>
     </div>
-    <table class="array-report">
-        <thead>
-        <tr>
-            <th>File</th>
-            <th>Method</th>
-            <th>Cognitive complexity</th>
-            <th>Cyclomatic complexity</th>
-        </tr>
-        </thead>
-        {{#each filesArray}}
-            {{>rowFile rowFile=.}}
-        {{/each}}
-    </table>
-
 
     <!--        ----------------------------------   Methods array   --------------------------------->
 
-    <div class="clearfix cognitive-subtitle">
-        <div class='fl pad1y space-right2'>
-            <span class="strong">Methods of {{stats.subject}} folder and its subfolders</span>
-            <span class="quiet">(ordered by decreasing cognitive complexity)</span>
+    <div class="subfolders">
+        <div class="clearfix cognitive-subtitle">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">Methods of <span class="italic">{{stats.subject}}</span> folder and its subfolders</span>
+                <span class="quiet">(ordered by decreasing cognitive complexity)</span>
+            </div>
         </div>
+        <table class="array-report short-table">
+            <thead>
+            <tr>
+                <th style="width: 40%;">File</th>
+                <th style="width: 40%;">Method</th>
+                <th style="width: 10%;">Cognitive complexity</th>
+                <th style="width: 10%;">Cyclomatic complexity</th>
+            </tr>
+            </thead>
+            {{#each methodsArray}}
+                {{>rowFile rowFile=.}}
+            {{/each}}
+        </table>
     </div>
-    <table class="array-report">
-        <thead>
-        <tr>
-            <th>File</th>
-            <th>Method</th>
-            <th>Cognitive complexity</th>
-            <th>Cyclomatic complexity</th>
-        </tr>
-        </thead>
-        {{#each methodsArray}}
-            {{>rowFile rowFile=.}}
-        {{/each}}
-    </table>
 </div>
 
 
-
-    <!--        -------------------------------------------------------------------------------------->
-    <!--        -----------------------------------   Scripts-----   --------------------------------->
-    <!--        -------------------------------------------------------------------------------------->
-
+<!--        -------------------------------------------------------------------------------------->
+<!--        -----------------------------------   Scripts-----   --------------------------------->
+<!--        -------------------------------------------------------------------------------------->
 
 
-    <script src="./{{relativeRootReports}}/reports-styles/Chart.js"></script>
 
-    {{>cognitiveDoughnutScript}}
-    {{>cognitiveBarchartScript}}
-    {{>cyclomaticDoughnutScript}}
-    {{>cyclomaticBarchartScript}}
+<script src="./{{relativeRootReports}}/reports-styles/Chart.js"></script>
+
+{{>cognitiveDoughnutScript}}
+{{>cognitiveBarchartScript}}
+{{>cyclomaticDoughnutScript}}
+{{>cyclomaticBarchartScript}}
 </body>
+
 </html>

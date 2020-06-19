@@ -1,10 +1,10 @@
-import { createOutDir } from '../old/services/file.service';
 import { blueBright } from 'ansi-colors';
 import * as fs from 'fs-extra';
 import { InitService } from './services/init.service';
 import { Options } from './models/options';
-import { ReportsService } from './services/report/reports.service';
 import { JsonAst } from './models/ast/json-ast.model';
+import { createOutDir } from '../core/services/file.service';
+import { ReportsService } from './services/report/reports.service';
 
 export const DEBUG = true;     // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND when you want to get stats only for debug.mock.ts file
 

@@ -1,13 +1,21 @@
 import * as ts from 'typescript';
-import * as utils from 'tsutils';import { getFilename } from '../../../core/services/file.service';
+import { getFilename } from '../../../core/services/file.service';
 import { TsFolder } from '../models/ts-folder.model';
 import { TsFile } from '../models/ts-file.model';
 import { Ts } from './ts.service';
 import { TsNode } from '../models/ts-node.model';
 
+/**
+ * - TsFiles generation from their Abstract Syntax Tree (AST)
+ */
 export class TsFileConversionService {
 
 
+    /**
+     * Generates the TsFile corresponding to a given path and a given TsFolder
+     * @param path          // The path of the file
+     * @param astFolder     // The TsFolder containing the TsFile
+     */
     generateTsFile(path: string, astFolder: TsFolder): TsFile {
         if (!path || !astFolder) {
             console.warn('No path or TsFolder : impossible to create TsFile');
@@ -17,11 +25,16 @@ export class TsFileConversionService {
         tsFile.name = getFilename(path);
         const tsNode = new TsNode();
         tsNode.node = Ts.getSourceFile(path);
+        tsFile.text = this.getTextFile(path);
         tsFile.tsNode = this.createTsNodeChildren(tsNode);
         return tsFile;
     }
 
 
+    /**
+     * Returns the TsNode children of a given TsNode
+     * @param tsNode        // The TsNode parent
+     */
     createTsNodeChildren(tsNode: TsNode): TsNode {
         ts.forEachChild(tsNode.node, (childTsNode: ts.Node) => {
             const newTsNode = new TsNode();
@@ -33,6 +46,16 @@ export class TsFileConversionService {
             tsNode.children.push(this.createTsNodeChildren(newTsNode))
         });
         return tsNode;
+    }
+
+
+    /**
+     * Returns the text corresponding to a source code by escaping break lines
+     * @param path
+     */
+    getTextFile(path: string): string {
+        let text = Ts.getTextFile(path);
+        return text.replace(/\n/g, `\\n`);
     }
 
 

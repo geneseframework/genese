@@ -89,8 +89,7 @@ class AstFile {
         __classPrivateFieldSet(this, _end, end);
     }
     get name() {
-        var _a, _b;
-        return (_a = __classPrivateFieldGet(this, _name)) !== null && _a !== void 0 ? _a : (_b = __classPrivateFieldGet(this, _astNode)) === null || _b === void 0 ? void 0 : _b.name;
+        return __classPrivateFieldGet(this, _name);
     }
     set name(name) {
         __classPrivateFieldSet(this, _name, name);

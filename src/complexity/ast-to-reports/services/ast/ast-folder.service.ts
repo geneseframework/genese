@@ -75,6 +75,24 @@ export class AstFolderService extends StatsService {
     }
 
 
+    getAstFolderRoot(astFolder: AstFolder): AstFolder {
+        if (!astFolder?.parent) {
+            return astFolder;
+        }
+        return this.getAstFolderRoot(astFolder.parent);
+    }
+
+
+    getRootPath(astFolder: AstFolder): string {
+        return this.getAstFolderRoot(astFolder)?.path;
+    }
+
+
+    getRelativePath(astFolder: AstFolder): string {
+        return  astFolder?.path?.slice(this.getRootPath(astFolder).length);
+    }
+
+
     /**
      * Returns the path between a AstFolder's path and a AstFile's path which is inside it or inside one of its subfolders
      * @param astFolder      // The path of the AstFolder
