@@ -1,4 +1,5 @@
 import { isLastIndex, isLastKey } from '../../../core/services/tools.service';
+import { constants } from 'os';
 
 export class JsonService {
 
@@ -79,8 +80,16 @@ export class JsonService {
      * @param text      // The source code
      */
     private static convertCodeToString(text: string): string {
-        return text.replace(/\\/g, `\\\\`)
-            .replace(/"/g, '\\"')
+        let stringified: string = JSON.stringify({"text": text});
+        // console.log('STRINGGGG 1', stringified)
+        stringified = stringified.slice(9, -2);
+        // console.log('STRINGGGG', stringified)
+        return stringified;
+        // throw Error
+        // return text;
+        // return text.replace(/"/g, '\\"')
+        // return text.replace(/\\/g, `\\\\`)
+        //     .replace(/"/g, '\\"')
     }
 
 

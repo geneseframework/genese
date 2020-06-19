@@ -67,9 +67,21 @@ class JsonService {
         const text = key === 'text' ? JsonService.convertCodeToString(obj[key]) : obj[key];
         return `${json}"${text}"${JsonService.comma(obj, key)}\n`;
     }
+    /**
+     * Replaces the special chars in source code which could be problematic when inserting this code in a json property (`"`, `\`)
+     * @param text      // The source code
+     */
     static convertCodeToString(text) {
-        return text.replace(/\\/g, `\\\\`)
-            .replace(/"/g, '\\"');
+        let stringified = JSON.stringify({ "text": text });
+        // console.log('STRINGGGG 1', stringified)
+        stringified = stringified.slice(9, -2);
+        // console.log('STRINGGGG', stringified)
+        return stringified;
+        // throw Error
+        // return text;
+        // return text.replace(/"/g, '\\"')
+        // return text.replace(/\\/g, `\\\\`)
+        //     .replace(/"/g, '\\"')
     }
     /**
      * Returns a comma at the end of a line if this line is the last one of a given object
