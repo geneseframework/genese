@@ -30,10 +30,10 @@ export class JsonService {
                 case 'number':
                 case 'bigint':
                 case 'boolean':
-                    json = `${json}${obj[key]}${JsonService.comma(key, obj)}\n`;
+                    json = `${json}${obj[key]}${JsonService.comma(obj, key)}\n`;
                     break;
                 case 'string':
-                    json = `${json}"${obj[key]}"${JsonService.comma(key, obj)}\n`;
+                    json = JsonService.getStringProperty(obj, key, json)
                     break;
                 case 'object':
                     obj[key] = JsonService.deleteUndefinedProperties(obj[key]);
@@ -61,12 +61,19 @@ export class JsonService {
     }
 
 
+    private static getStringProperty(obj: object, key: string, json: string): string {
+        const text = key === 'text' ? obj[key].replace(/"/g, '\"') : obj[key];
+        return `${json}"${text}"${JsonService.comma(obj, key)}\n`;
+
+    }
+
+
     /**
      * Returns a comma at the end of a line if this line is the last one of a given object
      * @param key       // The key to check if it's the last one
      * @param obj       // The object to check
      */
-    private static comma(key: string, obj: object): string {
+    private static comma(obj: object, key: string): string {
         return isLastKey(key, obj) ? '' : ',';
     }
 
@@ -84,7 +91,7 @@ export class JsonService {
             json = `${json}${indentation}\t${JsonService.prettifyJson(obj[key][i], `${indentation}\t`)}`;
             json = isLastIndex(i, obj[key]) ? `${json}\n` : `${json},\n`;
         }
-        return `${json}${indentation}]${JsonService.comma(key, obj)}\n`;
+        return `${json}${indentation}]${JsonService.comma(obj, key)}\n`;
     }
 
 
@@ -96,7 +103,7 @@ export class JsonService {
      * @param json          // The corresponding json object
      */
     private static jsonObject(obj: object, key: string, indentation: string, json: string): string {
-        return `${json}${JsonService.prettifyJson(obj[key], indentation)}${JsonService.comma(key, obj)}\n`;
+        return `${json}${JsonService.prettifyJson(obj[key], indentation)}${JsonService.comma(obj, key)}\n`;
     }
 
 
@@ -113,8 +120,6 @@ export class JsonService {
                     break;
                 default:
                     obj[key] = typeof obj[key] === 'object' ? JsonService.astPropertyNames(obj[key]) : obj[key];
-                    // obj[key] = k;
-                    // obj[key] = JsonService.astPropertyNames(obj[key]);
             }
         }
         return obj;

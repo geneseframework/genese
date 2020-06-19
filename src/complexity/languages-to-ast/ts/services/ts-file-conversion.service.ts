@@ -17,7 +17,7 @@ export class TsFileConversionService {
         tsFile.name = getFilename(path);
         const tsNode = new TsNode();
         tsNode.node = Ts.getSourceFile(path);
-        tsFile.text = Ts.getTextFile(path);
+        tsFile.text = this.getTextFile(path);
         tsFile.tsNode = this.createTsNodeChildren(tsNode);
         return tsFile;
     }
@@ -34,6 +34,15 @@ export class TsFileConversionService {
             tsNode.children.push(this.createTsNodeChildren(newTsNode))
         });
         return tsNode;
+    }
+
+
+    getTextFile(path: string): string {
+        let text = Ts.getTextFile(path);
+        console.log('TEXTTT', text)
+        text = text.replace(/\n/g, `\\n`);
+        console.log('NEW TEXTTT', text)
+        return text;
     }
 
 

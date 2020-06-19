@@ -6,7 +6,7 @@
 		"astFiles": [
 			{
 				"name": "debug.mock.ts",
-				"text": "",
+				"text": "export class GeneseComplexity {\n\n    ifAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n}\n",
 				"astNode": {
 					"children": [
 						{
