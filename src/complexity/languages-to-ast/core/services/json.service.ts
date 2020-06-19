@@ -1,4 +1,5 @@
 import { isLastIndex, isLastKey } from '../../../core/services/tools.service';
+import { constants } from 'os';
 
 export class JsonService {
 
@@ -69,9 +70,26 @@ export class JsonService {
      * @param json      // The corresponding json object
      */
     private static getStringProperty(obj: object, key: string, json: string): string {
-        const text = key === 'text' ? obj[key].replace(/"/g, '\"') : obj[key];
+        const text = key === 'text' ? JsonService.convertCodeToString(obj[key]) : obj[key];
         return `${json}"${text}"${JsonService.comma(obj, key)}\n`;
+    }
 
+
+    /**
+     * Replaces the special chars in source code which could be problematic when inserting this code in a json property (`"`, `\`)
+     * @param text      // The source code
+     */
+    private static convertCodeToString(text: string): string {
+        let stringified: string = JSON.stringify({"text": text});
+        // console.log('STRINGGGG 1', stringified)
+        stringified = stringified.slice(9, -2);
+        // console.log('STRINGGGG', stringified)
+        return stringified;
+        // throw Error
+        // return text;
+        // return text.replace(/"/g, '\\"')
+        // return text.replace(/\\/g, `\\\\`)
+        //     .replace(/"/g, '\\"')
     }
 
 
@@ -131,7 +149,9 @@ export class JsonService {
                     delete obj[key];
                     break;
                 default:
-                    obj[key] = typeof obj[key] === 'object' ? JsonService.astPropertyNames(obj[key]) : obj[key];
+                    if (key !== 'parent') {
+                        obj[key] = typeof obj[key] === 'object' ? JsonService.astPropertyNames(obj[key]) : obj[key];
+                    }
             }
         }
         return obj;

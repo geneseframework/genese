@@ -1,7 +1,7 @@
-export class DebugMock {
+export class Debug2Mock {
 
 
-    ifAlone(a) {
+    ifVeryAlone(a) {
         if (a) {
             return 'b';
         }

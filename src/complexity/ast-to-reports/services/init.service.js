@@ -31,13 +31,13 @@ class InitService {
         astFolder.astFiles = this.generateAstFiles(jsonAst.astFolder, astFolder);
         if (Array.isArray((_a = jsonAst.astFolder) === null || _a === void 0 ? void 0 : _a.children)) {
             for (const child of (_b = jsonAst.astFolder) === null || _b === void 0 ? void 0 : _b.children) {
-                const newChild = this.generateChildrenAstFolder(jsonAst.astFolder, astFolder);
+                console.log('CHILDASTFOLDERRR', child.path);
+                const newChild = this.generateChildrenAstFolder(child, astFolder);
                 newChild.parent = jsonAst.astFolder;
                 astFolder.children.push(newChild);
             }
         }
         newJsonAst.astFolder = astFolder;
-        // newJsonAst.logg();
         return newJsonAst;
     }
     generateChildrenAstFolder(astFolderFromJsonAst, parentAstFolder) {
@@ -46,6 +46,7 @@ class InitService {
         newAstFolder.parent = parentAstFolder;
         newAstFolder.astFiles = this.generateAstFiles(astFolderFromJsonAst, newAstFolder);
         for (const childFolderFromJsonAst of astFolderFromJsonAst.children) {
+            console.log('SHOULD NOT BE HEREEEE');
             newAstFolder.children.push(this.generateChildrenAstFolder(childFolderFromJsonAst, newAstFolder));
         }
         return newAstFolder;
@@ -115,12 +116,10 @@ class InitService {
         return newAstNode;
     }
     generateAstMethod(astNode) {
-        astNode.logg();
         const astMethod = new ast_method_model_1.AstMethod();
         astMethod.astNode = astNode;
         astMethod.astNode.text = this.astNodeService.getCode(astNode);
         astMethod.originalCode = code_service_1.CodeService.getCode(this.astNodeService.getCode(astNode));
-        console.log('ORIGINAL CODEEEE', astMethod.originalCode);
         return astMethod;
     }
 }

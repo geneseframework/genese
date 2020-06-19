@@ -6,7 +6,15 @@ const file_service_1 = require("../../../core/services/file.service");
 const ts_file_model_1 = require("../models/ts-file.model");
 const ts_service_1 = require("./ts.service");
 const ts_node_model_1 = require("../models/ts-node.model");
+/**
+ * - TsFiles generation from their Abstract Syntax Tree (AST)
+ */
 class TsFileConversionService {
+    /**
+     * Generates the TsFile corresponding to a given path and a given TsFolder
+     * @param path          // The path of the file
+     * @param astFolder     // The TsFolder containing the TsFile
+     */
     generateTsFile(path, astFolder) {
         if (!path || !astFolder) {
             console.warn('No path or TsFolder : impossible to create TsFile');
@@ -16,10 +24,14 @@ class TsFileConversionService {
         tsFile.name = file_service_1.getFilename(path);
         const tsNode = new ts_node_model_1.TsNode();
         tsNode.node = ts_service_1.Ts.getSourceFile(path);
-        tsFile.text = this.getTextFile(path);
+        tsFile.text = ts_service_1.Ts.getTextFile(path);
         tsFile.tsNode = this.createTsNodeChildren(tsNode);
         return tsFile;
     }
+    /**
+     * Returns the TsNode children of a given TsNode
+     * @param tsNode        // The TsNode parent
+     */
     createTsNodeChildren(tsNode) {
         ts.forEachChild(tsNode.node, (childTsNode) => {
             const newTsNode = new ts_node_model_1.TsNode();
@@ -32,12 +44,12 @@ class TsFileConversionService {
         });
         return tsNode;
     }
+    /**
+     * Returns the text corresponding to a source code by escaping break lines
+     * @param path
+     */
     getTextFile(path) {
-        let text = ts_service_1.Ts.getTextFile(path);
-        console.log('TEXTTT', text);
-        text = text.replace(/\n/g, `\\n`);
-        console.log('NEW TEXTTT', text);
-        return text;
+        return ts_service_1.Ts.getTextFile(path);
     }
 }
 exports.TsFileConversionService = TsFileConversionService;

@@ -7,10 +7,25 @@ export class TsFolder implements Logg {
 
 
     tsFiles?: TsFile[] = [];                                                // The array of files of this folder (not in the subfolders)
-    parent?: TsFolder = undefined;                                            // The TsFolder corresponding to the parent folder of this TsFolder
+    #parent?: TsFolder = undefined;                                            // The TsFolder corresponding to the parent folder of this TsFolder
     path?: string = undefined;                                                                 // The absolute path of this folder
     children?: TsFolder[] = [];                                             // The subfolders of this folder
+    // The children trees corresponding to children AST nodes of the current AST node
 
+
+    // ---------------------------------------------------------------------------------
+    //                                Getters and setters
+    // ---------------------------------------------------------------------------------
+
+
+    get parent(): TsFolder {
+        return this.#parent;
+    }
+
+
+    set parent(tsFolder: TsFolder) {
+        this.#parent = tsFolder;
+    }
 
 
     // ---------------------------------------------------------------------------------

@@ -1,9 +1,10 @@
 import * as fs from 'fs-extra';
 import { ConvertOptions } from '../../core/models/convert-options.model';
-import { LIMIT_CONVERSIONS } from '../../main-language-to-ast';
+import { DEBUG_MOCK, LIMIT_CONVERSIONS } from '../../main-language-to-ast';
 import { TsFolder } from '../models/ts-folder.model';
 import { TsFileConversionService } from './ts-file-conversion.service';
 import { TsJsonAst } from '../models/ts-json-ast.model';
+import { getFileExtension } from '../../../core/services/file.service';
 
 /**
  * - TsFolders generation from Abstract Syntax Tree (AST) of its files (including files in subfolders)
@@ -45,12 +46,18 @@ export class InitConversionService {
             if (!ConvertOptions.isIgnored(pathElement)) {
                 if (fs.statSync(pathElement).isDirectory() && !LIMIT_CONVERSIONS) {
                     tsFolder.children.push(this.generateTsFolder(`${pathElement}/`, tsFolder))
-                } else if (!LIMIT_CONVERSIONS || pathElement === '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts') {
+                } else if (this.isFileToConvert(pathElement)) {
+                // } else if (!LIMIT_CONVERSIONS || pathElement === DEBUG_MOCK) {
                     tsFolder.tsFiles.push(this.tsFileConversionService.generateTsFile(pathElement, tsFolder));
                 }
             }
         });
         return tsFolder;
+    }
+
+
+    private isFileToConvert(path: string): boolean {
+        return (getFileExtension(path) === 'ts' && !LIMIT_CONVERSIONS) || path === DEBUG_MOCK;
     }
 
 }

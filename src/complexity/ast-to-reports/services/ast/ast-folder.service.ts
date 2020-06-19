@@ -102,7 +102,6 @@ export class AstFolderService extends StatsService {
         if (!astFile || !astFolder) {
             return undefined;
         }
-        console.log('ASTFOLDERPATHHH', astFile.name, astFolder.parent?.path, astFolder.path)
         if (astFile.astFolder.path.slice(0, astFolder.path.length) !== astFolder.path) {
             console.log(`The file ${astFile.name} is not inside the folder ${astFolder.path}`);
             return undefined;

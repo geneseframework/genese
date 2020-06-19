@@ -40,12 +40,13 @@ class AstFolderReportService {
      * @param isSubfolder       // True if astFolder is a subfolder (used for recursivity)
      */
     getSubfoldersArray(astFolder, isSubfolder = false) {
+        var _a, _b, _c;
         let report = [];
         for (const subfolder of astFolder.children) {
             const subfolderReport = {
-                complexitiesByStatus: subfolder.stats.numberOfMethodsByStatus,
-                numberOfFiles: subfolder.stats.numberOfFiles,
-                numberOfMethods: subfolder.stats.numberOfMethods,
+                complexitiesByStatus: (_a = subfolder.stats) === null || _a === void 0 ? void 0 : _a.numberOfMethodsByStatus,
+                numberOfFiles: (_b = subfolder.stats) === null || _b === void 0 ? void 0 : _b.numberOfFiles,
+                numberOfMethods: (_c = subfolder.stats) === null || _c === void 0 ? void 0 : _c.numberOfMethods,
                 path: subfolder.relativePath,
                 routeFromCurrentFolder: this.astFolderService.getRouteFromFolderToSubFolder(this.astFolder, subfolder)
             };
@@ -178,7 +179,6 @@ class AstFolderReportService {
             file_service_1.createRelativeDir(this.astFolder.relativePath);
         }
         const pathReport = `${options_1.Options.pathOutDir}/${this.astFolder.relativePath}/folder-report.html`;
-        console.log('PATH REPORT', pathReport);
         fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
     }
     /**

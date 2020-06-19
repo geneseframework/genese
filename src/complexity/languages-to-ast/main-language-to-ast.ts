@@ -1,4 +1,3 @@
-import * as fs from 'fs-extra';
 import { InitConversionService } from './ts/services/init-conversion.service';
 import { ConvertOptions } from './core/models/convert-options.model';
 import { JsonAst } from '../ast-to-reports/models/ast/json-ast.model';
@@ -7,8 +6,8 @@ import * as chalk from 'chalk';
 import { JsonService } from './core/services/json.service';
 import { createFile } from '../core/services/file.service';
 
-export const LIMIT_CONVERSIONS = true;
-
+export const LIMIT_CONVERSIONS = false;
+export const DEBUG_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
 /**
  * Main process of the conversion to JsonAst
  */
