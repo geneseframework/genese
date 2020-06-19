@@ -6,7 +6,7 @@ exports.ChartColor = void 0;
  */
 var ChartColor;
 (function (ChartColor) {
-    ChartColor["CORRECT"] = "rgba(3, 169, 244, 0.6)";
-    ChartColor["WARNING"] = "rgba(255, 152, 0, 0.6)";
-    ChartColor["ERROR"] = "rgba(216, 27, 96, 0.6)";
+    ChartColor["CORRECT"] = "#99ccff";
+    ChartColor["WARNING"] = "#ffa31a";
+    ChartColor["ERROR"] = "#ff3300";
 })(ChartColor = exports.ChartColor || (exports.ChartColor = {}));
