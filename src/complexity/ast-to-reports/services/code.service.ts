@@ -14,9 +14,6 @@ export class CodeService {
      */
     static getCode(text: string): Code {
         const code: Code = new Code();
-        console.log(chalk.blueBright('TXT', text))
-        text = text.replace(/\\\\/g, '\\');
-        // console.log(chalk.greenBright('TXT', text))
         code.text = text;
         const textLines: string[] = text.split('\n');
         let issue = 1;
@@ -31,7 +28,6 @@ export class CodeService {
             issue++;
             pos = textLine ? pos + textLine.length + 1 : pos;
         }
-        // console.log(chalk.redBright('CODDD', code.lines[0].text))
         return code;
     }
 

@@ -10,7 +10,6 @@ const ast_method_model_1 = require("../models/ast/ast-method.model");
 const code_service_1 = require("./code.service");
 const ast_node_service_1 = require("./ast/ast-node.service");
 const ast_service_1 = require("./ast/ast.service");
-const chalk = require("chalk");
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
  * - Other services for TreeFolders
@@ -64,24 +63,7 @@ class InitService {
         }
         const newAstFile = new ast_file_model_1.AstFile();
         newAstFile.name = astFileFromJsonAst.name;
-        console.log('TXTTT BEFORE', astFileFromJsonAst.text);
-        // let parse = {
-        //     text: astFileFromJsonAst.text
-        // }
-        // console.log(chalk.yellowBright('PARSSSE'), JSON.parse(JSON.stringify(parse)))
-        // let text: string = astFileFromJsonAst.text;
-        // console.log('SLICE', text.slice(0,1))
-        // console.log('SLICE 2', text.slice(-1))
-        // text = text.slice(0,1) === '"' ? `\\${text}` : text;
-        // text = text.slice(-1) === '"' ? `${text}\\` : text;
-        // text = `{"text": "${text}"}`;
-        // console.log('TXTTT AFTER', text)
-        // console.log('TXTTT', JSON.parse(text).text)
-        // newAstFile.text = text;
-        // throw Error
         newAstFile.text = astFileFromJsonAst.text;
-        console.log('NEW ASTFFFF', newAstFile.text);
-        // newAstFile.text = JSON.parse(JSON.stringify(parse))?.text;
         newAstFile.astFolder = astFolder;
         newAstFile.astNode = this.getFileAstNode(astFileFromJsonAst.astNode, newAstFile);
         newAstFile.astNodes = this.astNodeService.flatMapAstNodes(newAstFile.astNode, [newAstFile.astNode]);
@@ -132,27 +114,10 @@ class InitService {
         return newAstNode;
     }
     generateAstMethod(astNode) {
-        astNode.logg();
         const astMethod = new ast_method_model_1.AstMethod();
         astMethod.astNode = astNode;
         astMethod.astNode.text = this.astNodeService.getCode(astNode);
-        const zzz = this.astNodeService.getCode(astNode);
-        console.log(chalk.yellowBright('ZZZZZZZZ', zzz));
         astMethod.originalCode = code_service_1.CodeService.getCode(this.astNodeService.getCode(astNode));
-        console.log('ORIGINAL CODEEEE', astMethod.originalCode);
-        console.log('ORIGINAL CODEEEE TXT', astMethod.originalCode.text);
-        // let stringified = JSON.stringify(astMethod.originalCode);
-        // console.log('ORIGINAL CODEEEE', stringified)
-        // stringified = stringified.replace(/\\\\/g, `\\`)
-        // console.log('ORIGINAL CODEEEE PURFIED', stringified)
-        // const aaa = JSON.parse(stringified);
-        // console.log('ORIGINAL AAAAAA', aaa)
-        // astMethod.originalCode.text = stringified;
-        // console.log(chalk.greenBright('ORIGINAL CODEEEE'), astMethod.originalCode)
-        // for (const char of astMethod.originalCode.text) {
-        //     console.log('CHARRR', char);
-        // }
-        // console.log('ORIGINAL CODEEEE TXT', astMethod.originalCode.text.match(/\n/))
         return astMethod;
     }
 }

@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CodeService = void 0;
 const code_model_1 = require("../models/code/code.model");
 const code_line_model_1 = require("../models/code/code-line.model");
-const chalk = require("chalk");
 /**
  * Service managing Code objects
  */
@@ -14,9 +13,6 @@ class CodeService {
      */
     static getCode(text) {
         const code = new code_model_1.Code();
-        console.log(chalk.blueBright('TXT', text));
-        text = text.replace(/\\\\/g, '\\');
-        // console.log(chalk.greenBright('TXT', text))
         code.text = text;
         const textLines = text.split('\n');
         let issue = 1;
@@ -31,7 +27,6 @@ class CodeService {
             issue++;
             pos = textLine ? pos + textLine.length + 1 : pos;
         }
-        // console.log(chalk.redBright('CODDD', code.lines[0].text))
         return code;
     }
     /**

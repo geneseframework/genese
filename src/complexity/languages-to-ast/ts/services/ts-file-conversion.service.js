@@ -49,9 +49,7 @@ class TsFileConversionService {
      * @param path
      */
     getTextFile(path) {
-        let text = ts_service_1.Ts.getTextFile(path);
-        return text;
-        // return text.replace(/\n/g, `\\n`);
+        return ts_service_1.Ts.getTextFile(path);
     }
 }
 exports.TsFileConversionService = TsFileConversionService;

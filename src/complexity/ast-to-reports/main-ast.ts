@@ -38,13 +38,7 @@ export class MainAst {
 
     getJsonAst(jsonAstPath: string): JsonAst {
         const jsonAst: JsonAst = require(jsonAstPath);
-        console.log('STARTTTTT JSONASTTTT', jsonAst['astFolder'].astFiles)
-        for (const char of jsonAst['astFolder'].astFiles[0].text) {
-            console.log('CHAR', char)
-        }
-        console.log('PARSEJSASTTT', JSON.parse(JSON.stringify(jsonAst)))
         // TODO : check if the JSON is correct
-        // throw Error
         return jsonAst;
     }
 

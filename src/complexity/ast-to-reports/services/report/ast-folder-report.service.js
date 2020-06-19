@@ -179,7 +179,6 @@ class AstFolderReportService {
             file_service_1.createRelativeDir(this.astFolder.relativePath);
         }
         const pathReport = `${options_1.Options.pathOutDir}/${this.astFolder.relativePath}/folder-report.html`;
-        console.log('PATH REPORT', pathReport);
         fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
     }
     /**
