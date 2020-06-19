@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DebugMock = void 0;
-const callbacks_mock_1 = require("./mocks-subfolder/callbacks.mock");
+const callbacks_mock_1 = require("../mocks-subfolder/callbacks.mock");
 class DebugMock {
     ifAlone(a) {
         if (a) {

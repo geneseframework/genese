@@ -2,15 +2,262 @@
 	"astFolder": {
 		"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/",
 		"children": [
+			{
+				"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/mocks-mocks/",
+				"children": [
+				],
+				"astFiles": [
+					{
+						"name": "debug-2.mock.ts",
+						"text": "export class Debug2Mock {\n\n\n    ifVeryAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n\n}\n",
+						"astNode": {
+							"children": [
+								{
+									"end": 108,
+									"kind": "ClassDeclaration",
+									"name": "",
+									"pos": 0,
+									"children": [
+										{
+											"end": 6,
+											"kind": "ExportKeyword",
+											"name": "",
+											"pos": 0,
+											"children": [
+											]
+										},
+										{
+											"end": 23,
+											"kind": "Identifier",
+											"name": "",
+											"pos": 12,
+											"children": [
+											]
+										},
+										{
+											"end": 105,
+											"kind": "MethodDeclaration",
+											"name": "ifVeryAlone",
+											"pos": 25,
+											"children": [
+												{
+													"end": 43,
+													"kind": "Identifier",
+													"name": "",
+													"pos": 25,
+													"children": [
+													]
+												},
+												{
+													"end": 45,
+													"kind": "Parameter",
+													"name": "",
+													"pos": 44,
+													"children": [
+														{
+															"end": 45,
+															"kind": "Identifier",
+															"name": "",
+															"pos": 44,
+															"children": [
+															]
+														}
+													]
+												},
+												{
+													"end": 105,
+													"kind": "Block",
+													"name": "",
+													"pos": 46,
+													"children": [
+														{
+															"end": 99,
+															"kind": "IfStatement",
+															"name": "",
+															"pos": 48,
+															"children": [
+																{
+																	"end": 62,
+																	"kind": "Identifier",
+																	"name": "",
+																	"pos": 61,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 99,
+																	"kind": "Block",
+																	"name": "",
+																	"pos": 63,
+																	"children": [
+																		{
+																			"end": 89,
+																			"kind": "ReturnStatement",
+																			"name": "",
+																			"pos": 65,
+																			"children": [
+																				{
+																					"end": 88,
+																					"kind": "StringLiteral",
+																					"name": "",
+																					"pos": 84,
+																					"children": [
+																					]
+																				}
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"end": 109,
+									"kind": "EndOfFileToken",
+									"name": "",
+									"pos": 108,
+									"children": [
+									]
+								}
+							]
+						}
+					}
+				]
+			}
 		],
 		"astFiles": [
 			{
 				"name": "debug.mock.ts",
-				"text": "import { CallbacksMock } from './mocks-subfolder/callbacks.mock';\n\n\nexport class DebugMock {\n\n\n    ifAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n\n\n    twoIfs(a, b) {\n        if (a) {\n            return 'b';\n        }\n        if (b) {\n            return 'c';\n        }\n    }\n\n\n    ifNestedIf(a, b) {\n        if (a) {\n            if (b) {\n                return 'c';\n            }\n            return 'b';\n        }\n    }\n\n\n    ifIfIf(a, b, c) {\n        if (a) {\n            if (b) {\n                if (c) {\n                    return 'd';\n                }\n                return 'c';\n            }\n            return 'b';\n        }\n    }\n\n\n    switchCase(a) {\n        switch (a) {\n            case 1:\n                return 'one';\n            case 2:\n                return 'two';\n            case 3:\n                return 'three';\n            default:\n                return 'other';\n        }\n    }\n\n    recursion(a) {\n        this.recursion(a);\n    }\n\n\n    methodWithCallback(a, callback) {\n        callback(3);\n    }\n\n    hyperComplex<T>(object: Object, path: string | string[] = '', value: any): CallbacksMock<T> {\n        path = path.toString().match(/[^.[\\]]+/g);\n        path.slice(0, -1).reduce((acc: Object, curr: any, index: number) => {\n            const arg = Math.round(index) % 3;\n            return Object(acc[curr]) === acc[curr + arg][0];\n        }, object)[path[path.length - 1]] = value;\n        return new CallbacksMock<T>(object);\n    }\n\n\n}\n",
+				"text": "export class DebugMock {\n\n\n    ifAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n\n}\n",
 				"astNode": {
 					"children": [
 						{
-							"end": 65,
+							"end": 103,
+							"kind": "ClassDeclaration",
+							"name": "",
+							"pos": 0,
+							"children": [
+								{
+									"end": 6,
+									"kind": "ExportKeyword",
+									"name": "",
+									"pos": 0,
+									"children": [
+									]
+								},
+								{
+									"end": 22,
+									"kind": "Identifier",
+									"name": "",
+									"pos": 12,
+									"children": [
+									]
+								},
+								{
+									"end": 100,
+									"kind": "MethodDeclaration",
+									"name": "ifAlone",
+									"pos": 24,
+									"children": [
+										{
+											"end": 38,
+											"kind": "Identifier",
+											"name": "",
+											"pos": 24,
+											"children": [
+											]
+										},
+										{
+											"end": 40,
+											"kind": "Parameter",
+											"name": "",
+											"pos": 39,
+											"children": [
+												{
+													"end": 40,
+													"kind": "Identifier",
+													"name": "",
+													"pos": 39,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 100,
+											"kind": "Block",
+											"name": "",
+											"pos": 41,
+											"children": [
+												{
+													"end": 94,
+													"kind": "IfStatement",
+													"name": "",
+													"pos": 43,
+													"children": [
+														{
+															"end": 57,
+															"kind": "Identifier",
+															"name": "",
+															"pos": 56,
+															"children": [
+															]
+														},
+														{
+															"end": 94,
+															"kind": "Block",
+															"name": "",
+															"pos": 58,
+															"children": [
+																{
+																	"end": 84,
+																	"kind": "ReturnStatement",
+																	"name": "",
+																	"pos": 60,
+																	"children": [
+																		{
+																			"end": 83,
+																			"kind": "StringLiteral",
+																			"name": "",
+																			"pos": 79,
+																			"children": [
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"end": 104,
+							"kind": "EndOfFileToken",
+							"name": "",
+							"pos": 103,
+							"children": [
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "demo.mock.ts",
+				"text": "import { CallbacksMock } from '../mocks-subfolder/callbacks.mock';\n\n\nexport class DebugMock {\n\n\n    ifAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n\n\n    twoIfs(a, b) {\n        if (a) {\n            return 'b';\n        }\n        if (b) {\n            return 'c';\n        }\n    }\n\n\n    ifNestedIf(a, b) {\n        if (a) {\n            if (b) {\n                return 'c';\n            }\n            return 'b';\n        }\n    }\n\n\n    ifIfIf(a, b, c) {\n        if (a) {\n            if (b) {\n                if (c) {\n                    return 'd';\n                }\n                return 'c';\n            }\n            return 'b';\n        }\n    }\n\n\n    switchCase(a) {\n        switch (a) {\n            case 1:\n                return 'one';\n            case 2:\n                return 'two';\n            case 3:\n                return 'three';\n            default:\n                return 'other';\n        }\n    }\n\n    recursion(a) {\n        this.recursion(a);\n    }\n\n\n    methodWithCallback(a, callback) {\n        callback(3);\n    }\n\n    hyperComplex<T>(object: Object, path: string | string[] = '', value: any): CallbacksMock<T> {\n        path = path.toString().match(/[^.[\\]]+/g);\n        path.slice(0, -1).reduce((acc: Object, curr: any, index: number) => {\n            const arg = Math.round(index) % 3;\n            return Object(acc[curr]) === acc[curr + arg][0];\n        }, object)[path[path.length - 1]] = value;\n        return new CallbacksMock<T>(object);\n    }\n\n\n}\n",
+				"astNode": {
+					"children": [
+						{
+							"end": 66,
 							"kind": "ImportDeclaration",
 							"name": "",
 							"pos": 0,
@@ -48,7 +295,7 @@
 									]
 								},
 								{
-									"end": 64,
+									"end": 65,
 									"kind": "StringLiteral",
 									"name": "",
 									"pos": 29,
@@ -58,94 +305,94 @@
 							]
 						},
 						{
-							"end": 1487,
+							"end": 1488,
 							"kind": "ClassDeclaration",
 							"name": "",
-							"pos": 65,
+							"pos": 66,
 							"children": [
 								{
-									"end": 74,
+									"end": 75,
 									"kind": "ExportKeyword",
 									"name": "",
-									"pos": 65,
+									"pos": 66,
 									"children": [
 									]
 								},
 								{
-									"end": 90,
+									"end": 91,
 									"kind": "Identifier",
 									"name": "",
-									"pos": 80,
+									"pos": 81,
 									"children": [
 									]
 								},
 								{
-									"end": 168,
+									"end": 169,
 									"kind": "MethodDeclaration",
 									"name": "ifAlone",
-									"pos": 92,
+									"pos": 93,
 									"children": [
 										{
-											"end": 106,
+											"end": 107,
 											"kind": "Identifier",
 											"name": "",
-											"pos": 92,
+											"pos": 93,
 											"children": [
 											]
 										},
 										{
-											"end": 108,
+											"end": 109,
 											"kind": "Parameter",
 											"name": "",
-											"pos": 107,
+											"pos": 108,
 											"children": [
 												{
-													"end": 108,
+													"end": 109,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 107,
+													"pos": 108,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 168,
+											"end": 169,
 											"kind": "Block",
 											"name": "",
-											"pos": 109,
+											"pos": 110,
 											"children": [
 												{
-													"end": 162,
+													"end": 163,
 													"kind": "IfStatement",
 													"name": "",
-													"pos": 111,
+													"pos": 112,
 													"children": [
 														{
-															"end": 125,
+															"end": 126,
 															"kind": "Identifier",
 															"name": "",
-															"pos": 124,
+															"pos": 125,
 															"children": [
 															]
 														},
 														{
-															"end": 162,
+															"end": 163,
 															"kind": "Block",
 															"name": "",
-															"pos": 126,
+															"pos": 127,
 															"children": [
 																{
-																	"end": 152,
+																	"end": 153,
 																	"kind": "ReturnStatement",
 																	"name": "",
-																	"pos": 128,
+																	"pos": 129,
 																	"children": [
 																		{
-																			"end": 151,
+																			"end": 152,
 																			"kind": "StringLiteral",
 																			"name": "",
-																			"pos": 147,
+																			"pos": 148,
 																			"children": [
 																			]
 																		}
@@ -160,88 +407,88 @@
 									]
 								},
 								{
-									"end": 297,
+									"end": 298,
 									"kind": "MethodDeclaration",
 									"name": "twoIfs",
-									"pos": 168,
+									"pos": 169,
 									"children": [
 										{
-											"end": 181,
+											"end": 182,
 											"kind": "Identifier",
 											"name": "",
-											"pos": 168,
+											"pos": 169,
 											"children": [
 											]
 										},
 										{
-											"end": 183,
+											"end": 184,
 											"kind": "Parameter",
 											"name": "",
-											"pos": 182,
+											"pos": 183,
 											"children": [
 												{
-													"end": 183,
+													"end": 184,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 182,
+													"pos": 183,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 186,
+											"end": 187,
 											"kind": "Parameter",
 											"name": "",
-											"pos": 184,
+											"pos": 185,
 											"children": [
 												{
-													"end": 186,
+													"end": 187,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 184,
+													"pos": 185,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 297,
+											"end": 298,
 											"kind": "Block",
 											"name": "",
-											"pos": 187,
+											"pos": 188,
 											"children": [
 												{
-													"end": 240,
+													"end": 241,
 													"kind": "IfStatement",
 													"name": "",
-													"pos": 189,
+													"pos": 190,
 													"children": [
 														{
-															"end": 203,
+															"end": 204,
 															"kind": "Identifier",
 															"name": "",
-															"pos": 202,
+															"pos": 203,
 															"children": [
 															]
 														},
 														{
-															"end": 240,
+															"end": 241,
 															"kind": "Block",
 															"name": "",
-															"pos": 204,
+															"pos": 205,
 															"children": [
 																{
-																	"end": 230,
+																	"end": 231,
 																	"kind": "ReturnStatement",
 																	"name": "",
-																	"pos": 206,
+																	"pos": 207,
 																	"children": [
 																		{
-																			"end": 229,
+																			"end": 230,
 																			"kind": "StringLiteral",
 																			"name": "",
-																			"pos": 225,
+																			"pos": 226,
 																			"children": [
 																			]
 																		}
@@ -252,36 +499,36 @@
 													]
 												},
 												{
-													"end": 291,
+													"end": 292,
 													"kind": "IfStatement",
 													"name": "",
-													"pos": 240,
+													"pos": 241,
 													"children": [
 														{
-															"end": 254,
+															"end": 255,
 															"kind": "Identifier",
 															"name": "",
-															"pos": 253,
+															"pos": 254,
 															"children": [
 															]
 														},
 														{
-															"end": 291,
+															"end": 292,
 															"kind": "Block",
 															"name": "",
-															"pos": 255,
+															"pos": 256,
 															"children": [
 																{
-																	"end": 281,
+																	"end": 282,
 																	"kind": "ReturnStatement",
 																	"name": "",
-																	"pos": 257,
+																	"pos": 258,
 																	"children": [
 																		{
-																			"end": 280,
+																			"end": 281,
 																			"kind": "StringLiteral",
 																			"name": "",
-																			"pos": 276,
+																			"pos": 277,
 																			"children": [
 																			]
 																		}
@@ -296,108 +543,108 @@
 									]
 								},
 								{
-									"end": 442,
+									"end": 443,
 									"kind": "MethodDeclaration",
 									"name": "ifNestedIf",
-									"pos": 297,
+									"pos": 298,
 									"children": [
 										{
-											"end": 314,
+											"end": 315,
 											"kind": "Identifier",
 											"name": "",
-											"pos": 297,
+											"pos": 298,
 											"children": [
 											]
 										},
 										{
-											"end": 316,
+											"end": 317,
 											"kind": "Parameter",
 											"name": "",
-											"pos": 315,
+											"pos": 316,
 											"children": [
 												{
-													"end": 316,
+													"end": 317,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 315,
+													"pos": 316,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 319,
+											"end": 320,
 											"kind": "Parameter",
 											"name": "",
-											"pos": 317,
+											"pos": 318,
 											"children": [
 												{
-													"end": 319,
+													"end": 320,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 317,
+													"pos": 318,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 442,
+											"end": 443,
 											"kind": "Block",
 											"name": "",
-											"pos": 320,
+											"pos": 321,
 											"children": [
 												{
-													"end": 436,
+													"end": 437,
 													"kind": "IfStatement",
 													"name": "",
-													"pos": 322,
+													"pos": 323,
 													"children": [
 														{
-															"end": 336,
+															"end": 337,
 															"kind": "Identifier",
 															"name": "",
-															"pos": 335,
+															"pos": 336,
 															"children": [
 															]
 														},
 														{
-															"end": 436,
+															"end": 437,
 															"kind": "Block",
 															"name": "",
-															"pos": 337,
+															"pos": 338,
 															"children": [
 																{
-																	"end": 402,
+																	"end": 403,
 																	"kind": "IfStatement",
 																	"name": "",
-																	"pos": 339,
+																	"pos": 340,
 																	"children": [
 																		{
-																			"end": 357,
+																			"end": 358,
 																			"kind": "Identifier",
 																			"name": "",
-																			"pos": 356,
+																			"pos": 357,
 																			"children": [
 																			]
 																		},
 																		{
-																			"end": 402,
+																			"end": 403,
 																			"kind": "Block",
 																			"name": "",
-																			"pos": 358,
+																			"pos": 359,
 																			"children": [
 																				{
-																					"end": 388,
+																					"end": 389,
 																					"kind": "ReturnStatement",
 																					"name": "",
-																					"pos": 360,
+																					"pos": 361,
 																					"children": [
 																						{
-																							"end": 387,
+																							"end": 388,
 																							"kind": "StringLiteral",
 																							"name": "",
-																							"pos": 383,
+																							"pos": 384,
 																							"children": [
 																							]
 																						}
@@ -408,16 +655,16 @@
 																	]
 																},
 																{
-																	"end": 426,
+																	"end": 427,
 																	"kind": "ReturnStatement",
 																	"name": "",
-																	"pos": 402,
+																	"pos": 403,
 																	"children": [
 																		{
-																			"end": 425,
+																			"end": 426,
 																			"kind": "StringLiteral",
 																			"name": "",
-																			"pos": 421,
+																			"pos": 422,
 																			"children": [
 																			]
 																		}
@@ -432,144 +679,144 @@
 									]
 								},
 								{
-									"end": 661,
+									"end": 662,
 									"kind": "MethodDeclaration",
 									"name": "ifIfIf",
-									"pos": 442,
+									"pos": 443,
 									"children": [
 										{
-											"end": 455,
+											"end": 456,
 											"kind": "Identifier",
 											"name": "",
-											"pos": 442,
+											"pos": 443,
 											"children": [
 											]
 										},
 										{
-											"end": 457,
+											"end": 458,
 											"kind": "Parameter",
 											"name": "",
-											"pos": 456,
+											"pos": 457,
 											"children": [
 												{
-													"end": 457,
+													"end": 458,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 456,
+													"pos": 457,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 460,
+											"end": 461,
 											"kind": "Parameter",
 											"name": "",
-											"pos": 458,
+											"pos": 459,
 											"children": [
 												{
-													"end": 460,
+													"end": 461,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 458,
+													"pos": 459,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 463,
+											"end": 464,
 											"kind": "Parameter",
 											"name": "",
-											"pos": 461,
+											"pos": 462,
 											"children": [
 												{
-													"end": 463,
+													"end": 464,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 461,
+													"pos": 462,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 661,
+											"end": 662,
 											"kind": "Block",
 											"name": "",
-											"pos": 464,
+											"pos": 465,
 											"children": [
 												{
-													"end": 655,
+													"end": 656,
 													"kind": "IfStatement",
 													"name": "",
-													"pos": 466,
+													"pos": 467,
 													"children": [
 														{
-															"end": 480,
+															"end": 481,
 															"kind": "Identifier",
 															"name": "",
-															"pos": 479,
+															"pos": 480,
 															"children": [
 															]
 														},
 														{
-															"end": 655,
+															"end": 656,
 															"kind": "Block",
 															"name": "",
-															"pos": 481,
+															"pos": 482,
 															"children": [
 																{
-																	"end": 621,
+																	"end": 622,
 																	"kind": "IfStatement",
 																	"name": "",
-																	"pos": 483,
+																	"pos": 484,
 																	"children": [
 																		{
-																			"end": 501,
+																			"end": 502,
 																			"kind": "Identifier",
 																			"name": "",
-																			"pos": 500,
+																			"pos": 501,
 																			"children": [
 																			]
 																		},
 																		{
-																			"end": 621,
+																			"end": 622,
 																			"kind": "Block",
 																			"name": "",
-																			"pos": 502,
+																			"pos": 503,
 																			"children": [
 																				{
-																					"end": 579,
+																					"end": 580,
 																					"kind": "IfStatement",
 																					"name": "",
-																					"pos": 504,
+																					"pos": 505,
 																					"children": [
 																						{
-																							"end": 526,
+																							"end": 527,
 																							"kind": "Identifier",
 																							"name": "",
-																							"pos": 525,
+																							"pos": 526,
 																							"children": [
 																							]
 																						},
 																						{
-																							"end": 579,
+																							"end": 580,
 																							"kind": "Block",
 																							"name": "",
-																							"pos": 527,
+																							"pos": 528,
 																							"children": [
 																								{
-																									"end": 561,
+																									"end": 562,
 																									"kind": "ReturnStatement",
 																									"name": "",
-																									"pos": 529,
+																									"pos": 530,
 																									"children": [
 																										{
-																											"end": 560,
+																											"end": 561,
 																											"kind": "StringLiteral",
 																											"name": "",
-																											"pos": 556,
+																											"pos": 557,
 																											"children": [
 																											]
 																										}
@@ -580,16 +827,16 @@
 																					]
 																				},
 																				{
-																					"end": 607,
+																					"end": 608,
 																					"kind": "ReturnStatement",
 																					"name": "",
-																					"pos": 579,
+																					"pos": 580,
 																					"children": [
 																						{
-																							"end": 606,
+																							"end": 607,
 																							"kind": "StringLiteral",
 																							"name": "",
-																							"pos": 602,
+																							"pos": 603,
 																							"children": [
 																							]
 																						}
@@ -600,16 +847,16 @@
 																	]
 																},
 																{
-																	"end": 645,
+																	"end": 646,
 																	"kind": "ReturnStatement",
 																	"name": "",
-																	"pos": 621,
+																	"pos": 622,
 																	"children": [
 																		{
-																			"end": 644,
+																			"end": 645,
 																			"kind": "StringLiteral",
 																			"name": "",
-																			"pos": 640,
+																			"pos": 641,
 																			"children": [
 																			]
 																		}
@@ -624,86 +871,86 @@
 									]
 								},
 								{
-									"end": 925,
+									"end": 926,
 									"kind": "MethodDeclaration",
 									"name": "switchCase",
-									"pos": 661,
+									"pos": 662,
 									"children": [
 										{
-											"end": 678,
+											"end": 679,
 											"kind": "Identifier",
 											"name": "",
-											"pos": 661,
+											"pos": 662,
 											"children": [
 											]
 										},
 										{
-											"end": 680,
+											"end": 681,
 											"kind": "Parameter",
 											"name": "",
-											"pos": 679,
+											"pos": 680,
 											"children": [
 												{
-													"end": 680,
+													"end": 681,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 679,
+													"pos": 680,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 925,
+											"end": 926,
 											"kind": "Block",
 											"name": "",
-											"pos": 681,
+											"pos": 682,
 											"children": [
 												{
-													"end": 919,
+													"end": 920,
 													"kind": "SwitchStatement",
 													"name": "",
-													"pos": 683,
+													"pos": 684,
 													"children": [
 														{
-															"end": 701,
+															"end": 702,
 															"kind": "Identifier",
 															"name": "",
-															"pos": 700,
+															"pos": 701,
 															"children": [
 															]
 														},
 														{
-															"end": 919,
+															"end": 920,
 															"kind": "CaseBlock",
 															"name": "",
-															"pos": 702,
+															"pos": 703,
 															"children": [
 																{
-																	"end": 754,
+																	"end": 755,
 																	"kind": "CaseClause",
 																	"name": "",
-																	"pos": 704,
+																	"pos": 705,
 																	"children": [
 																		{
-																			"end": 723,
+																			"end": 724,
 																			"kind": "FirstLiteralToken",
 																			"name": "",
-																			"pos": 721,
+																			"pos": 722,
 																			"children": [
 																			]
 																		},
 																		{
-																			"end": 754,
+																			"end": 755,
 																			"kind": "ReturnStatement",
 																			"name": "",
-																			"pos": 724,
+																			"pos": 725,
 																			"children": [
 																				{
-																					"end": 753,
+																					"end": 754,
 																					"kind": "StringLiteral",
 																					"name": "",
-																					"pos": 747,
+																					"pos": 748,
 																					"children": [
 																					]
 																				}
@@ -712,30 +959,30 @@
 																	]
 																},
 																{
-																	"end": 804,
+																	"end": 805,
 																	"kind": "CaseClause",
 																	"name": "",
-																	"pos": 754,
+																	"pos": 755,
 																	"children": [
 																		{
-																			"end": 773,
+																			"end": 774,
 																			"kind": "FirstLiteralToken",
 																			"name": "",
-																			"pos": 771,
+																			"pos": 772,
 																			"children": [
 																			]
 																		},
 																		{
-																			"end": 804,
+																			"end": 805,
 																			"kind": "ReturnStatement",
 																			"name": "",
-																			"pos": 774,
+																			"pos": 775,
 																			"children": [
 																				{
-																					"end": 803,
+																					"end": 804,
 																					"kind": "StringLiteral",
 																					"name": "",
-																					"pos": 797,
+																					"pos": 798,
 																					"children": [
 																					]
 																				}
@@ -744,30 +991,30 @@
 																	]
 																},
 																{
-																	"end": 856,
+																	"end": 857,
 																	"kind": "CaseClause",
 																	"name": "",
-																	"pos": 804,
+																	"pos": 805,
 																	"children": [
 																		{
-																			"end": 823,
+																			"end": 824,
 																			"kind": "FirstLiteralToken",
 																			"name": "",
-																			"pos": 821,
+																			"pos": 822,
 																			"children": [
 																			]
 																		},
 																		{
-																			"end": 856,
+																			"end": 857,
 																			"kind": "ReturnStatement",
 																			"name": "",
-																			"pos": 824,
+																			"pos": 825,
 																			"children": [
 																				{
-																					"end": 855,
+																					"end": 856,
 																					"kind": "StringLiteral",
 																					"name": "",
-																					"pos": 847,
+																					"pos": 848,
 																					"children": [
 																					]
 																				}
@@ -776,22 +1023,22 @@
 																	]
 																},
 																{
-																	"end": 909,
+																	"end": 910,
 																	"kind": "DefaultClause",
 																	"name": "",
-																	"pos": 856,
+																	"pos": 857,
 																	"children": [
 																		{
-																			"end": 909,
+																			"end": 910,
 																			"kind": "ReturnStatement",
 																			"name": "",
-																			"pos": 877,
+																			"pos": 878,
 																			"children": [
 																				{
-																					"end": 908,
+																					"end": 909,
 																					"kind": "StringLiteral",
 																					"name": "",
-																					"pos": 900,
+																					"pos": 901,
 																					"children": [
 																					]
 																				}
@@ -808,82 +1055,82 @@
 									]
 								},
 								{
-									"end": 978,
+									"end": 979,
 									"kind": "MethodDeclaration",
 									"name": "recursion",
-									"pos": 925,
+									"pos": 926,
 									"children": [
 										{
-											"end": 940,
+											"end": 941,
 											"kind": "Identifier",
 											"name": "",
-											"pos": 925,
+											"pos": 926,
 											"children": [
 											]
 										},
 										{
-											"end": 942,
+											"end": 943,
 											"kind": "Parameter",
 											"name": "",
-											"pos": 941,
+											"pos": 942,
 											"children": [
 												{
-													"end": 942,
+													"end": 943,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 941,
+													"pos": 942,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 978,
+											"end": 979,
 											"kind": "Block",
 											"name": "",
-											"pos": 943,
+											"pos": 944,
 											"children": [
 												{
-													"end": 972,
+													"end": 973,
 													"kind": "ExpressionStatement",
 													"name": "",
-													"pos": 945,
+													"pos": 946,
 													"children": [
 														{
-															"end": 971,
+															"end": 972,
 															"kind": "CallExpression",
 															"name": "",
-															"pos": 945,
+															"pos": 946,
 															"children": [
 																{
-																	"end": 968,
+																	"end": 969,
 																	"kind": "PropertyAccessExpression",
 																	"name": "",
-																	"pos": 945,
+																	"pos": 946,
 																	"children": [
 																		{
-																			"end": 958,
+																			"end": 959,
 																			"kind": "ThisKeyword",
 																			"name": "",
-																			"pos": 945,
+																			"pos": 946,
 																			"children": [
 																			]
 																		},
 																		{
-																			"end": 968,
+																			"end": 969,
 																			"kind": "Identifier",
 																			"name": "",
-																			"pos": 959,
+																			"pos": 960,
 																			"children": [
 																			]
 																		}
 																	]
 																},
 																{
-																	"end": 970,
+																	"end": 971,
 																	"kind": "Identifier",
 																	"name": "",
-																	"pos": 969,
+																	"pos": 970,
 																	"children": [
 																	]
 																}
@@ -896,82 +1143,82 @@
 									]
 								},
 								{
-									"end": 1045,
+									"end": 1046,
 									"kind": "MethodDeclaration",
 									"name": "methodWithCallback",
-									"pos": 978,
+									"pos": 979,
 									"children": [
 										{
-											"end": 1003,
+											"end": 1004,
 											"kind": "Identifier",
 											"name": "",
-											"pos": 978,
+											"pos": 979,
 											"children": [
 											]
 										},
 										{
-											"end": 1005,
+											"end": 1006,
 											"kind": "Parameter",
 											"name": "",
-											"pos": 1004,
+											"pos": 1005,
 											"children": [
 												{
-													"end": 1005,
+													"end": 1006,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 1004,
+													"pos": 1005,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 1015,
+											"end": 1016,
 											"kind": "Parameter",
 											"name": "",
-											"pos": 1006,
+											"pos": 1007,
 											"children": [
 												{
-													"end": 1015,
+													"end": 1016,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 1006,
+													"pos": 1007,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 1045,
+											"end": 1046,
 											"kind": "Block",
 											"name": "",
-											"pos": 1016,
+											"pos": 1017,
 											"children": [
 												{
-													"end": 1039,
+													"end": 1040,
 													"kind": "ExpressionStatement",
 													"name": "",
-													"pos": 1018,
+													"pos": 1019,
 													"children": [
 														{
-															"end": 1038,
+															"end": 1039,
 															"kind": "CallExpression",
 															"name": "",
-															"pos": 1018,
+															"pos": 1019,
 															"children": [
 																{
-																	"end": 1035,
+																	"end": 1036,
 																	"kind": "Identifier",
 																	"name": "",
-																	"pos": 1018,
+																	"pos": 1019,
 																	"children": [
 																	]
 																},
 																{
-																	"end": 1037,
+																	"end": 1038,
 																	"kind": "FirstLiteralToken",
 																	"name": "",
-																	"pos": 1036,
+																	"pos": 1037,
 																	"children": [
 																	]
 																}
@@ -984,60 +1231,60 @@
 									]
 								},
 								{
-									"end": 1483,
+									"end": 1484,
 									"kind": "MethodDeclaration",
 									"name": "hyperComplex",
-									"pos": 1045,
+									"pos": 1046,
 									"children": [
 										{
-											"end": 1063,
+											"end": 1064,
 											"kind": "Identifier",
 											"name": "",
-											"pos": 1045,
+											"pos": 1046,
 											"children": [
 											]
 										},
 										{
-											"end": 1065,
+											"end": 1066,
 											"kind": "TypeParameter",
 											"name": "",
-											"pos": 1064,
+											"pos": 1065,
 											"children": [
 												{
-													"end": 1065,
+													"end": 1066,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 1064,
+													"pos": 1065,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 1081,
+											"end": 1082,
 											"kind": "Parameter",
 											"name": "",
-											"pos": 1067,
+											"pos": 1068,
 											"children": [
 												{
-													"end": 1073,
+													"end": 1074,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 1067,
+													"pos": 1068,
 													"children": [
 													]
 												},
 												{
-													"end": 1081,
+													"end": 1082,
 													"kind": "TypeReference",
 													"name": "",
-													"pos": 1074,
+													"pos": 1075,
 													"children": [
 														{
-															"end": 1081,
+															"end": 1082,
 															"kind": "Identifier",
 															"name": "",
-															"pos": 1074,
+															"pos": 1075,
 															"children": [
 															]
 														}
@@ -1046,44 +1293,44 @@
 											]
 										},
 										{
-											"end": 1111,
+											"end": 1112,
 											"kind": "Parameter",
 											"name": "",
-											"pos": 1082,
+											"pos": 1083,
 											"children": [
 												{
-													"end": 1087,
+													"end": 1088,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 1082,
+													"pos": 1083,
 													"children": [
 													]
 												},
 												{
-													"end": 1106,
+													"end": 1107,
 													"kind": "UnionType",
 													"name": "",
-													"pos": 1088,
+													"pos": 1089,
 													"children": [
 														{
-															"end": 1095,
+															"end": 1096,
 															"kind": "StringKeyword",
 															"name": "",
-															"pos": 1088,
+															"pos": 1089,
 															"children": [
 															]
 														},
 														{
-															"end": 1106,
+															"end": 1107,
 															"kind": "ArrayType",
 															"name": "",
-															"pos": 1097,
+															"pos": 1098,
 															"children": [
 																{
-																	"end": 1104,
+																	"end": 1105,
 																	"kind": "StringKeyword",
 																	"name": "",
-																	"pos": 1097,
+																	"pos": 1098,
 																	"children": [
 																	]
 																}
@@ -1092,64 +1339,64 @@
 													]
 												},
 												{
-													"end": 1111,
+													"end": 1112,
 													"kind": "StringLiteral",
 													"name": "",
-													"pos": 1108,
+													"pos": 1109,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 1123,
+											"end": 1124,
 											"kind": "Parameter",
 											"name": "",
-											"pos": 1112,
+											"pos": 1113,
 											"children": [
 												{
-													"end": 1118,
+													"end": 1119,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 1112,
+													"pos": 1113,
 													"children": [
 													]
 												},
 												{
-													"end": 1123,
+													"end": 1124,
 													"kind": "AnyKeyword",
 													"name": "",
-													"pos": 1119,
+													"pos": 1120,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 1142,
+											"end": 1143,
 											"kind": "TypeReference",
 											"name": "",
-											"pos": 1125,
+											"pos": 1126,
 											"children": [
 												{
-													"end": 1139,
+													"end": 1140,
 													"kind": "Identifier",
 													"name": "",
-													"pos": 1125,
+													"pos": 1126,
 													"children": [
 													]
 												},
 												{
-													"end": 1141,
+													"end": 1142,
 													"kind": "TypeReference",
 													"name": "",
-													"pos": 1140,
+													"pos": 1141,
 													"children": [
 														{
-															"end": 1141,
+															"end": 1142,
 															"kind": "Identifier",
 															"name": "",
-															"pos": 1140,
+															"pos": 1141,
 															"children": [
 															]
 														}
@@ -1158,76 +1405,76 @@
 											]
 										},
 										{
-											"end": 1483,
+											"end": 1484,
 											"kind": "Block",
 											"name": "",
-											"pos": 1142,
+											"pos": 1143,
 											"children": [
 												{
-													"end": 1195,
+													"end": 1196,
 													"kind": "ExpressionStatement",
 													"name": "",
-													"pos": 1144,
+													"pos": 1145,
 													"children": [
 														{
-															"end": 1194,
+															"end": 1195,
 															"kind": "BinaryExpression",
 															"name": "",
-															"pos": 1144,
+															"pos": 1145,
 															"children": [
 																{
-																	"end": 1157,
+																	"end": 1158,
 																	"kind": "Identifier",
 																	"name": "",
-																	"pos": 1144,
+																	"pos": 1145,
 																	"children": [
 																	]
 																},
 																{
-																	"end": 1159,
+																	"end": 1160,
 																	"kind": "FirstAssignment",
 																	"name": "",
-																	"pos": 1157,
+																	"pos": 1158,
 																	"children": [
 																	]
 																},
 																{
-																	"end": 1194,
+																	"end": 1195,
 																	"kind": "CallExpression",
 																	"name": "",
-																	"pos": 1159,
+																	"pos": 1160,
 																	"children": [
 																		{
-																			"end": 1181,
+																			"end": 1182,
 																			"kind": "PropertyAccessExpression",
 																			"name": "",
-																			"pos": 1159,
+																			"pos": 1160,
 																			"children": [
 																				{
-																					"end": 1175,
+																					"end": 1176,
 																					"kind": "CallExpression",
 																					"name": "",
-																					"pos": 1159,
+																					"pos": 1160,
 																					"children": [
 																						{
-																							"end": 1173,
+																							"end": 1174,
 																							"kind": "PropertyAccessExpression",
 																							"name": "",
-																							"pos": 1159,
+																							"pos": 1160,
 																							"children": [
 																								{
-																									"end": 1164,
+																									"end": 1165,
 																									"kind": "Identifier",
 																									"name": "",
-																									"pos": 1159,
+																									"pos": 1160,
 																									"children": [
 																									]
 																								},
 																								{
-																									"end": 1173,
+																									"end": 1174,
 																									"kind": "Identifier",
 																									"name": "",
-																									"pos": 1165,
+																									"pos": 1166,
 																									"children": [
 																									]
 																								}
@@ -1236,20 +1483,20 @@
 																					]
 																				},
 																				{
-																					"end": 1181,
+																					"end": 1182,
 																					"kind": "Identifier",
 																					"name": "",
-																					"pos": 1176,
+																					"pos": 1177,
 																					"children": [
 																					]
 																				}
 																			]
 																		},
 																		{
-																			"end": 1193,
+																			"end": 1194,
 																			"kind": "RegularExpressionLiteral",
 																			"name": "",
-																			"pos": 1182,
+																			"pos": 1183,
 																			"children": [
 																			]
 																		}
@@ -1260,84 +1507,84 @@
 													]
 												},
 												{
-													"end": 1432,
+													"end": 1433,
 													"kind": "ExpressionStatement",
 													"name": "",
-													"pos": 1195,
+													"pos": 1196,
 													"children": [
 														{
-															"end": 1431,
+															"end": 1432,
 															"kind": "BinaryExpression",
 															"name": "",
-															"pos": 1195,
+															"pos": 1196,
 															"children": [
 																{
-																	"end": 1423,
+																	"end": 1424,
 																	"kind": "ElementAccessExpression",
 																	"name": "",
-																	"pos": 1195,
+																	"pos": 1196,
 																	"children": [
 																		{
-																			"end": 1400,
+																			"end": 1401,
 																			"kind": "CallExpression",
 																			"name": "",
-																			"pos": 1195,
+																			"pos": 1196,
 																			"children": [
 																				{
-																					"end": 1228,
+																					"end": 1229,
 																					"kind": "PropertyAccessExpression",
 																					"name": "",
-																					"pos": 1195,
+																					"pos": 1196,
 																					"children": [
 																						{
-																							"end": 1221,
+																							"end": 1222,
 																							"kind": "CallExpression",
 																							"name": "",
-																							"pos": 1195,
+																							"pos": 1196,
 																							"children": [
 																								{
-																									"end": 1214,
+																									"end": 1215,
 																									"kind": "PropertyAccessExpression",
 																									"name": "",
-																									"pos": 1195,
+																									"pos": 1196,
 																									"children": [
 																										{
-																											"end": 1208,
+																											"end": 1209,
 																											"kind": "Identifier",
 																											"name": "",
-																											"pos": 1195,
+																											"pos": 1196,
 																											"children": [
 																											]
 																										},
 																										{
-																											"end": 1214,
+																											"end": 1215,
 																											"kind": "Identifier",
 																											"name": "",
-																											"pos": 1209,
+																											"pos": 1210,
 																											"children": [
 																											]
 																										}
 																									]
 																								},
 																								{
-																									"end": 1216,
+																									"end": 1217,
 																									"kind": "FirstLiteralToken",
 																									"name": "",
-																									"pos": 1215,
+																									"pos": 1216,
 																									"children": [
 																									]
 																								},
 																								{
-																									"end": 1220,
+																									"end": 1221,
 																									"kind": "PrefixUnaryExpression",
 																									"name": "",
-																									"pos": 1217,
+																									"pos": 1218,
 																									"children": [
 																										{
-																											"end": 1220,
+																											"end": 1221,
 																											"kind": "FirstLiteralToken",
 																											"name": "",
-																											"pos": 1219,
+																											"pos": 1220,
 																											"children": [
 																											]
 																										}
@@ -1346,46 +1593,46 @@
 																							]
 																						},
 																						{
-																							"end": 1228,
+																							"end": 1229,
 																							"kind": "Identifier",
 																							"name": "",
-																							"pos": 1222,
+																							"pos": 1223,
 																							"children": [
 																							]
 																						}
 																					]
 																				},
 																				{
-																					"end": 1391,
+																					"end": 1392,
 																					"kind": "ArrowFunction",
 																					"name": "",
-																					"pos": 1229,
+																					"pos": 1230,
 																					"children": [
 																						{
-																							"end": 1241,
+																							"end": 1242,
 																							"kind": "Parameter",
 																							"name": "",
-																							"pos": 1230,
+																							"pos": 1231,
 																							"children": [
 																								{
-																									"end": 1233,
+																									"end": 1234,
 																									"kind": "Identifier",
 																									"name": "",
-																									"pos": 1230,
+																									"pos": 1231,
 																									"children": [
 																									]
 																								},
 																								{
-																									"end": 1241,
+																									"end": 1242,
 																									"kind": "TypeReference",
 																									"name": "",
-																									"pos": 1234,
+																									"pos": 1235,
 																									"children": [
 																										{
-																											"end": 1241,
+																											"end": 1242,
 																											"kind": "Identifier",
 																											"name": "",
-																											"pos": 1234,
+																											"pos": 1235,
 																											"children": [
 																											]
 																										}
@@ -1394,152 +1641,152 @@
 																							]
 																						},
 																						{
-																							"end": 1252,
+																							"end": 1253,
 																							"kind": "Parameter",
 																							"name": "",
-																							"pos": 1242,
+																							"pos": 1243,
 																							"children": [
 																								{
-																									"end": 1247,
+																									"end": 1248,
 																									"kind": "Identifier",
 																									"name": "",
-																									"pos": 1242,
+																									"pos": 1243,
 																									"children": [
 																									]
 																								},
 																								{
-																									"end": 1252,
+																									"end": 1253,
 																									"kind": "AnyKeyword",
 																									"name": "",
-																									"pos": 1248,
+																									"pos": 1249,
 																									"children": [
 																									]
 																								}
 																							]
 																						},
 																						{
-																							"end": 1267,
+																							"end": 1268,
 																							"kind": "Parameter",
 																							"name": "",
-																							"pos": 1253,
+																							"pos": 1254,
 																							"children": [
 																								{
-																									"end": 1259,
+																									"end": 1260,
 																									"kind": "Identifier",
 																									"name": "",
-																									"pos": 1253,
+																									"pos": 1254,
 																									"children": [
 																									]
 																								},
 																								{
-																									"end": 1267,
+																									"end": 1268,
 																									"kind": "NumberKeyword",
 																									"name": "",
-																									"pos": 1260,
+																									"pos": 1261,
 																									"children": [
 																									]
 																								}
 																							]
 																						},
 																						{
-																							"end": 1271,
+																							"end": 1272,
 																							"kind": "EqualsGreaterThanToken",
 																							"name": "",
-																							"pos": 1268,
+																							"pos": 1269,
 																							"children": [
 																							]
 																						},
 																						{
-																							"end": 1391,
+																							"end": 1392,
 																							"kind": "Block",
 																							"name": "",
-																							"pos": 1271,
+																							"pos": 1272,
 																							"children": [
 																								{
-																									"end": 1320,
+																									"end": 1321,
 																									"kind": "FirstStatement",
 																									"name": "",
-																									"pos": 1273,
+																									"pos": 1274,
 																									"children": [
 																										{
-																											"end": 1319,
+																											"end": 1320,
 																											"kind": "VariableDeclarationList",
 																											"name": "",
-																											"pos": 1273,
+																											"pos": 1274,
 																											"children": [
 																												{
-																													"end": 1319,
+																													"end": 1320,
 																													"kind": "VariableDeclaration",
 																													"name": "",
-																													"pos": 1291,
+																													"pos": 1292,
 																													"children": [
 																														{
-																															"end": 1295,
+																															"end": 1296,
 																															"kind": "Identifier",
 																															"name": "",
-																															"pos": 1291,
+																															"pos": 1292,
 																															"children": [
 																															]
 																														},
 																														{
-																															"end": 1319,
+																															"end": 1320,
 																															"kind": "BinaryExpression",
 																															"name": "",
-																															"pos": 1297,
+																															"pos": 1298,
 																															"children": [
 																																{
-																																	"end": 1315,
+																																	"end": 1316,
 																																	"kind": "CallExpression",
 																																	"name": "",
-																																	"pos": 1297,
+																																	"pos": 1298,
 																																	"children": [
 																																		{
-																																			"end": 1308,
+																																			"end": 1309,
 																																			"kind": "PropertyAccessExpression",
 																																			"name": "",
-																																			"pos": 1297,
+																																			"pos": 1298,
 																																			"children": [
 																																				{
-																																					"end": 1302,
+																																					"end": 1303,
 																																					"kind": "Identifier",
 																																					"name": "",
-																																					"pos": 1297,
+																																					"pos": 1298,
 																																					"children": [
 																																					]
 																																				},
 																																				{
-																																					"end": 1308,
+																																					"end": 1309,
 																																					"kind": "Identifier",
 																																					"name": "",
-																																					"pos": 1303,
+																																					"pos": 1304,
 																																					"children": [
 																																					]
 																																				}
 																																			]
 																																		},
 																																		{
-																																			"end": 1314,
+																																			"end": 1315,
 																																			"kind": "Identifier",
 																																			"name": "",
-																																			"pos": 1309,
+																																			"pos": 1310,
 																																			"children": [
 																																			]
 																																		}
 																																	]
 																																},
 																																{
-																																	"end": 1317,
+																																	"end": 1318,
 																																	"kind": "PercentToken",
 																																	"name": "",
-																																	"pos": 1315,
+																																	"pos": 1316,
 																																	"children": [
 																																	]
 																																},
 																																{
-																																	"end": 1319,
+																																	"end": 1320,
 																																	"kind": "FirstLiteralToken",
 																																	"name": "",
-																																	"pos": 1317,
+																																	"pos": 1318,
 																																	"children": [
 																																	]
 																																}
@@ -1552,50 +1799,50 @@
 																									]
 																								},
 																								{
-																									"end": 1381,
+																									"end": 1382,
 																									"kind": "ReturnStatement",
 																									"name": "",
-																									"pos": 1320,
+																									"pos": 1321,
 																									"children": [
 																										{
-																											"end": 1380,
+																											"end": 1381,
 																											"kind": "BinaryExpression",
 																											"name": "",
-																											"pos": 1339,
+																											"pos": 1340,
 																											"children": [
 																												{
-																													"end": 1357,
+																													"end": 1358,
 																													"kind": "CallExpression",
 																													"name": "",
-																													"pos": 1339,
+																													"pos": 1340,
 																													"children": [
 																														{
-																															"end": 1346,
+																															"end": 1347,
 																															"kind": "Identifier",
 																															"name": "",
-																															"pos": 1339,
+																															"pos": 1340,
 																															"children": [
 																															]
 																														},
 																														{
-																															"end": 1356,
+																															"end": 1357,
 																															"kind": "ElementAccessExpression",
 																															"name": "",
-																															"pos": 1347,
+																															"pos": 1348,
 																															"children": [
 																																{
-																																	"end": 1350,
+																																	"end": 1351,
 																																	"kind": "Identifier",
 																																	"name": "",
-																																	"pos": 1347,
+																																	"pos": 1348,
 																																	"children": [
 																																	]
 																																},
 																																{
-																																	"end": 1355,
+																																	"end": 1356,
 																																	"kind": "Identifier",
 																																	"name": "",
-																																	"pos": 1351,
+																																	"pos": 1352,
 																																	"children": [
 																																	]
 																																}
@@ -1604,60 +1851,60 @@
 																													]
 																												},
 																												{
-																													"end": 1361,
+																													"end": 1362,
 																													"kind": "EqualsEqualsEqualsToken",
 																													"name": "",
-																													"pos": 1357,
+																													"pos": 1358,
 																													"children": [
 																													]
 																												},
 																												{
-																													"end": 1380,
+																													"end": 1381,
 																													"kind": "ElementAccessExpression",
 																													"name": "",
-																													"pos": 1361,
+																													"pos": 1362,
 																													"children": [
 																														{
-																															"end": 1377,
+																															"end": 1378,
 																															"kind": "ElementAccessExpression",
 																															"name": "",
-																															"pos": 1361,
+																															"pos": 1362,
 																															"children": [
 																																{
-																																	"end": 1365,
+																																	"end": 1366,
 																																	"kind": "Identifier",
 																																	"name": "",
-																																	"pos": 1361,
+																																	"pos": 1362,
 																																	"children": [
 																																	]
 																																},
 																																{
-																																	"end": 1376,
+																																	"end": 1377,
 																																	"kind": "BinaryExpression",
 																																	"name": "",
-																																	"pos": 1366,
+																																	"pos": 1367,
 																																	"children": [
 																																		{
-																																			"end": 1370,
+																																			"end": 1371,
 																																			"kind": "Identifier",
 																																			"name": "",
-																																			"pos": 1366,
+																																			"pos": 1367,
 																																			"children": [
 																																			]
 																																		},
 																																		{
-																																			"end": 1372,
+																																			"end": 1373,
 																																			"kind": "PlusToken",
 																																			"name": "",
-																																			"pos": 1370,
+																																			"pos": 1371,
 																																			"children": [
 																																			]
 																																		},
 																																		{
-																																			"end": 1376,
+																																			"end": 1377,
 																																			"kind": "Identifier",
 																																			"name": "",
-																																			"pos": 1372,
+																																			"pos": 1373,
 																																			"children": [
 																																			]
 																																		}
@@ -1666,10 +1913,10 @@
 																															]
 																														},
 																														{
-																															"end": 1379,
+																															"end": 1380,
 																															"kind": "FirstLiteralToken",
 																															"name": "",
-																															"pos": 1378,
+																															"pos": 1379,
 																															"children": [
 																															]
 																														}
@@ -1684,72 +1931,72 @@
 																					]
 																				},
 																				{
-																					"end": 1399,
+																					"end": 1400,
 																					"kind": "Identifier",
 																					"name": "",
-																					"pos": 1392,
+																					"pos": 1393,
 																					"children": [
 																					]
 																				}
 																			]
 																		},
 																		{
-																			"end": 1422,
+																			"end": 1423,
 																			"kind": "ElementAccessExpression",
 																			"name": "",
-																			"pos": 1401,
+																			"pos": 1402,
 																			"children": [
 																				{
-																					"end": 1405,
+																					"end": 1406,
 																					"kind": "Identifier",
 																					"name": "",
-																					"pos": 1401,
+																					"pos": 1402,
 																					"children": [
 																					]
 																				},
 																				{
-																					"end": 1421,
+																					"end": 1422,
 																					"kind": "BinaryExpression",
 																					"name": "",
-																					"pos": 1406,
+																					"pos": 1407,
 																					"children": [
 																						{
-																							"end": 1417,
+																							"end": 1418,
 																							"kind": "PropertyAccessExpression",
 																							"name": "",
-																							"pos": 1406,
+																							"pos": 1407,
 																							"children": [
 																								{
-																									"end": 1410,
+																									"end": 1411,
 																									"kind": "Identifier",
 																									"name": "",
-																									"pos": 1406,
+																									"pos": 1407,
 																									"children": [
 																									]
 																								},
 																								{
-																									"end": 1417,
+																									"end": 1418,
 																									"kind": "Identifier",
 																									"name": "",
-																									"pos": 1411,
+																									"pos": 1412,
 																									"children": [
 																									]
 																								}
 																							]
 																						},
 																						{
-																							"end": 1419,
+																							"end": 1420,
 																							"kind": "MinusToken",
 																							"name": "",
-																							"pos": 1417,
+																							"pos": 1418,
 																							"children": [
 																							]
 																						},
 																						{
-																							"end": 1421,
+																							"end": 1422,
 																							"kind": "FirstLiteralToken",
 																							"name": "",
-																							"pos": 1419,
+																							"pos": 1420,
 																							"children": [
 																							]
 																						}
@@ -1760,18 +2007,18 @@
 																	]
 																},
 																{
-																	"end": 1425,
+																	"end": 1426,
 																	"kind": "FirstAssignment",
 																	"name": "",
-																	"pos": 1423,
+																	"pos": 1424,
 																	"children": [
 																	]
 																},
 																{
-																	"end": 1431,
+																	"end": 1432,
 																	"kind": "Identifier",
 																	"name": "",
-																	"pos": 1425,
+																	"pos": 1426,
 																	"children": [
 																	]
 																}
@@ -1780,46 +2027,46 @@
 													]
 												},
 												{
-													"end": 1477,
+													"end": 1478,
 													"kind": "ReturnStatement",
 													"name": "",
-													"pos": 1432,
+													"pos": 1433,
 													"children": [
 														{
-															"end": 1476,
+															"end": 1477,
 															"kind": "NewExpression",
 															"name": "",
-															"pos": 1447,
+															"pos": 1448,
 															"children": [
 																{
-																	"end": 1465,
+																	"end": 1466,
 																	"kind": "Identifier",
 																	"name": "",
-																	"pos": 1451,
+																	"pos": 1452,
 																	"children": [
 																	]
 																},
 																{
-																	"end": 1467,
+																	"end": 1468,
 																	"kind": "TypeReference",
 																	"name": "",
-																	"pos": 1466,
+																	"pos": 1467,
 																	"children": [
 																		{
-																			"end": 1467,
+																			"end": 1468,
 																			"kind": "Identifier",
 																			"name": "",
-																			"pos": 1466,
+																			"pos": 1467,
 																			"children": [
 																			]
 																		}
 																	]
 																},
 																{
-																	"end": 1475,
+																	"end": 1476,
 																	"kind": "Identifier",
 																	"name": "",
-																	"pos": 1469,
+																	"pos": 1470,
 																	"children": [
 																	]
 																}
@@ -1834,10 +2081,458 @@
 							]
 						},
 						{
-							"end": 1488,
+							"end": 1489,
 							"kind": "EndOfFileToken",
 							"name": "",
-							"pos": 1487,
+							"pos": 1488,
+							"children": [
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "php.mock.ts",
+				"text": "export class PhpMock {\n\n    ifMethod(a: number) {\n        if (a > 0) {\n            return 'a';\n        }\n\n        return 'none';\n    }\n\n\n    recursion(a: number) {\n        if (0 <= a) {\n            return 0;\n        }\n        return this.recursion(a - 10);\n    }\n\n\n    methodWithCallback(a: string, callback) {\n        return callback(a);\n    }\n\n}\n",
+				"astNode": {
+					"children": [
+						{
+							"end": 347,
+							"kind": "ClassDeclaration",
+							"name": "",
+							"pos": 0,
+							"children": [
+								{
+									"end": 6,
+									"kind": "ExportKeyword",
+									"name": "",
+									"pos": 0,
+									"children": [
+									]
+								},
+								{
+									"end": 20,
+									"kind": "Identifier",
+									"name": "",
+									"pos": 12,
+									"children": [
+									]
+								},
+								{
+									"end": 134,
+									"kind": "MethodDeclaration",
+									"name": "ifMethod",
+									"pos": 22,
+									"children": [
+										{
+											"end": 36,
+											"kind": "Identifier",
+											"name": "",
+											"pos": 22,
+											"children": [
+											]
+										},
+										{
+											"end": 46,
+											"kind": "Parameter",
+											"name": "",
+											"pos": 37,
+											"children": [
+												{
+													"end": 38,
+													"kind": "Identifier",
+													"name": "",
+													"pos": 37,
+													"children": [
+													]
+												},
+												{
+													"end": 46,
+													"kind": "NumberKeyword",
+													"name": "",
+													"pos": 39,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 134,
+											"kind": "Block",
+											"name": "",
+											"pos": 47,
+											"children": [
+												{
+													"end": 104,
+													"kind": "IfStatement",
+													"name": "",
+													"pos": 49,
+													"children": [
+														{
+															"end": 67,
+															"kind": "BinaryExpression",
+															"name": "",
+															"pos": 62,
+															"children": [
+																{
+																	"end": 63,
+																	"kind": "Identifier",
+																	"name": "",
+																	"pos": 62,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 65,
+																	"kind": "GreaterThanToken",
+																	"name": "",
+																	"pos": 63,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 67,
+																	"kind": "FirstLiteralToken",
+																	"name": "",
+																	"pos": 65,
+																	"children": [
+																	]
+																}
+															]
+														},
+														{
+															"end": 104,
+															"kind": "Block",
+															"name": "",
+															"pos": 68,
+															"children": [
+																{
+																	"end": 94,
+																	"kind": "ReturnStatement",
+																	"name": "",
+																	"pos": 70,
+																	"children": [
+																		{
+																			"end": 93,
+																			"kind": "StringLiteral",
+																			"name": "",
+																			"pos": 89,
+																			"children": [
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												},
+												{
+													"end": 128,
+													"kind": "ReturnStatement",
+													"name": "",
+													"pos": 104,
+													"children": [
+														{
+															"end": 127,
+															"kind": "StringLiteral",
+															"name": "",
+															"pos": 120,
+															"children": [
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"end": 262,
+									"kind": "MethodDeclaration",
+									"name": "recursion",
+									"pos": 134,
+									"children": [
+										{
+											"end": 150,
+											"kind": "Identifier",
+											"name": "",
+											"pos": 134,
+											"children": [
+											]
+										},
+										{
+											"end": 160,
+											"kind": "Parameter",
+											"name": "",
+											"pos": 151,
+											"children": [
+												{
+													"end": 152,
+													"kind": "Identifier",
+													"name": "",
+													"pos": 151,
+													"children": [
+													]
+												},
+												{
+													"end": 160,
+													"kind": "NumberKeyword",
+													"name": "",
+													"pos": 153,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 262,
+											"kind": "Block",
+											"name": "",
+											"pos": 161,
+											"children": [
+												{
+													"end": 217,
+													"kind": "IfStatement",
+													"name": "",
+													"pos": 163,
+													"children": [
+														{
+															"end": 182,
+															"kind": "BinaryExpression",
+															"name": "",
+															"pos": 176,
+															"children": [
+																{
+																	"end": 177,
+																	"kind": "FirstLiteralToken",
+																	"name": "",
+																	"pos": 176,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 180,
+																	"kind": "LessThanEqualsToken",
+																	"name": "",
+																	"pos": 177,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 182,
+																	"kind": "Identifier",
+																	"name": "",
+																	"pos": 180,
+																	"children": [
+																	]
+																}
+															]
+														},
+														{
+															"end": 217,
+															"kind": "Block",
+															"name": "",
+															"pos": 183,
+															"children": [
+																{
+																	"end": 207,
+																	"kind": "ReturnStatement",
+																	"name": "",
+																	"pos": 185,
+																	"children": [
+																		{
+																			"end": 206,
+																			"kind": "FirstLiteralToken",
+																			"name": "",
+																			"pos": 204,
+																			"children": [
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												},
+												{
+													"end": 256,
+													"kind": "ReturnStatement",
+													"name": "",
+													"pos": 217,
+													"children": [
+														{
+															"end": 255,
+															"kind": "CallExpression",
+															"name": "",
+															"pos": 232,
+															"children": [
+																{
+																	"end": 247,
+																	"kind": "PropertyAccessExpression",
+																	"name": "",
+																	"pos": 232,
+																	"children": [
+																		{
+																			"end": 237,
+																			"kind": "ThisKeyword",
+																			"name": "",
+																			"pos": 232,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 247,
+																			"kind": "Identifier",
+																			"name": "",
+																			"pos": 238,
+																			"children": [
+																			]
+																		}
+																	]
+																},
+																{
+																	"end": 254,
+																	"kind": "BinaryExpression",
+																	"name": "",
+																	"pos": 248,
+																	"children": [
+																		{
+																			"end": 249,
+																			"kind": "Identifier",
+																			"name": "",
+																			"pos": 248,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 251,
+																			"kind": "MinusToken",
+																			"name": "",
+																			"pos": 249,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 254,
+																			"kind": "FirstLiteralToken",
+																			"name": "",
+																			"pos": 251,
+																			"children": [
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"end": 344,
+									"kind": "MethodDeclaration",
+									"name": "methodWithCallback",
+									"pos": 262,
+									"children": [
+										{
+											"end": 287,
+											"kind": "Identifier",
+											"name": "",
+											"pos": 262,
+											"children": [
+											]
+										},
+										{
+											"end": 297,
+											"kind": "Parameter",
+											"name": "",
+											"pos": 288,
+											"children": [
+												{
+													"end": 289,
+													"kind": "Identifier",
+													"name": "",
+													"pos": 288,
+													"children": [
+													]
+												},
+												{
+													"end": 297,
+													"kind": "StringKeyword",
+													"name": "",
+													"pos": 290,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 307,
+											"kind": "Parameter",
+											"name": "",
+											"pos": 298,
+											"children": [
+												{
+													"end": 307,
+													"kind": "Identifier",
+													"name": "",
+													"pos": 298,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 344,
+											"kind": "Block",
+											"name": "",
+											"pos": 308,
+											"children": [
+												{
+													"end": 338,
+													"kind": "ReturnStatement",
+													"name": "",
+													"pos": 310,
+													"children": [
+														{
+															"end": 337,
+															"kind": "CallExpression",
+															"name": "",
+															"pos": 325,
+															"children": [
+																{
+																	"end": 334,
+																	"kind": "Identifier",
+																	"name": "",
+																	"pos": 325,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 336,
+																	"kind": "Identifier",
+																	"name": "",
+																	"pos": 335,
+																	"children": [
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"end": 348,
+							"kind": "EndOfFileToken",
+							"name": "",
+							"pos": 347,
 							"children": [
 							]
 						}

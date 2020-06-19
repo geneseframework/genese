@@ -8,7 +8,7 @@ const language_enum_1 = require("../core/enum/language.enum");
 const chalk = require("chalk");
 const json_service_1 = require("./core/services/json.service");
 const file_service_1 = require("../core/services/file.service");
-exports.LIMIT_CONVERSIONS = true;
+exports.LIMIT_CONVERSIONS = false;
 exports.DEBUG_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
 /**
  * Main process of the conversion to JsonAst

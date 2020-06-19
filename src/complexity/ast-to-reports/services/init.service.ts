@@ -31,7 +31,8 @@ export class InitService {
         astFolder.astFiles = this.generateAstFiles(jsonAst.astFolder, astFolder);
         if (Array.isArray(jsonAst.astFolder?.children)) {
             for (const child of jsonAst.astFolder?.children) {
-                const newChild = this.generateChildrenAstFolder(jsonAst.astFolder, astFolder);
+                console.log('CHILDASTFOLDERRR', child.path)
+                const newChild = this.generateChildrenAstFolder(child, astFolder);
                 newChild.parent = jsonAst.astFolder;
                 astFolder.children.push(newChild);
             }
@@ -47,6 +48,7 @@ export class InitService {
         newAstFolder.parent = parentAstFolder;
         newAstFolder.astFiles = this.generateAstFiles(astFolderFromJsonAst, newAstFolder);
         for (const childFolderFromJsonAst of astFolderFromJsonAst.children) {
+            console.log('SHOULD NOT BE HEREEEE')
             newAstFolder.children.push(this.generateChildrenAstFolder(childFolderFromJsonAst, newAstFolder));
         }
         return newAstFolder;
