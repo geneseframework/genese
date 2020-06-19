@@ -7,7 +7,7 @@ const reports_service_1 = require("./services/report/reports.service");
 const ansi_colors_1 = require("ansi-colors");
 const tree_folder_service_1 = require("./services/tree/tree-folder.service");
 const language_enum_1 = require("../core/enum/language.enum");
-exports.DEBUG = false; // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND when you want to get stats only for debug.mock.ts file
+exports.DEBUG = true; // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND when you want to get stats only for debug.mock.ts file
 /**
  * MainConvertTs process of the analysis
  */

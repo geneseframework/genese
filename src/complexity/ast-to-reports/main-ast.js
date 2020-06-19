@@ -33,7 +33,13 @@ class MainAst {
     }
     getJsonAst(jsonAstPath) {
         const jsonAst = require(jsonAstPath);
+        console.log('STARTTTTT JSONASTTTT', jsonAst['astFolder'].astFiles);
+        for (const char of jsonAst['astFolder'].astFiles[0].text) {
+            console.log('CHAR', char);
+        }
+        console.log('PARSEJSASTTT', JSON.parse(JSON.stringify(jsonAst)));
         // TODO : check if the JSON is correct
+        // throw Error
         return jsonAst;
     }
     createSyntaxKindEnum() {

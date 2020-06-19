@@ -55,7 +55,8 @@ export class TsFileConversionService {
      */
     getTextFile(path: string): string {
         let text = Ts.getTextFile(path);
-        return text.replace(/\n/g, `\\n`);
+        return text;
+        // return text.replace(/\n/g, `\\n`);
     }
 
 

@@ -5,7 +5,7 @@ import { blueBright } from 'ansi-colors';
 import { TreeFolderService } from './services/tree/tree-folder.service';
 import { Language } from '../core/enum/language.enum';
 
-export const DEBUG = false;     // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND when you want to get stats only for debug.mock.ts file
+export const DEBUG = true;     // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND when you want to get stats only for debug.mock.ts file
 
 /**
  * MainConvertTs process of the analysis

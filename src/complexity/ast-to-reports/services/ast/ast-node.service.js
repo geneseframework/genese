@@ -9,11 +9,17 @@ const syntax_kind_enum_1 = require("../../../core/enum/syntax-kind.enum");
 class AstNodeService {
     getCode(astNode) {
         var _a;
-        // console.log('GET CODDDDEEE', astNode.kind, astNode.name, astNode?.pos, astNode?.end);
+        // console.log('GET CODDDDEEE', astNode.kind, astNode.name, astNode?.pos, astNode?.end, astNode.astFile);
         if (!((_a = astNode === null || astNode === void 0 ? void 0 : astNode.astFile) === null || _a === void 0 ? void 0 : _a.text) || (astNode === null || astNode === void 0 ? void 0 : astNode.pos) === undefined || (astNode === null || astNode === void 0 ? void 0 : astNode.end) === undefined) {
             return '';
         }
-        const zzz = astNode.astFile.text.slice(astNode.pos, astNode.end);
+        // console.log(chalk.red('FILE CODEEE', astNode.astFile.text))
+        // const aaa = `\\`;
+        // console.log('AAAAAAA', aaa.replace(/\\/g, '\\'));
+        const text = astNode.astFile.text.replace(/\\/g, '\\');
+        // console.log(chalk.green('GET CODEEE TEXT', text))
+        const zzz = text.slice(astNode.pos, astNode.end);
+        // const zzz = astNode.astFile.text.slice(astNode.pos, astNode.end);
         // console.log('ZZZZ', {zzz: zzz});
         return zzz;
     }
