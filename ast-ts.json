@@ -6580,7 +6580,7 @@
 										{
 											"end": 124,
 											"kind": "MethodDeclaration",
-											"name": "ifAlone",
+											"name": "iffAlone",
 											"pos": 48,
 											"children": [
 												{
