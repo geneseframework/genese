@@ -131,7 +131,9 @@ export class JsonService {
                     delete obj[key];
                     break;
                 default:
-                    obj[key] = typeof obj[key] === 'object' ? JsonService.astPropertyNames(obj[key]) : obj[key];
+                    if (key !== 'parent') {
+                        obj[key] = typeof obj[key] === 'object' ? JsonService.astPropertyNames(obj[key]) : obj[key];
+                    }
             }
         }
         return obj;

@@ -8,7 +8,7 @@ const language_enum_1 = require("../core/enum/language.enum");
 const chalk = require("chalk");
 const json_service_1 = require("./core/services/json.service");
 const file_service_1 = require("../core/services/file.service");
-exports.LIMIT_CONVERSIONS = true;
+exports.LIMIT_CONVERSIONS = false;
 /**
  * Main process of the conversion to JsonAst
  */
