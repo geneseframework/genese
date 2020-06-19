@@ -25,7 +25,7 @@ export class TsFileConversionService {
         tsFile.name = getFilename(path);
         const tsNode = new TsNode();
         tsNode.node = Ts.getSourceFile(path);
-        tsFile.text = this.getTextFile(path);
+        tsFile.text = Ts.getTextFile(path);
         tsFile.tsNode = this.createTsNodeChildren(tsNode);
         return tsFile;
     }
