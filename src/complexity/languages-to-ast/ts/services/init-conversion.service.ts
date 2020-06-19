@@ -6,13 +6,13 @@ import { TsFileConversionService } from './ts-file-conversion.service';
 import { TsJsonAst } from '../models/ts-json-ast.model';
 
 /**
- * - TreeFolders generation from Abstract Syntax TreeNode of a folder
- * - Other services for TreeFolders
+ * - TsFolders generation from Abstract Syntax Tree (AST) of its files (including files in subfolders)
+ * - Conversion in JsonAst format
  */
 export class InitConversionService {
 
 
-    tsFileConversionService?: TsFileConversionService = new TsFileConversionService();  // The service managing TreeFiles
+    tsFileConversionService?: TsFileConversionService = new TsFileConversionService();  // The service managing TsFiles conversion
 
     /**
      * Generates the TsFolder for a given folder
@@ -30,9 +30,14 @@ export class InitConversionService {
     }
 
 
-    private generateTsFolder(path: string, astFolderParent?: TsFolder): TsFolder {
+    /**
+     * Generates the TsFolder corresponding to a given path and to its potential TsFolder parent
+     * @param path                  // The path of the TsFolder
+     * @param tsFolderParent        // The TsFolder parent
+     */
+    private generateTsFolder(path: string, tsFolderParent?: TsFolder): TsFolder {
         let tsFolder = new TsFolder();
-        tsFolder.parent = astFolderParent;
+        tsFolder.parent = tsFolderParent;
         tsFolder.path = path;
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach((elementName: string) => {
