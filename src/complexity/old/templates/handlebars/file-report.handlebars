@@ -56,9 +56,11 @@
             <!--        -----------------------------------   Cognitive complexity   ---------------------------->
 
         <div class="stats-cognitive">
-            <div class="stats-and-doughnut">
+            <div class="stats-and-doughnut stats-and-doughnut-cognitive">
+                <div class="doughnut">
+                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>
+                </div>
                 <div class="stats">
-
                     <div class="clearfix">
                         <div class='fl pad1y space-right2'>
                             <span class="strong">Cognitive complexity</span>
@@ -88,22 +90,21 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="doughnut">
-                    <canvas id="doughnut-cognitive-cpx" height="220"></canvas>
-                </div>
             </div>
 
-            <div class="bar">
-                <canvas id="bar-cognitive-cpx" height="400" width="750"></canvas>
+            <div class="bar bar-cognitive">
+                <canvas id="bar-cognitive-cpx" class="cognitive-charts"></canvas>
             </div>
         </div>
 
         <!--        -----------------------------------   Cyclomatic complexity   ---------------------------->
 
         <div class="stats-cyclomatic">
-            <div class="stats-and-doughnut">
-                <div class="stats">
+            <div class="stats-and-doughnut-cyclomatic">
+                <div class="doughnut">
+                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>
+                </div>
+                <div class="stats-cy">
                     <div class="clearfix cyclomatic-subtitle">
                         <div class='fl pad1y space-right2'>
                             <span class="strong">Cyclomatic complexity</span>
@@ -133,13 +134,9 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="doughnut">
-                    <canvas id="doughnut-cyclomatic-cpx" height="220"></canvas>
-                </div>
             </div>
-            <div class="bar">
-                <canvas id="bar-cyclomatic-cpx" height="400" width="750"></canvas>
+            <div class="bar bar-cyclomatic">
+                <canvas id="bar-cyclomatic-cpx" class="cyclomatic-charts"></canvas>
             </div>
 
         </div>
@@ -152,9 +149,18 @@
     <!--        -------------------------------------------------------------------------------------->
 
 
+    <div class="subfolders">
+        <div class="clearfix cognitive-subtitle">
+            <div class='fl pad1y space-right2'>
+                <span class="strong">Methods of <span class="italic">{{stats.subject}}</span></span>
+            </div>
+        </div>
+
         {{#each methods}}
             {{>method method=.}}
         {{/each}}
+    </div>
+
 
 </div>
 
