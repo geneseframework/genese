@@ -64,8 +64,12 @@ class JsonService {
      * @param json      // The corresponding json object
      */
     static getStringProperty(obj, key, json) {
-        const text = key === 'text' ? obj[key].replace(/"/g, '\"') : obj[key];
+        const text = key === 'text' ? JsonService.convertCodeToString(obj[key]) : obj[key];
         return `${json}"${text}"${JsonService.comma(obj, key)}\n`;
+    }
+    static convertCodeToString(text) {
+        return text.replace(/\\/g, `\\\\`)
+            .replace(/"/g, '\\"');
     }
     /**
      * Returns a comma at the end of a line if this line is the last one of a given object

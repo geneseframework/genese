@@ -69,9 +69,18 @@ export class JsonService {
      * @param json      // The corresponding json object
      */
     private static getStringProperty(obj: object, key: string, json: string): string {
-        const text = key === 'text' ? obj[key].replace(/"/g, '\"') : obj[key];
+        const text = key === 'text' ? JsonService.convertCodeToString(obj[key]) : obj[key];
         return `${json}"${text}"${JsonService.comma(obj, key)}\n`;
+    }
 
+
+    /**
+     * Replaces the special chars in source code which could be problematic when inserting this code in a json property (`"`, `\`)
+     * @param text      // The source code
+     */
+    private static convertCodeToString(text: string): string {
+        return text.replace(/\\/g, `\\\\`)
+            .replace(/"/g, '\\"')
     }
 
 
