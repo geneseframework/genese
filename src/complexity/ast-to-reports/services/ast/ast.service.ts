@@ -28,7 +28,9 @@ export class Ast {
      * @param astNode      // The node to analyse
      */
     static isArrayIndex(astNode: AstNode): boolean {
-        return(astNode?.parent?.kind === SyntaxKind.ElementAccessExpression && astNode?.pos === astNode.parent['argumentExpression'].pos);
+        // TODO: Fix
+        return(astNode?.parent?.kind === SyntaxKind.ElementAccessExpression && astNode?.pos === astNode.parent['argumentExpression']?.pos);
+        // return(astNode?.parent?.kind === SyntaxKind.ElementAccessExpression && astNode?.pos === astNode.parent['argumentExpression'].pos);
     }
 
 
@@ -37,7 +39,9 @@ export class Ast {
      * @param astNode      // The node to analyse
      */
     static isArrayOfArray(astNode: AstNode): boolean {
-        return(astNode?.parent?.kind === SyntaxKind.ElementAccessExpression && astNode?.kind === SyntaxKind.ElementAccessExpression && astNode?.pos === astNode.parent['expression'].pos);
+        // TODO: Fix
+        return(astNode?.parent?.kind === SyntaxKind.ElementAccessExpression && astNode?.kind === SyntaxKind.ElementAccessExpression && astNode?.pos === astNode.parent['expression']?.pos);
+        // return(astNode?.parent?.kind === SyntaxKind.ElementAccessExpression && astNode?.kind === SyntaxKind.ElementAccessExpression && astNode?.pos === astNode.parent['expression'].pos);
     }
 
 

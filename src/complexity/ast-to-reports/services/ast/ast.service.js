@@ -22,16 +22,20 @@ class Ast {
      * @param astNode      // The node to analyse
      */
     static isArrayIndex(astNode) {
-        var _a;
-        return (((_a = astNode === null || astNode === void 0 ? void 0 : astNode.parent) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.ElementAccessExpression && (astNode === null || astNode === void 0 ? void 0 : astNode.pos) === astNode.parent['argumentExpression'].pos);
+        var _a, _b;
+        // TODO: Fix
+        return (((_a = astNode === null || astNode === void 0 ? void 0 : astNode.parent) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.ElementAccessExpression && (astNode === null || astNode === void 0 ? void 0 : astNode.pos) === ((_b = astNode.parent['argumentExpression']) === null || _b === void 0 ? void 0 : _b.pos));
+        // return(astNode?.parent?.kind === SyntaxKind.ElementAccessExpression && astNode?.pos === astNode.parent['argumentExpression'].pos);
     }
     /**
      * Checks if an AST node is an array of array, ie if it's an ELEMENT_ACCESS_EXPRESSION which is the first son of another ELEMENT_ACCESS_EXPRESSION
      * @param astNode      // The node to analyse
      */
     static isArrayOfArray(astNode) {
-        var _a;
-        return (((_a = astNode === null || astNode === void 0 ? void 0 : astNode.parent) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.ElementAccessExpression && (astNode === null || astNode === void 0 ? void 0 : astNode.kind) === syntax_kind_enum_1.SyntaxKind.ElementAccessExpression && (astNode === null || astNode === void 0 ? void 0 : astNode.pos) === astNode.parent['expression'].pos);
+        var _a, _b;
+        // TODO: Fix
+        return (((_a = astNode === null || astNode === void 0 ? void 0 : astNode.parent) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.ElementAccessExpression && (astNode === null || astNode === void 0 ? void 0 : astNode.kind) === syntax_kind_enum_1.SyntaxKind.ElementAccessExpression && (astNode === null || astNode === void 0 ? void 0 : astNode.pos) === ((_b = astNode.parent['expression']) === null || _b === void 0 ? void 0 : _b.pos));
+        // return(astNode?.parent?.kind === SyntaxKind.ElementAccessExpression && astNode?.kind === SyntaxKind.ElementAccessExpression && astNode?.pos === astNode.parent['expression'].pos);
     }
     /**
      * Checks if an AST node is a BinaryExpression
