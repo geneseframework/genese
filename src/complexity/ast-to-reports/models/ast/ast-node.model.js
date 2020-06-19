@@ -15,7 +15,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
 var _astFile, _astMethod, _children, _context, _cpxFactors, _cyclomaticCpx, _end, _factorCategory, _intrinsicDepthCpx, _intrinsicNestingCpx, _kind, _name, _parent, _pos, _text;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstNode = void 0;
-const ast_service_1 = require("../../../core/services/ast.service");
+const ast_service_1 = require("../../services/ast/ast.service");
 const factor_category_service_1 = require("../../services/factor-category.service");
 const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
 const node_feature_enum_1 = require("../../enums/node-feature.enum");
@@ -311,6 +311,8 @@ class AstNode {
         console.log(chalk.yellowBright(message !== null && message !== void 0 ? message : 'AST NODE'));
         console.log(this.kind, this.name);
         console.log('-----------------------------');
+        console.log('pos', this.pos, 'end', this.end);
+        console.log('text', this.text);
     }
 }
 exports.AstNode = AstNode;

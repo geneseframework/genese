@@ -15,18 +15,16 @@ import { AstNode } from './ast-node.model';
 
 export class AstFolder implements Evaluate, HasStats, Logg {
 
-    #astFiles?: AstFile[] = [];                                                // The array of files of this folder (not in the subfolders)
-    #children?: AstFolder[] = [];                                             // The subfolders of this folder
-    #complexitiesByStatus?: ComplexitiesByStatus = new ComplexitiesByStatus();   // The folder complexities spread by complexity status
+    #astFiles?: AstFile[] = [];                                                     // The array of files of this folder (not in the subfolders)
+    #astFolderService?: AstFolderService = new AstFolderService();
+    #children?: AstFolder[] = [];                                                   // The subfolders of this folder
+    #complexitiesByStatus?: ComplexitiesByStatus = new ComplexitiesByStatus();      // The folder complexities spread by complexity status
     #cpxFactors?: CpxFactors = undefined;
     #cyclomaticCpx ?= 0;
-    #parent?: AstFolder = undefined;                                            // The AstFolder corresponding to the parent folder of this AstFolder
-    #path?: string = undefined;                                                                 // The absolute path of this folder
-    #stats: Stats = undefined;                                                   // The stats corresponding to this folder
-
-
-    constructor() {
-    }
+    #parent?: AstFolder = undefined;                                                // The AstFolder corresponding to the parent folder of this AstFolder
+    #path?: string = undefined;                                                     // The absolute path of this folder
+    #relativePath?: string = undefined;                                             // The relative path of this folder compared to the root folder of the analyse
+    #stats: Stats = undefined;                                                      // The stats corresponding to this folder
 
 
     // ---------------------------------------------------------------------------------
@@ -109,9 +107,8 @@ export class AstFolder implements Evaluate, HasStats, Logg {
     }
 
 
-    // TODO : implement
     get relativePath(): string {
-        return this.#path;
+        return this.#relativePath ?? this.#astFolderService.getRelativePath(this);
     }
 
 

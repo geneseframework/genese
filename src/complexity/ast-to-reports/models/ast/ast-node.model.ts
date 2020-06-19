@@ -1,7 +1,7 @@
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 import { AstFile } from './ast-file.model';
 import { AstMethod } from './ast-method.model';
-import { Ast } from '../../../core/services/ast.service';
+import { Ast } from '../../services/ast/ast.service';
 import { NodeFeatureService } from '../../services/factor-category.service';
 import { Evaluate } from '../../interfaces/evaluate.interface';
 import { CpxFactors } from '../cpx-factor/cpx-factors.model';
@@ -402,6 +402,8 @@ export class AstNode implements Evaluate, Logg {
         console.log(chalk.yellowBright(message ?? 'AST NODE'));
         console.log(this.kind, this.name);
         console.log('-----------------------------');
+        console.log('pos', this.pos, 'end', this.end);
+        console.log('text', this.text);
     }
 
 

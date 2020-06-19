@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astFiles, _children, _complexitiesByStatus, _cpxFactors, _cyclomaticCpx, _parent, _path, _stats;
+var _astFiles, _astFolderService, _children, _complexitiesByStatus, _cpxFactors, _cyclomaticCpx, _parent, _path, _relativePath, _stats;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstFolder = void 0;
 const complexities_by_status_interface_1 = require("../../interfaces/complexities-by-status.interface");
@@ -22,12 +22,14 @@ const chalk = require("chalk");
 class AstFolder {
     constructor() {
         _astFiles.set(this, []); // The array of files of this folder (not in the subfolders)
+        _astFolderService.set(this, new ast_folder_service_1.AstFolderService());
         _children.set(this, []); // The subfolders of this folder
         _complexitiesByStatus.set(this, new complexities_by_status_interface_1.ComplexitiesByStatus()); // The folder complexities spread by complexity status
         _cpxFactors.set(this, undefined);
         _cyclomaticCpx.set(this, 0);
         _parent.set(this, undefined); // The AstFolder corresponding to the parent folder of this AstFolder
         _path.set(this, undefined); // The absolute path of this folder
+        _relativePath.set(this, undefined); // The relative path of this folder compared to the root folder of the analyse
         _stats.set(this, undefined); // The stats corresponding to this folder
     }
     // ---------------------------------------------------------------------------------
@@ -79,9 +81,9 @@ class AstFolder {
     set path(path) {
         __classPrivateFieldSet(this, _path, path);
     }
-    // TODO : implement
     get relativePath() {
-        return __classPrivateFieldGet(this, _path);
+        var _a;
+        return (_a = __classPrivateFieldGet(this, _relativePath)) !== null && _a !== void 0 ? _a : __classPrivateFieldGet(this, _astFolderService).getRelativePath(this);
     }
     get stats() {
         return __classPrivateFieldGet(this, _stats);
@@ -130,4 +132,4 @@ class AstFolder {
     }
 }
 exports.AstFolder = AstFolder;
-_astFiles = new WeakMap(), _children = new WeakMap(), _complexitiesByStatus = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _parent = new WeakMap(), _path = new WeakMap(), _stats = new WeakMap();
+_astFiles = new WeakMap(), _astFolderService = new WeakMap(), _children = new WeakMap(), _complexitiesByStatus = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _parent = new WeakMap(), _path = new WeakMap(), _relativePath = new WeakMap(), _stats = new WeakMap();
