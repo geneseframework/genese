@@ -1,13 +1,37 @@
 "use strict";
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+};
+var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, privateMap, value) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to set private field on non-instance");
+    }
+    privateMap.set(receiver, value);
+    return value;
+};
+var _parent;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TsFolder = void 0;
 const chalk = require("chalk");
 class TsFolder {
     constructor() {
         this.tsFiles = []; // The array of files of this folder (not in the subfolders)
-        this.parent = undefined; // The TsFolder corresponding to the parent folder of this TsFolder
+        _parent.set(this, undefined); // The TsFolder corresponding to the parent folder of this TsFolder
         this.path = undefined; // The absolute path of this folder
         this.children = []; // The subfolders of this folder
+    }
+    // The children trees corresponding to children AST nodes of the current AST node
+    // ---------------------------------------------------------------------------------
+    //                                Getters and setters
+    // ---------------------------------------------------------------------------------
+    get parent() {
+        return __classPrivateFieldGet(this, _parent);
+    }
+    set parent(tsFolder) {
+        __classPrivateFieldSet(this, _parent, tsFolder);
     }
     // ---------------------------------------------------------------------------------
     //                                  Other methods
@@ -35,3 +59,4 @@ class TsFolder {
     }
 }
 exports.TsFolder = TsFolder;
+_parent = new WeakMap();

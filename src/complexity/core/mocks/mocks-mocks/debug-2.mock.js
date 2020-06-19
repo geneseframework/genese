@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DebugMock = void 0;
-class DebugMock {
-    ifAlone(a) {
+exports.Debug2Mock = void 0;
+class Debug2Mock {
+    ifVeryAlone(a) {
         if (a) {
             return 'b';
         }
     }
 }
-exports.DebugMock = DebugMock;
+exports.Debug2Mock = Debug2Mock;

@@ -57,7 +57,7 @@ class AstFileReportService {
      * Creates the file of the report
      */
     writeReport() {
-        var _a, _b;
+        var _a;
         const template = this.template({
             colors: options_1.Options.colors,
             methods: this.methodReports,
@@ -66,9 +66,7 @@ class AstFileReportService {
             thresholds: options_1.Options.getThresholds()
         });
         const filenameWithoutExtension = file_service_1.getFilenameWithoutExtension(this.astFile.name);
-        console.log('FOLDER RELPARTHH 1', (_a = this.astFile.astFolder) === null || _a === void 0 ? void 0 : _a.relativePath);
-        // console.log('FOLDER RELPARTHH 2', this.astFile?.astFolder?.relativePath)
-        const pathReport = `${options_1.Options.pathOutDir}/${(_b = this.astFile.astFolder) === null || _b === void 0 ? void 0 : _b.relativePath}/${filenameWithoutExtension}.html`;
+        const pathReport = `${options_1.Options.pathOutDir}/${(_a = this.astFile.astFolder) === null || _a === void 0 ? void 0 : _a.relativePath}/${filenameWithoutExtension}.html`;
         fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
     }
     /**

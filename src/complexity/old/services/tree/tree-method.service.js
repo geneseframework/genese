@@ -18,6 +18,7 @@ class TreeMethodService {
         const treeMethod = new tree_method_model_1.TreeMethod();
         treeMethod.treeNode = treeNode;
         treeMethod.originalCode = this.codeService.getNodeCode(treeNode.node, treeNode.sourceFile);
+        console.log('TREECODEEE', treeMethod.originalCode);
         treeNode.treeMethod = treeMethod;
         return treeNode;
     }

@@ -53,9 +53,9 @@ export class AstFolderReportService {
         let report: RowFolderReport[] = [];
         for (const subfolder of astFolder.children) {
             const subfolderReport: RowFolderReport = {
-                complexitiesByStatus: subfolder.stats.numberOfMethodsByStatus,
-                numberOfFiles: subfolder.stats.numberOfFiles,
-                numberOfMethods: subfolder.stats.numberOfMethods,
+                complexitiesByStatus: subfolder.stats?.numberOfMethodsByStatus,
+                numberOfFiles: subfolder.stats?.numberOfFiles,
+                numberOfMethods: subfolder.stats?.numberOfMethods,
                 path: subfolder.relativePath,
                 routeFromCurrentFolder: this.astFolderService.getRouteFromFolderToSubFolder(this.astFolder, subfolder)
             };
@@ -204,7 +204,6 @@ export class AstFolderReportService {
             createRelativeDir(this.astFolder.relativePath);
         }
         const pathReport = `${Options.pathOutDir}/${this.astFolder.relativePath}/folder-report.html`;
-        console.log('PATH REPORT', pathReport)
         fs.writeFileSync(pathReport, template, {encoding: 'utf-8'});
     }
 

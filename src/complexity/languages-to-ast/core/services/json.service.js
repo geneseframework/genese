@@ -5,8 +5,8 @@ const tools_service_1 = require("../../../core/services/tools.service");
 class JsonService {
     /**
      * Converts a javascript object into a prettified Json with break lines
-     * @param obj       // The javascript object
-     * @param indent    // The initial indentation of the object
+     * @param obj               // The javascript object
+     * @param indent            // The initial indentation of the object
      */
     static prettifyJson(obj, indent = '') {
         const indentation = `${indent}\t`;
@@ -56,9 +56,32 @@ class JsonService {
         }
         return obj;
     }
+    /**
+     * Returns the Json property value when this property os a string
+     * In the case of this property is called "text", we know that this property contains source code, so we return it by taking car of the quotes and the break lines
+     * @param obj       // The ts object
+     * @param key       // The key of this object
+     * @param json      // The corresponding json object
+     */
     static getStringProperty(obj, key, json) {
-        const text = key === 'text' ? obj[key].replace(/"/g, '\"') : obj[key];
+        const text = key === 'text' ? JsonService.convertCodeToString(obj[key]) : obj[key];
         return `${json}"${text}"${JsonService.comma(obj, key)}\n`;
+    }
+    /**
+     * Replaces the special chars in source code which could be problematic when inserting this code in a json property (`"`, `\`)
+     * @param text      // The source code
+     */
+    static convertCodeToString(text) {
+        let stringified = JSON.stringify({ "text": text });
+        // console.log('STRINGGGG 1', stringified)
+        stringified = stringified.slice(9, -2);
+        // console.log('STRINGGGG', stringified)
+        return stringified;
+        // throw Error
+        // return text;
+        // return text.replace(/"/g, '\\"')
+        // return text.replace(/\\/g, `\\\\`)
+        //     .replace(/"/g, '\\"')
     }
     /**
      * Returns a comma at the end of a line if this line is the last one of a given object
@@ -93,6 +116,11 @@ class JsonService {
     static jsonObject(obj, key, indentation, json) {
         return `${json}${JsonService.prettifyJson(obj[key], indentation)}${JsonService.comma(obj, key)}\n`;
     }
+    /**
+     * If ths property name is specific to Ts, we rename it in the corresponding jsonAst property name
+     * In this case, this method returns the renamed property. If not, it returns the original property name.
+     * @param obj       // The object to analyse
+     */
     static astPropertyNames(obj) {
         for (const key of Object.keys(obj)) {
             switch (key) {
@@ -105,7 +133,9 @@ class JsonService {
                     delete obj[key];
                     break;
                 default:
-                    obj[key] = typeof obj[key] === 'object' ? JsonService.astPropertyNames(obj[key]) : obj[key];
+                    if (key !== 'parent') {
+                        obj[key] = typeof obj[key] === 'object' ? JsonService.astPropertyNames(obj[key]) : obj[key];
+                    }
             }
         }
         return obj;

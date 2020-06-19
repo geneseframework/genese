@@ -7,6 +7,7 @@ import { AstMethod } from '../models/ast/ast-method.model';
 import { CodeService } from './code.service';
 import { AstNodeService } from './ast/ast-node.service';
 import { Ast } from './ast/ast.service';
+import * as chalk from 'chalk';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
@@ -30,13 +31,13 @@ export class InitService {
         astFolder.astFiles = this.generateAstFiles(jsonAst.astFolder, astFolder);
         if (Array.isArray(jsonAst.astFolder?.children)) {
             for (const child of jsonAst.astFolder?.children) {
-                const newChild = this.generateChildrenAstFolder(jsonAst.astFolder, astFolder);
+                console.log('CHILDASTFOLDERRR', child.path)
+                const newChild = this.generateChildrenAstFolder(child, astFolder);
                 newChild.parent = jsonAst.astFolder;
                 astFolder.children.push(newChild);
             }
         }
         newJsonAst.astFolder = astFolder;
-        // newJsonAst.logg();
         return newJsonAst;
     }
 
@@ -47,6 +48,7 @@ export class InitService {
         newAstFolder.parent = parentAstFolder;
         newAstFolder.astFiles = this.generateAstFiles(astFolderFromJsonAst, newAstFolder);
         for (const childFolderFromJsonAst of astFolderFromJsonAst.children) {
+            console.log('SHOULD NOT BE HEREEEE')
             newAstFolder.children.push(this.generateChildrenAstFolder(childFolderFromJsonAst, newAstFolder));
         }
         return newAstFolder;
@@ -127,12 +129,10 @@ export class InitService {
 
 
     generateAstMethod(astNode: AstNode): AstMethod {
-        astNode.logg()
         const astMethod = new AstMethod();
         astMethod.astNode = astNode;
         astMethod.astNode.text = this.astNodeService.getCode(astNode);
         astMethod.originalCode = CodeService.getCode(this.astNodeService.getCode(astNode));
-        console.log('ORIGINAL CODEEEE', astMethod.originalCode)
         return astMethod;
     }
 

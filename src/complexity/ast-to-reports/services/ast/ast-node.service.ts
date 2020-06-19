@@ -2,6 +2,7 @@ import { AstNode } from '../../models/ast/ast-node.model';
 import { Ast } from './ast.service';
 import { AstMethod } from '../../models/ast/ast-method.model';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
+import * as chalk from 'chalk';
 
 /**
  * Service managing AstNodes
@@ -10,11 +11,17 @@ export class AstNodeService {
 
 
     getCode(astNode: AstNode): string {
-        // console.log('GET CODDDDEEE', astNode.kind, astNode.name, astNode?.pos, astNode?.end);
+        // console.log('GET CODDDDEEE', astNode.kind, astNode.name, astNode?.pos, astNode?.end, astNode.astFile);
         if (!astNode?.astFile?.text || astNode?.pos === undefined || astNode?.end === undefined) {
             return '';
         }
-        const zzz = astNode.astFile.text.slice(astNode.pos, astNode.end);
+        // console.log(chalk.red('FILE CODEEE', astNode.astFile.text))
+        // const aaa = `\\`;
+        // console.log('AAAAAAA', aaa.replace(/\\/g, '\\'));
+        const text = astNode.astFile.text.replace(/\\/g, '\\');
+        // console.log(chalk.green('GET CODEEE TEXT', text))
+        const zzz = text.slice(astNode.pos, astNode.end);
+        // const zzz = astNode.astFile.text.slice(astNode.pos, astNode.end);
         // console.log('ZZZZ', {zzz: zzz});
         return zzz
     }

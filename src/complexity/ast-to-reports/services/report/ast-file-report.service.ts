@@ -73,8 +73,6 @@ export class AstFileReportService {
             thresholds: Options.getThresholds()
         });
         const filenameWithoutExtension = getFilenameWithoutExtension(this.astFile.name);
-        console.log('FOLDER RELPARTHH 1', this.astFile.astFolder?.relativePath)
-        // console.log('FOLDER RELPARTHH 2', this.astFile?.astFolder?.relativePath)
         const pathReport = `${Options.pathOutDir}/${this.astFile.astFolder?.relativePath}/${filenameWithoutExtension}.html`;
         fs.writeFileSync(pathReport, template, {encoding: 'utf-8'});
     }
