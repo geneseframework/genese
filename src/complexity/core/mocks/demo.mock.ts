@@ -1,4 +1,4 @@
-import { CallbacksMock } from '../mocks-subfolder/callbacks.mock';
+import { CallbacksMock } from './mocks-subfolder/callbacks.mock';
 
 
 export class DebugMock {
