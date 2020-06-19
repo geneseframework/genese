@@ -31,7 +31,6 @@ class InitService {
         astFolder.astFiles = this.generateAstFiles(jsonAst.astFolder, astFolder);
         if (Array.isArray((_a = jsonAst.astFolder) === null || _a === void 0 ? void 0 : _a.children)) {
             for (const child of (_b = jsonAst.astFolder) === null || _b === void 0 ? void 0 : _b.children) {
-                console.log('CHILDASTFOLDERRR', child.path);
                 const newChild = this.generateChildrenAstFolder(child, astFolder);
                 newChild.parent = jsonAst.astFolder;
                 astFolder.children.push(newChild);
