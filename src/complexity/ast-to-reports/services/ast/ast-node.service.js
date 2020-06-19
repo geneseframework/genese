@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstNodeService = void 0;
-const ast_service_1 = require("../../../core/services/ast.service");
+const ast_service_1 = require("./ast.service");
 const syntax_kind_enum_1 = require("../../../core/enum/syntax-kind.enum");
 /**
  * Service managing AstNodes

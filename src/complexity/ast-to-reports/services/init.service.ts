@@ -3,10 +3,10 @@ import { AstFolder } from '../models/ast/ast-folder.model';
 import { AstFile } from '../models/ast/ast-file.model';
 import { AstNode } from '../models/ast/ast-node.model';
 import { SyntaxKind } from '../../core/enum/syntax-kind.enum';
-import { Ast } from '../../core/services/ast.service';
 import { AstMethod } from '../models/ast/ast-method.model';
 import { CodeService } from './code.service';
 import { AstNodeService } from './ast/ast-node.service';
+import { Ast } from './ast/ast.service';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
@@ -63,11 +63,12 @@ export class InitService {
 
 
     generateAstFile(astFileFromJsonAst: any, astFolder: AstFolder): AstFile {
-        if (!astFileFromJsonAst.astNode) {
+        if (!astFileFromJsonAst?.astNode) {
             console.warn(astFileFromJsonAst.name ? `No AstNode for this file : ${astFileFromJsonAst.name}` : `AstFile without AstNode`);
             return undefined;
         }
         const newAstFile = new AstFile();
+        newAstFile.name = astFileFromJsonAst.name;
         newAstFile.text = astFileFromJsonAst.text;
         newAstFile.astFolder = astFolder;
         newAstFile.astNode = this.getFileAstNode(astFileFromJsonAst.astNode, newAstFile);
@@ -113,6 +114,7 @@ export class InitService {
         newAstNode.name = astNodeFromJsonAst.name;
         newAstNode.parent = astParentNode;
         newAstNode.pos = astNodeFromJsonAst.pos;
+        newAstNode.text = astNodeFromJsonAst.text;
         newAstNode.children = this.generateAstNodes(astNodeFromJsonAst.children, newAstNode);
         if (Ast.isFunctionOrMethod(astNodeFromJsonAst)) {
             if (!newAstNode.name && newAstNode.firstSon?.kind === SyntaxKind.Identifier) {
@@ -125,11 +127,12 @@ export class InitService {
 
 
     generateAstMethod(astNode: AstNode): AstMethod {
+        astNode.logg()
         const astMethod = new AstMethod();
         astMethod.astNode = astNode;
         astMethod.astNode.text = this.astNodeService.getCode(astNode);
         astMethod.originalCode = CodeService.getCode(this.astNodeService.getCode(astNode));
-
+        console.log('ORIGINAL CODEEEE', astMethod.originalCode)
         return astMethod;
     }
 

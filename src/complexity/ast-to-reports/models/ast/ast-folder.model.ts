@@ -27,10 +27,6 @@ export class AstFolder implements Evaluate, HasStats, Logg {
     #stats: Stats = undefined;                                                      // The stats corresponding to this folder
 
 
-    constructor() {
-    }
-
-
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------

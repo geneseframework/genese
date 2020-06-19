@@ -8,26 +8,15 @@ const file_service_1 = require("../../../core/services/file.service");
  * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)
  */
 class Ts {
+    // ------------------------------------------------------------------------------------------------
+    // ----------------------------------------   GETTERS   -------------------------------------------
+    // ------------------------------------------------------------------------------------------------
     /**
      * Gets the end position of a node in the AST
      * @param node // The node in the AST
      */
     static getEnd(node) {
         return node === null || node === void 0 ? void 0 : node.end;
-    }
-    /**
-     * Gets the position of a node in the AST
-     * @param node // The node in the AST
-     */
-    static getPosition(node) {
-        return node === null || node === void 0 ? void 0 : node.pos;
-    }
-    /**
-     * Gets the typescript JsonAst of a given file
-     * @param path // The absolute path of the file
-     */
-    static getSourceFile(path) {
-        return ts.createSourceFile(file_service_1.getFilename(path), fs.readFileSync(path, 'utf-8'), ts.ScriptTarget.Latest);
     }
     /**
      * Gets the type of a node in the AST (MethodDeclaration, IfStatement, ...)
@@ -50,17 +39,22 @@ class Ts {
         }
     }
     /**
-     * Gets the name of the method of a node with type = MethodDeclaration
-     * @param node // The AST node
+     * Gets the position of a node in the AST
+     * @param node // The node in the AST
      */
-    static getMethodName(node) {
-        var _a, _b;
-        if (Ts.isFunctionOrMethod(node)) {
-            return (_b = (_a = node === null || node === void 0 ? void 0 : node['name']) === null || _a === void 0 ? void 0 : _a['escapedText']) !== null && _b !== void 0 ? _b : '';
-        }
-        else {
-            return '';
-        }
+    static getPosition(node) {
+        return node === null || node === void 0 ? void 0 : node.pos;
+    }
+    /**
+     * Gets the typescript JsonAst of a given file
+     * @param path // The absolute path of the file
+     */
+    static getSourceFile(path) {
+        return ts.createSourceFile(file_service_1.getFilename(path), fs.readFileSync(path, 'utf-8'), ts.ScriptTarget.Latest);
+    }
+    static getTextFile(path) {
+        var _a;
+        return (_a = Ts.getSourceFile(path)) === null || _a === void 0 ? void 0 : _a.text;
     }
     // ------------------------------------------------------------------------------------------------
     // -------------------------------------   TYPE CHECKS   ------------------------------------------

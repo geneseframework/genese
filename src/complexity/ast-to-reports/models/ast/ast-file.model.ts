@@ -115,7 +115,7 @@ export class AstFile implements Evaluate, Logg {
 
 
     get name(): string {
-        return this.#name ?? this.#astNode?.name;
+        return this.#name;
     }
 
 

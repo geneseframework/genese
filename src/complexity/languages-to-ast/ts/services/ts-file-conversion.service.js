@@ -16,6 +16,7 @@ class TsFileConversionService {
         tsFile.name = file_service_1.getFilename(path);
         const tsNode = new ts_node_model_1.TsNode();
         tsNode.node = ts_service_1.Ts.getSourceFile(path);
+        tsFile.text = ts_service_1.Ts.getTextFile(path);
         tsFile.tsNode = this.createTsNodeChildren(tsNode);
         return tsFile;
     }

@@ -8,30 +8,17 @@ import { getFilename } from '../../../core/services/file.service';
 export class Ts {
 
 
+    // ------------------------------------------------------------------------------------------------
+    // ----------------------------------------   GETTERS   -------------------------------------------
+    // ------------------------------------------------------------------------------------------------
+
+
     /**
      * Gets the end position of a node in the AST
      * @param node // The node in the AST
      */
     static getEnd(node: ts.Node): number {
         return node?.end;
-    }
-
-
-    /**
-     * Gets the position of a node in the AST
-     * @param node // The node in the AST
-     */
-    static getPosition(node: ts.Node): number {
-        return node?.pos;
-    }
-
-
-    /**
-     * Gets the typescript JsonAst of a given file
-     * @param path // The absolute path of the file
-     */
-    static getSourceFile(path: string): ts.SourceFile {
-        return ts.createSourceFile(getFilename(path), fs.readFileSync(path, 'utf-8'), ts.ScriptTarget.Latest);
     }
 
 
@@ -58,15 +45,25 @@ export class Ts {
 
 
     /**
-     * Gets the name of the method of a node with type = MethodDeclaration
-     * @param node // The AST node
+     * Gets the position of a node in the AST
+     * @param node // The node in the AST
      */
-    static getMethodName(node: ts.Node): string {
-        if (Ts.isFunctionOrMethod(node)) {
-            return node?.['name']?.['escapedText'] ?? '';
-        } else {
-            return '';
-        }
+    static getPosition(node: ts.Node): number {
+        return node?.pos;
+    }
+
+
+    /**
+     * Gets the typescript JsonAst of a given file
+     * @param path // The absolute path of the file
+     */
+    static getSourceFile(path: string): ts.SourceFile {
+        return ts.createSourceFile(getFilename(path), fs.readFileSync(path, 'utf-8'), ts.ScriptTarget.Latest);
+    }
+
+
+    static getTextFile(path: string): string {
+        return Ts.getSourceFile(path)?.text;
     }
 
 

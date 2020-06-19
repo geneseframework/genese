@@ -6,10 +6,10 @@ const ast_folder_model_1 = require("../models/ast/ast-folder.model");
 const ast_file_model_1 = require("../models/ast/ast-file.model");
 const ast_node_model_1 = require("../models/ast/ast-node.model");
 const syntax_kind_enum_1 = require("../../core/enum/syntax-kind.enum");
-const ast_service_1 = require("../../core/services/ast.service");
 const ast_method_model_1 = require("../models/ast/ast-method.model");
 const code_service_1 = require("./code.service");
 const ast_node_service_1 = require("./ast/ast-node.service");
+const ast_service_1 = require("./ast/ast.service");
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
  * - Other services for TreeFolders
@@ -58,11 +58,12 @@ class InitService {
         return astFiles;
     }
     generateAstFile(astFileFromJsonAst, astFolder) {
-        if (!astFileFromJsonAst.astNode) {
+        if (!(astFileFromJsonAst === null || astFileFromJsonAst === void 0 ? void 0 : astFileFromJsonAst.astNode)) {
             console.warn(astFileFromJsonAst.name ? `No AstNode for this file : ${astFileFromJsonAst.name}` : `AstFile without AstNode`);
             return undefined;
         }
         const newAstFile = new ast_file_model_1.AstFile();
+        newAstFile.name = astFileFromJsonAst.name;
         newAstFile.text = astFileFromJsonAst.text;
         newAstFile.astFolder = astFolder;
         newAstFile.astNode = this.getFileAstNode(astFileFromJsonAst.astNode, newAstFile);
@@ -103,6 +104,7 @@ class InitService {
         newAstNode.name = astNodeFromJsonAst.name;
         newAstNode.parent = astParentNode;
         newAstNode.pos = astNodeFromJsonAst.pos;
+        newAstNode.text = astNodeFromJsonAst.text;
         newAstNode.children = this.generateAstNodes(astNodeFromJsonAst.children, newAstNode);
         if (ast_service_1.Ast.isFunctionOrMethod(astNodeFromJsonAst)) {
             if (!newAstNode.name && ((_a = newAstNode.firstSon) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.Identifier) {
@@ -113,10 +115,12 @@ class InitService {
         return newAstNode;
     }
     generateAstMethod(astNode) {
+        astNode.logg();
         const astMethod = new ast_method_model_1.AstMethod();
         astMethod.astNode = astNode;
         astMethod.astNode.text = this.astNodeService.getCode(astNode);
         astMethod.originalCode = code_service_1.CodeService.getCode(this.astNodeService.getCode(astNode));
+        console.log('ORIGINAL CODEEEE', astMethod.originalCode);
         return astMethod;
     }
 }
