@@ -33,10 +33,18 @@ export class AstFolderService extends StatsService {
         this._stats.numberOfMethods = astFolder.numberOfMethods;
         this._stats.totalCognitiveComplexity = astFolder.cpxFactors.total;
         this._stats.totalCyclomaticComplexity = astFolder.cyclomaticCpx;
-        for (const astFile of astFolder.astFiles) {
-            this.incrementFileStats(astFile);
-        }
+        this.calculateAstFolderCpxByStatus(astFolder);
         return this._stats;
+    }
+
+
+    calculateAstFolderCpxByStatus(astFolder: AstFolder): void {
+        for (const astFile of astFolder.astFiles) {
+            this.calculateAstFileCpxByStatus(astFile);
+        }
+        for (const childAstFolder of astFolder.children) {
+            this.calculateAstFolderCpxByStatus(childAstFolder);
+        }
     }
 
 
@@ -44,14 +52,8 @@ export class AstFolderService extends StatsService {
      * Increments AstFolder statistics for a given astFile
      * @param astFile       // The AstFile to analyse
      */
-    incrementFileStats(astFile: AstFile): void {
-        if (!astFile) {
-            return;
-        }
+    calculateAstFileCpxByStatus(astFile: AstFile): void {
         let tsFileStats = astFile.getStats();
-        // this._stats.numberOfMethods += tsFileStats.numberOfMethods;
-        // this._stats.totalCognitiveComplexity += tsFileStats.totalCognitiveComplexity;
-        // this._stats.totalCyclomaticComplexity += tsFileStats.totalCyclomaticComplexity;
         this.incrementMethodsByStatus(ComplexityType.COGNITIVE, tsFileStats);
         this.incrementMethodsByStatus(ComplexityType.CYCLOMATIC, tsFileStats);
         this._stats.barChartCognitive = BarchartService.concat(this._stats.barChartCognitive, tsFileStats.barChartCognitive);
@@ -68,6 +70,8 @@ export class AstFolderService extends StatsService {
         this._stats.numberOfMethodsByStatus[type].correct += tsFileStats.numberOfMethodsByStatus[type].correct;
         this._stats.numberOfMethodsByStatus[type].error += tsFileStats.numberOfMethodsByStatus[type].error;
         this._stats.numberOfMethodsByStatus[type].warning += tsFileStats.numberOfMethodsByStatus[type].warning;
+        console.log('ASTFOLDERRR STATS', this._stats.numberOfMethodsByStatus)
+
     }
 
 

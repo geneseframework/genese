@@ -28,23 +28,23 @@ class AstFolderService extends stats_service_1.StatsService {
         this._stats.numberOfMethods = astFolder.numberOfMethods;
         this._stats.totalCognitiveComplexity = astFolder.cpxFactors.total;
         this._stats.totalCyclomaticComplexity = astFolder.cyclomaticCpx;
-        for (const astFile of astFolder.astFiles) {
-            this.incrementFileStats(astFile);
-        }
+        this.calculateAstFolderCpxByStatus(astFolder);
         return this._stats;
+    }
+    calculateAstFolderCpxByStatus(astFolder) {
+        for (const astFile of astFolder.astFiles) {
+            this.calculateAstFileCpxByStatus(astFile);
+        }
+        for (const childAstFolder of astFolder.children) {
+            this.calculateAstFolderCpxByStatus(childAstFolder);
+        }
     }
     /**
      * Increments AstFolder statistics for a given astFile
      * @param astFile       // The AstFile to analyse
      */
-    incrementFileStats(astFile) {
-        if (!astFile) {
-            return;
-        }
+    calculateAstFileCpxByStatus(astFile) {
         let tsFileStats = astFile.getStats();
-        // this._stats.numberOfMethods += tsFileStats.numberOfMethods;
-        // this._stats.totalCognitiveComplexity += tsFileStats.totalCognitiveComplexity;
-        // this._stats.totalCyclomaticComplexity += tsFileStats.totalCyclomaticComplexity;
         this.incrementMethodsByStatus(complexity_type_enum_1.ComplexityType.COGNITIVE, tsFileStats);
         this.incrementMethodsByStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC, tsFileStats);
         this._stats.barChartCognitive = barchart_service_1.BarchartService.concat(this._stats.barChartCognitive, tsFileStats.barChartCognitive);
@@ -59,6 +59,7 @@ class AstFolderService extends stats_service_1.StatsService {
         this._stats.numberOfMethodsByStatus[type].correct += tsFileStats.numberOfMethodsByStatus[type].correct;
         this._stats.numberOfMethodsByStatus[type].error += tsFileStats.numberOfMethodsByStatus[type].error;
         this._stats.numberOfMethodsByStatus[type].warning += tsFileStats.numberOfMethodsByStatus[type].warning;
+        console.log('ASTFOLDERRR STATS', this._stats.numberOfMethodsByStatus);
     }
     /**
      * Returns the path of the AstFolder linked to this service
