@@ -53,7 +53,7 @@ class AstMethod {
     }
     get cpxIndex() {
         var _a;
-        return (_a = __classPrivateFieldGet(this, _cpxIndex)) !== null && _a !== void 0 ? _a : this.calculateCpxIndex();
+        return (_a = __classPrivateFieldGet(this, _cpxIndex)) !== null && _a !== void 0 ? _a : this.cpxFactors.total;
     }
     get cyclomaticCpx() {
         return __classPrivateFieldGet(this, _cyclomaticCpx);
@@ -98,37 +98,33 @@ class AstMethod {
         // LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
         this.cyclomaticCpx = cyclomatic_complexity_service_1.CyclomaticComplexityService.calculateCyclomaticComplexity(this.astNode);
+        console.log('CYCLOOOO', this.cyclomaticCpx);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
     }
-    /**
-     * Calculates the Complexity Index of the method
-     */
-    calculateCpxIndex() {
-        var _a, _b, _c;
+    calculateCpx() {
+        var _a, _b;
         if (!(((_b = (_a = __classPrivateFieldGet(this, _displayedCode)) === null || _a === void 0 ? void 0 : _a.lines) === null || _b === void 0 ? void 0 : _b.length) > 0)) {
             this.createDisplayedCode();
         }
-        let count = 0;
-        for (const line of (_c = __classPrivateFieldGet(this, _displayedCode)) === null || _c === void 0 ? void 0 : _c.lines) {
-            count += line.cpxFactors.total;
-        }
-        return +count.toFixed(2);
+        this.calculateCpxFactors();
+        this.calculateCyclomaticCpx();
     }
     /**
-     * Calculates the Complexity Index of the method
+     * Calculates the Complexity Factors of the method
      */
     calculateCpxFactors() {
-        var _a, _b, _c;
-        if (!(((_b = (_a = __classPrivateFieldGet(this, _displayedCode)) === null || _a === void 0 ? void 0 : _a.lines) === null || _b === void 0 ? void 0 : _b.length) > 0)) {
-            this.createDisplayedCode();
+        var _a;
+        this.cpxFactors = new cpx_factors_model_1.CpxFactors();
+        for (const line of (_a = __classPrivateFieldGet(this, _displayedCode)) === null || _a === void 0 ? void 0 : _a.lines) {
+            this.cpxFactors = this.cpxFactors.add(line.cpxFactors);
         }
-        let cpxFactors = new cpx_factors_model_1.CpxFactors();
-        for (const line of (_c = __classPrivateFieldGet(this, _displayedCode)) === null || _c === void 0 ? void 0 : _c.lines) {
-            cpxFactors = cpxFactors.add(line.cpxFactors);
-        }
-        this.cpxFactors = cpxFactors;
-        console.log('METHODDD CPX F', cpxFactors);
-        return cpxFactors;
+    }
+    calculateCyclomaticCpx() {
+        const CS = new cyclomatic_complexity_service_1.CyclomaticComplexityService();
+        // this.cyclomaticCpx = CS.
+        // for (const line of this.#displayedCode?.lines) {
+        //     this.cyclomaticCpx += line.;
+        // }
     }
     /**
      * Get the complexity status of the method for a given complexity type
@@ -157,8 +153,7 @@ class AstMethod {
         this.setCpxFactorsToDisplayedCode(astNode, false);
         __classPrivateFieldGet(this, _displayedCode).setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
-        this.calculateCpxFactors();
-        // this.calculateCpxIndex();
+        this.calculateCpx();
         __classPrivateFieldGet(this, _displayedCode).setTextWithLines();
     }
     /**

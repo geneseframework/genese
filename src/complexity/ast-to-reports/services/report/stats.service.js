@@ -22,10 +22,8 @@ class StatsService {
             this.calculateStats(fileOrFolder);
             this.getNameOrPath(fileOrFolder);
             this._stats.setPercentages();
-            console.log('CPXFACTORSSSS', fileOrFolder.cpxFactors);
             this._stats.totalCognitiveComplexity = fileOrFolder.cpxFactors.total;
-            console.log('TOTALLLL', this._stats.totalCognitiveComplexity);
-            // this._stats.cumulateComplexities();
+            this._stats.totalCyclomaticComplexity = fileOrFolder.cyclomaticCpx;
             this.sortBarCharts();
             return this._stats.plugChartHoles();
         }

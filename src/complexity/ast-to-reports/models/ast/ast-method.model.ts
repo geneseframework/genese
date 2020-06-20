@@ -1,4 +1,7 @@
-import { CyclomaticComplexityService as CS } from '../../services/cyclomatic-complexity.service';
+import {
+    CyclomaticComplexityService,
+    CyclomaticComplexityService as CS
+} from '../../services/cyclomatic-complexity.service';
 import { AstNode } from './ast-node.model';
 import { Code } from '../code/code.model';
 import { CodeService } from '../../services/code.service';
@@ -115,24 +118,37 @@ export class AstMethod implements Evaluate {
         // LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.astNode);
+        console.log('CYCLOOOO', this.cyclomaticCpx)
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
     }
 
 
-    /**
-     * Calculates the Complexity Index of the method
-     */
-    private calculateCpxFactors(): CpxFactors {
+    private calculateCpx(): void {
         if (!(this.#displayedCode?.lines?.length > 0)) {
             this.createDisplayedCode();
         }
-        let cpxFactors: CpxFactors = new CpxFactors();
+        this.calculateCpxFactors();
+        this.calculateCyclomaticCpx();
+    }
+
+
+    /**
+     * Calculates the Complexity Factors of the method
+     */
+    private calculateCpxFactors(): void {
+        this.cpxFactors = new CpxFactors();
         for (const line of this.#displayedCode?.lines) {
-            cpxFactors = cpxFactors.add(line.cpxFactors);
+            this.cpxFactors = this.cpxFactors.add(line.cpxFactors);
         }
-        this.cpxFactors = cpxFactors;
-        console.log('METHODDD CPX F', cpxFactors)
-        return cpxFactors;
+    }
+
+
+    private calculateCyclomaticCpx(): void {
+        const CS = new CyclomaticComplexityService();
+        // this.cyclomaticCpx = CS.
+        // for (const line of this.#displayedCode?.lines) {
+        //     this.cyclomaticCpx += line.;
+        // }
     }
 
 
@@ -166,8 +182,7 @@ export class AstMethod implements Evaluate {
         this.setCpxFactorsToDisplayedCode(astNode, false);
         this.#displayedCode.setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
-        this.calculateCpxFactors();
-        // this.calculateCpxIndex();
+        this.calculateCpx();
         this.#displayedCode.setTextWithLines();
     }
 

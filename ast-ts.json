@@ -6,11 +6,11 @@
 		"astFiles": [
 			{
 				"name": "debug.mock.ts",
-				"text": "export class DebugMock {\n\n\n    ifAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n\n}\n",
+				"text": "export class DebugMock {\n\n\n    ifAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n\n    iffffAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n\n}\n",
 				"astNode": {
 					"children": [
 						{
-							"end": 103,
+							"end": 181,
 							"kind": "ClassDeclaration",
 							"name": "",
 							"pos": 0,
@@ -110,14 +110,94 @@
 											]
 										}
 									]
+								},
+								{
+									"end": 178,
+									"kind": "MethodDeclaration",
+									"name": "iffffAlone",
+									"pos": 100,
+									"children": [
+										{
+											"end": 116,
+											"kind": "Identifier",
+											"name": "",
+											"pos": 100,
+											"children": [
+											]
+										},
+										{
+											"end": 118,
+											"kind": "Parameter",
+											"name": "",
+											"pos": 117,
+											"children": [
+												{
+													"end": 118,
+													"kind": "Identifier",
+													"name": "",
+													"pos": 117,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 178,
+											"kind": "Block",
+											"name": "",
+											"pos": 119,
+											"children": [
+												{
+													"end": 172,
+													"kind": "IfStatement",
+													"name": "",
+													"pos": 121,
+													"children": [
+														{
+															"end": 135,
+															"kind": "Identifier",
+															"name": "",
+															"pos": 134,
+															"children": [
+															]
+														},
+														{
+															"end": 172,
+															"kind": "Block",
+															"name": "",
+															"pos": 136,
+															"children": [
+																{
+																	"end": 162,
+																	"kind": "ReturnStatement",
+																	"name": "",
+																	"pos": 138,
+																	"children": [
+																		{
+																			"end": 161,
+																			"kind": "StringLiteral",
+																			"name": "",
+																			"pos": 157,
+																			"children": [
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
 								}
 							]
 						},
 						{
-							"end": 104,
+							"end": 182,
 							"kind": "EndOfFileToken",
 							"name": "",
-							"pos": 103,
+							"pos": 181,
 							"children": [
 							]
 						}

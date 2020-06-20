@@ -7,5 +7,10 @@ class DebugMock {
             return 'b';
         }
     }
+    iffffAlone(a) {
+        if (a) {
+            return 'b';
+        }
+    }
 }
 exports.DebugMock = DebugMock;
