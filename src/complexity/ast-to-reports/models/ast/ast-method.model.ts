@@ -22,7 +22,7 @@ import { Options } from '../options';
 export class AstMethod implements Evaluate {
 
     #astNode?: AstNode = undefined;                               // The AST of the method itself
-    codeService: CodeService = new CodeService();                   // The service managing Code objects
+    #codeService: CodeService = new CodeService();                   // The service managing Code objects
     cognitiveStatus: MethodStatus = MethodStatus.CORRECT;           // The cognitive status of the method
     #cpxFactors?: CpxFactors = undefined;
     #cyclomaticCpx ?= 0;
@@ -37,6 +37,16 @@ export class AstMethod implements Evaluate {
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
+
+
+    get astNode(): AstNode {
+        return this.#astNode;
+    }
+
+
+    set astNode(astNode: AstNode) {
+        this.#astNode = astNode;
+    }
 
 
     get cpxFactors(): CpxFactors {
@@ -93,16 +103,6 @@ export class AstMethod implements Evaluate {
     }
 
 
-    get astNode(): AstNode {
-        return this.#astNode;
-    }
-
-
-    set astNode(astNode: AstNode) {
-        this.#astNode = astNode;
-    }
-
-
 
     // ---------------------------------------------------------------------------------
     //                                  Other methods
@@ -111,24 +111,14 @@ export class AstMethod implements Evaluate {
 
 
     /**
-     * Evaluates the complexities of this AstMethod
+     * Creates the displayed code of this AstMethod and evaluates its complexity
      */
     evaluate(): void {
         this.createDisplayedCode();
         // LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.astNode);
-        console.log('CYCLOOOO', this.cyclomaticCpx)
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
-    }
-
-
-    private calculateCpx(): void {
-        if (!(this.#displayedCode?.lines?.length > 0)) {
-            this.createDisplayedCode();
-        }
-        this.calculateCpxFactors();
-        this.calculateCyclomaticCpx();
     }
 
 
@@ -136,19 +126,13 @@ export class AstMethod implements Evaluate {
      * Calculates the Complexity Factors of the method
      */
     private calculateCpxFactors(): void {
+        if (!(this.#displayedCode?.lines?.length > 0)) {
+            this.createDisplayedCode();
+        }
         this.cpxFactors = new CpxFactors();
         for (const line of this.#displayedCode?.lines) {
             this.cpxFactors = this.cpxFactors.add(line.cpxFactors);
         }
-    }
-
-
-    private calculateCyclomaticCpx(): void {
-        const CS = new CyclomaticComplexityService();
-        // this.cyclomaticCpx = CS.
-        // for (const line of this.#displayedCode?.lines) {
-        //     this.cyclomaticCpx += line.;
-        // }
     }
 
 
@@ -182,7 +166,7 @@ export class AstMethod implements Evaluate {
         this.setCpxFactorsToDisplayedCode(astNode, false);
         this.#displayedCode.setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
-        this.calculateCpx();
+        this.calculateCpxFactors();
         this.#displayedCode.setTextWithLines();
     }
 
@@ -204,12 +188,12 @@ export class AstMethod implements Evaluate {
 
     /**
      * Calculates the complexity factors of each CodeLine
-     * @param astNode                  // The AstNode of the method
+     * @param astNode                   // The AstNode of the method
      * @param startedUncommentedLines   // Param for recursion (checks if the current line is the first uncommented one)
      */
     private setCpxFactorsToDisplayedCode(astNode: AstNode, startedUncommentedLines = false): void {
         for (const childAst of astNode.children) {
-            let issue = this.codeService.getLineIssue(this.#originalCode, childAst.pos - this.position);
+            let issue = this.#codeService.getLineIssue(this.#originalCode, childAst.pos - this.position);
             const codeLine: CodeLine = this.#displayedCode.lines[issue];
             if (Ast.isElseStatement(childAst)) {
                 childAst.cpxFactors.basic.node = cpxFactors.basic.node;

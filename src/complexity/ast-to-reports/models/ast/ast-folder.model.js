@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astFiles, _astFolderService, _children, _complexitiesByStatus, _cpxFactors, _cyclomaticCpx, _parent, _path, _relativePath, _stats;
+var _astFiles, _astFolderService, _children, _complexitiesByStatus, _cpxFactors, _cyclomaticCpx, _numberOfFiles, _numberOfMethods, _parent, _path, _relativePath, _stats;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstFolder = void 0;
 const complexities_by_status_interface_1 = require("../../interfaces/complexities-by-status.interface");
@@ -27,6 +27,8 @@ class AstFolder {
         _complexitiesByStatus.set(this, new complexities_by_status_interface_1.ComplexitiesByStatus()); // The folder complexities spread by complexity status
         _cpxFactors.set(this, undefined);
         _cyclomaticCpx.set(this, 0);
+        _numberOfFiles.set(this, undefined);
+        _numberOfMethods.set(this, undefined);
         _parent.set(this, undefined); // The AstFolder corresponding to the parent folder of this AstFolder
         _path.set(this, undefined); // The absolute path of this folder
         _relativePath.set(this, undefined); // The relative path of this folder compared to the root folder of the analyse
@@ -69,6 +71,20 @@ class AstFolder {
     set cyclomaticCpx(cyclomaticCpx) {
         __classPrivateFieldSet(this, _cyclomaticCpx, cyclomaticCpx);
     }
+    get numberOfFiles() {
+        var _a;
+        return (_a = __classPrivateFieldGet(this, _numberOfFiles)) !== null && _a !== void 0 ? _a : __classPrivateFieldGet(this, _astFolderService).getNumberOfFiles(this);
+    }
+    set numberOfFiles(numberOfFiles) {
+        __classPrivateFieldSet(this, _numberOfFiles, numberOfFiles);
+    }
+    get numberOfMethods() {
+        var _a;
+        return (_a = __classPrivateFieldGet(this, _numberOfMethods)) !== null && _a !== void 0 ? _a : __classPrivateFieldGet(this, _astFolderService).getNumberOfMethods(this);
+    }
+    set numberOfMethods(numberOfMethods) {
+        __classPrivateFieldSet(this, _numberOfMethods, numberOfMethods);
+    }
     get parent() {
         return __classPrivateFieldGet(this, _parent);
     }
@@ -109,8 +125,8 @@ class AstFolder {
         for (const childAstFolder of this.children) {
             childAstFolder.evaluate();
         }
-        const astFolderService = new ast_folder_service_1.AstFolderService();
-        this.stats = astFolderService.calculateStats(this);
+        this.numberOfMethods = __classPrivateFieldGet(this, _astFolderService).getNumberOfMethods(this);
+        this.stats = __classPrivateFieldGet(this, _astFolderService).calculateStats(this);
     }
     logg(message) {
         var _a, _b;
@@ -135,4 +151,4 @@ class AstFolder {
     }
 }
 exports.AstFolder = AstFolder;
-_astFiles = new WeakMap(), _astFolderService = new WeakMap(), _children = new WeakMap(), _complexitiesByStatus = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _parent = new WeakMap(), _path = new WeakMap(), _relativePath = new WeakMap(), _stats = new WeakMap();
+_astFiles = new WeakMap(), _astFolderService = new WeakMap(), _children = new WeakMap(), _complexitiesByStatus = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _numberOfFiles = new WeakMap(), _numberOfMethods = new WeakMap(), _parent = new WeakMap(), _path = new WeakMap(), _relativePath = new WeakMap(), _stats = new WeakMap();

@@ -20,15 +20,11 @@ class AstFolderService extends stats_service_1.StatsService {
      * @param astFolder        // The AstFolder to analyse
      */
     calculateStats(astFolder) {
-        var _a, _b;
         this._stats = new stats_model_1.Stats();
-        this._stats.numberOfFiles += (_b = (_a = astFolder === null || astFolder === void 0 ? void 0 : astFolder.astFiles) === null || _a === void 0 ? void 0 : _a.length) !== null && _b !== void 0 ? _b : 0;
-        for (const file of astFolder.astFiles) {
-            this.incrementFileStats(file);
-        }
-        for (const subFolder of astFolder.children) {
-            this.calculateStats(subFolder);
-        }
+        this._stats.numberOfFiles = astFolder.numberOfFiles;
+        this._stats.numberOfMethods = astFolder.numberOfMethods;
+        this._stats.totalCognitiveComplexity = astFolder.cpxFactors.total;
+        this._stats.totalCyclomaticComplexity = astFolder.cyclomaticCpx;
         return this._stats;
     }
     /**
@@ -41,6 +37,8 @@ class AstFolderService extends stats_service_1.StatsService {
         }
         let tsFileStats = astFile.getStats();
         this._stats.numberOfMethods += tsFileStats.numberOfMethods;
+        // this._stats.totalCognitiveComplexity += tsFileStats.totalCognitiveComplexity;
+        // this._stats.totalCyclomaticComplexity += tsFileStats.totalCyclomaticComplexity;
         // this.incrementMethodsByStatus(ComplexityType.COGNITIVE, tsFileStats);
         // this.incrementMethodsByStatus(ComplexityType.CYCLOMATIC, tsFileStats);
         // this._stats.barChartCognitive = BarchartService.concat(this._stats.barChartCognitive, tsFileStats.barChartCognitive);
@@ -61,6 +59,47 @@ class AstFolderService extends stats_service_1.StatsService {
      */
     getNameOrPath(astFolder) {
         // this._stats.subject = getRelativePath(Options.pathCommand, astFolder.path);
+    }
+    getNumberOfFiles(astFolder) {
+        if (!(astFolder === null || astFolder === void 0 ? void 0 : astFolder.astFiles)) {
+            return 0;
+        }
+        let nbFiles = astFolder.astFiles.length;
+        nbFiles += this.getChildrenFoldersNumberOfFiles(astFolder);
+        return nbFiles;
+    }
+    getChildrenFoldersNumberOfFiles(astFolder) {
+        var _a;
+        let nbFiles = 0;
+        for (const childAstFolder of astFolder.children) {
+            nbFiles += (_a = childAstFolder.astFiles) === null || _a === void 0 ? void 0 : _a.length;
+            nbFiles += this.getChildrenFoldersNumberOfFiles(childAstFolder);
+        }
+        return nbFiles;
+    }
+    getNumberOfMethods(astFolder) {
+        if (!(astFolder === null || astFolder === void 0 ? void 0 : astFolder.astFiles)) {
+            return 0;
+        }
+        let nbMethods = this.getCurrentFolderNumberOfMethods(astFolder);
+        nbMethods += this.getChildrenFoldersNumberOfMethods(astFolder);
+        return nbMethods;
+    }
+    getCurrentFolderNumberOfMethods(astFolder) {
+        var _a, _b;
+        let nbMethods = 0;
+        for (const astFile of astFolder.astFiles) {
+            nbMethods += (_b = (_a = astFile.astMethods) === null || _a === void 0 ? void 0 : _a.length) !== null && _b !== void 0 ? _b : 0;
+        }
+        return nbMethods;
+    }
+    getChildrenFoldersNumberOfMethods(astFolder) {
+        let nbMethods = 0;
+        for (const childAstFolder of astFolder.children) {
+            nbMethods += this.getCurrentFolderNumberOfMethods(childAstFolder);
+            nbMethods += this.getChildrenFoldersNumberOfMethods(childAstFolder);
+        }
+        return nbMethods;
     }
     getAstFolderRoot(astFolder) {
         if (!(astFolder === null || astFolder === void 0 ? void 0 : astFolder.parent)) {

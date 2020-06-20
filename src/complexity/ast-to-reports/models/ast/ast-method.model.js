@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astNode, _cpxFactors, _cyclomaticCpx, _cpxIndex, _displayedCode, _name, _originalCode;
+var _astNode, _codeService, _cpxFactors, _cyclomaticCpx, _cpxIndex, _displayedCode, _name, _originalCode;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstMethod = void 0;
 const cyclomatic_complexity_service_1 = require("../../services/cyclomatic-complexity.service");
@@ -32,7 +32,7 @@ const options_1 = require("../options");
 class AstMethod {
     constructor() {
         _astNode.set(this, undefined); // The AST of the method itself
-        this.codeService = new code_service_1.CodeService(); // The service managing Code objects
+        _codeService.set(this, new code_service_1.CodeService()); // The service managing Code objects
         this.cognitiveStatus = evaluation_status_enum_1.MethodStatus.CORRECT; // The cognitive status of the method
         _cpxFactors.set(this, undefined);
         _cyclomaticCpx.set(this, 0);
@@ -45,6 +45,12 @@ class AstMethod {
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
+    get astNode() {
+        return __classPrivateFieldGet(this, _astNode);
+    }
+    set astNode(astNode) {
+        __classPrivateFieldSet(this, _astNode, astNode);
+    }
     get cpxFactors() {
         return __classPrivateFieldGet(this, _cpxFactors);
     }
@@ -81,50 +87,31 @@ class AstMethod {
         var _a;
         return (_a = this.astNode) === null || _a === void 0 ? void 0 : _a.pos;
     }
-    get astNode() {
-        return __classPrivateFieldGet(this, _astNode);
-    }
-    set astNode(astNode) {
-        __classPrivateFieldSet(this, _astNode, astNode);
-    }
     // ---------------------------------------------------------------------------------
     //                                  Other methods
     // ---------------------------------------------------------------------------------
     /**
-     * Evaluates the complexities of this AstMethod
+     * Creates the displayed code of this AstMethod and evaluates its complexity
      */
     evaluate() {
         this.createDisplayedCode();
         // LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
         this.cyclomaticCpx = cyclomatic_complexity_service_1.CyclomaticComplexityService.calculateCyclomaticComplexity(this.astNode);
-        console.log('CYCLOOOO', this.cyclomaticCpx);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
-    }
-    calculateCpx() {
-        var _a, _b;
-        if (!(((_b = (_a = __classPrivateFieldGet(this, _displayedCode)) === null || _a === void 0 ? void 0 : _a.lines) === null || _b === void 0 ? void 0 : _b.length) > 0)) {
-            this.createDisplayedCode();
-        }
-        this.calculateCpxFactors();
-        this.calculateCyclomaticCpx();
     }
     /**
      * Calculates the Complexity Factors of the method
      */
     calculateCpxFactors() {
-        var _a;
+        var _a, _b, _c;
+        if (!(((_b = (_a = __classPrivateFieldGet(this, _displayedCode)) === null || _a === void 0 ? void 0 : _a.lines) === null || _b === void 0 ? void 0 : _b.length) > 0)) {
+            this.createDisplayedCode();
+        }
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
-        for (const line of (_a = __classPrivateFieldGet(this, _displayedCode)) === null || _a === void 0 ? void 0 : _a.lines) {
+        for (const line of (_c = __classPrivateFieldGet(this, _displayedCode)) === null || _c === void 0 ? void 0 : _c.lines) {
             this.cpxFactors = this.cpxFactors.add(line.cpxFactors);
         }
-    }
-    calculateCyclomaticCpx() {
-        const CS = new cyclomatic_complexity_service_1.CyclomaticComplexityService();
-        // this.cyclomaticCpx = CS.
-        // for (const line of this.#displayedCode?.lines) {
-        //     this.cyclomaticCpx += line.;
-        // }
     }
     /**
      * Get the complexity status of the method for a given complexity type
@@ -153,7 +140,7 @@ class AstMethod {
         this.setCpxFactorsToDisplayedCode(astNode, false);
         __classPrivateFieldGet(this, _displayedCode).setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
-        this.calculateCpx();
+        this.calculateCpxFactors();
         __classPrivateFieldGet(this, _displayedCode).setTextWithLines();
     }
     /**
@@ -171,12 +158,12 @@ class AstMethod {
     }
     /**
      * Calculates the complexity factors of each CodeLine
-     * @param astNode                  // The AstNode of the method
+     * @param astNode                   // The AstNode of the method
      * @param startedUncommentedLines   // Param for recursion (checks if the current line is the first uncommented one)
      */
     setCpxFactorsToDisplayedCode(astNode, startedUncommentedLines = false) {
         for (const childAst of astNode.children) {
-            let issue = this.codeService.getLineIssue(__classPrivateFieldGet(this, _originalCode), childAst.pos - this.position);
+            let issue = __classPrivateFieldGet(this, _codeService).getLineIssue(__classPrivateFieldGet(this, _originalCode), childAst.pos - this.position);
             const codeLine = __classPrivateFieldGet(this, _displayedCode).lines[issue];
             if (ast_service_1.Ast.isElseStatement(childAst)) {
                 childAst.cpxFactors.basic.node = cpx_factors_1.cpxFactors.basic.node;
@@ -222,4 +209,4 @@ class AstMethod {
     }
 }
 exports.AstMethod = AstMethod;
-_astNode = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _cpxIndex = new WeakMap(), _displayedCode = new WeakMap(), _name = new WeakMap(), _originalCode = new WeakMap();
+_astNode = new WeakMap(), _codeService = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _cpxIndex = new WeakMap(), _displayedCode = new WeakMap(), _name = new WeakMap(), _originalCode = new WeakMap();

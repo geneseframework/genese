@@ -159,7 +159,6 @@ export class AstFile implements Evaluate, Logg {
         for (const method of this.astMethods) {
             method.evaluate();
             this.cpxFactors = this.cpxFactors.add(method.cpxFactors);
-            console.log('METHODDDD CYCLO', method.cyclomaticCpx)
             this.cyclomaticCpx = this.cyclomaticCpx + method.cyclomaticCpx;
             this.complexitiesByStatus = astMethodService.addMethodCpxByStatus(this.complexitiesByStatus, method);
         }

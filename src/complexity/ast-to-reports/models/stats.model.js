@@ -19,13 +19,6 @@ class Stats {
         this.subject = ''; // The subject of the analysis (file or folder)
         this.totalCognitiveComplexity = 0; // Total of cognitive complexity scores
         this.totalCyclomaticComplexity = 0; // Total of cyclomatic complexity scores
-        /**
-         * Gets the sum of complexities for each barchart
-         */
-        // cumulateComplexities(): void {
-        // this.totalCognitiveComplexity = this.barChartCognitive.getSumOfComplexities();
-        // this.totalCyclomaticComplexity = this.barChartCyclomatic.getSumOfComplexities();
-        // }
     }
     /**
      * Sets the percentages of cognitive and cyclomatic complexities spread by complexity status
