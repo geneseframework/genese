@@ -5,6 +5,7 @@ import { AstFolder } from '../../models/ast/ast-folder.model';
 import { AstFile } from '../../models/ast/ast-file.model';
 import { ComplexityType } from '../../enums/complexity-type.enum';
 import * as chalk from 'chalk';
+import { BarchartService } from '../report/barchart.service';
 
 /**
  * - AstFolders generation from Abstract Syntax AstNode of a folder
@@ -32,6 +33,9 @@ export class AstFolderService extends StatsService {
         this._stats.numberOfMethods = astFolder.numberOfMethods;
         this._stats.totalCognitiveComplexity = astFolder.cpxFactors.total;
         this._stats.totalCyclomaticComplexity = astFolder.cyclomaticCpx;
+        for (const astFile of astFolder.astFiles) {
+            this.incrementFileStats(astFile);
+        }
         return this._stats;
     }
 
@@ -45,13 +49,13 @@ export class AstFolderService extends StatsService {
             return;
         }
         let tsFileStats = astFile.getStats();
-        this._stats.numberOfMethods += tsFileStats.numberOfMethods;
+        // this._stats.numberOfMethods += tsFileStats.numberOfMethods;
         // this._stats.totalCognitiveComplexity += tsFileStats.totalCognitiveComplexity;
         // this._stats.totalCyclomaticComplexity += tsFileStats.totalCyclomaticComplexity;
-        // this.incrementMethodsByStatus(ComplexityType.COGNITIVE, tsFileStats);
-        // this.incrementMethodsByStatus(ComplexityType.CYCLOMATIC, tsFileStats);
-        // this._stats.barChartCognitive = BarchartService.concat(this._stats.barChartCognitive, tsFileStats.barChartCognitive);
-        // this._stats.barChartCyclomatic = BarchartService.concat(this._stats.barChartCyclomatic, tsFileStats.barChartCyclomatic);
+        this.incrementMethodsByStatus(ComplexityType.COGNITIVE, tsFileStats);
+        this.incrementMethodsByStatus(ComplexityType.CYCLOMATIC, tsFileStats);
+        this._stats.barChartCognitive = BarchartService.concat(this._stats.barChartCognitive, tsFileStats.barChartCognitive);
+        this._stats.barChartCyclomatic = BarchartService.concat(this._stats.barChartCyclomatic, tsFileStats.barChartCyclomatic);
     }
 
 
@@ -141,9 +145,7 @@ export class AstFolderService extends StatsService {
 
 
     getRelativePath(astFolder: AstFolder): string {
-        const zzz = astFolder?.path?.slice(this.getRootPath(astFolder).length);
-        // console.log('PATTTHHH AST FOLDER', astFolder.path, this.getRootPath(astFolder).length, zzz)
-        return zzz
+        return astFolder?.path?.slice(this.getRootPath(astFolder).length);
     }
 
 
@@ -179,13 +181,8 @@ export class AstFolderService extends StatsService {
             console.log(`The folder ${astSubfolder.path} is not a subfolder of ${astFolder.path}`);
             return undefined;
         } else {
-            // return ;
-            console.log(chalk.yellowBright('FROMFD TO SUBFDDDD', astFolder.path, astFolder.relativePath))
-            console.log(chalk.blueBright('FROMFD TO SUBFDDDD SUBFF', astSubfolder.path, astSubfolder.relativePath))
             const linkStarter = astFolder.relativePath === '' ? './' : '.';
-            const zzz = `${linkStarter}${astSubfolder.path.slice(astFolder.path.length + 1)}`;
-            console.log(chalk.greenBright('LINKSTARTERRR & ROUTE', linkStarter, zzz))
-            return zzz;
+            return `${linkStarter}${astSubfolder.path.slice(astFolder.path.length + 1)}`;
         }
     }
 

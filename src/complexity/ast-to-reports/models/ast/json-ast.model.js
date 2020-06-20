@@ -40,10 +40,6 @@ class JsonAst {
     // ---------------------------------------------------------------------------------
     //                                Other methods
     // ---------------------------------------------------------------------------------
-    evaluate() {
-        this.astFolder.evaluate();
-        // this.#cyclomaticCpx = this.astFolder.cyclomaticCpx;
-    }
     logg(message) {
         var _a, _b, _c, _d, _e, _f;
         console.log('-----------------------------');

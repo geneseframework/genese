@@ -4,7 +4,8 @@ exports.AstFolderService = void 0;
 const stats_service_1 = require("../report/stats.service");
 const stats_model_1 = require("../../models/stats.model");
 const ast_file_service_1 = require("./ast-file.service");
-const chalk = require("chalk");
+const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
+const barchart_service_1 = require("../report/barchart.service");
 /**
  * - AstFolders generation from Abstract Syntax AstNode of a folder
  * - Other services for AstFolders
@@ -27,6 +28,9 @@ class AstFolderService extends stats_service_1.StatsService {
         this._stats.numberOfMethods = astFolder.numberOfMethods;
         this._stats.totalCognitiveComplexity = astFolder.cpxFactors.total;
         this._stats.totalCyclomaticComplexity = astFolder.cyclomaticCpx;
+        for (const astFile of astFolder.astFiles) {
+            this.incrementFileStats(astFile);
+        }
         return this._stats;
     }
     /**
@@ -38,13 +42,13 @@ class AstFolderService extends stats_service_1.StatsService {
             return;
         }
         let tsFileStats = astFile.getStats();
-        this._stats.numberOfMethods += tsFileStats.numberOfMethods;
+        // this._stats.numberOfMethods += tsFileStats.numberOfMethods;
         // this._stats.totalCognitiveComplexity += tsFileStats.totalCognitiveComplexity;
         // this._stats.totalCyclomaticComplexity += tsFileStats.totalCyclomaticComplexity;
-        // this.incrementMethodsByStatus(ComplexityType.COGNITIVE, tsFileStats);
-        // this.incrementMethodsByStatus(ComplexityType.CYCLOMATIC, tsFileStats);
-        // this._stats.barChartCognitive = BarchartService.concat(this._stats.barChartCognitive, tsFileStats.barChartCognitive);
-        // this._stats.barChartCyclomatic = BarchartService.concat(this._stats.barChartCyclomatic, tsFileStats.barChartCyclomatic);
+        this.incrementMethodsByStatus(complexity_type_enum_1.ComplexityType.COGNITIVE, tsFileStats);
+        this.incrementMethodsByStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC, tsFileStats);
+        this._stats.barChartCognitive = barchart_service_1.BarchartService.concat(this._stats.barChartCognitive, tsFileStats.barChartCognitive);
+        this._stats.barChartCyclomatic = barchart_service_1.BarchartService.concat(this._stats.barChartCyclomatic, tsFileStats.barChartCyclomatic);
     }
     /**
      * Increments the number of methods spread by Status (correct, warning, error) and by complexity type
@@ -118,9 +122,7 @@ class AstFolderService extends stats_service_1.StatsService {
     }
     getRelativePath(astFolder) {
         var _a;
-        const zzz = (_a = astFolder === null || astFolder === void 0 ? void 0 : astFolder.path) === null || _a === void 0 ? void 0 : _a.slice(this.getRootPath(astFolder).length);
-        // console.log('PATTTHHH AST FOLDER', astFolder.path, this.getRootPath(astFolder).length, zzz)
-        return zzz;
+        return (_a = astFolder === null || astFolder === void 0 ? void 0 : astFolder.path) === null || _a === void 0 ? void 0 : _a.slice(this.getRootPath(astFolder).length);
     }
     /**
      * Returns the path between a AstFolder's path and a AstFile's path which is inside it or inside one of its subfolders
@@ -154,13 +156,8 @@ class AstFolderService extends stats_service_1.StatsService {
             return undefined;
         }
         else {
-            // return ;
-            console.log(chalk.yellowBright('FROMFD TO SUBFDDDD', astFolder.path, astFolder.relativePath));
-            console.log(chalk.blueBright('FROMFD TO SUBFDDDD SUBFF', astSubfolder.path, astSubfolder.relativePath));
             const linkStarter = astFolder.relativePath === '' ? './' : '.';
-            const zzz = `${linkStarter}${astSubfolder.path.slice(astFolder.path.length + 1)}`;
-            console.log(chalk.greenBright('LINKSTARTERRR & ROUTE', linkStarter, zzz));
-            return zzz;
+            return `${linkStarter}${astSubfolder.path.slice(astFolder.path.length + 1)}`;
         }
     }
 }

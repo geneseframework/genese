@@ -50,7 +50,6 @@ class AstFolderReportService {
                 path: subfolder.relativePath,
                 routeFromCurrentFolder: this.astFolderService.getRouteFromFolderToSubFolder(this.astFolder, subfolder)
             };
-            console.log('ROUTETOSUBFFF', this.astFolderService.getRouteFromFolderToSubFolder(this.astFolder, subfolder));
             report.push(subfolderReport);
             if (!isSubfolder) {
                 report = report.concat(this.getSubfoldersArray(subfolder, true));
@@ -59,7 +58,7 @@ class AstFolderReportService {
         return report;
     }
     /**
-     * Adds a backlink to the parent folder
+     * Adds a backLink to the parent folder
      */
     addRowBackToParentFolder() {
         return {
@@ -121,6 +120,7 @@ class AstFolderReportService {
             }
             report = report.concat(this.getMethodsArray(subfolder));
         }
+        // console.log('METHDSSS REPTTT', report)
         return report;
     }
     /**
