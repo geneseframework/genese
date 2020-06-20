@@ -106,9 +106,8 @@ export class AstFolderService extends StatsService {
             console.log(`The file ${astFile.name} is not inside the folder ${astFolder.path}`);
             return undefined;
         } else {
-            return;
-            // const linkStarter = astFolder.relativePath === '' ? './' : '.';
-            // return `${linkStarter}${astFile.astFolder.path.slice(astFolder.path.length)}`;
+            const linkStarter = astFolder.relativePath === '' ? './' : '.';
+            return `${linkStarter}${astFile.astFolder.path.slice(astFolder.path.length)}`;
         }
     }
 

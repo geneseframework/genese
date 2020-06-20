@@ -90,9 +90,9 @@ class AstFolderService extends stats_service_1.StatsService {
             return undefined;
         }
         else {
-            return;
-            // const linkStarter = astFolder.relativePath === '' ? './' : '.';
-            // return `${linkStarter}${astFile.astFolder.path.slice(astFolder.path.length)}`;
+            // return;
+            const linkStarter = astFolder.relativePath === '' ? './' : '.';
+            return `${linkStarter}${astFile.astFolder.path.slice(astFolder.path.length)}`;
         }
     }
     /**
