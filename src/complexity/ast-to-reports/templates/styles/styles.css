@@ -43,6 +43,7 @@ a:hover { text-decoration:underline; }
     clear:both;
     visibility:hidden;
 }
+
 .fl { float: left; }
 @media only screen and (max-width:640px) {
     .col3 { width:100%; max-width:100%; }

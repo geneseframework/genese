@@ -50,6 +50,7 @@ class AstFolderReportService {
                 path: subfolder.relativePath,
                 routeFromCurrentFolder: this.astFolderService.getRouteFromFolderToSubFolder(this.astFolder, subfolder)
             };
+            console.log('ROUTETOSUBFFF', this.astFolderService.getRouteFromFolderToSubFolder(this.astFolder, subfolder));
             report.push(subfolderReport);
             if (!isSubfolder) {
                 report = report.concat(this.getSubfoldersArray(subfolder, true));

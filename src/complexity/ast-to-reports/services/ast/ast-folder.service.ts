@@ -176,9 +176,9 @@ export class AstFolderService extends StatsService {
             console.log(`The folder ${astSubfolder.path} is not a subfolder of ${astFolder.path}`);
             return undefined;
         } else {
-            return ;
-            // const linkStarter = astFolder.relativePath === '' ? './' : '.';
-            // return `${linkStarter}${astSubfolder.path.slice(astFolder.path.length)}`;
+            // return ;
+            const linkStarter = astFolder.relativePath === '' ? './' : '.';
+            return `${linkStarter}${astSubfolder.path.slice(astFolder.path.length)}`;
         }
     }
 
