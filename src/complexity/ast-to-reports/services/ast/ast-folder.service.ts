@@ -20,13 +20,13 @@ export class AstFolderService extends StatsService {
     }
 
 
-
     /**
      * Calculates the statistics of the AstFolder
      * @param astFolder        // The AstFolder to analyse
      */
     calculateStats(astFolder: AstFolder): Stats {
         this._stats = new Stats();
+        this._stats.subject = astFolder.relativePath === '' ? astFolder.path : astFolder.relativePath;
         this._stats.numberOfFiles = astFolder.numberOfFiles;
         this._stats.numberOfMethods = astFolder.numberOfMethods;
         this._stats.totalCognitiveComplexity = astFolder.cpxFactors.total;
@@ -70,6 +70,9 @@ export class AstFolderService extends StatsService {
      * Returns the path of the AstFolder linked to this service
      */
     getNameOrPath(astFolder: AstFolder): void {
+        console.log('ABSSS', astFolder.path)
+        console.log('RELLLL', astFolder.relativePath)
+        this._stats.subject = astFolder.relativePath;
         // this._stats.subject = getRelativePath(Options.pathCommand, astFolder.path);
     }
 

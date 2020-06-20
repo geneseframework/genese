@@ -1,6 +1,5 @@
 import * as fs from 'fs-extra';
 import { Options } from '../../ast-to-reports/models/options';
-import { JsonService } from '../../languages-to-ast/core/services/json.service';
 
 /**
  * Tools about files or folders
