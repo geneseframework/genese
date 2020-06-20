@@ -132,6 +132,7 @@ export class AstFolder implements Evaluate, HasStats, Logg {
     /**
      * Evaluates the complexities of the TreeFiles of this AstFolder
      */
+
     evaluate(): void {
         this.cpxFactors = new CpxFactors();
         for (const astFile of this.astFiles) {
@@ -140,6 +141,9 @@ export class AstFolder implements Evaluate, HasStats, Logg {
             this.cpxFactors = this.cpxFactors.add(astFile.cpxFactors);
             this.cyclomaticCpx = this.cyclomaticCpx + astFile.cyclomaticCpx;
             this.complexitiesByStatus = this.complexitiesByStatus.add(astFile.complexitiesByStatus);
+        }
+        for (const childAstFolder of this.children) {
+            childAstFolder.evaluate();
         }
         const astFolderService = new AstFolderService();
         this.stats = astFolderService.calculateStats(this);

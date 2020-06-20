@@ -56,7 +56,8 @@ export class JsonAst implements Evaluate, Logg {
 
 
     evaluate(): void {
-        this.cpxFactors = this.astFolder.cpxFactors;
+        this.astFolder.evaluate();
+        // this.cpxFactors = this.astFolder.cpxFactors;
         this.#cyclomaticCpx = this.astFolder.cyclomaticCpx;
     }
 

@@ -139,7 +139,6 @@ class AstFolderReportService {
             return `./${file_service_1.getFilenameWithoutExtension(astFile.name)}.html`;
         }
         const route = this.astFolderService.getRouteFromFolderToFile(this.astFolder, astFile);
-        console.log('RELPATHHHH', astFile.name, this.astFolder.relativePath, route);
         return `${route}/${file_service_1.getFilenameWithoutExtension(astFile.name)}.html`;
     }
     /**

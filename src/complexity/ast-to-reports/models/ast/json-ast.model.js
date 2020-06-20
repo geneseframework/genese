@@ -50,7 +50,8 @@ class JsonAst {
     //                                Other methods
     // ---------------------------------------------------------------------------------
     evaluate() {
-        this.cpxFactors = this.astFolder.cpxFactors;
+        this.astFolder.evaluate();
+        // this.cpxFactors = this.astFolder.cpxFactors;
         __classPrivateFieldSet(this, _cyclomaticCpx, this.astFolder.cyclomaticCpx);
     }
     logg(message) {

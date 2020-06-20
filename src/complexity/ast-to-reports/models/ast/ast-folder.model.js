@@ -106,6 +106,9 @@ class AstFolder {
             this.cyclomaticCpx = this.cyclomaticCpx + astFile.cyclomaticCpx;
             this.complexitiesByStatus = this.complexitiesByStatus.add(astFile.complexitiesByStatus);
         }
+        for (const childAstFolder of this.children) {
+            childAstFolder.evaluate();
+        }
         const astFolderService = new ast_folder_service_1.AstFolderService();
         this.stats = astFolderService.calculateStats(this);
     }
