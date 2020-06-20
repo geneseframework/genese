@@ -8,7 +8,6 @@ import { AstNode } from './ast-node.model';
 export class JsonAst implements Evaluate, Logg {
 
     astFolder?: AstFolder = undefined;
-    // #astFolder?: AstFolder = undefined;
     #cpxFactors?: CpxFactors = undefined;
     #cyclomaticCpx ?= 0;
 
@@ -18,16 +17,6 @@ export class JsonAst implements Evaluate, Logg {
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
 
-
-
-    // get astFolder(): AstFolder {
-    //     return this.#astFolder;
-    // }
-    //
-    //
-    // set astFolder(astFolder: AstFolder) {
-    //     this.#astFolder = astFolder;
-    // }
 
 
     get cpxFactors(): CpxFactors {
@@ -57,8 +46,7 @@ export class JsonAst implements Evaluate, Logg {
 
     evaluate(): void {
         this.astFolder.evaluate();
-        // this.cpxFactors = this.astFolder.cpxFactors;
-        this.#cyclomaticCpx = this.astFolder.cyclomaticCpx;
+        // this.#cyclomaticCpx = this.astFolder.cyclomaticCpx;
     }
 
 

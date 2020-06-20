@@ -47,7 +47,7 @@ export class AstMethod implements Evaluate {
 
 
     get cpxIndex(): number {
-        return this.#cpxIndex ?? this.calculateCpxIndex();
+        return this.#cpxIndex ?? this.cpxFactors.total;
     }
 
 
@@ -122,15 +122,17 @@ export class AstMethod implements Evaluate {
     /**
      * Calculates the Complexity Index of the method
      */
-    private calculateCpxIndex(): number {
+    private calculateCpxFactors(): CpxFactors {
         if (!(this.#displayedCode?.lines?.length > 0)) {
             this.createDisplayedCode();
         }
-        let count = 0;
+        let cpxFactors: CpxFactors = new CpxFactors();
         for (const line of this.#displayedCode?.lines) {
-            count += line.cpxFactors.total;
+            cpxFactors = cpxFactors.add(line.cpxFactors);
         }
-        return +count.toFixed(2);
+        this.cpxFactors = cpxFactors;
+        console.log('METHODDD CPX F', cpxFactors)
+        return cpxFactors;
     }
 
 
@@ -164,7 +166,8 @@ export class AstMethod implements Evaluate {
         this.setCpxFactorsToDisplayedCode(astNode, false);
         this.#displayedCode.setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
-        this.calculateCpxIndex();
+        this.calculateCpxFactors();
+        // this.calculateCpxIndex();
         this.#displayedCode.setTextWithLines();
     }
 

@@ -20,6 +20,7 @@ const code_model_1 = require("../code/code.model");
 const code_service_1 = require("../../services/code.service");
 const ast_service_1 = require("../../services/ast/ast.service");
 const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
+const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const code_line_model_1 = require("../code/code-line.model");
 const cpx_factors_1 = require("../../../cpx-factors");
@@ -114,6 +115,22 @@ class AstMethod {
         return +count.toFixed(2);
     }
     /**
+     * Calculates the Complexity Index of the method
+     */
+    calculateCpxFactors() {
+        var _a, _b, _c;
+        if (!(((_b = (_a = __classPrivateFieldGet(this, _displayedCode)) === null || _a === void 0 ? void 0 : _a.lines) === null || _b === void 0 ? void 0 : _b.length) > 0)) {
+            this.createDisplayedCode();
+        }
+        let cpxFactors = new cpx_factors_model_1.CpxFactors();
+        for (const line of (_c = __classPrivateFieldGet(this, _displayedCode)) === null || _c === void 0 ? void 0 : _c.lines) {
+            cpxFactors = cpxFactors.add(line.cpxFactors);
+        }
+        this.cpxFactors = cpxFactors;
+        console.log('METHODDD CPX F', cpxFactors);
+        return cpxFactors;
+    }
+    /**
      * Get the complexity status of the method for a given complexity type
      * @param cpxType
      */
@@ -140,7 +157,8 @@ class AstMethod {
         this.setCpxFactorsToDisplayedCode(astNode, false);
         __classPrivateFieldGet(this, _displayedCode).setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
-        this.calculateCpxIndex();
+        this.calculateCpxFactors();
+        // this.calculateCpxIndex();
         __classPrivateFieldGet(this, _displayedCode).setTextWithLines();
     }
     /**

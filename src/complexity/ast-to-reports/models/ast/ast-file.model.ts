@@ -158,7 +158,7 @@ export class AstFile implements Evaluate, Logg {
         this.astNode.evaluate();
         for (const method of this.astMethods) {
             method.evaluate();
-            // this.cpxIndex += method.cpxIndex;
+            this.cpxFactors = this.cpxFactors.add(method.cpxFactors);
             this.cyclomaticCpx = this.cyclomaticCpx + method.cyclomaticCpx;
             this.complexitiesByStatus = astMethodService.addMethodCpxByStatus(this.complexitiesByStatus, method);
         }

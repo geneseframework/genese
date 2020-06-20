@@ -53,8 +53,8 @@ export class Stats {
     /**
      * Gets the sum of complexities for each barchart
      */
-    cumulateComplexities(): void {
-        this.totalCognitiveComplexity = this.barChartCognitive.getSumOfComplexities();
-        this.totalCyclomaticComplexity = this.barChartCyclomatic.getSumOfComplexities();
-    }
+    // cumulateComplexities(): void {
+        // this.totalCognitiveComplexity = this.barChartCognitive.getSumOfComplexities();
+        // this.totalCyclomaticComplexity = this.barChartCyclomatic.getSumOfComplexities();
+    // }
 }
