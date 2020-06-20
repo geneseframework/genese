@@ -105,7 +105,9 @@ export function getRouteToRoot(relativePath: string): string {
     for (let i = 0; i < relativePath.length; i++) {
         relativeRoot = relativePath.charAt(i) === '/' ? `/..${relativeRoot}` : relativeRoot;
     }
-    return relativeRoot.slice(1);
+    const zzz = relativeRoot.slice(1);
+    // console.log('REL PATTHHH', relativePath, zzz)
+    return zzz;
 }
 
 

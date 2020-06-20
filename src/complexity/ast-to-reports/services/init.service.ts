@@ -27,7 +27,7 @@ export class InitService {
     generateAllFromJsonAst(jsonAst: JsonAst): JsonAst {
         const newJsonAst = new JsonAst();
         const astFolder = new AstFolder();
-        astFolder.path = jsonAst.astFolder.path;
+        astFolder.path = this.getPathFromJsonAstFolder(jsonAst.astFolder);
         astFolder.astFiles = this.generateAstFiles(jsonAst.astFolder, astFolder);
         if (Array.isArray(jsonAst.astFolder?.children)) {
             for (const child of jsonAst.astFolder?.children) {
@@ -43,7 +43,7 @@ export class InitService {
 
     generateChildrenAstFolder(astFolderFromJsonAst: any, parentAstFolder: AstFolder): AstFolder {
         const newAstFolder = new AstFolder();
-        newAstFolder.path = astFolderFromJsonAst.path;
+        newAstFolder.path = this.getPathFromJsonAstFolder(astFolderFromJsonAst);
         newAstFolder.parent = parentAstFolder;
         newAstFolder.astFiles = this.generateAstFiles(astFolderFromJsonAst, newAstFolder);
         for (const childFolderFromJsonAst of astFolderFromJsonAst.children) {
@@ -132,6 +132,11 @@ export class InitService {
         astMethod.astNode.text = this.astNodeService.getCode(astNode);
         astMethod.originalCode = CodeService.getCode(this.astNodeService.getCode(astNode));
         return astMethod;
+    }
+
+
+    private getPathFromJsonAstFolder(jsonAstFolder: any): string {
+        return jsonAstFolder?.path?.slice(-1) === '/' ? jsonAstFolder.path.slice(0, -1) : jsonAstFolder.path;
     }
 
 }

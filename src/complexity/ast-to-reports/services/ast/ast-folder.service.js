@@ -4,6 +4,7 @@ exports.AstFolderService = void 0;
 const stats_service_1 = require("../report/stats.service");
 const stats_model_1 = require("../../models/stats.model");
 const ast_file_service_1 = require("./ast-file.service");
+const chalk = require("chalk");
 /**
  * - AstFolders generation from Abstract Syntax AstNode of a folder
  * - Other services for AstFolders
@@ -117,7 +118,9 @@ class AstFolderService extends stats_service_1.StatsService {
     }
     getRelativePath(astFolder) {
         var _a;
-        return (_a = astFolder === null || astFolder === void 0 ? void 0 : astFolder.path) === null || _a === void 0 ? void 0 : _a.slice(this.getRootPath(astFolder).length);
+        const zzz = (_a = astFolder === null || astFolder === void 0 ? void 0 : astFolder.path) === null || _a === void 0 ? void 0 : _a.slice(this.getRootPath(astFolder).length);
+        // console.log('PATTTHHH AST FOLDER', astFolder.path, this.getRootPath(astFolder).length, zzz)
+        return zzz;
     }
     /**
      * Returns the path between a AstFolder's path and a AstFile's path which is inside it or inside one of its subfolders
@@ -152,8 +155,12 @@ class AstFolderService extends stats_service_1.StatsService {
         }
         else {
             // return ;
+            console.log(chalk.yellowBright('FROMFD TO SUBFDDDD', astFolder.path, astFolder.relativePath));
+            console.log(chalk.blueBright('FROMFD TO SUBFDDDD SUBFF', astSubfolder.path, astSubfolder.relativePath));
             const linkStarter = astFolder.relativePath === '' ? './' : '.';
-            return `${linkStarter}${astSubfolder.path.slice(astFolder.path.length)}`;
+            const zzz = `${linkStarter}${astSubfolder.path.slice(astFolder.path.length + 1)}`;
+            console.log(chalk.greenBright('LINKSTARTERRR & ROUTE', linkStarter, zzz));
+            return zzz;
         }
     }
 }

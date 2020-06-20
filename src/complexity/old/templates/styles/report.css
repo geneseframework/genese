@@ -15,9 +15,9 @@
     justify-content: space-between;
 }
 
-.header .header-left .backlink {
-    cursor: pointer;
-}
+/*.header .header-left .backlink {*/
+/*    cursor: pointer;*/
+/*}*/
 
 .header .header-right {
     display: flex;
@@ -26,7 +26,7 @@
 }
 
 .header .header-left .backLink {
-    color: #71c2e9;
+    color: #0a3d62;
     cursor: pointer;
 }
 

@@ -4,6 +4,7 @@ import { AstFileService } from './ast-file.service';
 import { AstFolder } from '../../models/ast/ast-folder.model';
 import { AstFile } from '../../models/ast/ast-file.model';
 import { ComplexityType } from '../../enums/complexity-type.enum';
+import * as chalk from 'chalk';
 
 /**
  * - AstFolders generation from Abstract Syntax AstNode of a folder
@@ -140,7 +141,9 @@ export class AstFolderService extends StatsService {
 
 
     getRelativePath(astFolder: AstFolder): string {
-        return  astFolder?.path?.slice(this.getRootPath(astFolder).length);
+        const zzz = astFolder?.path?.slice(this.getRootPath(astFolder).length);
+        // console.log('PATTTHHH AST FOLDER', astFolder.path, this.getRootPath(astFolder).length, zzz)
+        return zzz
     }
 
 
@@ -177,8 +180,12 @@ export class AstFolderService extends StatsService {
             return undefined;
         } else {
             // return ;
+            console.log(chalk.yellowBright('FROMFD TO SUBFDDDD', astFolder.path, astFolder.relativePath))
+            console.log(chalk.blueBright('FROMFD TO SUBFDDDD SUBFF', astSubfolder.path, astSubfolder.relativePath))
             const linkStarter = astFolder.relativePath === '' ? './' : '.';
-            return `${linkStarter}${astSubfolder.path.slice(astFolder.path.length)}`;
+            const zzz = `${linkStarter}${astSubfolder.path.slice(astFolder.path.length + 1)}`;
+            console.log(chalk.greenBright('LINKSTARTERRR & ROUTE', linkStarter, zzz))
+            return zzz;
         }
     }
 
