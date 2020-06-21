@@ -22,9 +22,7 @@ class AstFileReportService {
     getMethodsArray() {
         var _a;
         let report = [];
-        // console.log('ASTFILE REPORT GET MTHDSSS name', this.astFile.name)
         for (const method of this.astFile.astMethods) {
-            // console.log('ASTFILE REPORT GET MTHDSSS method', method.originalCode)
             const methodReport = {
                 code: (_a = method.displayedCode) === null || _a === void 0 ? void 0 : _a.text,
                 cognitiveColor: method.cognitiveStatus.toLowerCase(),
@@ -62,7 +60,7 @@ class AstFileReportService {
             colors: options_1.Options.colors,
             methods: this.methodReports,
             relativeRootReports: file_service_1.getPathWithDotSlash(this.relativeRootReports),
-            stats: this.astFile.getStats(),
+            stats: this.astFile.stats,
             thresholds: options_1.Options.getThresholds()
         });
         const filenameWithoutExtension = file_service_1.getFilenameWithoutExtension(this.astFile.name);

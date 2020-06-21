@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createFile = exports.copyFile = exports.createOutDir = exports.createRelativeDir = exports.getLanguageExtensions = exports.getFilenameWithoutExtension = exports.getFileExtension = exports.getRouteToRoot = exports.getPathWithDotSlash = exports.getArrayOfPathsWithDotSlash = exports.getPathWithoutEndSlash = exports.getRelativePath = exports.getAllFiles = exports.getFilename = void 0;
+exports.createFile = exports.copyFile = exports.createOutDir = exports.createRelativeDir = exports.getLanguageExtensions = exports.getFilenameWithoutExtension = exports.getFileExtension = exports.getRouteToRoot = exports.getPathWithDotSlash = exports.getArrayOfPathsWithDotSlash = exports.getAllFiles = exports.getFilename = void 0;
 const fs = require("fs-extra");
 const options_1 = require("../../ast-to-reports/models/options");
 /**
@@ -35,27 +35,6 @@ function getAllFiles(dirPath, arrayOfFiles) {
     return arrayOfFiles;
 }
 exports.getAllFiles = getAllFiles;
-/**
- * Returns the route from a folder to a subfolder
- * @param pathRoot          // The path of the parent folder
- * @param pathSubfolder     // The path of the subFolder (this path MUST be a path of a subFolder of pathRoot)
- */
-function getRelativePath(pathRoot, pathSubfolder) {
-    if (!pathSubfolder || !pathRoot || pathSubfolder === pathRoot) {
-        return '';
-    }
-    const pathWithoutEndSlash = getPathWithoutEndSlash(pathSubfolder);
-    return pathRoot === pathWithoutEndSlash.slice(0, pathRoot.length) ? pathWithoutEndSlash.slice(pathRoot.length, pathWithoutEndSlash.length) : pathWithoutEndSlash;
-}
-exports.getRelativePath = getRelativePath;
-/**
- * Returns a path without the eventual slash at the end
- * @param path      // The path to analyse
- */
-function getPathWithoutEndSlash(path) {
-    return path.charAt(path.length - 1) === `/` ? path.slice(0, path.length - 1) : path;
-}
-exports.getPathWithoutEndSlash = getPathWithoutEndSlash;
 /**
  * Returns an array of paths with a ./ at the beginning
  * @param paths         // The array of paths

@@ -1,7 +1,7 @@
 import { SyntaxKind } from '../../core/enum/syntax-kind.enum';
 import { NodeFeature } from '../enums/node-feature.enum';
 
-export class NodeFeatureService {
+export class FactorCategoryService {
 
 
     getNodeFeature(syntaxKind: SyntaxKind): NodeFeature {

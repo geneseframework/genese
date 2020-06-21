@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astNode, _codeService, _cpxFactors, _cyclomaticCpx, _cpxIndex, _displayedCode, _name, _originalCode;
+var _astNode, _codeService, _cognitiveStatus, _cpxFactors, _cyclomaticCpx, _cpxIndex, _cyclomaticStatus, _displayedCode, _name, _originalCode;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstMethod = void 0;
 const cyclomatic_cpx_service_1 = require("../../services/cyclomatic-cpx.service");
@@ -26,6 +26,7 @@ const code_line_model_1 = require("../code/code-line.model");
 const cpx_factors_1 = require("../../../cpx-factors");
 const factor_category_enum_1 = require("../../enums/factor-category.enum");
 const options_1 = require("../options");
+const log_service_1 = require("../../services/log.service");
 /**
  * Element of the AstNode structure corresponding to a given method
  */
@@ -33,11 +34,11 @@ class AstMethod {
     constructor() {
         _astNode.set(this, undefined); // The AST of the method itself
         _codeService.set(this, new code_service_1.CodeService()); // The service managing Code objects
-        this.cognitiveStatus = evaluation_status_enum_1.MethodStatus.CORRECT; // The cognitive status of the method
-        _cpxFactors.set(this, undefined);
-        _cyclomaticCpx.set(this, 0);
+        _cognitiveStatus.set(this, evaluation_status_enum_1.MethodStatus.CORRECT); // The cognitive status of the method
+        _cpxFactors.set(this, undefined); // The complexity factors of the AstMethod
+        _cyclomaticCpx.set(this, 0); // The cyclomatic complexity of the AstMethod
         _cpxIndex.set(this, undefined); // The complexity index of the method
-        this.cyclomaticStatus = evaluation_status_enum_1.MethodStatus.CORRECT; // The cyclomatic status of the method
+        _cyclomaticStatus.set(this, evaluation_status_enum_1.MethodStatus.CORRECT); // The cyclomatic status of the method
         _displayedCode.set(this, undefined); // The code to display in the report
         _name.set(this, undefined); // The name of the method
         _originalCode.set(this, undefined); // The original Code of the method (as Code object)
@@ -50,6 +51,12 @@ class AstMethod {
     }
     set astNode(astNode) {
         __classPrivateFieldSet(this, _astNode, astNode);
+    }
+    get cognitiveStatus() {
+        return __classPrivateFieldGet(this, _cognitiveStatus);
+    }
+    set cognitiveStatus(cognitiveStatus) {
+        __classPrivateFieldSet(this, _cognitiveStatus, cognitiveStatus);
     }
     get cpxFactors() {
         return __classPrivateFieldGet(this, _cpxFactors);
@@ -66,6 +73,12 @@ class AstMethod {
     }
     set cyclomaticCpx(cyclomaticCpx) {
         __classPrivateFieldSet(this, _cyclomaticCpx, cyclomaticCpx);
+    }
+    get cyclomaticStatus() {
+        return __classPrivateFieldGet(this, _cyclomaticStatus);
+    }
+    set cyclomaticStatus(cyclomaticStatus) {
+        __classPrivateFieldSet(this, _cyclomaticStatus, cyclomaticStatus);
     }
     get displayedCode() {
         return __classPrivateFieldGet(this, _displayedCode);
@@ -95,7 +108,7 @@ class AstMethod {
      */
     evaluate() {
         this.createDisplayedCode();
-        // LogService.printAllChildren(this.astNode);
+        log_service_1.LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
         this.cyclomaticCpx = cyclomatic_cpx_service_1.CyclomaticCpxService.calculateCyclomaticCpx(this.astNode);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
@@ -209,4 +222,4 @@ class AstMethod {
     }
 }
 exports.AstMethod = AstMethod;
-_astNode = new WeakMap(), _codeService = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _cpxIndex = new WeakMap(), _displayedCode = new WeakMap(), _name = new WeakMap(), _originalCode = new WeakMap();
+_astNode = new WeakMap(), _codeService = new WeakMap(), _cognitiveStatus = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _cpxIndex = new WeakMap(), _cyclomaticStatus = new WeakMap(), _displayedCode = new WeakMap(), _name = new WeakMap(), _originalCode = new WeakMap();

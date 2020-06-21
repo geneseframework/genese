@@ -28,13 +28,12 @@ class AstNode {
         _astFile.set(this, undefined); // The AstFile containing the AST node of the AstNode
         _astMethod.set(this, undefined); // The method at the root of the current ast (if this ast is inside a method)
         _astNodeService.set(this, new ast_node_service_1.AstNodeService()); // The service managing AstNodes
-        _children.set(this, []);
+        _children.set(this, []); // The children AstNodes of the AstNode
         _context.set(this, undefined); // The context of the AstNode
         _cpxFactors.set(this, undefined); // The complexity factors of the AstNode
-        _cyclomaticCpx.set(this, 0);
-        _end.set(this, 0);
+        _cyclomaticCpx.set(this, 0); // The cyclomatic complexity of the AstNode
+        _end.set(this, 0); // The position of the end of the source code of the AstNode in the source code of the AstFile
         _factorCategory.set(this, undefined); // The NodeFeature of the node of the AstNode
-        this.nodeFeatureService = new factor_category_service_1.NodeFeatureService(); // The service managing NodeFeatures
         _intrinsicDepthCpx.set(this, undefined); // The depth of the AstNode inside its method (not including its parent's depth)
         _intrinsicNestingCpx.set(this, undefined); // The nesting of the AstNode inside its method (not including its parent's nesting)
         _isCallback.set(this, undefined); // True if the astNode is a method with a Callback, false if not
@@ -42,8 +41,8 @@ class AstNode {
         _kind.set(this, undefined); // The kind of the node ('MethodDeclaration, IfStatement, ...)
         _name.set(this, undefined); // The name of the AstNode
         _parent.set(this, void 0); // The ast of the parent of the current node
-        _pos.set(this, 0);
-        _text.set(this, undefined);
+        _pos.set(this, 0); // The position of the beginning of the source code of the AstNode in the source code of the AstFile
+        _text.set(this, undefined); // The code of the AstNode
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
@@ -101,32 +100,20 @@ class AstNode {
     }
     get factorCategory() {
         var _a;
-        return (_a = __classPrivateFieldGet(this, _factorCategory)) !== null && _a !== void 0 ? _a : this.nodeFeatureService.getNodeFeature(this.kind);
+        return (_a = __classPrivateFieldGet(this, _factorCategory)) !== null && _a !== void 0 ? _a : new factor_category_service_1.FactorCategoryService().getNodeFeature(this.kind);
     }
     get firstSon() {
         return this.getSon(0);
     }
-    /**
-     * Gets the depth complexity of the node itself, not from its parents
-     */
     get intrinsicDepthCpx() {
         return __classPrivateFieldGet(this, _intrinsicDepthCpx);
     }
-    /**
-     * Sets the depth complexity of the node itself, not from its parents
-     */
     set intrinsicDepthCpx(cpx) {
         __classPrivateFieldSet(this, _intrinsicDepthCpx, cpx);
     }
-    /**
-     * Gets the nesting complexity of the node itself, not from its parents
-     */
     get intrinsicNestingCpx() {
         return __classPrivateFieldGet(this, _intrinsicNestingCpx);
     }
-    /**
-     * Sets the nesting complexity of the node itself, not from its parents
-     */
     set intrinsicNestingCpx(cpx) {
         __classPrivateFieldSet(this, _intrinsicNestingCpx, cpx);
     }
@@ -207,7 +194,7 @@ class AstNode {
     //                                  Other methods
     // ---------------------------------------------------------------------------------
     /**
-     * Evaluates the complexities of the AstNodes and the AstMethods of this AstFile
+     * Evaluates the complexity factors of this AstNode and its children
      */
     evaluate() {
         this.calculateAndSetCpxFactors();
@@ -218,7 +205,7 @@ class AstNode {
     }
     /**
      * Gets the xth son of this AstNode
-     * @param sonNumber
+     * @param sonNumber     // The number of the son (0 for the first one)
      */
     getSon(sonNumber) {
         return this.children[sonNumber];
@@ -310,6 +297,10 @@ class AstNode {
             this.cpxFactors.depth = tools_service_1.addObjects(this.parent.cpxFactors.depth, this.cpxFactors.depth);
         }
     }
+    /**
+     * Logs the main information about the AstNode
+     * @param message
+     */
     logg(message) {
         console.log('-----------------------------');
         console.log(chalk.yellowBright(message !== null && message !== void 0 ? message : 'AST NODE'));

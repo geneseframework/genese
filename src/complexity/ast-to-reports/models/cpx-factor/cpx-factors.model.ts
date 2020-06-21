@@ -23,6 +23,12 @@ export class CpxFactors implements Addition<CpxFactors>{
     structural?: StructuralCpx = new StructuralCpx();           // Structural Complexity
 
 
+
+    // ---------------------------------------------------------------------------------
+    //                                Getters and setters
+    // ---------------------------------------------------------------------------------
+
+
     /**
      * Returns the total of Complexity Factors (the Complexity Index)
      */
@@ -63,6 +69,12 @@ export class CpxFactors implements Addition<CpxFactors>{
     get totalStructural(): number {
         return this.totalByFactorCategory(FactorCategory.STRUCTURAL)
     }
+
+
+
+    // ---------------------------------------------------------------------------------
+    //                                  Other methods
+    // ---------------------------------------------------------------------------------
 
 
     /**

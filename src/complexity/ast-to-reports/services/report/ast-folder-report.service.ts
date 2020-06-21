@@ -15,14 +15,14 @@ import { AstFolderService } from '../ast/ast-folder.service';
  */
 export class AstFolderReportService {
 
+    astFolder: AstFolder = undefined;                                       // The AstFolder relative to this service
+    astFolderService: AstFolderService = new AstFolderService();            // The service relative to AstFolders
     private filesArray: RowFileReport[] = [];                               // The array of files reports
     private foldersArray: RowFolderReport[] = [];                           // The array of subfolders reports
     private isRootFolder = false;                                           // True if the AstFolder relative to this service is the root folder of the analysis
     private methodsArray: RowFileReport[] = [];                             // The array of methods reports
     private relativeRootReports = '';                                       // The route between the position of the current TsFolder and the root of the analysis
     template: HandlebarsTemplateDelegate;                                   // The HandleBar template used to generate the report
-    astFolder: AstFolder = undefined;                                     // The AstFolder relative to this service
-    astFolderService: AstFolderService = new AstFolderService();         // The service relative to AstFolders
 
 
     constructor(astFolder: AstFolder) {

@@ -1,14 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstMethodService = void 0;
-const code_service_1 = require("../code.service");
 const complexities_by_status_interface_1 = require("../../interfaces/complexities-by-status.interface");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
 class AstMethodService {
-    constructor() {
-        this.codeService = new code_service_1.CodeService(); // The service managing Code objects
-    }
     /**
      * Returns the addition of a ComplexitiesByStatus object and the complexities scores of a given astMethod
      * @param cpxByStatus   // The object to add

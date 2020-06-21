@@ -91,13 +91,4 @@ export class Options {
         cpxByStatus.cyclomatic.error = Options.cyclomaticCpx.errorThreshold;
         return cpxByStatus;
     }
-
-
-    /**
-     * Checks if a file or a folder is ignored in geneseconfig.json
-     * @param path
-     */
-    static isIgnored(path: string) : boolean {
-        return  Options.ignore.includes(path);
-    }
 }

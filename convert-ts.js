@@ -6,9 +6,8 @@ var ansi_colors_1 = require("ansi-colors");
 var mainAst = require("./src/complexity/languages-to-ast/main-language-to-ast");
 
 try {
-    console.log("WELCOME TO GENESE COMPLEXITY");
+    console.log(ansi_colors_1.yellowBright("WELCOME TO GENESE COMPLEXITY : JSON AST CREATION"));
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
-    // console.log(ansi_colors_1.blueBright("STARTS GENESE CONVERSION TO JSON AST"));
     var mainProcess = new mainAst.MainConvertTs();
     mainProcess.start(__dirname, __dirname + '/src/complexity/core/mocks/', __dirname, 'typescript');
 }

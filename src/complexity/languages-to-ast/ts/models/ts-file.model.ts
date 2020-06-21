@@ -3,15 +3,22 @@ import * as ts from 'typescript';
 import { Logg } from '../../../core/interfaces/logg.interface';
 import { TsNode } from './ts-node.model';
 
+/**
+ * Class corresponding to a ts.SourceFile object
+ */
 export class TsFile implements Logg {
 
-    end: number = undefined;
-    name: string = undefined;
-    sourceFile?: ts.SourceFile = undefined;                    // The Typescript JsonAst
-    text ?= '';
-    tsNode?: TsNode = undefined;                             // The TsNode corresponding to the file itself
+    end: number = undefined;                                    // The position of the end of the source code : will be injected as is in the JsonAst file
+    name: string = undefined;                                   // The name of the file (ie of the TsFile) : will be injected as is in the JsonAst file
+    sourceFile?: ts.SourceFile = undefined;                     // The Typescript SourceFile object corresponding to the file relative to this TsFile
+    text ?= '';                                                 // The source code of the TsFile : will be injected as is in the JsonAst file
+    tsNode?: TsNode = undefined;                                // The TsNode corresponding to the file itself
 
 
+    /**
+     * Logs the main elements of the TsFile
+     * @param message
+     */
     logg(message?: string): void {
         console.log('-----------------------------');
         console.log(chalk.yellowBright(message ?? 'AST_FILE'));
@@ -24,7 +31,12 @@ export class TsFile implements Logg {
     }
 
 
-    loggChildren(tsNode: TsNode, indent = ''): void {
+    /**
+     * Logs the main elements of the children of the TsFile
+     * @param tsNode        // The parent TsNode
+     * @param indent        // The current indentation in the log
+     */
+    private loggChildren(tsNode: TsNode, indent = ''): void {
         for (const childAstNode of tsNode?.children) {
             const name = childAstNode?.name ?? '';
             console.log(chalk.blueBright(`${indent}${childAstNode.kind}`), name);

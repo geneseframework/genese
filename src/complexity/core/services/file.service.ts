@@ -39,29 +39,6 @@ export function getAllFiles(dirPath: string, arrayOfFiles?: string[]): string[] 
 
 
 /**
- * Returns the route from a folder to a subfolder
- * @param pathRoot          // The path of the parent folder
- * @param pathSubfolder     // The path of the subFolder (this path MUST be a path of a subFolder of pathRoot)
- */
-export function getRelativePath(pathRoot: string, pathSubfolder: string): string {
-    if (!pathSubfolder || !pathRoot || pathSubfolder === pathRoot) {
-        return '';
-    }
-    const pathWithoutEndSlash = getPathWithoutEndSlash(pathSubfolder);
-    return pathRoot === pathWithoutEndSlash.slice(0, pathRoot.length) ? pathWithoutEndSlash.slice(pathRoot.length, pathWithoutEndSlash.length) : pathWithoutEndSlash;
-}
-
-
-/**
- * Returns a path without the eventual slash at the end
- * @param path      // The path to analyse
- */
-export function getPathWithoutEndSlash(path: string): string {
-    return path.charAt(path.length - 1) === `/` ? path.slice(0, path.length - 1) : path;
-}
-
-
-/**
  * Returns an array of paths with a ./ at the beginning
  * @param paths         // The array of paths
  */
