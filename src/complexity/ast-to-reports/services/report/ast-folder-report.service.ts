@@ -138,7 +138,6 @@ export class AstFolderReportService {
             }
             report = report.concat(this.getMethodsArray(subfolder));
         }
-        // console.log('METHDSSS REPTTT', report)
         return report;
     }
 
