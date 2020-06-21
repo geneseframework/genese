@@ -1,7 +1,7 @@
 import {
-    CyclomaticComplexityService,
-    CyclomaticComplexityService as CS
-} from '../../services/cyclomatic-complexity.service';
+    CyclomaticCpxService,
+    CyclomaticCpxService as CS
+} from '../../services/cyclomatic-cpx.service';
 import { AstNode } from './ast-node.model';
 import { Code } from '../code/code.model';
 import { CodeService } from '../../services/code.service';
@@ -117,8 +117,10 @@ export class AstMethod implements Evaluate {
         this.createDisplayedCode();
         // LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
-        this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.astNode);
+        this.cyclomaticCpx = CS.calculateCyclomaticCpx(this.astNode);
+        console.log('METOD CY CPXXXX', this.name, this.astNode.kind, this.cyclomaticCpx)
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
+        // console.log('CYCLO STATUSSS MTHD', this.name, this.cyclomaticStatus)
     }
 
 

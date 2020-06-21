@@ -47,6 +47,7 @@ class AstFolderService extends stats_service_1.StatsService {
         let tsFileStats = astFile.getStats();
         this.incrementMethodsByStatus(complexity_type_enum_1.ComplexityType.COGNITIVE, tsFileStats);
         this.incrementMethodsByStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC, tsFileStats);
+        // console.log('CYLCO BY STTTT', tsFileStats.barChartCyclomatic)
         this._stats.barChartCognitive = barchart_service_1.BarchartService.concat(this._stats.barChartCognitive, tsFileStats.barChartCognitive);
         this._stats.barChartCyclomatic = barchart_service_1.BarchartService.concat(this._stats.barChartCyclomatic, tsFileStats.barChartCyclomatic);
     }
@@ -59,7 +60,7 @@ class AstFolderService extends stats_service_1.StatsService {
         this._stats.numberOfMethodsByStatus[type].correct += tsFileStats.numberOfMethodsByStatus[type].correct;
         this._stats.numberOfMethodsByStatus[type].error += tsFileStats.numberOfMethodsByStatus[type].error;
         this._stats.numberOfMethodsByStatus[type].warning += tsFileStats.numberOfMethodsByStatus[type].warning;
-        console.log('ASTFOLDERRR STATS', this._stats.numberOfMethodsByStatus);
+        // console.log('ASTFOLDERRR STATS', this._stats.numberOfMethodsByStatus)
     }
     /**
      * Returns the path of the AstFolder linked to this service
