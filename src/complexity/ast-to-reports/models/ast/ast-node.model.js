@@ -266,7 +266,6 @@ class AstNode {
      */
     setAggregationCpxFactors() {
         if (ast_service_1.Ast.isArrayOfArray(this)) {
-            console.log('IS ARR OF ARRRR', this.kind, this.name);
             this.cpxFactors.aggregation.arr = cpx_factors_1.cpxFactors.aggregation.arr;
         }
         else if (ast_service_1.Ast.isDifferentLogicDoor(this)) {

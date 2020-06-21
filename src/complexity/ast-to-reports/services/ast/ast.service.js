@@ -64,10 +64,9 @@ class Ast {
      * @param astNode      // The node to analyse
      */
     static isDifferentLogicDoor(astNode) {
-        if (Ast.isBinary(astNode) && Ast.isLogicDoor(astNode)) {
+        if (Ast.isBinary(astNode) && Ast.isLogicDoor(astNode.secondSon)) {
             if (Ast.isBinary(astNode.parent)
-                && !Ast.isSameOperatorToken(astNode, astNode.parent)
-                && !Ast.isOrTokenBetweenBinaries(astNode)) {
+                && !Ast.isSameOperatorToken(astNode, astNode.parent)) {
                 return true;
             }
         }
@@ -86,10 +85,10 @@ class Ast {
      * @param astNode      // The node to analyse
      */
     static isElseStatement(astNode) {
-        var _a, _b;
+        var _a;
         return (Ast.isBlock(astNode)
             && ((_a = astNode === null || astNode === void 0 ? void 0 : astNode.parent) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.IfStatement
-            && ((_b = astNode === null || astNode === void 0 ? void 0 : astNode.parent['elseStatement']) === null || _b === void 0 ? void 0 : _b.pos) === (astNode === null || astNode === void 0 ? void 0 : astNode.pos)); // TODO : replace by isSecondSon
+            && (astNode === null || astNode === void 0 ? void 0 : astNode.parent.getSon(2)) === astNode);
     }
     /**
      * Checks if an AST node is a function or a method
@@ -109,11 +108,10 @@ class Ast {
      * Checks if an AST node is a logic door (ie : || or &&)
      * @param astNode // The AST node to check
      */
-    // TODO : Use isSecondSon
     static isLogicDoor(astNode) {
-        var _a, _b, _c;
-        return (_c = (((_a = astNode === null || astNode === void 0 ? void 0 : astNode['operatorToken']) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.AmpersandAmpersandToken
-            || ((_b = astNode === null || astNode === void 0 ? void 0 : astNode['operatorToken']) === null || _b === void 0 ? void 0 : _b.kind) === syntax_kind_enum_1.SyntaxKind.BarBarToken)) !== null && _c !== void 0 ? _c : false;
+        var _a;
+        return (_a = (astNode.kind === syntax_kind_enum_1.SyntaxKind.AmpersandAmpersandToken
+            || astNode.kind === syntax_kind_enum_1.SyntaxKind.BarBarToken)) !== null && _a !== void 0 ? _a : false;
     }
     /**
      * Checks if an AST node is an index of an array, ie if it's a Node which is the second son of an ELEMENT_ACCESS_EXPRESSION
@@ -121,17 +119,6 @@ class Ast {
      */
     static isCallIdentifier(astNode) {
         return (Ast.isCallExpression(astNode.parent) && Ast.isIdentifier(astNode));
-    }
-    /**
-     * Checks if an AST node is "||" anf if this node is between two binary expressions
-     * @param astNode
-     */
-    // TODO : Fix with isSecondSon
-    static isOrTokenBetweenBinaries(astNode) {
-        var _a, _b, _c, _d;
-        return (_d = (((_a = astNode === null || astNode === void 0 ? void 0 : astNode['operatorToken']) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.BarBarToken
-            && ((_b = astNode === null || astNode === void 0 ? void 0 : astNode['left']) === null || _b === void 0 ? void 0 : _b.kind) === syntax_kind_enum_1.SyntaxKind.BinaryExpression
-            && ((_c = astNode === null || astNode === void 0 ? void 0 : astNode['right']) === null || _c === void 0 ? void 0 : _c.kind) === syntax_kind_enum_1.SyntaxKind.BinaryExpression)) !== null && _d !== void 0 ? _d : false;
     }
     /**
      * Checks if an AST node is a Parameter
@@ -154,10 +141,9 @@ class Ast {
      * @param firstNode   // The first AST node
      * @param secondNode  // The second AST node
      */
-    // TODO : Fix with isSecondSon
     static isSameOperatorToken(firstNode, secondNode) {
         var _a, _b, _c;
-        return (_c = ((_a = firstNode === null || firstNode === void 0 ? void 0 : firstNode['operatorToken']) === null || _a === void 0 ? void 0 : _a.kind) === ((_b = secondNode === null || secondNode === void 0 ? void 0 : secondNode['operatorToken']) === null || _b === void 0 ? void 0 : _b.kind)) !== null && _c !== void 0 ? _c : false;
+        return (_c = ((_a = firstNode === null || firstNode === void 0 ? void 0 : firstNode.secondSon) === null || _a === void 0 ? void 0 : _a.kind) === ((_b = secondNode === null || secondNode === void 0 ? void 0 : secondNode.secondSon) === null || _b === void 0 ? void 0 : _b.kind)) !== null && _c !== void 0 ? _c : false;
     }
 }
 exports.Ast = Ast;

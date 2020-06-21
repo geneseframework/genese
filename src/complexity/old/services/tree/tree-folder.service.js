@@ -62,9 +62,7 @@ class TreeFolderService extends stats_service_1.StatsService {
             treeFolder.subFolders.push(subFolder);
         }
         else if (!language || file_service_1.getLanguageExtensions(language).includes(file_service_1.getFileExtension(pathElement))) {
-            console.log('PATHELTTTT', pathElement);
             if (!main_1.DEBUG || (main_1.DEBUG && pathElement === './src/complexity/languages-to-ast/core/debug.mock.ts')) {
-                // if (!DEBUG || (DEBUG && pathElement === './src/complexity/old/mocks/debug.mock.ts')) {
                 treeFolder.treeFiles.push(this.treeFileService.generateTree(pathElement, treeFolder));
             }
         }

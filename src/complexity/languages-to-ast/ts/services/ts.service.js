@@ -65,22 +65,6 @@ class Ts {
     // -------------------------------------   TYPE CHECKS   ------------------------------------------
     // ------------------------------------------------------------------------------------------------
     /**
-     * Checks if an AST node is an index of an array, ie if it's a Node which is the second son of an ElementAccessExpression
-     * @param node      // The node to analyse
-     */
-    static isArrayIndex(node) {
-        var _a;
-        return (((_a = node === null || node === void 0 ? void 0 : node.parent) === null || _a === void 0 ? void 0 : _a.kind) === ts.SyntaxKind.ElementAccessExpression && (node === null || node === void 0 ? void 0 : node.pos) === node.parent['argumentExpression'].pos);
-    }
-    /**
-     * Checks if an AST node is an array of array, ie if it's an ElementAccessExpression which is the first son of another ElementAccessExpression
-     * @param node      // The node to analyse
-     */
-    static isArrayOfArray(node) {
-        var _a;
-        return (((_a = node === null || node === void 0 ? void 0 : node.parent) === null || _a === void 0 ? void 0 : _a.kind) === ts.SyntaxKind.ElementAccessExpression && (node === null || node === void 0 ? void 0 : node.kind) === ts.SyntaxKind.ElementAccessExpression && (node === null || node === void 0 ? void 0 : node.pos) === node.parent['expression'].pos);
-    }
-    /**
      * Checks if an AST node is a BinaryExpression
      * @param node // The AST node
      */
