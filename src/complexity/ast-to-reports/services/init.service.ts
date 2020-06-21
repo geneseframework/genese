@@ -8,6 +8,7 @@ import { CodeService } from './code.service';
 import { AstNodeService } from './ast/ast-node.service';
 import { Ast } from './ast/ast.service';
 import * as chalk from 'chalk';
+import { DEBUG } from '../main-ast';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
@@ -29,7 +30,7 @@ export class InitService {
         const astFolder = new AstFolder();
         astFolder.path = this.getPathFromJsonAstFolder(jsonAst.astFolder);
         astFolder.astFiles = this.generateAstFiles(jsonAst.astFolder, astFolder);
-        if (Array.isArray(jsonAst.astFolder?.children)) {
+        if (Array.isArray(jsonAst.astFolder?.children) && !DEBUG) {
             for (const child of jsonAst.astFolder?.children) {
                 const newChild = this.generateChildrenAstFolder(child, astFolder);
                 newChild.parent = jsonAst.astFolder;
@@ -56,7 +57,9 @@ export class InitService {
     generateAstFiles(astFolderFromJsonAst: any, astFolder: AstFolder): AstFile[] {
         const astFiles: AstFile[] = [];
         for (const astFileFromJsonAst of astFolderFromJsonAst.astFiles) {
-            astFiles.push(this.generateAstFile(astFileFromJsonAst, astFolder));
+            if (!DEBUG || astFileFromJsonAst.name === 'debug.mock.ts') {
+                astFiles.push(this.generateAstFile(astFileFromJsonAst, astFolder));
+            }
         }
         return astFiles;
     }

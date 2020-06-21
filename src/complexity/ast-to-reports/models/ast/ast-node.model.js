@@ -201,16 +201,10 @@ class AstNode {
      */
     evaluate() {
         this.calculateAndSetCpxFactors();
-        // const astMethodService = new AstMethodService();
         for (const child of __classPrivateFieldGet(this, _children)) {
             child.evaluate();
         }
-        // for (const method of this.astMethods) {
-        //     method.evaluate();
-        //     this.cyclomaticCpx += method.cyclomaticCpx;
-        //     this.cyclomaticCpx += method.cyclomaticCpx;
-        //     this.complexitiesByStatus = astMethodService.addMethodCpxByStatus(this.complexitiesByStatus, method);
-        // }
+        this.addParentCpx();
     }
     /**
      * Gets the xth son of this AstNode
@@ -220,9 +214,10 @@ class AstNode {
         return this.children[sonNumber];
     }
     /**
-     * Calculates the complexity index of the AstNode
+     * Calculates the complexity factors of the AstNode
      */
     calculateAndSetCpxFactors() {
+        // console.log('FACTOR CATTTT', this.factorCategory)
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();

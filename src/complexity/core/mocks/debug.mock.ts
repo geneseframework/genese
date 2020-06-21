@@ -1,14 +1,10 @@
 export class DebugMock {
 
-
-    ifAlone(a) {
+    ifNestedIf(a, b) {
         if (a) {
-            return 'b';
-        }
-    }
-
-    iffffAlone(a) {
-        if (a) {
+            if (b) {
+                return 'c';
+            }
             return 'b';
         }
     }

@@ -19,6 +19,7 @@ const cyclomatic_cpx_service_1 = require("../../services/cyclomatic-cpx.service"
 const code_model_1 = require("../code/code.model");
 const code_service_1 = require("../../services/code.service");
 const ast_service_1 = require("../../services/ast/ast.service");
+const log_service_1 = require("../../services/log.service");
 const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
 const cpx_factors_model_1 = require("../cpx-factor/cpx-factors.model");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
@@ -95,7 +96,7 @@ class AstMethod {
      */
     evaluate() {
         this.createDisplayedCode();
-        // LogService.printAllChildren(this.astNode);
+        log_service_1.LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
         this.cyclomaticCpx = cyclomatic_cpx_service_1.CyclomaticCpxService.calculateCyclomaticCpx(this.astNode);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);

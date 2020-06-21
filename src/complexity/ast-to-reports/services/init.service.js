@@ -10,6 +10,7 @@ const ast_method_model_1 = require("../models/ast/ast-method.model");
 const code_service_1 = require("./code.service");
 const ast_node_service_1 = require("./ast/ast-node.service");
 const ast_service_1 = require("./ast/ast.service");
+const main_ast_1 = require("../main-ast");
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
  * - Other services for TreeFolders
@@ -29,7 +30,7 @@ class InitService {
         const astFolder = new ast_folder_model_1.AstFolder();
         astFolder.path = this.getPathFromJsonAstFolder(jsonAst.astFolder);
         astFolder.astFiles = this.generateAstFiles(jsonAst.astFolder, astFolder);
-        if (Array.isArray((_a = jsonAst.astFolder) === null || _a === void 0 ? void 0 : _a.children)) {
+        if (Array.isArray((_a = jsonAst.astFolder) === null || _a === void 0 ? void 0 : _a.children) && !main_ast_1.DEBUG) {
             for (const child of (_b = jsonAst.astFolder) === null || _b === void 0 ? void 0 : _b.children) {
                 const newChild = this.generateChildrenAstFolder(child, astFolder);
                 newChild.parent = jsonAst.astFolder;
@@ -52,7 +53,9 @@ class InitService {
     generateAstFiles(astFolderFromJsonAst, astFolder) {
         const astFiles = [];
         for (const astFileFromJsonAst of astFolderFromJsonAst.astFiles) {
-            astFiles.push(this.generateAstFile(astFileFromJsonAst, astFolder));
+            if (!main_ast_1.DEBUG || astFileFromJsonAst.name === 'debug.mock.ts') {
+                astFiles.push(this.generateAstFile(astFileFromJsonAst, astFolder));
+            }
         }
         return astFiles;
     }

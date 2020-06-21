@@ -2,13 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DebugMock = void 0;
 class DebugMock {
-    ifAlone(a) {
+    ifNestedIf(a, b) {
         if (a) {
-            return 'b';
-        }
-    }
-    iffffAlone(a) {
-        if (a) {
+            if (b) {
+                return 'c';
+            }
             return 'b';
         }
     }
