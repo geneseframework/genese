@@ -16,15 +16,8 @@ class ReportsService {
     static generateAllReports(jsonAst) {
         ReportsService.createStyleFiles();
         const parentFolder = jsonAst.astFolder;
-        // parentFolder.children.push(astFolder);
         ReportsService.generateSubfoldersReports(parentFolder);
     }
-    // static generateAllReports(astFolder: AstFolder): void {
-    //     ReportsService.createStyleFiles();
-    //     const parentFolder: AstFolder = new AstFolder();
-    //     parentFolder.children.push(astFolder);
-    //     ReportsService.generateSubfoldersReports(astFolder);
-    // }
     /**
      * Generates reports of children recursively
      * @param astFolder        // The AstFolder to analyse

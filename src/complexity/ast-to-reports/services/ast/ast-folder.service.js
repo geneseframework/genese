@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstFolderService = void 0;
 const stats_service_1 = require("../report/stats.service");
 const stats_model_1 = require("../../models/stats.model");
-const ast_file_service_1 = require("./ast-file.service");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const barchart_service_1 = require("../report/barchart.service");
 /**
@@ -14,7 +13,6 @@ class AstFolderService extends stats_service_1.StatsService {
     constructor() {
         super();
         this._stats = undefined; // The statistics of the AstFolder
-        this.astFileService = new ast_file_service_1.AstFileService(); // The service managing AstFiles
         this.astFolder = undefined; // The AstFolder corresponding to this service
     }
     /**
@@ -31,6 +29,10 @@ class AstFolderService extends stats_service_1.StatsService {
         this.calculateAstFolderCpxByStatus(astFolder);
         return this._stats;
     }
+    /**
+     * Calculates and sets to _stats the Complexities by Status of a given AstFolder
+     * @param astFolder        // The AstFolder to analyse
+     */
     calculateAstFolderCpxByStatus(astFolder) {
         for (const astFile of astFolder.astFiles) {
             this.calculateAstFileCpxByStatus(astFile);
@@ -44,11 +46,10 @@ class AstFolderService extends stats_service_1.StatsService {
      * @param astFile       // The AstFile to analyse
      */
     calculateAstFileCpxByStatus(astFile) {
-        let tsFileStats = astFile.getStats();
-        this.incrementMethodsByStatus(complexity_type_enum_1.ComplexityType.COGNITIVE, tsFileStats);
-        this.incrementMethodsByStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC, tsFileStats);
-        this._stats.barChartCognitive = barchart_service_1.BarchartService.concat(this._stats.barChartCognitive, tsFileStats.barChartCognitive);
-        this._stats.barChartCyclomatic = barchart_service_1.BarchartService.concat(this._stats.barChartCyclomatic, tsFileStats.barChartCyclomatic);
+        this.incrementMethodsByStatus(complexity_type_enum_1.ComplexityType.COGNITIVE, astFile.stats);
+        this.incrementMethodsByStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC, astFile.stats);
+        this._stats.barChartCognitive = barchart_service_1.BarchartService.concat(this._stats.barChartCognitive, astFile.stats.barChartCognitive);
+        this._stats.barChartCyclomatic = barchart_service_1.BarchartService.concat(this._stats.barChartCyclomatic, astFile.stats.barChartCyclomatic);
     }
     /**
      * Increments the number of methods spread by Status (correct, warning, error) and by complexity type
@@ -59,17 +60,17 @@ class AstFolderService extends stats_service_1.StatsService {
         this._stats.numberOfMethodsByStatus[type].correct += tsFileStats.numberOfMethodsByStatus[type].correct;
         this._stats.numberOfMethodsByStatus[type].error += tsFileStats.numberOfMethodsByStatus[type].error;
         this._stats.numberOfMethodsByStatus[type].warning += tsFileStats.numberOfMethodsByStatus[type].warning;
-        // console.log('ASTFOLDERRR STATS', this._stats.numberOfMethodsByStatus)
     }
     /**
-     * Returns the path of the AstFolder linked to this service
+     * Returns the relative path of an AstFolder
      */
     getNameOrPath(astFolder) {
-        console.log('ABSSS', astFolder.path);
-        console.log('RELLLL', astFolder.relativePath);
         this._stats.subject = astFolder.relativePath;
-        // this._stats.subject = getRelativePath(Options.pathCommand, astFolder.path);
     }
+    /**
+     * Returns the number of files of an astFolder and its subfolders
+     * @param astFolder     // The astFolder to analyse
+     */
     getNumberOfFiles(astFolder) {
         if (!(astFolder === null || astFolder === void 0 ? void 0 : astFolder.astFiles)) {
             return 0;
@@ -78,6 +79,10 @@ class AstFolderService extends stats_service_1.StatsService {
         nbFiles += this.getChildrenFoldersNumberOfFiles(astFolder);
         return nbFiles;
     }
+    /**
+     * Returns the number of files of the subfolders of a given AstFolder
+     * @param astFolder     // The astFolder to analyse
+     */
     getChildrenFoldersNumberOfFiles(astFolder) {
         var _a;
         let nbFiles = 0;
@@ -87,6 +92,10 @@ class AstFolderService extends stats_service_1.StatsService {
         }
         return nbFiles;
     }
+    /**
+     * Returns the number of methods of a given AstFolder
+     * @param astFolder     // The astFolder to analyse
+     */
     getNumberOfMethods(astFolder) {
         if (!(astFolder === null || astFolder === void 0 ? void 0 : astFolder.astFiles)) {
             return 0;
@@ -95,6 +104,10 @@ class AstFolderService extends stats_service_1.StatsService {
         nbMethods += this.getChildrenFoldersNumberOfMethods(astFolder);
         return nbMethods;
     }
+    /**
+     * Returns the number of methods of a given AstFolder without its subfolders
+     * @param astFolder     // The astFolder to analyse
+     */
     getCurrentFolderNumberOfMethods(astFolder) {
         var _a, _b;
         let nbMethods = 0;
@@ -103,6 +116,10 @@ class AstFolderService extends stats_service_1.StatsService {
         }
         return nbMethods;
     }
+    /**
+     * Returns the number of methods of the subfolders of a given AstFolder
+     * @param astFolder     // The astFolder to analyse
+     */
     getChildrenFoldersNumberOfMethods(astFolder) {
         let nbMethods = 0;
         for (const childAstFolder of astFolder.children) {
@@ -111,19 +128,31 @@ class AstFolderService extends stats_service_1.StatsService {
         }
         return nbMethods;
     }
+    /**
+     * Returns the route from the root ancestor to the folder of a given AstFolder
+     * @param astFolder     // The astFolder to analyse
+     */
+    getRelativePath(astFolder) {
+        var _a;
+        return (_a = astFolder === null || astFolder === void 0 ? void 0 : astFolder.path) === null || _a === void 0 ? void 0 : _a.slice(this.getRootPath(astFolder).length);
+    }
+    /**
+     * Returns the ancestor of all the astFolders
+     * @param astFolder     // The astFolder to analyse
+     */
     getAstFolderRoot(astFolder) {
         if (!(astFolder === null || astFolder === void 0 ? void 0 : astFolder.parent)) {
             return astFolder;
         }
         return this.getAstFolderRoot(astFolder.parent);
     }
+    /**
+     * Returns the path of the ancestor of all the astFolders
+     * @param astFolder     // The astFolder to analyse
+     */
     getRootPath(astFolder) {
         var _a;
         return (_a = this.getAstFolderRoot(astFolder)) === null || _a === void 0 ? void 0 : _a.path;
-    }
-    getRelativePath(astFolder) {
-        var _a;
-        return (_a = astFolder === null || astFolder === void 0 ? void 0 : astFolder.path) === null || _a === void 0 ? void 0 : _a.slice(this.getRootPath(astFolder).length);
     }
     /**
      * Returns the path between a AstFolder's path and a AstFile's path which is inside it or inside one of its subfolders

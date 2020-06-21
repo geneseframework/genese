@@ -13,13 +13,13 @@ const ast_folder_service_1 = require("../ast/ast-folder.service");
  */
 class AstFolderReportService {
     constructor(astFolder) {
+        this.astFolder = undefined; // The AstFolder relative to this service
+        this.astFolderService = new ast_folder_service_1.AstFolderService(); // The service relative to AstFolders
         this.filesArray = []; // The array of files reports
         this.foldersArray = []; // The array of subfolders reports
         this.isRootFolder = false; // True if the AstFolder relative to this service is the root folder of the analysis
         this.methodsArray = []; // The array of methods reports
         this.relativeRootReports = ''; // The route between the position of the current TsFolder and the root of the analysis
-        this.astFolder = undefined; // The AstFolder relative to this service
-        this.astFolderService = new ast_folder_service_1.AstFolderService(); // The service relative to AstFolders
         this.astFolder = astFolder;
         this.astFolderService.astFolder = this.astFolder;
     }

@@ -18,12 +18,11 @@ exports.TsFolder = void 0;
 const chalk = require("chalk");
 class TsFolder {
     constructor() {
-        this.tsFiles = []; // The array of files of this folder (not in the subfolders)
+        this.children = []; // The subfolders of this TsFolder
         _parent.set(this, undefined); // The TsFolder corresponding to the parent folder of this TsFolder
-        this.path = undefined; // The absolute path of this folder
-        this.children = []; // The subfolders of this folder
+        this.path = undefined; // The absolute path of this TsFolder : will be injected as is in the JsonAst file
+        this.tsFiles = []; // The array of files of this TsFolder (not in the subfolders) : will be used to create the property "astFiles" of the JsonAst
     }
-    // The children trees corresponding to children AST nodes of the current AST node
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
@@ -36,6 +35,10 @@ class TsFolder {
     // ---------------------------------------------------------------------------------
     //                                  Other methods
     // ---------------------------------------------------------------------------------
+    /**
+     * Logs the main elements of the TsFolder
+     * @param message
+     */
     logg(message) {
         var _a, _b;
         console.log('-----------------------------');
@@ -49,6 +52,11 @@ class TsFolder {
             this.loggChildren(astFile === null || astFile === void 0 ? void 0 : astFile.tsNode, `  `);
         }
     }
+    /**
+     * Logs the main elements of the children of the TsFolder
+     * @param tsNode        // The parent TsNode
+     * @param indent        // The current indentation in the log
+     */
     loggChildren(tsNode, indent = '') {
         var _a;
         for (const childAstNode of tsNode === null || tsNode === void 0 ? void 0 : tsNode.children) {

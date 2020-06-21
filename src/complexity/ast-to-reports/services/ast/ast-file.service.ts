@@ -1,8 +1,5 @@
 import { ComplexityType } from '../../../old/enums/complexity-type.enum';
 import { AstFile } from '../../models/ast/ast-file.model';
-import { AstNode } from '../../models/ast/ast-node.model';
-import { AstMethodService } from './ast-method.service';
-import { AstNodeService } from './ast-node.service';
 import { AstMethod } from '../../models/ast/ast-method.model';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
 import { StatsService } from '../report/stats.service';
@@ -16,23 +13,10 @@ export class AstFileService extends StatsService {
 
     protected _stats: Stats = undefined;                                // The statistics of the AstFile
     astFile: AstFile = undefined;                                       // The AstFile corresponding to this service
-    astMethodService?: AstMethodService = new AstMethodService();    // The service managing AstMethods
-    astNodeService?: AstNodeService = new AstNodeService();          // The service managing AstNodes
 
 
     constructor() {
         super();
-    }
-
-    /**
-     * Sets the javascript context of each AST node
-     * @param astNode      // The "parent" Node
-     */
-    private setContextToAstNodeChildren(astNode: AstNode): void {
-        for (const childAstNode of astNode?.children) {
-            childAstNode.context = this.astNodeService.getContext(childAstNode);
-            this.setContextToAstNodeChildren(childAstNode);
-        }
     }
 
 
@@ -45,7 +29,6 @@ export class AstFileService extends StatsService {
         for (const method of astFile.astMethods) {
             this.incrementStats(method);
         }
-        // console.log('ASTFILEEEE STATS', this._stats.barChartCyclomatic)
     }
 
 

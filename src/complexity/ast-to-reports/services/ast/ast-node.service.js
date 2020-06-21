@@ -7,6 +7,10 @@ const syntax_kind_enum_1 = require("../../../core/enum/syntax-kind.enum");
  * Service managing AstNodes
  */
 class AstNodeService {
+    /**
+     * Returns the source code of a given AstNode
+     * @param astNode       // The AstNode to analyse
+     */
     getCode(astNode) {
         var _a;
         if (!((_a = astNode === null || astNode === void 0 ? void 0 : astNode.astFile) === null || _a === void 0 ? void 0 : _a.text) || (astNode === null || astNode === void 0 ? void 0 : astNode.pos) === undefined || (astNode === null || astNode === void 0 ? void 0 : astNode.end) === undefined) {

@@ -2,7 +2,6 @@ import { AstNode } from '../../models/ast/ast-node.model';
 import { Ast } from './ast.service';
 import { AstMethod } from '../../models/ast/ast-method.model';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
-import * as chalk from 'chalk';
 
 /**
  * Service managing AstNodes
@@ -10,6 +9,10 @@ import * as chalk from 'chalk';
 export class AstNodeService {
 
 
+    /**
+     * Returns the source code of a given AstNode
+     * @param astNode       // The AstNode to analyse
+     */
     getCode(astNode: AstNode): string {
         if (!astNode?.astFile?.text || astNode?.pos === undefined || astNode?.end === undefined) {
             return '';

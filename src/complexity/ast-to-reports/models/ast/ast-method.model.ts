@@ -1,12 +1,8 @@
-import {
-    CyclomaticCpxService,
-    CyclomaticCpxService as CS
-} from '../../services/cyclomatic-cpx.service';
+import { CyclomaticCpxService as CS } from '../../services/cyclomatic-cpx.service';
 import { AstNode } from './ast-node.model';
 import { Code } from '../code/code.model';
 import { CodeService } from '../../services/code.service';
 import { Ast } from '../../services/ast/ast.service';
-import { LogService } from '../../services/log.service';
 import { Evaluate } from '../../interfaces/evaluate.interface';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
 import { CpxFactors } from '../cpx-factor/cpx-factors.model';
@@ -15,22 +11,23 @@ import { CodeLine } from '../code/code-line.model';
 import { cpxFactors } from '../../../cpx-factors';
 import { FactorCategory } from '../../enums/factor-category.enum';
 import { Options } from '../options';
+import { LogService } from '../../services/log.service';
 
 /**
  * Element of the AstNode structure corresponding to a given method
  */
 export class AstMethod implements Evaluate {
 
-    #astNode?: AstNode = undefined;                               // The AST of the method itself
-    #codeService: CodeService = new CodeService();                   // The service managing Code objects
-    cognitiveStatus: MethodStatus = MethodStatus.CORRECT;           // The cognitive status of the method
-    #cpxFactors?: CpxFactors = undefined;
-    #cyclomaticCpx ?= 0;
-    #cpxIndex = undefined;                                          // The complexity index of the method
-    cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;          // The cyclomatic status of the method
-    #displayedCode?: Code = undefined;                              // The code to display in the report
-    #name: string = undefined;                                      // The name of the method
-    #originalCode?: Code = undefined;                               // The original Code of the method (as Code object)
+    #astNode?: AstNode = undefined;                                     // The AST of the method itself
+    #codeService: CodeService = new CodeService();                      // The service managing Code objects
+    #cognitiveStatus: MethodStatus = MethodStatus.CORRECT;              // The cognitive status of the method
+    #cpxFactors?: CpxFactors = undefined;                               // The complexity factors of the AstMethod
+    #cyclomaticCpx ?= 0;                                                // The cyclomatic complexity of the AstMethod
+    #cpxIndex = undefined;                                              // The complexity index of the method
+    #cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;             // The cyclomatic status of the method
+    #displayedCode?: Code = undefined;                                  // The code to display in the report
+    #name: string = undefined;                                          // The name of the method
+    #originalCode?: Code = undefined;                                   // The original Code of the method (as Code object)
 
 
 
@@ -46,6 +43,16 @@ export class AstMethod implements Evaluate {
 
     set astNode(astNode: AstNode) {
         this.#astNode = astNode;
+    }
+
+
+    get cognitiveStatus(): MethodStatus {
+        return this.#cognitiveStatus;
+    }
+
+
+    set cognitiveStatus(cognitiveStatus: MethodStatus) {
+        this.#cognitiveStatus = cognitiveStatus;
     }
 
 
@@ -71,6 +78,16 @@ export class AstMethod implements Evaluate {
 
     set cyclomaticCpx(cyclomaticCpx: number) {
         this.#cyclomaticCpx = cyclomaticCpx;
+    }
+
+
+    get cyclomaticStatus(): MethodStatus {
+        return this.#cyclomaticStatus;
+    }
+
+
+    set cyclomaticStatus(cyclomaticStatus: MethodStatus) {
+        this.#cyclomaticStatus = cyclomaticStatus;
     }
 
 
@@ -115,7 +132,7 @@ export class AstMethod implements Evaluate {
      */
     evaluate(): void {
         this.createDisplayedCode();
-        // LogService.printAllChildren(this.astNode);
+        LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticCpx(this.astNode);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);

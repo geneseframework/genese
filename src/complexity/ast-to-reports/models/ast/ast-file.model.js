@@ -26,12 +26,12 @@ class AstFile {
         _astNode.set(this, undefined); // The AstNode corresponding to the file itself
         _astNodes.set(this, undefined); // Array of all the AstNodes which are children of this.AstNode (including itself)
         _complexitiesByStatus.set(this, undefined); // The file complexities spread by complexity status
-        _cpxFactors.set(this, undefined);
-        _cyclomaticCpx.set(this, 0);
-        _end.set(this, undefined);
-        _name.set(this, undefined);
-        _stats.set(this, undefined); // The statistics of the file
-        _text.set(this, '');
+        _cpxFactors.set(this, undefined); // The complexity factors of the AstFile
+        _cyclomaticCpx.set(this, 0); // The complexity factors of the AstFile
+        _end.set(this, undefined); // The position of the end of the source code
+        _name.set(this, undefined); // The name of the AstFile
+        _stats.set(this, undefined); // The statistics of the AstFile
+        _text.set(this, ''); // The original source code
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
@@ -95,6 +95,9 @@ class AstFile {
         __classPrivateFieldSet(this, _name, name);
     }
     get stats() {
+        if (!__classPrivateFieldGet(this, _stats)) {
+            __classPrivateFieldSet(this, _stats, new ast_file_service_1.AstFileService().getStats(this));
+        }
         return __classPrivateFieldGet(this, _stats);
     }
     set stats(stats) {
@@ -124,15 +127,9 @@ class AstFile {
         }
     }
     /**
-     * Gets the stats of this AstFile
+     * Logs the main elements of an AstFile
+     * @param message       // Optional message
      */
-    getStats() {
-        if (!this.stats) {
-            const astFileService = new ast_file_service_1.AstFileService(); // The service for AstFiles
-            this.stats = astFileService.getStats(this);
-        }
-        return this.stats;
-    }
     logg(message) {
         var _a, _b;
         console.log('-----------------------------');

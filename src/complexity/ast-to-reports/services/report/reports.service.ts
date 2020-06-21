@@ -19,15 +19,8 @@ export class ReportsService {
     static generateAllReports(jsonAst: JsonAst): void {
         ReportsService.createStyleFiles();
         const parentFolder: AstFolder = jsonAst.astFolder;
-        // parentFolder.children.push(astFolder);
         ReportsService.generateSubfoldersReports(parentFolder);
     }
-    // static generateAllReports(astFolder: AstFolder): void {
-    //     ReportsService.createStyleFiles();
-    //     const parentFolder: AstFolder = new AstFolder();
-    //     parentFolder.children.push(astFolder);
-    //     ReportsService.generateSubfoldersReports(astFolder);
-    // }
 
 
     /**

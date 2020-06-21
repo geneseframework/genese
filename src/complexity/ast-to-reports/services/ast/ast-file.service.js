@@ -2,8 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstFileService = void 0;
 const complexity_type_enum_1 = require("../../../old/enums/complexity-type.enum");
-const ast_method_service_1 = require("./ast-method.service");
-const ast_node_service_1 = require("./ast-node.service");
 const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
 const stats_service_1 = require("../report/stats.service");
 /**
@@ -15,18 +13,6 @@ class AstFileService extends stats_service_1.StatsService {
         super();
         this._stats = undefined; // The statistics of the AstFile
         this.astFile = undefined; // The AstFile corresponding to this service
-        this.astMethodService = new ast_method_service_1.AstMethodService(); // The service managing AstMethods
-        this.astNodeService = new ast_node_service_1.AstNodeService(); // The service managing AstNodes
-    }
-    /**
-     * Sets the javascript context of each AST node
-     * @param astNode      // The "parent" Node
-     */
-    setContextToAstNodeChildren(astNode) {
-        for (const childAstNode of astNode === null || astNode === void 0 ? void 0 : astNode.children) {
-            childAstNode.context = this.astNodeService.getContext(childAstNode);
-            this.setContextToAstNodeChildren(childAstNode);
-        }
     }
     /**
      * Calculates the statistics of the AstFile
@@ -38,7 +24,6 @@ class AstFileService extends stats_service_1.StatsService {
         for (const method of astFile.astMethods) {
             this.incrementStats(method);
         }
-        // console.log('ASTFILEEEE STATS', this._stats.barChartCyclomatic)
     }
     /**
      * Increments AstFile statistics for a given method

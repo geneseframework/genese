@@ -22,7 +22,7 @@ class MainConvertTs {
      * @param language              // The language to parse and convert into JsonAst
      */
     start(pathCommand, pathToAnalyze, pathGeneseNodeJs, language) {
-        console.log(chalk.blueBright('STARTS CONVERSION FROM TS TO JSON'));
+        console.log(chalk.blueBright('STARTS JSON AST GENERATION'));
         convert_options_model_1.ConvertOptions.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
         const jsonAst = new json_ast_model_1.JsonAst();
         switch (language) {
@@ -33,7 +33,7 @@ class MainConvertTs {
                 jsonAst.astFolder = astFolder;
         }
         file_service_1.createFile(`./ast-ts.json`, json_service_1.JsonService.prettifyJson(jsonAst));
-        console.log(chalk.blueBright('CONVERSION GENERATED SUCCESSFULLY'));
+        console.log(chalk.blueBright('JSON AST GENERATED SUCCESSFULLY'));
     }
 }
 exports.MainConvertTs = MainConvertTs;
