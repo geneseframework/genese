@@ -29,9 +29,7 @@ export class Ast {
      * @param astNode      // The node to analyse
      */
     static isArrayIndex(astNode: AstNode): boolean {
-        // TODO: Fix
-        return(astNode?.parent?.kind === SyntaxKind.ElementAccessExpression && astNode?.pos === astNode.parent['argumentExpression']?.pos);
-        // return(astNode?.parent?.kind === SyntaxKind.ElementAccessExpression && astNode?.pos === astNode.parent['argumentExpression'].pos);
+        return(astNode?.parent?.kind === SyntaxKind.ElementAccessExpression && astNode?.parent.secondSon === astNode);
     }
 
 
