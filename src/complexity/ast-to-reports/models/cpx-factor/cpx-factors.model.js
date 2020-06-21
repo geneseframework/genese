@@ -32,7 +32,7 @@ class CpxFactors {
         for (const key of Object.keys(this)) {
             total += (_a = this[`total${tools_service_1.capitalize(key)}`]) !== null && _a !== void 0 ? _a : 0;
         }
-        return total;
+        return +total.toFixed(1);
     }
     get totalAggregation() {
         return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.AGGREGATION);

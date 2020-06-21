@@ -16,7 +16,7 @@ export class AstNode implements Evaluate, Logg {
 
     #astFile?: AstFile = undefined;                                             // The AstFile containing the AST node of the AstNode
     #astMethod?: AstMethod = undefined;                                         // The method at the root of the current ast (if this ast is inside a method)
-    astNodeService?: AstNodeService = new AstNodeService();                                                       // The service managing AstNodes
+    #astNodeService?: AstNodeService = new AstNodeService();                                                       // The service managing AstNodes
     #children?: AstNode[] = [];
     #context?: AstNode = undefined;                                             // The context of the AstNode
     #cpxFactors?: CpxFactors = undefined;                                       // The complexity factors of the AstNode
@@ -26,6 +26,8 @@ export class AstNode implements Evaluate, Logg {
     nodeFeatureService?: NodeFeatureService = new NodeFeatureService();         // The service managing NodeFeatures
     #intrinsicDepthCpx: number = undefined;                                     // The depth of the AstNode inside its method (not including its parent's depth)
     #intrinsicNestingCpx: number = undefined;                                   // The nesting of the AstNode inside its method (not including its parent's nesting)
+    #isCallback: boolean = undefined;                                           // True if the astNode is a method with a Callback, false if not
+    #isRecursiveMethod: boolean = undefined;                                    // True if the astNode is a recursive method, false if not
     #kind?: SyntaxKind = undefined;                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
     #name: string = undefined;                                                  // The name of the AstNode
     #parent?: AstNode;                                                          // The ast of the parent of the current node
@@ -76,7 +78,7 @@ export class AstNode implements Evaluate, Logg {
 
 
     get context(): AstNode {
-        return this.#context ?? this.astNodeService.getContext(this);
+        return this.#context ?? this.#astNodeService.getContext(this);
     }
 
 
@@ -163,7 +165,11 @@ export class AstNode implements Evaluate, Logg {
 
 
     get isCallback(): boolean {
-        return this.astNodeService.isCallback(this);
+        if (this.#isCallback) {
+            return this.#isCallback;
+        }
+        this.#isCallback = this.#astNodeService.isCallback(this);
+        return this.#isCallback;
     }
 
 
@@ -183,7 +189,11 @@ export class AstNode implements Evaluate, Logg {
 
 
     get isRecursiveMethod(): boolean {
-        return this.astNodeService.isRecursiveMethod(this);
+        if (this.#isRecursiveMethod) {
+            return this.#isRecursiveMethod;
+        }
+        this.#isRecursiveMethod = this.#astNodeService.isRecursiveMethod(this);
+        return this.#isRecursiveMethod;
     }
 
 
@@ -253,7 +263,7 @@ export class AstNode implements Evaluate, Logg {
 
 
     get text(): string {
-        return this.#text ?? this.astNodeService.getCode(this);
+        return this.#text ?? this.#astNodeService.getCode(this);
     }
 
 
@@ -272,16 +282,10 @@ export class AstNode implements Evaluate, Logg {
      */
     evaluate(): void {
         this.calculateAndSetCpxFactors();
-        // const astMethodService = new AstMethodService();
+        this.addParentCpx();
         for (const child of this.#children) {
             child.evaluate();
         }
-        // for (const method of this.astMethods) {
-        //     method.evaluate();
-        //     this.cyclomaticCpx += method.cyclomaticCpx;
-        //     this.cyclomaticCpx += method.cyclomaticCpx;
-        //     this.complexitiesByStatus = astMethodService.addMethodCpxByStatus(this.complexitiesByStatus, method);
-        // }
     }
 
     /**
@@ -294,7 +298,7 @@ export class AstNode implements Evaluate, Logg {
 
 
     /**
-     * Calculates the complexity index of the AstNode
+     * Calculates the complexity factors of the AstNode
      */
     calculateAndSetCpxFactors(): CpxFactors {
         this.cpxFactors = new CpxFactors();
@@ -344,6 +348,7 @@ export class AstNode implements Evaluate, Logg {
      */
     private setAggregationCpxFactors(): void {
         if (Ast.isArrayOfArray(this)) {
+            console.log('IS ARR OF ARRRR', this.kind, this.name)
             this.cpxFactors.aggregation.arr = cpxFactors.aggregation.arr;
         } else if (Ast.isDifferentLogicDoor(this)) {
             this.cpxFactors.aggregation.differentLogicDoor = cpxFactors.aggregation.differentLogicDoor;

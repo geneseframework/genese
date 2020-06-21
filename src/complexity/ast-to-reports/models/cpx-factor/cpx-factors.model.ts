@@ -31,7 +31,7 @@ export class CpxFactors implements Addition<CpxFactors>{
         for (const key of Object.keys(this)) {
             total += this[`total${capitalize(key)}`] ?? 0;
         }
-        return total;
+        return +total.toFixed(1);
     }
 
 

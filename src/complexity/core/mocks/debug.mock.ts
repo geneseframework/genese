@@ -1,16 +1,9 @@
 export class DebugMock {
 
 
-    ifAlone(a) {
-        if (a) {
-            return 'b';
-        }
-    }
-
-    iffffAlone(a) {
-        if (a) {
-            return 'b';
-        }
+    methodWithCallback(a) {
+        const z = [];
+        return z[a[0]];
     }
 
 }

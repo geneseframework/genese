@@ -47,7 +47,6 @@ export class InitConversionService {
                 if (fs.statSync(pathElement).isDirectory() && !LIMIT_CONVERSIONS) {
                     tsFolder.children.push(this.generateTsFolder(`${pathElement}/`, tsFolder))
                 } else if (this.isFileToConvert(pathElement)) {
-                // } else if (!LIMIT_CONVERSIONS || pathElement === DEBUG_MOCK) {
                     tsFolder.tsFiles.push(this.tsFileConversionService.generateTsFile(pathElement, tsFolder));
                 }
             }

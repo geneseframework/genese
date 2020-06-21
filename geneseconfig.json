@@ -15,7 +15,7 @@
             "/node_modules",
             "./genese"
         ],
-        "pathFolderToAnalyze": "./src/complexity/languages-to-ast/core/",
+        "pathFolderToAnalyze": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks",
         "pathReports": "./genese"
     }
 }

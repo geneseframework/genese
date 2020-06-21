@@ -7,7 +7,6 @@ import { AstMethod } from '../models/ast/ast-method.model';
 import { CodeService } from './code.service';
 import { AstNodeService } from './ast/ast-node.service';
 import { Ast } from './ast/ast.service';
-import * as chalk from 'chalk';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
