@@ -51,14 +51,4 @@ export class TsFileConversionService {
         return tsNode;
     }
 
-
-    /**
-     * Returns the text corresponding to a source code by escaping break lines
-     * @param path
-     */
-    getTextFile(path: string): string {
-        return  Ts.getTextFile(path);
-    }
-
-
 }

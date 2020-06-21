@@ -13,9 +13,6 @@ const file_service_1 = require("../../../core/services/file.service");
  * - Conversion in JsonAst format
  */
 class InitConversionService {
-    constructor() {
-        this.tsFileConversionService = new ts_file_conversion_service_1.TsFileConversionService(); // The service managing TsFiles conversion
-    }
     /**
      * Generates the TsFolder for a given folder
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the folder
@@ -47,12 +44,16 @@ class InitConversionService {
                     tsFolder.children.push(this.generateTsFolder(`${pathElement}/`, tsFolder));
                 }
                 else if (this.isFileToConvert(pathElement)) {
-                    tsFolder.tsFiles.push(this.tsFileConversionService.generateTsFile(pathElement, tsFolder));
+                    tsFolder.tsFiles.push(new ts_file_conversion_service_1.TsFileConversionService().generateTsFile(pathElement, tsFolder));
                 }
             }
         });
         return tsFolder;
     }
+    /**
+     * Returns true if a path corresponds to a file to convert in JsonAst
+     * @param path
+     */
     isFileToConvert(path) {
         return (file_service_1.getFileExtension(path) === 'ts' && !main_language_to_ast_1.LIMIT_CONVERSIONS) || path === main_language_to_ast_1.DEBUG_MOCK;
     }

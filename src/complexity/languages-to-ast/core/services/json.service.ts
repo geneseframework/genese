@@ -1,5 +1,8 @@
 import { isLastIndex, isLastKey } from '../../../core/services/tools.service';
 
+/**
+ * Service managing the transformation of a given JsonFile in a pretty JsonAst format
+ */
 export class JsonService {
 
     /**

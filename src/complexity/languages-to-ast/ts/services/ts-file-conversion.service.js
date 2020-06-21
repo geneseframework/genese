@@ -47,12 +47,5 @@ class TsFileConversionService {
         });
         return tsNode;
     }
-    /**
-     * Returns the text corresponding to a source code by escaping break lines
-     * @param path
-     */
-    getTextFile(path) {
-        return ts_service_1.Ts.getTextFile(path);
-    }
 }
 exports.TsFileConversionService = TsFileConversionService;

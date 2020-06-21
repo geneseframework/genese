@@ -30,6 +30,10 @@ class MainAst {
         reports_service_1.ReportsService.generateAllReports(jsonAst);
         console.log(ansi_colors_1.blueBright('REPORTS GENERATED SUCCESSFULLY'));
     }
+    /**
+     * Returns the content of the JsonAst file
+     * @param jsonAstPath
+     */
     getJsonAst(jsonAstPath) {
         const jsonAst = require(jsonAstPath);
         return jsonAst;

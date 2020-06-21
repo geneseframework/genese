@@ -1,11 +1,10 @@
 {
 	"astFolder": {
-		"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/",
 		"children": [
 			{
-				"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/mocks-mocks/",
 				"children": [
 				],
+				"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/mocks-mocks/",
 				"astFiles": [
 					{
 						"name": "debug-2.mock.ts",
@@ -123,9 +122,9 @@
 				]
 			},
 			{
-				"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/mocks-subfolder/",
 				"children": [
 				],
+				"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/mocks-subfolder/",
 				"astFiles": [
 					{
 						"name": "arrays-mock.ts",
@@ -10439,6 +10438,7 @@
 				]
 			}
 		],
+		"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/",
 		"astFiles": [
 			{
 				"name": "debug.mock.ts",

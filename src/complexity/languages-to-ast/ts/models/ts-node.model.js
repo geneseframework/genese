@@ -20,35 +20,17 @@ exports.TsNode = void 0;
  */
 class TsNode {
     constructor() {
-        this.end = undefined;
-        this.kind = undefined; // The kind of the node ('MethodDeclaration, IfStatement, ...)
-        this.name = undefined; // The name of the TsNode
-        _node.set(this, undefined); // The current node in the AST
-        _parent.set(this, void 0); // The tree of the parent of the current node
-        this.pos = undefined;
-        this.children = []; // The children trees corresponding to children AST nodes of the current AST node
-        // ---------------------------------------------------------------------------------
-        //                                  Other methods
-        // ---------------------------------------------------------------------------------
+        this.end = undefined; // The position of the end of the source code of the TsNode in the code of its TsFile : will be injected as is in the JsonAst file
+        this.kind = undefined; // The kind of the TsNode ('MethodDeclaration, IfStatement, ...) : will be injected as is in the JsonAst file
+        this.name = undefined; // The name of the TsNode : will be injected as is in the JsonAst file
+        _node.set(this, undefined); // The Typescript AST node of the TsNode
+        _parent.set(this, void 0); // The TsNode of the parent of the TsNode
+        this.pos = undefined; // The position of the beginning of the source code of the TsNode in the code of its TsFile : will be injected as is in the JsonAst file
+        this.children = []; // The children trees corresponding to children AST nodes of the current AST node : will be used to create the children of the AstNodes in the JsonAst file
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
-    // get kind(): string {
-    //     return this.#kind ?? Ts.getKind(this.node);
-    // }
-    //
-    //
-    // set kind(kind: string) {
-    //     this.#kind = kind;
-    // }
-    // get name(): string {
-    //     if (this.#name) {
-    //         return this.#name;
-    //     }
-    //     this.#name = this.node?.['name']?.['escapedText'] ?? this.node?.['escapedText'] ?? '';
-    //     return this.#name;
-    // }
     get node() {
         return __classPrivateFieldGet(this, _node);
     }

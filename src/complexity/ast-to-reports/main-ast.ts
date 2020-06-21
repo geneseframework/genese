@@ -32,6 +32,10 @@ export class MainAst {
     }
 
 
+    /**
+     * Returns the content of the JsonAst file
+     * @param jsonAstPath
+     */
     getJsonAst(jsonAstPath: string): JsonAst {
         const jsonAst: JsonAst = require(jsonAstPath);
         return jsonAst;

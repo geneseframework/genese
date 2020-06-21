@@ -13,8 +13,6 @@ import { getFileExtension } from '../../../core/services/file.service';
 export class InitConversionService {
 
 
-    tsFileConversionService?: TsFileConversionService = new TsFileConversionService();  // The service managing TsFiles conversion
-
     /**
      * Generates the TsFolder for a given folder
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the folder
@@ -47,7 +45,7 @@ export class InitConversionService {
                 if (fs.statSync(pathElement).isDirectory() && !LIMIT_CONVERSIONS) {
                     tsFolder.children.push(this.generateTsFolder(`${pathElement}/`, tsFolder))
                 } else if (this.isFileToConvert(pathElement)) {
-                    tsFolder.tsFiles.push(this.tsFileConversionService.generateTsFile(pathElement, tsFolder));
+                    tsFolder.tsFiles.push(new TsFileConversionService().generateTsFile(pathElement, tsFolder));
                 }
             }
         });
@@ -55,6 +53,10 @@ export class InitConversionService {
     }
 
 
+    /**
+     * Returns true if a path corresponds to a file to convert in JsonAst
+     * @param path
+     */
     private isFileToConvert(path: string): boolean {
         return (getFileExtension(path) === 'ts' && !LIMIT_CONVERSIONS) || path === DEBUG_MOCK;
     }
