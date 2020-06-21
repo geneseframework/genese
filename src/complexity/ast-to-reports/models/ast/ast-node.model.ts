@@ -348,7 +348,6 @@ export class AstNode implements Evaluate, Logg {
      */
     private setAggregationCpxFactors(): void {
         if (Ast.isArrayOfArray(this)) {
-            console.log('IS ARR OF ARRRR', this.kind, this.name)
             this.cpxFactors.aggregation.arr = cpxFactors.aggregation.arr;
         } else if (Ast.isDifferentLogicDoor(this)) {
             this.cpxFactors.aggregation.differentLogicDoor = cpxFactors.aggregation.differentLogicDoor;

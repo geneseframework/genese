@@ -77,10 +77,9 @@ er
      * @param astNode      // The node to analyse
      */
     static isDifferentLogicDoor(astNode: AstNode): boolean {
-        if (Ast.isBinary(astNode) && Ast.isLogicDoor(astNode)) {
+        if (Ast.isBinary(astNode) && Ast.isLogicDoor(astNode.secondSon)) {
             if (Ast.isBinary(astNode.parent)
                 && !Ast.isSameOperatorToken(astNode, astNode.parent)
-                && !Ast.isOrTokenBetweenBinaries(astNode)
             ) {
                 return true;
             }
@@ -105,7 +104,7 @@ er
     static isElseStatement(astNode: AstNode): boolean {
         return (Ast.isBlock(astNode)
             && astNode?.parent?.kind === SyntaxKind.IfStatement
-            && astNode?.parent['elseStatement']?.pos === astNode?.pos) // TODO : replace by isSecondSon
+            && astNode?.parent.getSon(2) === astNode)
     }
 
 
@@ -131,10 +130,9 @@ er
      * Checks if an AST node is a logic door (ie : || or &&)
      * @param astNode // The AST node to check
      */
-    // TODO : Use isSecondSon
     static isLogicDoor(astNode: AstNode): boolean {
-        return (astNode?.['operatorToken']?.kind === SyntaxKind.AmpersandAmpersandToken
-            || astNode?.['operatorToken']?.kind === SyntaxKind.BarBarToken)
+        return (astNode.kind === SyntaxKind.AmpersandAmpersandToken
+            || astNode.kind === SyntaxKind.BarBarToken)
             ?? false;
     }
 
@@ -145,19 +143,6 @@ er
      */
     static isCallIdentifier(astNode: AstNode): boolean {
         return(Ast.isCallExpression(astNode.parent) && Ast.isIdentifier(astNode));
-    }
-
-
-    /**
-     * Checks if an AST node is "||" anf if this node is between two binary expressions
-     * @param astNode
-     */
-    // TODO : Fix with isSecondSon
-    static isOrTokenBetweenBinaries(astNode: AstNode): boolean {
-        return (astNode?.['operatorToken']?.kind === SyntaxKind.BarBarToken
-            && astNode?.['left']?.kind === SyntaxKind.BinaryExpression
-            && astNode?.['right']?.kind === SyntaxKind.BinaryExpression)
-            ?? false;
     }
 
 
@@ -184,9 +169,8 @@ er
      * @param firstNode   // The first AST node
      * @param secondNode  // The second AST node
      */
-    // TODO : Fix with isSecondSon
     static isSameOperatorToken(firstNode: AstNode, secondNode: AstNode): boolean {
-        return firstNode?.['operatorToken']?.kind === secondNode?.['operatorToken']?.kind ?? false;
+        return firstNode?.secondSon?.kind === secondNode?.secondSon?.kind ?? false;
     }
 
 }
