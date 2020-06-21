@@ -9,19 +9,11 @@ const syntax_kind_enum_1 = require("../../../core/enum/syntax-kind.enum");
 class AstNodeService {
     getCode(astNode) {
         var _a;
-        // console.log('GET CODDDDEEE', astNode.kind, astNode.name, astNode?.pos, astNode?.end, astNode.astFile);
         if (!((_a = astNode === null || astNode === void 0 ? void 0 : astNode.astFile) === null || _a === void 0 ? void 0 : _a.text) || (astNode === null || astNode === void 0 ? void 0 : astNode.pos) === undefined || (astNode === null || astNode === void 0 ? void 0 : astNode.end) === undefined) {
             return '';
         }
-        // console.log(chalk.red('FILE CODEEE', astNode.astFile.text))
-        // const aaa = `\\`;
-        // console.log('AAAAAAA', aaa.replace(/\\/g, '\\'));
         const text = astNode.astFile.text.replace(/\\/g, '\\');
-        // console.log(chalk.green('GET CODEEE TEXT', text))
-        const zzz = text.slice(astNode.pos, astNode.end);
-        // const zzz = astNode.astFile.text.slice(astNode.pos, astNode.end);
-        // console.log('ZZZZ', {zzz: zzz});
-        return zzz;
+        return text.slice(astNode.pos, astNode.end);
     }
     /**
      * Gets the javascript context of the AST node of a AstNode
@@ -77,10 +69,7 @@ class AstNodeService {
         if (!astNode.isParam) {
             return false;
         }
-        const zzz = this.hasCallBack(astNode, astNode.parent);
-        // console.log('ZZZZ CB', zzz)
-        return zzz;
-        // return this.hasCallBack(astNode, astNode.parent);
+        return this.hasCallBack(astNode, astNode.parent);
     }
     /**
      * Checks if a Parameter AstNode is used in a CallExpression of its method
@@ -106,7 +95,6 @@ class AstNodeService {
         if (!astNode.isFunctionOrMethodDeclaration) {
             return false;
         }
-        console.log('IS FN OR MTHDDDD', astNode.name);
         return this.hasRecursiveNode(astNode.astMethod, astNode);
     }
     /**

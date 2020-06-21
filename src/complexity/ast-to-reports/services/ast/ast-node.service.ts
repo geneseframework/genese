@@ -11,19 +11,11 @@ export class AstNodeService {
 
 
     getCode(astNode: AstNode): string {
-        // console.log('GET CODDDDEEE', astNode.kind, astNode.name, astNode?.pos, astNode?.end, astNode.astFile);
         if (!astNode?.astFile?.text || astNode?.pos === undefined || astNode?.end === undefined) {
             return '';
         }
-        // console.log(chalk.red('FILE CODEEE', astNode.astFile.text))
-        // const aaa = `\\`;
-        // console.log('AAAAAAA', aaa.replace(/\\/g, '\\'));
         const text = astNode.astFile.text.replace(/\\/g, '\\');
-        // console.log(chalk.green('GET CODEEE TEXT', text))
-        const zzz = text.slice(astNode.pos, astNode.end);
-        // const zzz = astNode.astFile.text.slice(astNode.pos, astNode.end);
-        // console.log('ZZZZ', {zzz: zzz});
-        return zzz
+        return text.slice(astNode.pos, astNode.end);
     }
 
     /**
@@ -82,10 +74,7 @@ export class AstNodeService {
         if (!astNode.isParam) {
             return false;
         }
-        const  zzz = this.hasCallBack(astNode, astNode.parent);
-        // console.log('ZZZZ CB', zzz)
-        return zzz
-        // return this.hasCallBack(astNode, astNode.parent);
+        return this.hasCallBack(astNode, astNode.parent);
     }
 
 

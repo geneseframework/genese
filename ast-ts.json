@@ -6,11 +6,11 @@
 		"astFiles": [
 			{
 				"name": "debug.mock.ts",
-				"text": "export class DebugMock {\n\n\n    recursion(a) {\n        this.recursion(a);\n    }\n\n}\n",
+				"text": "export class DebugMock {\n\n\n    methodWithCallback(a, callback) {\n        callback(3);\n    }\n\n}\n",
 				"astNode": {
 					"children": [
 						{
-							"end": 81,
+							"end": 94,
 							"kind": "ClassDeclaration",
 							"name": "DebugMock",
 							"pos": 0,
@@ -31,76 +31,78 @@
 									]
 								},
 								{
-									"end": 78,
+									"end": 91,
 									"kind": "MethodDeclaration",
-									"name": "recursion",
+									"name": "methodWithCallback",
 									"pos": 24,
 									"children": [
 										{
-											"end": 40,
+											"end": 49,
 											"kind": "Identifier",
-											"name": "recursion",
+											"name": "methodWithCallback",
 											"pos": 24,
 											"children": [
 											]
 										},
 										{
-											"end": 42,
+											"end": 51,
 											"kind": "Parameter",
-											"pos": 41,
+											"name": "a",
+											"pos": 50,
 											"children": [
 												{
-													"end": 42,
+													"end": 51,
 													"kind": "Identifier",
 													"name": "a",
-													"pos": 41,
+													"pos": 50,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 78,
-											"kind": "Block",
-											"pos": 43,
+											"end": 61,
+											"kind": "Parameter",
+											"name": "callback",
+											"pos": 52,
 											"children": [
 												{
-													"end": 72,
+													"end": 61,
+													"kind": "Identifier",
+													"name": "callback",
+													"pos": 52,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 91,
+											"kind": "Block",
+											"pos": 62,
+											"children": [
+												{
+													"end": 85,
 													"kind": "ExpressionStatement",
-													"pos": 45,
+													"pos": 64,
 													"children": [
 														{
-															"end": 71,
+															"end": 84,
 															"kind": "CallExpression",
-															"pos": 45,
+															"pos": 64,
 															"children": [
 																{
-																	"end": 68,
-																	"kind": "PropertyAccessExpression",
-																	"pos": 45,
+																	"end": 81,
+																	"kind": "Identifier",
+																	"name": "callback",
+																	"pos": 64,
 																	"children": [
-																		{
-																			"end": 58,
-																			"kind": "ThisKeyword",
-																			"pos": 45,
-																			"children": [
-																			]
-																		},
-																		{
-																			"end": 68,
-																			"kind": "Identifier",
-																			"name": "recursion",
-																			"pos": 59,
-																			"children": [
-																			]
-																		}
 																	]
 																},
 																{
-																	"end": 70,
-																	"kind": "Identifier",
-																	"name": "a",
-																	"pos": 69,
+																	"end": 83,
+																	"kind": "FirstLiteralToken",
+																	"pos": 82,
 																	"children": [
 																	]
 																}
@@ -115,9 +117,9 @@
 							]
 						},
 						{
-							"end": 82,
+							"end": 95,
 							"kind": "EndOfFileToken",
-							"pos": 81,
+							"pos": 94,
 							"children": [
 							]
 						}

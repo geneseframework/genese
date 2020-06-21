@@ -26,6 +26,8 @@ export class AstNode implements Evaluate, Logg {
     nodeFeatureService?: NodeFeatureService = new NodeFeatureService();         // The service managing NodeFeatures
     #intrinsicDepthCpx: number = undefined;                                     // The depth of the AstNode inside its method (not including its parent's depth)
     #intrinsicNestingCpx: number = undefined;                                   // The nesting of the AstNode inside its method (not including its parent's nesting)
+    #isCallback: boolean = undefined;                                           // True if the astNode is a method with a Callback, false if not
+    #isRecursiveMethod: boolean = undefined;                                    // True if the astNode is a recursive method, false if not
     #kind?: SyntaxKind = undefined;                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
     #name: string = undefined;                                                  // The name of the AstNode
     #parent?: AstNode;                                                          // The ast of the parent of the current node
@@ -163,7 +165,11 @@ export class AstNode implements Evaluate, Logg {
 
 
     get isCallback(): boolean {
-        return this.astNodeService.isCallback(this);
+        if (this.#isCallback) {
+            return this.#isCallback;
+        }
+        this.#isCallback = this.astNodeService.isCallback(this);
+        return this.#isCallback;
     }
 
 
@@ -183,7 +189,11 @@ export class AstNode implements Evaluate, Logg {
 
 
     get isRecursiveMethod(): boolean {
-        return this.astNodeService.isRecursiveMethod(this);
+        if (this.#isRecursiveMethod) {
+            return this.#isRecursiveMethod;
+        }
+        this.#isRecursiveMethod = this.astNodeService.isRecursiveMethod(this);
+        return this.#isRecursiveMethod;
     }
 
 
