@@ -1,12 +1,11 @@
 {
     "name": "genese",
-    "version": "0.1.0",
+    "version": "0.1.10",
     "scripts": {
         "ast": "tsc && node ast.js && npm run cleanjs",
         "cleanjs": "rm -rf src/complexity/old/enums/*.js && rm -rf src/complexity/old/interfaces/*.js && rm -rf src/complexity/old/mocks/*.js && rm -rf src/complexity/old/models/*.js && rm -rf src/complexity/old/services/*.js",
         "conversion": "tsc && node convert-ts.js && npm run cleanjs",
         "cpx": "npm run conversion && npm run ast",
-        "debug": "tsc && node debug.js && npm run cleanjs",
         "start": "tsc && npm publish"
     },
     "author": {
