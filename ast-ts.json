@@ -12,13 +12,12 @@
 						{
 							"end": 81,
 							"kind": "ClassDeclaration",
-							"name": "",
+							"name": "DebugMock",
 							"pos": 0,
 							"children": [
 								{
 									"end": 6,
 									"kind": "ExportKeyword",
-									"name": "",
 									"pos": 0,
 									"children": [
 									]
@@ -26,7 +25,7 @@
 								{
 									"end": 22,
 									"kind": "Identifier",
-									"name": "",
+									"name": "DebugMock",
 									"pos": 12,
 									"children": [
 									]
@@ -40,7 +39,7 @@
 										{
 											"end": 40,
 											"kind": "Identifier",
-											"name": "",
+											"name": "recursion",
 											"pos": 24,
 											"children": [
 											]
@@ -48,13 +47,12 @@
 										{
 											"end": 42,
 											"kind": "Parameter",
-											"name": "",
 											"pos": 41,
 											"children": [
 												{
 													"end": 42,
 													"kind": "Identifier",
-													"name": "",
+													"name": "a",
 													"pos": 41,
 													"children": [
 													]
@@ -64,31 +62,26 @@
 										{
 											"end": 78,
 											"kind": "Block",
-											"name": "",
 											"pos": 43,
 											"children": [
 												{
 													"end": 72,
 													"kind": "ExpressionStatement",
-													"name": "",
 													"pos": 45,
 													"children": [
 														{
 															"end": 71,
 															"kind": "CallExpression",
-															"name": "",
 															"pos": 45,
 															"children": [
 																{
 																	"end": 68,
 																	"kind": "PropertyAccessExpression",
-																	"name": "",
 																	"pos": 45,
 																	"children": [
 																		{
 																			"end": 58,
 																			"kind": "ThisKeyword",
-																			"name": "",
 																			"pos": 45,
 																			"children": [
 																			]
@@ -96,7 +89,7 @@
 																		{
 																			"end": 68,
 																			"kind": "Identifier",
-																			"name": "",
+																			"name": "recursion",
 																			"pos": 59,
 																			"children": [
 																			]
@@ -106,7 +99,7 @@
 																{
 																	"end": 70,
 																	"kind": "Identifier",
-																	"name": "",
+																	"name": "a",
 																	"pos": 69,
 																	"children": [
 																	]
@@ -124,7 +117,6 @@
 						{
 							"end": 82,
 							"kind": "EndOfFileToken",
-							"name": "",
 							"pos": 81,
 							"children": [
 							]

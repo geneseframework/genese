@@ -21,7 +21,10 @@ class TsFileConversionService {
             return undefined;
         }
         const tsFile = new ts_file_model_1.TsFile();
-        tsFile.name = file_service_1.getFilename(path);
+        const name = file_service_1.getFilename(path);
+        if (name) {
+            tsFile.name = name;
+        }
         const tsNode = new ts_node_model_1.TsNode();
         tsNode.node = ts_service_1.Ts.getSourceFile(path);
         tsFile.text = ts_service_1.Ts.getTextFile(path);

@@ -116,11 +116,6 @@ class AstNodeService {
      */
     hasRecursiveNode(astNodeMethod, astNode) {
         for (const childAstNode of astNode === null || astNode === void 0 ? void 0 : astNode.children) {
-            console.log('HAS RECURSIVE NDDDD ???', childAstNode.name, astNode.name, astNodeMethod.name);
-            if (childAstNode.name === astNodeMethod.name) {
-                console.log('HAS RECURSIVE NDDDD', astNode.name, astNodeMethod.name);
-                console.log('CTXTTTT', childAstNode.context, astNodeMethod.astNode.context);
-            }
             if (childAstNode.name === astNodeMethod.name && childAstNode.context === astNodeMethod.astNode.context && !astNode.isFunctionOrMethodDeclaration) {
                 return true;
             }

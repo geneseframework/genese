@@ -22,7 +22,10 @@ export class TsFileConversionService {
             return undefined;
         }
         const tsFile = new TsFile();
-        tsFile.name = getFilename(path);
+        const name = getFilename(path);
+        if (name) {
+            tsFile.name = name;
+        }
         const tsNode = new TsNode();
         tsNode.node = Ts.getSourceFile(path);
         tsFile.text = Ts.getTextFile(path);

@@ -115,7 +115,6 @@ export class AstNodeService {
         if (!astNode.isFunctionOrMethodDeclaration) {
             return false;
         }
-        console.log('IS FN OR MTHDDDD', astNode.name)
         return this.hasRecursiveNode(astNode.astMethod, astNode);
     }
 
@@ -127,11 +126,6 @@ export class AstNodeService {
      */
     private hasRecursiveNode(astNodeMethod: AstMethod, astNode?: AstNode): boolean {
         for (const childAstNode of astNode?.children) {
-            console.log('HAS RECURSIVE NDDDD ???', childAstNode.name, astNode.name, astNodeMethod.name);
-            if (childAstNode.name === astNodeMethod.name) {
-                console.log('HAS RECURSIVE NDDDD', astNode.name, astNodeMethod.name);
-                console.log('CTXTTTT', childAstNode.context, astNodeMethod.astNode.context)
-            }
             if (childAstNode.name === astNodeMethod.name && childAstNode.context === astNodeMethod.astNode.context && !astNode.isFunctionOrMethodDeclaration) {
                 return true;
             }
