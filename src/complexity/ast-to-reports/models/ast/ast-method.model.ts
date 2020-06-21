@@ -1,4 +1,7 @@
-import { CyclomaticComplexityService as CS } from '../../services/cyclomatic-complexity.service';
+import {
+    CyclomaticCpxService,
+    CyclomaticCpxService as CS
+} from '../../services/cyclomatic-cpx.service';
 import { AstNode } from './ast-node.model';
 import { Code } from '../code/code.model';
 import { CodeService } from '../../services/code.service';
@@ -19,7 +22,7 @@ import { Options } from '../options';
 export class AstMethod implements Evaluate {
 
     #astNode?: AstNode = undefined;                               // The AST of the method itself
-    codeService: CodeService = new CodeService();                   // The service managing Code objects
+    #codeService: CodeService = new CodeService();                   // The service managing Code objects
     cognitiveStatus: MethodStatus = MethodStatus.CORRECT;           // The cognitive status of the method
     #cpxFactors?: CpxFactors = undefined;
     #cyclomaticCpx ?= 0;
@@ -36,6 +39,16 @@ export class AstMethod implements Evaluate {
     // ---------------------------------------------------------------------------------
 
 
+    get astNode(): AstNode {
+        return this.#astNode;
+    }
+
+
+    set astNode(astNode: AstNode) {
+        this.#astNode = astNode;
+    }
+
+
     get cpxFactors(): CpxFactors {
         return this.#cpxFactors;
     }
@@ -47,7 +60,7 @@ export class AstMethod implements Evaluate {
 
 
     get cpxIndex(): number {
-        return this.#cpxIndex ?? this.calculateCpxIndex();
+        return this.#cpxIndex ?? this.cpxFactors.total;
     }
 
 
@@ -90,16 +103,6 @@ export class AstMethod implements Evaluate {
     }
 
 
-    get astNode(): AstNode {
-        return this.#astNode;
-    }
-
-
-    set astNode(astNode: AstNode) {
-        this.#astNode = astNode;
-    }
-
-
 
     // ---------------------------------------------------------------------------------
     //                                  Other methods
@@ -108,34 +111,33 @@ export class AstMethod implements Evaluate {
 
 
     /**
-     * Evaluates the complexities of this AstMethod
+     * Creates the displayed code of this AstMethod and evaluates its complexity
      */
     evaluate(): void {
         this.createDisplayedCode();
         // LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
-        this.cyclomaticCpx = CS.calculateCyclomaticComplexity(this.astNode);
+        this.cyclomaticCpx = CS.calculateCyclomaticCpx(this.astNode);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
     }
 
 
     /**
-     * Calculates the Complexity Index of the method
+     * Calculates the Complexity Factors of the method
      */
-    private calculateCpxIndex(): number {
+    private calculateCpxFactors(): void {
         if (!(this.#displayedCode?.lines?.length > 0)) {
             this.createDisplayedCode();
         }
-        let count = 0;
+        this.cpxFactors = new CpxFactors();
         for (const line of this.#displayedCode?.lines) {
-            count += line.cpxFactors.total;
+            this.cpxFactors = this.cpxFactors.add(line.cpxFactors);
         }
-        return +count.toFixed(2);
     }
 
 
     /**
-     * Get the complexity status of the method for a given complexity type
+     * Gets the complexity status of the method for a given complexity type
      * @param cpxType
      */
     getComplexityStatus(cpxType: ComplexityType): MethodStatus {
@@ -164,7 +166,7 @@ export class AstMethod implements Evaluate {
         this.setCpxFactorsToDisplayedCode(astNode, false);
         this.#displayedCode.setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
-        this.calculateCpxIndex();
+        this.calculateCpxFactors();
         this.#displayedCode.setTextWithLines();
     }
 
@@ -186,12 +188,12 @@ export class AstMethod implements Evaluate {
 
     /**
      * Calculates the complexity factors of each CodeLine
-     * @param astNode                  // The AstNode of the method
+     * @param astNode                   // The AstNode of the method
      * @param startedUncommentedLines   // Param for recursion (checks if the current line is the first uncommented one)
      */
     private setCpxFactorsToDisplayedCode(astNode: AstNode, startedUncommentedLines = false): void {
         for (const childAst of astNode.children) {
-            let issue = this.codeService.getLineIssue(this.#originalCode, childAst.pos - this.position);
+            let issue = this.#codeService.getLineIssue(this.#originalCode, childAst.pos - this.position);
             const codeLine: CodeLine = this.#displayedCode.lines[issue];
             if (Ast.isElseStatement(childAst)) {
                 childAst.cpxFactors.basic.node = cpxFactors.basic.node;

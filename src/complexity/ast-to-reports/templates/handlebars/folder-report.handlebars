@@ -24,19 +24,18 @@
         </div>
         <div class="pad1y">
             {{#if relativeRootReports}}
-            <a class="backLink" href="../folder-report.html">
-                <-< /a>
+            <a class="backLink" href="../folder-report.html"> <- </a>
             {{/if}}
             {{stats.subject}}
         </div>
         <div class="clearfix">
             <div class='fl pad1y space-right2'>
+                <span>Files : </span>
                 <span class="strong">{{stats.numberOfFiles}}</span>
-                <span>Files</span>
             </div>
             <div class='fl pad1y space-right2'>
+                <span>Methods : </span>
                 <span class="strong">{{stats.numberOfMethods}}</span>
-                <span>Methods</span>
             </div>
         </div>
     </div>
@@ -49,8 +48,8 @@
         </div>
         <div class="clearfix">
             <div class='fl pad1y space-right2'>
+                <span>Cyclomatic complexity :</span>
                 <span class="strong">{{stats.totalCyclomaticComplexity}}</span>
-                <span>points of cyclomatic complexity</span>
             </div>
         </div>
     </div>

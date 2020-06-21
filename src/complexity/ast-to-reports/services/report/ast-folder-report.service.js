@@ -58,7 +58,7 @@ class AstFolderReportService {
         return report;
     }
     /**
-     * Adds a backlink to the parent folder
+     * Adds a backLink to the parent folder
      */
     addRowBackToParentFolder() {
         return {
@@ -120,6 +120,7 @@ class AstFolderReportService {
             }
             report = report.concat(this.getMethodsArray(subfolder));
         }
+        // console.log('METHDSSS REPTTT', report)
         return report;
     }
     /**

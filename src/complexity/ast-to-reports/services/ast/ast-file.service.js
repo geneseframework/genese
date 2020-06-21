@@ -38,6 +38,7 @@ class AstFileService extends stats_service_1.StatsService {
         for (const method of astFile.astMethods) {
             this.incrementStats(method);
         }
+        // console.log('ASTFILEEEE STATS', this._stats.barChartCyclomatic)
     }
     /**
      * Increments AstFile statistics for a given method

@@ -4,6 +4,8 @@ exports.AstFolderService = void 0;
 const stats_service_1 = require("../report/stats.service");
 const stats_model_1 = require("../../models/stats.model");
 const ast_file_service_1 = require("./ast-file.service");
+const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
+const barchart_service_1 = require("../report/barchart.service");
 /**
  * - AstFolders generation from Abstract Syntax AstNode of a folder
  * - Other services for AstFolders
@@ -20,31 +22,33 @@ class AstFolderService extends stats_service_1.StatsService {
      * @param astFolder        // The AstFolder to analyse
      */
     calculateStats(astFolder) {
-        var _a, _b;
         this._stats = new stats_model_1.Stats();
-        this._stats.numberOfFiles += (_b = (_a = astFolder === null || astFolder === void 0 ? void 0 : astFolder.astFiles) === null || _a === void 0 ? void 0 : _a.length) !== null && _b !== void 0 ? _b : 0;
-        for (const file of astFolder.astFiles) {
-            this.incrementFileStats(file);
-        }
-        for (const subFolder of astFolder.children) {
-            this.calculateStats(subFolder);
-        }
+        this._stats.subject = astFolder.relativePath === '' ? astFolder.path : astFolder.relativePath;
+        this._stats.numberOfFiles = astFolder.numberOfFiles;
+        this._stats.numberOfMethods = astFolder.numberOfMethods;
+        this._stats.totalCognitiveComplexity = astFolder.cpxFactors.total;
+        this._stats.totalCyclomaticComplexity = astFolder.cyclomaticCpx;
+        this.calculateAstFolderCpxByStatus(astFolder);
         return this._stats;
+    }
+    calculateAstFolderCpxByStatus(astFolder) {
+        for (const astFile of astFolder.astFiles) {
+            this.calculateAstFileCpxByStatus(astFile);
+        }
+        for (const childAstFolder of astFolder.children) {
+            this.calculateAstFolderCpxByStatus(childAstFolder);
+        }
     }
     /**
      * Increments AstFolder statistics for a given astFile
      * @param astFile       // The AstFile to analyse
      */
-    incrementFileStats(astFile) {
-        if (!astFile) {
-            return;
-        }
+    calculateAstFileCpxByStatus(astFile) {
         let tsFileStats = astFile.getStats();
-        this._stats.numberOfMethods += tsFileStats.numberOfMethods;
-        // this.incrementMethodsByStatus(ComplexityType.COGNITIVE, tsFileStats);
-        // this.incrementMethodsByStatus(ComplexityType.CYCLOMATIC, tsFileStats);
-        // this._stats.barChartCognitive = BarchartService.concat(this._stats.barChartCognitive, tsFileStats.barChartCognitive);
-        // this._stats.barChartCyclomatic = BarchartService.concat(this._stats.barChartCyclomatic, tsFileStats.barChartCyclomatic);
+        this.incrementMethodsByStatus(complexity_type_enum_1.ComplexityType.COGNITIVE, tsFileStats);
+        this.incrementMethodsByStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC, tsFileStats);
+        this._stats.barChartCognitive = barchart_service_1.BarchartService.concat(this._stats.barChartCognitive, tsFileStats.barChartCognitive);
+        this._stats.barChartCyclomatic = barchart_service_1.BarchartService.concat(this._stats.barChartCyclomatic, tsFileStats.barChartCyclomatic);
     }
     /**
      * Increments the number of methods spread by Status (correct, warning, error) and by complexity type
@@ -55,12 +59,57 @@ class AstFolderService extends stats_service_1.StatsService {
         this._stats.numberOfMethodsByStatus[type].correct += tsFileStats.numberOfMethodsByStatus[type].correct;
         this._stats.numberOfMethodsByStatus[type].error += tsFileStats.numberOfMethodsByStatus[type].error;
         this._stats.numberOfMethodsByStatus[type].warning += tsFileStats.numberOfMethodsByStatus[type].warning;
+        // console.log('ASTFOLDERRR STATS', this._stats.numberOfMethodsByStatus)
     }
     /**
      * Returns the path of the AstFolder linked to this service
      */
     getNameOrPath(astFolder) {
+        console.log('ABSSS', astFolder.path);
+        console.log('RELLLL', astFolder.relativePath);
+        this._stats.subject = astFolder.relativePath;
         // this._stats.subject = getRelativePath(Options.pathCommand, astFolder.path);
+    }
+    getNumberOfFiles(astFolder) {
+        if (!(astFolder === null || astFolder === void 0 ? void 0 : astFolder.astFiles)) {
+            return 0;
+        }
+        let nbFiles = astFolder.astFiles.length;
+        nbFiles += this.getChildrenFoldersNumberOfFiles(astFolder);
+        return nbFiles;
+    }
+    getChildrenFoldersNumberOfFiles(astFolder) {
+        var _a;
+        let nbFiles = 0;
+        for (const childAstFolder of astFolder.children) {
+            nbFiles += (_a = childAstFolder.astFiles) === null || _a === void 0 ? void 0 : _a.length;
+            nbFiles += this.getChildrenFoldersNumberOfFiles(childAstFolder);
+        }
+        return nbFiles;
+    }
+    getNumberOfMethods(astFolder) {
+        if (!(astFolder === null || astFolder === void 0 ? void 0 : astFolder.astFiles)) {
+            return 0;
+        }
+        let nbMethods = this.getCurrentFolderNumberOfMethods(astFolder);
+        nbMethods += this.getChildrenFoldersNumberOfMethods(astFolder);
+        return nbMethods;
+    }
+    getCurrentFolderNumberOfMethods(astFolder) {
+        var _a, _b;
+        let nbMethods = 0;
+        for (const astFile of astFolder.astFiles) {
+            nbMethods += (_b = (_a = astFile.astMethods) === null || _a === void 0 ? void 0 : _a.length) !== null && _b !== void 0 ? _b : 0;
+        }
+        return nbMethods;
+    }
+    getChildrenFoldersNumberOfMethods(astFolder) {
+        let nbMethods = 0;
+        for (const childAstFolder of astFolder.children) {
+            nbMethods += this.getCurrentFolderNumberOfMethods(childAstFolder);
+            nbMethods += this.getChildrenFoldersNumberOfMethods(childAstFolder);
+        }
+        return nbMethods;
     }
     getAstFolderRoot(astFolder) {
         if (!(astFolder === null || astFolder === void 0 ? void 0 : astFolder.parent)) {
@@ -90,9 +139,8 @@ class AstFolderService extends stats_service_1.StatsService {
             return undefined;
         }
         else {
-            return;
-            // const linkStarter = astFolder.relativePath === '' ? './' : '.';
-            // return `${linkStarter}${astFile.astFolder.path.slice(astFolder.path.length)}`;
+            const linkStarter = astFolder.relativePath === '' ? './' : '.';
+            return `${linkStarter}${astFile.astFolder.path.slice(astFolder.path.length)}`;
         }
     }
     /**
@@ -109,9 +157,8 @@ class AstFolderService extends stats_service_1.StatsService {
             return undefined;
         }
         else {
-            return;
-            // const linkStarter = astFolder.relativePath === '' ? './' : '.';
-            // return `${linkStarter}${astSubfolder.path.slice(astFolder.path.length)}`;
+            const linkStarter = astFolder.relativePath === '' ? './' : '.';
+            return `${linkStarter}${astSubfolder.path.slice(astFolder.path.length + 1)}`;
         }
     }
 }
