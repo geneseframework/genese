@@ -38,7 +38,6 @@ export class Ast {
      * @param astNode      // The node to analyse
      */
     static isArrayOfArray(astNode: AstNode): boolean {
-        console.log('IS ARR OF ARRRR', astNode.kind, chalk.yellowBright(astNode?.parent?.kind), astNode.name)
         return(astNode?.parent?.kind === SyntaxKind.ElementAccessExpression && astNode?.kind === SyntaxKind.ElementAccessExpression && astNode?.pos === astNode.parent?.pos);
     }
 
