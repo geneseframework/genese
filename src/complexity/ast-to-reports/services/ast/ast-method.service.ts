@@ -1,12 +1,9 @@
-import { CodeService } from '../code.service';
 import { AstMethod } from '../../models/ast/ast-method.model';
 import { ComplexitiesByStatus } from '../../interfaces/complexities-by-status.interface';
 import { ComplexityType } from '../../enums/complexity-type.enum';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
 
 export class AstMethodService {
-
-    codeService?: CodeService = new CodeService();      // The service managing Code objects
 
 
     /**

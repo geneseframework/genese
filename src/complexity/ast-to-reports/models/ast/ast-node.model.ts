@@ -2,7 +2,7 @@ import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 import { AstFile } from './ast-file.model';
 import { AstMethod } from './ast-method.model';
 import { Ast } from '../../services/ast/ast.service';
-import { NodeFeatureService } from '../../services/factor-category.service';
+import { FactorCategoryService } from '../../services/factor-category.service';
 import { Evaluate } from '../../interfaces/evaluate.interface';
 import { CpxFactors } from '../cpx-factor/cpx-factors.model';
 import { NodeFeature } from '../../enums/node-feature.enum';
@@ -122,7 +122,7 @@ export class AstNode implements Evaluate, Logg {
 
 
     get factorCategory(): NodeFeature {
-        return this.#factorCategory ?? new NodeFeatureService().getNodeFeature(this.kind);
+        return this.#factorCategory ?? new FactorCategoryService().getNodeFeature(this.kind);
     }
 
 

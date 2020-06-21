@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstFolderService = void 0;
 const stats_service_1 = require("../report/stats.service");
 const stats_model_1 = require("../../models/stats.model");
-const ast_file_service_1 = require("./ast-file.service");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const barchart_service_1 = require("../report/barchart.service");
 /**
@@ -14,7 +13,6 @@ class AstFolderService extends stats_service_1.StatsService {
     constructor() {
         super();
         this._stats = undefined; // The statistics of the AstFolder
-        this.astFileService = new ast_file_service_1.AstFileService(); // The service managing AstFiles
         this.astFolder = undefined; // The AstFolder corresponding to this service
     }
     /**

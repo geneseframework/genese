@@ -23,6 +23,9 @@ class CpxFactors {
         this.recursion = new recursion_cpx_model_1.RecursionCpx(); // Recursion Complexity
         this.structural = new structural_cpx_model_1.StructuralCpx(); // Structural Complexity
     }
+    // ---------------------------------------------------------------------------------
+    //                                Getters and setters
+    // ---------------------------------------------------------------------------------
     /**
      * Returns the total of Complexity Factors (the Complexity Index)
      */
@@ -52,6 +55,9 @@ class CpxFactors {
     get totalStructural() {
         return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.STRUCTURAL);
     }
+    // ---------------------------------------------------------------------------------
+    //                                  Other methods
+    // ---------------------------------------------------------------------------------
     /**
      * Returns the total Complexity Index for a given Category of Factors
      * @param factorCategory

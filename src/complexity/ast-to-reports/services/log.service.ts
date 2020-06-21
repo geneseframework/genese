@@ -13,7 +13,7 @@ export class LogService {
 
 
     /**
-     * Logs all the AST
+     * Logs all the AST of the AstNode of a given AstMethod
      * This method runs, but is not yet used
      */
     static printAllChildren(astNode: AstNode){

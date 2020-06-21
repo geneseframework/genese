@@ -1,40 +1,13 @@
 import { AstFolder } from './ast-folder.model';
 import { Logg } from '../../../core/interfaces/logg.interface';
-import { CpxFactors } from '../cpx-factor/cpx-factors.model';
 import * as chalk from 'chalk';
 import { AstNode } from './ast-node.model';
 
 export class JsonAst implements Logg {
 
-    astFolder?: AstFolder = undefined;
-    #cpxFactors?: CpxFactors = undefined;
-    #cyclomaticCpx ?= 0;
+    astFolder?: AstFolder = undefined;              // The root of the JsonAST : the first AstFolder at the root of the folders to analyse
 
 
-    // ---------------------------------------------------------------------------------
-    //                                Getters and setters
-    // ---------------------------------------------------------------------------------
-
-
-
-    get cpxFactors(): CpxFactors {
-        return this.#cpxFactors;
-    }
-
-
-    set cpxFactors(cpxFactors: CpxFactors) {
-        this.#cpxFactors = cpxFactors;
-    }
-
-
-    get cyclomaticCpx(): number {
-        return this.#cyclomaticCpx;
-    }
-
-
-    set cyclomaticCpx(cyclomaticCpx: number) {
-        this.#cyclomaticCpx = cyclomaticCpx;
-    }
 
 
     // ---------------------------------------------------------------------------------
@@ -42,6 +15,10 @@ export class JsonAst implements Logg {
     // ---------------------------------------------------------------------------------
 
 
+    /**
+     * Logs the main information about the JsonAst
+     * @param message       // An optional message
+     */
     logg(message?: string): void {
         console.log('-----------------------------');
         console.log(chalk.yellowBright(message ?? 'JSON_AST'));
@@ -57,7 +34,12 @@ export class JsonAst implements Logg {
     }
 
 
-    loggChildren(astNode: AstNode, indent = ''): void {
+    /**
+     * Logs the main information of an AstNode of the JsonAst
+     * @param astNode       // The AstNode to analyse
+     * @param indent        // The current indentation in the log
+     */
+    private loggChildren(astNode: AstNode, indent = ''): void {
         for (const childAstNode of astNode?.children) {
             const name = childAstNode?.name ?? '';
             console.log(chalk.blueBright(`${indent}node`), childAstNode.kind, name);

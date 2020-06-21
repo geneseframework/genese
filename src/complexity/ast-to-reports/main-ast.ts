@@ -14,9 +14,6 @@ export class MainAst {
 
     initService?: InitService = new InitService();    // The service managing TreeFolders
 
-    constructor() {
-    }
-
     /**
      * Starts the analysis
      * @param pathCommand

@@ -14,7 +14,7 @@ export class AstFileReportService {
     private methodReports: MethodReport[] = [];     // The array of method reports
     private relativeRootReports = '';               // The route between the position of the current TsFile and the root of the analysis
     template: HandlebarsTemplateDelegate;           // The HandleBar template used to generate the report
-    astFile: AstFile = undefined;                 // The AstFile relative to this service
+    astFile: AstFile = undefined;                   // The AstFile relative to this service
 
 
     constructor(astFile: AstFile) {
@@ -27,9 +27,7 @@ export class AstFileReportService {
      */
     getMethodsArray(): MethodReport[] {
         let report: MethodReport[] = [];
-        // console.log('ASTFILE REPORT GET MTHDSSS name', this.astFile.name)
         for (const method of this.astFile.astMethods) {
-            // console.log('ASTFILE REPORT GET MTHDSSS method', method.originalCode)
             const methodReport: MethodReport = {
                 code: method.displayedCode?.text,
                 cognitiveColor: method.cognitiveStatus.toLowerCase(),

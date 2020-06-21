@@ -9,6 +9,10 @@ import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 export class AstNodeService {
 
 
+    /**
+     * Returns the source code of a given AstNode
+     * @param astNode       // The AstNode to analyse
+     */
     getCode(astNode: AstNode): string {
         if (!astNode?.astFile?.text || astNode?.pos === undefined || astNode?.end === undefined) {
             return '';

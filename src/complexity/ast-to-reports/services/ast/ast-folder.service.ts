@@ -1,6 +1,5 @@
 import { StatsService } from '../report/stats.service';
 import { Stats } from '../../models/stats.model';
-import { AstFileService } from './ast-file.service';
 import { AstFolder } from '../../models/ast/ast-folder.model';
 import { AstFile } from '../../models/ast/ast-file.model';
 import { ComplexityType } from '../../enums/complexity-type.enum';
@@ -12,9 +11,8 @@ import { BarchartService } from '../report/barchart.service';
  */
 export class AstFolderService extends StatsService {
 
-    protected _stats: Stats = undefined;                        // The statistics of the AstFolder
-    astFileService?: AstFileService = new AstFileService();  // The service managing AstFiles
-    astFolder: AstFolder = undefined;                         // The AstFolder corresponding to this service
+    protected _stats: Stats = undefined;                            // The statistics of the AstFolder
+    astFolder: AstFolder = undefined;                               // The AstFolder corresponding to this service
 
     constructor() {
         super();

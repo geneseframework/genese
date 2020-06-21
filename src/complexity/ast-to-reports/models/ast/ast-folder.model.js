@@ -22,13 +22,13 @@ const chalk = require("chalk");
 class AstFolder {
     constructor() {
         _astFiles.set(this, []); // The array of files of this folder (not in the subfolders)
-        _astFolderService.set(this, new ast_folder_service_1.AstFolderService());
+        _astFolderService.set(this, new ast_folder_service_1.AstFolderService()); // The service managing AstFolders
         _children.set(this, []); // The subfolders of this folder
         _complexitiesByStatus.set(this, new complexities_by_status_interface_1.ComplexitiesByStatus()); // The folder complexities spread by complexity status
-        _cpxFactors.set(this, undefined);
-        _cyclomaticCpx.set(this, 0);
-        _numberOfFiles.set(this, undefined);
-        _numberOfMethods.set(this, undefined);
+        _cpxFactors.set(this, undefined); // The complexity factors of the AstFolder
+        _cyclomaticCpx.set(this, 0); // The cyclomatic complexity of the AstFolder
+        _numberOfFiles.set(this, undefined); // The number of files of the AstFolder
+        _numberOfMethods.set(this, undefined); // The number of methods of the AstFolder
         _parent.set(this, undefined); // The AstFolder corresponding to the parent folder of this AstFolder
         _path.set(this, undefined); // The absolute path of this folder
         _relativePath.set(this, undefined); // The relative path of this folder compared to the root folder of the analyse
@@ -111,7 +111,7 @@ class AstFolder {
     //                                  Other methods
     // ---------------------------------------------------------------------------------
     /**
-     * Evaluates the complexities of the TreeFiles of this AstFolder
+     * Evaluates the complexities of the AstFiles of this AstFolder
      */
     evaluate() {
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
@@ -127,6 +127,10 @@ class AstFolder {
         this.numberOfMethods = __classPrivateFieldGet(this, _astFolderService).getNumberOfMethods(this);
         this.stats = __classPrivateFieldGet(this, _astFolderService).calculateStats(this);
     }
+    /**
+     * Logs the main elements of the AstFolder
+     * @param message       // An optional message
+     */
     logg(message) {
         var _a, _b;
         console.log('-----------------------------');
@@ -140,6 +144,11 @@ class AstFolder {
             this.loggChildren(astFile === null || astFile === void 0 ? void 0 : astFile.astNode, `  `);
         }
     }
+    /**
+     * Logs the main elements of the children of the AstFolder's AstNode
+     * @param astNode       // The AstNode of the AstFolder
+     * @param indent        // The indentation of the current AstNode (in the log)
+     */
     loggChildren(astNode, indent = '') {
         var _a;
         for (const childAstNode of astNode === null || astNode === void 0 ? void 0 : astNode.children) {

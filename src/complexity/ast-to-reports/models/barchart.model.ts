@@ -105,16 +105,5 @@ export class Barchart {
         return this;
     }
 
-
-    /**
-     * Gets the sum of complexities of this barchart
-     */
-    getSumOfComplexities(): number {
-        if (!this.data?.length) {
-            return 0;
-        }
-        return this.data.map(e => e.x * e.y).reduce((total, current)  =>  total + current);
-    }
-
 }
 

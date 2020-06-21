@@ -90,15 +90,5 @@ class Barchart {
         this.sort();
         return this;
     }
-    /**
-     * Gets the sum of complexities of this barchart
-     */
-    getSumOfComplexities() {
-        var _a;
-        if (!((_a = this.data) === null || _a === void 0 ? void 0 : _a.length)) {
-            return 0;
-        }
-        return this.data.map(e => e.x * e.y).reduce((total, current) => total + current);
-    }
 }
 exports.Barchart = Barchart;

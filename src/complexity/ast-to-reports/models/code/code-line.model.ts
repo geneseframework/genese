@@ -9,7 +9,7 @@ import { addObjects } from '../../../core/services/tools.service';
 
 export class CodeLine {
 
-    astNodes?: AstNode[] = [];                            // The array of AstNodes corresponding to AST nodes in this line of code
+    astNodes?: AstNode[] = [];                              // The array of AstNodes corresponding to AST nodes in this line of code
     cpxFactors?: CpxFactors = new CpxFactors();             // The complexity factors relative to this line (breakFlows, increments,...)
     issue ?= 0;                                             // The number of the line in its Code parentFunction (method)
     position ?= 0;                                          // The position (in number of characters) of the start of the line
