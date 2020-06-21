@@ -36,10 +36,16 @@ export class Ts {
      * @param node // The AST node
      */
     static getName(node: ts.Node): string {
-        if (Ts.isFunctionOrMethod(node)) {
-            return node?.['name']?.['escapedText'] ?? '';
-        } else {
-            return '';
+        switch (node?.kind) {
+            case ts.SyntaxKind.ClassDeclaration:
+            case ts.SyntaxKind.FunctionDeclaration:
+            case ts.SyntaxKind.MethodDeclaration:
+            case ts.SyntaxKind.Parameter:
+                return node['name']?.['escapedText'] ?? '';
+            case ts.SyntaxKind.Identifier:
+                return node['escapedText'] ?? '';
+            default:
+                return undefined;
         }
     }
 

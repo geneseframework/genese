@@ -2,15 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DebugMock = void 0;
 class DebugMock {
-    ifAlone(a) {
-        if (a) {
-            return 'b';
-        }
-    }
-    iffffAlone(a) {
-        if (a) {
-            return 'b';
-        }
+    methodWithCallback(a) {
+        const z = [];
+        return z[a[0]];
     }
 }
 exports.DebugMock = DebugMock;

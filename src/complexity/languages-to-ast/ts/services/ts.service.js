@@ -30,12 +30,17 @@ class Ts {
      * @param node // The AST node
      */
     static getName(node) {
-        var _a, _b;
-        if (Ts.isFunctionOrMethod(node)) {
-            return (_b = (_a = node === null || node === void 0 ? void 0 : node['name']) === null || _a === void 0 ? void 0 : _a['escapedText']) !== null && _b !== void 0 ? _b : '';
-        }
-        else {
-            return '';
+        var _a, _b, _c;
+        switch (node === null || node === void 0 ? void 0 : node.kind) {
+            case ts.SyntaxKind.ClassDeclaration:
+            case ts.SyntaxKind.FunctionDeclaration:
+            case ts.SyntaxKind.MethodDeclaration:
+            case ts.SyntaxKind.Parameter:
+                return (_b = (_a = node['name']) === null || _a === void 0 ? void 0 : _a['escapedText']) !== null && _b !== void 0 ? _b : '';
+            case ts.SyntaxKind.Identifier:
+                return (_c = node['escapedText']) !== null && _c !== void 0 ? _c : '';
+            default:
+                return undefined;
         }
     }
     /**

@@ -8,6 +8,7 @@ import { createFile } from '../core/services/file.service';
 
 export const LIMIT_CONVERSIONS = false;
 export const DEBUG_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
+
 /**
  * Main process of the conversion to JsonAst
  */
