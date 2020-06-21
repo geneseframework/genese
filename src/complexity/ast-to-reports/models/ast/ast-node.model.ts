@@ -16,14 +16,13 @@ export class AstNode implements Evaluate, Logg {
 
     #astFile?: AstFile = undefined;                                             // The AstFile containing the AST node of the AstNode
     #astMethod?: AstMethod = undefined;                                         // The method at the root of the current ast (if this ast is inside a method)
-    #astNodeService?: AstNodeService = new AstNodeService();                                                       // The service managing AstNodes
-    #children?: AstNode[] = [];
+    #astNodeService?: AstNodeService = new AstNodeService();                    // The service managing AstNodes
+    #children?: AstNode[] = [];                                                 // The children AstNodes of the AstNode
     #context?: AstNode = undefined;                                             // The context of the AstNode
     #cpxFactors?: CpxFactors = undefined;                                       // The complexity factors of the AstNode
-    #cyclomaticCpx ?= 0;
-    #end ?= 0;
+    #cyclomaticCpx ?= 0;                                                        // The cyclomatic complexity of the AstNode
+    #end ?= 0;                                                                  // The position of the end of the source code of the AstNode in the source code of the AstFile
     #factorCategory?: NodeFeature = undefined;                                  // The NodeFeature of the node of the AstNode
-    nodeFeatureService?: NodeFeatureService = new NodeFeatureService();         // The service managing NodeFeatures
     #intrinsicDepthCpx: number = undefined;                                     // The depth of the AstNode inside its method (not including its parent's depth)
     #intrinsicNestingCpx: number = undefined;                                   // The nesting of the AstNode inside its method (not including its parent's nesting)
     #isCallback: boolean = undefined;                                           // True if the astNode is a method with a Callback, false if not
@@ -31,8 +30,8 @@ export class AstNode implements Evaluate, Logg {
     #kind?: SyntaxKind = undefined;                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
     #name: string = undefined;                                                  // The name of the AstNode
     #parent?: AstNode;                                                          // The ast of the parent of the current node
-    #pos ?= 0;
-    #text: string = undefined;
+    #pos ?= 0;                                                                  // The position of the beginning of the source code of the AstNode in the source code of the AstFile
+    #text: string = undefined;                                                  // The code of the AstNode
 
 
 
@@ -123,7 +122,7 @@ export class AstNode implements Evaluate, Logg {
 
 
     get factorCategory(): NodeFeature {
-        return this.#factorCategory ?? this.nodeFeatureService.getNodeFeature(this.kind);
+        return this.#factorCategory ?? new NodeFeatureService().getNodeFeature(this.kind);
     }
 
 
@@ -132,33 +131,21 @@ export class AstNode implements Evaluate, Logg {
     }
 
 
-    /**
-     * Gets the depth complexity of the node itself, not from its parents
-     */
     get intrinsicDepthCpx(): number {
         return this.#intrinsicDepthCpx;
     }
 
 
-    /**
-     * Sets the depth complexity of the node itself, not from its parents
-     */
     set intrinsicDepthCpx(cpx: number) {
         this.#intrinsicDepthCpx = cpx;
     }
 
 
-    /**
-     * Gets the nesting complexity of the node itself, not from its parents
-     */
     get intrinsicNestingCpx(): number {
         return this.#intrinsicNestingCpx;
     }
 
 
-    /**
-     * Sets the nesting complexity of the node itself, not from its parents
-     */
     set intrinsicNestingCpx(cpx: number) {
         this.#intrinsicNestingCpx = cpx;
     }
@@ -278,7 +265,7 @@ export class AstNode implements Evaluate, Logg {
 
 
     /**
-     * Evaluates the complexities of the AstNodes and the AstMethods of this AstFile
+     * Evaluates the complexity factors of this AstNode and its children
      */
     evaluate(): void {
         this.calculateAndSetCpxFactors();
@@ -290,7 +277,7 @@ export class AstNode implements Evaluate, Logg {
 
     /**
      * Gets the xth son of this AstNode
-     * @param sonNumber
+     * @param sonNumber     // The number of the son (0 for the first one)
      */
     getSon(sonNumber: number): AstNode {
         return this.children[sonNumber];
@@ -400,7 +387,10 @@ export class AstNode implements Evaluate, Logg {
     }
 
 
-
+    /**
+     * Logs the main information about the AstNode
+     * @param message
+     */
     logg(message?: string): void {
         console.log('-----------------------------');
         console.log(chalk.yellowBright(message ?? 'AST NODE'));

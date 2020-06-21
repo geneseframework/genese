@@ -14,13 +14,13 @@ import { AstNode } from './ast-node.model';
 export class AstFolder implements Evaluate, Logg {
 
     #astFiles?: AstFile[] = [];                                                     // The array of files of this folder (not in the subfolders)
-    #astFolderService?: AstFolderService = new AstFolderService();
+    #astFolderService?: AstFolderService = new AstFolderService();                  // The service managing AstFolders
     #children?: AstFolder[] = [];                                                   // The subfolders of this folder
     #complexitiesByStatus?: ComplexitiesByStatus = new ComplexitiesByStatus();      // The folder complexities spread by complexity status
-    #cpxFactors?: CpxFactors = undefined;
-    #cyclomaticCpx ?= 0;
-    #numberOfFiles: number = undefined;
-    #numberOfMethods: number = undefined;
+    #cpxFactors?: CpxFactors = undefined;                                           // The complexity factors of the AstFolder
+    #cyclomaticCpx ?= 0;                                                            // The cyclomatic complexity of the AstFolder
+    #numberOfFiles: number = undefined;                                             // The number of files of the AstFolder
+    #numberOfMethods: number = undefined;                                           // The number of methods of the AstFolder
     #parent?: AstFolder = undefined;                                                // The AstFolder corresponding to the parent folder of this AstFolder
     #path?: string = undefined;                                                     // The absolute path of this folder
     #relativePath?: string = undefined;                                             // The relative path of this folder compared to the root folder of the analyse
@@ -150,9 +150,8 @@ export class AstFolder implements Evaluate, Logg {
 
 
     /**
-     * Evaluates the complexities of the TreeFiles of this AstFolder
+     * Evaluates the complexities of the AstFiles of this AstFolder
      */
-
     evaluate(): void {
         this.cpxFactors = new CpxFactors();
         for (const astFile of this.astFiles) {
@@ -169,6 +168,10 @@ export class AstFolder implements Evaluate, Logg {
     }
 
 
+    /**
+     * Logs the main elements of the AstFolder
+     * @param message       // An optional message
+     */
     logg(message?: string): void {
         console.log('-----------------------------');
         console.log(chalk.yellowBright(message ?? 'AST_FOLDER'));
@@ -183,7 +186,12 @@ export class AstFolder implements Evaluate, Logg {
     }
 
 
-    loggChildren(astNode: AstNode, indent = ''): void {
+    /**
+     * Logs the main elements of the children of the AstFolder's AstNode
+     * @param astNode       // The AstNode of the AstFolder
+     * @param indent        // The indentation of the current AstNode (in the log)
+     */
+    private loggChildren(astNode: AstNode, indent = ''): void {
         for (const childAstNode of astNode?.children) {
             const name = childAstNode?.name ?? '';
             console.log(chalk.blueBright(`${indent}${childAstNode.kind}`), name);
