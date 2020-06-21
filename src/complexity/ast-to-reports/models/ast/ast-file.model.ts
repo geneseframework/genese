@@ -17,12 +17,12 @@ export class AstFile implements Evaluate, Logg {
     #astNode?: AstNode = undefined;                             // The AstNode corresponding to the file itself
     #astNodes?: AstNode[] = undefined;                          // Array of all the AstNodes which are children of this.AstNode (including itself)
     #complexitiesByStatus?: ComplexitiesByStatus = undefined;   // The file complexities spread by complexity status
-    #cpxFactors?: CpxFactors = undefined;
-    #cyclomaticCpx ?= 0;
-    #end: number = undefined;
-    #name: string = undefined;
-    #stats?: Stats = undefined;                                  // The statistics of the file
-    #text ?= '';
+    #cpxFactors?: CpxFactors = undefined;                       // The complexity factors of the AstFile
+    #cyclomaticCpx ?= 0;                                        // The complexity factors of the AstFile
+    #end: number = undefined;                                   // The position of the end of the source code
+    #name: string = undefined;                                  // The name of the AstFile
+    #stats?: Stats = undefined;                                 // The statistics of the AstFile
+    #text ?= '';                                                // The original source code
 
 
 
@@ -125,6 +125,9 @@ export class AstFile implements Evaluate, Logg {
 
 
     get stats(): Stats {
+        if (!this.#stats) {
+            this.#stats = new AstFileService().getStats(this);
+        }
         return this.#stats;
     }
 
@@ -166,17 +169,9 @@ export class AstFile implements Evaluate, Logg {
 
 
     /**
-     * Gets the stats of this AstFile
+     * Logs the main elements of an AstFile
+     * @param message       // Optional message
      */
-    getStats(): Stats {
-        if (!this.stats) {
-            const astFileService =new AstFileService();      // The service for AstFiles
-            this.stats = astFileService.getStats(this);
-        }
-        return this.stats;
-    }
-
-
     logg(message?: string): void {
         console.log('-----------------------------');
         console.log(chalk.yellowBright(message ?? 'AST_FILE'));

@@ -1,12 +1,8 @@
-import {
-    CyclomaticCpxService,
-    CyclomaticCpxService as CS
-} from '../../services/cyclomatic-cpx.service';
+import { CyclomaticCpxService as CS } from '../../services/cyclomatic-cpx.service';
 import { AstNode } from './ast-node.model';
 import { Code } from '../code/code.model';
 import { CodeService } from '../../services/code.service';
 import { Ast } from '../../services/ast/ast.service';
-import { LogService } from '../../services/log.service';
 import { Evaluate } from '../../interfaces/evaluate.interface';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
 import { CpxFactors } from '../cpx-factor/cpx-factors.model';

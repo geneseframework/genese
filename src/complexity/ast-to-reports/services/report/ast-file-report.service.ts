@@ -69,7 +69,7 @@ export class AstFileReportService {
             colors: Options.colors,
             methods: this.methodReports,
             relativeRootReports: getPathWithDotSlash(this.relativeRootReports),
-            stats: this.astFile.getStats(),
+            stats: this.astFile.stats,
             thresholds: Options.getThresholds()
         });
         const filenameWithoutExtension = getFilenameWithoutExtension(this.astFile.name);

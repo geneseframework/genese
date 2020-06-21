@@ -4,7 +4,6 @@ import { AstFileService } from './ast-file.service';
 import { AstFolder } from '../../models/ast/ast-folder.model';
 import { AstFile } from '../../models/ast/ast-file.model';
 import { ComplexityType } from '../../enums/complexity-type.enum';
-import * as chalk from 'chalk';
 import { BarchartService } from '../report/barchart.service';
 
 /**
@@ -38,7 +37,11 @@ export class AstFolderService extends StatsService {
     }
 
 
-    calculateAstFolderCpxByStatus(astFolder: AstFolder): void {
+    /**
+     * Calculates and sets to _stats the Complexities by Status of a given AstFolder
+     * @param astFolder        // The AstFolder to analyse
+     */
+    private calculateAstFolderCpxByStatus(astFolder: AstFolder): void {
         for (const astFile of astFolder.astFiles) {
             this.calculateAstFileCpxByStatus(astFile);
         }
@@ -52,12 +55,11 @@ export class AstFolderService extends StatsService {
      * Increments AstFolder statistics for a given astFile
      * @param astFile       // The AstFile to analyse
      */
-    calculateAstFileCpxByStatus(astFile: AstFile): void {
-        let tsFileStats = astFile.getStats();
-        this.incrementMethodsByStatus(ComplexityType.COGNITIVE, tsFileStats);
-        this.incrementMethodsByStatus(ComplexityType.CYCLOMATIC, tsFileStats);
-        this._stats.barChartCognitive = BarchartService.concat(this._stats.barChartCognitive, tsFileStats.barChartCognitive);
-        this._stats.barChartCyclomatic = BarchartService.concat(this._stats.barChartCyclomatic, tsFileStats.barChartCyclomatic);
+    private calculateAstFileCpxByStatus(astFile: AstFile): void {
+        this.incrementMethodsByStatus(ComplexityType.COGNITIVE, astFile.stats);
+        this.incrementMethodsByStatus(ComplexityType.CYCLOMATIC, astFile.stats);
+        this._stats.barChartCognitive = BarchartService.concat(this._stats.barChartCognitive, astFile.stats.barChartCognitive);
+        this._stats.barChartCyclomatic = BarchartService.concat(this._stats.barChartCyclomatic, astFile.stats.barChartCyclomatic);
     }
 
 
@@ -66,26 +68,26 @@ export class AstFolderService extends StatsService {
      * @param type              // The complexity type
      * @param tsFileStats
      */
-    incrementMethodsByStatus(type: ComplexityType, tsFileStats: Stats): void {
+    private incrementMethodsByStatus(type: ComplexityType, tsFileStats: Stats): void {
         this._stats.numberOfMethodsByStatus[type].correct += tsFileStats.numberOfMethodsByStatus[type].correct;
         this._stats.numberOfMethodsByStatus[type].error += tsFileStats.numberOfMethodsByStatus[type].error;
         this._stats.numberOfMethodsByStatus[type].warning += tsFileStats.numberOfMethodsByStatus[type].warning;
-        // console.log('ASTFOLDERRR STATS', this._stats.numberOfMethodsByStatus)
 
     }
 
 
     /**
-     * Returns the path of the AstFolder linked to this service
+     * Returns the relative path of an AstFolder
      */
-    getNameOrPath(astFolder: AstFolder): void {
-        console.log('ABSSS', astFolder.path)
-        console.log('RELLLL', astFolder.relativePath)
+    protected getNameOrPath(astFolder: AstFolder): void {
         this._stats.subject = astFolder.relativePath;
-        // this._stats.subject = getRelativePath(Options.pathCommand, astFolder.path);
     }
+wq
 
-
+    /**
+     * Returns the number of files of an astFolder and its subfolders
+     * @param astFolder     // The astFolder to analyse
+     */
     getNumberOfFiles(astFolder: AstFolder): number {
         if (!astFolder?.astFiles) {
             return 0;
@@ -96,6 +98,10 @@ export class AstFolderService extends StatsService {
     }
 
 
+    /**
+     * Returns the number of files of the subfolders of a given AstFolder
+     * @param astFolder     // The astFolder to analyse
+     */
     private getChildrenFoldersNumberOfFiles(astFolder: AstFolder): number {
         let nbFiles = 0;
         for (const childAstFolder of astFolder.children) {
@@ -106,6 +112,10 @@ export class AstFolderService extends StatsService {
     }
 
 
+    /**
+     * Returns the number of methods of a given AstFolder
+     * @param astFolder     // The astFolder to analyse
+     */
     getNumberOfMethods(astFolder: AstFolder): number {
         if (!astFolder?.astFiles) {
             return 0;
@@ -116,6 +126,10 @@ export class AstFolderService extends StatsService {
     }
 
 
+    /**
+     * Returns the number of methods of a given AstFolder without its subfolders
+     * @param astFolder     // The astFolder to analyse
+     */
     private getCurrentFolderNumberOfMethods(astFolder: AstFolder): number {
         let nbMethods = 0;
         for (const astFile of astFolder.astFiles) {
@@ -125,6 +139,10 @@ export class AstFolderService extends StatsService {
     }
 
 
+    /**
+     * Returns the number of methods of the subfolders of a given AstFolder
+     * @param astFolder     // The astFolder to analyse
+     */
     private getChildrenFoldersNumberOfMethods(astFolder: AstFolder): number {
         let nbMethods = 0;
         for (const childAstFolder of astFolder.children) {
@@ -135,7 +153,20 @@ export class AstFolderService extends StatsService {
     }
 
 
-    getAstFolderRoot(astFolder: AstFolder): AstFolder {
+    /**
+     * Returns the route from the root ancestor to the folder of a given AstFolder
+     * @param astFolder     // The astFolder to analyse
+     */
+    getRelativePath(astFolder: AstFolder): string {
+        return astFolder?.path?.slice(this.getRootPath(astFolder).length);
+    }
+
+
+    /**
+     * Returns the ancestor of all the astFolders
+     * @param astFolder     // The astFolder to analyse
+     */
+    private getAstFolderRoot(astFolder: AstFolder): AstFolder {
         if (!astFolder?.parent) {
             return astFolder;
         }
@@ -143,13 +174,12 @@ export class AstFolderService extends StatsService {
     }
 
 
-    getRootPath(astFolder: AstFolder): string {
+    /**
+     * Returns the path of the ancestor of all the astFolders
+     * @param astFolder     // The astFolder to analyse
+     */
+    private getRootPath(astFolder: AstFolder): string {
         return this.getAstFolderRoot(astFolder)?.path;
-    }
-
-
-    getRelativePath(astFolder: AstFolder): string {
-        return astFolder?.path?.slice(this.getRootPath(astFolder).length);
     }
 
 

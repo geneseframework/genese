@@ -2,7 +2,6 @@
  * Element of the TreeNode structure corresponding to a given folder
  */
 import { Evaluate } from '../../interfaces/evaluate.interface';
-import { HasStats } from '../../interfaces/has-stats';
 import { ComplexitiesByStatus } from '../../interfaces/complexities-by-status.interface';
 import { CpxFactors } from '../cpx-factor/cpx-factors.model';
 import { Stats } from '../stats.model';
@@ -10,10 +9,9 @@ import { AstFile } from './ast-file.model';
 import { AstFolderService } from '../../services/ast/ast-folder.service';
 import { Logg } from '../../../core/interfaces/logg.interface';
 import * as chalk from 'chalk';
-import { TsNode } from '../../../languages-to-ast/ts/models/ts-node.model';
 import { AstNode } from './ast-node.model';
 
-export class AstFolder implements Evaluate, HasStats, Logg {
+export class AstFolder implements Evaluate, Logg {
 
     #astFiles?: AstFile[] = [];                                                     // The array of files of this folder (not in the subfolders)
     #astFolderService?: AstFolderService = new AstFolderService();

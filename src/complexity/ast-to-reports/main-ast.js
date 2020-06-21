@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MainAst = void 0;
 const ansi_colors_1 = require("ansi-colors");
-const fs = require("fs-extra");
 const init_service_1 = require("./services/init.service");
 const options_1 = require("./models/options");
 const file_service_1 = require("../core/services/file.service");
 const reports_service_1 = require("./services/report/reports.service");
+const chalk = require("chalk");
 /**
  * MainConvertTs process of the analysis
  */
@@ -22,29 +22,17 @@ class MainAst {
      * @param jsonAstPath
      */
     start(pathCommand, pathToAnalyze, pathGeneseNodeJs, jsonAstPath = '/ast-ts.json') {
-        console.log('START CALCULATION');
+        console.log(chalk.blueBright('START REPORTS GENERATION'));
         options_1.Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
         file_service_1.createOutDir();
         const jsonAst = this.initService.generateAllFromJsonAst(this.getJsonAst(pathCommand + jsonAstPath));
         jsonAst.astFolder.evaluate();
         reports_service_1.ReportsService.generateAllReports(jsonAst);
-        console.log(ansi_colors_1.blueBright('COMPLEXITY REPORT GENERATED SUCCESSFULLY'));
+        console.log(ansi_colors_1.blueBright('REPORTS GENERATED SUCCESSFULLY'));
     }
     getJsonAst(jsonAstPath) {
         const jsonAst = require(jsonAstPath);
-        // TODO : check if the JSON is correct
         return jsonAst;
-    }
-    createSyntaxKindEnum() {
-        const sk = require('./ast/enums/syntax-kind-old.enum');
-        const newSkEnum = new sk.SK();
-        let text = 'export enum SyntaxKind {\n';
-        for (const key of Object.keys(newSkEnum)) {
-            text = `${text}\t${key} = '${key}',\n`;
-        }
-        text = text.slice(0, -2);
-        text = `\n\n${text}}\n`;
-        fs.writeFileSync('./syntaxkind.ts', text, { encoding: 'utf-8' });
     }
 }
 exports.MainAst = MainAst;
