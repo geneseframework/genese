@@ -16,7 +16,7 @@ export class AstNode implements Evaluate, Logg {
 
     #astFile?: AstFile = undefined;                                             // The AstFile containing the AST node of the AstNode
     #astMethod?: AstMethod = undefined;                                         // The method at the root of the current ast (if this ast is inside a method)
-    astNodeService?: AstNodeService = new AstNodeService();                                                       // The service managing AstNodes
+    #astNodeService?: AstNodeService = new AstNodeService();                                                       // The service managing AstNodes
     #children?: AstNode[] = [];
     #context?: AstNode = undefined;                                             // The context of the AstNode
     #cpxFactors?: CpxFactors = undefined;                                       // The complexity factors of the AstNode
@@ -78,7 +78,7 @@ export class AstNode implements Evaluate, Logg {
 
 
     get context(): AstNode {
-        return this.#context ?? this.astNodeService.getContext(this);
+        return this.#context ?? this.#astNodeService.getContext(this);
     }
 
 
@@ -168,7 +168,7 @@ export class AstNode implements Evaluate, Logg {
         if (this.#isCallback) {
             return this.#isCallback;
         }
-        this.#isCallback = this.astNodeService.isCallback(this);
+        this.#isCallback = this.#astNodeService.isCallback(this);
         return this.#isCallback;
     }
 
@@ -192,7 +192,7 @@ export class AstNode implements Evaluate, Logg {
         if (this.#isRecursiveMethod) {
             return this.#isRecursiveMethod;
         }
-        this.#isRecursiveMethod = this.astNodeService.isRecursiveMethod(this);
+        this.#isRecursiveMethod = this.#astNodeService.isRecursiveMethod(this);
         return this.#isRecursiveMethod;
     }
 
@@ -263,7 +263,7 @@ export class AstNode implements Evaluate, Logg {
 
 
     get text(): string {
-        return this.#text ?? this.astNodeService.getCode(this);
+        return this.#text ?? this.#astNodeService.getCode(this);
     }
 
 
@@ -348,6 +348,7 @@ export class AstNode implements Evaluate, Logg {
      */
     private setAggregationCpxFactors(): void {
         if (Ast.isArrayOfArray(this)) {
+            console.log('IS ARR OF ARRRR', this.kind, this.name)
             this.cpxFactors.aggregation.arr = cpxFactors.aggregation.arr;
         } else if (Ast.isDifferentLogicDoor(this)) {
             this.cpxFactors.aggregation.differentLogicDoor = cpxFactors.aggregation.differentLogicDoor;

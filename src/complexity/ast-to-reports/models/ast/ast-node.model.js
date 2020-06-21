@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astFile, _astMethod, _children, _context, _cpxFactors, _cyclomaticCpx, _end, _factorCategory, _intrinsicDepthCpx, _intrinsicNestingCpx, _isCallback, _isRecursiveMethod, _kind, _name, _parent, _pos, _text;
+var _astFile, _astMethod, _astNodeService, _children, _context, _cpxFactors, _cyclomaticCpx, _end, _factorCategory, _intrinsicDepthCpx, _intrinsicNestingCpx, _isCallback, _isRecursiveMethod, _kind, _name, _parent, _pos, _text;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstNode = void 0;
 const ast_service_1 = require("../../services/ast/ast.service");
@@ -27,7 +27,7 @@ class AstNode {
     constructor() {
         _astFile.set(this, undefined); // The AstFile containing the AST node of the AstNode
         _astMethod.set(this, undefined); // The method at the root of the current ast (if this ast is inside a method)
-        this.astNodeService = new ast_node_service_1.AstNodeService(); // The service managing AstNodes
+        _astNodeService.set(this, new ast_node_service_1.AstNodeService()); // The service managing AstNodes
         _children.set(this, []);
         _context.set(this, undefined); // The context of the AstNode
         _cpxFactors.set(this, undefined); // The complexity factors of the AstNode
@@ -72,7 +72,7 @@ class AstNode {
     }
     get context() {
         var _a;
-        return (_a = __classPrivateFieldGet(this, _context)) !== null && _a !== void 0 ? _a : this.astNodeService.getContext(this);
+        return (_a = __classPrivateFieldGet(this, _context)) !== null && _a !== void 0 ? _a : __classPrivateFieldGet(this, _astNodeService).getContext(this);
     }
     set context(treeNode) {
         __classPrivateFieldSet(this, _context, treeNode);
@@ -134,7 +134,7 @@ class AstNode {
         if (__classPrivateFieldGet(this, _isCallback)) {
             return __classPrivateFieldGet(this, _isCallback);
         }
-        __classPrivateFieldSet(this, _isCallback, this.astNodeService.isCallback(this));
+        __classPrivateFieldSet(this, _isCallback, __classPrivateFieldGet(this, _astNodeService).isCallback(this));
         return __classPrivateFieldGet(this, _isCallback);
     }
     get isCallIdentifier() {
@@ -150,7 +150,7 @@ class AstNode {
         if (__classPrivateFieldGet(this, _isRecursiveMethod)) {
             return __classPrivateFieldGet(this, _isRecursiveMethod);
         }
-        __classPrivateFieldSet(this, _isRecursiveMethod, this.astNodeService.isRecursiveMethod(this));
+        __classPrivateFieldSet(this, _isRecursiveMethod, __classPrivateFieldGet(this, _astNodeService).isRecursiveMethod(this));
         return __classPrivateFieldGet(this, _isRecursiveMethod);
     }
     get kind() {
@@ -198,7 +198,7 @@ class AstNode {
     }
     get text() {
         var _a;
-        return (_a = __classPrivateFieldGet(this, _text)) !== null && _a !== void 0 ? _a : this.astNodeService.getCode(this);
+        return (_a = __classPrivateFieldGet(this, _text)) !== null && _a !== void 0 ? _a : __classPrivateFieldGet(this, _astNodeService).getCode(this);
     }
     set text(text) {
         __classPrivateFieldSet(this, _text, text);
@@ -266,6 +266,7 @@ class AstNode {
      */
     setAggregationCpxFactors() {
         if (ast_service_1.Ast.isArrayOfArray(this)) {
+            console.log('IS ARR OF ARRRR', this.kind, this.name);
             this.cpxFactors.aggregation.arr = cpx_factors_1.cpxFactors.aggregation.arr;
         }
         else if (ast_service_1.Ast.isDifferentLogicDoor(this)) {
@@ -320,4 +321,4 @@ class AstNode {
     }
 }
 exports.AstNode = AstNode;
-_astFile = new WeakMap(), _astMethod = new WeakMap(), _children = new WeakMap(), _context = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _factorCategory = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _isCallback = new WeakMap(), _isRecursiveMethod = new WeakMap(), _kind = new WeakMap(), _name = new WeakMap(), _parent = new WeakMap(), _pos = new WeakMap(), _text = new WeakMap();
+_astFile = new WeakMap(), _astMethod = new WeakMap(), _astNodeService = new WeakMap(), _children = new WeakMap(), _context = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _factorCategory = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _isCallback = new WeakMap(), _isRecursiveMethod = new WeakMap(), _kind = new WeakMap(), _name = new WeakMap(), _parent = new WeakMap(), _pos = new WeakMap(), _text = new WeakMap();

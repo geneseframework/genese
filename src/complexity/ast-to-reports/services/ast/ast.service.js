@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ast = void 0;
 const ast_may_define_context_enum_1 = require("../../enums/ast-may-define-context.enum");
 const syntax_kind_enum_1 = require("../../../core/enum/syntax-kind.enum");
+const chalk = require("chalk");
 /**
  * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)
  */
@@ -32,10 +33,9 @@ class Ast {
      * @param astNode      // The node to analyse
      */
     static isArrayOfArray(astNode) {
-        var _a, _b;
-        // TODO: Fix
-        return (((_a = astNode === null || astNode === void 0 ? void 0 : astNode.parent) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.ElementAccessExpression && (astNode === null || astNode === void 0 ? void 0 : astNode.kind) === syntax_kind_enum_1.SyntaxKind.ElementAccessExpression && (astNode === null || astNode === void 0 ? void 0 : astNode.pos) === ((_b = astNode.parent['expression']) === null || _b === void 0 ? void 0 : _b.pos));
-        // return(astNode?.parent?.kind === SyntaxKind.ElementAccessExpression && astNode?.kind === SyntaxKind.ElementAccessExpression && astNode?.pos === astNode.parent['expression'].pos);
+        var _a, _b, _c;
+        console.log('IS ARR OF ARRRR', astNode.kind, chalk.yellowBright((_a = astNode === null || astNode === void 0 ? void 0 : astNode.parent) === null || _a === void 0 ? void 0 : _a.kind), astNode.name);
+        return (((_b = astNode === null || astNode === void 0 ? void 0 : astNode.parent) === null || _b === void 0 ? void 0 : _b.kind) === syntax_kind_enum_1.SyntaxKind.ElementAccessExpression && (astNode === null || astNode === void 0 ? void 0 : astNode.kind) === syntax_kind_enum_1.SyntaxKind.ElementAccessExpression && (astNode === null || astNode === void 0 ? void 0 : astNode.pos) === ((_c = astNode.parent) === null || _c === void 0 ? void 0 : _c.pos));
     }
     /**
      * Checks if an AST node is a BinaryExpression

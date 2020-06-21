@@ -6,11 +6,11 @@
 		"astFiles": [
 			{
 				"name": "debug.mock.ts",
-				"text": "export class DebugMock {\n\n\n    methodWithCallback(a, callback) {\n        callback(3);\n    }\n\n}\n",
+				"text": "export class DebugMock {\n\n\n    methodWithCallback(a) {\n        const z = [];\n        return z[a[0]];\n    }\n\n}\n",
 				"astNode": {
 					"children": [
 						{
-							"end": 94,
+							"end": 109,
 							"kind": "ClassDeclaration",
 							"name": "DebugMock",
 							"pos": 0,
@@ -31,7 +31,7 @@
 									]
 								},
 								{
-									"end": 91,
+									"end": 106,
 									"kind": "MethodDeclaration",
 									"name": "methodWithCallback",
 									"pos": 24,
@@ -61,49 +61,84 @@
 											]
 										},
 										{
-											"end": 61,
-											"kind": "Parameter",
-											"name": "callback",
+											"end": 106,
+											"kind": "Block",
 											"pos": 52,
 											"children": [
 												{
-													"end": 61,
-													"kind": "Identifier",
-													"name": "callback",
-													"pos": 52,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 91,
-											"kind": "Block",
-											"pos": 62,
-											"children": [
-												{
-													"end": 85,
-													"kind": "ExpressionStatement",
-													"pos": 64,
+													"end": 76,
+													"kind": "FirstStatement",
+													"pos": 54,
 													"children": [
 														{
-															"end": 84,
-															"kind": "CallExpression",
-															"pos": 64,
+															"end": 75,
+															"kind": "VariableDeclarationList",
+															"pos": 54,
 															"children": [
 																{
-																	"end": 81,
+																	"end": 75,
+																	"kind": "VariableDeclaration",
+																	"pos": 68,
+																	"children": [
+																		{
+																			"end": 70,
+																			"kind": "Identifier",
+																			"name": "z",
+																			"pos": 68,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 75,
+																			"kind": "ArrayLiteralExpression",
+																			"pos": 72,
+																			"children": [
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												},
+												{
+													"end": 100,
+													"kind": "ReturnStatement",
+													"pos": 76,
+													"children": [
+														{
+															"end": 99,
+															"kind": "ElementAccessExpression",
+															"pos": 91,
+															"children": [
+																{
+																	"end": 93,
 																	"kind": "Identifier",
-																	"name": "callback",
-																	"pos": 64,
+																	"name": "z",
+																	"pos": 91,
 																	"children": [
 																	]
 																},
 																{
-																	"end": 83,
-																	"kind": "FirstLiteralToken",
-																	"pos": 82,
+																	"end": 98,
+																	"kind": "ElementAccessExpression",
+																	"pos": 94,
 																	"children": [
+																		{
+																			"end": 95,
+																			"kind": "Identifier",
+																			"name": "a",
+																			"pos": 94,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 97,
+																			"kind": "FirstLiteralToken",
+																			"pos": 96,
+																			"children": [
+																			]
+																		}
 																	]
 																}
 															]
@@ -117,9 +152,9 @@
 							]
 						},
 						{
-							"end": 95,
+							"end": 110,
 							"kind": "EndOfFileToken",
-							"pos": 94,
+							"pos": 109,
 							"children": [
 							]
 						}

@@ -1,6 +1,7 @@
 import { AstNode } from '../../models/ast/ast-node.model';
 import { AstMayDefineContext } from '../../enums/ast-may-define-context.enum';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
+import * as chalk from 'chalk';
 
 /**
  * Service for operations on TreeNode elements relative to a given node in Abstract Syntax TreeNode (AST)
@@ -39,9 +40,8 @@ export class Ast {
      * @param astNode      // The node to analyse
      */
     static isArrayOfArray(astNode: AstNode): boolean {
-        // TODO: Fix
-        return(astNode?.parent?.kind === SyntaxKind.ElementAccessExpression && astNode?.kind === SyntaxKind.ElementAccessExpression && astNode?.pos === astNode.parent['expression']?.pos);
-        // return(astNode?.parent?.kind === SyntaxKind.ElementAccessExpression && astNode?.kind === SyntaxKind.ElementAccessExpression && astNode?.pos === astNode.parent['expression'].pos);
+        console.log('IS ARR OF ARRRR', astNode.kind, chalk.yellowBright(astNode?.parent?.kind), astNode.name)
+        return(astNode?.parent?.kind === SyntaxKind.ElementAccessExpression && astNode?.kind === SyntaxKind.ElementAccessExpression && astNode?.pos === astNode.parent?.pos);
     }
 
 

@@ -1,8 +1,9 @@
 export class DebugMock {
 
 
-    methodWithCallback(a, callback) {
-        callback(3);
+    methodWithCallback(a) {
+        const z = [];
+        return z[a[0]];
     }
 
 }
