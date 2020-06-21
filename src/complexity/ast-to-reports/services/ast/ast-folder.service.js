@@ -47,7 +47,6 @@ class AstFolderService extends stats_service_1.StatsService {
         let tsFileStats = astFile.getStats();
         this.incrementMethodsByStatus(complexity_type_enum_1.ComplexityType.COGNITIVE, tsFileStats);
         this.incrementMethodsByStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC, tsFileStats);
-        // console.log('CYLCO BY STTTT', tsFileStats.barChartCyclomatic)
         this._stats.barChartCognitive = barchart_service_1.BarchartService.concat(this._stats.barChartCognitive, tsFileStats.barChartCognitive);
         this._stats.barChartCyclomatic = barchart_service_1.BarchartService.concat(this._stats.barChartCyclomatic, tsFileStats.barChartCyclomatic);
     }

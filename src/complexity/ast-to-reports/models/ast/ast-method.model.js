@@ -98,9 +98,7 @@ class AstMethod {
         // LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
         this.cyclomaticCpx = cyclomatic_cpx_service_1.CyclomaticCpxService.calculateCyclomaticCpx(this.astNode);
-        console.log('METOD CY CPXXXX', this.name, this.astNode.kind, this.cyclomaticCpx);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
-        // console.log('CYCLO STATUSSS MTHD', this.name, this.cyclomaticStatus)
     }
     /**
      * Calculates the Complexity Factors of the method
@@ -116,7 +114,7 @@ class AstMethod {
         }
     }
     /**
-     * Get the complexity status of the method for a given complexity type
+     * Gets the complexity status of the method for a given complexity type
      * @param cpxType
      */
     getComplexityStatus(cpxType) {

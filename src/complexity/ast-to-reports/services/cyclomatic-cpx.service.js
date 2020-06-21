@@ -7,28 +7,25 @@ const syntax_kind_enum_1 = require("../../core/enum/syntax-kind.enum");
  */
 class CyclomaticCpxService {
     /**
-     * Returns the cyclomatic complexity of an AST node
+     * Returns the cyclomatic complexity of an AST node, including its children
      * @param astNode
      */
     static calculateCyclomaticCpx(astNode) {
         let totalComplexity = CyclomaticCpxService.currentAstNodeCyclomaticCpx(astNode);
         totalComplexity += CyclomaticCpxService.childrenCyclomaticCpx(astNode);
-        // ts.forEachChild(node, function cb(node) {
-        //     if (utils.isFunctionWithBody(node)) {
-        //         totalComplexity += 1;
-        //         ts.forEachChild(node, cb);
-        //     } else {
-        //         if (CyclomaticCpxService.increasesCyclomaticComplexity(node)) {
-        //             totalComplexity += 1;
-        //         }
-        //         ts.forEachChild(node, cb);
-        //     }
-        // });
         return totalComplexity;
     }
+    /**
+     * Returns the cyclomatic complexity of an AST node, without its children
+     * @param astNode
+     */
     static currentAstNodeCyclomaticCpx(astNode) {
         return CyclomaticCpxService.increasesCyclomaticComplexity(astNode) ? 1 : 0;
     }
+    /**
+     * Returns the cyclomatic complexity of the children of an AST node
+     * @param astNode
+     */
     static childrenCyclomaticCpx(astNode) {
         let cyclomaticCpx = 0;
         for (const childAstNode of astNode.children) {

@@ -118,9 +118,7 @@ export class AstMethod implements Evaluate {
         // LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticCpx(this.astNode);
-        console.log('METOD CY CPXXXX', this.name, this.astNode.kind, this.cyclomaticCpx)
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
-        // console.log('CYCLO STATUSSS MTHD', this.name, this.cyclomaticStatus)
     }
 
 
@@ -139,7 +137,7 @@ export class AstMethod implements Evaluate {
 
 
     /**
-     * Get the complexity status of the method for a given complexity type
+     * Gets the complexity status of the method for a given complexity type
      * @param cpxType
      */
     getComplexityStatus(cpxType: ComplexityType): MethodStatus {

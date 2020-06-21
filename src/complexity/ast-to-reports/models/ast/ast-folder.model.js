@@ -116,13 +116,11 @@ class AstFolder {
     evaluate() {
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
         for (const astFile of this.astFiles) {
-            // TODO : evaluate AstFile
             astFile.evaluate();
             this.cpxFactors = this.cpxFactors.add(astFile.cpxFactors);
             this.cyclomaticCpx = this.cyclomaticCpx + astFile.cyclomaticCpx;
             this.complexitiesByStatus = this.complexitiesByStatus.add(astFile.complexitiesByStatus);
         }
-        console.log('CPXBYSTTTTT', this.complexitiesByStatus);
         for (const childAstFolder of this.children) {
             childAstFolder.evaluate();
         }

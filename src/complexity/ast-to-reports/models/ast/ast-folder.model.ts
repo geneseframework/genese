@@ -158,13 +158,11 @@ export class AstFolder implements Evaluate, HasStats, Logg {
     evaluate(): void {
         this.cpxFactors = new CpxFactors();
         for (const astFile of this.astFiles) {
-            // TODO : evaluate AstFile
             astFile.evaluate();
             this.cpxFactors = this.cpxFactors.add(astFile.cpxFactors);
             this.cyclomaticCpx = this.cyclomaticCpx + astFile.cyclomaticCpx;
             this.complexitiesByStatus = this.complexitiesByStatus.add(astFile.complexitiesByStatus);
         }
-        console.log('CPXBYSTTTTT', this.complexitiesByStatus)
         for (const childAstFolder of this.children) {
             childAstFolder.evaluate();
         }
