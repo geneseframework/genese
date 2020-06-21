@@ -1,9 +1,8 @@
 export class DebugMock {
 
-
-    methodWithCallback(a) {
-        const z = [];
-        return z[a[0]];
+    orBetweenTwoBinaries(a, b, c, d) {
+        if (a && b || c) {
+            console.log('b');
+        }
     }
-
 }

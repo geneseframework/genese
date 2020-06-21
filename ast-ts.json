@@ -10442,11 +10442,11 @@
 		"astFiles": [
 			{
 				"name": "debug.mock.ts",
-				"text": "export class DebugMock {\n\n\n    methodWithCallback(a) {\n        const z = [];\n        return z[a[0]];\n    }\n\n}\n",
+				"text": "export class DebugMock {\n\n    orBetweenTwoBinaries(a, b, c, d) {\n        if (a && b || c) {\n            console.log('b');\n        }\n    }\n}\n",
 				"astNode": {
 					"children": [
 						{
-							"end": 109,
+							"end": 139,
 							"kind": "ClassDeclaration",
 							"name": "DebugMock",
 							"pos": 0,
@@ -10467,112 +10467,190 @@
 									]
 								},
 								{
-									"end": 106,
+									"end": 137,
 									"kind": "MethodDeclaration",
-									"name": "methodWithCallback",
+									"name": "orBetweenTwoBinaries",
 									"pos": 24,
 									"children": [
 										{
-											"end": 49,
+											"end": 50,
 											"kind": "Identifier",
-											"name": "methodWithCallback",
+											"name": "orBetweenTwoBinaries",
 											"pos": 24,
 											"children": [
 											]
 										},
 										{
-											"end": 51,
+											"end": 52,
 											"kind": "Parameter",
 											"name": "a",
-											"pos": 50,
+											"pos": 51,
 											"children": [
 												{
-													"end": 51,
+													"end": 52,
 													"kind": "Identifier",
 													"name": "a",
-													"pos": 50,
+													"pos": 51,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 106,
-											"kind": "Block",
-											"pos": 52,
+											"end": 55,
+											"kind": "Parameter",
+											"name": "b",
+											"pos": 53,
 											"children": [
 												{
-													"end": 76,
-													"kind": "FirstStatement",
-													"pos": 54,
+													"end": 55,
+													"kind": "Identifier",
+													"name": "b",
+													"pos": 53,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 58,
+											"kind": "Parameter",
+											"name": "c",
+											"pos": 56,
+											"children": [
+												{
+													"end": 58,
+													"kind": "Identifier",
+													"name": "c",
+													"pos": 56,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 61,
+											"kind": "Parameter",
+											"name": "d",
+											"pos": 59,
+											"children": [
+												{
+													"end": 61,
+													"kind": "Identifier",
+													"name": "d",
+													"pos": 59,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 137,
+											"kind": "Block",
+											"pos": 62,
+											"children": [
+												{
+													"end": 131,
+													"kind": "IfStatement",
+													"pos": 64,
 													"children": [
 														{
-															"end": 75,
-															"kind": "VariableDeclarationList",
-															"pos": 54,
+															"end": 88,
+															"kind": "BinaryExpression",
+															"pos": 77,
 															"children": [
 																{
-																	"end": 75,
-																	"kind": "VariableDeclaration",
-																	"pos": 68,
+																	"end": 83,
+																	"kind": "BinaryExpression",
+																	"pos": 77,
 																	"children": [
 																		{
-																			"end": 70,
+																			"end": 78,
 																			"kind": "Identifier",
-																			"name": "z",
-																			"pos": 68,
+																			"name": "a",
+																			"pos": 77,
 																			"children": [
 																			]
 																		},
 																		{
-																			"end": 75,
-																			"kind": "ArrayLiteralExpression",
-																			"pos": 72,
+																			"end": 81,
+																			"kind": "AmpersandAmpersandToken",
+																			"pos": 78,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 83,
+																			"kind": "Identifier",
+																			"name": "b",
+																			"pos": 81,
 																			"children": [
 																			]
 																		}
 																	]
-																}
-															]
-														}
-													]
-												},
-												{
-													"end": 100,
-													"kind": "ReturnStatement",
-													"pos": 76,
-													"children": [
-														{
-															"end": 99,
-															"kind": "ElementAccessExpression",
-															"pos": 91,
-															"children": [
+																},
 																{
-																	"end": 93,
-																	"kind": "Identifier",
-																	"name": "z",
-																	"pos": 91,
+																	"end": 86,
+																	"kind": "BarBarToken",
+																	"pos": 83,
 																	"children": [
 																	]
 																},
 																{
-																	"end": 98,
-																	"kind": "ElementAccessExpression",
-																	"pos": 94,
+																	"end": 88,
+																	"kind": "Identifier",
+																	"name": "c",
+																	"pos": 86,
+																	"children": [
+																	]
+																}
+															]
+														},
+														{
+															"end": 131,
+															"kind": "Block",
+															"pos": 89,
+															"children": [
+																{
+																	"end": 121,
+																	"kind": "ExpressionStatement",
+																	"pos": 91,
 																	"children": [
 																		{
-																			"end": 95,
-																			"kind": "Identifier",
-																			"name": "a",
-																			"pos": 94,
+																			"end": 120,
+																			"kind": "CallExpression",
+																			"pos": 91,
 																			"children": [
-																			]
-																		},
-																		{
-																			"end": 97,
-																			"kind": "FirstLiteralToken",
-																			"pos": 96,
-																			"children": [
+																				{
+																					"end": 115,
+																					"kind": "PropertyAccessExpression",
+																					"pos": 91,
+																					"children": [
+																						{
+																							"end": 111,
+																							"kind": "Identifier",
+																							"name": "console",
+																							"pos": 91,
+																							"children": [
+																							]
+																						},
+																						{
+																							"end": 115,
+																							"kind": "Identifier",
+																							"name": "log",
+																							"pos": 112,
+																							"children": [
+																							]
+																						}
+																					]
+																				},
+																				{
+																					"end": 119,
+																					"kind": "StringLiteral",
+																					"pos": 116,
+																					"children": [
+																					]
+																				}
 																			]
 																		}
 																	]
@@ -10588,9 +10666,9 @@
 							]
 						},
 						{
-							"end": 110,
+							"end": 140,
 							"kind": "EndOfFileToken",
-							"pos": 109,
+							"pos": 139,
 							"children": [
 							]
 						}
