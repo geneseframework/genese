@@ -272,10 +272,10 @@ export class AstNode implements Evaluate, Logg {
      */
     evaluate(): void {
         this.calculateAndSetCpxFactors();
+        this.addParentCpx();
         for (const child of this.#children) {
             child.evaluate();
         }
-        this.addParentCpx();
     }
 
     /**

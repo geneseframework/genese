@@ -201,10 +201,10 @@ class AstNode {
      */
     evaluate() {
         this.calculateAndSetCpxFactors();
+        this.addParentCpx();
         for (const child of __classPrivateFieldGet(this, _children)) {
             child.evaluate();
         }
-        this.addParentCpx();
     }
     /**
      * Gets the xth son of this AstNode
@@ -217,7 +217,6 @@ class AstNode {
      * Calculates the complexity factors of the AstNode
      */
     calculateAndSetCpxFactors() {
-        // console.log('FACTOR CATTTT', this.factorCategory)
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
         this.setGeneralCaseCpxFactors();
         this.setBasicCpxFactors();

@@ -6,11 +6,11 @@
 		"astFiles": [
 			{
 				"name": "debug.mock.ts",
-				"text": "export class DebugMock {\n\n    ifNestedIf(a, b) {\n        if (a) {\n            if (b) {\n                return 'c';\n            }\n            return 'b';\n        }\n    }\n\n}\n",
+				"text": "export class DebugMock {\n\n\n    recursion(a) {\n        this.recursion(a);\n    }\n\n}\n",
 				"astNode": {
 					"children": [
 						{
-							"end": 171,
+							"end": 81,
 							"kind": "ClassDeclaration",
 							"name": "",
 							"pos": 0,
@@ -32,9 +32,9 @@
 									]
 								},
 								{
-									"end": 168,
+									"end": 78,
 									"kind": "MethodDeclaration",
-									"name": "ifNestedIf",
+									"name": "recursion",
 									"pos": 24,
 									"children": [
 										{
@@ -62,101 +62,53 @@
 											]
 										},
 										{
-											"end": 45,
-											"kind": "Parameter",
+											"end": 78,
+											"kind": "Block",
 											"name": "",
 											"pos": 43,
 											"children": [
 												{
-													"end": 45,
-													"kind": "Identifier",
+													"end": 72,
+													"kind": "ExpressionStatement",
 													"name": "",
-													"pos": 43,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 168,
-											"kind": "Block",
-											"name": "",
-											"pos": 46,
-											"children": [
-												{
-													"end": 162,
-													"kind": "IfStatement",
-													"name": "",
-													"pos": 48,
+													"pos": 45,
 													"children": [
 														{
-															"end": 62,
-															"kind": "Identifier",
+															"end": 71,
+															"kind": "CallExpression",
 															"name": "",
-															"pos": 61,
-															"children": [
-															]
-														},
-														{
-															"end": 162,
-															"kind": "Block",
-															"name": "",
-															"pos": 63,
+															"pos": 45,
 															"children": [
 																{
-																	"end": 128,
-																	"kind": "IfStatement",
+																	"end": 68,
+																	"kind": "PropertyAccessExpression",
 																	"name": "",
-																	"pos": 65,
+																	"pos": 45,
 																	"children": [
 																		{
-																			"end": 83,
-																			"kind": "Identifier",
+																			"end": 58,
+																			"kind": "ThisKeyword",
 																			"name": "",
-																			"pos": 82,
+																			"pos": 45,
 																			"children": [
 																			]
 																		},
 																		{
-																			"end": 128,
-																			"kind": "Block",
+																			"end": 68,
+																			"kind": "Identifier",
 																			"name": "",
-																			"pos": 84,
+																			"pos": 59,
 																			"children": [
-																				{
-																					"end": 114,
-																					"kind": "ReturnStatement",
-																					"name": "",
-																					"pos": 86,
-																					"children": [
-																						{
-																							"end": 113,
-																							"kind": "StringLiteral",
-																							"name": "",
-																							"pos": 109,
-																							"children": [
-																							]
-																						}
-																					]
-																				}
 																			]
 																		}
 																	]
 																},
 																{
-																	"end": 152,
-																	"kind": "ReturnStatement",
+																	"end": 70,
+																	"kind": "Identifier",
 																	"name": "",
-																	"pos": 128,
+																	"pos": 69,
 																	"children": [
-																		{
-																			"end": 151,
-																			"kind": "StringLiteral",
-																			"name": "",
-																			"pos": 147,
-																			"children": [
-																			]
-																		}
 																	]
 																}
 															]
@@ -170,10 +122,10 @@
 							]
 						},
 						{
-							"end": 172,
+							"end": 82,
 							"kind": "EndOfFileToken",
 							"name": "",
-							"pos": 171,
+							"pos": 81,
 							"children": [
 							]
 						}

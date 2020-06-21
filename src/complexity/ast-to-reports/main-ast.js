@@ -1,13 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.MainAst = exports.DEBUG = void 0;
+exports.MainAst = void 0;
 const ansi_colors_1 = require("ansi-colors");
 const fs = require("fs-extra");
 const init_service_1 = require("./services/init.service");
 const options_1 = require("./models/options");
 const file_service_1 = require("../core/services/file.service");
 const reports_service_1 = require("./services/report/reports.service");
-exports.DEBUG = true; // Set to true when you use Genese Complexity in DEBUG mode (with npm run debug) AND when you want to get stats only for debug.mock.ts file
 /**
  * MainConvertTs process of the analysis
  */
