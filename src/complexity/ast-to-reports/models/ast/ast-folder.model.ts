@@ -21,6 +21,8 @@ export class AstFolder implements Evaluate, HasStats, Logg {
     #complexitiesByStatus?: ComplexitiesByStatus = new ComplexitiesByStatus();      // The folder complexities spread by complexity status
     #cpxFactors?: CpxFactors = undefined;
     #cyclomaticCpx ?= 0;
+    #numberOfFiles: number = undefined;
+    #numberOfMethods: number = undefined;
     #parent?: AstFolder = undefined;                                                // The AstFolder corresponding to the parent folder of this AstFolder
     #path?: string = undefined;                                                     // The absolute path of this folder
     #relativePath?: string = undefined;                                             // The relative path of this folder compared to the root folder of the analyse
@@ -87,6 +89,26 @@ export class AstFolder implements Evaluate, HasStats, Logg {
     }
 
 
+    get numberOfFiles(): number {
+        return this.#numberOfFiles ?? this.#astFolderService.getNumberOfFiles(this);
+    }
+
+
+    set numberOfFiles(numberOfFiles: number) {
+        this.#numberOfFiles = numberOfFiles;
+    }
+
+
+    get numberOfMethods(): number {
+        return this.#numberOfMethods ?? this.#astFolderService.getNumberOfMethods(this);
+    }
+
+
+    set numberOfMethods(numberOfMethods: number) {
+        this.#numberOfMethods = numberOfMethods;
+    }
+
+
     get parent(): AstFolder {
         return this.#parent;
     }
@@ -132,17 +154,20 @@ export class AstFolder implements Evaluate, HasStats, Logg {
     /**
      * Evaluates the complexities of the TreeFiles of this AstFolder
      */
+
     evaluate(): void {
         this.cpxFactors = new CpxFactors();
         for (const astFile of this.astFiles) {
-            // TODO : evaluate AstFile
             astFile.evaluate();
             this.cpxFactors = this.cpxFactors.add(astFile.cpxFactors);
             this.cyclomaticCpx = this.cyclomaticCpx + astFile.cyclomaticCpx;
             this.complexitiesByStatus = this.complexitiesByStatus.add(astFile.complexitiesByStatus);
         }
-        const astFolderService = new AstFolderService();
-        this.stats = astFolderService.calculateStats(this);
+        for (const childAstFolder of this.children) {
+            childAstFolder.evaluate();
+        }
+        this.numberOfMethods = this.#astFolderService.getNumberOfMethods(this);
+        this.stats = this.#astFolderService.calculateStats(this);
     }
 
 

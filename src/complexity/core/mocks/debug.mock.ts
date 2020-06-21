@@ -7,4 +7,10 @@ export class DebugMock {
         }
     }
 
+    iffffAlone(a) {
+        if (a) {
+            return 'b';
+        }
+    }
+
 }

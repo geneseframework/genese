@@ -1,33 +1,20 @@
 import { AstFolder } from './ast-folder.model';
-import { Evaluate } from '../../interfaces/evaluate.interface';
 import { Logg } from '../../../core/interfaces/logg.interface';
 import { CpxFactors } from '../cpx-factor/cpx-factors.model';
 import * as chalk from 'chalk';
 import { AstNode } from './ast-node.model';
 
-export class JsonAst implements Evaluate, Logg {
+export class JsonAst implements Logg {
 
     astFolder?: AstFolder = undefined;
-    // #astFolder?: AstFolder = undefined;
     #cpxFactors?: CpxFactors = undefined;
     #cyclomaticCpx ?= 0;
-
 
 
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
 
-
-
-    // get astFolder(): AstFolder {
-    //     return this.#astFolder;
-    // }
-    //
-    //
-    // set astFolder(astFolder: AstFolder) {
-    //     this.#astFolder = astFolder;
-    // }
 
 
     get cpxFactors(): CpxFactors {
@@ -53,13 +40,6 @@ export class JsonAst implements Evaluate, Logg {
     // ---------------------------------------------------------------------------------
     //                                Other methods
     // ---------------------------------------------------------------------------------
-
-
-    evaluate(): void {
-        this.cpxFactors = this.astFolder.cpxFactors;
-        this.#cyclomaticCpx = this.astFolder.cyclomaticCpx;
-    }
-
 
 
     logg(message?: string): void {

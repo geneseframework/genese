@@ -19,21 +19,12 @@ const chalk = require("chalk");
 class JsonAst {
     constructor() {
         this.astFolder = undefined;
-        // #astFolder?: AstFolder = undefined;
         _cpxFactors.set(this, undefined);
         _cyclomaticCpx.set(this, 0);
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
-    // get astFolder(): AstFolder {
-    //     return this.#astFolder;
-    // }
-    //
-    //
-    // set astFolder(astFolder: AstFolder) {
-    //     this.#astFolder = astFolder;
-    // }
     get cpxFactors() {
         return __classPrivateFieldGet(this, _cpxFactors);
     }
@@ -49,10 +40,6 @@ class JsonAst {
     // ---------------------------------------------------------------------------------
     //                                Other methods
     // ---------------------------------------------------------------------------------
-    evaluate() {
-        this.cpxFactors = this.astFolder.cpxFactors;
-        __classPrivateFieldSet(this, _cyclomaticCpx, this.astFolder.cyclomaticCpx);
-    }
     logg(message) {
         var _a, _b, _c, _d, _e, _f;
         console.log('-----------------------------');

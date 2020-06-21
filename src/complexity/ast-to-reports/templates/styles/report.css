@@ -1,12 +1,9 @@
 .mainContainer {
     padding: 20px;
     background-color: #dfe6e9;
-    /* background-color: #fd79a8; */
 }
 
 .header {
-    /* background-color: #e84393;
-    color: #0984e3; */
     background-color: #38ada9;
     color: #0a3d62;
     padding: 20px;
@@ -15,7 +12,8 @@
     justify-content: space-between;
 }
 
-.header .header-left .backlink {
+.header .header-left .backLink {
+    color: #0a3d62;
     cursor: pointer;
 }
 
@@ -25,13 +23,10 @@
     justify-content: space-around;
 }
 
-.header .header-left .backLink {
-    color: #71c2e9;
-    cursor: pointer;
-}
-
 
 /************ STATS ************/
+
+
 .stats-and-charts {
     height: 650px;
     display: flex;

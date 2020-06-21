@@ -17,7 +17,7 @@ class CyclomaticComplexityService {
         //         totalComplexity += 1;
         //         ts.forEachChild(node, cb);
         //     } else {
-        //         if (CyclomaticComplexityService.increasesCyclomaticComplexity(node)) {
+        //         if (CyclomaticCpxService.increasesCyclomaticComplexity(node)) {
         //             totalComplexity += 1;
         //         }
         //         ts.forEachChild(node, cb);

@@ -30,7 +30,7 @@ export class MainAst {
         Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
         createOutDir();
         const jsonAst = this.initService.generateAllFromJsonAst(this.getJsonAst(pathCommand + jsonAstPath));
-        jsonAst.evaluate();
+        jsonAst.astFolder.evaluate();
         ReportsService.generateAllReports(jsonAst);
         console.log(blueBright('COMPLEXITY REPORT GENERATED SUCCESSFULLY'));
     }

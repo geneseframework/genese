@@ -45,6 +45,7 @@ export class AstFileService extends StatsService {
         for (const method of astFile.astMethods) {
             this.incrementStats(method);
         }
+        // console.log('ASTFILEEEE STATS', this._stats.barChartCyclomatic)
     }
 
 

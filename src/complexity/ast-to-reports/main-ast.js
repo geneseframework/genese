@@ -27,7 +27,7 @@ class MainAst {
         options_1.Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
         file_service_1.createOutDir();
         const jsonAst = this.initService.generateAllFromJsonAst(this.getJsonAst(pathCommand + jsonAstPath));
-        jsonAst.evaluate();
+        jsonAst.astFolder.evaluate();
         reports_service_1.ReportsService.generateAllReports(jsonAst);
         console.log(ansi_colors_1.blueBright('COMPLEXITY REPORT GENERATED SUCCESSFULLY'));
     }

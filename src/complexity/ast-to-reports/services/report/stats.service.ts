@@ -24,7 +24,8 @@ export abstract class StatsService {
             this.calculateStats(fileOrFolder);
             this.getNameOrPath(fileOrFolder);
             this._stats.setPercentages();
-            this._stats.cumulateComplexities();
+            this._stats.totalCognitiveComplexity = fileOrFolder.cpxFactors.total;
+            this._stats.totalCyclomaticComplexity = fileOrFolder.cyclomaticCpx;
             this.sortBarCharts();
             return this._stats.plugChartHoles();
         }
