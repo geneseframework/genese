@@ -1,9 +1,9 @@
-import { ComplexityType } from '../../../old/enums/complexity-type.enum';
 import { AstFile } from '../../models/ast/ast-file.model';
 import { AstMethod } from '../../models/ast/ast-method.model';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
 import { StatsService } from '../report/stats.service';
 import { Stats } from '../../models/stats.model';
+import { ComplexityType } from '../../enums/complexity-type.enum';
 
 /**
  * - AstFiles generation from Abstract Syntax AstNode of a file

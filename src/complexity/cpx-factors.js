@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cpxFactors = void 0;
-const cpx_factors_model_1 = require("./old/models/cpx-factor/cpx-factors.model");
+const cpx_factors_model_1 = require("./ast-to-reports/models/cpx-factor/cpx-factors.model");
 const complexityFactors = new cpx_factors_model_1.CpxFactors();
 complexityFactors.aggregation = {
     arr: 1,
