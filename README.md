@@ -38,7 +38,7 @@ The Genese Complexity module analyzes the cognitive complexity and the cyclomati
 After installing globally Genese, you'll can launch the analysis with this command-line :
 
 ```sh
-genese cpxFactors [pathDir]
+genese cpx [pathDir]
 ```
 
 You will find more information in the [genese-complexity documentation](https://github.com/geneseframework/genese/tree/develop/src/complexity).
