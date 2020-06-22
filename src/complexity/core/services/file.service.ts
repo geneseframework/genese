@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import { Options } from '../../ast-to-reports/models/options';
+import { Options } from '../models/options.model';
 
 /**
  * Tools about files or folders
@@ -24,9 +24,7 @@ export function getFilename(pathFile = ''): string {
  */
 export function getAllFiles(dirPath: string, arrayOfFiles?: string[]): string[] {
     const files = fs.readdirSync(dirPath)
-
     arrayOfFiles = arrayOfFiles || [];
-
     files.forEach(function(file) {
         if (fs.statSync(dirPath + "/" + file).isDirectory()) {
             arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
@@ -70,6 +68,15 @@ export function getPathWithDotSlash(path: string): string {
 
 
 /**
+ * Returns a path with a ./ at the beginning
+ * @param path      // The path to analyse
+ */
+export function getPathWithSlash(path: string): string {
+    return path?.slice(-1) !== '/' ? `${path}/` : path;
+}
+
+
+/**
  * Returns the path between a subfolder and its root
  * For example, if relativePath = 'my/relative/path', it will return '../../..
  * @param relativePath      // The path to analyse
@@ -82,9 +89,7 @@ export function getRouteToRoot(relativePath: string): string {
     for (let i = 0; i < relativePath.length; i++) {
         relativeRoot = relativePath.charAt(i) === '/' ? `/..${relativeRoot}` : relativeRoot;
     }
-    const zzz = relativeRoot.slice(1);
-    // console.log('REL PATTHHH', relativePath, zzz)
-    return zzz;
+    return relativeRoot.slice(1);
 }
 
 

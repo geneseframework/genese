@@ -198,5 +198,120 @@ This calculation method involves the following elements :
     - logic doors : 0   
     - recursion : 0   
 
+## How to contribute ?
+
+### Adding new languages
+
+Genese Complexity was developed at first for TypeScript files. Now, it is possible to "plug" any language in Genese Complexity.
+
+What does it means ? To be simple, this module parses a Json file with a specific format : JsonAst. This format corresponds to a simplified AST (Abstract Syntax Tree) of the source code. So if you want to be able to "plug" your language in Genese Complexity, you "just" need to parse the AST specific to your language and to transform it to JsonAst format. In other words, your AST nodes must "match" with the AstNodes of the JsonAst.
+
+As Genese Complexity was created for TypeScript files, if your JsonAst files respect exactly the Typescript AST format, Genese Complexity will be able to understand it. If you want to understand how TypeScript AST "runs", you can make some trials in the [TypeScript AST Viewer](https://ts-ast-viewer.com/#code/KYDwDg9gTgLgBAYwDYEMDOa4HFgDthrADCEAtmEqAJYwCecA3gFBNxtygrmUAUKAlI1bsRCCLjQRKAOiQQA5n34BuYWwC+auE01A).
+
+There are hundreds kinds of TypeScript AST nodes, which can be fastidious to "link" the AST nodes of your language to the equivalent in TypeScript. Fortunately, JsonAst needs only few kinds of nodes, not all the hundreds of TypeScript AST. You will find below the list of all the AstNode kinds that you will need. You will need too to respect the structure of the TypeScript AST : for example, a "else" MUST be the last son of a "IfStatement" node.  
+
+### JsonAst specifications
+
+#### Kinds of AstNodes
+
+You will find below the list of all the different kinds of AstNodes. If you want to understand exactly what they mean, you can refer yourself to the TypeScript documentation : for example, the AstNode kind "IfStatement" refers to the TypeScript AST node ts.SyntaxKind.IfStatement. The exhaustive list of TypeScript SyntakKinds are accessible [here](https://github.com/microsoft/TypeScript/blob/master/lib/typescript.d.ts) (from line 77 to 447).   
+
+- AmpersandAmpersandToken
+- ArrowFunction
+- BarBarToken
+- BinaryExpression
+- Block
+- CallExpression
+- CatchClause
+- ConditionalExpression
+- DoStatement
+- ElementAccessExpression
+- EndOfFileToken
+- ExpressionStatement
+- ForStatement
+- ForInStatement
+- ForOfStatement
+- FunctionDeclaration
+- FunctionExpression
+- Identifier
+- IfStatement
+- MethodDeclaration
+- Parameter
+- PropertyAccessExpression
+- RegularExpressionLiteral
+- SwitchStatement
+- VariableDeclarationList
+- VariableStatement
+- WhileStatement
+
+
+Genese Complexity will consider all the other kinds of AST nodes as "basic" nodes. That means that every node of your AST which will be present in the JsonAst format will add a cognitive complexity corresponding to "basic" nodes, as "StringLiteral", "TrueKeyword", etc. If you want that some kinds of nodes not to increase complexity, you will be able to set a property "empty" to true in the corresponding AstNode.
+
+#### JsonAst specifications
+
+
+
+##### JsonAst
+
+This is the root document (the .json file itself)
+
+- Fixed fields
+
+| Field name | Type | Required | Description |
+| astFolder  | AstFolder | yes | The object containing all the information about the folder to analyse |
+
+
+#### Structure of the AST nodes
+
+You must respect some conventions to be able to create JsonAst files correctly interpreted by Genese Complexity.
+
+  ***IfStatement***
+   
+   Supposing to be in this case :
+   
+```ts
+if (a) {
+    // ---
+} else if (b) {
+    // ---
+} else {
+    // ---
+}
+```
+
+Your JsonAst MUST be structured like this* :
+
+```json
+{
+    "kind": "IfStatement",
+    "children": [
+    	{
+    		"kind": "Identifier",
+    		"name": "a"
+    	},
+    	{
+    		"kind": "Block"
+    	},
+    	{
+    		"kind": "IfStatement",
+    		"children": [
+    			{
+    				"kind": "Identifier",
+    				"name": "b"
+    			},
+    			{
+    				"kind": "Block"
+    			},
+    			{
+    				"kind": "Block"
+    			}
+    		]
+    	}
+    ]
+}
+```
+* **The AST is simplified**
+
+The AstNode "IfStatement" always have a first son which is the inside of the brackets and a second son which is inside the "if condition". This AstNode CAN have a third son which is the AstNode corresponding to the "ElseStatement".
 
 

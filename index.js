@@ -2,23 +2,22 @@
 "use strict";
 exports.__esModule = true;
 var ansi_colors_1 = require("ansi-colors");
-var main_1 = require("./src/complexity/old/main");
 var child_process_1 = require("child_process");
+var main_1 = require("./src/complexity/main");
 var program = require('commander').program;
 // ---------------------------------------------------------------------------------------------------------
 //                                          GENESE CLI
 // ---------------------------------------------------------------------------------------------------------
 try {
-    console.log("WELCOME TO GENESE CLI");
-    program.version('0.0.5')
+    console.log(ansi_colors_1.yellowBright("WELCOME TO GENESE CLI"));
+    program.version('0.0.0')
         .description('Genese cli');
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
-    program.command('cpxFactors [pathToAnalyse]')
-        .description('Calculates cognitive and cyclomatic complexities')
+    program.option('-l, --language <language>', 'Language');
+    program.command('cpx [pathToAnalyse]')
+        .description('Calculates Complexity Index and cyclomatic complexity')
         .action(function (pathToAnalyze) {
-        console.log(ansi_colors_1.blueBright("STARTS GENESE COMPLEXITY CLI"));
         var path = pathToAnalyze !== null && pathToAnalyze !== void 0 ? pathToAnalyze : './';
-        console.log('PATH TO ANALYZE : ' + path);
         var mainProcess = new main_1.Main();
         mainProcess.start(process.cwd(), path, __dirname);
     });

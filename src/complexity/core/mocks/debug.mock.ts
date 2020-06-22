@@ -1,8 +1,12 @@
 export class DebugMock {
 
-    orBetweenTwoBinaries(a, b, c, d) {
-        if (a && b || c) {
-            console.log('b');
+    ifs(a, b) {
+        if (a) {
+// ---
+        } else if (b) {
+// ---
+        } else {
+// ---
         }
     }
 }
