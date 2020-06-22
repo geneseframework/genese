@@ -115,17 +115,20 @@ class AstFolder {
      */
     evaluate() {
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
-        for (const astFile of this.astFiles) {
+        this.evaluateCpxFactors(this);
+        this.numberOfMethods = __classPrivateFieldGet(this, _astFolderService).getNumberOfMethods(this);
+        this.stats = __classPrivateFieldGet(this, _astFolderService).calculateStats(this);
+    }
+    evaluateCpxFactors(astFolder) {
+        for (const astFile of astFolder.astFiles) {
             astFile.evaluate();
             this.cpxFactors = this.cpxFactors.add(astFile.cpxFactors);
             this.cyclomaticCpx = this.cyclomaticCpx + astFile.cyclomaticCpx;
             this.complexitiesByStatus = this.complexitiesByStatus.add(astFile.complexitiesByStatus);
         }
-        for (const childAstFolder of this.children) {
-            childAstFolder.evaluate();
+        for (const childAstFolder of astFolder.children) {
+            this.evaluateCpxFactors(childAstFolder);
         }
-        this.numberOfMethods = __classPrivateFieldGet(this, _astFolderService).getNumberOfMethods(this);
-        this.stats = __classPrivateFieldGet(this, _astFolderService).calculateStats(this);
     }
     /**
      * Logs the main elements of the AstFolder

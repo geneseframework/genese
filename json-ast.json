@@ -4,7 +4,7 @@
 			{
 				"children": [
 				],
-				"path": "./src/complexity/core/mocks/mocks-mocks/",
+				"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/mocks-mocks/",
 				"astFiles": [
 					{
 						"name": "debug-2.mock.ts",
@@ -124,7 +124,7 @@
 			{
 				"children": [
 				],
-				"path": "./src/complexity/core/mocks/mocks-subfolder/",
+				"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/mocks-subfolder/",
 				"astFiles": [
 					{
 						"name": "arrays-mock.ts",
@@ -10438,7 +10438,7 @@
 				]
 			}
 		],
-		"path": "./src/complexity/core/mocks/",
+		"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/",
 		"astFiles": [
 			{
 				"name": "debug.mock.ts",

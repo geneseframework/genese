@@ -132,7 +132,7 @@ export class AstMethod implements Evaluate {
      */
     evaluate(): void {
         this.createDisplayedCode();
-        LogService.printAllChildren(this.astNode);
+        // LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticCpx(this.astNode);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);

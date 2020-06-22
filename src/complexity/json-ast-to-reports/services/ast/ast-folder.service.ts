@@ -29,8 +29,10 @@ export class AstFolderService extends StatsService {
         this._stats.numberOfFiles = astFolder.numberOfFiles;
         this._stats.numberOfMethods = astFolder.numberOfMethods;
         this._stats.totalCognitiveComplexity = astFolder.cpxFactors.total;
+        console.log('STATSSS ASTFOLDER CPXFFF', astFolder.path, astFolder.cpxFactors, astFolder.cpxFactors.total)
         this._stats.totalCyclomaticComplexity = astFolder.cyclomaticCpx;
         this.calculateAstFolderCpxByStatus(astFolder);
+        this._stats.setPercentages();
         return this._stats;
     }
 
@@ -70,7 +72,7 @@ export class AstFolderService extends StatsService {
         this._stats.numberOfMethodsByStatus[type].correct += tsFileStats.numberOfMethodsByStatus[type].correct;
         this._stats.numberOfMethodsByStatus[type].error += tsFileStats.numberOfMethodsByStatus[type].error;
         this._stats.numberOfMethodsByStatus[type].warning += tsFileStats.numberOfMethodsByStatus[type].warning;
-
+        // console.log('STATSSSS', this._stats.numberOfMethodsByStatus)
     }
 
 

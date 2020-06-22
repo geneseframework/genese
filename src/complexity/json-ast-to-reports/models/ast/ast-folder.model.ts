@@ -150,21 +150,30 @@ export class AstFolder implements Evaluate, Logg {
 
 
     /**
-     * Evaluates the complexities of the AstFiles of this AstFolder
+     * Evaluates and sets the complexities of the AstFiles of this AstFolder (including its subfolders)
      */
     evaluate(): void {
         this.cpxFactors = new CpxFactors();
-        for (const astFile of this.astFiles) {
+        this.evaluateCpxFactors(this);
+        this.numberOfMethods = this.#astFolderService.getNumberOfMethods(this);
+        this.stats = this.#astFolderService.calculateStats(this);
+    }
+
+
+    /**
+     * Evaluates and sets the complexities of the AstFiles of a given AstFolder (including its subfolders)
+     * @param astFolder     // The "parent" AstFolder
+     */
+    private evaluateCpxFactors(astFolder: AstFolder): void {
+        for (const astFile of astFolder.astFiles) {
             astFile.evaluate();
             this.cpxFactors = this.cpxFactors.add(astFile.cpxFactors);
             this.cyclomaticCpx = this.cyclomaticCpx + astFile.cyclomaticCpx;
             this.complexitiesByStatus = this.complexitiesByStatus.add(astFile.complexitiesByStatus);
         }
-        for (const childAstFolder of this.children) {
-            childAstFolder.evaluate();
+        for (const childAstFolder of astFolder.children) {
+            this.evaluateCpxFactors(childAstFolder);
         }
-        this.numberOfMethods = this.#astFolderService.getNumberOfMethods(this);
-        this.stats = this.#astFolderService.calculateStats(this);
     }
 
 
