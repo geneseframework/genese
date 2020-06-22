@@ -13,26 +13,26 @@ const complexities_by_status_interface_1 = require("../../json-ast-to-reports/in
 class Options {
     /**
      * Sets the options of genese-complexity module
-     * @param pathCommand       // The path of the folder where the command-line was entered (can't be overriden)
-     * @param pathToAnalyze     // The path of the folder to analyse (can be overriden)
-     * @param pathGeneseNodeJs  // The path of the node_module Genese in the nodejs user environment (can't be overriden)
+     * @param pathCommand               // The path of the folder where the command-line was entered (can't be overriden)
+     * @param pathFolderToAnalyze       // The path of the folder to analyse (can be overriden)
+     * @param pathGeneseNodeJs          // The path of the node_module Genese in the nodejs user environment (can't be overriden)
      */
-    static setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs) {
-        Options.setOptionsFromCommandLine(pathCommand, pathToAnalyze, pathGeneseNodeJs);
+    static setOptions(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs) {
         const geneseConfigPath = `${pathCommand}/geneseconfig.json`;
         if (fs.existsSync(geneseConfigPath)) {
             Options.setOptionsFromConfig(geneseConfigPath);
         }
+        Options.setOptionsFromCommandLine(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs);
     }
     /**
      * Sets the options of genese-complexity module with command-line options (lower priority than geneseconfig.json options)
-     * @param pathCommand       // The path of the folder where the command-line was entered (can't be overriden)
-     * @param pathToAnalyze     // The path of the folder to analyse (can be overriden)
-     * @param pathGeneseNodeJs  // The path of the node_module Genese in the nodejs user environment (can't be overriden)
+     * @param pathCommand               // The path of the folder where the command-line was entered (can't be overriden)
+     * @param pathFolderToAnalyze       // The path of the folder to analyse (can be overriden)
+     * @param pathGeneseNodeJs          // The path of the node_module Genese in the nodejs user environment (can't be overriden)
      */
-    static setOptionsFromCommandLine(pathCommand, pathToAnalyze, pathGeneseNodeJs) {
+    static setOptionsFromCommandLine(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs) {
         Options.pathCommand = pathCommand;
-        Options.pathFolderToAnalyze = pathToAnalyze;
+        Options.pathFolderToAnalyze = file_service_1.getPathWithSlash(pathFolderToAnalyze);
         Options.pathGeneseNodeJs = pathGeneseNodeJs;
         Options.pathOutDir = `${pathCommand}/genese/complexity/reports`;
     }

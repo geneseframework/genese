@@ -24,9 +24,7 @@ export function getFilename(pathFile = ''): string {
  */
 export function getAllFiles(dirPath: string, arrayOfFiles?: string[]): string[] {
     const files = fs.readdirSync(dirPath)
-
     arrayOfFiles = arrayOfFiles || [];
-
     files.forEach(function(file) {
         if (fs.statSync(dirPath + "/" + file).isDirectory()) {
             arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
@@ -74,7 +72,7 @@ export function getPathWithDotSlash(path: string): string {
  * @param path      // The path to analyse
  */
 export function getPathWithSlash(path: string): string {
-    return path?.slice(0, 1) !== '/' ? `${path}/` : path;
+    return path?.slice(-1) !== '/' ? `${path}/` : path;
 }
 
 
@@ -91,9 +89,7 @@ export function getRouteToRoot(relativePath: string): string {
     for (let i = 0; i < relativePath.length; i++) {
         relativeRoot = relativePath.charAt(i) === '/' ? `/..${relativeRoot}` : relativeRoot;
     }
-    const zzz = relativeRoot.slice(1);
-    // console.log('REL PATTHHH', relativePath, zzz)
-    return zzz;
+    return relativeRoot.slice(1);
 }
 
 

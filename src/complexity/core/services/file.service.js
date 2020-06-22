@@ -70,7 +70,7 @@ exports.getPathWithDotSlash = getPathWithDotSlash;
  * @param path      // The path to analyse
  */
 function getPathWithSlash(path) {
-    return (path === null || path === void 0 ? void 0 : path.slice(0, 1)) !== '/' ? `${path}/` : path;
+    return (path === null || path === void 0 ? void 0 : path.slice(-1)) !== '/' ? `${path}/` : path;
 }
 exports.getPathWithSlash = getPathWithSlash;
 /**
@@ -86,9 +86,7 @@ function getRouteToRoot(relativePath) {
     for (let i = 0; i < relativePath.length; i++) {
         relativeRoot = relativePath.charAt(i) === '/' ? `/..${relativeRoot}` : relativeRoot;
     }
-    const zzz = relativeRoot.slice(1);
-    // console.log('REL PATTHHH', relativePath, zzz)
-    return zzz;
+    return relativeRoot.slice(1);
 }
 exports.getRouteToRoot = getRouteToRoot;
 /**

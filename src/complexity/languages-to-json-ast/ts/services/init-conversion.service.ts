@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import { DEBUG_MOCK, LIMIT_CONVERSIONS } from '../../language-to-json-ast';
+import { DEV_MOCK, LIMIT_CONVERSIONS } from '../../language-to-json-ast';
 import { TsFolder } from '../models/ts-folder.model';
 import { TsFileConversionService } from './ts-file-conversion.service';
 import { TsJsonAst } from '../models/ts-json-ast.model';
@@ -58,7 +58,7 @@ export class InitConversionService {
      * @param path
      */
     private isFileToConvert(path: string): boolean {
-        return (getFileExtension(path) === 'ts' && !LIMIT_CONVERSIONS) || path === DEBUG_MOCK;
+        return (getFileExtension(path) === 'ts' && !LIMIT_CONVERSIONS) || path === DEV_MOCK;
     }
 
 }

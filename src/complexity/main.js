@@ -12,17 +12,17 @@ class Main {
     /**
      * Starts the analysis
      * @param pathCommand
-     * @param pathToAnalyze
+     * @param pathFolderToAnalyze
      * @param pathGeneseNodeJs
      * @param jsonAstPath
      */
     // TODO : Add language option and path to JsonAst file
-    start(pathCommand, pathToAnalyze, pathGeneseNodeJs, jsonAstPath = '/json-ast.json') {
-        console.log(`PATH TO ANALYZE : ${pathToAnalyze}`);
-        options_model_1.Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
+    start(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs, jsonAstPath = '/json-ast.json') {
+        console.log(`PATH TO ANALYZE : ${pathFolderToAnalyze}`);
+        options_model_1.Options.setOptions(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs);
         file_service_1.createOutDir();
-        language_to_json_ast_1.LanguageToJsonAst.start(pathCommand, pathToAnalyze, pathGeneseNodeJs);
-        json_ast_to_reports_1.JsonAstToReports.start(pathCommand, pathToAnalyze, pathGeneseNodeJs);
+        language_to_json_ast_1.LanguageToJsonAst.start(pathCommand, options_model_1.Options.pathFolderToAnalyze, pathGeneseNodeJs);
+        json_ast_to_reports_1.JsonAstToReports.start(pathCommand, options_model_1.Options.pathFolderToAnalyze, pathGeneseNodeJs);
     }
 }
 exports.Main = Main;

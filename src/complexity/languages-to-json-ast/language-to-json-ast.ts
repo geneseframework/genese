@@ -4,19 +4,18 @@ import * as chalk from 'chalk';
 import { JsonService } from './json.service';
 import { createFile } from '../core/services/file.service';
 import { JsonAst } from '../json-ast-to-reports/models/ast/json-ast.model';
-import { Options } from '../core/models/options.model';
 
-export const LIMIT_CONVERSIONS = true;
-export const DEBUG_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
+export const LIMIT_CONVERSIONS = false;
+export const DEV_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
 
 /**
- * Main process of the conversion to JsonAst
+ * Main process of the parsing to JsonAst format
  */
 export class LanguageToJsonAst {
 
 
     /**
-     * Starts the conversion
+     * Starts the parsing to Json Ast format
      * @param pathCommand           // The path to the directory where the user enters the command line
      * @param pathToAnalyze         // The path of the folder to analyse
      * @param pathGeneseNodeJs      // The path to Genese module installed globally on the user's device
@@ -24,7 +23,6 @@ export class LanguageToJsonAst {
      */
     static start(pathCommand: string, pathToAnalyze: string, pathGeneseNodeJs: string, language?: Language): void {
         console.log(chalk.blueBright('STARTS JSON AST GENERATION'));
-        Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
         let jsonAst: JsonAst;
         switch (language) {
             case Language.TS:
