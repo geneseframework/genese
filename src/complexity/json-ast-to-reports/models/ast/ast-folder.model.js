@@ -111,7 +111,7 @@ class AstFolder {
     //                                  Other methods
     // ---------------------------------------------------------------------------------
     /**
-     * Evaluates the complexities of the AstFiles of this AstFolder
+     * Evaluates and sets the complexities of the AstFiles of this AstFolder (including its subfolders)
      */
     evaluate() {
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
@@ -119,6 +119,10 @@ class AstFolder {
         this.numberOfMethods = __classPrivateFieldGet(this, _astFolderService).getNumberOfMethods(this);
         this.stats = __classPrivateFieldGet(this, _astFolderService).calculateStats(this);
     }
+    /**
+     * Evaluates and sets the complexities of the AstFiles of a given AstFolder (including its subfolders)
+     * @param astFolder     // The "parent" AstFolder
+     */
     evaluateCpxFactors(astFolder) {
         for (const astFile of astFolder.astFiles) {
             astFile.evaluate();
