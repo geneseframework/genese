@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createFile = exports.copyFile = exports.createOutDir = exports.createRelativeDir = exports.getLanguageExtensions = exports.getFilenameWithoutExtension = exports.getFileExtension = exports.getRouteToRoot = exports.getPathWithDotSlash = exports.getArrayOfPathsWithDotSlash = exports.getAllFiles = exports.getFilename = void 0;
+exports.createFile = exports.copyFile = exports.createOutDir = exports.createRelativeDir = exports.getLanguageExtensions = exports.getFilenameWithoutExtension = exports.getFileExtension = exports.getRouteToRoot = exports.getPathWithSlash = exports.getPathWithDotSlash = exports.getArrayOfPathsWithDotSlash = exports.getAllFiles = exports.getFilename = void 0;
 const fs = require("fs-extra");
 const options_model_1 = require("../models/options.model");
 /**
@@ -65,6 +65,14 @@ function getPathWithDotSlash(path) {
     return pathWithDotSlash;
 }
 exports.getPathWithDotSlash = getPathWithDotSlash;
+/**
+ * Returns a path with a ./ at the beginning
+ * @param path      // The path to analyse
+ */
+function getPathWithSlash(path) {
+    return (path === null || path === void 0 ? void 0 : path.slice(0, 1)) !== '/' ? `${path}/` : path;
+}
+exports.getPathWithSlash = getPathWithSlash;
 /**
  * Returns the path between a subfolder and its root
  * For example, if relativePath = 'my/relative/path', it will return '../../..

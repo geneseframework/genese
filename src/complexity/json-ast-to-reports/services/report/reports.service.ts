@@ -1,10 +1,10 @@
-import { Options } from '../../models/options';
 import { copyFile, createRelativeDir } from '../../../core/services/file.service';
 import { AstFolder } from '../../models/ast/ast-folder.model';
 import { AstFolderReportService } from './ast-folder-report.service';
 import { AstFileReportService } from './ast-file-report.service';
 import { AstFile } from '../../models/ast/ast-file.model';
 import { JsonAst } from '../../models/ast/json-ast.model';
+import { Options } from '../../../core/models/options.model';
 
 
 /**

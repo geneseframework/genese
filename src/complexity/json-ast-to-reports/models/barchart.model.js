@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Barchart = void 0;
-const options_1 = require("./options");
 const complexity_type_enum_1 = require("../enums/complexity-type.enum");
 const chart_color_enum_1 = require("../enums/chart-color.enum");
+const options_model_1 = require("../../core/models/options.model");
 /**
  * Barchart of complexities
  */
@@ -65,10 +65,10 @@ class Barchart {
     getColor(complexity) {
         let color = chart_color_enum_1.ChartColor.WARNING;
         const cpx = `${this.cpxType}Cpx`;
-        if (complexity <= options_1.Options[cpx].warningThreshold) {
+        if (complexity <= options_model_1.Options[cpx].warningThreshold) {
             color = chart_color_enum_1.ChartColor.CORRECT;
         }
-        else if (complexity > options_1.Options[cpx].errorThreshold) {
+        else if (complexity > options_model_1.Options[cpx].errorThreshold) {
             color = chart_color_enum_1.ChartColor.ERROR;
         }
         return color;

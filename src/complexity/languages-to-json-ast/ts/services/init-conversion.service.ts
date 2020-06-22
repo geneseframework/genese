@@ -1,10 +1,10 @@
 import * as fs from 'fs-extra';
-import { ConvertOptions } from '../../core/models/convert-options.model';
 import { DEBUG_MOCK, LIMIT_CONVERSIONS } from '../../language-to-json-ast';
 import { TsFolder } from '../models/ts-folder.model';
 import { TsFileConversionService } from './ts-file-conversion.service';
 import { TsJsonAst } from '../models/ts-json-ast.model';
 import { getFileExtension } from '../../../core/services/file.service';
+import { Options } from '../../../core/models/options.model';
 
 /**
  * - TsFolders generation from Abstract Syntax Tree (AST) of its files (including files in subfolders)
@@ -41,7 +41,7 @@ export class InitConversionService {
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach((elementName: string) => {
             const pathElement = path + elementName;
-            if (!ConvertOptions.isIgnored(pathElement)) {
+            if (!Options.isIgnored(pathElement)) {
                 if (fs.statSync(pathElement).isDirectory() && !LIMIT_CONVERSIONS) {
                     tsFolder.children.push(this.generateTsFolder(`${pathElement}/`, tsFolder))
                 } else if (this.isFileToConvert(pathElement)) {

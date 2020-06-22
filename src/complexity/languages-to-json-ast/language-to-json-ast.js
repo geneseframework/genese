@@ -2,12 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LanguageToJsonAst = exports.DEBUG_MOCK = exports.LIMIT_CONVERSIONS = void 0;
 const init_conversion_service_1 = require("./ts/services/init-conversion.service");
-const convert_options_model_1 = require("./core/models/convert-options.model");
 const language_enum_1 = require("../core/enum/language.enum");
 const chalk = require("chalk");
-const json_service_1 = require("./core/services/json.service");
+const json_service_1 = require("./json.service");
 const file_service_1 = require("../core/services/file.service");
 const json_ast_model_1 = require("../json-ast-to-reports/models/ast/json-ast.model");
+const options_model_1 = require("../core/models/options.model");
 exports.LIMIT_CONVERSIONS = true;
 exports.DEBUG_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
 /**
@@ -23,7 +23,7 @@ class LanguageToJsonAst {
      */
     static start(pathCommand, pathToAnalyze, pathGeneseNodeJs, language) {
         console.log(chalk.blueBright('STARTS JSON AST GENERATION'));
-        convert_options_model_1.ConvertOptions.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
+        options_model_1.Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
         let jsonAst;
         switch (language) {
             case language_enum_1.Language.TS:
@@ -34,7 +34,7 @@ class LanguageToJsonAst {
                 break;
         }
         file_service_1.createFile(`./json-ast.json`, json_service_1.JsonService.prettifyJson(jsonAst));
-        console.log(chalk.blueBright('JSON AST GENERATED SUCCESSFULLY'));
+        console.log(chalk.greenBright('JSON AST GENERATED SUCCESSFULLY'));
     }
     // TODO: implement for all languages
     static generateFromAllFiles(pathToAnalyze) {

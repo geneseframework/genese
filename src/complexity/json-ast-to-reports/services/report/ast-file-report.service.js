@@ -4,8 +4,8 @@ exports.AstFileReportService = void 0;
 const fs = require("fs-extra");
 const eol = require("eol");
 const Handlebars = require("handlebars");
-const options_1 = require("../../models/options");
 const file_service_1 = require("../../../core/services/file.service");
+const options_model_1 = require("../../../core/models/options.model");
 /**
  * Service generating files reports
  */
@@ -47,7 +47,7 @@ class AstFileReportService {
         this.registerPartial("cognitiveDoughnutScript", 'cognitive-doughnut');
         this.registerPartial("cyclomaticDoughnutScript", 'cyclomatic-doughnut');
         this.registerPartial("method", 'methods');
-        const reportTemplate = eol.auto(fs.readFileSync(`${options_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/file-report.handlebars`, 'utf-8'));
+        const reportTemplate = eol.auto(fs.readFileSync(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/file-report.handlebars`, 'utf-8'));
         this.template = Handlebars.compile(reportTemplate);
         this.writeReport();
     }
@@ -57,14 +57,14 @@ class AstFileReportService {
     writeReport() {
         var _a;
         const template = this.template({
-            colors: options_1.Options.colors,
+            colors: options_model_1.Options.colors,
             methods: this.methodReports,
             relativeRootReports: file_service_1.getPathWithDotSlash(this.relativeRootReports),
             stats: this.astFile.stats,
-            thresholds: options_1.Options.getThresholds()
+            thresholds: options_model_1.Options.getThresholds()
         });
         const filenameWithoutExtension = file_service_1.getFilenameWithoutExtension(this.astFile.name);
-        const pathReport = `${options_1.Options.pathOutDir}/${(_a = this.astFile.astFolder) === null || _a === void 0 ? void 0 : _a.relativePath}/${filenameWithoutExtension}.html`;
+        const pathReport = `${options_model_1.Options.pathOutDir}/${(_a = this.astFile.astFolder) === null || _a === void 0 ? void 0 : _a.relativePath}/${filenameWithoutExtension}.html`;
         fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
     }
     /**
@@ -73,7 +73,7 @@ class AstFileReportService {
      * @param filename      // The name of the file
      */
     registerPartial(partialName, filename) {
-        const partial = eol.auto(fs.readFileSync(`${options_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/${filename}.handlebars`, 'utf-8'));
+        const partial = eol.auto(fs.readFileSync(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/${filename}.handlebars`, 'utf-8'));
         Handlebars.registerPartial(partialName, partial);
     }
 }

@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ReportsService = void 0;
-const options_1 = require("../../models/options");
 const file_service_1 = require("../../../core/services/file.service");
 const ast_folder_report_service_1 = require("./ast-folder-report.service");
 const ast_file_report_service_1 = require("./ast-file-report.service");
+const options_model_1 = require("../../../core/models/options.model");
 /**
  * Service for reports generation
  */
@@ -52,12 +52,12 @@ class ReportsService {
      */
     static createStyleFiles() {
         file_service_1.createRelativeDir('reports-styles');
-        file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/report.css`, `${options_1.Options.pathOutDir}/reports-styles/report.css`);
-        file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/styles.css`, `${options_1.Options.pathOutDir}/reports-styles/styles.css`);
-        file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prettify.css`, `${options_1.Options.pathOutDir}/reports-styles/prettify.css`);
-        file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prism.css`, `${options_1.Options.pathOutDir}/reports-styles/prism.css`);
-        file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prism.js`, `${options_1.Options.pathOutDir}/reports-styles/prism.js`);
-        file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/node_modules/chart.js/dist/Chart.js`, `${options_1.Options.pathOutDir}/reports-styles/Chart.js`);
+        file_service_1.copyFile(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/report.css`, `${options_model_1.Options.pathOutDir}/reports-styles/report.css`);
+        file_service_1.copyFile(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/styles.css`, `${options_model_1.Options.pathOutDir}/reports-styles/styles.css`);
+        file_service_1.copyFile(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prettify.css`, `${options_model_1.Options.pathOutDir}/reports-styles/prettify.css`);
+        file_service_1.copyFile(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prism.css`, `${options_model_1.Options.pathOutDir}/reports-styles/prism.css`);
+        file_service_1.copyFile(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prism.js`, `${options_model_1.Options.pathOutDir}/reports-styles/prism.js`);
+        file_service_1.copyFile(`${options_model_1.Options.pathGeneseNodeJs}/node_modules/chart.js/dist/Chart.js`, `${options_model_1.Options.pathOutDir}/reports-styles/Chart.js`);
     }
 }
 exports.ReportsService = ReportsService;

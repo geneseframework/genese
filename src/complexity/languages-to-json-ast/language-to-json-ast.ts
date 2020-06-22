@@ -1,10 +1,10 @@
 import { InitConversionService } from './ts/services/init-conversion.service';
-import { ConvertOptions } from './core/models/convert-options.model';
 import { Language } from '../core/enum/language.enum';
 import * as chalk from 'chalk';
-import { JsonService } from './core/services/json.service';
+import { JsonService } from './json.service';
 import { createFile } from '../core/services/file.service';
 import { JsonAst } from '../json-ast-to-reports/models/ast/json-ast.model';
+import { Options } from '../core/models/options.model';
 
 export const LIMIT_CONVERSIONS = true;
 export const DEBUG_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
@@ -24,7 +24,7 @@ export class LanguageToJsonAst {
      */
     static start(pathCommand: string, pathToAnalyze: string, pathGeneseNodeJs: string, language?: Language): void {
         console.log(chalk.blueBright('STARTS JSON AST GENERATION'));
-        ConvertOptions.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
+        Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
         let jsonAst: JsonAst;
         switch (language) {
             case Language.TS:
@@ -35,7 +35,7 @@ export class LanguageToJsonAst {
                 break;
         }
         createFile(`./json-ast.json`, JsonService.prettifyJson(jsonAst));
-        console.log(chalk.blueBright('JSON AST GENERATED SUCCESSFULLY'));
+        console.log(chalk.greenBright('JSON AST GENERATED SUCCESSFULLY'));
     }
 
 

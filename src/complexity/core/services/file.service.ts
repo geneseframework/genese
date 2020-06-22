@@ -70,6 +70,15 @@ export function getPathWithDotSlash(path: string): string {
 
 
 /**
+ * Returns a path with a ./ at the beginning
+ * @param path      // The path to analyse
+ */
+export function getPathWithSlash(path: string): string {
+    return path?.slice(0, 1) !== '/' ? `${path}/` : path;
+}
+
+
+/**
  * Returns the path between a subfolder and its root
  * For example, if relativePath = 'my/relative/path', it will return '../../..
  * @param relativePath      // The path to analyse

@@ -1,5 +1,9 @@
 import * as fs from 'fs-extra';
 import { getArrayOfPathsWithDotSlash } from '../services/file.service';
+import { Complexity } from '../../json-ast-to-reports/interfaces/complexity.interface';
+import { ComplexityType } from '../../json-ast-to-reports/enums/complexity-type.enum';
+import { ChartColor } from '../../json-ast-to-reports/enums/chart-color.enum';
+import { ComplexitiesByStatus } from '../../json-ast-to-reports/interfaces/complexities-by-status.interface';
 
 
 /**
@@ -8,11 +12,29 @@ import { getArrayOfPathsWithDotSlash } from '../services/file.service';
  */
 export class Options {
 
+    static cognitiveCpx: Complexity = {             // Options concerning the cognitive complexity
+        errorThreshold: 10,                         // A complexity strictly greater than errorThreshold will be seen as error (can be overriden)
+        type: ComplexityType.COGNITIVE,             // Sets the complexity type for this option (can't be overriden)
+        warningThreshold: 5                         // A complexity strictly greater than warning threshold and lower or equal than errorThreshold will be seen as warning (can be overriden)
+    };
+    static colors: ChartColor[] = [                 // The colors of the charts
+        ChartColor.CORRECT,
+        ChartColor.WARNING,
+        ChartColor.ERROR
+    ];
+    static cyclomaticCpx: Complexity = {            // Options concerning the cognitive complexity
+        errorThreshold: 10,                         // A complexity strictly greater than errorThreshold will be seen as error (can be overriden)
+        type: ComplexityType.CYCLOMATIC,            // Sets the complexity type for this option (can't be overriden)
+        warningThreshold: 5                         // A complexity strictly greater than warning threshold and lower or equal than errorThreshold will be seen as warning (can be overriden)
+    };
     static ignore: string[] = [];                   // The paths of the files or folders to ignore
     static pathCommand = '';                        // The path of the folder where the command-line was entered (can't be overriden)
     static pathFolderToAnalyze = './';              // The path of the folder to analyse (can be overriden)
     static pathGeneseNodeJs = '';                   // The path of the node_module Genese in the nodejs user environment (can't be overriden)
     static pathOutDir = '';                         // The path where the reports are created (can be overriden)
+
+
+
 
 
     /**
@@ -64,4 +86,18 @@ export class Options {
     static isIgnored(path: string) : boolean {
         return  Options.ignore.includes(path);
     }
+
+
+    /**
+     * Gets the different thresholds defined in Options class
+     */
+    static getThresholds(): ComplexitiesByStatus {
+        const cpxByStatus = new ComplexitiesByStatus();
+        cpxByStatus.cognitive.warning = Options.cognitiveCpx.warningThreshold;
+        cpxByStatus.cognitive.error = Options.cognitiveCpx.errorThreshold;
+        cpxByStatus.cyclomatic.warning = Options.cyclomaticCpx.warningThreshold;
+        cpxByStatus.cyclomatic.error = Options.cyclomaticCpx.errorThreshold;
+        return cpxByStatus;
+    }
+
 }

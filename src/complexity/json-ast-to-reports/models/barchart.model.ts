@@ -1,7 +1,7 @@
 import { Bar } from '../interfaces/bar.interface';
-import { Options } from './options';
 import { ComplexityType } from '../enums/complexity-type.enum';
 import { ChartColor } from '../enums/chart-color.enum';
+import { Options } from '../../core/models/options.model';
 
 /**
  * Barchart of complexities

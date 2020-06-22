@@ -25,8 +25,8 @@ const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const code_line_model_1 = require("../code/code-line.model");
 const cpx_factors_1 = require("../../../core/const/cpx-factors");
 const factor_category_enum_1 = require("../../enums/factor-category.enum");
-const options_1 = require("../options");
 const log_service_1 = require("../../services/log.service");
+const options_model_1 = require("../../../core/models/options.model");
 /**
  * Element of the AstNode structure corresponding to a given method
  */
@@ -132,14 +132,14 @@ class AstMethod {
      */
     getComplexityStatus(cpxType) {
         let status = evaluation_status_enum_1.MethodStatus.WARNING;
-        if ((cpxType === complexity_type_enum_1.ComplexityType.COGNITIVE && this.cpxIndex <= options_1.Options.cognitiveCpx.warningThreshold)
+        if ((cpxType === complexity_type_enum_1.ComplexityType.COGNITIVE && this.cpxIndex <= options_model_1.Options.cognitiveCpx.warningThreshold)
             ||
-                (cpxType === complexity_type_enum_1.ComplexityType.CYCLOMATIC && this.cyclomaticCpx <= options_1.Options.cyclomaticCpx.warningThreshold)) {
+                (cpxType === complexity_type_enum_1.ComplexityType.CYCLOMATIC && this.cyclomaticCpx <= options_model_1.Options.cyclomaticCpx.warningThreshold)) {
             status = evaluation_status_enum_1.MethodStatus.CORRECT;
         }
-        else if ((cpxType === complexity_type_enum_1.ComplexityType.COGNITIVE && this.cpxIndex > options_1.Options.cognitiveCpx.errorThreshold)
+        else if ((cpxType === complexity_type_enum_1.ComplexityType.COGNITIVE && this.cpxIndex > options_model_1.Options.cognitiveCpx.errorThreshold)
             ||
-                (cpxType === complexity_type_enum_1.ComplexityType.CYCLOMATIC && this.cyclomaticCpx > options_1.Options.cyclomaticCpx.errorThreshold)) {
+                (cpxType === complexity_type_enum_1.ComplexityType.CYCLOMATIC && this.cyclomaticCpx > options_model_1.Options.cyclomaticCpx.errorThreshold)) {
             status = evaluation_status_enum_1.MethodStatus.ERROR;
         }
         return status;

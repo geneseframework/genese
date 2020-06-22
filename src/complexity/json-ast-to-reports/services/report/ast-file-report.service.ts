@@ -1,10 +1,10 @@
 import * as fs from 'fs-extra';
 import * as eol from "eol";
 import * as Handlebars from "handlebars";
-import { Options } from '../../models/options';
 import { getFilenameWithoutExtension, getPathWithDotSlash, getRouteToRoot } from '../../../core/services/file.service';
 import { MethodReport } from '../../models/report/method-report.model';
 import { AstFile } from '../../models/ast/ast-file.model';
+import { Options } from '../../../core/models/options.model';
 
 /**
  * Service generating files reports

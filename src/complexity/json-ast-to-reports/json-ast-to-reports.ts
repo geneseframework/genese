@@ -1,10 +1,9 @@
-import { blueBright } from 'ansi-colors';
 import { InitService } from './services/init.service';
-import { Options } from './models/options';
 import { JsonAst } from './models/ast/json-ast.model';
 import { createOutDir } from '../core/services/file.service';
 import { ReportsService } from './services/report/reports.service';
 import * as chalk from 'chalk';
+import { Options } from '../core/models/options.model';
 
 
 /**
@@ -20,14 +19,15 @@ export class JsonAstToReports {
      * @param pathGeneseNodeJs
      * @param jsonAstPath
      */
-    static start(pathCommand: string, pathToAnalyze: string, pathGeneseNodeJs: string, jsonAstPath = '/ast-ts.json'): void {
+    static start(pathCommand: string, pathToAnalyze: string, pathGeneseNodeJs: string, jsonAstPath = '/json-ast.json'): void {
         console.log(chalk.blueBright('START REPORTS GENERATION'));
         Options.setOptions(pathCommand, pathToAnalyze, pathGeneseNodeJs);
         createOutDir();
         const jsonAst = new InitService().generateAllFromJsonAst(JsonAstToReports.getJsonAst(pathCommand + jsonAstPath));
         jsonAst.astFolder.evaluate();
         ReportsService.generateAllReports(jsonAst);
-        console.log(blueBright('REPORTS GENERATED SUCCESSFULLY'));
+        console.log(chalk.greenBright('REPORTS GENERATED SUCCESSFULLY'));
+        console.log('Please open the file folder-report.html in your browser')
     }
 
 

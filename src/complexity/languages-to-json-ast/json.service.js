@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JsonService = void 0;
-const tools_service_1 = require("../../../core/services/tools.service");
+const tools_service_1 = require("../core/services/tools.service");
 /**
  * Service managing the transformation of a given JsonFile in a pretty JsonAst format
  */

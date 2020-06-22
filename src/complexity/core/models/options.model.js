@@ -3,6 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Options = void 0;
 const fs = require("fs-extra");
 const file_service_1 = require("../services/file.service");
+const complexity_type_enum_1 = require("../../json-ast-to-reports/enums/complexity-type.enum");
+const chart_color_enum_1 = require("../../json-ast-to-reports/enums/chart-color.enum");
+const complexities_by_status_interface_1 = require("../../json-ast-to-reports/interfaces/complexities-by-status.interface");
 /**
  * The options used by genese-complexity
  * Some options can be override by command-line options or with geneseconfig.json
@@ -52,8 +55,34 @@ class Options {
     static isIgnored(path) {
         return Options.ignore.includes(path);
     }
+    /**
+     * Gets the different thresholds defined in Options class
+     */
+    static getThresholds() {
+        const cpxByStatus = new complexities_by_status_interface_1.ComplexitiesByStatus();
+        cpxByStatus.cognitive.warning = Options.cognitiveCpx.warningThreshold;
+        cpxByStatus.cognitive.error = Options.cognitiveCpx.errorThreshold;
+        cpxByStatus.cyclomatic.warning = Options.cyclomaticCpx.warningThreshold;
+        cpxByStatus.cyclomatic.error = Options.cyclomaticCpx.errorThreshold;
+        return cpxByStatus;
+    }
 }
 exports.Options = Options;
+Options.cognitiveCpx = {
+    errorThreshold: 10,
+    type: complexity_type_enum_1.ComplexityType.COGNITIVE,
+    warningThreshold: 5 // A complexity strictly greater than warning threshold and lower or equal than errorThreshold will be seen as warning (can be overriden)
+};
+Options.colors = [
+    chart_color_enum_1.ChartColor.CORRECT,
+    chart_color_enum_1.ChartColor.WARNING,
+    chart_color_enum_1.ChartColor.ERROR
+];
+Options.cyclomaticCpx = {
+    errorThreshold: 10,
+    type: complexity_type_enum_1.ComplexityType.CYCLOMATIC,
+    warningThreshold: 5 // A complexity strictly greater than warning threshold and lower or equal than errorThreshold will be seen as warning (can be overriden)
+};
 Options.ignore = []; // The paths of the files or folders to ignore
 Options.pathCommand = ''; // The path of the folder where the command-line was entered (can't be overriden)
 Options.pathFolderToAnalyze = './'; // The path of the folder to analyse (can be overriden)
