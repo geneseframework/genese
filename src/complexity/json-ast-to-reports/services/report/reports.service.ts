@@ -63,11 +63,11 @@ export class ReportsService {
      */
     private static createStyleFiles(): void {
         createRelativeDir('reports-styles');
-        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/ast-to-reports/templates/styles/report.css`, `${Options.pathOutDir}/reports-styles/report.css`);
-        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/ast-to-reports/templates/styles/styles.css`, `${Options.pathOutDir}/reports-styles/styles.css`);
-        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/ast-to-reports/templates/styles/prettify.css`, `${Options.pathOutDir}/reports-styles/prettify.css`);
-        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/ast-to-reports/templates/styles/prism.css`, `${Options.pathOutDir}/reports-styles/prism.css`);
-        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/ast-to-reports/templates/styles/prism.js`, `${Options.pathOutDir}/reports-styles/prism.js`);
+        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/report.css`, `${Options.pathOutDir}/reports-styles/report.css`);
+        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/styles.css`, `${Options.pathOutDir}/reports-styles/styles.css`);
+        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prettify.css`, `${Options.pathOutDir}/reports-styles/prettify.css`);
+        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prism.css`, `${Options.pathOutDir}/reports-styles/prism.css`);
+        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prism.js`, `${Options.pathOutDir}/reports-styles/prism.js`);
         copyFile(`${Options.pathGeneseNodeJs}/node_modules/chart.js/dist/Chart.js`, `${Options.pathOutDir}/reports-styles/Chart.js`);
     }
 }

@@ -52,11 +52,11 @@ class ReportsService {
      */
     static createStyleFiles() {
         file_service_1.createRelativeDir('reports-styles');
-        file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/src/complexity/ast-to-reports/templates/styles/report.css`, `${options_1.Options.pathOutDir}/reports-styles/report.css`);
-        file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/src/complexity/ast-to-reports/templates/styles/styles.css`, `${options_1.Options.pathOutDir}/reports-styles/styles.css`);
-        file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/src/complexity/ast-to-reports/templates/styles/prettify.css`, `${options_1.Options.pathOutDir}/reports-styles/prettify.css`);
-        file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/src/complexity/ast-to-reports/templates/styles/prism.css`, `${options_1.Options.pathOutDir}/reports-styles/prism.css`);
-        file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/src/complexity/ast-to-reports/templates/styles/prism.js`, `${options_1.Options.pathOutDir}/reports-styles/prism.js`);
+        file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/report.css`, `${options_1.Options.pathOutDir}/reports-styles/report.css`);
+        file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/styles.css`, `${options_1.Options.pathOutDir}/reports-styles/styles.css`);
+        file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prettify.css`, `${options_1.Options.pathOutDir}/reports-styles/prettify.css`);
+        file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prism.css`, `${options_1.Options.pathOutDir}/reports-styles/prism.css`);
+        file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prism.js`, `${options_1.Options.pathOutDir}/reports-styles/prism.js`);
         file_service_1.copyFile(`${options_1.Options.pathGeneseNodeJs}/node_modules/chart.js/dist/Chart.js`, `${options_1.Options.pathOutDir}/reports-styles/Chart.js`);
     }
 }

@@ -8,7 +8,7 @@ const chalk = require("chalk");
 const json_service_1 = require("./core/services/json.service");
 const file_service_1 = require("../core/services/file.service");
 const json_ast_model_1 = require("../json-ast-to-reports/models/ast/json-ast.model");
-exports.LIMIT_CONVERSIONS = false;
+exports.LIMIT_CONVERSIONS = true;
 exports.DEBUG_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
 /**
  * Main process of the conversion to JsonAst

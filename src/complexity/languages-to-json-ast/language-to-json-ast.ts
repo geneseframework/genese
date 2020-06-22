@@ -6,7 +6,7 @@ import { JsonService } from './core/services/json.service';
 import { createFile } from '../core/services/file.service';
 import { JsonAst } from '../json-ast-to-reports/models/ast/json-ast.model';
 
-export const LIMIT_CONVERSIONS = false;
+export const LIMIT_CONVERSIONS = true;
 export const DEBUG_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
 
 /**
