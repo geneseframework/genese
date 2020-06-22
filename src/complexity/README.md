@@ -203,13 +203,13 @@ This calculation method involves the following elements :
 
 ### 7.1 Adding new languages
 
-Genese Complexity was developed at first for TypeScript files, but you can now "plug" any language in this module.
+Genese Complexity was developed at first for TypeScript files, but you can now "plug" any language into this module.
 
-What does it mean ? To be simple, Genese Complexity parses a Json file with a specific format : ***JsonAst***. This format corresponds to a simplified AST (Abstract Syntax Tree) of the source code. So if you want to be able to "plug" your language in Genese Complexity, you "just" need to convert the AST structure which is specific to your language to JsonAst format. In other words, your AST nodes must "match" with the AstNodes of the JsonAst.
+What does it mean ? To be simple, Genese Complexity parses a Json file with a specific format : ***JsonAst***. This format corresponds to a simplified AST (Abstract Syntax Tree) of the source code. So if you want to be able to "plug" your language into Genese Complexity, you "just" need to convert the AST structure which is specific to your language to JsonAst format. In other words, your AST nodes must "match" with the AstNodes of the JsonAst format.
 
 As Genese Complexity was created for TypeScript files, if your JsonAst files respect exactly the Typescript AST structure and conventions, Genese Complexity will be able to understand it. If you want to understand how TypeScript AST "runs", you can make some trials in the [TypeScript AST Viewer](https://ts-ast-viewer.com/#code/KYDwDg9gTgLgBAYwDYEMDOa4HFgDthrADCEAtmEqAJYwCecA3gFBNxtygrmUAUKAlI1bsRCCLjQRKAOiQQA5n34BuYWwC+auE01A).
 
-There are hundreds kinds of TypeScript AST nodes, which can be fastidious to "link" the AST nodes of your language. Fortunately, JsonAst only needs few kinds of nodes, not all the hundreds of TypeScript AST. You will find below the list of the AstNode kinds that you will need. 
+There are hundreds kinds of TypeScript AST nodes, so it can be fastidious to "link" all of them to the AST nodes of your language. Fortunately, JsonAst only needs few kinds of nodes, not all the hundreds of TypeScript AST. You will find below the list of the AstNode kinds that you will need. 
 
 #### 7.1.1 Kinds of AstNodes
 
@@ -244,7 +244,7 @@ You will find below the list of all the different kinds of AstNodes. If you want
 - WhileStatement
 
 
-Genese Complexity will consider all the other kinds of AST nodes as "basic" nodes. That means that every node of your AST which will be present in the JsonAst file will add a cognitive complexity corresponding to "basic" nodes, as "StringLiteral", "TrueKeyword", etc. If you want that some kinds of nodes not to increase complexity, you will be able to set a property "empty" to true in the corresponding AstNode.
+Genese Complexity will consider all the other kinds of AST nodes as "atomic" nodes. That means that every node of your AST which will be present in the JsonAst file will add a cognitive complexity corresponding to "atomic" nodes, as "StringLiteral", "TrueKeyword", etc. If you want that some kinds of nodes not to increase complexity, you will be able to set a property "empty" to true in the corresponding AstNode.
 
 #### 7.1.2 JsonAst specifications
 
@@ -258,6 +258,49 @@ This is the root document (the .json file itself)
 | Field name | Type | Required | Description |
 | ---------- | ---- | -------- | ----------- |
 | astFolder  | AstFolder | yes | The object containing all the information about the folder to analyze |
+
+
+
+##### ***astFolder***
+
+Corresponds to a folder to analyze.
+
+- Fixed fields
+
+| Field name | Type | Required | Description |
+| ---------- | ---- | -------- | ----------- |
+| astFiles  | AstFile[] | no | The array of AstFile corresponding to the files inside the folder (but not inside its subfolders) |
+| children | AstFolder[] | no | The array of AstFolder corresponding to the subfolders of this AstFolder |
+| path | String | yes | The absolute path of the folder |
+
+
+##### ***astFile***
+
+Corresponds to a file to analyze.
+
+- Fixed fields
+
+| Field name | Type | Required | Description |
+| ---------- | ---- | -------- | ----------- |
+| astNode  | AstNode | yes | The AstNode corresponding to the sourceFile itself (in Typescript, it is ts.SourceFile) |
+| name | String | yes | The name of the file |
+| text | String | yes | The source code of the file, including break lines |
+
+
+##### ***astNode***
+
+Corresponds to an AST node of the source code of a file.
+
+- Fixed fields
+
+| Field name | Type | Required | Description |
+| ---------- | ---- | -------- | ----------- |
+| children | AstNode[] | no | The array of AstNode corresponding to the children of the AST node |
+| empty | Boolean | no | If true, the corresponding AstNode will not add any complexity |
+| end  | Integer | yes | The position of the last character of the AST node in the source code of the file |
+| kind | SyntaxKind | yes | The kind of the AST node |
+| pos  | Integer | yes | The position of the first character of the AST node in the source code of the file |
+| name | String | yes/no | The name of the AST node. This field MUST be present in the following cases, and optional in the others. ClassDeclaration, MethodDeclaration, FunctionDeclaration, Parameter, Identifier |
 
 
 #### 7.1.3 Structure of the AST nodes
@@ -312,4 +355,372 @@ Your JsonAst MUST be structured like this :
 
 The AstNode "IfStatement" always have a first son which is the inside of the brackets and a second son which is inside the "if condition". This AstNode CAN have a third son which is the AstNode corresponding to the "ElseStatement".
 
+#### 7.1.4 Exhaustive list of the kinds of AstNode
 
+This list corresponds to the [ts.SyntaxKind enum](https://github.com/microsoft/TypeScript/blob/master/lib/typescript.d.ts) (from line 77 to 447)
+```
+    Unknown
+    EndOfFileToken
+    SingleLineCommentTrivia
+    MultiLineCommentTrivia
+    NewLineTrivia
+    WhitespaceTrivia
+    ShebangTrivia
+    ConflictMarkerTrivia
+    NumericLiteral
+    BigIntLiteral
+    StringLiteral
+    JsxText
+    JsxTextAllWhiteSpaces
+    RegularExpressionLiteral
+    NoSubstitutionTemplateLiteral
+    TemplateHead
+    TemplateMiddle
+    TemplateTail
+    OpenBraceToken
+    CloseBraceToken
+    OpenParenToken
+    CloseParenToken
+    OpenBracketToken
+    CloseBracketToken
+    DotToken
+    DotDotDotToken
+    SemicolonToken
+    CommaToken
+    QuestionDotToken
+    LessThanToken
+    LessThanSlashToken
+    GreaterThanToken
+    LessThanEqualsToken
+    GreaterThanEqualsToken
+    EqualsEqualsToken
+    ExclamationEqualsToken
+    EqualsEqualsEqualsToken
+    ExclamationEqualsEqualsToken
+    EqualsGreaterThanToken
+    PlusToken
+    MinusToken
+    AsteriskToken
+    AsteriskAsteriskToken
+    SlashToken
+    PercentToken
+    PlusPlusToken
+    MinusMinusToken
+    LessThanLessThanToken
+    GreaterThanGreaterThanToken
+    GreaterThanGreaterThanGreaterThanToken
+    AmpersandToken
+    BarToken
+    CaretToken
+    ExclamationToken
+    TildeToken
+    AmpersandAmpersandToken
+    BarBarToken
+    QuestionToken
+    ColonToken
+    AtToken
+    QuestionQuestionToken
+    BacktickToken
+    EqualsToken
+    PlusEqualsToken
+    MinusEqualsToken
+    AsteriskEqualsToken
+    AsteriskAsteriskEqualsToken
+    SlashEqualsToken
+    PercentEqualsToken
+    LessThanLessThanEqualsToken
+    GreaterThanGreaterThanEqualsToken
+    GreaterThanGreaterThanGreaterThanEqualsToken
+    AmpersandEqualsToken
+    BarEqualsToken
+    CaretEqualsToken
+    Identifier
+    PrivateIdentifier
+    BreakKeyword
+    CaseKeyword
+    CatchKeyword
+    ClassKeyword
+    ConstKeyword
+    ContinueKeyword
+    DebuggerKeyword
+    DefaultKeyword
+    DeleteKeyword
+    DoKeyword
+    ElseKeyword
+    EnumKeyword
+    ExportKeyword
+    ExtendsKeyword
+    FalseKeyword
+    FinallyKeyword
+    ForKeyword
+    FunctionKeyword
+    IfKeyword
+    ImportKeyword
+    InKeyword
+    InstanceOfKeyword
+    NewKeyword
+    NullKeyword
+    ReturnKeyword
+    SuperKeyword
+    SwitchKeyword
+    ThisKeyword
+    ThrowKeyword
+    TrueKeyword
+    TryKeyword
+    TypeOfKeyword
+    VarKeyword
+    VoidKeyword
+    WhileKeyword
+    WithKeyword
+    ImplementsKeyword
+    InterfaceKeyword
+    LetKeyword
+    PackageKeyword
+    PrivateKeyword
+    ProtectedKeyword
+    PublicKeyword
+    StaticKeyword
+    YieldKeyword
+    AbstractKeyword
+    AsKeyword
+    AssertsKeyword
+    AnyKeyword
+    AsyncKeyword
+    AwaitKeyword
+    BooleanKeyword
+    ConstructorKeyword
+    DeclareKeyword
+    GetKeyword
+    InferKeyword
+    IsKeyword
+    KeyOfKeyword
+    ModuleKeyword
+    NamespaceKeyword
+    NeverKeyword
+    ReadonlyKeyword
+    RequireKeyword
+    NumberKeyword
+    ObjectKeyword
+    SetKeyword
+    StringKeyword
+    SymbolKeyword
+    TypeKeyword
+    UndefinedKeyword
+    UniqueKeyword
+    UnknownKeyword
+    FromKeyword
+    GlobalKeyword
+    BigIntKeyword
+    OfKeyword
+    QualifiedName
+    ComputedPropertyName
+    TypeParameter
+    Parameter
+    Decorator
+    PropertySignature
+    PropertyDeclaration
+    MethodSignature
+    MethodDeclaration
+    Constructor
+    GetAccessor
+    SetAccessor
+    CallSignature
+    ConstructSignature
+    IndexSignature
+    TypePredicate
+    TypeReference
+    FunctionType
+    ConstructorType
+    TypeQuery
+    TypeLiteral
+    ArrayType
+    TupleType
+    OptionalType
+    RestType
+    UnionType
+    IntersectionType
+    ConditionalType
+    InferType
+    ParenthesizedType
+    ThisType
+    TypeOperator
+    IndexedAccessType
+    MappedType
+    LiteralType
+    ImportType
+    ObjectBindingPattern
+    ArrayBindingPattern
+    BindingElement
+    ArrayLiteralExpression
+    ObjectLiteralExpression
+    PropertyAccessExpression
+    ElementAccessExpression
+    CallExpression
+    NewExpression
+    TaggedTemplateExpression
+    TypeAssertionExpression
+    ParenthesizedExpression
+    FunctionExpression
+    ArrowFunction
+    DeleteExpression
+    TypeOfExpression
+    VoidExpression
+    AwaitExpression
+    PrefixUnaryExpression
+    PostfixUnaryExpression
+    BinaryExpression
+    ConditionalExpression
+    TemplateExpression
+    YieldExpression
+    SpreadElement
+    ClassExpression
+    OmittedExpression
+    ExpressionWithTypeArguments
+    AsExpression
+    NonNullExpression
+    MetaProperty
+    SyntheticExpression
+    TemplateSpan
+    SemicolonClassElement
+    Block
+    EmptyStatement
+    VariableStatement
+    ExpressionStatement
+    IfStatement
+    DoStatement
+    WhileStatement
+    ForStatement
+    ForInStatement
+    ForOfStatement
+    ContinueStatement
+    BreakStatement
+    ReturnStatement
+    WithStatement
+    SwitchStatement
+    LabeledStatement
+    ThrowStatement
+    TryStatement
+    DebuggerStatement
+    VariableDeclaration
+    VariableDeclarationList
+    FunctionDeclaration
+    ClassDeclaration
+    InterfaceDeclaration
+    TypeAliasDeclaration
+    EnumDeclaration
+    ModuleDeclaration
+    ModuleBlock
+    CaseBlock
+    NamespaceExportDeclaration
+    ImportEqualsDeclaration
+    ImportDeclaration
+    ImportClause
+    NamespaceImport
+    NamedImports
+    ImportSpecifier
+    ExportAssignment
+    ExportDeclaration
+    NamedExports
+    NamespaceExport
+    ExportSpecifier
+    MissingDeclaration
+    ExternalModuleReference
+    JsxElement
+    JsxSelfClosingElement
+    JsxOpeningElement
+    JsxClosingElement
+    JsxFragment
+    JsxOpeningFragment
+    JsxClosingFragment
+    JsxAttribute
+    JsxAttributes
+    JsxSpreadAttribute
+    JsxExpression
+    CaseClause
+    DefaultClause
+    HeritageClause
+    CatchClause
+    PropertyAssignment
+    ShorthandPropertyAssignment
+    SpreadAssignment
+    EnumMember
+    UnparsedPrologue
+    UnparsedPrepend
+    UnparsedText
+    UnparsedInternalText
+    UnparsedSyntheticReference
+    SourceFile
+    Bundle
+    UnparsedSource
+    InputFiles
+    JSDocTypeExpression
+    JSDocAllType
+    JSDocUnknownType
+    JSDocNullableType
+    JSDocNonNullableType
+    JSDocOptionalType
+    JSDocFunctionType
+    JSDocVariadicType
+    JSDocNamepathType
+    JSDocComment
+    JSDocTypeLiteral
+    JSDocSignature
+    JSDocTag
+    JSDocAugmentsTag
+    JSDocImplementsTag
+    JSDocAuthorTag
+    JSDocClassTag
+    JSDocPublicTag
+    JSDocPrivateTag
+    JSDocProtectedTag
+    JSDocReadonlyTag
+    JSDocCallbackTag
+    JSDocEnumTag
+    JSDocParameterTag
+    JSDocReturnTag
+    JSDocThisTag
+    JSDocTypeTag
+    JSDocTemplateTag
+    JSDocTypedefTag
+    JSDocPropertyTag
+    SyntaxList
+    NotEmittedStatement
+    PartiallyEmittedExpression
+    CommaListExpression
+    MergeDeclarationMarker
+    EndOfDeclarationMarker
+    SyntheticReferenceExpression
+    Count
+    FirstAssignment
+    LastAssignment
+    FirstCompoundAssignment
+    LastCompoundAssignment
+    FirstReservedWord
+    LastReservedWord
+    FirstKeyword
+    LastKeyword
+    FirstFutureReservedWord
+    LastFutureReservedWord
+    FirstTypeNode
+    LastTypeNode
+    FirstPunctuation
+    LastPunctuation
+    FirstToken
+    LastToken
+    FirstTriviaToken
+    LastTriviaToken
+    FirstLiteralToken
+    LastLiteralToken
+    FirstTemplateToken
+    LastTemplateToken
+    FirstBinaryOperator
+    LastBinaryOperator
+    FirstStatement
+    LastStatement
+    FirstNode
+    FirstJSDocNode
+    LastJSDocNode
+    FirstJSDocTagNode
+    LastJSDocTagNode
+
+```
