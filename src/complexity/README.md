@@ -11,13 +11,14 @@ This module creates an HTML report displaying the complexities scores of each fo
 * [Installation](#installation)
 * [Usage](#usage)
 * [Interpretation of results](#interpretation-of-results)
+* [How to contribute ?](#how-to-contribute-)
 
 
-## Why use Genese Complexity ?
+## 1. Why use Genese Complexity ?
 
 Genese Complexity is an audit tool which allows you to identify quickly the bad practices concerning cognitive or cyclomatic complexity. You will be able to find quickly the methods with too high complexity score (error) or which are near this threshold (warning) and fix the different bad smells.
 
-## Installation
+## 2. Installation
 
 Genese complexity is a part of the genese module itself, so if you installed globally genese yet, you have nothing to do. If not, please install globally the genese module :
 
@@ -25,28 +26,28 @@ Genese complexity is a part of the genese module itself, so if you installed glo
 npm i -g genese
 ```
 
-## Usage
+## 3. Usage
 
 Genese complexity is launched with the Genese CLI included in the genese module. The main command-line is
 
 ```sh 
-genese cpxFactors [directory]
+genese cpx [directory]
 ```
 
 The "directory" param is the folder of the project to audit. It can be relative or absolute.
 
 ***Example :***
 ```sh 
-genese cpxFactors ./src/
+genese cpx ./src/
 ```
 
 Please note that the slash at the end of the path is mandatory.
 
 This command line will generate a report in the folder `genese/complexity/reports` (it can be customized) named `folder-report.html`. You just need to open it in a browser to display the results.
 
-## Interpretation of results
+## 4. Interpretation of results
 
-### Folder reports
+### 4.1 Folder reports
 
 The dashboard's header presents the global statistics of the analyzed project. These scores will give you an overview of its size.
 
@@ -54,11 +55,11 @@ The main part of the page consist in two pairs of charts : the left one is about
  
  The bar charts display the number of methods by complexity score. The first array displays the detailed information of each subfolder of the current one. The second presents informations of the files inside the current folder (but not the files inside its subfolders), and the third array displays the complexity scores of each method of each file located in the current folder or its subloders, sorted by decreasing cognitive complexity score.
  
- ### File reports
+ ### 4.2 File reports
  
  As folder reports, the file reports display complexity statistics of its methods. In addition, you will find detailed information of each of its methods, with explanations of the calculation mode of their cognitive complexity.
  
- ## Configuration
+ ## 5. Configuration
  
  Some parameters are configurable by creating a file geneseconfig.json located on the folder where you will enter the command-line. This file must have this form :
  
@@ -70,7 +71,7 @@ The main part of the page consist in two pairs of charts : the left one is about
 } 
 ```
  
- ### Thresholds
+ ### 5.1 Thresholds
  
  You can customize the warning and error thresholds of each kind of complexity like this :
  
@@ -106,7 +107,7 @@ The values by default are :
 } 
 ```
 
-### Folders to ignore
+### 5.2 Folders to ignore
 
 You can ignore some folders like this :
 
@@ -126,7 +127,7 @@ You can ignore some folders like this :
 
 The folders ignored by default are `/node_modules` and `./genese`.
 
-### Path of folder to analyse
+### 5.3 Path of folder to analyse
 
 By default, the folder to analyse is the folder where you enter the command-line. You can change it like this :
 
@@ -140,7 +141,7 @@ By default, the folder to analyse is the folder where you enter the command-line
 
 The last character must be a slash.
 
-### Reports path
+### 5.4 Reports path
 
 By default, the genese complexity report will be located here : `current_folder/genese/`. You can change it like this:
 
@@ -152,9 +153,9 @@ By default, the genese complexity report will be located here : `current_folder/
 }
 ```
 
-## Documentation
+## 6. Documentation
 
-### Cyclomatic complexity
+### 6.1 Cyclomatic complexity
 
 The cyclomatic complexity represents the difficulty to test a given method. The cyclomatic score is a measure of the testability and the maintainability of your code. This score gives you a first indication about the measure of the time of development needed to test your code and to increase its maintainability.
 
@@ -162,7 +163,7 @@ The force of the cyclomatic complexity concept is its simplicity: approximately,
 
 If you are a human, you will read your code differently than a machine would do it. That's why we need to add more parameters to calculate the real maintainability of your code, and these parameters will contain a part of subjectivity. The measure of the understandability of you code is given by the cognitive complexity which is described below. 
 
-### Cognitive complexity
+### 6.2 Cognitive complexity
 
 The cognitive complexity could be defined as "a measure of the cognitive effort to understand some code". 
 
@@ -198,21 +199,19 @@ This calculation method involves the following elements :
     - logic doors : 0   
     - recursion : 0   
 
-## How to contribute ?
+## 7. How to contribute ?
 
-### Adding new languages
+### 7.1 Adding new languages
 
-Genese Complexity was developed at first for TypeScript files. Now, it is possible to "plug" any language in Genese Complexity.
+Genese Complexity was developed at first for TypeScript files, but you can now "plug" any language in this module.
 
-What does it means ? To be simple, this module parses a Json file with a specific format : JsonAst. This format corresponds to a simplified AST (Abstract Syntax Tree) of the source code. So if you want to be able to "plug" your language in Genese Complexity, you "just" need to parse the AST specific to your language and to transform it to JsonAst format. In other words, your AST nodes must "match" with the AstNodes of the JsonAst.
+What does it mean ? To be simple, Genese Complexity parses a Json file with a specific format : ***JsonAst***. This format corresponds to a simplified AST (Abstract Syntax Tree) of the source code. So if you want to be able to "plug" your language in Genese Complexity, you "just" need to convert the AST structure which is specific to your language to JsonAst format. In other words, your AST nodes must "match" with the AstNodes of the JsonAst.
 
-As Genese Complexity was created for TypeScript files, if your JsonAst files respect exactly the Typescript AST format, Genese Complexity will be able to understand it. If you want to understand how TypeScript AST "runs", you can make some trials in the [TypeScript AST Viewer](https://ts-ast-viewer.com/#code/KYDwDg9gTgLgBAYwDYEMDOa4HFgDthrADCEAtmEqAJYwCecA3gFBNxtygrmUAUKAlI1bsRCCLjQRKAOiQQA5n34BuYWwC+auE01A).
+As Genese Complexity was created for TypeScript files, if your JsonAst files respect exactly the Typescript AST structure and conventions, Genese Complexity will be able to understand it. If you want to understand how TypeScript AST "runs", you can make some trials in the [TypeScript AST Viewer](https://ts-ast-viewer.com/#code/KYDwDg9gTgLgBAYwDYEMDOa4HFgDthrADCEAtmEqAJYwCecA3gFBNxtygrmUAUKAlI1bsRCCLjQRKAOiQQA5n34BuYWwC+auE01A).
 
-There are hundreds kinds of TypeScript AST nodes, which can be fastidious to "link" the AST nodes of your language to the equivalent in TypeScript. Fortunately, JsonAst needs only few kinds of nodes, not all the hundreds of TypeScript AST. You will find below the list of all the AstNode kinds that you will need. You will need too to respect the structure of the TypeScript AST : for example, a "else" MUST be the last son of a "IfStatement" node.  
+There are hundreds kinds of TypeScript AST nodes, which can be fastidious to "link" the AST nodes of your language. Fortunately, JsonAst only needs few kinds of nodes, not all the hundreds of TypeScript AST. You will find below the list of the AstNode kinds that you will need. 
 
-### JsonAst specifications
-
-#### Kinds of AstNodes
+#### 7.1.1 Kinds of AstNodes
 
 You will find below the list of all the different kinds of AstNodes. If you want to understand exactly what they mean, you can refer yourself to the TypeScript documentation : for example, the AstNode kind "IfStatement" refers to the TypeScript AST node ts.SyntaxKind.IfStatement. The exhaustive list of TypeScript SyntakKinds are accessible [here](https://github.com/microsoft/TypeScript/blob/master/lib/typescript.d.ts) (from line 77 to 447).   
 
@@ -245,27 +244,27 @@ You will find below the list of all the different kinds of AstNodes. If you want
 - WhileStatement
 
 
-Genese Complexity will consider all the other kinds of AST nodes as "basic" nodes. That means that every node of your AST which will be present in the JsonAst format will add a cognitive complexity corresponding to "basic" nodes, as "StringLiteral", "TrueKeyword", etc. If you want that some kinds of nodes not to increase complexity, you will be able to set a property "empty" to true in the corresponding AstNode.
+Genese Complexity will consider all the other kinds of AST nodes as "basic" nodes. That means that every node of your AST which will be present in the JsonAst file will add a cognitive complexity corresponding to "basic" nodes, as "StringLiteral", "TrueKeyword", etc. If you want that some kinds of nodes not to increase complexity, you will be able to set a property "empty" to true in the corresponding AstNode.
 
-#### JsonAst specifications
+#### 7.1.2 JsonAst specifications
 
 
-
-##### JsonAst
+##### ***JsonAst***
 
 This is the root document (the .json file itself)
 
 - Fixed fields
 
 | Field name | Type | Required | Description |
-| astFolder  | AstFolder | yes | The object containing all the information about the folder to analyse |
+| ---------- | ---- | -------- | ----------- |
+| astFolder  | AstFolder | yes | The object containing all the information about the folder to analyze |
 
 
-#### Structure of the AST nodes
+#### 7.1.3 Structure of the AST nodes
 
 You must respect some conventions to be able to create JsonAst files correctly interpreted by Genese Complexity.
 
-  ***IfStatement***
+-  ***IfStatement***
    
    Supposing to be in this case :
    
@@ -279,7 +278,7 @@ if (a) {
 }
 ```
 
-Your JsonAst MUST be structured like this* :
+Your JsonAst MUST be structured like this :
 
 ```json
 {
@@ -310,7 +309,6 @@ Your JsonAst MUST be structured like this* :
     ]
 }
 ```
-* **The AST is simplified**
 
 The AstNode "IfStatement" always have a first son which is the inside of the brackets and a second son which is inside the "if condition". This AstNode CAN have a third son which is the AstNode corresponding to the "ElseStatement".
 

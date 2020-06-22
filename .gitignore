@@ -8,11 +8,11 @@
 # genese
 /genese
 /gn-reports
-/src/complexity/enums/*.ts
-/src/complexity/interfaces/*.ts
-/src/complexity/mocks/*.ts
-/src/complexity/models/*.ts
-/src/complexity/services/*.ts
+/src/complexity/enums/*.js
+/src/complexity/interfaces/*.js
+/src/complexity/mocks/*.js
+/src/complexity/models/*.js
+/src/complexity/services/*.js
 # Only exists if Bazel was run
 /bazel-out
 
