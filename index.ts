@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import { blueBright, red, yellowBright } from 'ansi-colors';
-import { Main } from './src/complexity/old/main';
 import { exec } from 'child_process';
+import { Main } from './src/complexity/main';
 
 const { program } = require('commander');
 
@@ -11,9 +11,9 @@ const { program } = require('commander');
 // ---------------------------------------------------------------------------------------------------------
 
 try {
-    console.log("WELCOME TO GENESE CLI");
+    console.log(yellowBright("WELCOME TO GENESE CLI"));
 
-    program.version('0.0.5')
+    program.version('0.0.0')
         .description('Genese cli');
 
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
@@ -21,11 +21,9 @@ try {
     program.option('-l, --language <language>', 'Language');
 
     program.command('cpx [pathToAnalyse]')
-        .description('Calculates cognitive and cyclomatic complexities')
+        .description('Calculates Complexity Index and cyclomatic complexity')
         .action((pathToAnalyze) => {
-            console.log(blueBright("STARTS GENESE COMPLEXITY CLI"));
             const path = pathToAnalyze ?? './';
-            console.log('PATH TO ANALYZE : ' + path);
             const mainProcess = new Main();
             mainProcess.start(process.cwd(), path, __dirname)
         });

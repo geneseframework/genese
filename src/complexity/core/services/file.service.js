@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createFile = exports.copyFile = exports.createOutDir = exports.createRelativeDir = exports.getLanguageExtensions = exports.getFilenameWithoutExtension = exports.getFileExtension = exports.getRouteToRoot = exports.getPathWithDotSlash = exports.getArrayOfPathsWithDotSlash = exports.getAllFiles = exports.getFilename = void 0;
 const fs = require("fs-extra");
-const options_1 = require("../../ast-to-reports/models/options");
+const options_model_1 = require("../models/options.model");
 /**
  * Tools about files or folders
  */
@@ -124,7 +124,7 @@ exports.getLanguageExtensions = getLanguageExtensions;
  * @param relativePath      // The relative path of the subfolder compared to the outDir path
  */
 function createRelativeDir(relativePath) {
-    const path = `${options_1.Options.pathOutDir}/${relativePath}`;
+    const path = `${options_model_1.Options.pathOutDir}/${relativePath}`;
     if (fs.existsSync(path)) {
         fs.emptyDirSync(path);
     }
@@ -137,11 +137,11 @@ exports.createRelativeDir = createRelativeDir;
  * Creates the outDir folder
  */
 function createOutDir() {
-    if (fs.existsSync(options_1.Options.pathOutDir)) {
-        fs.emptyDirSync(options_1.Options.pathOutDir);
+    if (fs.existsSync(options_model_1.Options.pathOutDir)) {
+        fs.emptyDirSync(options_model_1.Options.pathOutDir);
     }
     else {
-        fs.mkdirsSync(options_1.Options.pathOutDir);
+        fs.mkdirsSync(options_model_1.Options.pathOutDir);
     }
 }
 exports.createOutDir = createOutDir;

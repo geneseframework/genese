@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import { Options } from '../../ast-to-reports/models/options';
+import { Options } from '../models/options.model';
 
 /**
  * Tools about files or folders

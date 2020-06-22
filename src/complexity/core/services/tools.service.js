@@ -1,10 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isLastIndex = exports.isLastKey = exports.addObjects = exports.percent = exports.capitalize = void 0;
-/**
- * Sets in capitals the first letter of a text
- * @param text
- */
 function capitalize(text) {
     return `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
 }

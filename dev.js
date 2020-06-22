@@ -3,12 +3,14 @@
 
 exports.__esModule = true;
 var ansi_colors_1 = require("ansi-colors");
-var mainAst = require("./src/complexity/languages-to-ast/main-language-to-ast");
+var main = require("./src/complexity/main");
 
 try {
-    console.log(ansi_colors_1.yellowBright("WELCOME TO GENESE COMPLEXITY : JSON AST CREATION"));
+    console.log(ansi_colors_1.yellowBright("WELCOME TO GENESE COMPLEXITY"));
+    console.log();
+    console.log(ansi_colors_1.yellowBright("JSON AST CREATION"));
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
-    var mainProcess = new mainAst.MainLanguageToAst();
+    var mainProcess = new main.Main();
     mainProcess.start(__dirname, __dirname + '/src/complexity/core/mocks/', __dirname, 'typescript');
 }
 catch (err) {

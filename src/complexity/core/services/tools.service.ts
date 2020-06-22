@@ -1,10 +1,10 @@
-import { TConstructor } from '../../ast-to-reports/interfaces/t-constructor.interface';
-
-
 /**
  * Sets in capitals the first letter of a text
  * @param text
  */
+import { TConstructor } from '../interfaces/t-constructor.interface';
+
+
 export function capitalize(text: string): string {
     return `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
 }
