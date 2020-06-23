@@ -228,11 +228,11 @@ You will find below the list of all the different kinds of AstNodes. If you want
 | DoStatement | do { ... } | Do instruction. Increases the nesting complexity. |
 | ElementAccessExpression | a[b] | Considered as an array by Genese Complexity. In this example, the ElementAccessExpression is a node with two children : an Identifier and another Identifier. |
 | EndOfFileToken | ... } | The last element of the source code. |
-| ExpressionStatement |   |   |
-| ForStatement |   |   |
-| ForInStatement |   |   |
-| ForOfStatement |   |   |
-| FunctionDeclaration |   |   |
+| ExpressionStatement | a = b ? 0 : 1; <br /> a.filter(e => e + 1) | Abstract node containing an expression, like a BinaryExpression or a CallExpression. This AstNode doesn't increase complexity (empty AstNode). |
+| ForStatement | for (let i = 0; i < 2; i++) { ... }  | For loop. Increases the nesting complexity. Caution : a.forEach(...) is considered as a PropertyAccessExpression, not as a ForStatement, but Genese Complexity analysis as a "for" loop. |
+| ForInStatement | for (let a of arr) { ... } | For loop with "in" statement. Increases the nesting complexity. |
+| ForOfStatement | for (let a of arr) { ... } | For loop with "of" statement. Increases the nesting complexity. |
+| FunctionDeclaration | function f() { ... } | Abstract node designating a declaration of a function. This AstNode doesn't increase complexity (empty AstNode). |
 | FunctionExpression |   |   |
 | Identifier |   |   |
 | IfStatement |   |   |
