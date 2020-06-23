@@ -215,33 +215,35 @@ There are hundreds kinds of TypeScript AST nodes, so it can be fastidious to "li
 
 You will find below the list of all the different kinds of AstNodes. If you want to understand exactly what they mean, you can refer yourself to the TypeScript documentation : for example, the AstNode kind "IfStatement" refers to the TypeScript AST node ts.SyntaxKind.IfStatement. The exhaustive list of TypeScript SyntakKinds are accessible [here](https://github.com/microsoft/TypeScript/blob/master/lib/typescript.d.ts) (from line 77 to 447).   
 
-- AmpersandAmpersandToken
-- ArrowFunction
-- BarBarToken
-- BinaryExpression
-- Block
-- CallExpression
-- CatchClause
-- ConditionalExpression
-- DoStatement
-- ElementAccessExpression
-- EndOfFileToken
-- ExpressionStatement
-- ForStatement
-- ForInStatement
-- ForOfStatement
-- FunctionDeclaration
-- FunctionExpression
-- Identifier
-- IfStatement
-- MethodDeclaration
-- Parameter
-- PropertyAccessExpression
-- RegularExpressionLiteral
-- SwitchStatement
-- VariableDeclarationList
-- VariableStatement
-- WhileStatement
+| AstNode Kind | Example | Comments |
+| ------------ | ------- | -------- |
+| AmpersandAmpersandToken | && | The AND logic door. |
+| ArrowFunction | () => void  |   |
+| BarBarToken | \|\| | The OR logic door. |
+| BinaryExpression | a > 0 <br /> a === b  | Comparison between two elements. |
+| Block | { .... }  | Abstract node containing some children nodes, like `IfStatement`. This AstNode doesn't increase complexity (empty AstNode). |
+| CallExpression |  a.filter(e => e + 1) | Abstract node containing a call to a function. In this example, the CallExpression contains a first child which is a PropertyExpression (the a.filter) and a second one which is an ArrowFunction (the e => e + 1). |
+| CatchClause | try { ... } catch(error) { ... } | This node is considered as a Conditional node and increases the nesting complexity. |
+| ConditionalExpression | a = b ? 0 : 1; | This node is considered as a Conditional node and increases the nesting complexity. In this example, the ConditionalExpression node have 5 children : Identifier, QuestionToken, NumericLiteral, ColonToken and NumericLiteral. |
+| DoStatement | do { ... } | Do instruction. Increases the nesting complexity. |
+| ElementAccessExpression | a[b] | Considered as an array by Genese Complexity. In this example, the ElementAccessExpression is a node with two children : an Identifier and another Identifier. |
+| EndOfFileToken | ... } | The last element of the source code. |
+| ExpressionStatement |   |   |
+| ForStatement |   |   |
+| ForInStatement |   |   |
+| ForOfStatement |   |   |
+| FunctionDeclaration |   |   |
+| FunctionExpression |   |   |
+| Identifier |   |   |
+| IfStatement |   |   |
+| MethodDeclaration |   |   |
+| Parameter |   |   |
+| PropertyAccessExpression |   |   |
+| RegularExpressionLiteral |   |   |
+| SwitchStatement |   |   |
+| VariableDeclarationList |   |   |
+| VariableStatement |   |   |
+| WhileStatement
 
 
 Genese Complexity will consider all the other kinds of AST nodes as "atomic" nodes. That means that every node of your AST which will be present in the JsonAst file will add a cognitive complexity corresponding to "atomic" nodes, as "StringLiteral", "TrueKeyword", etc. If you want that some kinds of nodes not to increase complexity, you will be able to set a property "empty" to true in the corresponding AstNode.
