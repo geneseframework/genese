@@ -217,33 +217,34 @@ You will find below the list of all the different kinds of AstNodes. If you want
 
 | AstNode Kind | Example | Comments |
 | ------------ | ------- | -------- |
-| AmpersandAmpersandToken | && | The AND logic door. |
-| ArrowFunction | () => void  |   |
-| BarBarToken | \|\| | The OR logic door. |
-| BinaryExpression | a > 0 <br /> a === b  | Comparison between two elements. |
-| Block | { .... }  | Abstract node containing some children nodes, like `IfStatement`. This AstNode doesn't increase complexity (empty AstNode). |
-| CallExpression |  a.filter(e => e + 1) | Abstract node containing a call to a function. In this example, the CallExpression contains a first child which is a PropertyExpression (the a.filter) and a second one which is an ArrowFunction (the e => e + 1). |
-| CatchClause | try { ... } catch(error) { ... } | This node is considered as a Conditional node and increases the nesting complexity. |
-| ConditionalExpression | a = b ? 0 : 1; | This node is considered as a Conditional node and increases the nesting complexity. In this example, the ConditionalExpression node have 5 children : Identifier, QuestionToken, NumericLiteral, ColonToken and NumericLiteral. |
-| DoStatement | do { ... } | Do instruction. Increases the nesting complexity. |
-| ElementAccessExpression | a[b] | Considered as an array by Genese Complexity. In this example, the ElementAccessExpression is a node with two children : an Identifier and another Identifier. |
-| EndOfFileToken | ... } | The last element of the source code. |
-| ExpressionStatement | a = b ? 0 : 1; <br /> a.filter(e => e + 1) | Abstract node containing an expression, like a BinaryExpression or a CallExpression. This AstNode doesn't increase complexity (empty AstNode). |
-| ForStatement | for (let i = 0; i < 2; i++) { ... }  | For loop. Increases the nesting complexity. Caution : a.forEach(...) is considered as a PropertyAccessExpression, not as a ForStatement, but Genese Complexity analysis as a "for" loop. |
-| ForInStatement | for (let a of arr) { ... } | For loop with "in" statement. Increases the nesting complexity. |
-| ForOfStatement | for (let a of arr) { ... } | For loop with "of" statement. Increases the nesting complexity. |
-| FunctionDeclaration | function f() { ... } | Abstract node designating a declaration of a function. This AstNode doesn't increase complexity (empty AstNode). |
-| FunctionExpression |   |   |
-| Identifier |   |   |
-| IfStatement |   |   |
-| MethodDeclaration |   |   |
-| Parameter |   |   |
-| PropertyAccessExpression |   |   |
-| RegularExpressionLiteral |   |   |
-| SwitchStatement |   |   |
-| VariableDeclarationList |   |   |
-| VariableStatement |   |   |
-| WhileStatement
+| AmpersandAmpersandToken | `&&` | The AND logic door. |
+| ArrowFunction | `() => void`  |   |
+| BarBarToken | `\|\|` | The OR logic door. |
+| BinaryExpression | `a > 0 <br /> a === b`  | Comparison between two elements. |
+| Block | `{ .... }`  | Abstract node containing some children nodes, like `IfStatement`. This AstNode doesn't increase complexity (empty AstNode). |
+| CallExpression |  `a.filter(e => e + 1)` | Abstract node containing a call to a function. In this example, the CallExpression contains a first child which is a PropertyExpression (the a.filter) and a second one which is an ArrowFunction (the e => e + 1). |
+| CatchClause | `try { ... } <br />catch(error) { ... }` | This node is considered as a Conditional node and increases the nesting complexity. |
+| ClassDeclaration | `class MyClass { ... }` | Abstract node designating a declaration of a class. This node is the root node of a class. This AstNode doesn't increase complexity (empty AstNode). |
+| ConditionalExpression | `a = b ? 0 : 1;` | This node is considered as a Conditional node and increases the nesting complexity. In this example, the ConditionalExpression node have 5 children : Identifier, QuestionToken, NumericLiteral, ColonToken and NumericLiteral. |
+| DoStatement | `do { ... }` | Do instruction. Increases the nesting complexity. |
+| ElementAccessExpression | `a[b]` | Considered as an array by Genese Complexity. In this example, the ElementAccessExpression is a node with two children : an Identifier and another Identifier. |
+| EndOfFileToken | `... }` | The last element of the source code. |
+| ExpressionStatement | `a = b ? 0 : 1; <br /> a.filter(e => e + 1)` | Abstract node containing an expression, like a BinaryExpression or a CallExpression. This AstNode doesn't increase complexity (empty AstNode). |
+| ForStatement | `for (let i = 0; i < 2; i++) { ... }`  | For loop. Increases the nesting complexity. Caution : a.forEach(...) is considered as a PropertyAccessExpression, not as a ForStatement, but Genese Complexity analysis as a "for" loop. |
+| ForInStatement | `for (let a of arr) { ... }` | For loop with `in` statement. Increases the nesting complexity. |
+| ForOfStatement | `for (let a of arr) { ... }` | For loop with `of` statement. Increases the nesting complexity. |
+| FunctionDeclaration | `function f() { ... }` | Abstract node designating a declaration of a function. This AstNode doesn't increase complexity (empty AstNode). |
+| FunctionExpression | `f(function(b) { ... }` | Abstract node designating a function expression. Increases the nesting complexity. |
+| Identifier | `f(a) { ... }` | The node corresponding to the identifier of a variable, a function, etc. In this example, there are two identifiers : `f` and `a`. An identifier is considered by Genese Complexity as an "atomic" node which increases the "atomic" complexity. |
+| IfStatement | `if(a) { ... }` | The IF condition. Increases the nesting complexity. |
+| MethodDeclaration | `myMethod() { ... }` | Abstract node designating a declaration of a method. This node is the root node of a class. This AstNode doesn't increase complexity (empty AstNode). |
+| Parameter | `myMethod(a) { ... }` | Abstract node designating a parameter. Caution : the Parameter `a` is different than the Identifier `a`, which is a child of the node Parameter. This AstNode doesn't increase complexity (empty AstNode). |
+| PropertyAccessExpression | `a.b = 3;` | Abstract node designating the access to a given property. The first child (`a`) is the expression and the second (`b`) is the property. This AstNode doesn't increase complexity (empty AstNode). |
+| RegularExpressionLiteral | `/a-z/g` | Regular expression. |
+| SwitchStatement | `switch(a) { ... }` | Switch statement. Increases the nesting complexity. |
+| VariableDeclarationList | `for (const elt of arr) { ... }` | Abstract node declaring a list of variables. In this example, the VariableDeclarationList is `const elt`. This AstNode doesn't increase complexity (empty AstNode). |
+| VariableStatement | `let a = 3;` | Abstract node declaring a variable. This AstNode doesn't increase complexity (empty AstNode). |
+| WhileStatement | `while (a < 10) { ... }` | While loop. Increases the nesting complexity. |
 
 
 Genese Complexity will consider all the other kinds of AST nodes as "atomic" nodes. That means that every node of your AST which will be present in the JsonAst file will add a cognitive complexity corresponding to "atomic" nodes, as "StringLiteral", "TrueKeyword", etc. If you want that some kinds of nodes not to increase complexity, you will be able to set a property "empty" to true in the corresponding AstNode.
