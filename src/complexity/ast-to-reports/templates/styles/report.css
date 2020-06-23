@@ -174,3 +174,17 @@ th {
 .method-name-column {
     width: 20%;
 }
+
+.method-table {
+    display: grid;
+    width: 1150px;
+    margin: auto;
+}
+
+.method-thead {
+    display: table;
+}
+
+.method-body {
+    overflow-x: auto;
+}
