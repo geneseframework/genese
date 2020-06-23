@@ -7,11 +7,13 @@ This module creates an HTML report displaying the complexities scores of each fo
 ![Dashboard Genese Complexity](./readme-dashboard.png?raw=true "Dashboard")
 
 ## Table of Contents
-* [Why use Genese Complexity ?](#why-use-genese-complexity-)
-* [Installation](#installation)
-* [Usage](#usage)
-* [Interpretation of results](#interpretation-of-results)
-* [How to contribute ?](#how-to-contribute-)
+* [Why use Genese Complexity ?](#1-why-use-genese-complexity-)
+* [Installation](#2-installation)
+* [Usage](#3-usage)
+* [Interpretation of results](#4-interpretation-of-results)
+* [Configuration](#5-configuration)
+* [Documentation](#6-documentation)
+* [How to contribute ?](#7-how-to-contribute-)
 
 
 ## 1. Why use Genese Complexity ?
@@ -157,17 +159,17 @@ By default, the genese complexity report will be located here : `current_folder/
 
 ### 6.1 Cyclomatic complexity
 
-The cyclomatic complexity represents the difficulty to test a given method. The cyclomatic score is a measure of the testability and the maintainability of your code. This score gives you a first indication about the measure of the time of development needed to test your code and to increase its maintainability.
+The cyclomatic complexity represents the difficulty to test a given method. The cyclomatic score is a measure of the testability of your code.
 
-The force of the cyclomatic complexity concept is its simplicity: approximately, all breakflows (for, if, switch, ...) increase the score of 1. This simplicity is giving you an objective overview of the quality of your code, without subjective interpretations. Unfortunately, this lack of subjectivity involves the low relevance of the cyclomatic complexity score when you want to measure the ***real*** maintainability of your code. If you want to be sure that your code will be easy to maintain, you must ask you this question: ***as a developer**, would it be easy to understand a code like this ?
+The force of the cyclomatic complexity is its simplicity: approximately, all breakflows (for, if, switch, ...) increase the score of 1. This simplicity is giving you an objective overview of the quality of your code, without subjective interpretations. Unfortunately, this lack of subjectivity involves the low relevance of the cyclomatic complexity when you want to measure the ***real maintainability*** of your code. If you want to be sure that your code will be easy to maintain, you must ask you this question: ***as a developer***, would it be easy to understand this code ?
 
-If you are a human, you will read your code differently than a machine would do it. That's why we need to add more parameters to calculate the real maintainability of your code, and these parameters will contain a part of subjectivity. The measure of the understandability of you code is given by the cognitive complexity which is described below. 
+If you are a human, you will read your code differently than a machine would do it. So if you want to know if your code is really maintainable, you must look at its cognitive complexity. 
 
 ### 6.2 Cognitive complexity
 
-The cognitive complexity could be defined as "a measure of the cognitive effort to understand some code". 
+The cognitive complexity could be defined as ***a measure of the cognitive effort to understand some code***. 
 
-A project is maintainable if each file and each method is easily understandable; that's why the cognitive complexity should be seen as the most important indicator of code maintainability.
+A project is maintainable if each method of each file is easily understandable and that is the goal of the cognitive complexity, which should be seen as the most important indicator of code maintainability.
 
 The definition above is perfect, but needs to be clarified. The "cognitive effort" is a concept easy to understand, but complex to define. There is no scientific definition of this concept : what is complex to understand and what is not ? Is an "if - else" more complex than a "for", a "while" or a "switch" ? How many times a recursive method is more complex than a "normal" one ? Shorthands like optional chaining or nullish coalescing clearly decrease the complexity of a method, but in which proportion ? There are no indisputable responses. We are condemned to weight each complexity factor with an arbitrary value which corresponds to our intuition.
 
