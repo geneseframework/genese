@@ -167,22 +167,93 @@ If you are a human, you will read your code differently than a machine would do 
 
 ### 6.2 Cognitive complexity
 
-The cognitive complexity could be defined as ***a measure of the cognitive effort to understand some code***. 
+#### 6.2.1 Definition
+The cognitive complexity could be defined as below :
 
-A project is maintainable if each method of each file is easily understandable and that is the goal of the cognitive complexity, which should be seen as the most important indicator of code maintainability.
+   >#### Cognitive Complexity
+   > The Cognitive Complexity is a quantitative measure of the time required for a human to understand a program’s source code 
+  
 
-The definition above is perfect, but needs to be clarified. The "cognitive effort" is a concept easy to understand, but complex to define. There is no scientific definition of this concept : what is complex to understand and what is not ? Is an "if - else" more complex than a "for", a "while" or a "switch" ? How many times a recursive method is more complex than a "normal" one ? Shorthands like optional chaining or nullish coalescing clearly decrease the complexity of a method, but in which proportion ? There are no indisputable responses. We are condemned to weight each complexity factor with an arbitrary value which corresponds to our intuition.
+A project is maintainable if each method of each file is easily understandable. That is the goal of the cognitive complexity, which should be seen as the most important indicator of code maintainability.
 
-The first try to define algorithmic rules allowing to calculate the cognitive complexity was done by Ann Campbell for SonarCloud in 2017. She used three basic rules to calculate the cognitive complexity score :
+The definition above needs to be clarified: what is difficult to understand and what is not ? Is an `if - else` more complex than a `for`, a `while` or a `switch` ? How many times a recursive method is more complex than a "normal" one ? Optional chaining or nullish coalescing clearly decrease the complexity of a method, but in which proportion ? There are no indisputable responses.
 
-      1. Ignore structures that allow multiple statements to be readably shorthanded into one
-      2. Increment (add one) for each break in the linear flow of the code
-      3. Increment when flow-breaking structures are nested
+That's why we need to weight each complexity factor with a value which corresponds to its relative difficulty. To be able to do that, we need at first to define the measure unit of cognitive complexity.
 
-This calculation method involves the following elements :
+#### 6.2.2 Measure unit
 
-* Increment for breaks in the linear flow
+A measure unit must be relative to an "atomic" piece of code, something which can be defined accurately. That's why we use the below definition :
 
+   >#### Measure unit
+   > The measure unit of the Cognitive Complexity is the time required for a human to understand the logic door `if`. 
+
+With this measure unit, we can calculate the Cognitive Complexity of any method with precision by comparing the time needed to understand it with the time required to understand to the logic door `if`. For example, a method with a Cognitive Complexity of 10 is a method which needs the same time to understand than a method with 10 `if`.
+
+We must insist on an important point : the measure unit must be "atomic" to be defined precisely and to be able to quantify it "in the reality", ie by measuring the average time to understand it. So, the measure unit definition is based on the "logic door `if`" and not on "a `if` with sometimes inside".
+
+The code below is not atomic, because there is a `console.log` inside it. The difficulty of a `console.log` is low, but not null. That's why we can't use the code below as measure unit.
+```ts
+if (a) {
+    console.log(a);
+}
+``` 
+
+We have the same problem with the code below, which is not atomic too. The `a` is not "nothing" and me bust be understand. Moreover, `if(a)` have different significations according to the used language. For example, in JavaScript / TypeScript, it doesn't mean "if a is true" but "if a is not a falsy value", which is slightly different.
+```ts
+if (a) {
+
+}
+``` 
+The only real "atomic" code is the "mathematic" `if`, understood as a pure logic door :
+```ts
+if () {
+    
+}
+``` 
+
+#### 6.2.3 Complexity Index
+
+With the definition of the measure unit of the cognitive complexity, we can now define the Complexity Index :
+
+   > #### Complexity Index
+   > The Complexity Index is the measure of the Cognitive Complexity of a program’s source code by considering the logic door `if` as measure unit.
+
+
+### 6.3 Complexity Factors
+
+The level of cognitive complexity depends on multiple factors of different importance which can be grouped in different categories. The following is an overview of these different factors with their different weights. However, we must keep in mind that these weights and categories are for now only based on intuition and feedbacks. ***They SHOULD NOT be interpreted as objective and definitive values***. These elements ARE NOT static and will change as the Cognitive Complexity knowledge will increase.
+
+Every time someone will demonstrate that a factor should be weighted differently or that another category should be taken into account, this page will be updated with a new version number.
+
+#### 6.3.1 Factor categories
+
+- ***Atomic***
+
+Each unbreakable piece of code have a weak Complexity Index, but not null. The name of a variable or a method, a keyword like `this`, `import`, `class`, `if`, ... are trivial, but they need to be red, taken in account and memorized by the human brain. A long method, even when it does not pose particular problems, is more long to understand than a short one with the same "density of complexity".
+
+That's each of these trivial or "atomic" blocks should be weighted in a specific category : the Atomic Factor Category.
+
+- Example
+
+```ts
+if (a) {  // ------------------------- + 0.2 (0.1 for the "if" and 0.1 for the "a")
+    console.log(a);  // -------------- + 0.3 (0.1 for the "console", 0.1 for the "log" and 0.1 for the "a")
+}
+```
+=> Total of atomic complexity : 0.5 
+
+- ***Structural***
+
+Some code structures present an intrinsic difficulty. Independently of their use, the human brain needs some time to taken in account the logic implications of these code structures. That's what we call the ***structural category***.
+
+In this category, we will find the loops (`for`, `while`, ...) , the logic doors (`&&`, `||`), the conditions (`if`, `else`, `switch`, ...), the recursions, the callbacks, the regular expressions, etc. You will find the exhaustive list of the structural factors in the table below.  
+
+
+| Category | Weight | Applicates on |
+| ---      | ---    | ---         |
+| Atomic | 0.1 | To each unbreakable piece of code |
+
+* 
     - Loop structures : for, while, do while, ... : + 1
     - Conditionals : ternary operators, if, ... : + 1
     - else, else if, ... : + 1 
