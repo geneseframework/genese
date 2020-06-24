@@ -176,6 +176,29 @@ th {
 }
 
 .method-table {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.method-thead,
+.method-body {
+    display: inline-table;
+    width: 100%;
+    overflow-x: scroll;
+    position: relative;
+}
+
+.method-body {
+    display: block;
+}
+
+.code-row {
+    display: table;
+    width: 100%;
+}
+
+/* .method-table {
     display: grid;
     width: 1150px;
     margin: auto;
@@ -187,4 +210,4 @@ th {
 
 .method-body {
     overflow-x: auto;
-}
+} */
