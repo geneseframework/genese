@@ -1,365 +1,367 @@
 
 
-    Unknown
-    EndOfFileToken
-    SingleLineCommentTrivia
-    MultiLineCommentTrivia
-    NewLineTrivia
-    WhitespaceTrivia
-    ShebangTrivia
-    ConflictMarkerTrivia
-    NumericLiteral
-    BigIntLiteral
-    StringLiteral
-    JsxText
-    JsxTextAllWhiteSpaces
-    RegularExpressionLiteral
-    NoSubstitutionTemplateLiteral
-    TemplateHead
-    TemplateMiddle
-    TemplateTail
-    OpenBraceToken
-    CloseBraceToken
-    OpenParenToken
-    CloseParenToken
-    OpenBracketToken
-    CloseBracketToken
-    DotToken
-    DotDotDotToken
-    SemicolonToken
-    CommaToken
-    QuestionDotToken
-    LessThanToken
-    LessThanSlashToken
-    GreaterThanToken
-    LessThanEqualsToken
-    GreaterThanEqualsToken
-    EqualsEqualsToken
-    ExclamationEqualsToken
-    EqualsEqualsEqualsToken
-    ExclamationEqualsEqualsToken
-    EqualsGreaterThanToken
-    PlusToken
-    MinusToken
-    AsteriskToken
-    AsteriskAsteriskToken
-    SlashToken
-    PercentToken
-    PlusPlusToken
-    MinusMinusToken
-    LessThanLessThanToken
-    GreaterThanGreaterThanToken
-    GreaterThanGreaterThanGreaterThanToken
-    AmpersandToken
-    BarToken
-    CaretToken
-    ExclamationToken
-    TildeToken
-    AmpersandAmpersandToken
-    BarBarToken
-    QuestionToken
-    ColonToken
-    AtToken
-    QuestionQuestionToken
-    BacktickToken
-    EqualsToken
-    PlusEqualsToken
-    MinusEqualsToken
-    AsteriskEqualsToken
-    AsteriskAsteriskEqualsToken
-    SlashEqualsToken
-    PercentEqualsToken
-    LessThanLessThanEqualsToken
-    GreaterThanGreaterThanEqualsToken
-    GreaterThanGreaterThanGreaterThanEqualsToken
-    AmpersandEqualsToken
-    BarEqualsToken
-    CaretEqualsToken
-    Identifier
-    PrivateIdentifier
-    BreakKeyword
-    CaseKeyword
-    CatchKeyword
-    ClassKeyword
-    ConstKeyword
-    ContinueKeyword
-    DebuggerKeyword
-    DefaultKeyword
-    DeleteKeyword
-    DoKeyword
-    ElseKeyword
-    EnumKeyword
-    ExportKeyword
-    ExtendsKeyword
-    FalseKeyword
-    FinallyKeyword
-    ForKeyword
-    FunctionKeyword
-    IfKeyword
-    ImportKeyword
-    InKeyword
-    InstanceOfKeyword
-    NewKeyword
-    NullKeyword
-    ReturnKeyword
-    SuperKeyword
-    SwitchKeyword
-    ThisKeyword
-    ThrowKeyword
-    TrueKeyword
-    TryKeyword
-    TypeOfKeyword
-    VarKeyword
-    VoidKeyword
-    WhileKeyword
-    WithKeyword
-    ImplementsKeyword
-    InterfaceKeyword
-    LetKeyword
-    PackageKeyword
-    PrivateKeyword
-    ProtectedKeyword
-    PublicKeyword
-    StaticKeyword
-    YieldKeyword
-    AbstractKeyword
-    AsKeyword
-    AssertsKeyword
-    AnyKeyword
-    AsyncKeyword
-    AwaitKeyword
-    BooleanKeyword
-    ConstructorKeyword
-    DeclareKeyword
-    GetKeyword
-    InferKeyword
-    IsKeyword
-    KeyOfKeyword
-    ModuleKeyword
-    NamespaceKeyword
-    NeverKeyword
-    ReadonlyKeyword
-    RequireKeyword
-    NumberKeyword
-    ObjectKeyword
-    SetKeyword
-    StringKeyword
-    SymbolKeyword
-    TypeKeyword
-    UndefinedKeyword
-    UniqueKeyword
-    UnknownKeyword
-    FromKeyword
-    GlobalKeyword
-    BigIntKeyword
-    OfKeyword
-    QualifiedName
-    ComputedPropertyName
-    TypeParameter
-    Parameter
-    Decorator
-    PropertySignature
-    PropertyDeclaration
-    MethodSignature
-    MethodDeclaration
-    Constructor
-    GetAccessor
-    SetAccessor
-    CallSignature
-    ConstructSignature
-    IndexSignature
-    TypePredicate
-    TypeReference
-    FunctionType
-    ConstructorType
-    TypeQuery
-    TypeLiteral
-    ArrayType
-    TupleType
-    OptionalType
-    RestType
-    UnionType
-    IntersectionType
-    ConditionalType
-    InferType
-    ParenthesizedType
-    ThisType
-    TypeOperator
-    IndexedAccessType
-    MappedType
-    LiteralType
-    ImportType
-    ObjectBindingPattern
-    ArrayBindingPattern
-    BindingElement
-    ArrayLiteralExpression
-    ObjectLiteralExpression
-    PropertyAccessExpression
-    ElementAccessExpression
-    CallExpression
-    NewExpression
-    TaggedTemplateExpression
-    TypeAssertionExpression
-    ParenthesizedExpression
-    FunctionExpression
-    ArrowFunction
-    DeleteExpression
-    TypeOfExpression
-    VoidExpression
-    AwaitExpression
-    PrefixUnaryExpression
-    PostfixUnaryExpression
-    BinaryExpression
-    ConditionalExpression
-    TemplateExpression
-    YieldExpression
-    SpreadElement
-    ClassExpression
-    OmittedExpression
-    ExpressionWithTypeArguments
-    AsExpression
-    NonNullExpression
-    MetaProperty
-    SyntheticExpression
-    TemplateSpan
-    SemicolonClassElement
-    Block
-    EmptyStatement
-    VariableStatement
-    ExpressionStatement
-    IfStatement
-    DoStatement
-    WhileStatement
-    ForStatement
-    ForInStatement
-    ForOfStatement
-    ContinueStatement
-    BreakStatement
-    ReturnStatement
-    WithStatement
-    SwitchStatement
-    LabeledStatement
-    ThrowStatement
-    TryStatement
-    DebuggerStatement
-    VariableDeclaration
-    VariableDeclarationList
-    FunctionDeclaration
-    ClassDeclaration
-    InterfaceDeclaration
-    TypeAliasDeclaration
-    EnumDeclaration
-    ModuleDeclaration
-    ModuleBlock
-    CaseBlock
-    NamespaceExportDeclaration
-    ImportEqualsDeclaration
-    ImportDeclaration
-    ImportClause
-    NamespaceImport
-    NamedImports
-    ImportSpecifier
-    ExportAssignment
-    ExportDeclaration
-    NamedExports
-    NamespaceExport
-    ExportSpecifier
-    MissingDeclaration
-    ExternalModuleReference
-    JsxElement
-    JsxSelfClosingElement
-    JsxOpeningElement
-    JsxClosingElement
-    JsxFragment
-    JsxOpeningFragment
-    JsxClosingFragment
-    JsxAttribute
-    JsxAttributes
-    JsxSpreadAttribute
-    JsxExpression
-    CaseClause
-    DefaultClause
-    HeritageClause
-    CatchClause
-    PropertyAssignment
-    ShorthandPropertyAssignment
-    SpreadAssignment
-    EnumMember
-    UnparsedPrologue
-    UnparsedPrepend
-    UnparsedText
-    UnparsedInternalText
-    UnparsedSyntheticReference
-    SourceFile
-    Bundle
-    UnparsedSource
-    InputFiles
-    JSDocTypeExpression
-    JSDocAllType
-    JSDocUnknownType
-    JSDocNullableType
-    JSDocNonNullableType
-    JSDocOptionalType
-    JSDocFunctionType
-    JSDocVariadicType
-    JSDocNamepathType
-    JSDocComment
-    JSDocTypeLiteral
-    JSDocSignature
-    JSDocTag
-    JSDocAugmentsTag
-    JSDocImplementsTag
-    JSDocAuthorTag
-    JSDocClassTag
-    JSDocPublicTag
-    JSDocPrivateTag
-    JSDocProtectedTag
-    JSDocReadonlyTag
-    JSDocCallbackTag
-    JSDocEnumTag
-    JSDocParameterTag
-    JSDocReturnTag
-    JSDocThisTag
-    JSDocTypeTag
-    JSDocTemplateTag
-    JSDocTypedefTag
-    JSDocPropertyTag
-    SyntaxList
-    NotEmittedStatement
-    PartiallyEmittedExpression
-    CommaListExpression
-    MergeDeclarationMarker
-    EndOfDeclarationMarker
-    SyntheticReferenceExpression
-    Count
-    FirstAssignment
-    LastAssignment
-    FirstCompoundAssignment
-    LastCompoundAssignment
-    FirstReservedWord
-    LastReservedWord
-    FirstKeyword
-    LastKeyword
-    FirstFutureReservedWord
-    LastFutureReservedWord
-    FirstTypeNode
-    LastTypeNode
-    FirstPunctuation
-    LastPunctuation
-    FirstToken
-    LastToken
-    FirstTriviaToken
-    LastTriviaToken
-    FirstLiteralToken
-    LastLiteralToken
-    FirstTemplateToken
-    LastTemplateToken
-    FirstBinaryOperator
-    LastBinaryOperator
-    FirstStatement
-    LastStatement
-    FirstNode
-    FirstJSDocNode
-    LastJSDocNode
-    FirstJSDocTagNode
-    LastJSDocTagNode
+export enum SyntaxKind {
+    Unknown = 'Unknown',
+    EndOfFileToken = 'EndOfFileToken',
+    SingleLineCommentTrivia = 'SingleLineCommentTrivia',
+    MultiLineCommentTrivia = 'MultiLineCommentTrivia',
+    NewLineTrivia = 'NewLineTrivia',
+    WhitespaceTrivia = 'WhitespaceTrivia',
+    ShebangTrivia = 'ShebangTrivia',
+    ConflictMarkerTrivia = 'ConflictMarkerTrivia',
+    NumericLiteral = 'NumericLiteral',
+    BigIntLiteral = 'BigIntLiteral',
+    StringLiteral = 'StringLiteral',
+    JsxText = 'JsxText',
+    JsxTextAllWhiteSpaces = 'JsxTextAllWhiteSpaces',
+    RegularExpressionLiteral = 'RegularExpressionLiteral',
+    NoSubstitutionTemplateLiteral = 'NoSubstitutionTemplateLiteral',
+    TemplateHead = 'TemplateHead',
+    TemplateMiddle = 'TemplateMiddle',
+    TemplateTail = 'TemplateTail',
+    OpenBraceToken = 'OpenBraceToken',
+    CloseBraceToken = 'CloseBraceToken',
+    OpenParenToken = 'OpenParenToken',
+    CloseParenToken = 'CloseParenToken',
+    OpenBracketToken = 'OpenBracketToken',
+    CloseBracketToken = 'CloseBracketToken',
+    DotToken = 'DotToken',
+    DotDotDotToken = 'DotDotDotToken',
+    SemicolonToken = 'SemicolonToken',
+    CommaToken = 'CommaToken',
+    QuestionDotToken = 'QuestionDotToken',
+    LessThanToken = 'LessThanToken',
+    LessThanSlashToken = 'LessThanSlashToken',
+    GreaterThanToken = 'GreaterThanToken',
+    LessThanEqualsToken = 'LessThanEqualsToken',
+    GreaterThanEqualsToken = 'GreaterThanEqualsToken',
+    EqualsEqualsToken = 'EqualsEqualsToken',
+    ExclamationEqualsToken = 'ExclamationEqualsToken',
+    EqualsEqualsEqualsToken = 'EqualsEqualsEqualsToken',
+    ExclamationEqualsEqualsToken = 'ExclamationEqualsEqualsToken',
+    EqualsGreaterThanToken = 'EqualsGreaterThanToken',
+    PlusToken = 'PlusToken',
+    MinusToken = 'MinusToken',
+    AsteriskToken = 'AsteriskToken',
+    AsteriskAsteriskToken = 'AsteriskAsteriskToken',
+    SlashToken = 'SlashToken',
+    PercentToken = 'PercentToken',
+    PlusPlusToken = 'PlusPlusToken',
+    MinusMinusToken = 'MinusMinusToken',
+    LessThanLessThanToken = 'LessThanLessThanToken',
+    GreaterThanGreaterThanToken = 'GreaterThanGreaterThanToken',
+    GreaterThanGreaterThanGreaterThanToken = 'GreaterThanGreaterThanGreaterThanToken',
+    AmpersandToken = 'AmpersandToken',
+    BarToken = 'BarToken',
+    CaretToken = 'CaretToken',
+    ExclamationToken = 'ExclamationToken',
+    TildeToken = 'TildeToken',
+    AmpersandAmpersandToken = 'AmpersandAmpersandToken',
+    BarBarToken = 'BarBarToken',
+    QuestionToken = 'QuestionToken',
+    ColonToken = 'ColonToken',
+    AtToken = 'AtToken',
+    QuestionQuestionToken = 'QuestionQuestionToken',
+    BacktickToken = 'BacktickToken',
+    EqualsToken = 'EqualsToken',
+    PlusEqualsToken = 'PlusEqualsToken',
+    MinusEqualsToken = 'MinusEqualsToken',
+    AsteriskEqualsToken = 'AsteriskEqualsToken',
+    AsteriskAsteriskEqualsToken = 'AsteriskAsteriskEqualsToken',
+    SlashEqualsToken = 'SlashEqualsToken',
+    PercentEqualsToken = 'PercentEqualsToken',
+    LessThanLessThanEqualsToken = 'LessThanLessThanEqualsToken',
+    GreaterThanGreaterThanEqualsToken = 'GreaterThanGreaterThanEqualsToken',
+    GreaterThanGreaterThanGreaterThanEqualsToken = 'GreaterThanGreaterThanGreaterThanEqualsToken',
+    AmpersandEqualsToken = 'AmpersandEqualsToken',
+    BarEqualsToken = 'BarEqualsToken',
+    CaretEqualsToken = 'CaretEqualsToken',
+    Identifier = 'Identifier',
+    PrivateIdentifier = 'PrivateIdentifier',
+    BreakKeyword = 'BreakKeyword',
+    CaseKeyword = 'CaseKeyword',
+    CatchKeyword = 'CatchKeyword',
+    ClassKeyword = 'ClassKeyword',
+    ConstKeyword = 'ConstKeyword',
+    ContinueKeyword = 'ContinueKeyword',
+    DebuggerKeyword = 'DebuggerKeyword',
+    DefaultKeyword = 'DefaultKeyword',
+    DeleteKeyword = 'DeleteKeyword',
+    DoKeyword = 'DoKeyword',
+    ElseKeyword = 'ElseKeyword',
+    EnumKeyword = 'EnumKeyword',
+    ExportKeyword = 'ExportKeyword',
+    ExtendsKeyword = 'ExtendsKeyword',
+    FalseKeyword = 'FalseKeyword',
+    FinallyKeyword = 'FinallyKeyword',
+    ForKeyword = 'ForKeyword',
+    FunctionKeyword = 'FunctionKeyword',
+    IfKeyword = 'IfKeyword',
+    ImportKeyword = 'ImportKeyword',
+    InKeyword = 'InKeyword',
+    InstanceOfKeyword = 'InstanceOfKeyword',
+    NewKeyword = 'NewKeyword',
+    NullKeyword = 'NullKeyword',
+    ReturnKeyword = 'ReturnKeyword',
+    SuperKeyword = 'SuperKeyword',
+    SwitchKeyword = 'SwitchKeyword',
+    ThisKeyword = 'ThisKeyword',
+    ThrowKeyword = 'ThrowKeyword',
+    TrueKeyword = 'TrueKeyword',
+    TryKeyword = 'TryKeyword',
+    TypeOfKeyword = 'TypeOfKeyword',
+    VarKeyword = 'VarKeyword',
+    VoidKeyword = 'VoidKeyword',
+    WhileKeyword = 'WhileKeyword',
+    WithKeyword = 'WithKeyword',
+    ImplementsKeyword = 'ImplementsKeyword',
+    InterfaceKeyword = 'InterfaceKeyword',
+    LetKeyword = 'LetKeyword',
+    PackageKeyword = 'PackageKeyword',
+    PrivateKeyword = 'PrivateKeyword',
+    ProtectedKeyword = 'ProtectedKeyword',
+    PublicKeyword = 'PublicKeyword',
+    StaticKeyword = 'StaticKeyword',
+    YieldKeyword = 'YieldKeyword',
+    AbstractKeyword = 'AbstractKeyword',
+    AsKeyword = 'AsKeyword',
+    AssertsKeyword = 'AssertsKeyword',
+    AnyKeyword = 'AnyKeyword',
+    AsyncKeyword = 'AsyncKeyword',
+    AwaitKeyword = 'AwaitKeyword',
+    BooleanKeyword = 'BooleanKeyword',
+    ConstructorKeyword = 'ConstructorKeyword',
+    DeclareKeyword = 'DeclareKeyword',
+    GetKeyword = 'GetKeyword',
+    InferKeyword = 'InferKeyword',
+    IsKeyword = 'IsKeyword',
+    KeyOfKeyword = 'KeyOfKeyword',
+    ModuleKeyword = 'ModuleKeyword',
+    NamespaceKeyword = 'NamespaceKeyword',
+    NeverKeyword = 'NeverKeyword',
+    ReadonlyKeyword = 'ReadonlyKeyword',
+    RequireKeyword = 'RequireKeyword',
+    NumberKeyword = 'NumberKeyword',
+    ObjectKeyword = 'ObjectKeyword',
+    SetKeyword = 'SetKeyword',
+    StringKeyword = 'StringKeyword',
+    SymbolKeyword = 'SymbolKeyword',
+    TypeKeyword = 'TypeKeyword',
+    UndefinedKeyword = 'UndefinedKeyword',
+    UniqueKeyword = 'UniqueKeyword',
+    UnknownKeyword = 'UnknownKeyword',
+    FromKeyword = 'FromKeyword',
+    GlobalKeyword = 'GlobalKeyword',
+    BigIntKeyword = 'BigIntKeyword',
+    OfKeyword = 'OfKeyword',
+    QualifiedName = 'QualifiedName',
+    ComputedPropertyName = 'ComputedPropertyName',
+    TypeParameter = 'TypeParameter',
+    Parameter = 'Parameter',
+    Decorator = 'Decorator',
+    PropertySignature = 'PropertySignature',
+    PropertyDeclaration = 'PropertyDeclaration',
+    MethodSignature = 'MethodSignature',
+    MethodDeclaration = 'MethodDeclaration',
+    Constructor = 'Constructor',
+    GetAccessor = 'GetAccessor',
+    SetAccessor = 'SetAccessor',
+    CallSignature = 'CallSignature',
+    ConstructSignature = 'ConstructSignature',
+    IndexSignature = 'IndexSignature',
+    TypePredicate = 'TypePredicate',
+    TypeReference = 'TypeReference',
+    FunctionType = 'FunctionType',
+    ConstructorType = 'ConstructorType',
+    TypeQuery = 'TypeQuery',
+    TypeLiteral = 'TypeLiteral',
+    ArrayType = 'ArrayType',
+    TupleType = 'TupleType',
+    OptionalType = 'OptionalType',
+    RestType = 'RestType',
+    UnionType = 'UnionType',
+    IntersectionType = 'IntersectionType',
+    ConditionalType = 'ConditionalType',
+    InferType = 'InferType',
+    ParenthesizedType = 'ParenthesizedType',
+    ThisType = 'ThisType',
+    TypeOperator = 'TypeOperator',
+    IndexedAccessType = 'IndexedAccessType',
+    MappedType = 'MappedType',
+    LiteralType = 'LiteralType',
+    ImportType = 'ImportType',
+    ObjectBindingPattern = 'ObjectBindingPattern',
+    ArrayBindingPattern = 'ArrayBindingPattern',
+    BindingElement = 'BindingElement',
+    ArrayLiteralExpression = 'ArrayLiteralExpression',
+    ObjectLiteralExpression = 'ObjectLiteralExpression',
+    PropertyAccessExpression = 'PropertyAccessExpression',
+    ElementAccessExpression = 'ElementAccessExpression',
+    CallExpression = 'CallExpression',
+    NewExpression = 'NewExpression',
+    TaggedTemplateExpression = 'TaggedTemplateExpression',
+    TypeAssertionExpression = 'TypeAssertionExpression',
+    ParenthesizedExpression = 'ParenthesizedExpression',
+    FunctionExpression = 'FunctionExpression',
+    ArrowFunction = 'ArrowFunction',
+    DeleteExpression = 'DeleteExpression',
+    TypeOfExpression = 'TypeOfExpression',
+    VoidExpression = 'VoidExpression',
+    AwaitExpression = 'AwaitExpression',
+    PrefixUnaryExpression = 'PrefixUnaryExpression',
+    PostfixUnaryExpression = 'PostfixUnaryExpression',
+    BinaryExpression = 'BinaryExpression',
+    ConditionalExpression = 'ConditionalExpression',
+    TemplateExpression = 'TemplateExpression',
+    YieldExpression = 'YieldExpression',
+    SpreadElement = 'SpreadElement',
+    ClassExpression = 'ClassExpression',
+    OmittedExpression = 'OmittedExpression',
+    ExpressionWithTypeArguments = 'ExpressionWithTypeArguments',
+    AsExpression = 'AsExpression',
+    NonNullExpression = 'NonNullExpression',
+    MetaProperty = 'MetaProperty',
+    SyntheticExpression = 'SyntheticExpression',
+    TemplateSpan = 'TemplateSpan',
+    SemicolonClassElement = 'SemicolonClassElement',
+    Block = 'Block',
+    EmptyStatement = 'EmptyStatement',
+    VariableStatement = 'VariableStatement',
+    ExpressionStatement = 'ExpressionStatement',
+    IfStatement = 'IfStatement',
+    DoStatement = 'DoStatement',
+    WhileStatement = 'WhileStatement',
+    ForStatement = 'ForStatement',
+    ForInStatement = 'ForInStatement',
+    ForOfStatement = 'ForOfStatement',
+    ContinueStatement = 'ContinueStatement',
+    BreakStatement = 'BreakStatement',
+    ReturnStatement = 'ReturnStatement',
+    WithStatement = 'WithStatement',
+    SwitchStatement = 'SwitchStatement',
+    LabeledStatement = 'LabeledStatement',
+    ThrowStatement = 'ThrowStatement',
+    TryStatement = 'TryStatement',
+    DebuggerStatement = 'DebuggerStatement',
+    VariableDeclaration = 'VariableDeclaration',
+    VariableDeclarationList = 'VariableDeclarationList',
+    FunctionDeclaration = 'FunctionDeclaration',
+    ClassDeclaration = 'ClassDeclaration',
+    InterfaceDeclaration = 'InterfaceDeclaration',
+    TypeAliasDeclaration = 'TypeAliasDeclaration',
+    EnumDeclaration = 'EnumDeclaration',
+    ModuleDeclaration = 'ModuleDeclaration',
+    ModuleBlock = 'ModuleBlock',
+    CaseBlock = 'CaseBlock',
+    NamespaceExportDeclaration = 'NamespaceExportDeclaration',
+    ImportEqualsDeclaration = 'ImportEqualsDeclaration',
+    ImportDeclaration = 'ImportDeclaration',
+    ImportClause = 'ImportClause',
+    NamespaceImport = 'NamespaceImport',
+    NamedImports = 'NamedImports',
+    ImportSpecifier = 'ImportSpecifier',
+    ExportAssignment = 'ExportAssignment',
+    ExportDeclaration = 'ExportDeclaration',
+    NamedExports = 'NamedExports',
+    NamespaceExport = 'NamespaceExport',
+    ExportSpecifier = 'ExportSpecifier',
+    MissingDeclaration = 'MissingDeclaration',
+    ExternalModuleReference = 'ExternalModuleReference',
+    JsxElement = 'JsxElement',
+    JsxSelfClosingElement = 'JsxSelfClosingElement',
+    JsxOpeningElement = 'JsxOpeningElement',
+    JsxClosingElement = 'JsxClosingElement',
+    JsxFragment = 'JsxFragment',
+    JsxOpeningFragment = 'JsxOpeningFragment',
+    JsxClosingFragment = 'JsxClosingFragment',
+    JsxAttribute = 'JsxAttribute',
+    JsxAttributes = 'JsxAttributes',
+    JsxSpreadAttribute = 'JsxSpreadAttribute',
+    JsxExpression = 'JsxExpression',
+    CaseClause = 'CaseClause',
+    DefaultClause = 'DefaultClause',
+    HeritageClause = 'HeritageClause',
+    CatchClause = 'CatchClause',
+    PropertyAssignment = 'PropertyAssignment',
+    ShorthandPropertyAssignment = 'ShorthandPropertyAssignment',
+    SpreadAssignment = 'SpreadAssignment',
+    EnumMember = 'EnumMember',
+    UnparsedPrologue = 'UnparsedPrologue',
+    UnparsedPrepend = 'UnparsedPrepend',
+    UnparsedText = 'UnparsedText',
+    UnparsedInternalText = 'UnparsedInternalText',
+    UnparsedSyntheticReference = 'UnparsedSyntheticReference',
+    SourceFile = 'SourceFile',
+    Bundle = 'Bundle',
+    UnparsedSource = 'UnparsedSource',
+    InputFiles = 'InputFiles',
+    JSDocTypeExpression = 'JSDocTypeExpression',
+    JSDocAllType = 'JSDocAllType',
+    JSDocUnknownType = 'JSDocUnknownType',
+    JSDocNullableType = 'JSDocNullableType',
+    JSDocNonNullableType = 'JSDocNonNullableType',
+    JSDocOptionalType = 'JSDocOptionalType',
+    JSDocFunctionType = 'JSDocFunctionType',
+    JSDocVariadicType = 'JSDocVariadicType',
+    JSDocNamepathType = 'JSDocNamepathType',
+    JSDocComment = 'JSDocComment',
+    JSDocTypeLiteral = 'JSDocTypeLiteral',
+    JSDocSignature = 'JSDocSignature',
+    JSDocTag = 'JSDocTag',
+    JSDocAugmentsTag = 'JSDocAugmentsTag',
+    JSDocImplementsTag = 'JSDocImplementsTag',
+    JSDocAuthorTag = 'JSDocAuthorTag',
+    JSDocClassTag = 'JSDocClassTag',
+    JSDocPublicTag = 'JSDocPublicTag',
+    JSDocPrivateTag = 'JSDocPrivateTag',
+    JSDocProtectedTag = 'JSDocProtectedTag',
+    JSDocReadonlyTag = 'JSDocReadonlyTag',
+    JSDocCallbackTag = 'JSDocCallbackTag',
+    JSDocEnumTag = 'JSDocEnumTag',
+    JSDocParameterTag = 'JSDocParameterTag',
+    JSDocReturnTag = 'JSDocReturnTag',
+    JSDocThisTag = 'JSDocThisTag',
+    JSDocTypeTag = 'JSDocTypeTag',
+    JSDocTemplateTag = 'JSDocTemplateTag',
+    JSDocTypedefTag = 'JSDocTypedefTag',
+    JSDocPropertyTag = 'JSDocPropertyTag',
+    SyntaxList = 'SyntaxList',
+    NotEmittedStatement = 'NotEmittedStatement',
+    PartiallyEmittedExpression = 'PartiallyEmittedExpression',
+    CommaListExpression = 'CommaListExpression',
+    MergeDeclarationMarker = 'MergeDeclarationMarker',
+    EndOfDeclarationMarker = 'EndOfDeclarationMarker',
+    SyntheticReferenceExpression = 'SyntheticReferenceExpression',
+    Count = 'Count',
+    FirstAssignment = 'FirstAssignment',
+    LastAssignment = 'LastAssignment',
+    FirstCompoundAssignment = 'FirstCompoundAssignment',
+    LastCompoundAssignment = 'LastCompoundAssignment',
+    FirstReservedWord = 'FirstReservedWord',
+    LastReservedWord = 'LastReservedWord',
+    FirstKeyword = 'FirstKeyword',
+    LastKeyword = 'LastKeyword',
+    FirstFutureReservedWord = 'FirstFutureReservedWord',
+    LastFutureReservedWord = 'LastFutureReservedWord',
+    FirstTypeNode = 'FirstTypeNode',
+    LastTypeNode = 'LastTypeNode',
+    FirstPunctuation = 'FirstPunctuation',
+    LastPunctuation = 'LastPunctuation',
+    FirstToken = 'FirstToken',
+    LastToken = 'LastToken',
+    FirstTriviaToken = 'FirstTriviaToken',
+    LastTriviaToken = 'LastTriviaToken',
+    FirstLiteralToken = 'FirstLiteralToken',
+    LastLiteralToken = 'LastLiteralToken',
+    FirstTemplateToken = 'FirstTemplateToken',
+    LastTemplateToken = 'LastTemplateToken',
+    FirstBinaryOperator = 'FirstBinaryOperator',
+    LastBinaryOperator = 'LastBinaryOperator',
+    FirstStatement = 'FirstStatement',
+    LastStatement = 'LastStatement',
+    FirstNode = 'FirstNode',
+    FirstJSDocNode = 'FirstJSDocNode',
+    LastJSDocNode = 'LastJSDocNode',
+    FirstJSDocTagNode = 'FirstJSDocTagNode',
+    LastJSDocTagNode = 'LastJSDocTagNode'
+}
