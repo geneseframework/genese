@@ -233,7 +233,7 @@ Each unbreakable piece of code have a weak Complexity Index, but not null. The n
 
 That's each of these trivial or "atomic" blocks should be weighted in a specific category : the Atomic Factor Category.
 
-- Example
+Example
 
 ```ts
 if (a) {  // ------------------------- + 0.2 (0.1 for the "if" and 0.1 for the "a")
@@ -246,31 +246,99 @@ if (a) {  // ------------------------- + 0.2 (0.1 for the "if" and 0.1 for the "
 
 Some code structures present an intrinsic difficulty. Independently of their use, the human brain needs some time to taken in account the logic implications of these code structures. That's what we call the ***structural category***.
 
-In this category, we will find the loops (`for`, `while`, ...) , the logic doors (`&&`, `||`), the conditions (`if`, `else`, `switch`, ...), the recursions, the callbacks, the regular expressions, etc. You will find the exhaustive list of the structural factors in the table below.  
+In this category, we will find the loops (`for`, `while`, ...), the logic doors (`&&`, `||`), the conditions (`if`, `else`, `switch`, ...), the recursions, the callbacks, the regular expressions, etc. You will find the exhaustive list of the structural factors in the table below.  
 
+- ***Nesting***
 
-| Category | Weight | Applicates on |
-| ---      | ---    | ---         |
-| Atomic | 0.1 | To each unbreakable piece of code |
+Independently of their intrinsic complexity, some elements add specific difficulty due to the nesting inside them.
+ 
+Example
+  
+  The complexity of the code below is only due to the addition of the complexities of the two `if`.
+  
+```ts
+if (a) { // ------------------------------ + x  
+}
+if (b) { // ------------------------------ + y
+}
+```
+=> Total of atomic complexity : `x + y`
 
-* 
-    - Loop structures : for, while, do while, ... : + 1
-    - Conditionals : ternary operators, if, ... : + 1
-    - else, else if, ... : + 1 
-    - catch : + 1 ("try" and "finally" are ignored)
-    - switch : + 1 
-    - logic doors : + 1 for the first one and + 1 for the next one if different of the previous one (a && b => +1 ; a && b && c => + 1 ; a && b || c => + 2)
-    - recursion : + 1   
+If the fisrt condition has a Complexity Index equals to `x` and if the second `if` equals to `y`, the total Complexity Index will be equal to `x + y`.
 
-* Increment for nesting structures
+Now, if the same conditions are nested, an additional difficulty is due to the obligation to remember in the second `if` that the condition `a` must be true. This additional complexity is called `nesting complexity` and increases the Complexity Index of the source code, which will be strictly higher than `x + y`.
 
-    - Loop structures : for, while, do while, ... : + 1
-    - Conditionals : ternary operators, if, ... : + 1
-    - else, else if, ... : 0 (no nesting increment because *"the mental cost has already been paid when reading the if"*.
-    - catch : + 1 ("try" and "finally" are ignored)
-    - switch : + 1 (globally, not for each "case")
-    - logic doors : 0   
-    - recursion : 0   
+Example
+  ```ts
+if (a) { // ---------------------------------- + x  
+    if (b) { // ------------------------------ + y + n (the nesting complexity due to the imbrication in the "if (a) {"
+}
+```
+=> Total of atomic complexity : `x + y + n`
+
+Genese complexity adds nesting complexity for the loops (`for`, `while`, ...), the conditions (`if`, `else`, `switch`, ...), the ternaries (`a = b ? 0 : 1`), the arrays (`a[b[c]]`) and the functions (`a = b.f(e => e + 1))`).
+
+- ***Aggregation***
+
+The principle of "aggregation complexity" is the same as with "nesting complexity", but is relative to consecutive elements and not nested elements. The idea is simple : an array is simple to understand, but an array of arrays is less trivial. The additional complexity is due to the aggregation of the elements. We find this problematic iin other cases, like regular expressions : they have a structural complexity (a regex is difficult for itself), but their length (the aggregation of its characters) increases considerably their difficulty. (other factors affect the complexity of the regular expressions, but we use for now only the length as a first approximation)
+
+Example
+  ```ts
+const arr = a[b][c];
+```
+
+Another use case of the aggregation complexity is logic doors, which are simple to understand when they are similar and complicated when they are different and without brackets.
+
+Example
+```ts
+if (a && b && c) { // ---------------------- Easy to understand (same logic doors)
+    // ---
+}
+if (a && (b || c)) { // -------------------- Easy to understand (thanks to brackets)
+    // ---
+}
+if (a && b || c) { // ----------------- Difficult to understand (due to the lack of brackets)
+    // ---
+}
+``` 
+The third example is more difficult than the first and the second => additional complexity (aggregation of different logic doors) 
+  
+- ***Recursion***
+
+Recursivity is easy for machines, but not for humans. A developer will always need to take care about the implications of a recursion and its side effects. 
+
+The category "recursion" includes `recursive methods` and `callbacks`.
+
+Example
+  ```ts
+function f(a) {
+    return f(a + 1);
+}
+```
+
+#### 6.3.2 Table of weights
+
+| Category | Factor | Weight | Example | Comments |
+| ---      | ---    | :---:  | ---     | --- |
+| Aggregation | Arrays | 1 | ```a[b][c] // ---- Aggregation cpx = 1```| |
+| Aggregation | Regex | 0.1 by char | ```/[^.[\]]+/ // ---- Aggregation cpx = 0.8 (and 1 more for structural cpx of the regex)``` | |
+| Aggregation | Different logic doors | 1 | ```if (a && b &#124;&#124; c) // ---- Aggregation cpx = 1 (and 1 more for structural cpx)``` | The brackets cancel the aggregation complexity |
+| Atomic | Atomic | 0.1 | ```console.log(3) // ---- Atomic cpx = 0.3 (3 atoms)``` | Applies to each identifier, parameter, keyword, etc. |
+| Nesting | Arrays | 1.5 | ```a[b[c]]``` | |
+| Nesting | Conditions | 0.5 | ```if (a) { <br /> if (b) { // ---- Nesting cpx = 0.5 <br/> if (c) { // ---- Nesting cpx = 1 <br/> } <br/> }``` | Applies to `if`, `else`, `else if`, `switch` | 
+| Nesting | Loops | 0.5 | ```for (const a of arr) { <br/>    for (const b of otherArr) { // ---- Nesting cpx = 0.5 <br/>    } <br/> }``` | Applies to `for`, `forEach`, `do ... while` |
+| Nesting | Ternaries | 1 | ```a = b ? c ? : 0 : 1;``` | |
+| Recursion | Recursive methods | 3 | ```f(a) { <br/> return f(a + 1); <br/> }``` | |
+| Recursion | Callbacks | 2 | ```f(a) { <br/>return a(2); <br/> }``` | |
+| Structural | Conditions | 1 | ```if (a) { ... }``` |  Applies to `if`, `else`, `else if`, `switch` |
+| Structural | Functions | 1 | ```if (a) { ... }``` |  Applies to functions and methods declarations |
+| Structural | Jumps | 1 | ```for (const a of arr) { <br/>    if (b) { <br/>        continue;<br/>    }<br/>}``` |  Applies to elements breaking loops |
+| Structural | Logic door | 1 | `&&` or `&#124;&#124` | |
+| Structural | Loops | 1 | ```for (const a of arr) { ... }``` |  Applies to `for`, `forEach`, `do ... while` |
+| Structural | Regex | 1 | ```/[^.[\]]+/ // ---- Structural cpx = 1 (and 0.8 more for aggregation cpx)``` | |
+| Structural | Ternary | 1 | ```const a = b ? 0 : 1;``` | |
+
+ 
 
 ## 7. How to contribute ?
 
