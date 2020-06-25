@@ -316,7 +316,9 @@ function f(a) {
 }
 ```
 
-#### 6.3.2 Table of weights
+#### 6.3.2 Table of weights (v1.0.0)
+
+This table of weights should never be seen as the exact way to calculate the Complexity Index. It's only the best approximation on the basis of the current knowledge.
 
 | Category | Factor | Weight | Example | Comments |
 | ---      | ---    | :---:  | ---     | --- |
@@ -342,13 +344,17 @@ function f(a) {
 
 ## 7. How to contribute ?
 
-### 7.1 Adding new languages
+### 7.1 Confirm, refute, specify
 
-Genese Complexity was developed at first for TypeScript files, but you can now "plug" any language into this module.
+The estimation of the cognitive complexity will always be an approximation. The time required for a human to understand a source code depends of multiple factors 
+
+### 7.1 Add new languages
+
+We developed Genese Complexity at first for TypeScript files, but you can now "plug" any language into this module.
 
 What does it mean ? To be simple, Genese Complexity parses a Json file with a specific format : ***JsonAst***. This format corresponds to a simplified AST (Abstract Syntax Tree) of the source code. So if you want to be able to "plug" your language into Genese Complexity, you "just" need to convert the AST structure which is specific to your language to JsonAst format. In other words, your AST nodes must "match" with the AstNodes of the JsonAst format.
 
-As Genese Complexity was created for TypeScript files, if your JsonAst files respect exactly the Typescript AST structure and conventions, Genese Complexity will be able to understand it. If you want to understand how TypeScript AST "runs", you can make some trials in the [TypeScript AST Viewer](https://ts-ast-viewer.com/#code/KYDwDg9gTgLgBAYwDYEMDOa4HFgDthrADCEAtmEqAJYwCecA3gFBNxtygrmUAUKAlI1bsRCCLjQRKAOiQQA5n34BuYWwC+auE01A).
+As Genese Complexity was developed for TypeScript files, if your JsonAst files respect exactly the Typescript AST structure and conventions, Genese Complexity will be able to understand it. If you want to understand how TypeScript AST "runs", you can make some trials in the [TypeScript AST Viewer](https://ts-ast-viewer.com/#code/KYDwDg9gTgLgBAYwDYEMDOa4HFgDthrADCEAtmEqAJYwCecA3gFBNxtygrmUAUKAlI1bsRCCLjQRKAOiQQA5n34BuYWwC+auE01A).
 
 There are hundreds kinds of TypeScript AST nodes, so it can be fastidious to "link" all of them to the AST nodes of your language. Fortunately, JsonAst only needs few kinds of nodes, not all the hundreds of TypeScript AST. You will find below the list of the AstNode kinds that you will need. 
 
