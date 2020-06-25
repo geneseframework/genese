@@ -346,57 +346,59 @@ This table of weights should never be seen as the exact way to calculate the Com
 
 ### 7.1 Confirm, refute, specify
 
-The estimation of the cognitive complexity will always be an approximation. The time required for a human to understand a source code depends of multiple factors 
+The estimation of the cognitive complexity will always be an approximation. The time required for a human to understand a source code depends of thousands of factors which must be explicited and studied. Our goal is only to give the better approximation of the measure of the Cognitive Complexity, ie the Complexity Index. 
 
-### 7.1 Add new languages
+You can help in many ways by confirming, refuting or specifying the actual mode of computation of the Cognitive Complexity. This page is the receptacle of the different propositions coming from the community. We accept results coming from research labs or statistic studies, and we accept too the feedbacks coming from developers themselves. Each element or idea which is able to improve our algorithm is welcome. If you think that something is wrong in our approach, your opinion is welcome. If you think about a new complexity factor or a new way to estimate some kind of complexity, your idea is welcome too !
 
-We developed Genese Complexity at first for TypeScript files, but you can now "plug" any language into this module.
+Each time the algorithm will be updated, the version indicated at the top of the Table of Weights will be updated too. 
 
-What does it mean ? To be simple, Genese Complexity parses a Json file with a specific format : ***JsonAst***. This format corresponds to a simplified AST (Abstract Syntax Tree) of the source code. So if you want to be able to "plug" your language into Genese Complexity, you "just" need to convert the AST structure which is specific to your language to JsonAst format. In other words, your AST nodes must "match" with the AstNodes of the JsonAst format.
+### 7.2 Add new languages
 
-As Genese Complexity was developed for TypeScript files, if your JsonAst files respect exactly the Typescript AST structure and conventions, Genese Complexity will be able to understand it. If you want to understand how TypeScript AST "runs", you can make some trials in the [TypeScript AST Viewer](https://ts-ast-viewer.com/#code/KYDwDg9gTgLgBAYwDYEMDOa4HFgDthrADCEAtmEqAJYwCecA3gFBNxtygrmUAUKAlI1bsRCCLjQRKAOiQQA5n34BuYWwC+auE01A).
+We developed Genese Complexity at first for TypeScript files, but you can now "plug" any language into this module. What does it mean ? To be simple, Genese Complexity parses a Json file with a specific format : ***JsonAst***. This format corresponds to a simplified AST (Abstract Syntax Tree) of the source code. So if you want to be able to "plug" your language into Genese Complexity, you "just" need to convert the specific AST structure of your language into JsonAst format. In other words, your AST nodes must "match" with the nodes of the JsonAst format.
 
-There are hundreds kinds of TypeScript AST nodes, so it can be fastidious to "link" all of them to the AST nodes of your language. Fortunately, JsonAst only needs few kinds of nodes, not all the hundreds of TypeScript AST. You will find below the list of the AstNode kinds that you will need. 
+As Genese Complexity was developed at first for TypeScript files, if your JsonAst files respects exactly the Typescript AST structure and conventions, Genese Complexity will be able to understand it. If you want to know how TypeScript AST "runs", you can make some trials in the [TypeScript AST Viewer](https://ts-ast-viewer.com/#code/KYDwDg9gTgLgBAYwDYEMDOa4HFgDthrADCEAtmEqAJYwCecA3gFBNxtygrmUAUKAlI1bsRCCLjQRKAOiQQA5n34BuYWwC+auE01A).
 
-#### 7.1.1 Kinds of AstNodes
+There are hundreds kinds of TypeScript AST nodes, so it can be fastidious to "bind" all of them to the AST nodes of your language. Fortunately, JsonAst only needs few kinds of nodes, not all the hundreds of TypeScript AST. You will find below the list of the node kinds that you will need. 
 
-You will find below the list of all the different kinds of AstNodes. If you want to understand exactly what they mean, you can refer yourself to the TypeScript documentation : for example, the AstNode kind "IfStatement" refers to the TypeScript AST node ts.SyntaxKind.IfStatement. The exhaustive list of TypeScript SyntakKinds are accessible [here](https://github.com/microsoft/TypeScript/blob/master/lib/typescript.d.ts) (from line 77 to 447).   
+#### 7.2.1 Kinds of nodes
 
-| AstNode Kind | Example | Comments |
+You will find below the list of all the different kinds of nodes. If you want to understand exactly what they mean, you can refer yourself to the TypeScript documentation : for example, the AstNode kind `IfStatement` refers to the TypeScript AST node `ts.SyntaxKind.IfStatement`. The exhaustive list of TypeScript SyntaxKinds are accessible [here](https://github.com/microsoft/TypeScript/blob/master/lib/typescript.d.ts) (from line 77 to 447).   
+
+| Node Kind | Example | Comments |
 | ------------ | ------- | -------- |
 | AmpersandAmpersandToken | `&&` | The AND logic door. |
-| ArrowFunction | `() => void`  |   |
+| ArrowFunction | `() => { ... }`  | An arrowed function or method |
 | BarBarToken | `\|\|` | The OR logic door. |
-| BinaryExpression | `a > 0 <br /> a === b`  | Comparison between two elements. |
-| Block | `{ .... }`  | Abstract node containing some children nodes, like `IfStatement`. This AstNode doesn't increase complexity (empty AstNode). |
-| CallExpression |  `a.filter(e => e + 1)` | Abstract node containing a call to a function. In this example, the CallExpression contains a first child which is a PropertyExpression (the a.filter) and a second one which is an ArrowFunction (the e => e + 1). |
-| CatchClause | `try { ... } <br />catch(error) { ... }` | This node is considered as a Conditional node and increases the nesting complexity. |
-| ClassDeclaration | `class MyClass { ... }` | Abstract node designating a declaration of a class. This node is the root node of a class. This AstNode doesn't increase complexity (empty AstNode). |
+| BinaryExpression | `a > 0`<br/> `a === b`  | Comparison between two elements. |
+| Block | `{ .... }`  | Abstract node containing some children nodes, like `IfStatement`. This AstNode doesn't increase complexity (empty node). |
+| CallExpression |  `a.filter(e => e + 1)` | Abstract node containing a call to a function. In this example, the CallExpression contains a first child which is a PropertyExpression (the `a.filter`) and a second one which is an ArrowFunction (the `e => e + 1`). |
+| CatchClause | `try { ... }` <br/>`catch(error) { ... }` | This node is considered as a Conditional node and increases the nesting complexity. |
+| ClassDeclaration | `class MyClass { ... }` | Abstract node designating a declaration of a class. This node is the root node of a class. This node doesn't increase complexity (empty node). |
 | ConditionalExpression | `a = b ? 0 : 1;` | This node is considered as a Conditional node and increases the nesting complexity. In this example, the ConditionalExpression node have 5 children : Identifier, QuestionToken, NumericLiteral, ColonToken and NumericLiteral. |
 | DoStatement | `do { ... }` | Do instruction. Increases the nesting complexity. |
-| ElementAccessExpression | `a[b]` | Considered as an array by Genese Complexity. In this example, the ElementAccessExpression is a node with two children : an Identifier and another Identifier. |
+| ElementAccessExpression | `a[b]` | Considered as an array by Genese Complexity. In this example, the ElementAccessExpression is a node with two children : an Identifier `a` and another Identifier `b`. |
 | EndOfFileToken | `... }` | The last element of the source code. |
-| ExpressionStatement | `a = b ? 0 : 1; <br /> a.filter(e => e + 1)` | Abstract node containing an expression, like a BinaryExpression or a CallExpression. This AstNode doesn't increase complexity (empty AstNode). |
-| ForStatement | `for (let i = 0; i < 2; i++) { ... }`  | For loop. Increases the nesting complexity. Caution : a.forEach(...) is considered as a PropertyAccessExpression, not as a ForStatement, but Genese Complexity analysis as a "for" loop. |
+| ExpressionStatement | `a = b ? 0 : 1;`<br/> `a.filter(e => e + 1)` | Abstract node containing an expression, like a BinaryExpression or a CallExpression. This node doesn't increase complexity (empty node). |
+| ForStatement | `for (let i = 0; i < 2; i++) { ... }`  | For loop. Increases the nesting complexity. <br/>Caution : `a.forEach(...)` is considered by TypeScript as a PropertyAccessExpression and not as a ForStatement, but Genese Complexity analysis as a classic `for` loop. |
 | ForInStatement | `for (let a of arr) { ... }` | For loop with `in` statement. Increases the nesting complexity. |
 | ForOfStatement | `for (let a of arr) { ... }` | For loop with `of` statement. Increases the nesting complexity. |
-| FunctionDeclaration | `function f() { ... }` | Abstract node designating a declaration of a function. This AstNode doesn't increase complexity (empty AstNode). |
+| FunctionDeclaration | `function f() { ... }` | Abstract node designating a declaration of a function. This node doesn't increase complexity (empty node). |
 | FunctionExpression | `f(function(b) { ... }` | Abstract node designating a function expression. Increases the nesting complexity. |
 | Identifier | `f(a) { ... }` | The node corresponding to the identifier of a variable, a function, etc. In this example, there are two identifiers : `f` and `a`. An identifier is considered by Genese Complexity as an "atomic" node which increases the "atomic" complexity. |
 | IfStatement | `if(a) { ... }` | The IF condition. Increases the nesting complexity. |
-| MethodDeclaration | `myMethod() { ... }` | Abstract node designating a declaration of a method. This node is the root node of a class. This AstNode doesn't increase complexity (empty AstNode). |
-| Parameter | `myMethod(a) { ... }` | Abstract node designating a parameter. Caution : the Parameter `a` is different than the Identifier `a`, which is a child of the node Parameter. This AstNode doesn't increase complexity (empty AstNode). |
-| PropertyAccessExpression | `a.b = 3;` | Abstract node designating the access to a given property. The first child (`a`) is the expression and the second (`b`) is the property. This AstNode doesn't increase complexity (empty AstNode). |
+| MethodDeclaration | `myMethod() { ... }` | Abstract node designating a declaration of a method. This node is the root node of the method which doesn't increase complexity (empty node). |
+| Parameter | `myMethod(a) { ... }` | Abstract node designating a parameter. Caution : the Parameter `a` is different than the Identifier `a`, which is a child of the node Parameter. This node doesn't increase complexity (empty node). |
+| PropertyAccessExpression | `a.b = 3;` | Abstract node designating the access to a given property. The first child (`a`) is the expression and the second (`b`) is the property. This node doesn't increase complexity (empty node). |
 | RegularExpressionLiteral | `/a-z/g` | Regular expression. |
 | SwitchStatement | `switch(a) { ... }` | Switch statement. Increases the nesting complexity. |
-| VariableDeclarationList | `for (const elt of arr) { ... }` | Abstract node declaring a list of variables. In this example, the VariableDeclarationList is `const elt`. This AstNode doesn't increase complexity (empty AstNode). |
-| VariableStatement | `let a = 3;` | Abstract node declaring a variable. This AstNode doesn't increase complexity (empty AstNode). |
+| VariableDeclarationList | `for (const elt of arr) { ... }` | Abstract node declaring a list of variables. In this example, the VariableDeclarationList is `const elt`. This node doesn't increase complexity (empty node). |
+| VariableStatement | `let a = 3;` | Abstract node declaring a variable. This node doesn't increase complexity (empty node). |
 | WhileStatement | `while (a < 10) { ... }` | While loop. Increases the nesting complexity. |
 
 
-Genese Complexity will consider all the other kinds of AST nodes as "atomic" nodes. That means that every node of your AST which will be present in the JsonAst file will add a cognitive complexity corresponding to "atomic" nodes, as "StringLiteral", "TrueKeyword", etc. If you want that some kinds of nodes not to increase complexity, you will be able to set a property "empty" to true in the corresponding AstNode.
+Genese Complexity will consider all the other kinds of nodes as "atomic" nodes. That means that every node in the JsonAst which is not in the previous list file will add a cognitive complexity corresponding to "atomic" nodes, as "StringLiteral", "TrueKeyword", etc. If you don't want to increase complexity for a given kind of node, you will be able to set a property "empty" to true in the corresponding field in the JsonAst file.
 
-#### 7.1.2 JsonAst specifications
+#### 7.2.2 JsonAst specifications
 
 
 ##### ***JsonAst***
@@ -453,7 +455,7 @@ Corresponds to an AST node of the source code of a file.
 | name | String | yes/no | The name of the AST node. This field MUST be present in the following cases, and optional in the others. ClassDeclaration, MethodDeclaration, FunctionDeclaration, Parameter, Identifier |
 
 
-#### 7.1.3 Structure of the AST nodes
+#### 7.2.3 Structure of the AST nodes
 
 You must respect some conventions to be able to create JsonAst files correctly interpreted by Genese Complexity.
 
@@ -505,7 +507,7 @@ Your JsonAst MUST be structured like this :
 
 The AstNode "IfStatement" always have a first son which is the inside of the brackets and a second son which is inside the "if condition". This AstNode CAN have a third son which is the AstNode corresponding to the "ElseStatement".
 
-#### 7.1.4 Exhaustive list of the kinds of AstNode
+#### 7.2.4 Exhaustive list of the kinds of AstNode
 
 This list corresponds to the [ts.SyntaxKind enum](https://github.com/microsoft/TypeScript/blob/master/lib/typescript.d.ts) (from line 77 to 447)
 ```
