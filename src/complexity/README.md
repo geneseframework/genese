@@ -159,22 +159,28 @@ By default, the genese complexity report will be located here : `current_folder/
 
 ### 6.1 Cyclomatic complexity
 
-The cyclomatic complexity represents the difficulty to test a given method. The cyclomatic score is a measure of the testability of your code.
+The cyclomatic complexity is defined as below :
+ 
+   >#### Cyclomatic Complexity
+   > The cyclomatic complexity is a quantitative measure of the number of linearly independent paths through a program’s source code
 
-The force of the cyclomatic complexity is its simplicity: approximately, all breakflows (for, if, switch, ...) increase the score of 1. This simplicity is giving you an objective overview of the quality of your code, without subjective interpretations. Unfortunately, this lack of subjectivity involves the low relevance of the cyclomatic complexity when you want to measure the ***real maintainability*** of your code. If you want to be sure that your code will be easy to maintain, you must ask you this question: ***as a developer***, would it be easy to understand this code ?
+This notion is a good way to calculate the number of unit tests that we must do to validate the behavior of a method for every possible case. The cyclomatic complexity is highly correlated to the time required to cover all the source code by unit tests.
+
+The force of the cyclomatic complexity is its simplicity: approximately, all breakflows (for, if, switch, ...) increase the complexity score of 1. However, this score is weakly correlated to the maintainability of the source code, which is much more important: even if your code coverage is excellent, a source code which is too complex to understand will be unmaintainable.
 
 If you are a human, you will read your code differently than a machine would do it. So if you want to know if your code is really maintainable, you must look at its cognitive complexity. 
 
 ### 6.2 Cognitive complexity
 
 #### 6.2.1 Definition
+
 The cognitive complexity could be defined as below :
 
    >#### Cognitive Complexity
    > The Cognitive Complexity is a quantitative measure of the time required for a human to understand a program’s source code 
   
 
-A project is maintainable if each method of each file is easily understandable. That is the goal of the cognitive complexity, which should be seen as the most important indicator of code maintainability.
+A project is maintainable if each method of each file is easy to understand. That is the goal of the cognitive complexity, which should be seen as the most important indicator of code maintainability.
 
 The definition above needs to be clarified: what is difficult to understand and what is not ? Is an `if - else` more complex than a `for`, a `while` or a `switch` ? How many times a recursive method is more complex than a "normal" one ? Optional chaining or nullish coalescing clearly decrease the complexity of a method, but in which proportion ? There are no indisputable responses.
 
@@ -182,23 +188,23 @@ That's why we need to weight each complexity factor with a value which correspon
 
 #### 6.2.2 Measure unit
 
-A measure unit must be relative to an "atomic" piece of code, something which can be defined accurately. That's why we use the below definition :
+A measure unit must be relative to an "atomic" piece of code, something which can be defined accurately. That's why we will use the definition below :
 
    >#### Measure unit
    > The measure unit of the Cognitive Complexity is the time required for a human to understand the logic door `if`. 
 
-With this measure unit, we can calculate the Cognitive Complexity of any method with precision by comparing the time needed to understand it with the time required to understand to the logic door `if`. For example, a method with a Cognitive Complexity of 10 is a method which needs the same time to understand than a method with 10 `if`.
+With this measure unit, we can calculate the Cognitive Complexity of any method by comparing the time needed to understand it with the time required to understand the logic door `if`. For example, a method with a Cognitive Complexity of 10 is a method which needs the same time to understand than a method with 10 `if`.
 
-We must insist on an important point : the measure unit must be "atomic" to be defined precisely and to be able to quantify it "in the reality", ie by measuring the average time to understand it. So, the measure unit definition is based on the "logic door `if`" and not on "a `if` with sometimes inside".
+We must insist on an important point : the measure unit must be defined in relation with an "atomic" piece of code. It is necessary to be able to quantify it "in the reality", *ie* by measuring the average time to understand it. That's why we define the measure unit of Cognitive Complexity with the "logic door `if`" and not with a `if` "with something inside".
 
-The code below is not atomic, because there is a `console.log` inside it. The difficulty of a `console.log` is low, but not null. That's why we can't use the code below as measure unit.
+Let us try to be more explicit: the code below is not atomic, because there is a `console.log` inside it. Admittedly, the difficulty of a `console.log` is low, but not null. That's why we can't use this code as measure unit.
 ```ts
 if (a) {
     console.log(a);
 }
 ``` 
 
-We have the same problem with the code below, which is not atomic too. The `a` is not "nothing" and me bust be understand. Moreover, `if(a)` have different significations according to the used language. For example, in JavaScript / TypeScript, it doesn't mean "if a is true" but "if a is not a falsy value", which is slightly different.
+We have the same problem with the next code, which is not atomic too. The `a` is not "nothing" and me bust be understand too. Moreover, `if(a)` have different significations according to the used language. For example, in JavaScript and TypeScript, it doesn't mean "if a is true" but "if a is not a falsy value", which is slightly different.
 ```ts
 if (a) {
 
@@ -218,10 +224,11 @@ With the definition of the measure unit of the cognitive complexity, we can now 
    > #### Complexity Index
    > The Complexity Index is the measure of the Cognitive Complexity of a program’s source code by considering the logic door `if` as measure unit.
 
+The following chapters provide an overview of the different ways to evaluate the Complexity Index.
 
 ### 6.3 Complexity Factors
 
-The level of cognitive complexity depends on multiple factors of different importance which can be grouped in different categories. The following is an overview of these different factors with their different weights. However, we must keep in mind that these weights and categories are for now only based on intuition and feedbacks. ***They SHOULD NOT be interpreted as objective and definitive values***. These elements ARE NOT static and will change as the Cognitive Complexity knowledge will increase.
+The Complexity Index depends on multiple factors of different weights which can be grouped in several categories. These factors, weights and categories are for now only based on intuition and feedbacks: ***they SHOULD NOT be interpreted as immutable and definitive values***. These elements are only the best way as things stand to measure the Complexity Index. With the help of the community and the increase of knowledge, the weights will be revalued, other factors will appear and other categories will be discovered.
 
 Every time someone will demonstrate that a factor should be weighted differently or that another category should be taken into account, this page will be updated with a new version number.
 
@@ -229,11 +236,11 @@ Every time someone will demonstrate that a factor should be weighted differently
 
 - ***Atomic***
 
-Each unbreakable piece of code have a weak Complexity Index, but not null. The name of a variable or a method, a keyword like `this`, `import`, `class`, `if`, ... are trivial, but they need to be red, taken in account and memorized by the human brain. A long method, even when it does not pose particular problems, is more long to understand than a short one with the same "density of complexity".
+Each unbreakable piece of code have a Complexity Index which is weak, but not null. The name of a variable or a method, a keyword like `this`, `import`, `class`, `if`, ... are trivial, but they need to be red, taken in account and memorized by the human brain. A long method, even without particular problems, is more difficult to understand than a short function having the same "density of complexity".
 
-That's each of these trivial or "atomic" blocks should be weighted in a specific category : the Atomic Factor Category.
+Each of these trivial nodes have a non null Complexity Index due to their existence. Genese Complexity uses an "atomic weight" equal to 0.1.
 
-Example
+- Example
 
 ```ts
 if (a) {  // ------------------------- + 0.2 (0.1 for the "if" and 0.1 for the "a")
@@ -244,52 +251,63 @@ if (a) {  // ------------------------- + 0.2 (0.1 for the "if" and 0.1 for the "
 
 - ***Structural***
 
-Some code structures present an intrinsic difficulty. Independently of their use, the human brain needs some time to taken in account the logic implications of these code structures. That's what we call the ***structural category***.
+Some code structures present an intrinsic difficulty which implies that the human brain needs a significant time to take in account their logic implications. The cognitive complexity relative to the intrinsic difficulty of these code structures is called the ***structural complexity***.
 
-In this category, we will find the loops (`for`, `while`, ...), the logic doors (`&&`, `||`), the conditions (`if`, `else`, `switch`, ...), the recursions, the callbacks, the regular expressions, etc. You will find the exhaustive list of the structural factors in the table below.  
+The structural category contains different factors: the loops (`for`, `while`, ...), the logic doors (`&&`, `||`), the conditions (`if`, `else`, `switch`, ...), the recursions, the callbacks, the regular expressions, etc. You will find the exhaustive list of the structural factors [in the table below](#632-table-of-weights-v100).  
 
 - ***Nesting***
 
-Independently of their intrinsic complexity, some elements add specific difficulty due to the nesting inside them.
+Independently of their intrinsic complexity, some elements add specific difficulty due to the nesting of other elements inside them.
  
-Example
+- Example
   
-  The complexity of the code below is only due to the addition of the complexities of the two `if`.
+  The complexity of the code below is only due to the addition of the complexities of the two `if` : there is no nesting complexity.
   
 ```ts
 if (a) { // ------------------------------ + x  
+    // ----
 }
 if (b) { // ------------------------------ + y
+    // ----
 }
 ```
-=> Total of atomic complexity : `x + y`
+=> Complexity Index : `x + y`
 
-If the fisrt condition has a Complexity Index equals to `x` and if the second `if` equals to `y`, the total Complexity Index will be equal to `x + y`.
+If the first condition has a Complexity Index equals to `x` and the second equals to `y`, the total Complexity Index will be equal to `x + y`.
 
-Now, if the same conditions are nested, an additional difficulty is due to the obligation to remember in the second `if` that the condition `a` must be true. This additional complexity is called `nesting complexity` and increases the Complexity Index of the source code, which will be strictly higher than `x + y`.
+Now, if the same conditions are nested, an additional difficulty is due to the obligation in the second `if` to remember that the condition `a` must be true to be here. This additional complexity is called `nesting complexity` and increases the Complexity Index of the source code, which will be strictly higher than `x + y`.
 
-Example
-  ```ts
+- Example
+ ```ts
 if (a) { // ---------------------------------- + x  
-    if (b) { // ------------------------------ + y + n (the nesting complexity due to the imbrication in the "if (a) {"
+    if (b) { // ------------------------------ + y + n (the nesting complexity due to the imbrication in the first "if")
+        // ----
+    }
 }
 ```
-=> Total of atomic complexity : `x + y + n`
+=> Complexity Index : `x + y + n`
 
-Genese complexity adds nesting complexity for the loops (`for`, `while`, ...), the conditions (`if`, `else`, `switch`, ...), the ternaries (`a = b ? 0 : 1`), the arrays (`a[b[c]]`) and the functions (`a = b.f(e => e + 1))`).
+Genese Complexity adds nesting complexity for the loops (`for`, `while`, ...), the conditions (`if`, `else`, `switch`, ...), the ternaries (`a = b ? 0 : 1`), the arrays (`a[b[c]]`) and the functions (`a = b.f(e => e + 1))`).
 
 - ***Aggregation***
 
-The principle of "aggregation complexity" is the same as with "nesting complexity", but is relative to consecutive elements and not nested elements. The idea is simple : an array is simple to understand, but an array of arrays is less trivial. The additional complexity is due to the aggregation of the elements. We find this problematic iin other cases, like regular expressions : they have a structural complexity (a regex is difficult for itself), but their length (the aggregation of its characters) increases considerably their difficulty. (other factors affect the complexity of the regular expressions, but we use for now only the length as a first approximation)
+Aggregation complexity is almost the same that nesting complexity, but is relative to consecutive elements and not to nested elements. The idea is simple : an array is simple to understand, but an array of arrays is clearly less trivial. This additional complexity is due to the aggregation of the different elements.
 
-Example
-  ```ts
-const arr = a[b][c];
+- Example
+```ts
+const arr = a[b][c];  // ------------------------ + 1 aggregation cpx
+```
+
+We find this problematic with array of arrays, but also in other cases, like regular expressions : they have at first a structural complexity (a regex is difficult for itself), but they have too a specific difficulty in relation with their length, that is, the aggregation of their characters. increases considerably their difficulty. Of course, other factors affect the complexity of the regular expressions, but we use for now their length as a first approximation.
+
+- Example
+```ts
+const regex = /[^.[\]]+/;  // ------------------------ + 0.8 aggregation cpx (0.1 by character)
 ```
 
 Another use case of the aggregation complexity is logic doors, which are simple to understand when they are similar and complicated when they are different and without brackets.
 
-Example
+- Example
 ```ts
 if (a && b && c) { // ---------------------- Easy to understand (same logic doors)
     // ---
@@ -297,11 +315,11 @@ if (a && b && c) { // ---------------------- Easy to understand (same logic door
 if (a && (b || c)) { // -------------------- Easy to understand (thanks to brackets)
     // ---
 }
-if (a && b || c) { // ----------------- Difficult to understand (due to the lack of brackets)
+if (a && b || c) { // ----------------- Difficult to understand (due to the lack of brackets) => + 1 aggregation cpx
     // ---
 }
 ``` 
-The third example is more difficult than the first and the second => additional complexity (aggregation of different logic doors) 
+The third example is more difficult to understand than the first and the second one because of the aggregation of different logic doors without brackets. 
   
 - ***Recursion***
 
@@ -309,10 +327,17 @@ Recursivity is easy for machines, but not for humans. A developer will always ne
 
 The category "recursion" includes `recursive methods` and `callbacks`.
 
-Example
-  ```ts
+- Examples
+
+```ts
 function f(a) {
     return f(a + 1);
+}
+```
+
+```ts
+function f(a) {
+    return a(1);
 }
 ```
 
@@ -323,21 +348,21 @@ This table of weights should never be seen as the exact way to calculate the Com
 | Category | Factor | Weight | Example | Comments |
 | ---      | ---    | :---:  | ---     | --- |
 | Aggregation | Arrays | 1 | ```a[b][c] // ---- Aggregation cpx = 1```| |
-| Aggregation | Regex | 0.1 by char | ```/[^.[\]]+/ // ---- Aggregation cpx = 0.8 (and 1 more for structural cpx of the regex)``` | |
-| Aggregation | Different logic doors | 1 | ```if (a && b &#124;&#124; c) // ---- Aggregation cpx = 1 (and 1 more for structural cpx)``` | The brackets cancel the aggregation complexity |
+| Aggregation | Regex | 0.1 by char | ```/[^.[\]]+/ // ---- Aggregation cpx = 0.8``` | |
+| Aggregation | Different logic doors | 1 | ```if (a && b \|\| c) // ---- Aggregation cpx = 1``` | The brackets cancel the aggregation complexity |
 | Atomic | Atomic | 0.1 | ```console.log(3) // ---- Atomic cpx = 0.3 (3 atoms)``` | Applies to each identifier, parameter, keyword, etc. |
 | Nesting | Arrays | 1.5 | ```a[b[c]]``` | |
-| Nesting | Conditions | 0.5 | ```if (a) { <br /> if (b) { // ---- Nesting cpx = 0.5 <br/> if (c) { // ---- Nesting cpx = 1 <br/> } <br/> }``` | Applies to `if`, `else`, `else if`, `switch` | 
-| Nesting | Loops | 0.5 | ```for (const a of arr) { <br/>    for (const b of otherArr) { // ---- Nesting cpx = 0.5 <br/>    } <br/> }``` | Applies to `for`, `forEach`, `do ... while` |
+| Nesting | Conditions | 0.5 | ```if (a) { ```<br/>``` if (b) { // ---- Nesting cpx = 0.5```<br/>``` if (c) { // ---- Nesting cpx = 1 ```<br/>``` } ```<br/>``` }``` | Applies to `if`, `else`, `else if`, `switch` | 
+| Nesting | Loops | 0.5 | ```for (const a of arr) { ```<br/>```    for (const b of otherArr) { // ---- Nesting cpx = 0.5 ```<br/>```    } ```<br/>``` }``` | Applies to `for`, `forEach`, `do ... while` |
 | Nesting | Ternaries | 1 | ```a = b ? c ? : 0 : 1;``` | |
-| Recursion | Recursive methods | 3 | ```f(a) { <br/> return f(a + 1); <br/> }``` | |
-| Recursion | Callbacks | 2 | ```f(a) { <br/>return a(2); <br/> }``` | |
+| Recursion | Recursive methods | 3 | ```f(a) { ```<br/>``` return f(a + 1); ```<br/>``` }``` | |
+| Recursion | Callbacks | 2 | ```f(a) { ```<br/>```return a(2); ```<br/>``` }``` | |
 | Structural | Conditions | 1 | ```if (a) { ... }``` |  Applies to `if`, `else`, `else if`, `switch` |
-| Structural | Functions | 1 | ```if (a) { ... }``` |  Applies to functions and methods declarations |
-| Structural | Jumps | 1 | ```for (const a of arr) { <br/>    if (b) { <br/>        continue;<br/>    }<br/>}``` |  Applies to elements breaking loops |
-| Structural | Logic door | 1 | `&&` or `&#124;&#124` | |
+| Structural | Functions | 1 | ```a.filter(elt => { ... })``` |  |
+| Structural | Jumps | 1 | ```for (const a of arr) { ```<br/>```    if (b) { ```<br/>```        continue;<br/>    }<br/>}``` |  Applies to elements breaking loops |
+| Structural | Logic door | 1 | `&&` or \|\| | |
 | Structural | Loops | 1 | ```for (const a of arr) { ... }``` |  Applies to `for`, `forEach`, `do ... while` |
-| Structural | Regex | 1 | ```/[^.[\]]+/ // ---- Structural cpx = 1 (and 0.8 more for aggregation cpx)``` | |
+| Structural | Regex | 1 | ```/[^.[\]]+/ // ---- Structural cpx = 1``` | |
 | Structural | Ternary | 1 | ```const a = b ? 0 : 1;``` | |
 
  
@@ -346,23 +371,23 @@ This table of weights should never be seen as the exact way to calculate the Com
 
 ### 7.1 Confirm, refute, specify
 
-The estimation of the cognitive complexity will always be an approximation. The time required for a human to understand a source code depends of thousands of factors which must be explicited and studied. Our goal is only to give the better approximation of the measure of the Cognitive Complexity, ie the Complexity Index. 
+The estimation of the cognitive complexity will always be an approximation. The time required for a human to understand a source code depends of thousands of factors which must be explicited and studied. Our goal is only to give the better approximation of the measure of the Cognitive Complexity, that is, the Complexity Index. 
 
-You can help in many ways by confirming, refuting or specifying the actual mode of computation of the Cognitive Complexity. This page is the receptacle of the different propositions coming from the community. We accept results coming from research labs or statistic studies, and we accept too the feedbacks coming from developers themselves. Each element or idea which is able to improve our algorithm is welcome. If you think that something is wrong in our approach, your opinion is welcome. If you think about a new complexity factor or a new way to estimate some kind of complexity, your idea is welcome too !
+You can help in many ways by confirming, refuting or specifying the actual mode of computation of the Cognitive Complexity. This page is the receptacle of the different propositions coming from the community. Of course, we accept results coming from research labs or statistic studies, but we accept too the simple feedbacks coming from developers themselves. Each element or idea which is able to improve our algorithm is welcome. If you think that something is wrong in our approach, your opinion is welcome. If you think about a new complexity factor or a new way to estimate some kind of complexity, your idea is welcome too !
 
 Each time the algorithm will be updated, the version indicated at the top of the Table of Weights will be updated too. 
 
 ### 7.2 Add new languages
 
-We developed Genese Complexity at first for TypeScript files, but you can now "plug" any language into this module. What does it mean ? To be simple, Genese Complexity parses a Json file with a specific format : ***JsonAst***. This format corresponds to a simplified AST (Abstract Syntax Tree) of the source code. So if you want to be able to "plug" your language into Genese Complexity, you "just" need to convert the specific AST structure of your language into JsonAst format. In other words, your AST nodes must "match" with the nodes of the JsonAst format.
+We developed Genese Complexity at first for TypeScript files, but you can now "plug" any language into this module. What does it mean ? To be simple, Genese Complexity parses a Json file with a specific format : ***JsonAst***. This format corresponds to a simplified AST (Abstract Syntax Tree) of the source code. So if you want to be able to "plug" your language into Genese Complexity, you "just" need to convert the specific AST structure of your language into JsonAst format. In other words, your AST nodes must "match" with the nodes of the JsonAst format. If your plugin is correct, we will add it to Genese Complexity module.
 
 As Genese Complexity was developed at first for TypeScript files, if your JsonAst files respects exactly the Typescript AST structure and conventions, Genese Complexity will be able to understand it. If you want to know how TypeScript AST "runs", you can make some trials in the [TypeScript AST Viewer](https://ts-ast-viewer.com/#code/KYDwDg9gTgLgBAYwDYEMDOa4HFgDthrADCEAtmEqAJYwCecA3gFBNxtygrmUAUKAlI1bsRCCLjQRKAOiQQA5n34BuYWwC+auE01A).
 
-There are hundreds kinds of TypeScript AST nodes, so it can be fastidious to "bind" all of them to the AST nodes of your language. Fortunately, JsonAst only needs few kinds of nodes, not all the hundreds of TypeScript AST. You will find below the list of the node kinds that you will need. 
+There are hundreds kinds of TypeScript AST nodes, so it can be fastidious to "bind" all of them to the AST nodes of your language. Fortunately, JsonAst only needs few kinds of nodes; you will find them below. 
 
 #### 7.2.1 Kinds of nodes
 
-You will find below the list of all the different kinds of nodes. If you want to understand exactly what they mean, you can refer yourself to the TypeScript documentation : for example, the AstNode kind `IfStatement` refers to the TypeScript AST node `ts.SyntaxKind.IfStatement`. The exhaustive list of TypeScript SyntaxKinds are accessible [here](https://github.com/microsoft/TypeScript/blob/master/lib/typescript.d.ts) (from line 77 to 447).   
+You will find below the list of all the different kinds of AST nodes. If you want to understand exactly what they mean, you may refer to the TypeScript documentation : for example, the node's kind `IfStatement` refers to the TypeScript AST node `ts.SyntaxKind.IfStatement`. The exhaustive list of TypeScript SyntaxKinds are accessible [here](https://github.com/microsoft/TypeScript/blob/master/lib/typescript.d.ts) (from line 77 to 447).   
 
 | Node Kind | Example | Comments |
 | ------------ | ------- | -------- |
@@ -370,24 +395,24 @@ You will find below the list of all the different kinds of nodes. If you want to
 | ArrowFunction | `() => { ... }`  | An arrowed function or method |
 | BarBarToken | `\|\|` | The OR logic door. |
 | BinaryExpression | `a > 0`<br/> `a === b`  | Comparison between two elements. |
-| Block | `{ .... }`  | Abstract node containing some children nodes, like `IfStatement`. This AstNode doesn't increase complexity (empty node). |
-| CallExpression |  `a.filter(e => e + 1)` | Abstract node containing a call to a function. In this example, the CallExpression contains a first child which is a PropertyExpression (the `a.filter`) and a second one which is an ArrowFunction (the `e => e + 1`). |
-| CatchClause | `try { ... }` <br/>`catch(error) { ... }` | This node is considered as a Conditional node and increases the nesting complexity. |
-| ClassDeclaration | `class MyClass { ... }` | Abstract node designating a declaration of a class. This node is the root node of a class. This node doesn't increase complexity (empty node). |
-| ConditionalExpression | `a = b ? 0 : 1;` | This node is considered as a Conditional node and increases the nesting complexity. In this example, the ConditionalExpression node have 5 children : Identifier, QuestionToken, NumericLiteral, ColonToken and NumericLiteral. |
+| Block | `{ .... }`  | Abstract node containing some children nodes, like `IfStatement`. This node doesn't increase complexity (empty node). |
+| CallExpression |  `a.filter(e => e + 1)` | Abstract node containing a call to a function. In this example, the CallExpression contains a first child which is a PropertyExpression (`a.filter`) and a second one which is an ArrowFunction (`e => e + 1`). |
+| CatchClause | `try { ... }` <br/>`catch(error) { ... }` | This node is considered as a conditional node and increases the nesting complexity in the same way. |
+| ClassDeclaration | `class MyClass { ... }` | Abstract node designating a declaration of a class. This node is the root node of a class. It doesn't increase complexity (empty node). |
+| ConditionalExpression | `a = b ? 0 : 1;` | This node is a conditional node and increases the nesting complexity. In this example, the ConditionalExpression node have 5 children : Identifier `b`, QuestionToken `?`, NumericLiteral `0`, ColonToken `:` and NumericLiteral `1`. |
 | DoStatement | `do { ... }` | Do instruction. Increases the nesting complexity. |
 | ElementAccessExpression | `a[b]` | Considered as an array by Genese Complexity. In this example, the ElementAccessExpression is a node with two children : an Identifier `a` and another Identifier `b`. |
 | EndOfFileToken | `... }` | The last element of the source code. |
 | ExpressionStatement | `a = b ? 0 : 1;`<br/> `a.filter(e => e + 1)` | Abstract node containing an expression, like a BinaryExpression or a CallExpression. This node doesn't increase complexity (empty node). |
-| ForStatement | `for (let i = 0; i < 2; i++) { ... }`  | For loop. Increases the nesting complexity. <br/>Caution : `a.forEach(...)` is considered by TypeScript as a PropertyAccessExpression and not as a ForStatement, but Genese Complexity analysis as a classic `for` loop. |
+| ForStatement | `for (let i = 0; i < 2; i++) { ... }`  | For loop. Increases the nesting complexity. <br/>Caution : `a.forEach(...)` is considered by TypeScript as a PropertyAccessExpression and not as a ForStatement, but Genese Complexity consider it as a classic `for` loop. |
 | ForInStatement | `for (let a of arr) { ... }` | For loop with `in` statement. Increases the nesting complexity. |
 | ForOfStatement | `for (let a of arr) { ... }` | For loop with `of` statement. Increases the nesting complexity. |
 | FunctionDeclaration | `function f() { ... }` | Abstract node designating a declaration of a function. This node doesn't increase complexity (empty node). |
 | FunctionExpression | `f(function(b) { ... }` | Abstract node designating a function expression. Increases the nesting complexity. |
-| Identifier | `f(a) { ... }` | The node corresponding to the identifier of a variable, a function, etc. In this example, there are two identifiers : `f` and `a`. An identifier is considered by Genese Complexity as an "atomic" node which increases the "atomic" complexity. |
+| Identifier | `f(a) { ... }` | The node corresponding to the identifier of a variable, a function, etc. In this example, there are two identifiers : `f` and `a`. An identifier is considered by Genese Complexity as an atomic node which increases the atomic complexity. |
 | IfStatement | `if(a) { ... }` | The IF condition. Increases the nesting complexity. |
-| MethodDeclaration | `myMethod() { ... }` | Abstract node designating a declaration of a method. This node is the root node of the method which doesn't increase complexity (empty node). |
-| Parameter | `myMethod(a) { ... }` | Abstract node designating a parameter. Caution : the Parameter `a` is different than the Identifier `a`, which is a child of the node Parameter. This node doesn't increase complexity (empty node). |
+| MethodDeclaration | `myMethod() { ... }` | Abstract node designating a declaration of a method. This node is the root node of the method. It doesn't increase complexity (empty node). |
+| Parameter | `myMethod(a) { ... }` | Abstract node designating a parameter. <br/>Caution : the Parameter `a` is different than the Identifier `a`, which is a child of the AST node "Parameter". This node doesn't increase complexity (empty node). |
 | PropertyAccessExpression | `a.b = 3;` | Abstract node designating the access to a given property. The first child (`a`) is the expression and the second (`b`) is the property. This node doesn't increase complexity (empty node). |
 | RegularExpressionLiteral | `/a-z/g` | Regular expression. |
 | SwitchStatement | `switch(a) { ... }` | Switch statement. Increases the nesting complexity. |
@@ -396,7 +421,7 @@ You will find below the list of all the different kinds of nodes. If you want to
 | WhileStatement | `while (a < 10) { ... }` | While loop. Increases the nesting complexity. |
 
 
-Genese Complexity will consider all the other kinds of nodes as "atomic" nodes. That means that every node in the JsonAst which is not in the previous list file will add a cognitive complexity corresponding to "atomic" nodes, as "StringLiteral", "TrueKeyword", etc. If you don't want to increase complexity for a given kind of node, you will be able to set a property "empty" to true in the corresponding field in the JsonAst file.
+Genese Complexity will consider all the other kinds of nodes as atomic nodes. This means that every node in the JsonAst which is not in the previous list file will add a cognitive complexity corresponding to atomic nodes, as `StringLiteral`, `TrueKeyword`, etc. If you don't want to increase complexity for a given kind of node, you will be able to set a property "empty" to true in the corresponding field of the JsonAst file.
 
 #### 7.2.2 JsonAst specifications
 
@@ -434,7 +459,7 @@ Corresponds to a file to analyze.
 
 | Field name | Type | Required | Description |
 | ---------- | ---- | -------- | ----------- |
-| astNode  | AstNode | yes | The AstNode corresponding to the sourceFile itself (in Typescript, it is ts.SourceFile) |
+| astNode  | AstNode | yes | The AstNode corresponding to the sourceFile itself (in Typescript, it is `ts.SourceFile`) |
 | name | String | yes | The name of the file |
 | text | String | yes | The source code of the file, including break lines |
 
@@ -452,7 +477,7 @@ Corresponds to an AST node of the source code of a file.
 | end  | Integer | yes | The position of the last character of the AST node in the source code of the file |
 | kind | SyntaxKind | yes | The kind of the AST node |
 | pos  | Integer | yes | The position of the first character of the AST node in the source code of the file |
-| name | String | yes/no | The name of the AST node. This field MUST be present in the following cases, and optional in the others. ClassDeclaration, MethodDeclaration, FunctionDeclaration, Parameter, Identifier |
+| name | String | yes/no | The name of the AST node. This field MUST be present in the following cases: `ClassDeclaration`, `MethodDeclaration`, `FunctionDeclaration`, `Parameter`, `Identifier` |
 
 
 #### 7.2.3 Structure of the AST nodes
@@ -505,7 +530,7 @@ Your JsonAst MUST be structured like this :
 }
 ```
 
-The AstNode "IfStatement" always have a first son which is the inside of the brackets and a second son which is inside the "if condition". This AstNode CAN have a third son which is the AstNode corresponding to the "ElseStatement".
+The AstNode "IfStatement" always have a first son which is what is inside the `if` brackets and a second son which is what is inside the `if` condition (the curly brackets). This AstNode MAY has a third son which is the AstNode corresponding to the `ElseStatement`, like in the example above.
 
 #### 7.2.4 Exhaustive list of the kinds of AstNode
 
