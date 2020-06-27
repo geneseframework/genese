@@ -43,16 +43,10 @@ export class AstFolderReportService {
      */
     getFoldersArray(astFolder: AstFolder): RowFolderReport[] {
         let report: RowFolderReport[] = [];
-        console.log('PATH TO ANALYZZZZ', getPathWithSlash(Options.pathFolderToAnalyze))
-        console.log('PATH ASTFLDRRRR CHILDRRR', astFolder.children.length)
         if (getPathWithSlash(this.astFolder.path) !== getPathWithSlash(Options.pathFolderToAnalyze)) {
-            console.log('HEEEREEEEEEE')
             report.push(this.addRowBackToParentFolder());
         }
-        // return report;
-        const zzz =  report.concat(this.getSubfoldersArray(astFolder));
-        console.log(chalk.yellowBright('ZZZZ', zzz[0].routeFromCurrentFolder));
-        return zzz
+        return report.concat(this.getSubfoldersArray(astFolder));
     }
 
 
@@ -69,7 +63,7 @@ export class AstFolderReportService {
                     complexitiesByStatus: subfolder.stats?.numberOfMethodsByStatus,
                     numberOfFiles: subfolder.stats?.numberOfFiles,
                     numberOfMethods: subfolder.stats?.numberOfMethods,
-                    path: subfolder.relativePath === '' ? '.' : subfolder.relativePath,
+                    path: subfolder.relativePath,
                     routeFromCurrentFolder: this.astFolderService.getRouteFromFolderToSubFolder(this.astFolder, subfolder)
                 };
                 report.push(subfolderReport);
@@ -187,7 +181,6 @@ export class AstFolderReportService {
         this.relativeRootReports = getRouteToRoot(this.astFolder.relativePath);
         this.filesArray = this.getFilesArray(this.astFolder);
         this.foldersArray = this.getFoldersArray(parentFolder);
-        console.log('FOLDERS ARRRR', this.foldersArray)
         this.methodsArray = this.getMethodsArraySortedByDecreasingCognitiveCpx(parentFolder);
         this.registerPartial("cognitiveBarchartScript", 'cognitive-barchart');
         this.registerPartial("cyclomaticBarchartScript", 'cyclomatic-barchart');
