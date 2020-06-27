@@ -1,6 +1,6 @@
 <div id="{{methodName}}">
-    <table class="array-report">
-        <thead>
+    <table class="array-report method-table">
+        <thead class="method-thead">
         <tr>
             <th class="method-name-column">
                 <span class="strong">{{methodName}}</span>
@@ -11,14 +11,16 @@
             <th class="bg{{method.cyclomaticColor}}">{{method.cyclomaticValue}}</th>
         </tr>
         </thead>
-        <tr>
+        <tbody class="method-body">
+        <tr class="code-row">
             <td colspan="5">
-            <pre>
+                    <pre>
                 <code class="language-js">
                     {{method.code}}
                 </code>
             </pre>
             </td>
         </tr>
+        </tbody>
     </table>
 </div>

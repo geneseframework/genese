@@ -18,8 +18,8 @@
             <h1>Genese complexity report</h1>
         </div>
         <div class="pad1y">
-            <span class="backLink" onclick="history.back()"><-</span>
-            {{stats.subject}}
+                <span class="backLink" onclick="history.back()"><-</span>
+                    {{stats.subject}}
         </div>
         <div class="clearfix">
             <div class='fl pad1y space-right2'>
@@ -52,7 +52,7 @@
 <div class="mainContainer">
     <div class="stats-and-charts">
 
-            <!--        -----------------------------------   Cognitive complexity   ---------------------------->
+        <!--        -----------------------------------   Cognitive complexity   ---------------------------->
 
         <div class="stats-cognitive">
             <div class="stats-and-doughnut stats-and-doughnut-cognitive">
@@ -69,14 +69,16 @@
                         <div class='fl pad1y space-right2'>
                             <span class="strong">{{stats.percentsByStatus.cognitive.correct}} %</span>
                             <span class="quiet"> Correct</span>
-                            <span class='fraction'>{{stats.numberOfMethodsByStatus.cognitive.correct}}/{{stats.numberOfMethods}}</span>
+                            <span
+                                    class='fraction'>{{stats.numberOfMethodsByStatus.cognitive.correct}}/{{stats.numberOfMethods}}</span>
                         </div>
                     </div>
                     <div class="clearfix">
                         <div class='fl pad1y space-right2'>
                             <span class="strong">{{stats.percentsByStatus.cognitive.warning}} %</span>
                             <span class="quiet"> Warning</span>
-                            <span class='fraction'>{{stats.numberOfMethodsByStatus.cognitive.warning}}/{{stats.numberOfMethods}}</span>
+                            <span
+                                    class='fraction'>{{stats.numberOfMethodsByStatus.cognitive.warning}}/{{stats.numberOfMethods}}</span>
                             <span class="quiet">(threshold : {{thresholds.cognitive.warning}})</span>
                         </div>
                     </div>
@@ -84,7 +86,8 @@
                         <div class='fl pad1y space-right2'>
                             <span class="strong">{{stats.percentsByStatus.cognitive.error}} %</span>
                             <span class="quiet"> Error</span>
-                            <span class='fraction'>{{stats.numberOfMethodsByStatus.cognitive.error}}/{{stats.numberOfMethods}}</span>
+                            <span
+                                    class='fraction'>{{stats.numberOfMethodsByStatus.cognitive.error}}/{{stats.numberOfMethods}}</span>
                             <span class="quiet">(threshold : {{thresholds.cognitive.error}})</span>
                         </div>
                     </div>
@@ -113,14 +116,16 @@
                         <div class='fl pad1y space-right2'>
                             <span class="strong">{{stats.percentsByStatus.cyclomatic.correct}} %</span>
                             <span class="quiet"> Correct</span>
-                            <span class='fraction'>{{stats.numberOfMethodsByStatus.cyclomatic.correct}}/{{stats.numberOfMethods}}</span>
+                            <span
+                                    class='fraction'>{{stats.numberOfMethodsByStatus.cyclomatic.correct}}/{{stats.numberOfMethods}}</span>
                         </div>
                     </div>
                     <div class="clearfix">
                         <div class='fl pad1y space-right2'>
                             <span class="strong">{{stats.percentsByStatus.cyclomatic.warning}} %</span>
                             <span class="quiet"> Warning</span>
-                            <span class='fraction'>{{stats.numberOfMethodsByStatus.cyclomatic.warning}}/{{stats.numberOfMethods}}</span>
+                            <span
+                                    class='fraction'>{{stats.numberOfMethodsByStatus.cyclomatic.warning}}/{{stats.numberOfMethods}}</span>
                             <span class="quiet">(threshold : {{thresholds.cyclomatic.warning}})</span>
                         </div>
                     </div>
@@ -128,7 +133,8 @@
                         <div class='fl pad1y space-right2'>
                             <span class="strong">{{stats.percentsByStatus.cyclomatic.error}} %</span>
                             <span class="quiet"> Error</span>
-                            <span class='fraction'>{{stats.numberOfMethodsByStatus.cyclomatic.error}}/{{stats.numberOfMethods}}</span>
+                            <span
+                                    class='fraction'>{{stats.numberOfMethodsByStatus.cyclomatic.error}}/{{stats.numberOfMethods}}</span>
                             <span class="quiet">(threshold : {{thresholds.cyclomatic.error}})</span>
                         </div>
                     </div>
@@ -148,8 +154,8 @@
     <!--        -------------------------------------------------------------------------------------->
 
 
-    <div class="subfolders">
-        <div class="clearfix cognitive-subtitle">
+    <div idclass="subfolders">
+        <div class="clearfix file-methods-subtitle">
             <div class='fl pad1y space-right2'>
                 <span class="strong">Methods of <span class="italic">{{stats.subject}}</span></span>
             </div>
@@ -163,18 +169,20 @@
 </div>
 
 
-    <!--        -------------------------------------------------------------------------------------->
-    <!--        -----------------------------------   Scripts   -------------------------------------->
-    <!--        -------------------------------------------------------------------------------------->
+<!--        -------------------------------------------------------------------------------------->
+<!--        -----------------------------------   Scripts   -------------------------------------->
+<!--        -------------------------------------------------------------------------------------->
 
 
 
-    <script src="./{{relativeRootReports}}/reports-styles/Chart.js"></script>
-    <script src="{{relativeRootReports}}/reports-styles/prism.js"></script>
+<script src="./{{relativeRootReports}}/reports-styles/Chart.js"></script>
+<script src="{{relativeRootReports}}/reports-styles/prism.js"></script>
 
-    {{>cognitiveDoughnutScript}}
-    {{>cognitiveBarchartScript}}
-    {{>cyclomaticDoughnutScript}}
-    {{>cyclomaticBarchartScript}}
+{{>cognitiveDoughnutScript}}
+{{>cognitiveBarchartScript}}
+{{>cyclomaticDoughnutScript}}
+{{>cyclomaticBarchartScript}}
+
 </body>
+
 </html>
