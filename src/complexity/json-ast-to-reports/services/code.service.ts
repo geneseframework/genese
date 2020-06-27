@@ -41,9 +41,9 @@ export class CodeService {
             return 0;
         }
         let issue = 0;
-        for (const line of code.lines) {
-            if (position < line?.position + line?.text.length) {
-                issue = line?.issue - 1;
+        for (let i = 0; i < code.lines.length; i++) {
+            if (position < code.lines[i + 1]?.position) {
+                issue = code.lines[i]?.issue - 1;
                 break;
             }
         }

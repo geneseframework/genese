@@ -26,6 +26,7 @@ class CodeService {
             code.maxLineLength = code.maxLineLength < textLine.length ? textLine.length : code.maxLineLength;
             issue++;
             pos = textLine ? pos + textLine.length + 1 : pos;
+            console.log('POSITIONNNN LINNN', pos);
         }
         return code;
     }
@@ -35,16 +36,25 @@ class CodeService {
      * @param position  // The position where we search the number of its line
      */
     getLineIssue(code, position) {
+        var _a, _b;
         if (position < 0 || position > code.text.length) {
             return 0;
         }
         let issue = 0;
-        for (const line of code.lines) {
-            if (position < (line === null || line === void 0 ? void 0 : line.position) + (line === null || line === void 0 ? void 0 : line.text.length)) {
-                issue = (line === null || line === void 0 ? void 0 : line.issue) - 1;
+        for (let i = 0; i < code.lines.length; i++) {
+            if (position < ((_a = code.lines[i + 1]) === null || _a === void 0 ? void 0 : _a.position)) {
+                issue = ((_b = code.lines[i]) === null || _b === void 0 ? void 0 : _b.issue) - 1;
+                console.log('LINNNNN', position, code.lines[i].position, code.lines[i].text, code.lines[i].issue);
                 break;
             }
         }
+        // for (const line of code.lines) {
+        //     if (position < line?.position + line?.text.length) {
+        //         issue = line?.issue - 1;
+        //         console.log('LINNNNN', position, line.position, line.text, line.issue)
+        //         break;
+        //     }
+        // }
         return issue;
     }
 }

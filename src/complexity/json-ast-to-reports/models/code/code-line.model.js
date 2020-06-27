@@ -17,7 +17,9 @@ class CodeLine {
      * Checks if a line is commented
      */
     get isCommented() {
-        return this.text.trim().slice(0, 2) === `//` || this.text.trim().slice(0, 2) === `/*`;
+        const zzz = this.text.trim().slice(0, 2) === `//` || this.text.trim().slice(0, 2) === `/*`;
+        console.log('ZZZ', this.text.trim().slice(0, 2), zzz);
+        return zzz;
     }
     /**
      * Sets the depth and nesting complexity to this CodeLine

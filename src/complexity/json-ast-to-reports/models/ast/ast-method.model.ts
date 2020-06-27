@@ -132,7 +132,7 @@ export class AstMethod implements Evaluate {
      */
     evaluate(): void {
         this.createDisplayedCode();
-        // LogService.printAllChildren(this.astNode);
+        LogService.printAllChildren(this.astNode);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticCpx(this.astNode);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
@@ -198,6 +198,7 @@ export class AstMethod implements Evaluate {
             displayedLine.issue = line.issue;
             displayedLine.text = line.text;
             displayedLine.position = line.position;
+            console.log('DISPLAYYYY LN', displayedLine.text)
             this.#displayedCode.lines.push(displayedLine);
         }
     }
