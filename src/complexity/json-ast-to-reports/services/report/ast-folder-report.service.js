@@ -29,7 +29,7 @@ class AstFolderReportService {
      */
     getFoldersArray(astFolder) {
         let report = [];
-        if (this.astFolder.path !== options_model_1.Options.pathFolderToAnalyze) {
+        if (file_service_1.getPathWithSlash(this.astFolder.path) !== file_service_1.getPathWithSlash(options_model_1.Options.pathFolderToAnalyze)) {
             report.push(this.addRowBackToParentFolder());
         }
         return report.concat(this.getSubfoldersArray(astFolder));
@@ -43,14 +43,16 @@ class AstFolderReportService {
         var _a, _b, _c;
         let report = [];
         for (const subfolder of astFolder.children) {
-            const subfolderReport = {
-                complexitiesByStatus: (_a = subfolder.stats) === null || _a === void 0 ? void 0 : _a.numberOfMethodsByStatus,
-                numberOfFiles: (_b = subfolder.stats) === null || _b === void 0 ? void 0 : _b.numberOfFiles,
-                numberOfMethods: (_c = subfolder.stats) === null || _c === void 0 ? void 0 : _c.numberOfMethods,
-                path: subfolder.relativePath,
-                routeFromCurrentFolder: this.astFolderService.getRouteFromFolderToSubFolder(this.astFolder, subfolder)
-            };
-            report.push(subfolderReport);
+            if (subfolder.relativePath !== '') {
+                const subfolderReport = {
+                    complexitiesByStatus: (_a = subfolder.stats) === null || _a === void 0 ? void 0 : _a.numberOfMethodsByStatus,
+                    numberOfFiles: (_b = subfolder.stats) === null || _b === void 0 ? void 0 : _b.numberOfFiles,
+                    numberOfMethods: (_c = subfolder.stats) === null || _c === void 0 ? void 0 : _c.numberOfMethods,
+                    path: subfolder.relativePath,
+                    routeFromCurrentFolder: this.astFolderService.getRouteFromFolderToSubFolder(this.astFolder, subfolder)
+                };
+                report.push(subfolderReport);
+            }
             if (!isSubfolder) {
                 report = report.concat(this.getSubfoldersArray(subfolder, true));
             }

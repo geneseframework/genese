@@ -131,6 +131,7 @@ class AstFolder {
             this.complexitiesByStatus = this.complexitiesByStatus.add(astFile.complexitiesByStatus);
         }
         for (const childAstFolder of astFolder.children) {
+            childAstFolder.evaluate();
             this.evaluateCpxFactors(childAstFolder);
         }
     }
