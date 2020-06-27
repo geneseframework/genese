@@ -8,6 +8,7 @@ const file_service_1 = require("../../../core/services/file.service");
 const ast_folder_model_1 = require("../../models/ast/ast-folder.model");
 const ast_folder_service_1 = require("../ast/ast-folder.service");
 const options_model_1 = require("../../../core/models/options.model");
+const chalk = require("chalk");
 /**
  * Service generating folders reports
  */
@@ -29,10 +30,16 @@ class AstFolderReportService {
      */
     getFoldersArray(astFolder) {
         let report = [];
-        if (this.astFolder.path !== options_model_1.Options.pathFolderToAnalyze) {
+        console.log('PATH TO ANALYZZZZ', file_service_1.getPathWithSlash(options_model_1.Options.pathFolderToAnalyze));
+        console.log('PATH ASTFLDRRRR CHILDRRR', astFolder.children.length);
+        if (file_service_1.getPathWithSlash(this.astFolder.path) !== file_service_1.getPathWithSlash(options_model_1.Options.pathFolderToAnalyze)) {
+            console.log('HEEEREEEEEEE');
             report.push(this.addRowBackToParentFolder());
         }
-        return report.concat(this.getSubfoldersArray(astFolder));
+        // return report;
+        const zzz = report.concat(this.getSubfoldersArray(astFolder));
+        console.log(chalk.yellowBright('ZZZZ', zzz[0].routeFromCurrentFolder));
+        return zzz;
     }
     /**
      * Recursion returning the array of subfolders reports
@@ -43,14 +50,16 @@ class AstFolderReportService {
         var _a, _b, _c;
         let report = [];
         for (const subfolder of astFolder.children) {
-            const subfolderReport = {
-                complexitiesByStatus: (_a = subfolder.stats) === null || _a === void 0 ? void 0 : _a.numberOfMethodsByStatus,
-                numberOfFiles: (_b = subfolder.stats) === null || _b === void 0 ? void 0 : _b.numberOfFiles,
-                numberOfMethods: (_c = subfolder.stats) === null || _c === void 0 ? void 0 : _c.numberOfMethods,
-                path: subfolder.relativePath,
-                routeFromCurrentFolder: this.astFolderService.getRouteFromFolderToSubFolder(this.astFolder, subfolder)
-            };
-            report.push(subfolderReport);
+            if (subfolder.relativePath !== '') {
+                const subfolderReport = {
+                    complexitiesByStatus: (_a = subfolder.stats) === null || _a === void 0 ? void 0 : _a.numberOfMethodsByStatus,
+                    numberOfFiles: (_b = subfolder.stats) === null || _b === void 0 ? void 0 : _b.numberOfFiles,
+                    numberOfMethods: (_c = subfolder.stats) === null || _c === void 0 ? void 0 : _c.numberOfMethods,
+                    path: subfolder.relativePath === '' ? '.' : subfolder.relativePath,
+                    routeFromCurrentFolder: this.astFolderService.getRouteFromFolderToSubFolder(this.astFolder, subfolder)
+                };
+                report.push(subfolderReport);
+            }
             if (!isSubfolder) {
                 report = report.concat(this.getSubfoldersArray(subfolder, true));
             }
@@ -150,6 +159,7 @@ class AstFolderReportService {
         this.relativeRootReports = file_service_1.getRouteToRoot(this.astFolder.relativePath);
         this.filesArray = this.getFilesArray(this.astFolder);
         this.foldersArray = this.getFoldersArray(parentFolder);
+        console.log('FOLDERS ARRRR', this.foldersArray);
         this.methodsArray = this.getMethodsArraySortedByDecreasingCognitiveCpx(parentFolder);
         this.registerPartial("cognitiveBarchartScript", 'cognitive-barchart');
         this.registerPartial("cyclomaticBarchartScript", 'cyclomatic-barchart');
