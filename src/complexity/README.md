@@ -1,7 +1,7 @@
 # Genese Complexity
 
-Genese Complexity is a part of the [genese framework]('https://github.com/geneseframework/genese') which improves you to increase your code quality by analysing the cognitive complexity and the cyclomatic complexity of all the Typescript files of your project.
-This module creates an HTML report displaying the complexities scores of each folder, file or method which will give you an overview of the code quality of your project. Moreover, you will find for each method the reasons of the complexity score which will help you to refactor your code more easily.
+Genese Complexity is a part of the [genese framework]('https://github.com/geneseframework/genese') which improves you to increase your code quality by analysing the cognitive complexity and the cyclomatic complexity of your source code.
+This module creates an HTML report displaying an overview of the complexities index of each folder, file or method of your project. Moreover, you will find for each method the elements increasing complexity index, which will help you to refactor esaier your code.
 
 
 ![Dashboard Genese Complexity](./readme-dashboard.png?raw=true "Dashboard")
@@ -11,14 +11,34 @@ This module creates an HTML report displaying the complexities scores of each fo
 * [Installation](#2-installation)
 * [Usage](#3-usage)
 * [Interpretation of results](#4-interpretation-of-results)
+  * [Folder reports](#41-folder-reports)
+  * [File reports](#42-file-reports)
 * [Configuration](#5-configuration)
+  * [Thresholds](#51-thresholds)
+  * [Folders to ignore](#52-folders-to-ignore)
+  * [Paths of folder to analyze](#53-path-of-folder-to-analyse)
+  * [Reports path](#54-reports-path)
 * [Documentation](#6-documentation)
+  * [Cyclomatic complexity](#61-cyclomatic-complexity)
+  * [Cognitive complexity](#62-cognitive-complexity)
+    * [Definition](#621-definition)
+    * [Measure unit](#622-measure-unit)
+    * [Complexity Index](#623-complexity-index)
+  * [Complexity Factors](#63-complexity-factors)
+    * [Factor categories](#631-factor-categories)
+    * [Table of weights](#632-table-of-weights-v100)
 * [How to contribute ?](#7-how-to-contribute-)
+  * [Confirm, refute, specify](#71-confirm-refute-specify)
+  * [Add new languages](#72-add-new-languages)
+    * [Kinds of nodes](#721-kinds-of-nodes)
+    * [JsonAst specifications](#722-jsonast-specifications)
+    * [Structure of the AST nodes](#723-structure-of-the-ast-nodes)
+    * [Exhaustive list of the kinds of node](#724-exhaustive-list-of-the-kinds-of-node)
 
 
 ## 1. Why use Genese Complexity ?
 
-Genese Complexity is an audit tool which allows you to identify quickly the bad practices concerning cognitive or cyclomatic complexity. You will be able to find quickly the methods with too high complexity score (error) or which are near this threshold (warning) and fix the different bad smells.
+Genese Complexity is an audit tool which allows you to identify quickly the bad practices concerning cognitive or cyclomatic complexity. You will be able to find quickly the methods with too high complexity index or which should be examined carefully.
 
 ## 2. Installation
 
@@ -40,10 +60,8 @@ The "directory" param is the folder of the project to audit. It can be relative 
 
 ***Example :***
 ```sh 
-genese cpx ./src/
+genese cpx ./src
 ```
-
-Please note that the slash at the end of the path is mandatory.
 
 This command line will generate a report in the folder `genese/complexity/reports` (it can be customized) named `folder-report.html`. You just need to open it in a browser to display the results.
 
@@ -51,11 +69,13 @@ This command line will generate a report in the folder `genese/complexity/report
 
 ### 4.1 Folder reports
 
-The dashboard's header presents the global statistics of the analyzed project. These scores will give you an overview of its size.
+The dashboard's header presents the global statistics of the analyzed project. These scores will give you an overview of its global complexity.
 
-The main part of the page consist in two pairs of charts : the left one is about cognitive complexity and the other one about cyclomatic complexity. The "doughnut chart" is an overview of the distribution of the project's methods statuses (correct, warning and error). The information on the left are reminding warning and error thresholds (which can be customized), and display the number of methods by status.
+The main part of the page consist in two pairs of charts : the left one is about cognitive complexity and the other one about cyclomatic complexity. The "doughnut chart" is an overview of the distribution of the project's methods statuses (correct, warning and error). The statistics near this chart are reminding warning and error thresholds (which can be customized), and display the number of methods by status.
  
- The bar charts display the number of methods by complexity score. The first array displays the detailed information of each subfolder of the current one. The second presents informations of the files inside the current folder (but not the files inside its subfolders), and the third array displays the complexity scores of each method of each file located in the current folder or its subloders, sorted by decreasing cognitive complexity score.
+The bar charts display the number of methods by complexity score.
+
+Below these charts, the first array displays the detailed information of each subfolder. The second presents information of the files inside the current folder (but not inside its subfolders), and the third array displays the complexity indexes of each method of each file located in the current folder or its subfolders, sorted by decreasing cognitive complexity index.
  
  ### 4.2 File reports
  
@@ -63,7 +83,7 @@ The main part of the page consist in two pairs of charts : the left one is about
  
  ## 5. Configuration
  
- Some parameters are configurable by creating a file geneseconfig.json located on the folder where you will enter the command-line. This file must have this form :
+ Some parameters are configurable by creating a file `geneseconfig.json` located on the folder where you enter the command-line. This file must have this format :
  
  ```json 
 {
@@ -219,12 +239,12 @@ if () {
 
 #### 6.2.3 Complexity Index
 
-With the definition of the measure unit of the cognitive complexity, we can now define the Complexity Index :
+With the definition of the measure unit of the cognitive complexity, we can now define the Cognitive Complexity Index :
 
-   > #### Complexity Index
-   > The Complexity Index is the measure of the Cognitive Complexity of a program’s source code by considering the logic door `if` as measure unit.
+   > #### Cognitive Complexity Index
+   > The Cognitive Complexity Index is the measure of the Cognitive Complexity of a program’s source code by considering the logic door `if` as measure unit.
 
-The following chapters provide an overview of the different ways to evaluate the Complexity Index.
+In Genese Complexity module the expression "Complexity Index" will always imply "Cognitive Complexity Index". The following chapters provide an overview of the different ways to evaluate this Complexity Index.
 
 ### 6.3 Complexity Factors
 
@@ -532,372 +552,372 @@ Your JsonAst MUST be structured like this :
 
 The AstNode "IfStatement" always have a first son which is what is inside the `if` brackets and a second son which is what is inside the `if` condition (the curly brackets). This AstNode MAY has a third son which is the AstNode corresponding to the `ElseStatement`, like in the example above.
 
-#### 7.2.4 Exhaustive list of the kinds of AstNode
+#### 7.2.4 Exhaustive list of the kinds of node
 
 This list corresponds to the [ts.SyntaxKind enum](https://github.com/microsoft/TypeScript/blob/master/lib/typescript.d.ts) (from line 77 to 447)
 ```
-    Unknown
-    EndOfFileToken
-    SingleLineCommentTrivia
-    MultiLineCommentTrivia
-    NewLineTrivia
-    WhitespaceTrivia
-    ShebangTrivia
-    ConflictMarkerTrivia
-    NumericLiteral
-    BigIntLiteral
-    StringLiteral
-    JsxText
-    JsxTextAllWhiteSpaces
-    RegularExpressionLiteral
-    NoSubstitutionTemplateLiteral
-    TemplateHead
-    TemplateMiddle
-    TemplateTail
-    OpenBraceToken
-    CloseBraceToken
-    OpenParenToken
-    CloseParenToken
-    OpenBracketToken
-    CloseBracketToken
-    DotToken
-    DotDotDotToken
-    SemicolonToken
-    CommaToken
-    QuestionDotToken
-    LessThanToken
-    LessThanSlashToken
-    GreaterThanToken
-    LessThanEqualsToken
-    GreaterThanEqualsToken
-    EqualsEqualsToken
-    ExclamationEqualsToken
-    EqualsEqualsEqualsToken
-    ExclamationEqualsEqualsToken
-    EqualsGreaterThanToken
-    PlusToken
-    MinusToken
-    AsteriskToken
-    AsteriskAsteriskToken
-    SlashToken
-    PercentToken
-    PlusPlusToken
-    MinusMinusToken
-    LessThanLessThanToken
-    GreaterThanGreaterThanToken
-    GreaterThanGreaterThanGreaterThanToken
-    AmpersandToken
-    BarToken
-    CaretToken
-    ExclamationToken
-    TildeToken
-    AmpersandAmpersandToken
-    BarBarToken
-    QuestionToken
-    ColonToken
-    AtToken
-    QuestionQuestionToken
-    BacktickToken
-    EqualsToken
-    PlusEqualsToken
-    MinusEqualsToken
-    AsteriskEqualsToken
-    AsteriskAsteriskEqualsToken
-    SlashEqualsToken
-    PercentEqualsToken
-    LessThanLessThanEqualsToken
-    GreaterThanGreaterThanEqualsToken
-    GreaterThanGreaterThanGreaterThanEqualsToken
-    AmpersandEqualsToken
-    BarEqualsToken
-    CaretEqualsToken
-    Identifier
-    PrivateIdentifier
-    BreakKeyword
-    CaseKeyword
-    CatchKeyword
-    ClassKeyword
-    ConstKeyword
-    ContinueKeyword
-    DebuggerKeyword
-    DefaultKeyword
-    DeleteKeyword
-    DoKeyword
-    ElseKeyword
-    EnumKeyword
-    ExportKeyword
-    ExtendsKeyword
-    FalseKeyword
-    FinallyKeyword
-    ForKeyword
-    FunctionKeyword
-    IfKeyword
-    ImportKeyword
-    InKeyword
-    InstanceOfKeyword
-    NewKeyword
-    NullKeyword
-    ReturnKeyword
-    SuperKeyword
-    SwitchKeyword
-    ThisKeyword
-    ThrowKeyword
-    TrueKeyword
-    TryKeyword
-    TypeOfKeyword
-    VarKeyword
-    VoidKeyword
-    WhileKeyword
-    WithKeyword
-    ImplementsKeyword
-    InterfaceKeyword
-    LetKeyword
-    PackageKeyword
-    PrivateKeyword
-    ProtectedKeyword
-    PublicKeyword
-    StaticKeyword
-    YieldKeyword
     AbstractKeyword
+    AmpersandAmpersandToken
+    AmpersandEqualsToken
+    AmpersandToken
+    AnyKeyword
+    ArrayBindingPattern
+    ArrayLiteralExpression
+    ArrayType
+    ArrowFunction
+    AsExpression
     AsKeyword
     AssertsKeyword
-    AnyKeyword
+    AsteriskAsteriskEqualsToken
+    AsteriskAsteriskToken
+    AsteriskEqualsToken
+    AsteriskToken
     AsyncKeyword
-    AwaitKeyword
-    BooleanKeyword
-    ConstructorKeyword
-    DeclareKeyword
-    GetKeyword
-    InferKeyword
-    IsKeyword
-    KeyOfKeyword
-    ModuleKeyword
-    NamespaceKeyword
-    NeverKeyword
-    ReadonlyKeyword
-    RequireKeyword
-    NumberKeyword
-    ObjectKeyword
-    SetKeyword
-    StringKeyword
-    SymbolKeyword
-    TypeKeyword
-    UndefinedKeyword
-    UniqueKeyword
-    UnknownKeyword
-    FromKeyword
-    GlobalKeyword
-    BigIntKeyword
-    OfKeyword
-    QualifiedName
-    ComputedPropertyName
-    TypeParameter
-    Parameter
-    Decorator
-    PropertySignature
-    PropertyDeclaration
-    MethodSignature
-    MethodDeclaration
-    Constructor
-    GetAccessor
-    SetAccessor
-    CallSignature
-    ConstructSignature
-    IndexSignature
-    TypePredicate
-    TypeReference
-    FunctionType
-    ConstructorType
-    TypeQuery
-    TypeLiteral
-    ArrayType
-    TupleType
-    OptionalType
-    RestType
-    UnionType
-    IntersectionType
-    ConditionalType
-    InferType
-    ParenthesizedType
-    ThisType
-    TypeOperator
-    IndexedAccessType
-    MappedType
-    LiteralType
-    ImportType
-    ObjectBindingPattern
-    ArrayBindingPattern
-    BindingElement
-    ArrayLiteralExpression
-    ObjectLiteralExpression
-    PropertyAccessExpression
-    ElementAccessExpression
-    CallExpression
-    NewExpression
-    TaggedTemplateExpression
-    TypeAssertionExpression
-    ParenthesizedExpression
-    FunctionExpression
-    ArrowFunction
-    DeleteExpression
-    TypeOfExpression
-    VoidExpression
+    AtToken
     AwaitExpression
-    PrefixUnaryExpression
-    PostfixUnaryExpression
+    AwaitKeyword
+    BacktickToken
+    BarBarToken
+    BarEqualsToken
+    BarToken
+    BigIntKeyword
+    BigIntLiteral
     BinaryExpression
-    ConditionalExpression
-    TemplateExpression
-    YieldExpression
-    SpreadElement
-    ClassExpression
-    OmittedExpression
-    ExpressionWithTypeArguments
-    AsExpression
-    NonNullExpression
-    MetaProperty
-    SyntheticExpression
-    TemplateSpan
-    SemicolonClassElement
+    BindingElement
     Block
-    EmptyStatement
-    VariableStatement
-    ExpressionStatement
-    IfStatement
-    DoStatement
-    WhileStatement
-    ForStatement
-    ForInStatement
-    ForOfStatement
-    ContinueStatement
+    BooleanKeyword
+    BreakKeyword
     BreakStatement
-    ReturnStatement
-    WithStatement
-    SwitchStatement
-    LabeledStatement
-    ThrowStatement
-    TryStatement
-    DebuggerStatement
-    VariableDeclaration
-    VariableDeclarationList
-    FunctionDeclaration
-    ClassDeclaration
-    InterfaceDeclaration
-    TypeAliasDeclaration
-    EnumDeclaration
-    ModuleDeclaration
-    ModuleBlock
+    Bundle
+    CallExpression
+    CallSignature
+    CaretEqualsToken
+    CaretToken
     CaseBlock
-    NamespaceExportDeclaration
-    ImportEqualsDeclaration
-    ImportDeclaration
-    ImportClause
-    NamespaceImport
-    NamedImports
-    ImportSpecifier
+    CaseClause
+    CaseKeyword
+    CatchClause
+    CatchKeyword
+    ClassDeclaration
+    ClassExpression
+    ClassKeyword
+    CloseBraceToken
+    CloseBracketToken
+    CloseParenToken
+    ColonToken
+    CommaListExpression
+    CommaToken
+    ComputedPropertyName
+    ConditionalExpression
+    ConditionalType
+    ConflictMarkerTrivia
+    ConstKeyword
+    Constructor
+    ConstructorKeyword
+    ConstructorType
+    ConstructSignature
+    ContinueKeyword
+    ContinueStatement
+    Count
+    DebuggerKeyword
+    DebuggerStatement
+    DeclareKeyword
+    Decorator
+    DefaultClause
+    DefaultKeyword
+    DeleteExpression
+    DeleteKeyword
+    DoKeyword
+    DoStatement
+    DotDotDotToken
+    DotToken
+    ElementAccessExpression
+    ElseKeyword
+    EmptyStatement
+    EndOfDeclarationMarker
+    EndOfFileToken
+    EnumDeclaration
+    EnumKeyword
+    EnumMember
+    EqualsEqualsEqualsToken
+    EqualsEqualsToken
+    EqualsGreaterThanToken
+    EqualsToken
+    ExclamationEqualsEqualsToken
+    ExclamationEqualsToken
+    ExclamationToken
     ExportAssignment
     ExportDeclaration
-    NamedExports
-    NamespaceExport
+    ExportKeyword
     ExportSpecifier
-    MissingDeclaration
+    ExpressionStatement
+    ExpressionWithTypeArguments
+    ExtendsKeyword
     ExternalModuleReference
-    JsxElement
-    JsxSelfClosingElement
-    JsxOpeningElement
-    JsxClosingElement
-    JsxFragment
-    JsxOpeningFragment
-    JsxClosingFragment
-    JsxAttribute
-    JsxAttributes
-    JsxSpreadAttribute
-    JsxExpression
-    CaseClause
-    DefaultClause
+    FalseKeyword
+    FinallyKeyword
+    FirstAssignment
+    FirstBinaryOperator
+    FirstCompoundAssignment
+    FirstFutureReservedWord
+    FirstJSDocNode
+    FirstJSDocTagNode
+    FirstKeyword
+    FirstLiteralToken
+    FirstNode
+    FirstPunctuation
+    FirstReservedWord
+    FirstStatement
+    FirstTemplateToken
+    FirstToken
+    FirstTriviaToken
+    FirstTypeNode
+    ForInStatement
+    ForKeyword
+    ForOfStatement
+    ForStatement
+    FromKeyword
+    FunctionDeclaration
+    FunctionExpression
+    FunctionKeyword
+    FunctionType
+    GetAccessor
+    GetKeyword
+    GlobalKeyword
+    GreaterThanEqualsToken
+    GreaterThanGreaterThanEqualsToken
+    GreaterThanGreaterThanGreaterThanEqualsToken
+    GreaterThanGreaterThanGreaterThanToken
+    GreaterThanGreaterThanToken
+    GreaterThanToken
     HeritageClause
-    CatchClause
-    PropertyAssignment
-    ShorthandPropertyAssignment
-    SpreadAssignment
-    EnumMember
-    UnparsedPrologue
-    UnparsedPrepend
-    UnparsedText
-    UnparsedInternalText
-    UnparsedSyntheticReference
-    SourceFile
-    Bundle
-    UnparsedSource
+    Identifier
+    IfKeyword
+    IfStatement
+    ImplementsKeyword
+    ImportClause
+    ImportDeclaration
+    ImportEqualsDeclaration
+    ImportKeyword
+    ImportSpecifier
+    ImportType
+    IndexedAccessType
+    IndexSignature
+    InferKeyword
+    InferType
+    InKeyword
     InputFiles
-    JSDocTypeExpression
+    InstanceOfKeyword
+    InterfaceDeclaration
+    InterfaceKeyword
+    IntersectionType
+    IsKeyword
     JSDocAllType
-    JSDocUnknownType
-    JSDocNullableType
-    JSDocNonNullableType
-    JSDocOptionalType
-    JSDocFunctionType
-    JSDocVariadicType
-    JSDocNamepathType
+    JSDocAugmentsTag
+    JSDocAuthorTag
+    JSDocCallbackTag
+    JSDocClassTag
     JSDocComment
-    JSDocTypeLiteral
+    JSDocEnumTag
+    JSDocFunctionType
+    JSDocImplementsTag
+    JSDocNamepathType
+    JSDocNonNullableType
+    JSDocNullableType
+    JSDocOptionalType
+    JSDocParameterTag
+    JSDocPrivateTag
+    JSDocPropertyTag
+    JSDocProtectedTag
+    JSDocPublicTag
+    JSDocReadonlyTag
+    JSDocReturnTag
     JSDocSignature
     JSDocTag
-    JSDocAugmentsTag
-    JSDocImplementsTag
-    JSDocAuthorTag
-    JSDocClassTag
-    JSDocPublicTag
-    JSDocPrivateTag
-    JSDocProtectedTag
-    JSDocReadonlyTag
-    JSDocCallbackTag
-    JSDocEnumTag
-    JSDocParameterTag
-    JSDocReturnTag
-    JSDocThisTag
-    JSDocTypeTag
     JSDocTemplateTag
+    JSDocThisTag
     JSDocTypedefTag
-    JSDocPropertyTag
-    SyntaxList
-    NotEmittedStatement
-    PartiallyEmittedExpression
-    CommaListExpression
-    MergeDeclarationMarker
-    EndOfDeclarationMarker
-    SyntheticReferenceExpression
-    Count
-    FirstAssignment
+    JSDocTypeExpression
+    JSDocTypeLiteral
+    JSDocTypeTag
+    JSDocUnknownType
+    JSDocVariadicType
+    JsxAttribute
+    JsxAttributes
+    JsxClosingElement
+    JsxClosingFragment
+    JsxElement
+    JsxExpression
+    JsxFragment
+    JsxOpeningElement
+    JsxOpeningFragment
+    JsxSelfClosingElement
+    JsxSpreadAttribute
+    JsxText
+    JsxTextAllWhiteSpaces
+    KeyOfKeyword
+    LabeledStatement
     LastAssignment
-    FirstCompoundAssignment
-    LastCompoundAssignment
-    FirstReservedWord
-    LastReservedWord
-    FirstKeyword
-    LastKeyword
-    FirstFutureReservedWord
-    LastFutureReservedWord
-    FirstTypeNode
-    LastTypeNode
-    FirstPunctuation
-    LastPunctuation
-    FirstToken
-    LastToken
-    FirstTriviaToken
-    LastTriviaToken
-    FirstLiteralToken
-    LastLiteralToken
-    FirstTemplateToken
-    LastTemplateToken
-    FirstBinaryOperator
     LastBinaryOperator
-    FirstStatement
-    LastStatement
-    FirstNode
-    FirstJSDocNode
+    LastCompoundAssignment
+    LastFutureReservedWord
     LastJSDocNode
-    FirstJSDocTagNode
     LastJSDocTagNode
+    LastKeyword
+    LastLiteralToken
+    LastPunctuation
+    LastReservedWord
+    LastStatement
+    LastTemplateToken
+    LastToken
+    LastTriviaToken
+    LastTypeNode
+    LessThanEqualsToken
+    LessThanLessThanEqualsToken
+    LessThanLessThanToken
+    LessThanSlashToken
+    LessThanToken
+    LetKeyword
+    LiteralType
+    MappedType
+    MergeDeclarationMarker
+    MetaProperty
+    MethodDeclaration
+    MethodSignature
+    MinusEqualsToken
+    MinusMinusToken
+    MinusToken
+    MissingDeclaration
+    ModuleBlock
+    ModuleDeclaration
+    ModuleKeyword
+    MultiLineCommentTrivia
+    NamedExports
+    NamedImports
+    NamespaceExport
+    NamespaceExportDeclaration
+    NamespaceImport
+    NamespaceKeyword
+    NeverKeyword
+    NewExpression
+    NewKeyword
+    NewLineTrivia
+    NonNullExpression
+    NoSubstitutionTemplateLiteral
+    NotEmittedStatement
+    NullKeyword
+    NumberKeyword
+    NumericLiteral
+    ObjectBindingPattern
+    ObjectKeyword
+    ObjectLiteralExpression
+    OfKeyword
+    OmittedExpression
+    OpenBraceToken
+    OpenBracketToken
+    OpenParenToken
+    OptionalType
+    PackageKeyword
+    Parameter
+    ParenthesizedExpression
+    ParenthesizedType
+    PartiallyEmittedExpression
+    PercentEqualsToken
+    PercentToken
+    PlusEqualsToken
+    PlusPlusToken
+    PlusToken
+    PostfixUnaryExpression
+    PrefixUnaryExpression
+    PrivateIdentifier
+    PrivateKeyword
+    PropertyAccessExpression
+    PropertyAssignment
+    PropertyDeclaration
+    PropertySignature
+    ProtectedKeyword
+    PublicKeyword
+    QualifiedName
+    QuestionDotToken
+    QuestionQuestionToken
+    QuestionToken
+    ReadonlyKeyword
+    RegularExpressionLiteral
+    RequireKeyword
+    RestType
+    ReturnKeyword
+    ReturnStatement
+    SemicolonClassElement
+    SemicolonToken
+    SetAccessor
+    SetKeyword
+    ShebangTrivia
+    ShorthandPropertyAssignment
+    SingleLineCommentTrivia
+    SlashEqualsToken
+    SlashToken
+    SourceFile
+    SpreadAssignment
+    SpreadElement
+    StaticKeyword
+    StringKeyword
+    StringLiteral
+    SuperKeyword
+    SwitchKeyword
+    SwitchStatement
+    SymbolKeyword
+    SyntaxList
+    SyntheticExpression
+    SyntheticReferenceExpression
+    TaggedTemplateExpression
+    TemplateExpression
+    TemplateHead
+    TemplateMiddle
+    TemplateSpan
+    TemplateTail
+    ThisKeyword
+    ThisType
+    ThrowKeyword
+    ThrowStatement
+    TildeToken
+    TrueKeyword
+    TryKeyword
+    TryStatement
+    TupleType
+    TypeAliasDeclaration
+    TypeAssertionExpression
+    TypeKeyword
+    TypeLiteral
+    TypeOfExpression
+    TypeOfKeyword
+    TypeOperator
+    TypeParameter
+    TypePredicate
+    TypeQuery
+    TypeReference
+    UndefinedKeyword
+    UnionType
+    UniqueKeyword
+    Unknown
+    UnknownKeyword
+    UnparsedInternalText
+    UnparsedPrepend
+    UnparsedPrologue
+    UnparsedSource
+    UnparsedSyntheticReference
+    UnparsedText
+    VariableDeclaration
+    VariableDeclarationList
+    VariableStatement
+    VarKeyword
+    VoidExpression
+    VoidKeyword
+    WhileKeyword
+    WhileStatement
+    WhitespaceTrivia
+    WithKeyword
+    WithStatement
+    YieldExpression
+    YieldKeyword
 
 ```
