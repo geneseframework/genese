@@ -40,6 +40,7 @@ This module creates an HTML report displaying an overview of the complexities in
 
 Genese Complexity is an audit tool which allows you to identify quickly the bad practices concerning cognitive or cyclomatic complexity. You will be able to find quickly the methods with too high complexity index or which should be examined carefully.
 
+[Top](#table-of-contents)
 ## 2. Installation
 
 Genese complexity is a part of the genese module itself, so if you installed globally genese yet, you have nothing to do. If not, please install globally the genese module :
@@ -48,6 +49,7 @@ Genese complexity is a part of the genese module itself, so if you installed glo
 npm i -g genese
 ```
 
+[Top](#table-of-contents)
 ## 3. Usage
 
 Genese complexity is launched with the Genese CLI included in the genese module. The main command-line is
@@ -65,6 +67,7 @@ genese cpx ./src
 
 This command line will generate a report in the folder `genese/complexity/reports` (it can be customized) named `folder-report.html`. You just need to open it in a browser to display the results.
 
+[Top](#table-of-contents)
 ## 4. Interpretation of results
 
 ### 4.1 Folder reports
@@ -79,8 +82,9 @@ Below these charts, the first array displays the detailed information of each su
  
  ### 4.2 File reports
  
- As folder reports, the file reports display complexity statistics of its methods. In addition, you will find detailed information of each of its methods, with explanations of the calculation mode of their cognitive complexity.
+ As folder reports, the file reports display complexity statistics of files methods. In addition, you will find detailed information of each of these methods, with explanations of the calculation mode of their cognitive complexity.
  
+[Top](#table-of-contents)
  ## 5. Configuration
  
  Some parameters are configurable by creating a file `geneseconfig.json` located on the folder where you enter the command-line. This file must have this format :
@@ -175,6 +179,7 @@ By default, the genese complexity report will be located here : `current_folder/
 }
 ```
 
+[Top](#table-of-contents)
 ## 6. Documentation
 
 ### 6.1 Cyclomatic complexity
@@ -369,29 +374,30 @@ This table of weights should never be seen as the exact way to calculate the Com
 | ---      | ---    | :---:  | ---     | --- |
 | Aggregation | Arrays | 1 | ```a[b][c] // ---- Aggregation cpx = 1```| |
 | Aggregation | Regex | 0.1 by char | ```/[^.[\]]+/ // ---- Aggregation cpx = 0.8``` | |
-| Aggregation | Different logic doors | 1 | ```if (a && b \|\| c) // ---- Aggregation cpx = 1``` | The brackets cancel the aggregation complexity |
+| Aggregation | Different logic doors | 1 | ```if (a && b \|\| c) // - Aggregation cpx = 1``` | The brackets cancel the aggregation complexity |
 | Atomic | Atomic | 0.1 | ```console.log(3) // ---- Atomic cpx = 0.3 (3 atoms)``` | Applies to each identifier, parameter, keyword, etc. |
 | Nesting | Arrays | 1.5 | ```a[b[c]]``` | |
-| Nesting | Conditions | 0.5 | ```if (a) { ```<br/>``` if (b) { // ---- Nesting cpx = 0.5```<br/>``` if (c) { // ---- Nesting cpx = 1 ```<br/>``` } ```<br/>``` }``` | Applies to `if`, `else`, `else if`, `switch` | 
-| Nesting | Loops | 0.5 | ```for (const a of arr) { ```<br/>```    for (const b of otherArr) { // ---- Nesting cpx = 0.5 ```<br/>```    } ```<br/>``` }``` | Applies to `for`, `forEach`, `do ... while` |
+| Nesting | Conditions | 0.5 | ```if (a) { ```<br/>  ``` if (b) { // ---- Nesting cpx = 0.5```<br/>    ``` if (c) { // ---- Nesting cpx = 1 ```<br/>    ``` } ```<br/>  ``` }```<br/>```}``` | Applies to `if`, `else`, `else if`, `switch` | 
+| Nesting | Loops | 0.5 | ```for (const a of arr) { ```<br/>  ```for (const b of otherArr) { // ---- Nesting cpx = 0.5 ```<br/>  ```    } ```<br/>``` }``` | Applies to `for`, `forEach`, `do ... while` |
 | Nesting | Ternaries | 1 | ```a = b ? c ? : 0 : 1;``` | |
-| Recursion | Recursive methods | 3 | ```f(a) { ```<br/>``` return f(a + 1); ```<br/>``` }``` | |
-| Recursion | Callbacks | 2 | ```f(a) { ```<br/>```return a(2); ```<br/>``` }``` | |
+| Recursion | Recursive methods | 3 | ```f(a) { ```<br/>  ``` return f(a + 1); ```<br/>``` }``` | |
+| Recursion | Callbacks | 2 | ```f(a) { ```<br/>  ```return a(2); ```<br/>``` }``` | |
 | Structural | Conditions | 1 | ```if (a) { ... }``` |  Applies to `if`, `else`, `else if`, `switch` |
 | Structural | Functions | 1 | ```a.filter(elt => { ... })``` |  |
-| Structural | Jumps | 1 | ```for (const a of arr) { ```<br/>```    if (b) { ```<br/>```        continue;<br/>    }<br/>}``` |  Applies to elements breaking loops |
+| Structural | Jumps | 1 | ```for (const a of arr) { ```<br/>  ```if (b) { ```<br/>    ```continue;```<br/>  ```}```<br/>```}``` |  Applies to elements breaking loops |
 | Structural | Logic door | 1 | `&&` or \|\| | |
 | Structural | Loops | 1 | ```for (const a of arr) { ... }``` |  Applies to `for`, `forEach`, `do ... while` |
 | Structural | Regex | 1 | ```/[^.[\]]+/ // ---- Structural cpx = 1``` | |
 | Structural | Ternary | 1 | ```const a = b ? 0 : 1;``` | |
 
- 
 
+
+[Top](#table-of-contents)
 ## 7. How to contribute ?
 
 ### 7.1 Confirm, refute, specify
 
-The estimation of the cognitive complexity will always be an approximation. The time required for a human to understand a source code depends of thousands of factors which must be explicited and studied. Our goal is only to give the better approximation of the measure of the Cognitive Complexity, that is, the Complexity Index. 
+The estimation of the cognitive complexity will always be a simple approximation. The time required for a human to understand a source code depends of thousands of factors which must be studied severely. Our goal is only to give the better approximation of the measure of the Cognitive Complexity, that is, the Complexity Index. 
 
 You can help in many ways by confirming, refuting or specifying the actual mode of computation of the Cognitive Complexity. This page is the receptacle of the different propositions coming from the community. Of course, we accept results coming from research labs or statistic studies, but we accept too the simple feedbacks coming from developers themselves. Each element or idea which is able to improve our algorithm is welcome. If you think that something is wrong in our approach, your opinion is welcome. If you think about a new complexity factor or a new way to estimate some kind of complexity, your idea is welcome too !
 
@@ -399,7 +405,7 @@ Each time the algorithm will be updated, the version indicated at the top of the
 
 ### 7.2 Add new languages
 
-We developed Genese Complexity at first for TypeScript files, but you can now "plug" any language into this module. What does it mean ? To be simple, Genese Complexity parses a Json file with a specific format : ***JsonAst***. This format corresponds to a simplified AST (Abstract Syntax Tree) of the source code. So if you want to be able to "plug" your language into Genese Complexity, you "just" need to convert the specific AST structure of your language into JsonAst format. In other words, your AST nodes must "match" with the nodes of the JsonAst format. If your plugin is correct, we will add it to Genese Complexity module.
+We developed Genese Complexity at first for TypeScript files, but you can now "plug" any language into this module. What does it mean ? To be simple, Genese Complexity parses a Json file with a specific format : [JsonAst](#722-jsonast-specifications). This format corresponds to a simplified AST (Abstract Syntax Tree) of the source code. So if you want to be able to "plug" your language into Genese Complexity, you "just" need to convert the specific AST structure of your language into JsonAst format. In other words, your AST nodes must "match" with the nodes of the JsonAst format. If your plugin is correct, we will add it to Genese Complexity module.
 
 As Genese Complexity was developed at first for TypeScript files, if your JsonAst files respects exactly the Typescript AST structure and conventions, Genese Complexity will be able to understand it. If you want to know how TypeScript AST "runs", you can make some trials in the [TypeScript AST Viewer](https://ts-ast-viewer.com/#code/KYDwDg9gTgLgBAYwDYEMDOa4HFgDthrADCEAtmEqAJYwCecA3gFBNxtygrmUAUKAlI1bsRCCLjQRKAOiQQA5n34BuYWwC+auE01A).
 
