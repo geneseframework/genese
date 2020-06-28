@@ -12,6 +12,7 @@ import { cpxFactors } from '../../../core/const/cpx-factors';
 import { FactorCategory } from '../../enums/factor-category.enum';
 import { LogService } from '../../services/log.service';
 import { Options } from '../../../core/models/options.model';
+import * as chalk from 'chalk';
 
 /**
  * Element of the AstNode structure corresponding to a given method
@@ -132,7 +133,7 @@ export class AstMethod implements Evaluate {
      */
     evaluate(): void {
         this.createDisplayedCode();
-        LogService.printAllChildren(this.astNode);
+        LogService.logMethod(this, true);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticCpx(this.astNode);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
@@ -197,8 +198,8 @@ export class AstMethod implements Evaluate {
             const displayedLine = new CodeLine();
             displayedLine.issue = line.issue;
             displayedLine.text = line.text;
-            displayedLine.position = line.position;
-            console.log('DISPLAYYYY LN', displayedLine.text)
+            displayedLine.end = line.end;
+            displayedLine.pos = line.pos;
             this.#displayedCode.lines.push(displayedLine);
         }
     }
@@ -211,6 +212,7 @@ export class AstMethod implements Evaluate {
      */
     private setCpxFactorsToDisplayedCode(astNode: AstNode, startedUncommentedLines = false): void {
         for (const childAst of astNode.children) {
+            // console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.pos, this.position, chalk.redBright('DIFF', childAst.pos - this.position))
             let issue = this.#codeService.getLineIssue(this.#originalCode, childAst.pos - this.position);
             const codeLine: CodeLine = this.#displayedCode.lines[issue];
             if (Ast.isElseStatement(childAst)) {
@@ -219,6 +221,7 @@ export class AstMethod implements Evaluate {
             }
             if (!startedUncommentedLines && astNode.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
                 this.increaseLineCpxFactors(astNode, codeLine);
+                // console.log(chalk.greenBright('CHILD ASTTTT UNOMMENTED'), childAst.kind, childAst.pos, this.position, issue)
                 startedUncommentedLines = true;
             } else if (startedUncommentedLines) {
                 this.increaseLineCpxFactors(childAst, codeLine);

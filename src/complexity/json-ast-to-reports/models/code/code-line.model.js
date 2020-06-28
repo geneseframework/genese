@@ -1,25 +1,72 @@
 "use strict";
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+};
+var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, privateMap, value) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to set private field on non-instance");
+    }
+    privateMap.set(receiver, value);
+    return value;
+};
+var _code, _isEndingWithBlockComments;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CodeLine = void 0;
 const cpx_factors_model_1 = require("../../../core/models/cpx-factor/cpx-factors.model");
 const nesting_cpx_model_1 = require("../../../core/models/cpx-factor/nesting-cpx.model");
 const depth_cpx_model_1 = require("../../../core/models/cpx-factor/depth-cpx.model");
 const tools_service_1 = require("../../../core/services/tools.service");
+const code_service_1 = require("../../services/code.service");
 class CodeLine {
     constructor() {
         this.astNodes = []; // The array of AstNodes corresponding to AST nodes in this line of code
+        _code.set(this, undefined);
         this.cpxFactors = new cpx_factors_model_1.CpxFactors(); // The complexity factors relative to this line (breakFlows, increments,...)
+        this.end = 0; // The position (in number of characters) of the end of the line
+        _isEndingWithBlockComments.set(this, void 0);
         this.issue = 0; // The number of the line in its Code parentFunction (method)
-        this.position = 0; // The position (in number of characters) of the start of the line
+        this.pos = 0; // The position (in number of characters) of the start of the line
         this.text = ''; // The text of the line
+    }
+    get code() {
+        return __classPrivateFieldGet(this, _code);
+    }
+    set code(code) {
+        __classPrivateFieldSet(this, _code, code);
+    }
+    get isEndingWithBlockComments() {
+        if (__classPrivateFieldGet(this, _isEndingWithBlockComments) !== undefined) {
+            return __classPrivateFieldGet(this, _isEndingWithBlockComments);
+        }
+        __classPrivateFieldSet(this, _isEndingWithBlockComments, new code_service_1.CodeService().isEndingWithBlockComments(this));
+        return __classPrivateFieldGet(this, _isEndingWithBlockComments);
+    }
+    get hasNode() {
+        return !this.isCommented /* fdsfsfsd */ && !this.isEmpty; /**
+         eeee
+         */
     }
     /**
      * Checks if a line is commented
      */
     get isCommented() {
-        const zzz = this.text.trim().slice(0, 2) === `//` || this.text.trim().slice(0, 2) === `/*`;
-        console.log('ZZZ', this.text.trim().slice(0, 2), zzz);
-        return zzz;
+        return this.text.trim().slice(0, 2) === `//` || this.text.trim().slice(0, 2) === `/*`;
+    }
+    get isEmpty() {
+        return !this.text;
+    }
+    get lengthWithoutComments() {
+        return;
+    }
+    get previousLine() {
+        var _a, _b;
+        return this.issue > 1 ? (_b = (_a = this.code) === null || _a === void 0 ? void 0 : _a.lines) === null || _b === void 0 ? void 0 : _b[this.issue - 2] : undefined;
+    }
+    get textWithoutComments() {
+        return;
     }
     /**
      * Sets the depth and nesting complexity to this CodeLine
@@ -40,3 +87,4 @@ class CodeLine {
     }
 }
 exports.CodeLine = CodeLine;
+_code = new WeakMap(), _isEndingWithBlockComments = new WeakMap();

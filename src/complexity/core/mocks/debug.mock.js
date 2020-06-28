@@ -6,6 +6,7 @@ class DebugMock {
      * Initialization
      */
     ngOnInit() {
+        // ---
         setTimeout(() => this.opened = true);
         this.setVersionSelected();
     }
