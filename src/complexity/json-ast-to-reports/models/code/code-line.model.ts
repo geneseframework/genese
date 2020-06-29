@@ -40,9 +40,7 @@ export class CodeLine {
 
 
     get hasNode(): boolean {
-        return !this.isCommented /* fdsfsfsd */ && !this.isEmpty; /**
-         eeee
-         */
+        return this.textWithoutComments.trim().length > 0;
     }
 
 
@@ -54,13 +52,9 @@ export class CodeLine {
     }
 
 
-    get isEmpty(): boolean {
-        return !this.text;
-    }
-
-
     get lengthWithoutComments(): number {
-        return
+        // console.log('WTH=OUTTTT COMMENTS', this.textWithoutComments.trim())
+        return this.textWithoutComments.trimRight().length;
     }
 
 
@@ -69,9 +63,27 @@ export class CodeLine {
     }
 
 
-
     get textWithoutComments(): string {
-        return
+        let text = this.textWithoutSlashComments;
+        if (this.previousLine?.isEndingWithBlockComments) {
+            text = `/*${text}`;
+        }
+        if (this.isEndingWithBlockComments) {
+            text = `${text}*/`
+        }
+        const splittedText = text.split(/\/\*.*\*\//);
+        const zzz = splittedText.join('');
+        // console.log('WITHOUT COMMENTSSS', this.textWithoutSlashComments, text, splittedText, zzz)
+        return zzz;
+    }
+
+
+    get textWithoutSlashComments(): string {
+        const splittedText = this.text?.split(/\/\//) ?? '';
+        if (splittedText.length === 1) {
+            return this.text;
+        }
+        return this.text.slice(0, splittedText[0].length - 1);
     }
 
     /**

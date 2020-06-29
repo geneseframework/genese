@@ -26,19 +26,19 @@ class CodeService {
             line.text = textLine;
             line.issue = issue;
             line.pos = pos;
-            line.end = pos + textLine.length;
+            line.end = pos + line.lengthWithoutComments;
             code.lines.push(line);
-            if (issue > 1) {
-                console.log('CODELINNN 111', code.lines);
-                code.lines[issue - 1].end = line.pos;
-                console.log('CODELINNN 111', code.lines);
-            }
+            // if (issue > 1) {
+            // console.log('CODELINNN 111', code.lines)
+            // code.lines[issue - 1].end = line.pos;
+            // console.log('CODELINNN 111', code.lines)
+            // }
             code.maxLineLength = code.maxLineLength < textLine.length ? textLine.length : code.maxLineLength;
             // LogService.logCodeLine(line);
             issue++;
             pos = line.hasNode ? pos + textLine.length + 1 : pos;
         }
-        console.log('CODELINNN', code.lines);
+        // console.log('CODELINNN', code.lines)
         code.lines[code.lines.length - 1].end = text.length;
         return code;
     }
@@ -72,21 +72,22 @@ class CodeService {
         return issue;
     }
     isEndingWithBlockComments(line) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c;
+        const text = line.textWithoutSlashComments;
         if ((_a = line.previousLine) === null || _a === void 0 ? void 0 : _a.isEndingWithBlockComments) {
-            const splitEndBlockComments = line.text.split(/\*\//);
+            const splitEndBlockComments = text.split(/\*\//);
             if (splitEndBlockComments.length === 1) {
                 return true;
             }
             const lastElement = splitEndBlockComments[splitEndBlockComments.length - 1];
             return (_b = /\/\*/.test(lastElement)) !== null && _b !== void 0 ? _b : false;
         }
-        const splittedText = (_c = line.text) === null || _c === void 0 ? void 0 : _c.split(/\/\*/);
+        const splittedText = text === null || text === void 0 ? void 0 : text.split(/\/\*/);
         if (splittedText.length === 1) {
             return false;
         }
         const lastCommentedBlock = splittedText[splittedText.length - 1];
-        return (_d = !/\*\//.test(lastCommentedBlock)) !== null && _d !== void 0 ? _d : false;
+        return (_c = !/\*\//.test(lastCommentedBlock)) !== null && _c !== void 0 ? _c : false;
     }
 }
 exports.CodeService = CodeService;

@@ -72,28 +72,36 @@ class LogService {
         }
     }
     static logCodeLine(line, astNode) {
-        var _a, _b;
-        console.log('LINE ', chalk.greenBright(line.issue), line.pos, '-', line.text ? line.pos + ((_a = line.text) === null || _a === void 0 ? void 0 : _a.length) + 1 : line.pos, line.isEndingWithBlockComments, (_b = line.text) === null || _b === void 0 ? void 0 : _b.slice(0, 20));
+        // console.log('LINE ', chalk.greenBright(line.issue), line.pos, '-', line.end, line.isEndingWithBlockComments, line.text?.slice(0,40), 'HAS NODE', line.hasNode)
         if (astNode === null || astNode === void 0 ? void 0 : astNode.pos) {
-            console.log(...this.logCodeLineNode(line, astNode, astNode.pos));
+            // console.log(...this.logCodeLineNode(line, astNode, astNode.pos));
         }
     }
     static logCodeLineNode(line, astNode, methodPosition, logs = []) {
-        if (this.isAstNodeInCodeLine(astNode, line)) {
+        const relativePosition = astNode.pos - methodPosition;
+        // console.log('ASTNDDDD', astNode.kind, 'rel pos', relativePosition)
+        if (this.isAstNodeInCodeLine(relativePosition, line)) {
             logs.push(chalk.blueBright(astNode.kind));
             logs.push((astNode.pos - methodPosition).toString());
+            // console.log('HASNODDDD', astNode.kind, line.hasNode, astNode.pos, 'line', line.pos, line.end)
         }
         for (const childAstNode of astNode.children) {
-            if (this.isAstNodeInCodeLine(childAstNode, line)) {
-                logs.push(chalk.blueBright(childAstNode.kind));
-                logs = logs.concat([childAstNode.pos.toString(), line.pos.toString(), line.end.toString()]);
+            const relativeChildPosition = childAstNode.pos - methodPosition;
+            // console.log(chalk.greenBright('CHILS AST NODDDD'), childAstNode.kind, line.hasNode, relativeChildPosition, 'line', line.pos, line.end)
+            if (relativeChildPosition < line.end) {
                 this.logCodeLineNode(line, childAstNode, methodPosition, logs);
+            }
+            else {
+                // console.log(chalk.redBright('NOT IN LINNNN'), childAstNode.kind, relativePosition, 'line', line.pos, line.end)
             }
         }
         return logs;
     }
-    static isAstNodeInCodeLine(astNode, line) {
-        return line.hasNode && astNode.pos >= line.pos && astNode.pos <= line.end;
+    static isAstNodeInCodeLine(relativePosition, line) {
+        // if (astNode.kind === SyntaxKind.MethodDeclaration) {
+        //     console.log('IS IN CODDDD', astNode.kind, line.hasNode, astNode.pos, 'line', line.pos, line.end)
+        // }
+        return line.hasNode && relativePosition >= line.pos && relativePosition <= line.end;
     }
     /**
      * Adds a text with its value in a console.logg if the value is positive

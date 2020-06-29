@@ -45,9 +45,7 @@ class CodeLine {
         return __classPrivateFieldGet(this, _isEndingWithBlockComments);
     }
     get hasNode() {
-        return !this.isCommented /* fdsfsfsd */ && !this.isEmpty; /**
-         eeee
-         */
+        return this.textWithoutComments.trim().length > 0;
     }
     /**
      * Checks if a line is commented
@@ -55,18 +53,35 @@ class CodeLine {
     get isCommented() {
         return this.text.trim().slice(0, 2) === `//` || this.text.trim().slice(0, 2) === `/*`;
     }
-    get isEmpty() {
-        return !this.text;
-    }
     get lengthWithoutComments() {
-        return;
+        // console.log('WTH=OUTTTT COMMENTS', this.textWithoutComments.trim())
+        return this.textWithoutComments.trimRight().length;
     }
     get previousLine() {
         var _a, _b;
         return this.issue > 1 ? (_b = (_a = this.code) === null || _a === void 0 ? void 0 : _a.lines) === null || _b === void 0 ? void 0 : _b[this.issue - 2] : undefined;
     }
     get textWithoutComments() {
-        return;
+        var _a;
+        let text = this.textWithoutSlashComments;
+        if ((_a = this.previousLine) === null || _a === void 0 ? void 0 : _a.isEndingWithBlockComments) {
+            text = `/*${text}`;
+        }
+        if (this.isEndingWithBlockComments) {
+            text = `${text}*/`;
+        }
+        const splittedText = text.split(/\/\*.*\*\//);
+        const zzz = splittedText.join('');
+        // console.log('WITHOUT COMMENTSSS', this.textWithoutSlashComments, text, splittedText, zzz)
+        return zzz;
+    }
+    get textWithoutSlashComments() {
+        var _a, _b;
+        const splittedText = (_b = (_a = this.text) === null || _a === void 0 ? void 0 : _a.split(/\/\//)) !== null && _b !== void 0 ? _b : '';
+        if (splittedText.length === 1) {
+            return this.text;
+        }
+        return this.text.slice(0, splittedText[0].length - 1);
     }
     /**
      * Sets the depth and nesting complexity to this CodeLine

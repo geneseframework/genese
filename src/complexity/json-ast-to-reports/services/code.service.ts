@@ -28,19 +28,19 @@ export class CodeService {
             line.text = textLine;
             line.issue = issue;
             line.pos = pos;
-            line.end = pos + textLine.length;
+            line.end = pos + line.lengthWithoutComments;
             code.lines.push(line);
-            if (issue > 1) {
-                console.log('CODELINNN 111', code.lines)
-                code.lines[issue - 1].end = line.pos;
-                console.log('CODELINNN 111', code.lines)
-            }
+            // if (issue > 1) {
+                // console.log('CODELINNN 111', code.lines)
+                // code.lines[issue - 1].end = line.pos;
+                // console.log('CODELINNN 111', code.lines)
+            // }
             code.maxLineLength = code.maxLineLength < textLine.length ? textLine.length : code.maxLineLength;
             // LogService.logCodeLine(line);
             issue++;
             pos = line.hasNode ? pos + textLine.length + 1 : pos;
         }
-        console.log('CODELINNN', code.lines)
+        // console.log('CODELINNN', code.lines)
         code.lines[code.lines.length - 1].end = text.length;
         return code;
     }
@@ -78,15 +78,16 @@ export class CodeService {
 
 
     isEndingWithBlockComments(line: CodeLine): boolean {
+        const text = line.textWithoutSlashComments;
         if (line.previousLine?.isEndingWithBlockComments) {
-            const splitEndBlockComments = line.text.split(/\*\//);
+            const splitEndBlockComments = text.split(/\*\//);
             if (splitEndBlockComments.length === 1) {
                 return true;
             }
             const lastElement = splitEndBlockComments[splitEndBlockComments.length - 1];
             return /\/\*/.test(lastElement) ?? false;
         }
-        const splittedText = line.text?.split(/\/\*/);
+        const splittedText = text?.split(/\/\*/);
         if (splittedText.length === 1) {
             return false;
         }
