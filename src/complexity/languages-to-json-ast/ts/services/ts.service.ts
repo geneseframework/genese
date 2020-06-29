@@ -46,8 +46,8 @@ export class Ts {
 
 
     /**
-     * Gets the position of a node in the AST
-     * @param node // The node in the AST
+     * Gets the position of a node in the AST (ie the getFullStart(), including spaces and commented lines before the beginning of the node)
+     * @param node      // The node in the AST
      */
     static getPosition(node: ts.Node): number {
         return node?.pos;
@@ -56,13 +56,26 @@ export class Ts {
 
     /**
      * Gets the typescript JsonAst of a given file
-     * @param path // The absolute path of the file
+     * @param path      // The absolute path of the file
      */
     static getSourceFile(path: string): ts.SourceFile {
         return ts.createSourceFile(getFilename(path), fs.readFileSync(path, 'utf-8'), ts.ScriptTarget.Latest);
     }
 
 
+    /**
+     * Gets the position of a node in the AST (ie the getStart(), not including spaces and commented lines before the beginning of the node)
+     * @param node      // The node in the AST
+     */
+    static getStart(node: ts.Node): number {
+        return node?.getStart();
+    }
+
+
+    /**
+     * Returns the source code of a given file
+     * @param path      // The path of the file
+     */
     static getTextFile(path: string): string {
         return Ts.getSourceFile(path)?.text;
     }
