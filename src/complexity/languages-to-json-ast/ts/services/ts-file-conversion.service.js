@@ -28,22 +28,24 @@ class TsFileConversionService {
         const tsNode = new ts_node_model_1.TsNode();
         tsNode.node = ts_service_1.Ts.getSourceFile(path);
         tsFile.text = ts_service_1.Ts.getTextFile(path);
-        tsFile.tsNode = this.createTsNodeChildren(tsNode);
+        tsFile.tsNode = this.createTsNodeChildren(tsNode, ts_service_1.Ts.getSourceFile(path));
         return tsFile;
     }
     /**
      * Returns the TsNode children of a given TsNode
-     * @param tsNode        // The TsNode parent
+     * @param tsNode            // The TsNode parent
+     * @param sourceFile        // The AST node of the file itself
      */
-    createTsNodeChildren(tsNode) {
+    createTsNodeChildren(tsNode, sourceFile) {
         ts.forEachChild(tsNode.node, (childTsNode) => {
             const newTsNode = new ts_node_model_1.TsNode();
             newTsNode.node = childTsNode;
             newTsNode.pos = ts_service_1.Ts.getPosition(newTsNode.node);
+            newTsNode.start = ts_service_1.Ts.getStart(newTsNode.node, sourceFile);
             newTsNode.end = ts_service_1.Ts.getEnd(newTsNode.node);
             newTsNode.name = ts_service_1.Ts.getName(newTsNode.node);
             newTsNode.kind = ts_service_1.Ts.getKind(newTsNode.node);
-            tsNode.children.push(this.createTsNodeChildren(newTsNode));
+            tsNode.children.push(this.createTsNodeChildren(newTsNode, sourceFile));
         });
         return tsNode;
     }

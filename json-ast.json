@@ -14,11 +14,13 @@
 							"kind": "ClassDeclaration",
 							"name": "DebugMock",
 							"pos": 0,
+							"start": 3,
 							"children": [
 								{
 									"end": 9,
 									"kind": "ExportKeyword",
 									"pos": 0,
+									"start": 3,
 									"children": [
 									]
 								},
@@ -27,6 +29,7 @@
 									"kind": "Identifier",
 									"name": "DebugMock",
 									"pos": 15,
+									"start": 16,
 									"children": [
 									]
 								},
@@ -34,12 +37,14 @@
 									"end": 41,
 									"kind": "PropertyDeclaration",
 									"pos": 28,
+									"start": 34,
 									"children": [
 										{
 											"end": 40,
 											"kind": "Identifier",
 											"name": "opened",
 											"pos": 28,
+											"start": 34,
 											"children": [
 											]
 										}
@@ -49,12 +54,14 @@
 									"end": 65,
 									"kind": "PropertyDeclaration",
 									"pos": 41,
+									"start": 46,
 									"children": [
 										{
 											"end": 64,
 											"kind": "Identifier",
 											"name": "setVersionSelected",
 											"pos": 41,
+											"start": 46,
 											"children": [
 											]
 										}
@@ -65,12 +72,14 @@
 									"kind": "MethodDeclaration",
 									"name": "ngOnInit",
 									"pos": 65,
+									"start": 110,
 									"children": [
 										{
 											"end": 118,
 											"kind": "Identifier",
 											"name": "ngOnInit",
 											"pos": 65,
+											"start": 110,
 											"children": [
 											]
 										},
@@ -78,22 +87,26 @@
 											"end": 224,
 											"kind": "Block",
 											"pos": 120,
+											"start": 121,
 											"children": [
 												{
 													"end": 183,
 													"kind": "ExpressionStatement",
 													"pos": 122,
+													"start": 146,
 													"children": [
 														{
 															"end": 182,
 															"kind": "CallExpression",
 															"pos": 122,
+															"start": 146,
 															"children": [
 																{
 																	"end": 156,
 																	"kind": "Identifier",
 																	"name": "setTimeout",
 																	"pos": 122,
+																	"start": 146,
 																	"children": [
 																	]
 																},
@@ -101,11 +114,13 @@
 																	"end": 181,
 																	"kind": "ArrowFunction",
 																	"pos": 157,
+																	"start": 157,
 																	"children": [
 																		{
 																			"end": 162,
 																			"kind": "EqualsGreaterThanToken",
 																			"pos": 159,
+																			"start": 160,
 																			"children": [
 																			]
 																		},
@@ -113,16 +128,19 @@
 																			"end": 181,
 																			"kind": "BinaryExpression",
 																			"pos": 162,
+																			"start": 163,
 																			"children": [
 																				{
 																					"end": 174,
 																					"kind": "PropertyAccessExpression",
 																					"pos": 162,
+																					"start": 163,
 																					"children": [
 																						{
 																							"end": 167,
 																							"kind": "ThisKeyword",
 																							"pos": 162,
+																							"start": 163,
 																							"children": [
 																							]
 																						},
@@ -131,6 +149,7 @@
 																							"kind": "Identifier",
 																							"name": "opened",
 																							"pos": 168,
+																							"start": 168,
 																							"children": [
 																							]
 																						}
@@ -140,6 +159,7 @@
 																					"end": 176,
 																					"kind": "FirstAssignment",
 																					"pos": 174,
+																					"start": 175,
 																					"children": [
 																					]
 																				},
@@ -147,6 +167,7 @@
 																					"end": 181,
 																					"kind": "TrueKeyword",
 																					"pos": 176,
+																					"start": 177,
 																					"children": [
 																					]
 																				}
@@ -162,21 +183,25 @@
 													"end": 218,
 													"kind": "ExpressionStatement",
 													"pos": 183,
+													"start": 192,
 													"children": [
 														{
 															"end": 217,
 															"kind": "CallExpression",
 															"pos": 183,
+															"start": 192,
 															"children": [
 																{
 																	"end": 215,
 																	"kind": "PropertyAccessExpression",
 																	"pos": 183,
+																	"start": 192,
 																	"children": [
 																		{
 																			"end": 196,
 																			"kind": "ThisKeyword",
 																			"pos": 183,
+																			"start": 192,
 																			"children": [
 																			]
 																		},
@@ -185,6 +210,7 @@
 																			"kind": "Identifier",
 																			"name": "setVersionSelected",
 																			"pos": 197,
+																			"start": 197,
 																			"children": [
 																			]
 																		}
@@ -204,6 +230,7 @@
 							"end": 1471,
 							"kind": "EndOfFileToken",
 							"pos": 1470,
+							"start": 1471,
 							"children": [
 							]
 						}
