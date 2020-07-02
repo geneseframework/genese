@@ -28,7 +28,8 @@ class CodeLine {
         this.end = 0; // The position (in number of characters) of the end of the line
         _isEndingWithBlockComments.set(this, void 0);
         this.issue = 0; // The number of the line in its Code parentFunction (method)
-        this.pos = 0; // The position (in number of characters) of the start of the line
+        this.pos = 0; // The relative position (in number of characters) of the start of the line in its Code
+        this.start = 0; // The absolute position (in number of characters) of the start of the line in the SourceFile
         this.text = ''; // The text of the line
     }
     get code() {

@@ -7,6 +7,7 @@ import { AstMethod } from '../models/ast/ast-method.model';
 import { CodeService } from './code.service';
 import { AstNodeService } from './ast/ast-node.service';
 import { Ast } from './ast/ast.service';
+import * as chalk from 'chalk';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
@@ -113,23 +114,30 @@ export class InitService {
         newAstNode.name = astNodeFromJsonAst.name;
         newAstNode.parent = astParentNode;
         newAstNode.pos = astNodeFromJsonAst.pos;
+        newAstNode.start = astNodeFromJsonAst.start;
         newAstNode.text = astNodeFromJsonAst.text;
         newAstNode.children = this.generateAstNodes(astNodeFromJsonAst.children, newAstNode);
         if (Ast.isFunctionOrMethod(astNodeFromJsonAst)) {
             if (!newAstNode.name && newAstNode.firstSon?.kind === SyntaxKind.Identifier) {
                 newAstNode.name = newAstNode.children[0].name;
             }
+            // console.log(chalk.cyanBright('ASTMTHDDD'), newAstNode.kind, astParentNode.kind, astParentNode?.astMethod)
+
             newAstNode.astMethod = this.generateAstMethod(newAstNode);
+        } else {
+            // console.log(chalk.redBright('ASTMTHDDD'), newAstNode.kind, astParentNode.kind, astParentNode?.astMethod)
+            newAstNode.astMethod = astParentNode?.astMethod;
         }
         return newAstNode;
     }
 
 
-    generateAstMethod(astNode: AstNode): AstMethod {
+    generateAstMethod(astMethodNode: AstNode): AstMethod {
+        console.log('ASTMETHODDD', astMethodNode.kind, astMethodNode.pos, astMethodNode.start)
         const astMethod = new AstMethod();
-        astMethod.astNode = astNode;
-        astMethod.astNode.text = this.astNodeService.getCode(astNode);
-        astMethod.originalCode = CodeService.getCode(this.astNodeService.getCode(astNode));
+        astMethod.astNode = astMethodNode;
+        astMethod.astNode.text = this.astNodeService.getCode(astMethodNode);
+        astMethod.originalCode = CodeService.getCode(this.astNodeService.getCode(astMethodNode), astMethodNode.pos);
         return astMethod;
     }
 

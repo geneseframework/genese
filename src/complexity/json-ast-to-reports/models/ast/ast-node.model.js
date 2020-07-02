@@ -41,8 +41,8 @@ class AstNode {
         _kind.set(this, undefined); // The kind of the node ('MethodDeclaration, IfStatement, ...)
         _name.set(this, undefined); // The name of the AstNode
         _parent.set(this, void 0); // The ast of the parent of the current node
-        _pos.set(this, 0); // The position of the beginning of the AST node, including spaces and comments before it. (pos <= start)
-        _start.set(this, 0); // The position of the beginning of the AST node, without spaces and comments before it. (start >= pos)
+        _pos.set(this, 0); // The position of the beginning of the AST node, including spaces and comments before it. (start <= start)
+        _start.set(this, 0); // The position of the beginning of the AST node, without spaces and comments before it. (start >= start)
         _text.set(this, undefined); // The code of the AstNode
     }
     // ---------------------------------------------------------------------------------

@@ -8,7 +8,8 @@ class Code {
     constructor() {
         this.lines = []; // The lines of the code
         this.maxLineLength = 0; // The max length of the lines of the code
-        this.text = ''; // The code himself (as string)
+        this.start = 0; // The absolute position of the code in the SourceFile
+        this.text = ''; // The code itself (as string)
     }
     /**
      * Sets the content of the code (as string) with its CodeLines

@@ -212,7 +212,7 @@ export class AstMethod implements Evaluate {
      */
     private setCpxFactorsToDisplayedCode(astNode: AstNode, startedUncommentedLines = false): void {
         for (const childAst of astNode.children) {
-            // console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.pos, this.position, chalk.redBright('DIFF', childAst.pos - this.position))
+            // console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, this.position, chalk.redBright('DIFF', childAst.start - this.position))
             let issue = this.#codeService.getLineIssue(this.#originalCode, childAst.pos - this.position);
             const codeLine: CodeLine = this.#displayedCode.lines[issue];
             if (Ast.isElseStatement(childAst)) {
@@ -221,7 +221,7 @@ export class AstMethod implements Evaluate {
             }
             if (!startedUncommentedLines && astNode.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
                 this.increaseLineCpxFactors(astNode, codeLine);
-                // console.log(chalk.greenBright('CHILD ASTTTT UNOMMENTED'), childAst.kind, childAst.pos, this.position, issue)
+                // console.log(chalk.greenBright('CHILD ASTTTT UNOMMENTED'), childAst.kind, childAst.start, this.position, issue)
                 startedUncommentedLines = true;
             } else if (startedUncommentedLines) {
                 this.increaseLineCpxFactors(childAst, codeLine);

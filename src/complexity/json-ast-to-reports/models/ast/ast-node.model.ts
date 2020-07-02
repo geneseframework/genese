@@ -30,8 +30,8 @@ export class AstNode implements Evaluate, Logg {
     #kind?: SyntaxKind = undefined;                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
     #name: string = undefined;                                                  // The name of the AstNode
     #parent?: AstNode;                                                          // The ast of the parent of the current node
-    #pos ?= 0;                                                                  // The position of the beginning of the AST node, including spaces and comments before it. (pos <= start)
-    #start ?= 0;                                                                // The position of the beginning of the AST node, without spaces and comments before it. (start >= pos)
+    #pos ?= 0;                                                                  // The position of the beginning of the AST node, including spaces and comments before it. (start <= start)
+    #start ?= 0;                                                                // The position of the beginning of the AST node, without spaces and comments before it. (start >= start)
     #text: string = undefined;                                                  // The code of the AstNode
 
 

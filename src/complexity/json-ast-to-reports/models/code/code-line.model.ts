@@ -17,8 +17,10 @@ export class CodeLine {
     end ?= 0;                                               // The position (in number of characters) of the end of the line
     #isEndingWithBlockComments?: boolean;
     issue ?= 0;                                             // The number of the line in its Code parentFunction (method)
-    pos ?= 0;                                               // The position (in number of characters) of the start of the line
+    pos ?= 0;                                               // The relative position (in number of characters) of the start of the line in its Code
+    start ?= 0;                                             // The absolute position (in number of characters) of the start of the line in the SourceFile
     text ?= '';                                             // The text of the line
+
 
 
     get code(): Code {
@@ -29,6 +31,7 @@ export class CodeLine {
     set code(code: Code) {
         this.#code = code;
     }
+
 
     get isEndingWithBlockComments(): boolean {
         if (this.#isEndingWithBlockComments !== undefined) {

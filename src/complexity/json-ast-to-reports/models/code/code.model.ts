@@ -5,12 +5,10 @@ import { CodeLine } from './code-line.model';
  */
 export class Code {
 
-    lines?: CodeLine[] = [];        // The lines of the code
-    maxLineLength = 0;              // The max length of the lines of the code
-    text = '';                      // The code himself (as string)
-
-    constructor() {
-    }
+    lines?: CodeLine[] = [];            // The lines of the code
+    maxLineLength ?= 0;                 // The max length of the lines of the code
+    start ?= 0;                         // The absolute position of the code in the SourceFile
+    text ?= '';                         // The code itself (as string)
 
     /**
      * Sets the content of the code (as string) with its CodeLines

@@ -12,6 +12,14 @@ try {
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
     var mainProcess = new main.Main();
     mainProcess.start(__dirname, __dirname + '/src/complexity/core/mocks/', __dirname, 'typescript');
+
+    // console.log('LENGTHHH', `
+//
+//
+// export class DebugMock  {
+//
+//     opened;
+//     setVersionSelected;`.length)
 }
 catch (err) {
     console.error(ansi_colors_1.red("Error in conversion process : " + err.stack));

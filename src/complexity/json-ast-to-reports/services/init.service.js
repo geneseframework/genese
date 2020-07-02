@@ -103,21 +103,28 @@ class InitService {
         newAstNode.name = astNodeFromJsonAst.name;
         newAstNode.parent = astParentNode;
         newAstNode.pos = astNodeFromJsonAst.pos;
+        newAstNode.start = astNodeFromJsonAst.start;
         newAstNode.text = astNodeFromJsonAst.text;
         newAstNode.children = this.generateAstNodes(astNodeFromJsonAst.children, newAstNode);
         if (ast_service_1.Ast.isFunctionOrMethod(astNodeFromJsonAst)) {
             if (!newAstNode.name && ((_a = newAstNode.firstSon) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.Identifier) {
                 newAstNode.name = newAstNode.children[0].name;
             }
+            // console.log(chalk.cyanBright('ASTMTHDDD'), newAstNode.kind, astParentNode.kind, astParentNode?.astMethod)
             newAstNode.astMethod = this.generateAstMethod(newAstNode);
+        }
+        else {
+            // console.log(chalk.redBright('ASTMTHDDD'), newAstNode.kind, astParentNode.kind, astParentNode?.astMethod)
+            newAstNode.astMethod = astParentNode === null || astParentNode === void 0 ? void 0 : astParentNode.astMethod;
         }
         return newAstNode;
     }
-    generateAstMethod(astNode) {
+    generateAstMethod(astMethodNode) {
+        console.log('ASTMETHODDD', astMethodNode.kind, astMethodNode.pos, astMethodNode.start);
         const astMethod = new ast_method_model_1.AstMethod();
-        astMethod.astNode = astNode;
-        astMethod.astNode.text = this.astNodeService.getCode(astNode);
-        astMethod.originalCode = code_service_1.CodeService.getCode(this.astNodeService.getCode(astNode));
+        astMethod.astNode = astMethodNode;
+        astMethod.astNode.text = this.astNodeService.getCode(astMethodNode);
+        astMethod.originalCode = code_service_1.CodeService.getCode(this.astNodeService.getCode(astMethodNode), astMethodNode.pos);
         return astMethod;
     }
     getPathFromJsonAstFolder(jsonAstFolder) {

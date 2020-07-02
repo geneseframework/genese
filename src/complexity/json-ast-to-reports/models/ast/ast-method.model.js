@@ -177,7 +177,7 @@ class AstMethod {
      */
     setCpxFactorsToDisplayedCode(astNode, startedUncommentedLines = false) {
         for (const childAst of astNode.children) {
-            // console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.pos, this.position, chalk.redBright('DIFF', childAst.pos - this.position))
+            // console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, this.position, chalk.redBright('DIFF', childAst.start - this.position))
             let issue = __classPrivateFieldGet(this, _codeService).getLineIssue(__classPrivateFieldGet(this, _originalCode), childAst.pos - this.position);
             const codeLine = __classPrivateFieldGet(this, _displayedCode).lines[issue];
             if (ast_service_1.Ast.isElseStatement(childAst)) {
@@ -186,7 +186,7 @@ class AstMethod {
             }
             if (!startedUncommentedLines && astNode.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
                 this.increaseLineCpxFactors(astNode, codeLine);
-                // console.log(chalk.greenBright('CHILD ASTTTT UNOMMENTED'), childAst.kind, childAst.pos, this.position, issue)
+                // console.log(chalk.greenBright('CHILD ASTTTT UNOMMENTED'), childAst.kind, childAst.start, this.position, issue)
                 startedUncommentedLines = true;
             }
             else if (startedUncommentedLines) {

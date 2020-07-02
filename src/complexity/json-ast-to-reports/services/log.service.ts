@@ -75,52 +75,42 @@ export class LogService {
         logs.push(chalk.blueBright(astNode.context?.name));
         logs.push('parent :');
         logs.push(chalk.greenBright(astNode.parent?.kind));
-        console.log(...logs)
+        // console.log(...logs)
     }
 
 
-    static logCode(code: Code, astNode: AstNode): void {
+    static logCode(code: Code, methodAstNode: AstNode): void {
+        console.log('METHOD POSITIONNNNN', methodAstNode.pos, '-', methodAstNode.start, '-', methodAstNode.end)
         for (const line of code.lines ?? []) {
-            this.logCodeLine(line, astNode);
+            this.logCodeLine(line, methodAstNode);
         }
     }
 
 
-    static logCodeLine(line: CodeLine, astNode?: AstNode): void {
-        // console.log('LINE ', chalk.greenBright(line.issue), line.pos, '-', line.end, line.isEndingWithBlockComments, line.text?.slice(0,40), 'HAS NODE', line.hasNode)
-        if (astNode?.pos) {
-            // console.log(...this.logCodeLineNode(line, astNode, astNode.pos));
-        }
+    static logCodeLine(line: CodeLine, methodAstNode: AstNode): void {
+        console.log()
+        console.log('LINE ', chalk.greenBright(line.issue), line.pos, '-', line.end, line.isEndingWithBlockComments, line.text)
+        console.log(...this.logCodeLineNode(line, methodAstNode, methodAstNode.pos));
     }
 
 
     private static logCodeLineNode(line: CodeLine, astNode: AstNode, methodPosition: number, logs: string[] = []): string[] {
-        const relativePosition = astNode.pos - methodPosition;
-        // console.log('ASTNDDDD', astNode.kind, 'rel pos', relativePosition)
-        if (this.isAstNodeInCodeLine(relativePosition, line)) {
+        // console.log('ASTNDDDD', astNode.kind, astNode.pos, '-', astNode.start)
+        if (this.isAstNodeInCodeLine(astNode.start, line)) {
             logs.push(chalk.blueBright(astNode.kind));
-            logs.push((astNode.pos - methodPosition).toString())
-            // console.log('HASNODDDD', astNode.kind, line.hasNode, astNode.pos, 'line', line.pos, line.end)
+            logs.push(astNode.start.toString())
         }
         for (const childAstNode of astNode.children) {
-            const relativeChildPosition = childAstNode.pos - methodPosition;
-            // console.log(chalk.greenBright('CHILS AST NODDDD'), childAstNode.kind, line.hasNode, relativeChildPosition, 'line', line.pos, line.end)
-            if (relativeChildPosition < line.end) {
+            if (childAstNode.start < line.end) {
                 this.logCodeLineNode(line, childAstNode, methodPosition, logs);
-            } else {
-                // console.log(chalk.redBright('NOT IN LINNNN'), childAstNode.kind, relativePosition, 'line', line.pos, line.end)
-
             }
         }
         return logs;
     }
 
 
-    private static isAstNodeInCodeLine(relativePosition: number, line: CodeLine): boolean {
-        // if (astNode.kind === SyntaxKind.MethodDeclaration) {
-        //     console.log('IS IN CODDDD', astNode.kind, line.hasNode, astNode.pos, 'line', line.pos, line.end)
-        // }
-        return line.hasNode && relativePosition >= line.pos && relativePosition <= line.end;
+    private static isAstNodeInCodeLine(astNodeStart: number, line: CodeLine): boolean {
+        return astNodeStart >= line.pos && astNodeStart <= line.end;
     }
 
     /**

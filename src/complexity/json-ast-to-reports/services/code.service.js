@@ -10,8 +10,9 @@ class CodeService {
     /**
      * Creates a Code object from the content of a given code (as string)
      * @param text      // The content of the code
+     * @param pos
      */
-    static getCode(text) {
+    static getCode(text, pos) {
         if (!text) {
             return undefined;
         }
@@ -19,26 +20,20 @@ class CodeService {
         code.text = text;
         const textLines = text.split('\n');
         let issue = 1;
-        let pos = 0;
         for (const textLine of textLines) {
+            console.log('TEXTLINNNNN', textLine, '|', pos);
             const line = new code_line_model_1.CodeLine();
             line.code = code;
             line.text = textLine;
             line.issue = issue;
             line.pos = pos;
-            line.end = pos + line.lengthWithoutComments;
+            line.start = line.pos + code.start;
+            line.end = pos + textLine.length + 1;
             code.lines.push(line);
-            // if (issue > 1) {
-            // console.log('CODELINNN 111', code.lines)
-            // code.lines[issue - 1].end = line.pos;
-            // console.log('CODELINNN 111', code.lines)
-            // }
             code.maxLineLength = code.maxLineLength < textLine.length ? textLine.length : code.maxLineLength;
-            // LogService.logCodeLine(line);
             issue++;
-            pos = line.hasNode ? pos + textLine.length + 1 : pos;
+            pos = line.end;
         }
-        // console.log('CODELINNN', code.lines)
         code.lines[code.lines.length - 1].end = text.length;
         return code;
     }
@@ -57,7 +52,7 @@ class CodeService {
         for (let i = 0; i < code.lines.length; i++) {
             if (position < ((_a = code.lines[i + 1]) === null || _a === void 0 ? void 0 : _a.pos)) {
                 issue = ((_b = code.lines[i]) === null || _b === void 0 ? void 0 : _b.issue) - 1;
-                // console.log('LINNNNN', position, code.lines[i].pos, code.lines[i].text, code.lines[i].issue)
+                // console.log('LINNNNN', position, code.lines[i].start, code.lines[i].text, code.lines[i].issue)
                 break;
             }
         }
