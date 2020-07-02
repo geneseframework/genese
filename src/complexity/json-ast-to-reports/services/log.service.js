@@ -66,7 +66,6 @@ class LogService {
         // console.log(...logs)
     }
     static logCodeLines(codeLines = [], methodAstNode) {
-        console.log('METHOD POSITIONNNNN', methodAstNode.pos, '-', methodAstNode.start, '-', methodAstNode.end);
         for (const line of codeLines) {
             this.logCodeLine(line, methodAstNode);
         }

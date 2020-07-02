@@ -24,7 +24,6 @@ export class CodeService {
         const textLines: string[] = text.split('\n');
         let issue = 1;
         for (const textLine of textLines) {
-            // console.log('TEXTLINNNNN', textLine, '|', start)
             const line = new CodeLine();
             line.code = code;
             line.text = textLine;

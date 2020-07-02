@@ -7,7 +7,6 @@ exports.Code = void 0;
 class Code {
     constructor() {
         this.lines = []; // The lines of the code
-        // maxLineLength ?= 0;                 // The max length of the lines of the code
         this.start = 0; // The absolute position of the code in the SourceFile
         this.text = ''; // The code itself (as string)
     }

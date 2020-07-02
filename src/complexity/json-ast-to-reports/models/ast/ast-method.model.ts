@@ -1,7 +1,6 @@
 import { CyclomaticCpxService as CS } from '../../services/cyclomatic-cpx.service';
 import { AstNode } from './ast-node.model';
 import { Code } from '../code/code.model';
-import { CodeService } from '../../services/code.service';
 import { Ast } from '../../services/ast/ast.service';
 import { Evaluate } from '../../interfaces/evaluate.interface';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
@@ -12,7 +11,6 @@ import { cpxFactors } from '../../../core/const/cpx-factors';
 import { FactorCategory } from '../../enums/factor-category.enum';
 import { LogService } from '../../services/log.service';
 import { Options } from '../../../core/models/options.model';
-import * as chalk from 'chalk';
 
 /**
  * Element of the AstNode structure corresponding to a given method
@@ -21,7 +19,6 @@ export class AstMethod implements Evaluate {
 
     #astNode?: AstNode = undefined;                                     // The AST of the method itself
     #codeLines?: CodeLine[] = [];
-    // #codeService: CodeService = new CodeService();                      // The service managing Code objects
     #cognitiveStatus: MethodStatus = MethodStatus.CORRECT;              // The cognitive status of the method
     #cpxFactors?: CpxFactors = undefined;                               // The complexity factors of the AstMethod
     #cyclomaticCpx ?= 0;                                                // The cyclomatic complexity of the AstMethod
@@ -30,7 +27,6 @@ export class AstMethod implements Evaluate {
     #displayedCode?: Code = undefined;                                  // The code to display in the report
     #maxLineLength ?= 0;                 // The max length of the lines of the code
     #name: string = undefined;                                          // The name of the method
-    // #originalCode?: Code = undefined;                                   // The original Code of the method (as Code object)
 
 
 
@@ -125,16 +121,6 @@ export class AstMethod implements Evaluate {
         this.#name = this.#astNode.name;
         return this.#name;
     }
-
-
-    // get originalCode(): Code {
-    //     return this.#originalCode;
-    // }
-    //
-    //
-    // set originalCode(code : Code) {
-    //     this.#originalCode = code;
-    // }
 
 
     get position() {
@@ -234,24 +220,13 @@ export class AstMethod implements Evaluate {
     private setCpxFactorsToDisplayedCode(astNode: AstNode, startedUncommentedLines = false): void {
         for (const childAst of astNode.children) {
             let issue = Math.max(childAst.lineStart, this.codeLines[0]?.issue);
-            // let issue = this.#codeService.getLineIssue(this.#originalCode, childAst.start);
-            console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, childAst.lineStart, this.position, chalk.redBright('ISSUE', issue))
+            // console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, childAst.lineStart, this.position, chalk.redBright('ISSUE', issue))
             const codeLine: CodeLine = this.#displayedCode.lines.find(l => l.issue === issue);
-            console.log('CODELIGNGNNGNGNNGGGG', this.#displayedCode.getLine(issue)?.text, issue - this.codeLines[0]?.issue)
             if (Ast.isElseStatement(childAst)) {
                 childAst.cpxFactors.basic.node = cpxFactors.basic.node;
                 issue--;
             }
-            // if (astNode.isFunctionOrMethodDeclaration) {
                 this.increaseLineCpxFactors(childAst, codeLine);
-            // }
-            // if (!startedUncommentedLines && astNode.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
-            //     this.increaseLineCpxFactors(astNode, codeLine);
-            //     console.log(chalk.greenBright('CHILD ASTTTT UNOMMENTED'), childAst.kind, childAst.start, this.position, issue)
-                // startedUncommentedLines = true;
-            // } else if (startedUncommentedLines) {
-            //     this.increaseLineCpxFactors(childAst, codeLine);
-            // }
             this.#displayedCode.getLine(issue).astNodes.push(childAst);
             this.setCpxFactorsToDisplayedCode(childAst, startedUncommentedLines);
         }
@@ -264,9 +239,7 @@ export class AstMethod implements Evaluate {
      * @param codeLine      // The CodeLine containing the AstNode
      */
     private increaseLineCpxFactors(astNode: AstNode, codeLine: CodeLine): void {
-        // if (astNode.cpxFactors.total > 0) {
         if (!codeLine.isCommented) {
-            console.log('CPX FACTRRRR', astNode.kind, astNode.lineStart, codeLine.issue, codeLine.start)
             codeLine.cpxFactors = codeLine.cpxFactors.add(astNode?.cpxFactors);
         }
 
@@ -287,7 +260,6 @@ export class AstMethod implements Evaluate {
                 comment = line.cpxFactors.totalRecursion > 0 ? `${comment}, +${line.cpxFactors.totalRecursion} recursivity` : comment;
                 comment = line.cpxFactors.totalStructural > 0 ? `${comment}, +${line.cpxFactors.totalStructural} ${FactorCategory.STRUCTURAL}` : comment;
                 comment = `${comment})`;
-                console.log('ADD COMMENTTT', line.issue)
                 this.#displayedCode.getLine(line.issue).addComment(comment, this.maxLineLength);
             });
     }

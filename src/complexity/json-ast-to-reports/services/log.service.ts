@@ -1,8 +1,6 @@
 import { AstNode } from '../models/ast/ast-node.model';
 import { CodeLine } from '../models/code/code-line.model';
 import { AstMethod } from '../models/ast/ast-method.model';
-import { Code } from '../models/code/code.model';
-import { SyntaxKind } from '../../core/enum/syntax-kind.enum';
 
 const chalk = require('chalk');
 
@@ -80,7 +78,6 @@ export class LogService {
 
 
     static logCodeLines(codeLines: CodeLine[] = [], methodAstNode: AstNode): void {
-        console.log('METHOD POSITIONNNNN', methodAstNode.pos, '-', methodAstNode.start, '-', methodAstNode.end)
         for (const line of codeLines) {
             this.logCodeLine(line, methodAstNode);
         }

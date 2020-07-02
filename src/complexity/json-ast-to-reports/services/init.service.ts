@@ -121,11 +121,8 @@ export class InitService {
             if (!newAstNode.name && newAstNode.firstSon?.kind === SyntaxKind.Identifier) {
                 newAstNode.name = newAstNode.children[0].name;
             }
-            // console.log(chalk.cyanBright('ASTMTHDDD'), newAstNode.kind, astParentNode.kind, astParentNode?.astMethod)
-
             newAstNode.astMethod = this.generateAstMethod(newAstNode);
         } else {
-            // console.log(chalk.redBright('ASTMTHDDD'), newAstNode.kind, astParentNode.kind, astParentNode?.astMethod)
             newAstNode.astMethod = astParentNode?.astMethod;
         }
         return newAstNode;
@@ -133,13 +130,10 @@ export class InitService {
 
 
     private generateAstMethod(astMethodNode: AstNode): AstMethod {
-        console.log('ASTMETHODDD', astMethodNode.kind, astMethodNode.pos, astMethodNode.start, astMethodNode.end)
-        console.log(chalk.cyanBright('ASTMETHODDD'), astMethodNode.linePos, astMethodNode.lineStart, astMethodNode.lineEnd)
         const astMethod = new AstMethod();
         astMethod.astNode = astMethodNode;
         astMethod.astNode.text = this.astNodeService.getCode(astMethodNode);
         astMethod.codeLines = astMethodNode.astFile?.code?.lines?.slice(astMethodNode.linePos, astMethodNode.lineEnd);
-        // astMethod.originalCode = CodeService.getCode(this.astNodeService.getCode(astMethodNode), astMethodNode.pos);
         return astMethod;
     }
 
