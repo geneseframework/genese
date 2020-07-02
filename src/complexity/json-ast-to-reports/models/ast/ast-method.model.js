@@ -12,12 +12,11 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astNode, _codeService, _cognitiveStatus, _cpxFactors, _cyclomaticCpx, _cpxIndex, _cyclomaticStatus, _displayedCode, _name, _originalCode;
+var _astNode, _codeLines, _cognitiveStatus, _cpxFactors, _cyclomaticCpx, _cpxIndex, _cyclomaticStatus, _displayedCode, _maxLineLength, _name;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstMethod = void 0;
 const cyclomatic_cpx_service_1 = require("../../services/cyclomatic-cpx.service");
 const code_model_1 = require("../code/code.model");
-const code_service_1 = require("../../services/code.service");
 const ast_service_1 = require("../../services/ast/ast.service");
 const evaluation_status_enum_1 = require("../../enums/evaluation-status.enum");
 const cpx_factors_model_1 = require("../../../core/models/cpx-factor/cpx-factors.model");
@@ -34,16 +33,18 @@ const chalk = require("chalk");
 class AstMethod {
     constructor() {
         _astNode.set(this, undefined); // The AST of the method itself
-        _codeService.set(this, new code_service_1.CodeService()); // The service managing Code objects
+        _codeLines.set(this, []);
+        // #codeService: CodeService = new CodeService();                      // The service managing Code objects
         _cognitiveStatus.set(this, evaluation_status_enum_1.MethodStatus.CORRECT); // The cognitive status of the method
         _cpxFactors.set(this, undefined); // The complexity factors of the AstMethod
         _cyclomaticCpx.set(this, 0); // The cyclomatic complexity of the AstMethod
         _cpxIndex.set(this, undefined); // The complexity index of the method
         _cyclomaticStatus.set(this, evaluation_status_enum_1.MethodStatus.CORRECT); // The cyclomatic status of the method
         _displayedCode.set(this, undefined); // The code to display in the report
+        _maxLineLength.set(this, 0); // The max length of the lines of the code
         _name.set(this, undefined); // The name of the method
-        _originalCode.set(this, undefined); // The original Code of the method (as Code object)
     }
+    // #originalCode?: Code = undefined;                                   // The original Code of the method (as Code object)
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
@@ -52,6 +53,12 @@ class AstMethod {
     }
     set astNode(astNode) {
         __classPrivateFieldSet(this, _astNode, astNode);
+    }
+    get codeLines() {
+        return __classPrivateFieldGet(this, _codeLines);
+    }
+    set codeLines(codeLines) {
+        __classPrivateFieldSet(this, _codeLines, codeLines);
     }
     get cognitiveStatus() {
         return __classPrivateFieldGet(this, _cognitiveStatus);
@@ -84,6 +91,14 @@ class AstMethod {
     get displayedCode() {
         return __classPrivateFieldGet(this, _displayedCode);
     }
+    get maxLineLength() {
+        var _a;
+        if (__classPrivateFieldGet(this, _maxLineLength)) {
+            return __classPrivateFieldGet(this, _maxLineLength);
+        }
+        __classPrivateFieldSet(this, _maxLineLength, Math.max(...(_a = this.codeLines) === null || _a === void 0 ? void 0 : _a.map(l => l.end - l.start)));
+        return __classPrivateFieldGet(this, _maxLineLength);
+    }
     get name() {
         if (__classPrivateFieldGet(this, _name)) {
             return __classPrivateFieldGet(this, _name);
@@ -91,12 +106,14 @@ class AstMethod {
         __classPrivateFieldSet(this, _name, __classPrivateFieldGet(this, _astNode).name);
         return __classPrivateFieldGet(this, _name);
     }
-    get originalCode() {
-        return __classPrivateFieldGet(this, _originalCode);
-    }
-    set originalCode(code) {
-        __classPrivateFieldSet(this, _originalCode, code);
-    }
+    // get originalCode(): Code {
+    //     return this.#originalCode;
+    // }
+    //
+    //
+    // set originalCode(code : Code) {
+    //     this.#originalCode = code;
+    // }
     get position() {
         var _a;
         return (_a = this.astNode) === null || _a === void 0 ? void 0 : _a.pos;
@@ -162,7 +179,7 @@ class AstMethod {
      */
     setDisplayedCodeLines() {
         __classPrivateFieldSet(this, _displayedCode, new code_model_1.Code());
-        for (const line of this.originalCode.lines) {
+        for (const line of this.codeLines) {
             const displayedLine = new code_line_model_1.CodeLine();
             displayedLine.issue = line.issue;
             displayedLine.text = line.text;
@@ -177,10 +194,13 @@ class AstMethod {
      * @param startedUncommentedLines   // Param for recursion (checks if the current line is the first uncommented one)
      */
     setCpxFactorsToDisplayedCode(astNode, startedUncommentedLines = false) {
+        var _a, _b, _c;
         for (const childAst of astNode.children) {
-            let issue = __classPrivateFieldGet(this, _codeService).getLineIssue(__classPrivateFieldGet(this, _originalCode), childAst.start);
-            console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, this.position, chalk.redBright('ISSUE', issue));
-            const codeLine = __classPrivateFieldGet(this, _displayedCode).lines[issue];
+            let issue = Math.max(childAst.lineStart, (_a = this.codeLines[0]) === null || _a === void 0 ? void 0 : _a.issue);
+            // let issue = this.#codeService.getLineIssue(this.#originalCode, childAst.start);
+            console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, childAst.lineStart, this.position, chalk.redBright('ISSUE', issue));
+            const codeLine = __classPrivateFieldGet(this, _displayedCode).lines.find(l => l.issue === issue);
+            console.log('CODELIGNGNNGNGNNGGGG', (_b = __classPrivateFieldGet(this, _displayedCode).getLine(issue)) === null || _b === void 0 ? void 0 : _b.text, issue - ((_c = this.codeLines[0]) === null || _c === void 0 ? void 0 : _c.issue));
             if (ast_service_1.Ast.isElseStatement(childAst)) {
                 childAst.cpxFactors.basic.node = cpx_factors_1.cpxFactors.basic.node;
                 issue--;
@@ -195,7 +215,7 @@ class AstMethod {
             // } else if (startedUncommentedLines) {
             //     this.increaseLineCpxFactors(childAst, codeLine);
             // }
-            __classPrivateFieldGet(this, _displayedCode).lines[issue].astNodes.push(childAst);
+            __classPrivateFieldGet(this, _displayedCode).getLine(issue).astNodes.push(childAst);
             this.setCpxFactorsToDisplayedCode(childAst, startedUncommentedLines);
         }
     }
@@ -205,7 +225,9 @@ class AstMethod {
      * @param codeLine      // The CodeLine containing the AstNode
      */
     increaseLineCpxFactors(astNode, codeLine) {
+        // if (astNode.cpxFactors.total > 0) {
         if (!codeLine.isCommented) {
+            console.log('CPX FACTRRRR', astNode.kind, astNode.lineStart, codeLine.issue, codeLine.start);
             codeLine.cpxFactors = codeLine.cpxFactors.add(astNode === null || astNode === void 0 ? void 0 : astNode.cpxFactors);
         }
     }
@@ -223,9 +245,10 @@ class AstMethod {
             comment = line.cpxFactors.totalRecursion > 0 ? `${comment}, +${line.cpxFactors.totalRecursion} recursivity` : comment;
             comment = line.cpxFactors.totalStructural > 0 ? `${comment}, +${line.cpxFactors.totalStructural} ${factor_category_enum_1.FactorCategory.STRUCTURAL}` : comment;
             comment = `${comment})`;
-            __classPrivateFieldGet(this, _displayedCode).lines[line.issue - 1].text = __classPrivateFieldGet(this, _originalCode).addComment(comment, __classPrivateFieldGet(this, _originalCode).lines[line.issue - 1]);
+            console.log('ADD COMMENTTT', line.issue);
+            __classPrivateFieldGet(this, _displayedCode).getLine(line.issue).addComment(comment, this.maxLineLength);
         });
     }
 }
 exports.AstMethod = AstMethod;
-_astNode = new WeakMap(), _codeService = new WeakMap(), _cognitiveStatus = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _cpxIndex = new WeakMap(), _cyclomaticStatus = new WeakMap(), _displayedCode = new WeakMap(), _name = new WeakMap(), _originalCode = new WeakMap();
+_astNode = new WeakMap(), _codeLines = new WeakMap(), _cognitiveStatus = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _cpxIndex = new WeakMap(), _cyclomaticStatus = new WeakMap(), _displayedCode = new WeakMap(), _maxLineLength = new WeakMap(), _name = new WeakMap();

@@ -11,6 +11,7 @@ import { addObjects } from '../../../core/services/tools.service';
 import { AstNodeService } from '../../services/ast/ast-node.service';
 import * as chalk from 'chalk';
 import { Logg } from '../../../core/interfaces/logg.interface';
+import { CodeService } from '../../services/code.service';
 
 export class AstNode implements Evaluate, Logg {
 
@@ -28,6 +29,9 @@ export class AstNode implements Evaluate, Logg {
     #isCallback: boolean = undefined;                                           // True if the astNode is a method with a Callback, false if not
     #isRecursiveMethod: boolean = undefined;                                    // True if the astNode is a recursive method, false if not
     #kind?: SyntaxKind = undefined;                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
+    #lineEnd?: number = undefined;
+    #linePos?: number = undefined;
+    #lineStart?: number = undefined;
     #name: string = undefined;                                                  // The name of the AstNode
     #parent?: AstNode;                                                          // The ast of the parent of the current node
     #pos ?= 0;                                                                  // The position of the beginning of the AST node, including spaces and comments before it. (start <= start)
@@ -192,6 +196,33 @@ export class AstNode implements Evaluate, Logg {
 
     set kind(kind: SyntaxKind) {
         this.#kind = kind;
+    }
+
+
+    get lineEnd(): number {
+        if (this.#lineEnd) {
+            return this.#lineEnd;
+        }
+        this.#lineEnd = CodeService.getLineIssue(this.astFile?.code, this.end);
+        return this.#lineEnd;
+    }
+
+
+    get linePos(): number {
+        if (this.#linePos) {
+            return this.#linePos;
+        }
+        this.#linePos = CodeService.getLineIssue(this.astFile?.code, this.pos);
+        return this.#linePos;
+    }
+
+
+    get lineStart(): number {
+        if (this.#lineStart) {
+            return this.#lineStart;
+        }
+        this.#lineStart = CodeService.getLineIssue(this.astFile?.code, this.start);
+        return this.#lineStart;
     }
 
 

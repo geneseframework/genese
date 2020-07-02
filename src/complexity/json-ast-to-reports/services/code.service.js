@@ -12,7 +12,7 @@ class CodeService {
      * @param text      // The content of the code
      * @param start
      */
-    static getCode(text, start) {
+    static getCode(text, start = 0) {
         if (!text) {
             return undefined;
         }
@@ -30,7 +30,6 @@ class CodeService {
             line.start = start;
             line.end = start + textLine.length + 1;
             code.lines.push(line);
-            code.maxLineLength = code.maxLineLength < textLine.length ? textLine.length : code.maxLineLength;
             issue++;
             start = line.end;
         }
@@ -42,7 +41,7 @@ class CodeService {
      * @param code      // The Code where to search
      * @param position  // The position where we search the number of its line
      */
-    getLineIssue(code, position) {
+    static getLineIssue(code, position) {
         var _a;
         if (position < 0 || position > (code === null || code === void 0 ? void 0 : code.end)) {
             return 0;

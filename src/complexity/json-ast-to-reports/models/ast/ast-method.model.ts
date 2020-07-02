@@ -20,15 +20,17 @@ import * as chalk from 'chalk';
 export class AstMethod implements Evaluate {
 
     #astNode?: AstNode = undefined;                                     // The AST of the method itself
-    #codeService: CodeService = new CodeService();                      // The service managing Code objects
+    #codeLines?: CodeLine[] = [];
+    // #codeService: CodeService = new CodeService();                      // The service managing Code objects
     #cognitiveStatus: MethodStatus = MethodStatus.CORRECT;              // The cognitive status of the method
     #cpxFactors?: CpxFactors = undefined;                               // The complexity factors of the AstMethod
     #cyclomaticCpx ?= 0;                                                // The cyclomatic complexity of the AstMethod
     #cpxIndex = undefined;                                              // The complexity index of the method
     #cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;             // The cyclomatic status of the method
     #displayedCode?: Code = undefined;                                  // The code to display in the report
+    #maxLineLength ?= 0;                 // The max length of the lines of the code
     #name: string = undefined;                                          // The name of the method
-    #originalCode?: Code = undefined;                                   // The original Code of the method (as Code object)
+    // #originalCode?: Code = undefined;                                   // The original Code of the method (as Code object)
 
 
 
@@ -44,6 +46,16 @@ export class AstMethod implements Evaluate {
 
     set astNode(astNode: AstNode) {
         this.#astNode = astNode;
+    }
+
+
+    get codeLines(): CodeLine[] {
+        return this.#codeLines;
+    }
+
+
+    set codeLines(codeLines: CodeLine[]) {
+        this.#codeLines = codeLines;
     }
 
 
@@ -97,6 +109,15 @@ export class AstMethod implements Evaluate {
     }
 
 
+    get maxLineLength(): number {
+        if (this.#maxLineLength) {
+            return this.#maxLineLength;
+        }
+        this.#maxLineLength = Math.max(...this.codeLines?.map(l => l.end - l.start));
+        return this.#maxLineLength;
+    }
+
+
     get name(): string {
         if (this.#name) {
             return this.#name;
@@ -106,14 +127,14 @@ export class AstMethod implements Evaluate {
     }
 
 
-    get originalCode(): Code {
-        return this.#originalCode;
-    }
-
-
-    set originalCode(code : Code) {
-        this.#originalCode = code;
-    }
+    // get originalCode(): Code {
+    //     return this.#originalCode;
+    // }
+    //
+    //
+    // set originalCode(code : Code) {
+    //     this.#originalCode = code;
+    // }
 
 
     get position() {
@@ -194,7 +215,7 @@ export class AstMethod implements Evaluate {
      */
     private setDisplayedCodeLines(): void {
         this.#displayedCode = new Code();
-        for (const line of this.originalCode.lines) {
+        for (const line of this.codeLines) {
             const displayedLine = new CodeLine();
             displayedLine.issue = line.issue;
             displayedLine.text = line.text;
@@ -212,9 +233,11 @@ export class AstMethod implements Evaluate {
      */
     private setCpxFactorsToDisplayedCode(astNode: AstNode, startedUncommentedLines = false): void {
         for (const childAst of astNode.children) {
-            let issue = this.#codeService.getLineIssue(this.#originalCode, childAst.start);
-            console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, this.position, chalk.redBright('ISSUE', issue))
-            const codeLine: CodeLine = this.#displayedCode.lines[issue];
+            let issue = Math.max(childAst.lineStart, this.codeLines[0]?.issue);
+            // let issue = this.#codeService.getLineIssue(this.#originalCode, childAst.start);
+            console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, childAst.lineStart, this.position, chalk.redBright('ISSUE', issue))
+            const codeLine: CodeLine = this.#displayedCode.lines.find(l => l.issue === issue);
+            console.log('CODELIGNGNNGNGNNGGGG', this.#displayedCode.getLine(issue)?.text, issue - this.codeLines[0]?.issue)
             if (Ast.isElseStatement(childAst)) {
                 childAst.cpxFactors.basic.node = cpxFactors.basic.node;
                 issue--;
@@ -229,7 +252,7 @@ export class AstMethod implements Evaluate {
             // } else if (startedUncommentedLines) {
             //     this.increaseLineCpxFactors(childAst, codeLine);
             // }
-            this.#displayedCode.lines[issue].astNodes.push(childAst);
+            this.#displayedCode.getLine(issue).astNodes.push(childAst);
             this.setCpxFactorsToDisplayedCode(childAst, startedUncommentedLines);
         }
     }
@@ -241,7 +264,9 @@ export class AstMethod implements Evaluate {
      * @param codeLine      // The CodeLine containing the AstNode
      */
     private increaseLineCpxFactors(astNode: AstNode, codeLine: CodeLine): void {
+        // if (astNode.cpxFactors.total > 0) {
         if (!codeLine.isCommented) {
+            console.log('CPX FACTRRRR', astNode.kind, astNode.lineStart, codeLine.issue, codeLine.start)
             codeLine.cpxFactors = codeLine.cpxFactors.add(astNode?.cpxFactors);
         }
 
@@ -262,7 +287,8 @@ export class AstMethod implements Evaluate {
                 comment = line.cpxFactors.totalRecursion > 0 ? `${comment}, +${line.cpxFactors.totalRecursion} recursivity` : comment;
                 comment = line.cpxFactors.totalStructural > 0 ? `${comment}, +${line.cpxFactors.totalStructural} ${FactorCategory.STRUCTURAL}` : comment;
                 comment = `${comment})`;
-                this.#displayedCode.lines[line.issue - 1].text = this.#originalCode.addComment(comment, this.#originalCode.lines[line.issue - 1]);
+                console.log('ADD COMMENTTT', line.issue)
+                this.#displayedCode.getLine(line.issue).addComment(comment, this.maxLineLength);
             });
     }
 }

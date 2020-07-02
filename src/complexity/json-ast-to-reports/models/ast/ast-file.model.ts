@@ -9,6 +9,7 @@ import { Stats } from '../stats.model';
 import { AstMethodService } from '../../services/ast/ast-method.service';
 import { Logg } from '../../../core/interfaces/logg.interface';
 import * as chalk from 'chalk';
+import { Code } from '../code/code.model';
 
 export class AstFile implements Evaluate, Logg {
 
@@ -16,13 +17,13 @@ export class AstFile implements Evaluate, Logg {
     #astMethods?: AstMethod[] = [];                             // The AstMethods included in this AstFile
     #astNode?: AstNode = undefined;                             // The AstNode corresponding to the file itself
     #astNodes?: AstNode[] = undefined;                          // Array of all the AstNodes which are children of this.AstNode (including itself)
+    #code?: Code = undefined;
     #complexitiesByStatus?: ComplexitiesByStatus = undefined;   // The file complexities spread by complexity status
     #cpxFactors?: CpxFactors = undefined;                       // The complexity factors of the AstFile
     #cyclomaticCpx ?= 0;                                        // The complexity factors of the AstFile
     #end: number = undefined;                                   // The position of the end of the source code
     #name: string = undefined;                                  // The name of the AstFile
     #stats?: Stats = undefined;                                 // The statistics of the AstFile
-    #text ?= '';                                                // The original source code
 
 
 
@@ -71,6 +72,16 @@ export class AstFile implements Evaluate, Logg {
 
     set astNodes(astNodes: AstNode[])  {
         this.#astNodes = astNodes;
+    }
+
+
+    get code() : Code {
+        return this.#code;
+    }
+
+
+    set code(code: Code)  {
+        this.#code = code;
     }
 
 
@@ -138,12 +149,7 @@ export class AstFile implements Evaluate, Logg {
 
 
     get text(): string {
-        return this.#text;
-    }
-
-
-    set text(text: string) {
-        this.#text = text;
+        return this.#code.text;
     }
 
 

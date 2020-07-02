@@ -21,7 +21,7 @@ class LogService {
         this.logAstNode(astMethod.astNode, '');
         this.logMethodChildren(astMethod.astNode, ' ');
         if (logLines) {
-            this.logCode(astMethod.originalCode, astMethod.astNode);
+            this.logCodeLines(astMethod.codeLines, astMethod.astNode);
         }
     }
     /**
@@ -65,10 +65,9 @@ class LogService {
         logs.push(chalk.greenBright((_d = astNode.parent) === null || _d === void 0 ? void 0 : _d.kind));
         // console.log(...logs)
     }
-    static logCode(code, methodAstNode) {
-        var _a;
+    static logCodeLines(codeLines = [], methodAstNode) {
         console.log('METHOD POSITIONNNNN', methodAstNode.pos, '-', methodAstNode.start, '-', methodAstNode.end);
-        for (const line of (_a = code.lines) !== null && _a !== void 0 ? _a : []) {
+        for (const line of codeLines) {
             this.logCodeLine(line, methodAstNode);
         }
     }

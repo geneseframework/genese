@@ -85,6 +85,15 @@ class CodeLine {
         return this.text.slice(0, splittedText[0].length - 1);
     }
     /**
+     * Add a comment at the end of a line of the code
+     * @param comment   // The comment to add
+     * @param maxLineLength
+     */
+    addComment(comment, maxLineLength) {
+        const txt = `${this.text} // `;
+        this.text = `${txt.padEnd(maxLineLength + 10, '-')} ${comment}`;
+    }
+    /**
      * Sets the depth and nesting complexity to this CodeLine
      */
     setDepthAndNestingCpx() {

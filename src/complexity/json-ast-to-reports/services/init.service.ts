@@ -41,7 +41,7 @@ export class InitService {
     }
 
 
-    generateChildrenAstFolder(astFolderFromJsonAst: any, parentAstFolder: AstFolder): AstFolder {
+    private generateChildrenAstFolder(astFolderFromJsonAst: any, parentAstFolder: AstFolder): AstFolder {
         const newAstFolder = new AstFolder();
         newAstFolder.path = this.getPathFromJsonAstFolder(astFolderFromJsonAst);
         newAstFolder.parent = parentAstFolder;
@@ -53,7 +53,7 @@ export class InitService {
     }
 
 
-    generateAstFiles(astFolderFromJsonAst: any, astFolder: AstFolder): AstFile[] {
+    private generateAstFiles(astFolderFromJsonAst: any, astFolder: AstFolder): AstFile[] {
         const astFiles: AstFile[] = [];
         for (const astFileFromJsonAst of astFolderFromJsonAst.astFiles) {
             astFiles.push(this.generateAstFile(astFileFromJsonAst, astFolder));
@@ -62,15 +62,15 @@ export class InitService {
     }
 
 
-    generateAstFile(astFileFromJsonAst: any, astFolder: AstFolder): AstFile {
+    private generateAstFile(astFileFromJsonAst: any, astFolder: AstFolder): AstFile {
         if (!astFileFromJsonAst?.astNode) {
             console.warn(astFileFromJsonAst.name ? `No AstNode for this file : ${astFileFromJsonAst.name}` : `AstFile without AstNode`);
             return undefined;
         }
         const newAstFile = new AstFile();
         newAstFile.name = astFileFromJsonAst.name;
-        newAstFile.text = astFileFromJsonAst.text;
         newAstFile.astFolder = astFolder;
+        newAstFile.code = CodeService.getCode(astFileFromJsonAst.text);
         newAstFile.astNode = this.getFileAstNode(astFileFromJsonAst.astNode, newAstFile);
         newAstFile.astNodes = this.astNodeService.flatMapAstNodes(newAstFile.astNode, [newAstFile.astNode]);
         newAstFile.astMethods = newAstFile.astNodes
@@ -82,7 +82,7 @@ export class InitService {
     }
 
 
-    getFileAstNode(astNodeFromJsonAst: any, astFile: AstFile): AstNode {
+    private getFileAstNode(astNodeFromJsonAst: any, astFile: AstFile): AstNode {
         const newAstNode = new AstNode();
         newAstNode.pos = 0;
         newAstNode.end = astNodeFromJsonAst.end; // TODO: fix
@@ -94,7 +94,7 @@ export class InitService {
     }
 
 
-    generateAstNodes(astNodesFromJsonAst: any[], astParentNode: AstNode): AstNode[] {
+    private generateAstNodes(astNodesFromJsonAst: any[], astParentNode: AstNode): AstNode[] {
         if (!Array.isArray(astNodesFromJsonAst)) {
             return [];
         }
@@ -106,7 +106,7 @@ export class InitService {
     }
 
 
-    generateAstNode(astNodeFromJsonAst: any, astParentNode: AstNode): AstNode {
+    private generateAstNode(astNodeFromJsonAst: any, astParentNode: AstNode): AstNode {
         const newAstNode = new AstNode();
         newAstNode.astFile = astParentNode.astFile;
         newAstNode.end = astNodeFromJsonAst.end;
@@ -132,12 +132,14 @@ export class InitService {
     }
 
 
-    generateAstMethod(astMethodNode: AstNode): AstMethod {
-        console.log('ASTMETHODDD', astMethodNode.kind, astMethodNode.pos, astMethodNode.start)
+    private generateAstMethod(astMethodNode: AstNode): AstMethod {
+        console.log('ASTMETHODDD', astMethodNode.kind, astMethodNode.pos, astMethodNode.start, astMethodNode.end)
+        console.log(chalk.cyanBright('ASTMETHODDD'), astMethodNode.linePos, astMethodNode.lineStart, astMethodNode.lineEnd)
         const astMethod = new AstMethod();
         astMethod.astNode = astMethodNode;
         astMethod.astNode.text = this.astNodeService.getCode(astMethodNode);
-        astMethod.originalCode = CodeService.getCode(this.astNodeService.getCode(astMethodNode), astMethodNode.pos);
+        astMethod.codeLines = astMethodNode.astFile?.code?.lines?.slice(astMethodNode.linePos, astMethodNode.lineEnd);
+        // astMethod.originalCode = CodeService.getCode(this.astNodeService.getCode(astMethodNode), astMethodNode.pos);
         return astMethod;
     }
 

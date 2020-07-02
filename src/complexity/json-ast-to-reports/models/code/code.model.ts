@@ -6,7 +6,7 @@ import { CodeLine } from './code-line.model';
 export class Code {
 
     lines?: CodeLine[] = [];            // The lines of the code
-    maxLineLength ?= 0;                 // The max length of the lines of the code
+    // maxLineLength ?= 0;                 // The max length of the lines of the code
     start ?= 0;                         // The absolute position of the code in the SourceFile
     text ?= '';                         // The code itself (as string)
 
@@ -16,22 +16,16 @@ export class Code {
     }
 
 
+    getLine(issue: number): CodeLine {
+        return this.lines.find(l => l.issue === issue);
+    }
+
+
     /**
      * Sets the content of the code (as string) with its CodeLines
      */
     setTextWithLines(): void {
         this.text = this.lines.map(e => `${e.text}\n`).join('');
-    }
-
-
-    /**
-     * Add a comment at the end of a line of the code
-     * @param comment   // The comment to add
-     * @param line      // The CodeLine where to add the comment
-     */
-    addComment(comment: string, line: CodeLine): string {
-        const txt = `${line?.text} // `;
-        return `${txt.padEnd(this.maxLineLength + 10, '-')} ${comment}`;
     }
 
 

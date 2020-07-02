@@ -10,6 +10,7 @@ const ast_method_model_1 = require("../models/ast/ast-method.model");
 const code_service_1 = require("./code.service");
 const ast_node_service_1 = require("./ast/ast-node.service");
 const ast_service_1 = require("./ast/ast.service");
+const chalk = require("chalk");
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
  * - Other services for TreeFolders
@@ -63,8 +64,8 @@ class InitService {
         }
         const newAstFile = new ast_file_model_1.AstFile();
         newAstFile.name = astFileFromJsonAst.name;
-        newAstFile.text = astFileFromJsonAst.text;
         newAstFile.astFolder = astFolder;
+        newAstFile.code = code_service_1.CodeService.getCode(astFileFromJsonAst.text);
         newAstFile.astNode = this.getFileAstNode(astFileFromJsonAst.astNode, newAstFile);
         newAstFile.astNodes = this.astNodeService.flatMapAstNodes(newAstFile.astNode, [newAstFile.astNode]);
         newAstFile.astMethods = newAstFile.astNodes
@@ -120,11 +121,14 @@ class InitService {
         return newAstNode;
     }
     generateAstMethod(astMethodNode) {
-        console.log('ASTMETHODDD', astMethodNode.kind, astMethodNode.pos, astMethodNode.start);
+        var _a, _b, _c;
+        console.log('ASTMETHODDD', astMethodNode.kind, astMethodNode.pos, astMethodNode.start, astMethodNode.end);
+        console.log(chalk.cyanBright('ASTMETHODDD'), astMethodNode.linePos, astMethodNode.lineStart, astMethodNode.lineEnd);
         const astMethod = new ast_method_model_1.AstMethod();
         astMethod.astNode = astMethodNode;
         astMethod.astNode.text = this.astNodeService.getCode(astMethodNode);
-        astMethod.originalCode = code_service_1.CodeService.getCode(this.astNodeService.getCode(astMethodNode), astMethodNode.pos);
+        astMethod.codeLines = (_c = (_b = (_a = astMethodNode.astFile) === null || _a === void 0 ? void 0 : _a.code) === null || _b === void 0 ? void 0 : _b.lines) === null || _c === void 0 ? void 0 : _c.slice(astMethodNode.linePos, astMethodNode.lineEnd);
+        // astMethod.originalCode = CodeService.getCode(this.astNodeService.getCode(astMethodNode), astMethodNode.pos);
         return astMethod;
     }
     getPathFromJsonAstFolder(jsonAstFolder) {

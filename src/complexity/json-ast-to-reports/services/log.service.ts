@@ -31,7 +31,7 @@ export class LogService {
         this.logAstNode(astMethod.astNode, '');
         this.logMethodChildren(astMethod.astNode, ' ');
         if (logLines) {
-            this.logCode(astMethod.originalCode, astMethod.astNode);
+            this.logCodeLines(astMethod.codeLines, astMethod.astNode);
         }
     }
 
@@ -79,9 +79,9 @@ export class LogService {
     }
 
 
-    static logCode(code: Code, methodAstNode: AstNode): void {
+    static logCodeLines(codeLines: CodeLine[] = [], methodAstNode: AstNode): void {
         console.log('METHOD POSITIONNNNN', methodAstNode.pos, '-', methodAstNode.start, '-', methodAstNode.end)
-        for (const line of code.lines ?? []) {
+        for (const line of codeLines) {
             this.logCodeLine(line, methodAstNode);
         }
     }

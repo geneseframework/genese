@@ -14,7 +14,7 @@ export class CodeService {
      * @param text      // The content of the code
      * @param start
      */
-    static getCode(text: string, start: number): Code {
+    static getCode(text: string, start = 0): Code {
         if (!text) {
             return undefined;
         }
@@ -32,7 +32,6 @@ export class CodeService {
             line.start = start;
             line.end = start + textLine.length + 1;
             code.lines.push(line);
-            code.maxLineLength = code.maxLineLength < textLine.length ? textLine.length : code.maxLineLength;
             issue++;
             start = line.end;
         }
@@ -46,7 +45,7 @@ export class CodeService {
      * @param code      // The Code where to search
      * @param position  // The position where we search the number of its line
      */
-    getLineIssue(code: Code, position: number): number {
+    static getLineIssue(code: Code, position: number): number {
         if (position < 0 || position > code?.end) {
             return 0;
         }

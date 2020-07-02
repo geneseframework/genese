@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astFile, _astMethod, _astNodeService, _children, _context, _cpxFactors, _cyclomaticCpx, _end, _factorCategory, _intrinsicDepthCpx, _intrinsicNestingCpx, _isCallback, _isRecursiveMethod, _kind, _name, _parent, _pos, _start, _text;
+var _astFile, _astMethod, _astNodeService, _children, _context, _cpxFactors, _cyclomaticCpx, _end, _factorCategory, _intrinsicDepthCpx, _intrinsicNestingCpx, _isCallback, _isRecursiveMethod, _kind, _lineEnd, _linePos, _lineStart, _name, _parent, _pos, _start, _text;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstNode = void 0;
 const ast_service_1 = require("../../services/ast/ast.service");
@@ -23,6 +23,7 @@ const cpx_factors_1 = require("../../../core/const/cpx-factors");
 const tools_service_1 = require("../../../core/services/tools.service");
 const ast_node_service_1 = require("../../services/ast/ast-node.service");
 const chalk = require("chalk");
+const code_service_1 = require("../../services/code.service");
 class AstNode {
     constructor() {
         _astFile.set(this, undefined); // The AstFile containing the AST node of the AstNode
@@ -39,6 +40,9 @@ class AstNode {
         _isCallback.set(this, undefined); // True if the astNode is a method with a Callback, false if not
         _isRecursiveMethod.set(this, undefined); // True if the astNode is a recursive method, false if not
         _kind.set(this, undefined); // The kind of the node ('MethodDeclaration, IfStatement, ...)
+        _lineEnd.set(this, undefined);
+        _linePos.set(this, undefined);
+        _lineStart.set(this, undefined);
         _name.set(this, undefined); // The name of the AstNode
         _parent.set(this, void 0); // The ast of the parent of the current node
         _pos.set(this, 0); // The position of the beginning of the AST node, including spaces and comments before it. (start <= start)
@@ -146,6 +150,30 @@ class AstNode {
     }
     set kind(kind) {
         __classPrivateFieldSet(this, _kind, kind);
+    }
+    get lineEnd() {
+        var _a;
+        if (__classPrivateFieldGet(this, _lineEnd)) {
+            return __classPrivateFieldGet(this, _lineEnd);
+        }
+        __classPrivateFieldSet(this, _lineEnd, code_service_1.CodeService.getLineIssue((_a = this.astFile) === null || _a === void 0 ? void 0 : _a.code, this.end));
+        return __classPrivateFieldGet(this, _lineEnd);
+    }
+    get linePos() {
+        var _a;
+        if (__classPrivateFieldGet(this, _linePos)) {
+            return __classPrivateFieldGet(this, _linePos);
+        }
+        __classPrivateFieldSet(this, _linePos, code_service_1.CodeService.getLineIssue((_a = this.astFile) === null || _a === void 0 ? void 0 : _a.code, this.pos));
+        return __classPrivateFieldGet(this, _linePos);
+    }
+    get lineStart() {
+        var _a;
+        if (__classPrivateFieldGet(this, _lineStart)) {
+            return __classPrivateFieldGet(this, _lineStart);
+        }
+        __classPrivateFieldSet(this, _lineStart, code_service_1.CodeService.getLineIssue((_a = this.astFile) === null || _a === void 0 ? void 0 : _a.code, this.start));
+        return __classPrivateFieldGet(this, _lineStart);
     }
     get mayDefineContext() {
         return ast_service_1.Ast.mayDefineContext(this);
@@ -318,4 +346,4 @@ class AstNode {
     }
 }
 exports.AstNode = AstNode;
-_astFile = new WeakMap(), _astMethod = new WeakMap(), _astNodeService = new WeakMap(), _children = new WeakMap(), _context = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _factorCategory = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _isCallback = new WeakMap(), _isRecursiveMethod = new WeakMap(), _kind = new WeakMap(), _name = new WeakMap(), _parent = new WeakMap(), _pos = new WeakMap(), _start = new WeakMap(), _text = new WeakMap();
+_astFile = new WeakMap(), _astMethod = new WeakMap(), _astNodeService = new WeakMap(), _children = new WeakMap(), _context = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _factorCategory = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _isCallback = new WeakMap(), _isRecursiveMethod = new WeakMap(), _kind = new WeakMap(), _lineEnd = new WeakMap(), _linePos = new WeakMap(), _lineStart = new WeakMap(), _name = new WeakMap(), _parent = new WeakMap(), _pos = new WeakMap(), _start = new WeakMap(), _text = new WeakMap();
