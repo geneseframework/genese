@@ -74,7 +74,7 @@ class LogService {
     }
     static logCodeLine(line, methodAstNode) {
         console.log();
-        console.log('LINE ', chalk.greenBright(line.issue), line.pos, '-', line.end, line.isEndingWithBlockComments, line.text);
+        console.log('LINE ', chalk.greenBright(line.issue), line.start, '-', line.end, line.isEndingWithBlockComments, line.text);
         console.log(...this.logCodeLineNode(line, methodAstNode, methodAstNode.pos));
     }
     static logCodeLineNode(line, astNode, methodPosition, logs = []) {
@@ -91,7 +91,7 @@ class LogService {
         return logs;
     }
     static isAstNodeInCodeLine(astNodeStart, line) {
-        return astNodeStart >= line.pos && astNodeStart <= line.end;
+        return astNodeStart >= line.start && astNodeStart <= line.end;
     }
     /**
      * Adds a text with its value in a console.logg if the value is positive

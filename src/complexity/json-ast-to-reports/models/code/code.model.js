@@ -11,6 +11,10 @@ class Code {
         this.start = 0; // The absolute position of the code in the SourceFile
         this.text = ''; // The code itself (as string)
     }
+    get end() {
+        var _a, _b;
+        return (_b = this.start + ((_a = this.text) === null || _a === void 0 ? void 0 : _a.length)) !== null && _b !== void 0 ? _b : 0;
+    }
     /**
      * Sets the content of the code (as string) with its CodeLines
      */

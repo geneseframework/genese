@@ -89,7 +89,7 @@ export class LogService {
 
     static logCodeLine(line: CodeLine, methodAstNode: AstNode): void {
         console.log()
-        console.log('LINE ', chalk.greenBright(line.issue), line.pos, '-', line.end, line.isEndingWithBlockComments, line.text)
+        console.log('LINE ', chalk.greenBright(line.issue), line.start, '-', line.end, line.isEndingWithBlockComments, line.text)
         console.log(...this.logCodeLineNode(line, methodAstNode, methodAstNode.pos));
     }
 
@@ -110,7 +110,7 @@ export class LogService {
 
 
     private static isAstNodeInCodeLine(astNodeStart: number, line: CodeLine): boolean {
-        return astNodeStart >= line.pos && astNodeStart <= line.end;
+        return astNodeStart >= line.start && astNodeStart <= line.end;
     }
 
     /**

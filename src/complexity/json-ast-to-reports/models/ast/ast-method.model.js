@@ -27,6 +27,7 @@ const cpx_factors_1 = require("../../../core/const/cpx-factors");
 const factor_category_enum_1 = require("../../enums/factor-category.enum");
 const log_service_1 = require("../../services/log.service");
 const options_model_1 = require("../../../core/models/options.model");
+const chalk = require("chalk");
 /**
  * Element of the AstNode structure corresponding to a given method
  */
@@ -166,7 +167,7 @@ class AstMethod {
             displayedLine.issue = line.issue;
             displayedLine.text = line.text;
             displayedLine.end = line.end;
-            displayedLine.pos = line.pos;
+            displayedLine.start = line.start;
             __classPrivateFieldGet(this, _displayedCode).lines.push(displayedLine);
         }
     }
@@ -177,21 +178,23 @@ class AstMethod {
      */
     setCpxFactorsToDisplayedCode(astNode, startedUncommentedLines = false) {
         for (const childAst of astNode.children) {
-            // console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, this.position, chalk.redBright('DIFF', childAst.start - this.position))
-            let issue = __classPrivateFieldGet(this, _codeService).getLineIssue(__classPrivateFieldGet(this, _originalCode), childAst.pos - this.position);
+            let issue = __classPrivateFieldGet(this, _codeService).getLineIssue(__classPrivateFieldGet(this, _originalCode), childAst.start);
+            console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, this.position, chalk.redBright('ISSUE', issue));
             const codeLine = __classPrivateFieldGet(this, _displayedCode).lines[issue];
             if (ast_service_1.Ast.isElseStatement(childAst)) {
                 childAst.cpxFactors.basic.node = cpx_factors_1.cpxFactors.basic.node;
                 issue--;
             }
-            if (!startedUncommentedLines && astNode.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
-                this.increaseLineCpxFactors(astNode, codeLine);
-                // console.log(chalk.greenBright('CHILD ASTTTT UNOMMENTED'), childAst.kind, childAst.start, this.position, issue)
-                startedUncommentedLines = true;
-            }
-            else if (startedUncommentedLines) {
-                this.increaseLineCpxFactors(childAst, codeLine);
-            }
+            // if (astNode.isFunctionOrMethodDeclaration) {
+            this.increaseLineCpxFactors(childAst, codeLine);
+            // }
+            // if (!startedUncommentedLines && astNode.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
+            //     this.increaseLineCpxFactors(astNode, codeLine);
+            //     console.log(chalk.greenBright('CHILD ASTTTT UNOMMENTED'), childAst.kind, childAst.start, this.position, issue)
+            // startedUncommentedLines = true;
+            // } else if (startedUncommentedLines) {
+            //     this.increaseLineCpxFactors(childAst, codeLine);
+            // }
             __classPrivateFieldGet(this, _displayedCode).lines[issue].astNodes.push(childAst);
             this.setCpxFactorsToDisplayedCode(childAst, startedUncommentedLines);
         }

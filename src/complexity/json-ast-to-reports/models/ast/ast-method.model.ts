@@ -199,7 +199,7 @@ export class AstMethod implements Evaluate {
             displayedLine.issue = line.issue;
             displayedLine.text = line.text;
             displayedLine.end = line.end;
-            displayedLine.pos = line.pos;
+            displayedLine.start = line.start;
             this.#displayedCode.lines.push(displayedLine);
         }
     }
@@ -212,20 +212,23 @@ export class AstMethod implements Evaluate {
      */
     private setCpxFactorsToDisplayedCode(astNode: AstNode, startedUncommentedLines = false): void {
         for (const childAst of astNode.children) {
-            // console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, this.position, chalk.redBright('DIFF', childAst.start - this.position))
-            let issue = this.#codeService.getLineIssue(this.#originalCode, childAst.pos - this.position);
+            let issue = this.#codeService.getLineIssue(this.#originalCode, childAst.start);
+            console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, this.position, chalk.redBright('ISSUE', issue))
             const codeLine: CodeLine = this.#displayedCode.lines[issue];
             if (Ast.isElseStatement(childAst)) {
                 childAst.cpxFactors.basic.node = cpxFactors.basic.node;
                 issue--;
             }
-            if (!startedUncommentedLines && astNode.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
-                this.increaseLineCpxFactors(astNode, codeLine);
-                // console.log(chalk.greenBright('CHILD ASTTTT UNOMMENTED'), childAst.kind, childAst.start, this.position, issue)
-                startedUncommentedLines = true;
-            } else if (startedUncommentedLines) {
+            // if (astNode.isFunctionOrMethodDeclaration) {
                 this.increaseLineCpxFactors(childAst, codeLine);
-            }
+            // }
+            // if (!startedUncommentedLines && astNode.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
+            //     this.increaseLineCpxFactors(astNode, codeLine);
+            //     console.log(chalk.greenBright('CHILD ASTTTT UNOMMENTED'), childAst.kind, childAst.start, this.position, issue)
+                // startedUncommentedLines = true;
+            // } else if (startedUncommentedLines) {
+            //     this.increaseLineCpxFactors(childAst, codeLine);
+            // }
             this.#displayedCode.lines[issue].astNodes.push(childAst);
             this.setCpxFactorsToDisplayedCode(childAst, startedUncommentedLines);
         }

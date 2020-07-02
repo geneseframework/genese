@@ -10,6 +10,12 @@ export class Code {
     start ?= 0;                         // The absolute position of the code in the SourceFile
     text ?= '';                         // The code itself (as string)
 
+
+    get end(): number {
+        return this.start + this.text?.length ?? 0;
+    }
+
+
     /**
      * Sets the content of the code (as string) with its CodeLines
      */

@@ -12,29 +12,29 @@ export class CodeService {
     /**
      * Creates a Code object from the content of a given code (as string)
      * @param text      // The content of the code
-     * @param pos
+     * @param start
      */
-    static getCode(text: string, pos: number): Code {
+    static getCode(text: string, start: number): Code {
         if (!text) {
             return undefined;
         }
         const code: Code = new Code();
+        code.start = start;
         code.text = text;
         const textLines: string[] = text.split('\n');
         let issue = 1;
         for (const textLine of textLines) {
-            console.log('TEXTLINNNNN', textLine, '|', pos)
+            // console.log('TEXTLINNNNN', textLine, '|', start)
             const line = new CodeLine();
             line.code = code;
             line.text = textLine;
             line.issue = issue;
-            line.pos = pos;
-            line.start = line.pos + code.start;
-            line.end = pos + textLine.length + 1;
+            line.start = start;
+            line.end = start + textLine.length + 1;
             code.lines.push(line);
             code.maxLineLength = code.maxLineLength < textLine.length ? textLine.length : code.maxLineLength;
             issue++;
-            pos = line.end;
+            start = line.end;
         }
         code.lines[code.lines.length - 1].end = text.length;
         return code;
@@ -47,27 +47,10 @@ export class CodeService {
      * @param position  // The position where we search the number of its line
      */
     getLineIssue(code: Code, position: number): number {
-        // console.log('ORIGGGG', code.text)
-        if (position < 0 || position > code.text.length) {
+        if (position < 0 || position > code?.end) {
             return 0;
         }
-        let issue = 0;
-        for (let i = 0; i < code.lines.length; i++) {
-            if (position < code.lines[i + 1]?.pos) {
-                issue = code.lines[i]?.issue - 1;
-                // console.log('LINNNNN', position, code.lines[i].start, code.lines[i].text, code.lines[i].issue)
-                break;
-            }
-        }
-        // for (const line of code.lines) {
-        //     if (position < line?.position + line?.text.length) {
-        //         issue = line?.issue - 1;
-        //         console.log('LINNNNN', position, line.position, line.text, line.issue)
-        //         break;
-        //     }
-        // }
-        // console.log('ISSSUUUUUEEEE', issue)
-        return issue;
+        return  code.lines.filter(l => l.start <= position && l.end > position)?.[0].issue;
     }
 
 

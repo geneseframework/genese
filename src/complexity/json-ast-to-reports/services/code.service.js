@@ -10,29 +10,29 @@ class CodeService {
     /**
      * Creates a Code object from the content of a given code (as string)
      * @param text      // The content of the code
-     * @param pos
+     * @param start
      */
-    static getCode(text, pos) {
+    static getCode(text, start) {
         if (!text) {
             return undefined;
         }
         const code = new code_model_1.Code();
+        code.start = start;
         code.text = text;
         const textLines = text.split('\n');
         let issue = 1;
         for (const textLine of textLines) {
-            console.log('TEXTLINNNNN', textLine, '|', pos);
+            // console.log('TEXTLINNNNN', textLine, '|', start)
             const line = new code_line_model_1.CodeLine();
             line.code = code;
             line.text = textLine;
             line.issue = issue;
-            line.pos = pos;
-            line.start = line.pos + code.start;
-            line.end = pos + textLine.length + 1;
+            line.start = start;
+            line.end = start + textLine.length + 1;
             code.lines.push(line);
             code.maxLineLength = code.maxLineLength < textLine.length ? textLine.length : code.maxLineLength;
             issue++;
-            pos = line.end;
+            start = line.end;
         }
         code.lines[code.lines.length - 1].end = text.length;
         return code;
@@ -43,28 +43,11 @@ class CodeService {
      * @param position  // The position where we search the number of its line
      */
     getLineIssue(code, position) {
-        var _a, _b;
-        // console.log('ORIGGGG', code.text)
-        if (position < 0 || position > code.text.length) {
+        var _a;
+        if (position < 0 || position > (code === null || code === void 0 ? void 0 : code.end)) {
             return 0;
         }
-        let issue = 0;
-        for (let i = 0; i < code.lines.length; i++) {
-            if (position < ((_a = code.lines[i + 1]) === null || _a === void 0 ? void 0 : _a.pos)) {
-                issue = ((_b = code.lines[i]) === null || _b === void 0 ? void 0 : _b.issue) - 1;
-                // console.log('LINNNNN', position, code.lines[i].start, code.lines[i].text, code.lines[i].issue)
-                break;
-            }
-        }
-        // for (const line of code.lines) {
-        //     if (position < line?.position + line?.text.length) {
-        //         issue = line?.issue - 1;
-        //         console.log('LINNNNN', position, line.position, line.text, line.issue)
-        //         break;
-        //     }
-        // }
-        // console.log('ISSSUUUUUEEEE', issue)
-        return issue;
+        return (_a = code.lines.filter(l => l.start <= position && l.end > position)) === null || _a === void 0 ? void 0 : _a[0].issue;
     }
     isEndingWithBlockComments(line) {
         var _a, _b, _c;
