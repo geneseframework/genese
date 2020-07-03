@@ -32,7 +32,7 @@ const options_model_1 = require("../../../core/models/options.model");
 class AstMethod {
     constructor() {
         _astNode.set(this, undefined); // The AST of the method itself
-        _codeLines.set(this, []);
+        _codeLines.set(this, []); // The array of CodeLine of the AstMethod (elements of the array of CodeLine of the corresponding AstFile)
         _cognitiveStatus.set(this, evaluation_status_enum_1.MethodStatus.CORRECT); // The cognitive status of the method
         _cpxFactors.set(this, undefined); // The complexity factors of the AstMethod
         _cyclomaticCpx.set(this, 0); // The cyclomatic complexity of the AstMethod
@@ -151,7 +151,7 @@ class AstMethod {
                 (cpxType === complexity_type_enum_1.ComplexityType.CYCLOMATIC && this.cyclomaticCpx <= options_model_1.Options.cyclomaticCpx.warningThreshold)) {
             status = evaluation_status_enum_1.MethodStatus.CORRECT;
         }
-        else if ((cpxType === complexity_type_enum_1.ComplexityType.COGNITIVE && this.cpxIndex > options_model_1.Options.cognitiveCpx.errorThreshold)
+        else if ((cpxType === complexity_type_enum_1.ComplexityType.COGNITIVE && Math.round(this.cpxIndex) > options_model_1.Options.cognitiveCpx.errorThreshold)
             ||
                 (cpxType === complexity_type_enum_1.ComplexityType.CYCLOMATIC && this.cyclomaticCpx > options_model_1.Options.cyclomaticCpx.errorThreshold)) {
             status = evaluation_status_enum_1.MethodStatus.ERROR;

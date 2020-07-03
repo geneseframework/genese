@@ -18,14 +18,14 @@ import { Options } from '../../../core/models/options.model';
 export class AstMethod implements Evaluate {
 
     #astNode?: AstNode = undefined;                                     // The AST of the method itself
-    #codeLines?: CodeLine[] = [];
+    #codeLines?: CodeLine[] = [];                                       // The array of CodeLine of the AstMethod (elements of the array of CodeLine of the corresponding AstFile)
     #cognitiveStatus: MethodStatus = MethodStatus.CORRECT;              // The cognitive status of the method
     #cpxFactors?: CpxFactors = undefined;                               // The complexity factors of the AstMethod
     #cyclomaticCpx ?= 0;                                                // The cyclomatic complexity of the AstMethod
     #cpxIndex = undefined;                                              // The complexity index of the method
     #cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;             // The cyclomatic status of the method
     #displayedCode?: Code = undefined;                                  // The code to display in the report
-    #maxLineLength ?= 0;                 // The max length of the lines of the code
+    #maxLineLength ?= 0;                                                // The max length of the lines of the code
     #name: string = undefined;                                          // The name of the method
 
 
@@ -183,7 +183,7 @@ export class AstMethod implements Evaluate {
             (cpxType === ComplexityType.CYCLOMATIC && this.cyclomaticCpx <= Options.cyclomaticCpx.warningThreshold)) {
             status = MethodStatus.CORRECT;
         } else if (
-            (cpxType === ComplexityType.COGNITIVE && this.cpxIndex > Options.cognitiveCpx.errorThreshold)
+            (cpxType === ComplexityType.COGNITIVE && Math.round(this.cpxIndex) > Options.cognitiveCpx.errorThreshold)
             ||
             (cpxType === ComplexityType.CYCLOMATIC && this.cyclomaticCpx > Options.cyclomaticCpx.errorThreshold)) {
             status = MethodStatus.ERROR;

@@ -3,18 +3,22 @@
 
 export class DebugMock  {
 
-    opened;
-    setVersionSelected;
-
     /**
-     * Indentation
+     * Transform string format from PascalCase to snake-case
+     * @param word
      */
-    ngOnInit() {
-        // ---
-        let a = 3; // comment
-        setTimeout(() => this.opened = true);
-        this.setVersionSelected();
-    } test() {
-
+    static toSnakeCase(word: string): string {
+        if (!word) {
+            return '';
+        }
+        let snake = word.charAt(0).toLowerCase();
+        for (let i = 1; i < word.length; i++) {
+            if (word.charAt(i) === word.charAt(i).toUpperCase()) {
+                snake += '-' + word.charAt(i).toLowerCase();
+            } else {
+                snake += word.charAt(i);
+            }
+        }
+        return snake;
     }
 }

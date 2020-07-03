@@ -17,7 +17,7 @@ export class AstFile implements Evaluate, Logg {
     #astMethods?: AstMethod[] = [];                             // The AstMethods included in this AstFile
     #astNode?: AstNode = undefined;                             // The AstNode corresponding to the file itself
     #astNodes?: AstNode[] = undefined;                          // Array of all the AstNodes which are children of this.AstNode (including itself)
-    #code?: Code = undefined;
+    #code?: Code = undefined;                                   // The Code object corresponding to the AstFile
     #complexitiesByStatus?: ComplexitiesByStatus = undefined;   // The file complexities spread by complexity status
     #cpxFactors?: CpxFactors = undefined;                       // The complexity factors of the AstFile
     #cyclomaticCpx ?= 0;                                        // The complexity factors of the AstFile

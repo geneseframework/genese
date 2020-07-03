@@ -29,9 +29,9 @@ export class AstNode implements Evaluate, Logg {
     #isCallback: boolean = undefined;                                           // True if the astNode is a method with a Callback, false if not
     #isRecursiveMethod: boolean = undefined;                                    // True if the astNode is a recursive method, false if not
     #kind?: SyntaxKind = undefined;                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
-    #lineEnd?: number = undefined;
-    #linePos?: number = undefined;
-    #lineStart?: number = undefined;
+    #lineEnd?: number = undefined;                                              // The issue of the line containing the character at the AstNode.end
+    #linePos?: number = undefined;                                              // The issue of the line containing the character at the AstNode.pos
+    #lineStart?: number = undefined;                                            // The issue of the line containing the character at the AstNode.start
     #name: string = undefined;                                                  // The name of the AstNode
     #parent?: AstNode;                                                          // The ast of the parent of the current node
     #pos ?= 0;                                                                  // The pos of the beginning of the AST node, including spaces and comments before it. (start <= start)
