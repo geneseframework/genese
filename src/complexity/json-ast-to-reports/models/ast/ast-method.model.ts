@@ -1,7 +1,6 @@
 import { CyclomaticCpxService as CS } from '../../services/cyclomatic-cpx.service';
 import { AstNode } from './ast-node.model';
 import { Code } from '../code/code.model';
-import { CodeService } from '../../services/code.service';
 import { Ast } from '../../services/ast/ast.service';
 import { Evaluate } from '../../interfaces/evaluate.interface';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
@@ -19,15 +18,15 @@ import { Options } from '../../../core/models/options.model';
 export class AstMethod implements Evaluate {
 
     #astNode?: AstNode = undefined;                                     // The AST of the method itself
-    #codeService: CodeService = new CodeService();                      // The service managing Code objects
+    #codeLines?: CodeLine[] = [];                                       // The array of CodeLine of the AstMethod (elements of the array of CodeLine of the corresponding AstFile)
     #cognitiveStatus: MethodStatus = MethodStatus.CORRECT;              // The cognitive status of the method
     #cpxFactors?: CpxFactors = undefined;                               // The complexity factors of the AstMethod
     #cyclomaticCpx ?= 0;                                                // The cyclomatic complexity of the AstMethod
     #cpxIndex = undefined;                                              // The complexity index of the method
     #cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;             // The cyclomatic status of the method
     #displayedCode?: Code = undefined;                                  // The code to display in the report
+    #maxLineLength ?= 0;                                                // The max length of the lines of the code
     #name: string = undefined;                                          // The name of the method
-    #originalCode?: Code = undefined;                                   // The original Code of the method (as Code object)
 
 
 
@@ -43,6 +42,16 @@ export class AstMethod implements Evaluate {
 
     set astNode(astNode: AstNode) {
         this.#astNode = astNode;
+    }
+
+
+    get codeLines(): CodeLine[] {
+        return this.#codeLines;
+    }
+
+
+    set codeLines(codeLines: CodeLine[]) {
+        this.#codeLines = codeLines;
     }
 
 
@@ -96,6 +105,20 @@ export class AstMethod implements Evaluate {
     }
 
 
+    get end(): number {
+        return this.astNode.end;
+    }
+
+
+    get maxLineLength(): number {
+        if (this.#maxLineLength) {
+            return this.#maxLineLength;
+        }
+        this.#maxLineLength = Math.max(...this.codeLines?.map(l => l.end - l.start));
+        return this.#maxLineLength;
+    }
+
+
     get name(): string {
         if (this.#name) {
             return this.#name;
@@ -105,18 +128,13 @@ export class AstMethod implements Evaluate {
     }
 
 
-    get originalCode(): Code {
-        return this.#originalCode;
-    }
-
-
-    set originalCode(code : Code) {
-        this.#originalCode = code;
-    }
-
-
-    get position() {
+    get pos() {
         return this.astNode?.pos;
+    }
+
+
+    get start() {
+        return this.astNode?.start;
     }
 
 
@@ -132,7 +150,7 @@ export class AstMethod implements Evaluate {
      */
     evaluate(): void {
         this.createDisplayedCode();
-        // LogService.printAllChildren(this.astNode);
+        LogService.logMethod(this);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticCpx(this.astNode);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
@@ -165,7 +183,7 @@ export class AstMethod implements Evaluate {
             (cpxType === ComplexityType.CYCLOMATIC && this.cyclomaticCpx <= Options.cyclomaticCpx.warningThreshold)) {
             status = MethodStatus.CORRECT;
         } else if (
-            (cpxType === ComplexityType.COGNITIVE && this.cpxIndex > Options.cognitiveCpx.errorThreshold)
+            (cpxType === ComplexityType.COGNITIVE && Math.round(this.cpxIndex) > Options.cognitiveCpx.errorThreshold)
             ||
             (cpxType === ComplexityType.CYCLOMATIC && this.cyclomaticCpx > Options.cyclomaticCpx.errorThreshold)) {
             status = MethodStatus.ERROR;
@@ -193,13 +211,34 @@ export class AstMethod implements Evaluate {
      */
     private setDisplayedCodeLines(): void {
         this.#displayedCode = new Code();
-        for (const line of this.originalCode.lines) {
+        for (const line of this.codeLines) {
             const displayedLine = new CodeLine();
             displayedLine.issue = line.issue;
+            displayedLine.end = line.end;
+            displayedLine.start = line.start;
             displayedLine.text = line.text;
-            displayedLine.position = line.position;
+            displayedLine.text = this.getDisplayedLineText(displayedLine);
             this.#displayedCode.lines.push(displayedLine);
         }
+    }
+
+
+    /**
+     * Returns the text to display for a given line. Removes characters of the first and the last lines which are not inside the AstMethod
+     * @param line      // The line to display
+     */
+    private getDisplayedLineText(line: CodeLine): string {
+        let text = line.text;
+        if (line.issue === this.codeLines[0]?.issue) {
+            const firstCharPosition = this.start - line.start;
+            const indentation = text.slice(0, text.length - text.trimLeft().length)
+            text = `\n${indentation}${text.slice(firstCharPosition)}`;
+        }
+        if (line.issue === this.codeLines[this.codeLines.length - 1]?.issue) {
+            const lastCharPosition = this.end - line.start;
+            text = text.slice(0, lastCharPosition);
+        }
+        return text;
     }
 
 
@@ -210,19 +249,14 @@ export class AstMethod implements Evaluate {
      */
     private setCpxFactorsToDisplayedCode(astNode: AstNode, startedUncommentedLines = false): void {
         for (const childAst of astNode.children) {
-            let issue = this.#codeService.getLineIssue(this.#originalCode, childAst.pos - this.position);
-            const codeLine: CodeLine = this.#displayedCode.lines[issue];
+            let issue = Math.max(childAst.lineStart, this.codeLines[0]?.issue);
+            const codeLine: CodeLine = this.#displayedCode.lines.find(l => l.issue === issue);
             if (Ast.isElseStatement(childAst)) {
-                childAst.cpxFactors.basic.node = cpxFactors.basic.node;
+                childAst.cpxFactors.atomic.node = cpxFactors.atomic.node;
                 issue--;
             }
-            if (!startedUncommentedLines && astNode.isFunctionOrMethodDeclaration && !codeLine.isCommented) {
-                this.increaseLineCpxFactors(astNode, codeLine);
-                startedUncommentedLines = true;
-            } else if (startedUncommentedLines) {
-                this.increaseLineCpxFactors(childAst, codeLine);
-            }
-            this.#displayedCode.lines[issue].astNodes.push(childAst);
+            this.increaseLineCpxFactors(childAst, codeLine);
+            this.#displayedCode.getLine(issue).astNodes.push(childAst);
             this.setCpxFactorsToDisplayedCode(childAst, startedUncommentedLines);
         }
     }
@@ -248,14 +282,14 @@ export class AstMethod implements Evaluate {
         this.#displayedCode.lines
             .filter(line => line.cpxFactors.total > 0)
             .forEach(line => {
-                let comment = `+${line.cpxFactors.total.toFixed(1)} Complexity index (+${line.cpxFactors.totalBasic.toFixed(1)} ${FactorCategory.BASIC}`;
+                let comment = `+${line.cpxFactors.total.toFixed(1)} Complexity index (+${line.cpxFactors.totalAtomic.toFixed(1)} ${FactorCategory.ATOMIC}`;
                 comment = line.cpxFactors.totalAggregation > 0 ? `${comment}, +${line.cpxFactors.totalAggregation} ${FactorCategory.AGGREGATION}` : comment;
                 comment = line.cpxFactors.totalNesting > 0 ? `${comment}, +${line.cpxFactors.totalNesting} nesting` : comment;
                 comment = line.cpxFactors.totalDepth > 0 ? `${comment}, +${line.cpxFactors.totalDepth} depth` : comment;
                 comment = line.cpxFactors.totalRecursion > 0 ? `${comment}, +${line.cpxFactors.totalRecursion} recursivity` : comment;
                 comment = line.cpxFactors.totalStructural > 0 ? `${comment}, +${line.cpxFactors.totalStructural} ${FactorCategory.STRUCTURAL}` : comment;
                 comment = `${comment})`;
-                this.#displayedCode.lines[line.issue - 1].text = this.#originalCode.addComment(comment, this.#originalCode.lines[line.issue - 1]);
+                this.#displayedCode.getLine(line.issue).addComment(comment, this.maxLineLength);
             });
     }
 }

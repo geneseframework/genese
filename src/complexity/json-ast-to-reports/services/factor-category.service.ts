@@ -11,7 +11,7 @@ export class FactorCategoryService {
             case SyntaxKind.NumericLiteral:
             case SyntaxKind.StringLiteral:
             case SyntaxKind.TrueKeyword:
-                return NodeFeature.BASIC;
+                return NodeFeature.ATOMIC;
             case SyntaxKind.BinaryExpression:
                 return NodeFeature.BINARY;
             case SyntaxKind.CatchClause:
@@ -26,6 +26,8 @@ export class FactorCategoryService {
             case SyntaxKind.ElementAccessExpression:
             case SyntaxKind.EndOfFileToken:
             case SyntaxKind.ExpressionStatement:
+            case SyntaxKind.FirstAssignment:
+            case SyntaxKind.FirstStatement:
             case SyntaxKind.Parameter:
             case SyntaxKind.PropertyAccessExpression:
             case SyntaxKind.VariableDeclarationList:
@@ -48,7 +50,7 @@ export class FactorCategoryService {
             case SyntaxKind.ConditionalExpression:
                 return NodeFeature.TERNARY;
             default:
-                return NodeFeature.BASIC;
+                return NodeFeature.ATOMIC;
         }
     }
 }

@@ -12,7 +12,7 @@ const options_model_1 = require("../../../core/models/options.model");
 class AstFileReportService {
     constructor(astFile) {
         this.methodReports = []; // The array of method reports
-        this.relativeRootReports = ''; // The route between the position of the current TsFile and the root of the analysis
+        this.relativeRootReports = ''; // The route between the pos of the current TsFile and the root of the analysis
         this.astFile = undefined; // The AstFile relative to this service
         this.astFile = astFile;
     }

@@ -9,7 +9,7 @@ const file_service_1 = require("../../../core/services/file.service");
  */
 class Ts {
     /**
-     * Gets the end position of a node in the AST
+     * Gets the end pos of a node in the AST
      * @param node // The node in the AST
      */
     static getEnd(node) {
@@ -41,19 +41,31 @@ class Ts {
         }
     }
     /**
-     * Gets the position of a node in the AST
-     * @param node // The node in the AST
+     * Gets the pos of a node in the AST (ie the getFullStart() which is including spaces and commented lines before the beginning of the node)
+     * @param node      // The node in the AST
      */
     static getPosition(node) {
         return node === null || node === void 0 ? void 0 : node.pos;
     }
     /**
      * Gets the typescript JsonAst of a given file
-     * @param path // The absolute path of the file
+     * @param path      // The absolute path of the file
      */
     static getSourceFile(path) {
         return ts.createSourceFile(file_service_1.getFilename(path), fs.readFileSync(path, 'utf-8'), ts.ScriptTarget.Latest);
     }
+    /**
+     * Gets the pos of a node in the AST (ie the getStart() which is not including spaces and commented lines before the beginning of the node)
+     * @param node              // The node in the AST
+     * @param sourceFile        // The sourceFile of the file containing the AST node
+     */
+    static getStart(node, sourceFile) {
+        return node.getStart(sourceFile);
+    }
+    /**
+     * Returns the source code of a given file
+     * @param path      // The path of the file
+     */
     static getTextFile(path) {
         var _a;
         return (_a = Ts.getSourceFile(path)) === null || _a === void 0 ? void 0 : _a.text;

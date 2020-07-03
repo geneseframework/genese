@@ -4,7 +4,7 @@ exports.NodeFeature = void 0;
 var NodeFeature;
 (function (NodeFeature) {
     NodeFeature["ARR"] = "arr";
-    NodeFeature["BASIC"] = "basic";
+    NodeFeature["ATOMIC"] = "atomic";
     NodeFeature["BINARY"] = "binary";
     NodeFeature["CONDITIONAL"] = "conditional";
     NodeFeature["DECLARATION"] = "declaration";

@@ -8,7 +8,7 @@ import { TsNode } from './ts-node.model';
  */
 export class TsFile implements Logg {
 
-    end: number = undefined;                                    // The position of the end of the source code : will be injected as is in the JsonAst file
+    end: number = undefined;                                    // The pos of the end of the source code : will be injected as is in the JsonAst file
     name: string = undefined;                                   // The name of the file (ie of the TsFile) : will be injected as is in the JsonAst file
     sourceFile?: ts.SourceFile = undefined;                     // The Typescript SourceFile object corresponding to the file relative to this TsFile
     text ?= '';                                                 // The source code of the TsFile : will be injected as is in the JsonAst file

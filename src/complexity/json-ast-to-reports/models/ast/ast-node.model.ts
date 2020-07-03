@@ -11,6 +11,7 @@ import { addObjects } from '../../../core/services/tools.service';
 import { AstNodeService } from '../../services/ast/ast-node.service';
 import * as chalk from 'chalk';
 import { Logg } from '../../../core/interfaces/logg.interface';
+import { CodeService } from '../../services/code.service';
 
 export class AstNode implements Evaluate, Logg {
 
@@ -21,16 +22,20 @@ export class AstNode implements Evaluate, Logg {
     #context?: AstNode = undefined;                                             // The context of the AstNode
     #cpxFactors?: CpxFactors = undefined;                                       // The complexity factors of the AstNode
     #cyclomaticCpx ?= 0;                                                        // The cyclomatic complexity of the AstNode
-    #end ?= 0;                                                                  // The position of the end of the source code of the AstNode in the source code of the AstFile
+    #end ?= 0;                                                                  // The pos of the end of the source code of the AstNode in the source code of the AstFile
     #factorCategory?: NodeFeature = undefined;                                  // The NodeFeature of the node of the AstNode
     #intrinsicDepthCpx: number = undefined;                                     // The depth of the AstNode inside its method (not including its parent's depth)
     #intrinsicNestingCpx: number = undefined;                                   // The nesting of the AstNode inside its method (not including its parent's nesting)
     #isCallback: boolean = undefined;                                           // True if the astNode is a method with a Callback, false if not
     #isRecursiveMethod: boolean = undefined;                                    // True if the astNode is a recursive method, false if not
     #kind?: SyntaxKind = undefined;                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
+    #lineEnd?: number = undefined;                                              // The issue of the line containing the character at the AstNode.end
+    #linePos?: number = undefined;                                              // The issue of the line containing the character at the AstNode.pos
+    #lineStart?: number = undefined;                                            // The issue of the line containing the character at the AstNode.start
     #name: string = undefined;                                                  // The name of the AstNode
     #parent?: AstNode;                                                          // The ast of the parent of the current node
-    #pos ?= 0;                                                                  // The position of the beginning of the source code of the AstNode in the source code of the AstFile
+    #pos ?= 0;                                                                  // The pos of the beginning of the AST node, including spaces and comments before it. (start <= start)
+    #start ?= 0;                                                                // The pos of the beginning of the AST node, without spaces and comments before it. (start >= start)
     #text: string = undefined;                                                  // The code of the AstNode
 
 
@@ -63,6 +68,11 @@ export class AstNode implements Evaluate, Logg {
 
     set astMethod(astMethod: AstMethod) {
         this.#astMethod = astMethod;
+    }
+
+
+    get atomicCpx(): number {
+        return this.cpxFactors?.totalAtomic;
     }
 
 
@@ -194,6 +204,33 @@ export class AstNode implements Evaluate, Logg {
     }
 
 
+    get lineEnd(): number {
+        if (this.#lineEnd) {
+            return this.#lineEnd;
+        }
+        this.#lineEnd = CodeService.getLineIssue(this.astFile?.code, this.end);
+        return this.#lineEnd;
+    }
+
+
+    get linePos(): number {
+        if (this.#linePos) {
+            return this.#linePos;
+        }
+        this.#linePos = CodeService.getLineIssue(this.astFile?.code, this.pos);
+        return this.#linePos;
+    }
+
+
+    get lineStart(): number {
+        if (this.#lineStart) {
+            return this.#lineStart;
+        }
+        this.#lineStart = CodeService.getLineIssue(this.astFile?.code, this.start);
+        return this.#lineStart;
+    }
+
+
     get mayDefineContext(): boolean {
         return Ast.mayDefineContext(this);
     }
@@ -224,6 +261,26 @@ export class AstNode implements Evaluate, Logg {
     }
 
 
+    get pos(): number {
+        return this.#pos;
+    }
+
+
+    set pos(pos: number) {
+        this.#pos = pos;
+    }
+
+
+    get start(): number {
+        return this.#start;
+    }
+
+
+    set start(start: number) {
+        this.#start = start;
+    }
+
+
     get recursionCpx(): number {
         return this.cpxFactors?.totalRecursion;
     }
@@ -236,16 +293,6 @@ export class AstNode implements Evaluate, Logg {
 
     get structuralCpx(): number {
         return this.cpxFactors?.totalStructural;
-    }
-
-
-    get pos(): number {
-        return this.#pos;
-    }
-
-
-    set pos(pos: number) {
-        this.#pos = pos;
     }
 
 
@@ -290,7 +337,7 @@ export class AstNode implements Evaluate, Logg {
     calculateAndSetCpxFactors(): CpxFactors {
         this.cpxFactors = new CpxFactors();
         this.setGeneralCaseCpxFactors();
-        this.setBasicCpxFactors();
+        this.setAtomicCpxFactors();
         this.setRecursionOrCallbackCpxFactors();
         this.setElseCpxFactors();
         this.setRegexCpxFactors();
@@ -312,10 +359,10 @@ export class AstNode implements Evaluate, Logg {
 
 
     /**
-     * Sets the complexity index corresponding to "basic" factor (ie basic weight for all the AST nodes)
+     * Sets the complexity index corresponding to "atomic" factor (ie atomic weight for all the AST nodes)
      */
-    private setBasicCpxFactors(): void {
-        this.cpxFactors.basic.node = this.factorCategory === NodeFeature.EMPTY ? 0 : cpxFactors.basic.node;
+    private setAtomicCpxFactors(): void {
+        this.cpxFactors.atomic.node = this.factorCategory === NodeFeature.EMPTY ? 0 : cpxFactors.atomic.node;
     }
 
 

@@ -19,7 +19,7 @@ class AstFolderReportService {
         this.foldersArray = []; // The array of subfolders reports
         this.isRootFolder = false; // True if the AstFolder relative to this service is the root folder of the analysis
         this.methodsArray = []; // The array of methods reports
-        this.relativeRootReports = ''; // The route between the position of the current TsFolder and the root of the analysis
+        this.relativeRootReports = ''; // The route between the pos of the current TsFolder and the root of the analysis
         this.astFolder = astFolder;
         this.astFolderService.astFolder = this.astFolder;
     }

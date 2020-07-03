@@ -1,5 +1,7 @@
 import { Code } from '../models/code/code.model';
 import { CodeLine } from '../models/code/code-line.model';
+import * as chalk from 'chalk';
+import { LogService } from './log.service';
 
 /**
  * Service managing Code objects
@@ -9,45 +11,65 @@ export class CodeService {
 
     /**
      * Creates a Code object from the content of a given code (as string)
-     * @param text  // The content of the code
+     * @param text      // The content of the code
+     * @param start
      */
-    static getCode(text: string): Code {
+    static getCode(text: string, start = 0): Code {
+        if (!text) {
+            return undefined;
+        }
         const code: Code = new Code();
+        code.start = start;
         code.text = text;
         const textLines: string[] = text.split('\n');
         let issue = 1;
-        let pos = 0;
         for (const textLine of textLines) {
             const line = new CodeLine();
+            line.code = code;
             line.text = textLine;
             line.issue = issue;
-            line.position = pos;
+            line.start = start;
+            line.end = start + textLine.length + 1;
             code.lines.push(line);
-            code.maxLineLength = code.maxLineLength < textLine.length ? textLine.length : code.maxLineLength;
             issue++;
-            pos = textLine ? pos + textLine.length + 1 : pos;
+            start = line.end;
         }
+        code.lines[code.lines.length - 1].end = text.length;
         return code;
     }
 
 
     /**
-     * Returns the number of the CodeLine at a given position in the code
+     * Returns the number of the CodeLine at a given pos in the code
      * @param code      // The Code where to search
-     * @param position  // The position where we search the number of its line
+     * @param position  // The pos where we search the number of its line
      */
-    getLineIssue(code: Code, position: number): number {
-        if (position < 0 || position > code.text.length) {
+    static getLineIssue(code: Code, position: number): number {
+        if (position < 0 || position > code?.end) {
             return 0;
         }
-        let issue = 0;
-        for (const line of code.lines) {
-            if (position < line?.position + line?.text.length) {
-                issue = line?.issue - 1;
-                break;
-            }
-        }
-        return issue;
+        return  code.lines.filter(l => l.start <= position && l.end > position)?.[0].issue;
     }
+
+
+
+    isEndingWithBlockComments(line: CodeLine): boolean {
+        const text = line.textWithoutSlashComments;
+        if (line.previousLine?.isEndingWithBlockComments) {
+            const splitEndBlockComments = text.split(/\*\//);
+            if (splitEndBlockComments.length === 1) {
+                return true;
+            }
+            const lastElement = splitEndBlockComments[splitEndBlockComments.length - 1];
+            return /\/\*/.test(lastElement) ?? false;
+        }
+        const splittedText = text?.split(/\/\*/);
+        if (splittedText.length === 1) {
+            return false;
+        }
+        const lastCommentedBlock = splittedText[splittedText.length - 1];
+        return !/\*\//.test(lastCommentedBlock) ?? false;
+    }
+
 
 }

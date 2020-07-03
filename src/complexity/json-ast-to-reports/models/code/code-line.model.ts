@@ -6,14 +6,45 @@ import { CpxFactors } from '../../../core/models/cpx-factor/cpx-factors.model';
 import { NestingCpx } from '../../../core/models/cpx-factor/nesting-cpx.model';
 import { DepthCpx } from '../../../core/models/cpx-factor/depth-cpx.model';
 import { addObjects } from '../../../core/services/tools.service';
+import { Code } from './code.model';
+import { CodeService } from '../../services/code.service';
 
 export class CodeLine {
 
     astNodes?: AstNode[] = [];                              // The array of AstNodes corresponding to AST nodes in this line of code
+    #code?: Code = undefined;
     cpxFactors?: CpxFactors = new CpxFactors();             // The complexity factors relative to this line (breakFlows, increments,...)
+    end ?= 0;                                               // The pos (in number of characters) of the end of the line
+    #isEndingWithBlockComments?: boolean;
     issue ?= 0;                                             // The number of the line in its Code parentFunction (method)
-    position ?= 0;                                          // The position (in number of characters) of the start of the line
+    // pos ?= 0;                                               // The relative pos (in number of characters) of the start of the line in its Code
+    start ?= 0;                                             // The absolute pos (in number of characters) of the start of the line in the SourceFile
     text ?= '';                                             // The text of the line
+
+
+
+    get code(): Code {
+        return this.#code;
+    }
+
+
+    set code(code: Code) {
+        this.#code = code;
+    }
+
+
+    get isEndingWithBlockComments(): boolean {
+        if (this.#isEndingWithBlockComments !== undefined) {
+            return this.#isEndingWithBlockComments;
+        }
+        this.#isEndingWithBlockComments = new CodeService().isEndingWithBlockComments(this);
+        return this.#isEndingWithBlockComments;
+    }
+
+
+    get hasNode(): boolean {
+        return this.textWithoutComments.trim().length > 0;
+    }
 
 
     /**
@@ -21,6 +52,43 @@ export class CodeLine {
      */
     get isCommented(): boolean {
         return this.text.trim().slice(0, 2) === `//` || this.text.trim().slice(0, 2) === `/*`;
+    }
+
+
+    get previousLine(): CodeLine {
+        return this.issue > 1 ? this.code?.lines?.[this.issue - 2] : undefined;
+    }
+
+
+    get textWithoutComments(): string {
+        let text = this.textWithoutSlashComments;
+        if (this.previousLine?.isEndingWithBlockComments) {
+            text = `/*${text}`;
+        }
+        if (this.isEndingWithBlockComments) {
+            text = `${text}*/`
+        }
+        return text.split(/\/\*.*\*\//).join('');
+    }
+
+
+    get textWithoutSlashComments(): string {
+        const splittedText = this.text?.split(/\/\//) ?? '';
+        if (splittedText.length === 1) {
+            return this.text;
+        }
+        return this.text.slice(0, splittedText[0].length - 1);
+    }
+
+
+    /**
+     * Add a comment at the end of a line of the code
+     * @param comment   // The comment to add
+     * @param maxLineLength
+     */
+    addComment(comment: string, maxLineLength: number): void {
+        const txt = `${this.text} // `;
+        this.text = `${txt.padEnd(maxLineLength + 10, '-')} ${comment}`;
     }
 
 

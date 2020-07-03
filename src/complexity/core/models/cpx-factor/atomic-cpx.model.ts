@@ -1,7 +1,7 @@
 /**
- * The Complexity Category "Basic"
+ * The Complexity Category "atomic"
  */
-export class BasicCpx {
+export class AtomicCpx {
 
     declaration ?= 0;                       // Declaration of a Class, a Function, a Method, ...
     imp ?= 0;                               // Element imported from another file

@@ -21,7 +21,7 @@ class JsonAstToReports {
         jsonAst.astFolder.evaluate();
         reports_service_1.ReportsService.generateAllReports(jsonAst);
         console.log(chalk.greenBright('REPORTS GENERATED SUCCESSFULLY'));
-        console.log('Please open the file "folder-report.html" located in "genese" folder in your browser');
+        console.log('Please open in your browser the file "folder-report.html" located in your genese reports folder.');
     }
     /**
      * Returns the content of the JsonAst file

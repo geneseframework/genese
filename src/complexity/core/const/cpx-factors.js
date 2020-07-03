@@ -9,7 +9,7 @@ complexityFactors.aggregation = {
     differentLogicDoor: 2,
     regex: 0.1 // each element in a regex
 };
-complexityFactors.basic = {
+complexityFactors.atomic = {
     node: 0.1,
 };
 complexityFactors.depth = {

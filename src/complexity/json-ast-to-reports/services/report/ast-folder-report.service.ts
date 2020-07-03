@@ -27,7 +27,7 @@ export class AstFolderReportService {
     private foldersArray: RowFolderReport[] = [];                           // The array of subfolders reports
     private isRootFolder = false;                                           // True if the AstFolder relative to this service is the root folder of the analysis
     private methodsArray: RowFileReport[] = [];                             // The array of methods reports
-    private relativeRootReports = '';                                       // The route between the position of the current TsFolder and the root of the analysis
+    private relativeRootReports = '';                                       // The route between the pos of the current TsFolder and the root of the analysis
     template: HandlebarsTemplateDelegate;                                   // The HandleBar template used to generate the report
 
 

@@ -4,7 +4,7 @@ exports.FactorCategory = void 0;
 var FactorCategory;
 (function (FactorCategory) {
     FactorCategory["AGGREGATION"] = "aggregation";
-    FactorCategory["BASIC"] = "basic";
+    FactorCategory["ATOMIC"] = "atomic";
     FactorCategory["CONTEXT"] = "context";
     FactorCategory["DEPTH"] = "depth";
     FactorCategory["NESTING"] = "nesting";

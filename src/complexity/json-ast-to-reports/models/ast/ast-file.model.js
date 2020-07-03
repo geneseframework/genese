@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astFolder, _astMethods, _astNode, _astNodes, _complexitiesByStatus, _cpxFactors, _cyclomaticCpx, _end, _name, _stats, _text;
+var _astFolder, _astMethods, _astNode, _astNodes, _code, _complexitiesByStatus, _cpxFactors, _cyclomaticCpx, _end, _name, _stats;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstFile = void 0;
 const ast_file_service_1 = require("../../services/ast/ast-file.service");
@@ -25,13 +25,13 @@ class AstFile {
         _astMethods.set(this, []); // The AstMethods included in this AstFile
         _astNode.set(this, undefined); // The AstNode corresponding to the file itself
         _astNodes.set(this, undefined); // Array of all the AstNodes which are children of this.AstNode (including itself)
+        _code.set(this, undefined);
         _complexitiesByStatus.set(this, undefined); // The file complexities spread by complexity status
         _cpxFactors.set(this, undefined); // The complexity factors of the AstFile
         _cyclomaticCpx.set(this, 0); // The complexity factors of the AstFile
-        _end.set(this, undefined); // The position of the end of the source code
+        _end.set(this, undefined); // The pos of the end of the source code
         _name.set(this, undefined); // The name of the AstFile
         _stats.set(this, undefined); // The statistics of the AstFile
-        _text.set(this, ''); // The original source code
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
@@ -62,6 +62,12 @@ class AstFile {
     }
     set astNodes(astNodes) {
         __classPrivateFieldSet(this, _astNodes, astNodes);
+    }
+    get code() {
+        return __classPrivateFieldGet(this, _code);
+    }
+    set code(code) {
+        __classPrivateFieldSet(this, _code, code);
     }
     get complexitiesByStatus() {
         return __classPrivateFieldGet(this, _complexitiesByStatus);
@@ -104,10 +110,7 @@ class AstFile {
         __classPrivateFieldSet(this, _stats, stats);
     }
     get text() {
-        return __classPrivateFieldGet(this, _text);
-    }
-    set text(text) {
-        __classPrivateFieldSet(this, _text, text);
+        return __classPrivateFieldGet(this, _code).text;
     }
     // ---------------------------------------------------------------------------------
     //                                  Other methods
@@ -143,4 +146,4 @@ class AstFile {
     }
 }
 exports.AstFile = AstFile;
-_astFolder = new WeakMap(), _astMethods = new WeakMap(), _astNode = new WeakMap(), _astNodes = new WeakMap(), _complexitiesByStatus = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _name = new WeakMap(), _stats = new WeakMap(), _text = new WeakMap();
+_astFolder = new WeakMap(), _astMethods = new WeakMap(), _astNode = new WeakMap(), _astNodes = new WeakMap(), _code = new WeakMap(), _complexitiesByStatus = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _name = new WeakMap(), _stats = new WeakMap();

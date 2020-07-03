@@ -430,6 +430,8 @@ You will find below the list of all the different kinds of AST nodes. If you wan
 | ElementAccessExpression | `a[b]` | Considered as an array by Genese Complexity. In this example, the ElementAccessExpression is a node with two children : an Identifier `a` and another Identifier `b`. |
 | EndOfFileToken | `... }` | The last element of the source code. |
 | ExpressionStatement | `a = b ? 0 : 1;`<br/> `a.filter(e => e + 1)` | Abstract node containing an expression, like a BinaryExpression or a CallExpression. This node doesn't increase complexity (empty node). |
+| FirstAssignment | `let a = b === 1` | Abstract node corresponding to the `EqualsToken` in a binary expression. It doesn't increase complexity (empty node). |
+| FirstStatement | `let a = 3;` | Abstract node declaring a variable (alias of VariableStatement). This node doesn't increase complexity (empty node). |
 | ForStatement | `for (let i = 0; i < 2; i++) { ... }`  | For loop. Increases the nesting complexity. <br/>Caution : `a.forEach(...)` is considered by TypeScript as a PropertyAccessExpression and not as a ForStatement, but Genese Complexity consider it as a classic `for` loop. |
 | ForInStatement | `for (let a of arr) { ... }` | For loop with `in` statement. Increases the nesting complexity. |
 | ForOfStatement | `for (let a of arr) { ... }` | For loop with `of` statement. Increases the nesting complexity. |

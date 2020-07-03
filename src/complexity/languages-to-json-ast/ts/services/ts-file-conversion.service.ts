@@ -29,24 +29,26 @@ export class TsFileConversionService {
         const tsNode = new TsNode();
         tsNode.node = Ts.getSourceFile(path);
         tsFile.text = Ts.getTextFile(path);
-        tsFile.tsNode = this.createTsNodeChildren(tsNode);
+        tsFile.tsNode = this.createTsNodeChildren(tsNode, Ts.getSourceFile(path));
         return tsFile;
     }
 
 
     /**
      * Returns the TsNode children of a given TsNode
-     * @param tsNode        // The TsNode parent
+     * @param tsNode            // The TsNode parent
+     * @param sourceFile        // The AST node of the file itself
      */
-    createTsNodeChildren(tsNode: TsNode): TsNode {
+    createTsNodeChildren(tsNode: TsNode, sourceFile: ts.SourceFile): TsNode {
         ts.forEachChild(tsNode.node, (childTsNode: ts.Node) => {
             const newTsNode = new TsNode();
             newTsNode.node = childTsNode;
             newTsNode.pos = Ts.getPosition(newTsNode.node);
+            newTsNode.start = Ts.getStart(newTsNode.node, sourceFile);
             newTsNode.end = Ts.getEnd(newTsNode.node);
             newTsNode.name = Ts.getName(newTsNode.node);
             newTsNode.kind = Ts.getKind(newTsNode.node);
-            tsNode.children.push(this.createTsNodeChildren(newTsNode))
+            tsNode.children.push(this.createTsNodeChildren(newTsNode, sourceFile))
         });
         return tsNode;
     }

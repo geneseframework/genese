@@ -7,23 +7,21 @@ exports.Code = void 0;
 class Code {
     constructor() {
         this.lines = []; // The lines of the code
-        this.maxLineLength = 0; // The max length of the lines of the code
-        this.text = ''; // The code himself (as string)
+        this.start = 0; // The absolute pos of the code in the SourceFile
+        this.text = ''; // The code itself (as string)
+    }
+    get end() {
+        var _a, _b;
+        return (_b = this.start + ((_a = this.text) === null || _a === void 0 ? void 0 : _a.length)) !== null && _b !== void 0 ? _b : 0;
+    }
+    getLine(issue) {
+        return this.lines.find(l => l.issue === issue);
     }
     /**
      * Sets the content of the code (as string) with its CodeLines
      */
     setTextWithLines() {
         this.text = this.lines.map(e => `${e.text}\n`).join('');
-    }
-    /**
-     * Add a comment at the end of a line of the code
-     * @param comment   // The comment to add
-     * @param line      // The CodeLine where to add the comment
-     */
-    addComment(comment, line) {
-        const txt = `${line === null || line === void 0 ? void 0 : line.text} // `;
-        return `${txt.padEnd(this.maxLineLength + 10, '-')} ${comment}`;
     }
     /**
      * Sets the nesting complexity to each CodeLine
