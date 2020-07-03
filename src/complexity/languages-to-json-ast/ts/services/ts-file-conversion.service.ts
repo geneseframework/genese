@@ -48,7 +48,6 @@ export class TsFileConversionService {
             newTsNode.end = Ts.getEnd(newTsNode.node);
             newTsNode.name = Ts.getName(newTsNode.node);
             newTsNode.kind = Ts.getKind(newTsNode.node);
-            // console.log('NODE POS & STARTTT', newTsNode.kind, newTsNode.pos, '-', newTsNode.start, '-', newTsNode.end)
             tsNode.children.push(this.createTsNodeChildren(newTsNode, sourceFile))
         });
         return tsNode;

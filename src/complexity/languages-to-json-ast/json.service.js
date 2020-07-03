@@ -76,15 +76,8 @@ class JsonService {
      */
     static convertCodeToString(text) {
         let stringified = JSON.stringify({ "text": text });
-        // console.log('STRINGGGG 1', stringified)
         stringified = stringified.slice(9, -2);
-        // console.log('STRINGGGG', stringified)
         return stringified;
-        // throw Error
-        // return text;
-        // return text.replace(/"/g, '\\"')
-        // return text.replace(/\\/g, `\\\\`)
-        //     .replace(/"/g, '\\"')
     }
     /**
      * Returns a comma at the end of a line if this line is the last one of a given object

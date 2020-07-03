@@ -55,12 +55,6 @@ export class CodeLine {
     }
 
 
-    get lengthWithoutComments(): number {
-        // console.log('WTH=OUTTTT COMMENTS', this.textWithoutComments.trim())
-        return this.textWithoutComments.trimRight().length;
-    }
-
-
     get previousLine(): CodeLine {
         return this.issue > 1 ? this.code?.lines?.[this.issue - 2] : undefined;
     }
@@ -74,10 +68,7 @@ export class CodeLine {
         if (this.isEndingWithBlockComments) {
             text = `${text}*/`
         }
-        const splittedText = text.split(/\/\*.*\*\//);
-        const zzz = splittedText.join('');
-        // console.log('WITHOUT COMMENTSSS', this.textWithoutSlashComments, text, splittedText, zzz)
-        return zzz;
+        return text.split(/\/\*.*\*\//).join('');
     }
 
 

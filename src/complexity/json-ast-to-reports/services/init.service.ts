@@ -7,8 +7,6 @@ import { AstMethod } from '../models/ast/ast-method.model';
 import { CodeService } from './code.service';
 import { AstNodeService } from './ast/ast-node.service';
 import { Ast } from './ast/ast.service';
-import * as chalk from 'chalk';
-import { AstMethodService } from './ast/ast-method.service';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
@@ -17,7 +15,7 @@ import { AstMethodService } from './ast/ast-method.service';
 export class InitService {
 
 
-    astNodeService: AstNodeService = new AstNodeService();
+    astNodeService: AstNodeService = new AstNodeService();      // The service managing AstNodes
 
 
     /**
@@ -42,6 +40,11 @@ export class InitService {
     }
 
 
+    /**
+     * Generates the children of a given AstFolder with the property "children" of the JsonAst object
+     * @param astFolderFromJsonAst      // An element of the "children" property of the JsonAst (this property is an array). The first direct ancestor of this property which is not called "children" is the astFolder property at the root of the Json object
+     * @param parentAstFolder           // The parent AstFolder
+     */
     private generateChildrenAstFolder(astFolderFromJsonAst: any, parentAstFolder: AstFolder): AstFolder {
         const newAstFolder = new AstFolder();
         newAstFolder.path = this.getPathFromJsonAstFolder(astFolderFromJsonAst);
@@ -54,6 +57,11 @@ export class InitService {
     }
 
 
+    /**
+     * Generates the AstFiles corresponding to a property "astFiles" in the JsonAst object
+     * @param astFolderFromJsonAst      // The father of the astFiles property in the JsonAst object
+     * @param astFolder                 // The AstFolder containing the astFiles
+     */
     private generateAstFiles(astFolderFromJsonAst: any, astFolder: AstFolder): AstFile[] {
         const astFiles: AstFile[] = [];
         for (const astFileFromJsonAst of astFolderFromJsonAst.astFiles) {
@@ -63,6 +71,11 @@ export class InitService {
     }
 
 
+    /**
+     * Generates the AstFile corresponding to an element of the array astFiles in the JsonAst object
+     * @param astFileFromJsonAst        // The element in the astFiles array in the JsonAst object
+     * @param astFolder                 // The astFolder containing the AstFile
+     */
     private generateAstFile(astFileFromJsonAst: any, astFolder: AstFolder): AstFile {
         if (!astFileFromJsonAst?.astNode) {
             console.warn(astFileFromJsonAst.name ? `No AstNode for this file : ${astFileFromJsonAst.name}` : `AstFile without AstNode`);
@@ -83,10 +96,15 @@ export class InitService {
     }
 
 
+    /**
+     * Generates the AstNode of a given AstFile with the astNode property in the JsonAst object
+     * @param astNodeFromJsonAst        // The astNode property in the JsonAst object
+     * @param astFile                   // The AstFile corresponding to the returned astNode
+     */
     private getFileAstNode(astNodeFromJsonAst: any, astFile: AstFile): AstNode {
         const newAstNode = new AstNode();
         newAstNode.pos = 0;
-        newAstNode.end = astNodeFromJsonAst.end; // TODO: fix
+        newAstNode.end = astNodeFromJsonAst.end;
         newAstNode.kind = SyntaxKind.SourceFile;
         newAstNode.name = astNodeFromJsonAst.name;
         newAstNode.astFile = astFile;
@@ -95,6 +113,11 @@ export class InitService {
     }
 
 
+    /**
+     * Generates the AstNodes which are the children of a given AstNode with the "children" property in the JsonAst object
+     * @param astNodesFromJsonAst       // The astNode property in the JsonAst object which have some children
+     * @param astParentNode             // The AstNode which contains the returned AstNode children
+     */
     private generateAstNodes(astNodesFromJsonAst: any[], astParentNode: AstNode): AstNode[] {
         if (!Array.isArray(astNodesFromJsonAst)) {
             return [];
@@ -107,6 +130,11 @@ export class InitService {
     }
 
 
+    /**
+     * Generates the AstNode corresponding to an astNode property in the JsonAst object
+     * @param astNodeFromJsonAst        // The astNode property in the JsonAst object
+     * @param astParentNode             // The AstNode parent of the AstNode to return
+     */
     private generateAstNode(astNodeFromJsonAst: any, astParentNode: AstNode): AstNode {
         const newAstNode = new AstNode();
         newAstNode.astFile = astParentNode.astFile;
@@ -130,6 +158,10 @@ export class InitService {
     }
 
 
+    /**
+     * Generates the AstMethod corresponding to an AstNode with kind corresponding to a FunctionDeclaration or a MethodDeclaration
+     * @param astMethodNode     // The AstNode which corresponds to a FunctionDeclaration or a MethodDeclaration
+     */
     private generateAstMethod(astMethodNode: AstNode): AstMethod {
         const astMethod = new AstMethod();
         astMethod.astNode = astMethodNode;
@@ -139,6 +171,10 @@ export class InitService {
     }
 
 
+    /**
+     * Returns the path without slash corresponding to the "path" property of the JsonAst object
+     * @param jsonAstFolder
+     */
     private getPathFromJsonAstFolder(jsonAstFolder: any): string {
         return jsonAstFolder?.path?.slice(-1) === '/' ? jsonAstFolder.path.slice(0, -1) : jsonAstFolder.path;
     }

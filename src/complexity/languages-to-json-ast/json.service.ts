@@ -83,15 +83,8 @@ export class JsonService {
      */
     private static convertCodeToString(text: string): string {
         let stringified: string = JSON.stringify({"text": text});
-        // console.log('STRINGGGG 1', stringified)
         stringified = stringified.slice(9, -2);
-        // console.log('STRINGGGG', stringified)
         return stringified;
-        // throw Error
-        // return text;
-        // return text.replace(/"/g, '\\"')
-        // return text.replace(/\\/g, `\\\\`)
-        //     .replace(/"/g, '\\"')
     }
 
 

@@ -54,10 +54,6 @@ class CodeLine {
     get isCommented() {
         return this.text.trim().slice(0, 2) === `//` || this.text.trim().slice(0, 2) === `/*`;
     }
-    get lengthWithoutComments() {
-        // console.log('WTH=OUTTTT COMMENTS', this.textWithoutComments.trim())
-        return this.textWithoutComments.trimRight().length;
-    }
     get previousLine() {
         var _a, _b;
         return this.issue > 1 ? (_b = (_a = this.code) === null || _a === void 0 ? void 0 : _a.lines) === null || _b === void 0 ? void 0 : _b[this.issue - 2] : undefined;
@@ -71,10 +67,7 @@ class CodeLine {
         if (this.isEndingWithBlockComments) {
             text = `${text}*/`;
         }
-        const splittedText = text.split(/\/\*.*\*\//);
-        const zzz = splittedText.join('');
-        // console.log('WITHOUT COMMENTSSS', this.textWithoutSlashComments, text, splittedText, zzz)
-        return zzz;
+        return text.split(/\/\*.*\*\//).join('');
     }
     get textWithoutSlashComments() {
         var _a, _b;

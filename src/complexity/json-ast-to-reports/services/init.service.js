@@ -16,7 +16,7 @@ const ast_service_1 = require("./ast/ast.service");
  */
 class InitService {
     constructor() {
-        this.astNodeService = new ast_node_service_1.AstNodeService();
+        this.astNodeService = new ast_node_service_1.AstNodeService(); // The service managing AstNodes
     }
     /**
      * Generates the AstFolder for a given folder
@@ -39,6 +39,11 @@ class InitService {
         newJsonAst.astFolder = astFolder;
         return newJsonAst;
     }
+    /**
+     * Generates the children of a given AstFolder with the property "children" of the JsonAst object
+     * @param astFolderFromJsonAst
+     * @param parentAstFolder
+     */
     generateChildrenAstFolder(astFolderFromJsonAst, parentAstFolder) {
         const newAstFolder = new ast_folder_model_1.AstFolder();
         newAstFolder.path = this.getPathFromJsonAstFolder(astFolderFromJsonAst);

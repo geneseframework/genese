@@ -24,6 +24,7 @@ const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const code_line_model_1 = require("../code/code-line.model");
 const cpx_factors_1 = require("../../../core/const/cpx-factors");
 const factor_category_enum_1 = require("../../enums/factor-category.enum");
+const log_service_1 = require("../../services/log.service");
 const options_model_1 = require("../../../core/models/options.model");
 /**
  * Element of the AstNode structure corresponding to a given method
@@ -121,7 +122,7 @@ class AstMethod {
      */
     evaluate() {
         this.createDisplayedCode();
-        // LogService.logMethod(this, true);
+        log_service_1.LogService.logMethod(this);
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
         this.cyclomaticCpx = cyclomatic_cpx_service_1.CyclomaticCpxService.calculateCyclomaticCpx(this.astNode);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);

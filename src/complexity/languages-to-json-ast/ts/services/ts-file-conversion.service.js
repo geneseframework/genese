@@ -45,7 +45,6 @@ class TsFileConversionService {
             newTsNode.end = ts_service_1.Ts.getEnd(newTsNode.node);
             newTsNode.name = ts_service_1.Ts.getName(newTsNode.node);
             newTsNode.kind = ts_service_1.Ts.getKind(newTsNode.node);
-            // console.log('NODE POS & STARTTT', newTsNode.kind, newTsNode.pos, '-', newTsNode.start, '-', newTsNode.end)
             tsNode.children.push(this.createTsNodeChildren(newTsNode, sourceFile));
         });
         return tsNode;
