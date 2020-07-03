@@ -87,6 +87,9 @@ class AstMethod {
     get displayedCode() {
         return __classPrivateFieldGet(this, _displayedCode);
     }
+    get end() {
+        return this.astNode.end;
+    }
     get maxLineLength() {
         var _a;
         if (__classPrivateFieldGet(this, _maxLineLength)) {
@@ -178,24 +181,24 @@ class AstMethod {
             displayedLine.start = line.start;
             displayedLine.text = line.text;
             displayedLine.text = this.getDisplayedLineText(displayedLine);
-            console.log('DISPLYYYY ', line.start, this.pos, JSON.stringify(displayedLine.text));
             __classPrivateFieldGet(this, _displayedCode).lines.push(displayedLine);
         }
     }
+    /**
+     * Returns the text to display for a given line. Removes characters of the first and the last lines which are not inside the AstMethod
+     * @param line      // The line to display
+     */
     getDisplayedLineText(line) {
-        var _a;
+        var _a, _b;
         let text = line.text;
-        const splittedTabs = line.text.split(`\t`);
-        console.log('GET DIPLLL splittedTabs', splittedTabs.length);
         if (line.issue === ((_a = this.codeLines[0]) === null || _a === void 0 ? void 0 : _a.issue)) {
-            for (const char of text) {
-                console.log('CHARRRR', char);
-            }
-            const inLinePos = this.start - line.start;
-            const numberOfSpaces = text.length - text.trimLeft().length;
-            const indentation = text.slice(0, numberOfSpaces);
-            text = `\n${indentation}${line.text.slice(inLinePos)}`;
-            console.log('GET DIPLLL TEXTTTT', splittedTabs.length, inLinePos, '|', text);
+            const firstCharPosition = this.start - line.start;
+            const indentation = text.slice(0, text.length - text.trimLeft().length);
+            text = `\n${indentation}${text.slice(firstCharPosition)}`;
+        }
+        if (line.issue === ((_b = this.codeLines[this.codeLines.length - 1]) === null || _b === void 0 ? void 0 : _b.issue)) {
+            const lastCharPosition = this.end - line.start;
+            text = text.slice(0, lastCharPosition);
         }
         return text;
     }
@@ -208,7 +211,6 @@ class AstMethod {
         var _a;
         for (const childAst of astNode.children) {
             let issue = Math.max(childAst.lineStart, (_a = this.codeLines[0]) === null || _a === void 0 ? void 0 : _a.issue);
-            // console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, childAst.lineStart, this.pos, chalk.redBright('ISSUE', issue))
             const codeLine = __classPrivateFieldGet(this, _displayedCode).lines.find(l => l.issue === issue);
             if (ast_service_1.Ast.isElseStatement(childAst)) {
                 childAst.cpxFactors.atomic.node = cpx_factors_1.cpxFactors.atomic.node;
@@ -244,7 +246,6 @@ class AstMethod {
             comment = line.cpxFactors.totalStructural > 0 ? `${comment}, +${line.cpxFactors.totalStructural} ${factor_category_enum_1.FactorCategory.STRUCTURAL}` : comment;
             comment = `${comment})`;
             __classPrivateFieldGet(this, _displayedCode).getLine(line.issue).addComment(comment, this.maxLineLength);
-            console.log('COMMENTSSS', __classPrivateFieldGet(this, _displayedCode).getLine(line.issue).text);
         });
     }
 }

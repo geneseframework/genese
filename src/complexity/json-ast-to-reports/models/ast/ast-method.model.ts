@@ -105,6 +105,11 @@ export class AstMethod implements Evaluate {
     }
 
 
+    get end(): number {
+        return this.astNode.end;
+    }
+
+
     get maxLineLength(): number {
         if (this.#maxLineLength) {
             return this.#maxLineLength;
@@ -213,20 +218,25 @@ export class AstMethod implements Evaluate {
             displayedLine.start = line.start;
             displayedLine.text = line.text;
             displayedLine.text = this.getDisplayedLineText(displayedLine);
-            console.log('DISPLYYYY ', line.start, this.pos, JSON.stringify(displayedLine.text))
             this.#displayedCode.lines.push(displayedLine);
         }
     }
 
 
+    /**
+     * Returns the text to display for a given line. Removes characters of the first and the last lines which are not inside the AstMethod
+     * @param line      // The line to display
+     */
     private getDisplayedLineText(line: CodeLine): string {
         let text = line.text;
         if (line.issue === this.codeLines[0]?.issue) {
-            const inLinePos = this.start - line.start;
-            const numberOfSpaces = text.length - text.trimLeft().length;
-            const indentation = text.slice(0, numberOfSpaces)
-            text = `\n${indentation}${line.text.slice(inLinePos)}`;
-            console.log('GET DIPLLL TEXTTTT', inLinePos, '|', text)
+            const firstCharPosition = this.start - line.start;
+            const indentation = text.slice(0, text.length - text.trimLeft().length)
+            text = `\n${indentation}${text.slice(firstCharPosition)}`;
+        }
+        if (line.issue === this.codeLines[this.codeLines.length - 1]?.issue) {
+            const lastCharPosition = this.end - line.start;
+            text = text.slice(0, lastCharPosition);
         }
         return text;
     }
@@ -240,7 +250,6 @@ export class AstMethod implements Evaluate {
     private setCpxFactorsToDisplayedCode(astNode: AstNode, startedUncommentedLines = false): void {
         for (const childAst of astNode.children) {
             let issue = Math.max(childAst.lineStart, this.codeLines[0]?.issue);
-            // console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, childAst.lineStart, this.pos, chalk.redBright('ISSUE', issue))
             const codeLine: CodeLine = this.#displayedCode.lines.find(l => l.issue === issue);
             if (Ast.isElseStatement(childAst)) {
                 childAst.cpxFactors.atomic.node = cpxFactors.atomic.node;
@@ -281,7 +290,6 @@ export class AstMethod implements Evaluate {
                 comment = line.cpxFactors.totalStructural > 0 ? `${comment}, +${line.cpxFactors.totalStructural} ${FactorCategory.STRUCTURAL}` : comment;
                 comment = `${comment})`;
                 this.#displayedCode.getLine(line.issue).addComment(comment, this.maxLineLength);
-                console.log('COMMENTSSS', this.#displayedCode.getLine(line.issue).text)
             });
     }
 }

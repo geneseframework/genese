@@ -122,8 +122,6 @@ class InitService {
         const astMethod = new ast_method_model_1.AstMethod();
         astMethod.astNode = astMethodNode;
         astMethod.astNode.text = this.astNodeService.getCode(astMethodNode);
-        console.log('ASTMETHODDD linepos', astMethodNode.linePos, astMethodNode.pos);
-        // astMethod.codeLines = AstMethodService.getCodeLines(astMethodNode);
         astMethod.codeLines = (_c = (_b = (_a = astMethodNode.astFile) === null || _a === void 0 ? void 0 : _a.code) === null || _b === void 0 ? void 0 : _b.lines) === null || _c === void 0 ? void 0 : _c.slice(astMethodNode.linePos - 1, astMethodNode.lineEnd);
         return astMethod;
     }

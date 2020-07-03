@@ -6,11 +6,11 @@
 		"astFiles": [
 			{
 				"name": "debug.mock.ts",
-				"text": "\n\n\nexport class DebugMock  {\n\n    opened;\n    setVersionSelected; ngOnInit() {\n        // ---\n        let a = 3;\n        setTimeout(() => this.opened = true);\n        this.setVersionSelected();\n    }\n}\n",
+				"text": "\n\n\nexport class DebugMock  {\n\n    opened;\n    setVersionSelected;\n\n    /**\n     * Indentation\n     */\n    ngOnInit() {\n        // ---\n        let a = 3;\n        setTimeout(() => this.opened = true);\n        this.setVersionSelected();\n    } test() {\n\n    }\n}\n",
 				"astNode": {
 					"children": [
 						{
-							"end": 201,
+							"end": 257,
 							"kind": "ClassDeclaration",
 							"name": "DebugMock",
 							"pos": 0,
@@ -68,59 +68,59 @@
 									]
 								},
 								{
-									"end": 199,
+									"end": 239,
 									"kind": "MethodDeclaration",
 									"name": "ngOnInit",
 									"pos": 65,
-									"start": 66,
+									"start": 106,
 									"children": [
 										{
-											"end": 74,
+											"end": 114,
 											"kind": "Identifier",
 											"name": "ngOnInit",
 											"pos": 65,
-											"start": 66,
+											"start": 106,
 											"children": [
 											]
 										},
 										{
-											"end": 199,
+											"end": 239,
 											"kind": "Block",
-											"pos": 76,
-											"start": 77,
+											"pos": 116,
+											"start": 117,
 											"children": [
 												{
-													"end": 112,
+													"end": 152,
 													"kind": "FirstStatement",
-													"pos": 78,
-													"start": 102,
+													"pos": 118,
+													"start": 142,
 													"children": [
 														{
-															"end": 111,
+															"end": 151,
 															"kind": "VariableDeclarationList",
-															"pos": 78,
-															"start": 102,
+															"pos": 118,
+															"start": 142,
 															"children": [
 																{
-																	"end": 111,
+																	"end": 151,
 																	"kind": "VariableDeclaration",
-																	"pos": 105,
-																	"start": 106,
+																	"pos": 145,
+																	"start": 146,
 																	"children": [
 																		{
-																			"end": 107,
+																			"end": 147,
 																			"kind": "Identifier",
 																			"name": "a",
-																			"pos": 105,
-																			"start": 106,
+																			"pos": 145,
+																			"start": 146,
 																			"children": [
 																			]
 																		},
 																		{
-																			"end": 111,
+																			"end": 151,
 																			"kind": "FirstLiteralToken",
-																			"pos": 109,
-																			"start": 110,
+																			"pos": 149,
+																			"start": 150,
 																			"children": [
 																			]
 																		}
@@ -131,84 +131,84 @@
 													]
 												},
 												{
-													"end": 158,
+													"end": 198,
 													"kind": "ExpressionStatement",
-													"pos": 112,
-													"start": 121,
+													"pos": 152,
+													"start": 161,
 													"children": [
 														{
-															"end": 157,
+															"end": 197,
 															"kind": "CallExpression",
-															"pos": 112,
-															"start": 121,
+															"pos": 152,
+															"start": 161,
 															"children": [
 																{
-																	"end": 131,
+																	"end": 171,
 																	"kind": "Identifier",
 																	"name": "setTimeout",
-																	"pos": 112,
-																	"start": 121,
+																	"pos": 152,
+																	"start": 161,
 																	"children": [
 																	]
 																},
 																{
-																	"end": 156,
+																	"end": 196,
 																	"kind": "ArrowFunction",
-																	"pos": 132,
-																	"start": 132,
+																	"pos": 172,
+																	"start": 172,
 																	"children": [
 																		{
-																			"end": 137,
+																			"end": 177,
 																			"kind": "EqualsGreaterThanToken",
-																			"pos": 134,
-																			"start": 135,
+																			"pos": 174,
+																			"start": 175,
 																			"children": [
 																			]
 																		},
 																		{
-																			"end": 156,
+																			"end": 196,
 																			"kind": "BinaryExpression",
-																			"pos": 137,
-																			"start": 138,
+																			"pos": 177,
+																			"start": 178,
 																			"children": [
 																				{
-																					"end": 149,
+																					"end": 189,
 																					"kind": "PropertyAccessExpression",
-																					"pos": 137,
-																					"start": 138,
+																					"pos": 177,
+																					"start": 178,
 																					"children": [
 																						{
-																							"end": 142,
+																							"end": 182,
 																							"kind": "ThisKeyword",
-																							"pos": 137,
-																							"start": 138,
+																							"pos": 177,
+																							"start": 178,
 																							"children": [
 																							]
 																						},
 																						{
-																							"end": 149,
+																							"end": 189,
 																							"kind": "Identifier",
 																							"name": "opened",
-																							"pos": 143,
-																							"start": 143,
+																							"pos": 183,
+																							"start": 183,
 																							"children": [
 																							]
 																						}
 																					]
 																				},
 																				{
-																					"end": 151,
+																					"end": 191,
 																					"kind": "FirstAssignment",
-																					"pos": 149,
-																					"start": 150,
+																					"pos": 189,
+																					"start": 190,
 																					"children": [
 																					]
 																				},
 																				{
-																					"end": 156,
+																					"end": 196,
 																					"kind": "TrueKeyword",
-																					"pos": 151,
-																					"start": 152,
+																					"pos": 191,
+																					"start": 192,
 																					"children": [
 																					]
 																				}
@@ -221,37 +221,37 @@
 													]
 												},
 												{
-													"end": 193,
+													"end": 233,
 													"kind": "ExpressionStatement",
-													"pos": 158,
-													"start": 167,
+													"pos": 198,
+													"start": 207,
 													"children": [
 														{
-															"end": 192,
+															"end": 232,
 															"kind": "CallExpression",
-															"pos": 158,
-															"start": 167,
+															"pos": 198,
+															"start": 207,
 															"children": [
 																{
-																	"end": 190,
+																	"end": 230,
 																	"kind": "PropertyAccessExpression",
-																	"pos": 158,
-																	"start": 167,
+																	"pos": 198,
+																	"start": 207,
 																	"children": [
 																		{
-																			"end": 171,
+																			"end": 211,
 																			"kind": "ThisKeyword",
-																			"pos": 158,
-																			"start": 167,
+																			"pos": 198,
+																			"start": 207,
 																			"children": [
 																			]
 																		},
 																		{
-																			"end": 190,
+																			"end": 230,
 																			"kind": "Identifier",
 																			"name": "setVersionSelected",
-																			"pos": 172,
-																			"start": 172,
+																			"pos": 212,
+																			"start": 212,
 																			"children": [
 																			]
 																		}
@@ -264,14 +264,40 @@
 											]
 										}
 									]
+								},
+								{
+									"end": 255,
+									"kind": "MethodDeclaration",
+									"name": "test",
+									"pos": 239,
+									"start": 240,
+									"children": [
+										{
+											"end": 244,
+											"kind": "Identifier",
+											"name": "test",
+											"pos": 239,
+											"start": 240,
+											"children": [
+											]
+										},
+										{
+											"end": 255,
+											"kind": "Block",
+											"pos": 246,
+											"start": 247,
+											"children": [
+											]
+										}
+									]
 								}
 							]
 						},
 						{
-							"end": 202,
+							"end": 258,
 							"kind": "EndOfFileToken",
-							"pos": 201,
-							"start": 202,
+							"pos": 257,
+							"start": 258,
 							"children": [
 							]
 						}
