@@ -68,6 +68,10 @@ class AstNode {
     set astMethod(astMethod) {
         __classPrivateFieldSet(this, _astMethod, astMethod);
     }
+    get basicCpx() {
+        var _a;
+        return (_a = this.cpxFactors) === null || _a === void 0 ? void 0 : _a.totalBasic;
+    }
     get children() {
         return __classPrivateFieldGet(this, _children);
     }

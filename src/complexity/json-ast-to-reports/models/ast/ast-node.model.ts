@@ -71,6 +71,11 @@ export class AstNode implements Evaluate, Logg {
     }
 
 
+    get basicCpx(): number {
+        return this.cpxFactors?.totalBasic;
+    }
+
+
     get children(): AstNode[] {
         return this.#children;
     }

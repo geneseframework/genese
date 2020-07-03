@@ -26,6 +26,7 @@ class FactorCategoryService {
             case syntax_kind_enum_1.SyntaxKind.ElementAccessExpression:
             case syntax_kind_enum_1.SyntaxKind.EndOfFileToken:
             case syntax_kind_enum_1.SyntaxKind.ExpressionStatement:
+            case syntax_kind_enum_1.SyntaxKind.FirstAssignment:
             case syntax_kind_enum_1.SyntaxKind.Parameter:
             case syntax_kind_enum_1.SyntaxKind.PropertyAccessExpression:
             case syntax_kind_enum_1.SyntaxKind.VariableDeclarationList:

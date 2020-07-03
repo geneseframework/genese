@@ -26,6 +26,7 @@ export class FactorCategoryService {
             case SyntaxKind.ElementAccessExpression:
             case SyntaxKind.EndOfFileToken:
             case SyntaxKind.ExpressionStatement:
+            case SyntaxKind.FirstAssignment:
             case SyntaxKind.Parameter:
             case SyntaxKind.PropertyAccessExpression:
             case SyntaxKind.VariableDeclarationList:

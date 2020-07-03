@@ -54,6 +54,7 @@ class LogService {
         let logs = [];
         logs.push(indent);
         logs.push(chalk[color](astNode.kind));
+        logs = logs.concat(LogService.addLog('basic', astNode.basicCpx));
         logs = logs.concat(LogService.addLog('structural', astNode.structuralCpx));
         logs = logs.concat(LogService.addLog('nesting', astNode.nestingCpx));
         logs = logs.concat(LogService.addLog('depth', astNode.depthCpx));
@@ -63,7 +64,7 @@ class LogService {
         logs.push(chalk.blueBright((_c = astNode.context) === null || _c === void 0 ? void 0 : _c.name));
         logs.push('parent :');
         logs.push(chalk.greenBright((_d = astNode.parent) === null || _d === void 0 ? void 0 : _d.kind));
-        // console.log(...logs)
+        console.log(...logs);
     }
     static logCodeLines(codeLines = [], methodAstNode) {
         for (const line of codeLines) {
@@ -71,12 +72,10 @@ class LogService {
         }
     }
     static logCodeLine(line, methodAstNode) {
-        console.log();
         console.log('LINE ', chalk.greenBright(line.issue), line.start, '-', line.end, line.isEndingWithBlockComments, line.text);
         console.log(...this.logCodeLineNode(line, methodAstNode, methodAstNode.pos));
     }
     static logCodeLineNode(line, astNode, methodPosition, logs = []) {
-        // console.log('ASTNDDDD', astNode.kind, astNode.pos, '-', astNode.start)
         if (this.isAstNodeInCodeLine(astNode.start, line)) {
             logs.push(chalk.blueBright(astNode.kind));
             logs.push(astNode.start.toString());
