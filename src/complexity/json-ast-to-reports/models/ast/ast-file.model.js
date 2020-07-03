@@ -29,7 +29,7 @@ class AstFile {
         _complexitiesByStatus.set(this, undefined); // The file complexities spread by complexity status
         _cpxFactors.set(this, undefined); // The complexity factors of the AstFile
         _cyclomaticCpx.set(this, 0); // The complexity factors of the AstFile
-        _end.set(this, undefined); // The position of the end of the source code
+        _end.set(this, undefined); // The pos of the end of the source code
         _name.set(this, undefined); // The name of the AstFile
         _stats.set(this, undefined); // The statistics of the AstFile
     }

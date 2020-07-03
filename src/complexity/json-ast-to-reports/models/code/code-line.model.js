@@ -25,11 +25,11 @@ class CodeLine {
         this.astNodes = []; // The array of AstNodes corresponding to AST nodes in this line of code
         _code.set(this, undefined);
         this.cpxFactors = new cpx_factors_model_1.CpxFactors(); // The complexity factors relative to this line (breakFlows, increments,...)
-        this.end = 0; // The position (in number of characters) of the end of the line
+        this.end = 0; // The pos (in number of characters) of the end of the line
         _isEndingWithBlockComments.set(this, void 0);
         this.issue = 0; // The number of the line in its Code parentFunction (method)
-        // pos ?= 0;                                               // The relative position (in number of characters) of the start of the line in its Code
-        this.start = 0; // The absolute position (in number of characters) of the start of the line in the SourceFile
+        // pos ?= 0;                                               // The relative pos (in number of characters) of the start of the line in its Code
+        this.start = 0; // The absolute pos (in number of characters) of the start of the line in the SourceFile
         this.text = ''; // The text of the line
     }
     get code() {

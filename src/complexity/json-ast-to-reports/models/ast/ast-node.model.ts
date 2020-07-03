@@ -22,7 +22,7 @@ export class AstNode implements Evaluate, Logg {
     #context?: AstNode = undefined;                                             // The context of the AstNode
     #cpxFactors?: CpxFactors = undefined;                                       // The complexity factors of the AstNode
     #cyclomaticCpx ?= 0;                                                        // The cyclomatic complexity of the AstNode
-    #end ?= 0;                                                                  // The position of the end of the source code of the AstNode in the source code of the AstFile
+    #end ?= 0;                                                                  // The pos of the end of the source code of the AstNode in the source code of the AstFile
     #factorCategory?: NodeFeature = undefined;                                  // The NodeFeature of the node of the AstNode
     #intrinsicDepthCpx: number = undefined;                                     // The depth of the AstNode inside its method (not including its parent's depth)
     #intrinsicNestingCpx: number = undefined;                                   // The nesting of the AstNode inside its method (not including its parent's nesting)
@@ -34,8 +34,8 @@ export class AstNode implements Evaluate, Logg {
     #lineStart?: number = undefined;
     #name: string = undefined;                                                  // The name of the AstNode
     #parent?: AstNode;                                                          // The ast of the parent of the current node
-    #pos ?= 0;                                                                  // The position of the beginning of the AST node, including spaces and comments before it. (start <= start)
-    #start ?= 0;                                                                // The position of the beginning of the AST node, without spaces and comments before it. (start >= start)
+    #pos ?= 0;                                                                  // The pos of the beginning of the AST node, including spaces and comments before it. (start <= start)
+    #start ?= 0;                                                                // The pos of the beginning of the AST node, without spaces and comments before it. (start >= start)
     #text: string = undefined;                                                  // The code of the AstNode
 
 

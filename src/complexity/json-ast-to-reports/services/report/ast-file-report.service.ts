@@ -12,7 +12,7 @@ import { Options } from '../../../core/models/options.model';
 export class AstFileReportService {
 
     private methodReports: MethodReport[] = [];     // The array of method reports
-    private relativeRootReports = '';               // The route between the position of the current TsFile and the root of the analysis
+    private relativeRootReports = '';               // The route between the pos of the current TsFile and the root of the analysis
     template: HandlebarsTemplateDelegate;           // The HandleBar template used to generate the report
     astFile: AstFile = undefined;                   // The AstFile relative to this service
 

@@ -33,7 +33,7 @@ class AstNode {
         _context.set(this, undefined); // The context of the AstNode
         _cpxFactors.set(this, undefined); // The complexity factors of the AstNode
         _cyclomaticCpx.set(this, 0); // The cyclomatic complexity of the AstNode
-        _end.set(this, 0); // The position of the end of the source code of the AstNode in the source code of the AstFile
+        _end.set(this, 0); // The pos of the end of the source code of the AstNode in the source code of the AstFile
         _factorCategory.set(this, undefined); // The NodeFeature of the node of the AstNode
         _intrinsicDepthCpx.set(this, undefined); // The depth of the AstNode inside its method (not including its parent's depth)
         _intrinsicNestingCpx.set(this, undefined); // The nesting of the AstNode inside its method (not including its parent's nesting)
@@ -45,8 +45,8 @@ class AstNode {
         _lineStart.set(this, undefined);
         _name.set(this, undefined); // The name of the AstNode
         _parent.set(this, void 0); // The ast of the parent of the current node
-        _pos.set(this, 0); // The position of the beginning of the AST node, including spaces and comments before it. (start <= start)
-        _start.set(this, 0); // The position of the beginning of the AST node, without spaces and comments before it. (start >= start)
+        _pos.set(this, 0); // The pos of the beginning of the AST node, including spaces and comments before it. (start <= start)
+        _start.set(this, 0); // The pos of the beginning of the AST node, without spaces and comments before it. (start >= start)
         _text.set(this, undefined); // The code of the AstNode
     }
     // ---------------------------------------------------------------------------------

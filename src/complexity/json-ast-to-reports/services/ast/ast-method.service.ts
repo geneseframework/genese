@@ -2,6 +2,8 @@ import { AstMethod } from '../../models/ast/ast-method.model';
 import { ComplexitiesByStatus } from '../../interfaces/complexities-by-status.interface';
 import { ComplexityType } from '../../enums/complexity-type.enum';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
+import { AstNode } from '../../models/ast/ast-node.model';
+import { CodeLine } from '../../models/code/code-line.model';
 
 export class AstMethodService {
 
@@ -41,6 +43,17 @@ export class AstMethodService {
                 break;
         }
         return status;
+    }
+
+
+    static getCodeLines(astMethodNode: AstNode): CodeLine[] {
+        if (!astMethodNode?.astFile?.code?.lines?.length || astMethodNode.astFile.code.lines.length < 2) {
+            return [];
+        }
+        let firstLine: CodeLine = astMethodNode.astFile.code.lines.slice(astMethodNode.linePos - 1)[0];
+        console.log('GET CODE LINNN', astMethodNode.kind, astMethodNode.pos, firstLine, '|');
+        let codeLines = astMethodNode.astFile.code.lines.slice(astMethodNode.linePos - 1, astMethodNode.lineEnd);
+        return codeLines;
     }
 
 }

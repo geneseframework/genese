@@ -40,9 +40,9 @@ export class CodeService {
 
 
     /**
-     * Returns the number of the CodeLine at a given position in the code
+     * Returns the number of the CodeLine at a given pos in the code
      * @param code      // The Code where to search
-     * @param position  // The position where we search the number of its line
+     * @param position  // The pos where we search the number of its line
      */
     static getLineIssue(code: Code, position: number): number {
         if (position < 0 || position > code?.end) {

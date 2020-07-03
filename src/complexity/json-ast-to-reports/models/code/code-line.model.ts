@@ -14,11 +14,11 @@ export class CodeLine {
     astNodes?: AstNode[] = [];                              // The array of AstNodes corresponding to AST nodes in this line of code
     #code?: Code = undefined;
     cpxFactors?: CpxFactors = new CpxFactors();             // The complexity factors relative to this line (breakFlows, increments,...)
-    end ?= 0;                                               // The position (in number of characters) of the end of the line
+    end ?= 0;                                               // The pos (in number of characters) of the end of the line
     #isEndingWithBlockComments?: boolean;
     issue ?= 0;                                             // The number of the line in its Code parentFunction (method)
-    // pos ?= 0;                                               // The relative position (in number of characters) of the start of the line in its Code
-    start ?= 0;                                             // The absolute position (in number of characters) of the start of the line in the SourceFile
+    // pos ?= 0;                                               // The relative pos (in number of characters) of the start of the line in its Code
+    start ?= 0;                                             // The absolute pos (in number of characters) of the start of the line in the SourceFile
     text ?= '';                                             // The text of the line
 
 

@@ -123,8 +123,13 @@ export class AstMethod implements Evaluate {
     }
 
 
-    get position() {
+    get pos() {
         return this.astNode?.pos;
+    }
+
+
+    get start() {
+        return this.astNode?.start;
     }
 
 
@@ -140,7 +145,7 @@ export class AstMethod implements Evaluate {
      */
     evaluate(): void {
         this.createDisplayedCode();
-        LogService.logMethod(this, true);
+        // LogService.logMethod(this, true);
         this.cognitiveStatus = this.getComplexityStatus(ComplexityType.COGNITIVE);
         this.cyclomaticCpx = CS.calculateCyclomaticCpx(this.astNode);
         this.cyclomaticStatus = this.getComplexityStatus(ComplexityType.CYCLOMATIC);
@@ -204,11 +209,26 @@ export class AstMethod implements Evaluate {
         for (const line of this.codeLines) {
             const displayedLine = new CodeLine();
             displayedLine.issue = line.issue;
-            displayedLine.text = line.text;
             displayedLine.end = line.end;
             displayedLine.start = line.start;
+            displayedLine.text = line.text;
+            displayedLine.text = this.getDisplayedLineText(displayedLine);
+            console.log('DISPLYYYY ', line.start, this.pos, JSON.stringify(displayedLine.text))
             this.#displayedCode.lines.push(displayedLine);
         }
+    }
+
+
+    private getDisplayedLineText(line: CodeLine): string {
+        let text = line.text;
+        if (line.issue === this.codeLines[0]?.issue) {
+            const inLinePos = this.start - line.start;
+            const numberOfSpaces = text.length - text.trimLeft().length;
+            const indentation = text.slice(0, numberOfSpaces)
+            text = `\n${indentation}${line.text.slice(inLinePos)}`;
+            console.log('GET DIPLLL TEXTTTT', inLinePos, '|', text)
+        }
+        return text;
     }
 
 
@@ -220,13 +240,13 @@ export class AstMethod implements Evaluate {
     private setCpxFactorsToDisplayedCode(astNode: AstNode, startedUncommentedLines = false): void {
         for (const childAst of astNode.children) {
             let issue = Math.max(childAst.lineStart, this.codeLines[0]?.issue);
-            // console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, childAst.lineStart, this.position, chalk.redBright('ISSUE', issue))
+            // console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, childAst.lineStart, this.pos, chalk.redBright('ISSUE', issue))
             const codeLine: CodeLine = this.#displayedCode.lines.find(l => l.issue === issue);
             if (Ast.isElseStatement(childAst)) {
                 childAst.cpxFactors.atomic.node = cpxFactors.atomic.node;
                 issue--;
             }
-                this.increaseLineCpxFactors(childAst, codeLine);
+            this.increaseLineCpxFactors(childAst, codeLine);
             this.#displayedCode.getLine(issue).astNodes.push(childAst);
             this.setCpxFactorsToDisplayedCode(childAst, startedUncommentedLines);
         }
@@ -261,6 +281,7 @@ export class AstMethod implements Evaluate {
                 comment = line.cpxFactors.totalStructural > 0 ? `${comment}, +${line.cpxFactors.totalStructural} ${FactorCategory.STRUCTURAL}` : comment;
                 comment = `${comment})`;
                 this.#displayedCode.getLine(line.issue).addComment(comment, this.maxLineLength);
+                console.log('COMMENTSSS', this.#displayedCode.getLine(line.issue).text)
             });
     }
 }

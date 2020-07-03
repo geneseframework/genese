@@ -9,7 +9,7 @@ export class Ts {
 
 
     /**
-     * Gets the end position of a node in the AST
+     * Gets the end pos of a node in the AST
      * @param node // The node in the AST
      */
     static getEnd(node: ts.Node): number {
@@ -46,7 +46,7 @@ export class Ts {
 
 
     /**
-     * Gets the position of a node in the AST (ie the getFullStart() which is including spaces and commented lines before the beginning of the node)
+     * Gets the pos of a node in the AST (ie the getFullStart() which is including spaces and commented lines before the beginning of the node)
      * @param node      // The node in the AST
      */
     static getPosition(node: ts.Node): number {
@@ -64,7 +64,7 @@ export class Ts {
 
 
     /**
-     * Gets the position of a node in the AST (ie the getStart() which is not including spaces and commented lines before the beginning of the node)
+     * Gets the pos of a node in the AST (ie the getStart() which is not including spaces and commented lines before the beginning of the node)
      * @param node              // The node in the AST
      * @param sourceFile        // The sourceFile of the file containing the AST node
      */

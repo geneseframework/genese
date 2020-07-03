@@ -8,6 +8,7 @@ import { CodeService } from './code.service';
 import { AstNodeService } from './ast/ast-node.service';
 import { Ast } from './ast/ast.service';
 import * as chalk from 'chalk';
+import { AstMethodService } from './ast/ast-method.service';
 
 /**
  * - TreeFolders generation from Abstract Syntax TreeNode of a folder
@@ -133,7 +134,9 @@ export class InitService {
         const astMethod = new AstMethod();
         astMethod.astNode = astMethodNode;
         astMethod.astNode.text = this.astNodeService.getCode(astMethodNode);
-        astMethod.codeLines = astMethodNode.astFile?.code?.lines?.slice(astMethodNode.linePos, astMethodNode.lineEnd);
+        console.log('ASTMETHODDD linepos', astMethodNode.linePos, astMethodNode.pos)
+        // astMethod.codeLines = AstMethodService.getCodeLines(astMethodNode);
+        astMethod.codeLines = astMethodNode.astFile?.code?.lines?.slice(astMethodNode.linePos - 1, astMethodNode.lineEnd);
         return astMethod;
     }
 

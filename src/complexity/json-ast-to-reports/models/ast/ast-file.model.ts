@@ -21,7 +21,7 @@ export class AstFile implements Evaluate, Logg {
     #complexitiesByStatus?: ComplexitiesByStatus = undefined;   // The file complexities spread by complexity status
     #cpxFactors?: CpxFactors = undefined;                       // The complexity factors of the AstFile
     #cyclomaticCpx ?= 0;                                        // The complexity factors of the AstFile
-    #end: number = undefined;                                   // The position of the end of the source code
+    #end: number = undefined;                                   // The pos of the end of the source code
     #name: string = undefined;                                  // The name of the AstFile
     #stats?: Stats = undefined;                                 // The statistics of the AstFile
 

@@ -2,9 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DebugMock = void 0;
 class DebugMock {
-    /**
-     * Initialization
-     */
     ngOnInit() {
         // ---
         let a = 3;

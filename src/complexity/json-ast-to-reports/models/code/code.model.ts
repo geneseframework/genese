@@ -6,7 +6,7 @@ import { CodeLine } from './code-line.model';
 export class Code {
 
     lines?: CodeLine[] = [];            // The lines of the code
-    start ?= 0;                         // The absolute position of the code in the SourceFile
+    start ?= 0;                         // The absolute pos of the code in the SourceFile
     text ?= '';                         // The code itself (as string)
 
 

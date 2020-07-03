@@ -4,13 +4,7 @@
 export class DebugMock  {
 
     opened;
-    setVersionSelected;
-
-
-    /**
-     * Initialization
-     */
-    ngOnInit() {
+    setVersionSelected; ngOnInit() {
         // ---
         let a = 3;
         setTimeout(() => this.opened = true);

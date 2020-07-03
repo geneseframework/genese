@@ -24,7 +24,6 @@ const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const code_line_model_1 = require("../code/code-line.model");
 const cpx_factors_1 = require("../../../core/const/cpx-factors");
 const factor_category_enum_1 = require("../../enums/factor-category.enum");
-const log_service_1 = require("../../services/log.service");
 const options_model_1 = require("../../../core/models/options.model");
 /**
  * Element of the AstNode structure corresponding to a given method
@@ -103,9 +102,13 @@ class AstMethod {
         __classPrivateFieldSet(this, _name, __classPrivateFieldGet(this, _astNode).name);
         return __classPrivateFieldGet(this, _name);
     }
-    get position() {
+    get pos() {
         var _a;
         return (_a = this.astNode) === null || _a === void 0 ? void 0 : _a.pos;
+    }
+    get start() {
+        var _a;
+        return (_a = this.astNode) === null || _a === void 0 ? void 0 : _a.start;
     }
     // ---------------------------------------------------------------------------------
     //                                  Other methods
@@ -115,7 +118,7 @@ class AstMethod {
      */
     evaluate() {
         this.createDisplayedCode();
-        log_service_1.LogService.logMethod(this, true);
+        // LogService.logMethod(this, true);
         this.cognitiveStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.COGNITIVE);
         this.cyclomaticCpx = cyclomatic_cpx_service_1.CyclomaticCpxService.calculateCyclomaticCpx(this.astNode);
         this.cyclomaticStatus = this.getComplexityStatus(complexity_type_enum_1.ComplexityType.CYCLOMATIC);
@@ -171,11 +174,30 @@ class AstMethod {
         for (const line of this.codeLines) {
             const displayedLine = new code_line_model_1.CodeLine();
             displayedLine.issue = line.issue;
-            displayedLine.text = line.text;
             displayedLine.end = line.end;
             displayedLine.start = line.start;
+            displayedLine.text = line.text;
+            displayedLine.text = this.getDisplayedLineText(displayedLine);
+            console.log('DISPLYYYY ', line.start, this.pos, JSON.stringify(displayedLine.text));
             __classPrivateFieldGet(this, _displayedCode).lines.push(displayedLine);
         }
+    }
+    getDisplayedLineText(line) {
+        var _a;
+        let text = line.text;
+        const splittedTabs = line.text.split(`\t`);
+        console.log('GET DIPLLL splittedTabs', splittedTabs.length);
+        if (line.issue === ((_a = this.codeLines[0]) === null || _a === void 0 ? void 0 : _a.issue)) {
+            for (const char of text) {
+                console.log('CHARRRR', char);
+            }
+            const inLinePos = this.start - line.start;
+            const numberOfSpaces = text.length - text.trimLeft().length;
+            const indentation = text.slice(0, numberOfSpaces);
+            text = `\n${indentation}${line.text.slice(inLinePos)}`;
+            console.log('GET DIPLLL TEXTTTT', splittedTabs.length, inLinePos, '|', text);
+        }
+        return text;
     }
     /**
      * Calculates the complexity factors of each CodeLine
@@ -186,7 +208,7 @@ class AstMethod {
         var _a;
         for (const childAst of astNode.children) {
             let issue = Math.max(childAst.lineStart, (_a = this.codeLines[0]) === null || _a === void 0 ? void 0 : _a.issue);
-            // console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, childAst.lineStart, this.position, chalk.redBright('ISSUE', issue))
+            // console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, childAst.lineStart, this.pos, chalk.redBright('ISSUE', issue))
             const codeLine = __classPrivateFieldGet(this, _displayedCode).lines.find(l => l.issue === issue);
             if (ast_service_1.Ast.isElseStatement(childAst)) {
                 childAst.cpxFactors.atomic.node = cpx_factors_1.cpxFactors.atomic.node;
@@ -222,6 +244,7 @@ class AstMethod {
             comment = line.cpxFactors.totalStructural > 0 ? `${comment}, +${line.cpxFactors.totalStructural} ${factor_category_enum_1.FactorCategory.STRUCTURAL}` : comment;
             comment = `${comment})`;
             __classPrivateFieldGet(this, _displayedCode).getLine(line.issue).addComment(comment, this.maxLineLength);
+            console.log('COMMENTSSS', __classPrivateFieldGet(this, _displayedCode).getLine(line.issue).text);
         });
     }
 }
