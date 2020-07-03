@@ -3,7 +3,7 @@ import { addObjects, capitalize } from '../../services/tools.service';
 import { Addition } from '../../../json-ast-to-reports/interfaces/addition.interface';
 import { AggregationCpx } from './aggregation-cpx.model';
 import { NestingCpx } from './nesting-cpx.model';
-import { BasicCpx } from './basic-cpx.model';
+import { AtomicCpx } from './atomic-cpx.model';
 import { StructuralCpx } from './structural-cpx.model';
 import { DepthCpx } from './depth-cpx.model';
 import { ContextCpx } from './context-cpx.model';
@@ -15,7 +15,7 @@ import { RecursionCpx } from './recursion-cpx.model';
 export class CpxFactors implements Addition<CpxFactors>{
 
     aggregation?: AggregationCpx = new AggregationCpx();        // Aggregation Complexity
-    basic?: BasicCpx = new BasicCpx();                          // Basic Complexity
+    atomic?: AtomicCpx = new AtomicCpx();                       // Atomic Complexity
     context?: ContextCpx = new ContextCpx();                    // Context Complexity
     depth?: DepthCpx = new DepthCpx();                          // Depth Complexity
     nesting?: NestingCpx = new NestingCpx();                    // Nesting Complexity
@@ -46,8 +46,8 @@ export class CpxFactors implements Addition<CpxFactors>{
     }
 
 
-    get totalBasic(): number {
-        return this.totalByFactorCategory(FactorCategory.BASIC)
+    get totalAtomic(): number {
+        return this.totalByFactorCategory(FactorCategory.ATOMIC)
     }
 
 

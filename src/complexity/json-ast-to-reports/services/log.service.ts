@@ -64,7 +64,7 @@ export class LogService {
         let logs: string[] = [];
         logs.push(indent);
         logs.push(chalk[color](astNode.kind));
-        logs = logs.concat(LogService.addLog('basic', astNode.basicCpx));
+        logs = logs.concat(LogService.addLog('atomic', astNode.atomicCpx));
         logs = logs.concat(LogService.addLog('structural', astNode.structuralCpx));
         logs = logs.concat(LogService.addLog('nesting', astNode.nestingCpx));
         logs = logs.concat(LogService.addLog('depth', astNode.depthCpx));

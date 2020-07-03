@@ -189,7 +189,7 @@ class AstMethod {
             // console.log(chalk.blueBright('CHILD ASTTTT'), childAst.kind, childAst.start, childAst.lineStart, this.position, chalk.redBright('ISSUE', issue))
             const codeLine = __classPrivateFieldGet(this, _displayedCode).lines.find(l => l.issue === issue);
             if (ast_service_1.Ast.isElseStatement(childAst)) {
-                childAst.cpxFactors.basic.node = cpx_factors_1.cpxFactors.basic.node;
+                childAst.cpxFactors.atomic.node = cpx_factors_1.cpxFactors.atomic.node;
                 issue--;
             }
             this.increaseLineCpxFactors(childAst, codeLine);
@@ -214,7 +214,7 @@ class AstMethod {
         __classPrivateFieldGet(this, _displayedCode).lines
             .filter(line => line.cpxFactors.total > 0)
             .forEach(line => {
-            let comment = `+${line.cpxFactors.total.toFixed(1)} Complexity index (+${line.cpxFactors.totalBasic.toFixed(1)} ${factor_category_enum_1.FactorCategory.BASIC}`;
+            let comment = `+${line.cpxFactors.total.toFixed(1)} Complexity index (+${line.cpxFactors.totalAtomic.toFixed(1)} ${factor_category_enum_1.FactorCategory.ATOMIC}`;
             comment = line.cpxFactors.totalAggregation > 0 ? `${comment}, +${line.cpxFactors.totalAggregation} ${factor_category_enum_1.FactorCategory.AGGREGATION}` : comment;
             comment = line.cpxFactors.totalNesting > 0 ? `${comment}, +${line.cpxFactors.totalNesting} nesting` : comment;
             comment = line.cpxFactors.totalDepth > 0 ? `${comment}, +${line.cpxFactors.totalDepth} depth` : comment;

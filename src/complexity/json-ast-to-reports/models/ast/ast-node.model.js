@@ -68,9 +68,9 @@ class AstNode {
     set astMethod(astMethod) {
         __classPrivateFieldSet(this, _astMethod, astMethod);
     }
-    get basicCpx() {
+    get atomicCpx() {
         var _a;
-        return (_a = this.cpxFactors) === null || _a === void 0 ? void 0 : _a.totalBasic;
+        return (_a = this.cpxFactors) === null || _a === void 0 ? void 0 : _a.totalAtomic;
     }
     get children() {
         return __classPrivateFieldGet(this, _children);
@@ -255,7 +255,7 @@ class AstNode {
     calculateAndSetCpxFactors() {
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
         this.setGeneralCaseCpxFactors();
-        this.setBasicCpxFactors();
+        this.setAtomicCpxFactors();
         this.setRecursionOrCallbackCpxFactors();
         this.setElseCpxFactors();
         this.setRegexCpxFactors();
@@ -273,10 +273,10 @@ class AstNode {
         this.cpxFactors.structural[this.factorCategory] = cpx_factors_1.cpxFactors.structural[this.factorCategory];
     }
     /**
-     * Sets the complexity index corresponding to "basic" factor (ie basic weight for all the AST nodes)
+     * Sets the complexity index corresponding to "atomic" factor (ie atomic weight for all the AST nodes)
      */
-    setBasicCpxFactors() {
-        this.cpxFactors.basic.node = this.factorCategory === node_feature_enum_1.NodeFeature.EMPTY ? 0 : cpx_factors_1.cpxFactors.basic.node;
+    setAtomicCpxFactors() {
+        this.cpxFactors.atomic.node = this.factorCategory === node_feature_enum_1.NodeFeature.EMPTY ? 0 : cpx_factors_1.cpxFactors.atomic.node;
     }
     /**
      * Sets depth complexity factor

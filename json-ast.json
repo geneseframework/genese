@@ -6,11 +6,11 @@
 		"astFiles": [
 			{
 				"name": "debug.mock.ts",
-				"text": "\n\n\nexport class DebugMock  {\n\n    opened;\n    setVersionSelected;\n\n\n    /**\n     * Initialization\n     */\n    ngOnInit() {\n        // ---\n        setTimeout(() => this.opened = true);\n        this.setVersionSelected();\n    }\n\n\n\n    /**\n     * set the version\n     */\n    // setVersionSelected() {\n    //     this.versionsDataService.getVersions(this.versionUrl).subscribe(\n    //         (versions: Version[]) => {\n    //             this.setVersions(versions);\n    //             // If no version number is selected, we select the last.\n    //             if (!this.selectedVersionNumber) {\n    //                 this.selectedVersionNumber = Math.max(...versions.map(o => o.versionNumber));\n    //             }\n    //         }\n    //     );\n    // }\n    //\n    //\n    // /**\n    //  * set Versions\n    //  * @param versions\n    //  */\n    // setVersions(versions: Version[]) {\n    //     this.versions = versions;\n    // }\n    //\n    //\n    // /**\n    //  * Select an other versions\n    //  * @param version\n    //  */\n    // selectVersion(version: Version) {\n    //     if (version && version.versionNumber) {\n    //         this.selectedVersionNumberChange.emit({versionNumber: version.versionNumber, latest: version.latest});\n    //         this.closeSideMenu();\n    //     }\n    // }\n    //\n    //\n    // /**\n    //  * CloseSideMenu\n    //  */\n    // closeSideMenu() {\n    //     if (this.opened) {\n    //         this.closing.emit(true);\n    //     }\n    // }\n}\n",
+				"text": "\n\n\nexport class DebugMock  {\n\n    opened;\n    setVersionSelected;\n\n\n    /**\n     * Initialization\n     */\n    ngOnInit() {\n        // ---\n        setTimeout(() => this.opened = true);\n        this.setVersionSelected();\n    }\n}\n",
 				"astNode": {
 					"children": [
 						{
-							"end": 1470,
+							"end": 226,
 							"kind": "ClassDeclaration",
 							"name": "DebugMock",
 							"pos": 0,
@@ -227,10 +227,10 @@
 							]
 						},
 						{
-							"end": 1471,
+							"end": 227,
 							"kind": "EndOfFileToken",
-							"pos": 1470,
-							"start": 1471,
+							"pos": 226,
+							"start": 227,
 							"children": [
 							]
 						}

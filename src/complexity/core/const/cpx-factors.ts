@@ -9,7 +9,7 @@ complexityFactors.aggregation = {
     differentLogicDoor: 2,              // a "or" after a "and" (or a "or" after a "and") without brackets
     regex: 0.1                          // each element in a regex
 };
-complexityFactors.basic = {
+complexityFactors.atomic = {
     node: 0.1,                          // Any AST node ("Identifier", "Parameter", "Block", IfStatement, ...)
 };
 complexityFactors.depth = {

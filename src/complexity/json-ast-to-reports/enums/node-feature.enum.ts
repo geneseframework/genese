@@ -1,7 +1,7 @@
 export enum NodeFeature {
 
     ARR = 'arr',
-    BASIC = 'basic',
+    ATOMIC = 'atomic',
     BINARY = 'binary',
     CONDITIONAL = 'conditional',
     DECLARATION = 'declaration',

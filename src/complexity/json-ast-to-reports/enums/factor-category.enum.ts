@@ -1,7 +1,7 @@
 export enum FactorCategory {
 
     AGGREGATION = 'aggregation',
-    BASIC = 'basic',
+    ATOMIC = 'atomic',
     CONTEXT = 'context',
     DEPTH = 'depth',
     NESTING = 'nesting',

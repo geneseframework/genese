@@ -5,7 +5,7 @@ const factor_category_enum_1 = require("../../../json-ast-to-reports/enums/facto
 const tools_service_1 = require("../../services/tools.service");
 const aggregation_cpx_model_1 = require("./aggregation-cpx.model");
 const nesting_cpx_model_1 = require("./nesting-cpx.model");
-const basic_cpx_model_1 = require("./basic-cpx.model");
+const atomic_cpx_model_1 = require("./atomic-cpx.model");
 const structural_cpx_model_1 = require("./structural-cpx.model");
 const depth_cpx_model_1 = require("./depth-cpx.model");
 const context_cpx_model_1 = require("./context-cpx.model");
@@ -16,7 +16,7 @@ const recursion_cpx_model_1 = require("./recursion-cpx.model");
 class CpxFactors {
     constructor() {
         this.aggregation = new aggregation_cpx_model_1.AggregationCpx(); // Aggregation Complexity
-        this.basic = new basic_cpx_model_1.BasicCpx(); // Basic Complexity
+        this.atomic = new atomic_cpx_model_1.AtomicCpx(); // Atomic Complexity
         this.context = new context_cpx_model_1.ContextCpx(); // Context Complexity
         this.depth = new depth_cpx_model_1.DepthCpx(); // Depth Complexity
         this.nesting = new nesting_cpx_model_1.NestingCpx(); // Nesting Complexity
@@ -40,8 +40,8 @@ class CpxFactors {
     get totalAggregation() {
         return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.AGGREGATION);
     }
-    get totalBasic() {
-        return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.BASIC);
+    get totalAtomic() {
+        return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.ATOMIC);
     }
     get totalDepth() {
         return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.DEPTH);

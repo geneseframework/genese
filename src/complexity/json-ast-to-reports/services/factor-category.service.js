@@ -11,7 +11,7 @@ class FactorCategoryService {
             case syntax_kind_enum_1.SyntaxKind.NumericLiteral:
             case syntax_kind_enum_1.SyntaxKind.StringLiteral:
             case syntax_kind_enum_1.SyntaxKind.TrueKeyword:
-                return node_feature_enum_1.NodeFeature.BASIC;
+                return node_feature_enum_1.NodeFeature.ATOMIC;
             case syntax_kind_enum_1.SyntaxKind.BinaryExpression:
                 return node_feature_enum_1.NodeFeature.BINARY;
             case syntax_kind_enum_1.SyntaxKind.CatchClause:
@@ -49,7 +49,7 @@ class FactorCategoryService {
             case syntax_kind_enum_1.SyntaxKind.ConditionalExpression:
                 return node_feature_enum_1.NodeFeature.TERNARY;
             default:
-                return node_feature_enum_1.NodeFeature.BASIC;
+                return node_feature_enum_1.NodeFeature.ATOMIC;
         }
     }
 }
