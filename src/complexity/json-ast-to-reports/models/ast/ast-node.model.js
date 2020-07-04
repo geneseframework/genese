@@ -255,7 +255,6 @@ class AstNode {
     calculateAndSetCpxFactors() {
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
         this.setGeneralCaseCpxFactors();
-        this.setAtomicCpxFactors();
         this.setRecursionOrCallbackCpxFactors();
         this.setElseCpxFactors();
         this.setRegexCpxFactors();
@@ -273,12 +272,6 @@ class AstNode {
         this.cpxFactors.nesting[this.factorCategory] = cpx_factors_1.cpxFactors.nesting[this.factorCategory];
         this.cpxFactors.structural[this.factorCategory] = cpx_factors_1.cpxFactors.structural[this.factorCategory];
         this.cpxFactors.atomic.node = (_a = cpx_factors_1.cpxFactors.atomic[this.factorCategory]) !== null && _a !== void 0 ? _a : cpx_factors_1.cpxFactors.atomic.node;
-    }
-    /**
-     * Sets the complexity index corresponding to "atomic" factor (ie atomic weight for all the AST nodes)
-     */
-    setAtomicCpxFactors() {
-        // this.cpxFactors.atomic.node = this.factorCategory === NodeFeature.EMPTY ? 0 : cpxFactors.atomic.node;
     }
     /**
      * Sets depth complexity factor

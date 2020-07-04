@@ -6,17 +6,9 @@ const node_feature_enum_1 = require("../enums/node-feature.enum");
 class FactorCategoryService {
     getNodeFeature(syntaxKind) {
         switch (syntaxKind) {
-            case syntax_kind_enum_1.SyntaxKind.CaseClause:
-            case syntax_kind_enum_1.SyntaxKind.FalseKeyword:
-            case syntax_kind_enum_1.SyntaxKind.FirstLiteralToken:
+            case syntax_kind_enum_1.SyntaxKind.ArrayType:
             case syntax_kind_enum_1.SyntaxKind.Identifier:
-            case syntax_kind_enum_1.SyntaxKind.Keyword:
-            case syntax_kind_enum_1.SyntaxKind.Literal:
-            case syntax_kind_enum_1.SyntaxKind.NumericLiteral:
-            case syntax_kind_enum_1.SyntaxKind.ReturnStatement:
-            case syntax_kind_enum_1.SyntaxKind.StringLiteral:
-            case syntax_kind_enum_1.SyntaxKind.TrueKeyword:
-            case syntax_kind_enum_1.SyntaxKind.VoidKeyword:
+            case syntax_kind_enum_1.SyntaxKind.UnionType:
                 return node_feature_enum_1.NodeFeature.ATOMIC;
             case syntax_kind_enum_1.SyntaxKind.BinaryExpression:
                 return node_feature_enum_1.NodeFeature.BINARY;
@@ -27,6 +19,24 @@ class FactorCategoryService {
             case syntax_kind_enum_1.SyntaxKind.ArrowFunction:
             case syntax_kind_enum_1.SyntaxKind.FunctionExpression:
                 return node_feature_enum_1.NodeFeature.FUNC;
+            case syntax_kind_enum_1.SyntaxKind.AnyKeyword:
+            case syntax_kind_enum_1.SyntaxKind.CaseClause:
+            case syntax_kind_enum_1.SyntaxKind.DefaultClause:
+            case syntax_kind_enum_1.SyntaxKind.FalseKeyword:
+            case syntax_kind_enum_1.SyntaxKind.Keyword:
+            case syntax_kind_enum_1.SyntaxKind.NewExpression:
+            case syntax_kind_enum_1.SyntaxKind.ReturnStatement:
+            case syntax_kind_enum_1.SyntaxKind.StringKeyword:
+            case syntax_kind_enum_1.SyntaxKind.ThisKeyword:
+            case syntax_kind_enum_1.SyntaxKind.TrueKeyword:
+            case syntax_kind_enum_1.SyntaxKind.VariableStatement:
+            case syntax_kind_enum_1.SyntaxKind.VoidKeyword:
+                return node_feature_enum_1.NodeFeature.KEYWORD;
+            case syntax_kind_enum_1.SyntaxKind.FirstLiteralToken:
+            case syntax_kind_enum_1.SyntaxKind.Literal:
+            case syntax_kind_enum_1.SyntaxKind.NumericLiteral:
+            case syntax_kind_enum_1.SyntaxKind.StringLiteral:
+                return node_feature_enum_1.NodeFeature.LITERAL;
             case syntax_kind_enum_1.SyntaxKind.AmpersandAmpersandToken:
             case syntax_kind_enum_1.SyntaxKind.BarBarToken:
                 return node_feature_enum_1.NodeFeature.LOGIC_DOOR;

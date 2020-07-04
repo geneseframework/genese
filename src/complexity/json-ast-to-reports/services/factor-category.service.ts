@@ -5,17 +5,9 @@ export class FactorCategoryService {
 
     getNodeFeature(syntaxKind: SyntaxKind): NodeFeature {
         switch (syntaxKind) {
-            case SyntaxKind.CaseClause:
-            case SyntaxKind.FalseKeyword:
-            case SyntaxKind.FirstLiteralToken:
+            case SyntaxKind.ArrayType:
             case SyntaxKind.Identifier:
-            case SyntaxKind.Keyword:
-            case SyntaxKind.Literal:
-            case SyntaxKind.NumericLiteral:
-            case SyntaxKind.ReturnStatement:
-            case SyntaxKind.StringLiteral:
-            case SyntaxKind.TrueKeyword:
-            case SyntaxKind.VoidKeyword:
+            case SyntaxKind.UnionType:
                 return NodeFeature.ATOMIC;
             case SyntaxKind.BinaryExpression:
                 return NodeFeature.BINARY;
@@ -26,6 +18,24 @@ export class FactorCategoryService {
             case SyntaxKind.ArrowFunction:
             case SyntaxKind.FunctionExpression:
                 return NodeFeature.FUNC;
+            case SyntaxKind.AnyKeyword:
+            case SyntaxKind.CaseClause:
+            case SyntaxKind.DefaultClause:
+            case SyntaxKind.FalseKeyword:
+            case SyntaxKind.Keyword:
+            case SyntaxKind.NewExpression:
+            case SyntaxKind.ReturnStatement:
+            case SyntaxKind.StringKeyword:
+            case SyntaxKind.ThisKeyword:
+            case SyntaxKind.TrueKeyword:
+            case SyntaxKind.VariableStatement:
+            case SyntaxKind.VoidKeyword:
+                return NodeFeature.KEYWORD;
+            case SyntaxKind.FirstLiteralToken:
+            case SyntaxKind.Literal:
+            case SyntaxKind.NumericLiteral:
+            case SyntaxKind.StringLiteral:
+                return NodeFeature.LITERAL;
             case SyntaxKind.AmpersandAmpersandToken:
             case SyntaxKind.BarBarToken:
                 return NodeFeature.LOGIC_DOOR;

@@ -11,6 +11,8 @@ complexityFactors.aggregation = {
 };
 complexityFactors.atomic = {
     empty: 0,
+    keyword: 0.1,
+    literal: 0.1,
     node: 0.1,
 };
 complexityFactors.depth = {
