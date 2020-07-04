@@ -375,7 +375,7 @@ This table of weights should never be seen as the exact way to calculate the Com
 | Aggregation | Arrays | 1 | ```a[b][c] // ---- Aggregation cpx = 1```| |
 | Aggregation | Regex | 0.1 by char | ```/[^.[\]]+/ // ---- Aggregation cpx = 0.8``` | |
 | Aggregation | Different logic doors | 1 | ```if (a && b \|\| c) // - Aggregation cpx = 1``` | The brackets cancel the aggregation complexity |
-| Atomic | Atomic | 0.1 | ```console.log(3) // ---- Atomic cpx = 0.3 (3 atoms)``` | Applies to each identifier, parameter, keyword, etc. |
+| Atomic | Atomic | 0.1 | ```console.log(3) // ---- Atomic cpx = 0.3 (3 atoms)``` | Applies to each identifier, parameter, keyword, literal, etc. |
 | Nesting | Arrays | 1.5 | ```a[b[c]]``` | |
 | Nesting | Conditions | 0.5 | ```if (a) { ```<br/>  ``` if (b) { // ---- Nesting cpx = 0.5```<br/>    ``` if (c) { // ---- Nesting cpx = 1 ```<br/>    ``` } ```<br/>  ``` }```<br/>```}``` | Applies to `if`, `else`, `else if`, `switch` | 
 | Nesting | Loops | 0.5 | ```for (const a of arr) { ```<br/>  ```for (const b of otherArr) { // ---- Nesting cpx = 0.5 ```<br/>  ```    } ```<br/>``` }``` | Applies to `for`, `forEach`, `do ... while` |
@@ -407,8 +407,6 @@ Each time the algorithm will be updated, the version indicated at the top of the
 
 We developed Genese Complexity at first for TypeScript files, but you can now "plug" any language into this module. What does it mean ? To be simple, Genese Complexity parses a Json file with a specific format : [JsonAst](#722-jsonast-specifications). This format corresponds to a simplified AST (Abstract Syntax Tree) of the source code. So if you want to be able to "plug" your language into Genese Complexity, you "just" need to convert the specific AST structure of your language into JsonAst format. In other words, your AST nodes must "match" with the nodes of the JsonAst format. If your plugin is correct, we will add it to Genese Complexity module.
 
-As Genese Complexity was developed at first for TypeScript files, if your JsonAst files respects exactly the Typescript AST structure and conventions, Genese Complexity will be able to understand it. If you want to know how TypeScript AST "runs", you can make some trials in the [TypeScript AST Viewer](https://ts-ast-viewer.com/#code/KYDwDg9gTgLgBAYwDYEMDOa4HFgDthrADCEAtmEqAJYwCecA3gFBNxtygrmUAUKAlI1bsRCCLjQRKAOiQQA5n34BuYWwC+auE01A).
-
 There are hundreds kinds of TypeScript AST nodes, so it can be fastidious to "bind" all of them to the AST nodes of your language. Fortunately, JsonAst only needs few kinds of nodes; you will find them below. 
 
 #### 7.2.1 Kinds of nodes
@@ -418,34 +416,38 @@ You will find below the list of all the different kinds of AST nodes. If you wan
 | Node Kind | Example | Comments |
 | ------------ | ------- | -------- |
 | AmpersandAmpersandToken | `&&` | The AND logic door. |
+| ArrayType | `a: string[];` | The declaration of a type which is an array type |
 | ArrowFunction | `() => { ... }`  | An arrowed function or method |
 | BarBarToken | `\|\|` | The OR logic door. |
 | BinaryExpression | `a > 0`<br/> `a === b`  | Comparison between two elements. |
-| Block | `{ .... }`  | Abstract node containing some children nodes, like `IfStatement`. This node doesn't increase complexity (empty node). |
+| Block | `{ .... }`  | Abstract node containing some children nodes, like `IfStatement`. This node doesn't increase complexity (empty category). |
 | CallExpression |  `a.filter(e => e + 1)` | Abstract node containing a call to a function. In this example, the CallExpression contains a first child which is a PropertyExpression (`a.filter`) and a second one which is an ArrowFunction (`e => e + 1`). |
 | CatchClause | `try { ... }` <br/>`catch(error) { ... }` | This node is considered as a conditional node and increases the nesting complexity in the same way. |
-| ClassDeclaration | `class MyClass { ... }` | Abstract node designating a declaration of a class. This node is the root node of a class. It doesn't increase complexity (empty node). |
+| ClassDeclaration | `class MyClass { ... }` | Abstract node designating a declaration of a class. This node is the root node of a class. It doesn't increase complexity (empty category). |
 | ConditionalExpression | `a = b ? 0 : 1;` | This node is a conditional node and increases the nesting complexity. In this example, the ConditionalExpression node have 5 children : Identifier `b`, QuestionToken `?`, NumericLiteral `0`, ColonToken `:` and NumericLiteral `1`. |
 | DoStatement | `do { ... }` | Do instruction. Increases the nesting complexity. |
 | ElementAccessExpression | `a[b]` | Considered as an array by Genese Complexity. In this example, the ElementAccessExpression is a node with two children : an Identifier `a` and another Identifier `b`. |
 | EndOfFileToken | `... }` | The last element of the source code. |
-| ExpressionStatement | `a = b ? 0 : 1;`<br/> `a.filter(e => e + 1)` | Abstract node containing an expression, like a BinaryExpression or a CallExpression. This node doesn't increase complexity (empty node). |
-| FirstAssignment | `let a = b === 1` | Abstract node corresponding to the `EqualsToken` in a binary expression. It doesn't increase complexity (empty node). |
-| FirstStatement | `let a = 3;` | Abstract node declaring a variable (alias of VariableStatement). This node doesn't increase complexity (empty node). |
+| ExpressionStatement | `a = b ? 0 : 1;`<br/> `a.filter(e => e + 1)` | Abstract node containing an expression, like a BinaryExpression or a CallExpression. This node doesn't increase complexity (empty category). |
+| FirstAssignment | `let a = b === 1` | Abstract node corresponding to the `EqualsToken` in a binary expression. It doesn't increase complexity (empty category). |
+| FirstStatement | `let a = 3;` | Abstract node declaring a variable (alias of VariableStatement). This node doesn't increase complexity (empty category). |
 | ForStatement | `for (let i = 0; i < 2; i++) { ... }`  | For loop. Increases the nesting complexity. <br/>Caution : `a.forEach(...)` is considered by TypeScript as a PropertyAccessExpression and not as a ForStatement, but Genese Complexity consider it as a classic `for` loop. |
 | ForInStatement | `for (let a of arr) { ... }` | For loop with `in` statement. Increases the nesting complexity. |
 | ForOfStatement | `for (let a of arr) { ... }` | For loop with `of` statement. Increases the nesting complexity. |
-| FunctionDeclaration | `function f() { ... }` | Abstract node designating a declaration of a function. This node doesn't increase complexity (empty node). |
+| FunctionDeclaration | `function f() { ... }` | Abstract node designating a declaration of a function. This node doesn't increase complexity (empty category). |
 | FunctionExpression | `f(function(b) { ... }` | Abstract node designating a function expression. Increases the nesting complexity. |
 | Identifier | `f(a) { ... }` | The node corresponding to the identifier of a variable, a function, etc. In this example, there are two identifiers : `f` and `a`. An identifier is considered by Genese Complexity as an atomic node which increases the atomic complexity. |
 | IfStatement | `if(a) { ... }` | The IF condition. Increases the nesting complexity. |
-| MethodDeclaration | `myMethod() { ... }` | Abstract node designating a declaration of a method. This node is the root node of the method. It doesn't increase complexity (empty node). |
-| Parameter | `myMethod(a) { ... }` | Abstract node designating a parameter. <br/>Caution : the Parameter `a` is different than the Identifier `a`, which is a child of the AST node "Parameter". This node doesn't increase complexity (empty node). |
-| PropertyAccessExpression | `a.b = 3;` | Abstract node designating the access to a given property. The first child (`a`) is the expression and the second (`b`) is the property. This node doesn't increase complexity (empty node). |
+| Keyword | `return` | Alias for any language keyword (`let`, `const`, `var`, `export`, `return`, ...). Increases atomic complexity. |
+| Literal | `2` <br/> `'a'` | Alias for any kind of literal assignment (`StringLiteral`, `NumericLiteral`, ...). Increases atomic complexity. |
+| MethodDeclaration | `myMethod() { ... }` | Abstract node designating a declaration of a method. This node is the root node of the method. It doesn't increase complexity (empty category). |
+| Parameter | `myMethod(a) { ... }` | Abstract node designating a parameter. <br/>Caution : the Parameter `a` is different than the Identifier `a`, which is a child of the AST node "Parameter". This node doesn't increase complexity (empty category). |
+| PropertyAccessExpression | `a.b = 3;` | Abstract node designating the access to a given property. The first child (`a`) is the expression and the second (`b`) is the property. This node doesn't increase complexity (empty category). |
 | RegularExpressionLiteral | `/a-z/g` | Regular expression. |
 | SwitchStatement | `switch(a) { ... }` | Switch statement. Increases the nesting complexity. |
-| VariableDeclarationList | `for (const elt of arr) { ... }` | Abstract node declaring a list of variables. In this example, the VariableDeclarationList is `const elt`. This node doesn't increase complexity (empty node). |
-| VariableStatement | `let a = 3;` | Abstract node declaring a variable. This node doesn't increase complexity (empty node). |
+| ThisKeyword | `this.a = 3` | This keyword (returning context). Increases the atomic complexity |
+| Union Type | `a: string \| number` | Union of two types. Increases the atomic complexity |
+| VariableDeclarationList | `for (const elt of arr) { ... }` | Abstract node declaring a list of variables. In this example, the VariableDeclarationList is `const elt`. This node doesn't increase complexity (empty category). |
 | WhileStatement | `while (a < 10) { ... }` | While loop. Increases the nesting complexity. |
 
 
