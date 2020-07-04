@@ -16,6 +16,9 @@ class FactorCategoryService {
             case syntax_kind_enum_1.SyntaxKind.IfStatement:
             case syntax_kind_enum_1.SyntaxKind.SwitchStatement:
                 return node_feature_enum_1.NodeFeature.CONDITIONAL;
+            case syntax_kind_enum_1.SyntaxKind.FunctionDeclaration:
+            case syntax_kind_enum_1.SyntaxKind.MethodDeclaration:
+                return node_feature_enum_1.NodeFeature.DECLARATION;
             case syntax_kind_enum_1.SyntaxKind.ArrowFunction:
             case syntax_kind_enum_1.SyntaxKind.FunctionExpression:
                 return node_feature_enum_1.NodeFeature.FUNC;

@@ -164,6 +164,7 @@ class AstMethod {
      */
     createDisplayedCode(astNode = this.astNode) {
         this.setDisplayedCodeLines();
+        this.setDeclarationCpxFactors();
         this.setCpxFactorsToDisplayedCode(astNode, false);
         __classPrivateFieldGet(this, _displayedCode).setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
@@ -202,6 +203,10 @@ class AstMethod {
             text = text.slice(0, lastCharPosition);
         }
         return text;
+    }
+    setDeclarationCpxFactors() {
+        this.increaseLineCpxFactors(this.astNode, __classPrivateFieldGet(this, _displayedCode).getLine(this.astNode.lineStart));
+        __classPrivateFieldGet(this, _displayedCode).getLine(this.astNode.lineStart).astNodes.push(this.astNode);
     }
     /**
      * Calculates the complexity factors of each CodeLine

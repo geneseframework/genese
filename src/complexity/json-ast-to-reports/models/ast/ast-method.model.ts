@@ -198,6 +198,7 @@ export class AstMethod implements Evaluate {
      */
     createDisplayedCode(astNode: AstNode = this.astNode): void {
         this.setDisplayedCodeLines();
+        this.setDeclarationCpxFactors();
         this.setCpxFactorsToDisplayedCode(astNode, false);
         this.#displayedCode.setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
@@ -239,6 +240,12 @@ export class AstMethod implements Evaluate {
             text = text.slice(0, lastCharPosition);
         }
         return text;
+    }
+
+
+    private setDeclarationCpxFactors(): void {
+        this.increaseLineCpxFactors(this.astNode, this.#displayedCode.getLine(this.astNode.lineStart));
+        this.#displayedCode.getLine(this.astNode.lineStart).astNodes.push(this.astNode);
     }
 
 
