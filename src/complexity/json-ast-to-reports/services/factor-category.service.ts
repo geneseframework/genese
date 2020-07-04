@@ -3,14 +3,19 @@ import { NodeFeature } from '../enums/node-feature.enum';
 
 export class FactorCategoryService {
 
-
     getNodeFeature(syntaxKind: SyntaxKind): NodeFeature {
         switch (syntaxKind) {
+            case SyntaxKind.CaseClause:
             case SyntaxKind.FalseKeyword:
             case SyntaxKind.FirstLiteralToken:
+            case SyntaxKind.Identifier:
+            case SyntaxKind.Keyword:
+            case SyntaxKind.Literal:
             case SyntaxKind.NumericLiteral:
+            case SyntaxKind.ReturnStatement:
             case SyntaxKind.StringLiteral:
             case SyntaxKind.TrueKeyword:
+            case SyntaxKind.VoidKeyword:
                 return NodeFeature.ATOMIC;
             case SyntaxKind.BinaryExpression:
                 return NodeFeature.BINARY;
@@ -18,21 +23,6 @@ export class FactorCategoryService {
             case SyntaxKind.IfStatement:
             case SyntaxKind.SwitchStatement:
                 return NodeFeature.CONDITIONAL;
-            case SyntaxKind.FunctionDeclaration:
-            case SyntaxKind.MethodDeclaration:
-                return NodeFeature.DECLARATION;
-            case SyntaxKind.Block:
-            case SyntaxKind.CallExpression:
-            case SyntaxKind.ElementAccessExpression:
-            case SyntaxKind.EndOfFileToken:
-            case SyntaxKind.ExpressionStatement:
-            case SyntaxKind.FirstAssignment:
-            case SyntaxKind.FirstStatement:
-            case SyntaxKind.Parameter:
-            case SyntaxKind.PropertyAccessExpression:
-            case SyntaxKind.VariableDeclarationList:
-            case SyntaxKind.VariableStatement:
-                return NodeFeature.EMPTY;
             case SyntaxKind.ArrowFunction:
             case SyntaxKind.FunctionExpression:
                 return NodeFeature.FUNC;
@@ -50,7 +40,7 @@ export class FactorCategoryService {
             case SyntaxKind.ConditionalExpression:
                 return NodeFeature.TERNARY;
             default:
-                return NodeFeature.ATOMIC;
+                return NodeFeature.EMPTY;
         }
     }
 }

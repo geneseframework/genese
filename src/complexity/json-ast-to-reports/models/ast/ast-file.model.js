@@ -25,7 +25,7 @@ class AstFile {
         _astMethods.set(this, []); // The AstMethods included in this AstFile
         _astNode.set(this, undefined); // The AstNode corresponding to the file itself
         _astNodes.set(this, undefined); // Array of all the AstNodes which are children of this.AstNode (including itself)
-        _code.set(this, undefined);
+        _code.set(this, undefined); // The Code object corresponding to the AstFile
         _complexitiesByStatus.set(this, undefined); // The file complexities spread by complexity status
         _cpxFactors.set(this, undefined); // The complexity factors of the AstFile
         _cyclomaticCpx.set(this, 0); // The complexity factors of the AstFile

@@ -10,6 +10,7 @@ complexityFactors.aggregation = {
     regex: 0.1                          // each element in a regex
 };
 complexityFactors.atomic = {
+    empty: 0,
     node: 0.1,                          // Any AST node ("Identifier", "Parameter", "Block", IfStatement, ...)
 };
 complexityFactors.depth = {
