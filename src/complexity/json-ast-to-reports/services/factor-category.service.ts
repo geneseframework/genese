@@ -3,14 +3,11 @@ import { NodeFeature } from '../enums/node-feature.enum';
 
 export class FactorCategoryService {
 
-
     getNodeFeature(syntaxKind: SyntaxKind): NodeFeature {
         switch (syntaxKind) {
-            case SyntaxKind.FalseKeyword:
-            case SyntaxKind.FirstLiteralToken:
-            case SyntaxKind.NumericLiteral:
-            case SyntaxKind.StringLiteral:
-            case SyntaxKind.TrueKeyword:
+            case SyntaxKind.ArrayType:
+            case SyntaxKind.Identifier:
+            case SyntaxKind.UnionType:
                 return NodeFeature.ATOMIC;
             case SyntaxKind.BinaryExpression:
                 return NodeFeature.BINARY;
@@ -18,24 +15,27 @@ export class FactorCategoryService {
             case SyntaxKind.IfStatement:
             case SyntaxKind.SwitchStatement:
                 return NodeFeature.CONDITIONAL;
-            case SyntaxKind.FunctionDeclaration:
-            case SyntaxKind.MethodDeclaration:
-                return NodeFeature.DECLARATION;
-            case SyntaxKind.Block:
-            case SyntaxKind.CallExpression:
-            case SyntaxKind.ElementAccessExpression:
-            case SyntaxKind.EndOfFileToken:
-            case SyntaxKind.ExpressionStatement:
-            case SyntaxKind.FirstAssignment:
-            case SyntaxKind.FirstStatement:
-            case SyntaxKind.Parameter:
-            case SyntaxKind.PropertyAccessExpression:
-            case SyntaxKind.VariableDeclarationList:
-            case SyntaxKind.VariableStatement:
-                return NodeFeature.EMPTY;
             case SyntaxKind.ArrowFunction:
             case SyntaxKind.FunctionExpression:
                 return NodeFeature.FUNC;
+            case SyntaxKind.AnyKeyword:
+            case SyntaxKind.CaseClause:
+            case SyntaxKind.DefaultClause:
+            case SyntaxKind.FalseKeyword:
+            case SyntaxKind.Keyword:
+            case SyntaxKind.NewExpression:
+            case SyntaxKind.ReturnStatement:
+            case SyntaxKind.StringKeyword:
+            case SyntaxKind.ThisKeyword:
+            case SyntaxKind.TrueKeyword:
+            case SyntaxKind.VariableStatement:
+            case SyntaxKind.VoidKeyword:
+                return NodeFeature.KEYWORD;
+            case SyntaxKind.FirstLiteralToken:
+            case SyntaxKind.Literal:
+            case SyntaxKind.NumericLiteral:
+            case SyntaxKind.StringLiteral:
+                return NodeFeature.LITERAL;
             case SyntaxKind.AmpersandAmpersandToken:
             case SyntaxKind.BarBarToken:
                 return NodeFeature.LOGIC_DOOR;
@@ -50,7 +50,7 @@ export class FactorCategoryService {
             case SyntaxKind.ConditionalExpression:
                 return NodeFeature.TERNARY;
             default:
-                return NodeFeature.ATOMIC;
+                return NodeFeature.EMPTY;
         }
     }
 }

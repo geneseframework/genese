@@ -10,6 +10,8 @@ var NodeFeature;
     NodeFeature["DECLARATION"] = "declaration";
     NodeFeature["EMPTY"] = "empty";
     NodeFeature["FUNC"] = "func";
+    NodeFeature["KEYWORD"] = "keyword";
+    NodeFeature["LITERAL"] = "literal";
     NodeFeature["LOGIC_DOOR"] = "logicDoor";
     NodeFeature["LOOP"] = "loop";
     NodeFeature["REGEX"] = "regex";

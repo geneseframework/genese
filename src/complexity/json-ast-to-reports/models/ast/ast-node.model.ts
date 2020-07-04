@@ -337,7 +337,6 @@ export class AstNode implements Evaluate, Logg {
     calculateAndSetCpxFactors(): CpxFactors {
         this.cpxFactors = new CpxFactors();
         this.setGeneralCaseCpxFactors();
-        this.setAtomicCpxFactors();
         this.setRecursionOrCallbackCpxFactors();
         this.setElseCpxFactors();
         this.setRegexCpxFactors();
@@ -355,14 +354,7 @@ export class AstNode implements Evaluate, Logg {
     private setGeneralCaseCpxFactors(): void{
         this.cpxFactors.nesting[this.factorCategory] = cpxFactors.nesting[this.factorCategory];
         this.cpxFactors.structural[this.factorCategory] = cpxFactors.structural[this.factorCategory];
-    }
-
-
-    /**
-     * Sets the complexity index corresponding to "atomic" factor (ie atomic weight for all the AST nodes)
-     */
-    private setAtomicCpxFactors(): void {
-        this.cpxFactors.atomic.node = this.factorCategory === NodeFeature.EMPTY ? 0 : cpxFactors.atomic.node;
+        this.cpxFactors.atomic.node = cpxFactors.atomic[this.factorCategory] ?? cpxFactors.atomic.node;
     }
 
 

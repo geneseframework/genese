@@ -6,137 +6,402 @@
 		"astFiles": [
 			{
 				"name": "debug.mock.ts",
-				"text": "\n\n\nexport class DebugMock  {\n\n    /**\n     * Transform string format from PascalCase to snake-case\n     * @param word\n     */\n    static toSnakeCase(word: string): string {\n        if (!word) {\n            return '';\n        }\n        let snake = word.charAt(0).toLowerCase();\n        for (let i = 1; i < word.length; i++) {\n            if (word.charAt(i) === word.charAt(i).toUpperCase()) {\n                snake += '-' + word.charAt(i).toLowerCase();\n            } else {\n                snake += word.charAt(i);\n            }\n        }\n        return snake;\n    }\n}\n",
+				"text": "\nclass CallbacksMock<T> {\n\n    lang;\n    constructor(obj) {\n    }\n}\n\nexport class DebugMock  {\n\n\n    hyperComplex<T>(object: Object, path: string | string[] = '', value: any): CallbacksMock<T> {\n        path = path.toString().match(/[^.[\\]]+/g);\n        path.slice(0, -1).reduce((acc: Object, curr: any, index: number) => {\n            const arg = Math.round(index) % 3;\n            return Object(acc[curr]) === acc[curr + arg][0];\n        }, object)[path[path.length - 1]] = value;\n        return new CallbacksMock<T>(object);\n    }\n\n}\n",
 				"astNode": {
 					"children": [
 						{
-							"end": 568,
+							"end": 67,
 							"kind": "ClassDeclaration",
-							"name": "DebugMock",
+							"name": "CallbacksMock",
 							"pos": 0,
-							"start": 3,
+							"start": 1,
 							"children": [
 								{
-									"end": 9,
-									"kind": "ExportKeyword",
-									"pos": 0,
-									"start": 3,
-									"children": [
-									]
-								},
-								{
-									"end": 25,
+									"end": 20,
 									"kind": "Identifier",
-									"name": "DebugMock",
-									"pos": 15,
-									"start": 16,
+									"name": "CallbacksMock",
+									"pos": 6,
+									"start": 7,
 									"children": [
 									]
 								},
 								{
-									"end": 566,
-									"kind": "MethodDeclaration",
-									"name": "toSnakeCase",
-									"pos": 28,
-									"start": 130,
+									"end": 22,
+									"kind": "TypeParameter",
+									"pos": 21,
+									"start": 21,
 									"children": [
 										{
-											"end": 136,
-											"kind": "StaticKeyword",
-											"pos": 28,
-											"start": 130,
-											"children": [
-											]
-										},
-										{
-											"end": 148,
+											"end": 22,
 											"kind": "Identifier",
-											"name": "toSnakeCase",
-											"pos": 136,
-											"start": 137,
+											"name": "T",
+											"pos": 21,
+											"start": 21,
 											"children": [
 											]
-										},
+										}
+									]
+								},
+								{
+									"end": 36,
+									"kind": "PropertyDeclaration",
+									"pos": 25,
+									"start": 31,
+									"children": [
 										{
-											"end": 161,
+											"end": 35,
+											"kind": "Identifier",
+											"name": "lang",
+											"pos": 25,
+											"start": 31,
+											"children": [
+											]
+										}
+									]
+								},
+								{
+									"end": 65,
+									"kind": "Constructor",
+									"pos": 36,
+									"start": 41,
+									"children": [
+										{
+											"end": 56,
 											"kind": "Parameter",
-											"name": "word",
-											"pos": 149,
-											"start": 149,
+											"name": "obj",
+											"pos": 53,
+											"start": 53,
 											"children": [
 												{
-													"end": 153,
+													"end": 56,
 													"kind": "Identifier",
-													"name": "word",
-													"pos": 149,
-													"start": 149,
-													"children": [
-													]
-												},
-												{
-													"end": 161,
-													"kind": "StringKeyword",
-													"pos": 154,
-													"start": 155,
+													"name": "obj",
+													"pos": 53,
+													"start": 53,
 													"children": [
 													]
 												}
 											]
 										},
 										{
-											"end": 170,
-											"kind": "StringKeyword",
-											"pos": 163,
-											"start": 164,
+											"end": 65,
+											"kind": "Block",
+											"pos": 57,
+											"start": 58,
+											"children": [
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"end": 536,
+							"kind": "ClassDeclaration",
+							"name": "DebugMock",
+							"pos": 67,
+							"start": 69,
+							"children": [
+								{
+									"end": 75,
+									"kind": "ExportKeyword",
+									"pos": 67,
+									"start": 69,
+									"children": [
+									]
+								},
+								{
+									"end": 91,
+									"kind": "Identifier",
+									"name": "DebugMock",
+									"pos": 81,
+									"start": 82,
+									"children": [
+									]
+								},
+								{
+									"end": 533,
+									"kind": "MethodDeclaration",
+									"name": "hyperComplex",
+									"pos": 94,
+									"start": 101,
+									"children": [
+										{
+											"end": 113,
+											"kind": "Identifier",
+											"name": "hyperComplex",
+											"pos": 94,
+											"start": 101,
 											"children": [
 											]
 										},
 										{
-											"end": 566,
-											"kind": "Block",
-											"pos": 170,
-											"start": 171,
+											"end": 115,
+											"kind": "TypeParameter",
+											"pos": 114,
+											"start": 114,
 											"children": [
 												{
-													"end": 226,
-													"kind": "IfStatement",
-													"pos": 172,
-													"start": 181,
+													"end": 115,
+													"kind": "Identifier",
+													"name": "T",
+													"pos": 114,
+													"start": 114,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 131,
+											"kind": "Parameter",
+											"name": "object",
+											"pos": 117,
+											"start": 117,
+											"children": [
+												{
+													"end": 123,
+													"kind": "Identifier",
+													"name": "object",
+													"pos": 117,
+													"start": 117,
+													"children": [
+													]
+												},
+												{
+													"end": 131,
+													"kind": "TypeReference",
+													"pos": 124,
+													"start": 125,
 													"children": [
 														{
-															"end": 190,
-															"kind": "PrefixUnaryExpression",
-															"pos": 185,
-															"start": 185,
+															"end": 131,
+															"kind": "Identifier",
+															"name": "Object",
+															"pos": 124,
+															"start": 125,
+															"children": [
+															]
+														}
+													]
+												}
+											]
+										},
+										{
+											"end": 161,
+											"kind": "Parameter",
+											"name": "path",
+											"pos": 132,
+											"start": 133,
+											"children": [
+												{
+													"end": 137,
+													"kind": "Identifier",
+													"name": "path",
+													"pos": 132,
+													"start": 133,
+													"children": [
+													]
+												},
+												{
+													"end": 156,
+													"kind": "UnionType",
+													"pos": 138,
+													"start": 139,
+													"children": [
+														{
+															"end": 145,
+															"kind": "StringKeyword",
+															"pos": 138,
+															"start": 139,
+															"children": [
+															]
+														},
+														{
+															"end": 156,
+															"kind": "ArrayType",
+															"pos": 147,
+															"start": 148,
 															"children": [
 																{
-																	"end": 190,
-																	"kind": "Identifier",
-																	"name": "word",
-																	"pos": 186,
-																	"start": 186,
+																	"end": 154,
+																	"kind": "StringKeyword",
+																	"pos": 147,
+																	"start": 148,
 																	"children": [
 																	]
 																}
 															]
-														},
+														}
+													]
+												},
+												{
+													"end": 161,
+													"kind": "StringLiteral",
+													"pos": 158,
+													"start": 159,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 173,
+											"kind": "Parameter",
+											"name": "value",
+											"pos": 162,
+											"start": 163,
+											"children": [
+												{
+													"end": 168,
+													"kind": "Identifier",
+													"name": "value",
+													"pos": 162,
+													"start": 163,
+													"children": [
+													]
+												},
+												{
+													"end": 173,
+													"kind": "AnyKeyword",
+													"pos": 169,
+													"start": 170,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 192,
+											"kind": "TypeReference",
+											"pos": 175,
+											"start": 176,
+											"children": [
+												{
+													"end": 189,
+													"kind": "Identifier",
+													"name": "CallbacksMock",
+													"pos": 175,
+													"start": 176,
+													"children": [
+													]
+												},
+												{
+													"end": 191,
+													"kind": "TypeReference",
+													"pos": 190,
+													"start": 190,
+													"children": [
 														{
-															"end": 226,
-															"kind": "Block",
-															"pos": 191,
-															"start": 192,
+															"end": 191,
+															"kind": "Identifier",
+															"name": "T",
+															"pos": 190,
+															"start": 190,
+															"children": [
+															]
+														}
+													]
+												}
+											]
+										},
+										{
+											"end": 533,
+											"kind": "Block",
+											"pos": 192,
+											"start": 193,
+											"children": [
+												{
+													"end": 245,
+													"kind": "ExpressionStatement",
+													"pos": 194,
+													"start": 203,
+													"children": [
+														{
+															"end": 244,
+															"kind": "BinaryExpression",
+															"pos": 194,
+															"start": 203,
 															"children": [
 																{
-																	"end": 216,
-																	"kind": "ReturnStatement",
-																	"pos": 193,
-																	"start": 206,
+																	"end": 207,
+																	"kind": "Identifier",
+																	"name": "path",
+																	"pos": 194,
+																	"start": 203,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 209,
+																	"kind": "FirstAssignment",
+																	"pos": 207,
+																	"start": 208,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 244,
+																	"kind": "CallExpression",
+																	"pos": 209,
+																	"start": 210,
 																	"children": [
 																		{
-																			"end": 215,
-																			"kind": "StringLiteral",
-																			"pos": 212,
-																			"start": 213,
+																			"end": 231,
+																			"kind": "PropertyAccessExpression",
+																			"pos": 209,
+																			"start": 210,
+																			"children": [
+																				{
+																					"end": 225,
+																					"kind": "CallExpression",
+																					"pos": 209,
+																					"start": 210,
+																					"children": [
+																						{
+																							"end": 223,
+																							"kind": "PropertyAccessExpression",
+																							"pos": 209,
+																							"start": 210,
+																							"children": [
+																								{
+																									"end": 214,
+																									"kind": "Identifier",
+																									"name": "path",
+																									"pos": 209,
+																									"start": 210,
+																									"children": [
+																									]
+																								},
+																								{
+																									"end": 223,
+																									"kind": "Identifier",
+																									"name": "toString",
+																									"pos": 215,
+																									"start": 215,
+																									"children": [
+																									]
+																								}
+																							]
+																						}
+																					]
+																				},
+																				{
+																					"end": 231,
+																					"kind": "Identifier",
+																					"name": "match",
+																					"pos": 226,
+																					"start": 226,
+																					"children": [
+																					]
+																				}
+																			]
+																		},
+																		{
+																			"end": 243,
+																			"kind": "RegularExpressionLiteral",
+																			"pos": 232,
+																			"start": 232,
 																			"children": [
 																			]
 																		}
@@ -147,469 +412,436 @@
 													]
 												},
 												{
-													"end": 276,
-													"kind": "FirstStatement",
-													"pos": 226,
-													"start": 235,
+													"end": 482,
+													"kind": "ExpressionStatement",
+													"pos": 245,
+													"start": 254,
 													"children": [
 														{
-															"end": 275,
-															"kind": "VariableDeclarationList",
-															"pos": 226,
-															"start": 235,
+															"end": 481,
+															"kind": "BinaryExpression",
+															"pos": 245,
+															"start": 254,
 															"children": [
 																{
-																	"end": 275,
-																	"kind": "VariableDeclaration",
-																	"pos": 238,
-																	"start": 239,
+																	"end": 473,
+																	"kind": "ElementAccessExpression",
+																	"pos": 245,
+																	"start": 254,
 																	"children": [
 																		{
-																			"end": 244,
-																			"kind": "Identifier",
-																			"name": "snake",
-																			"pos": 238,
-																			"start": 239,
-																			"children": [
-																			]
-																		},
-																		{
-																			"end": 275,
+																			"end": 450,
 																			"kind": "CallExpression",
-																			"pos": 246,
-																			"start": 247,
+																			"pos": 245,
+																			"start": 254,
 																			"children": [
 																				{
-																					"end": 273,
+																					"end": 278,
 																					"kind": "PropertyAccessExpression",
-																					"pos": 246,
-																					"start": 247,
+																					"pos": 245,
+																					"start": 254,
 																					"children": [
 																						{
-																							"end": 261,
+																							"end": 271,
 																							"kind": "CallExpression",
-																							"pos": 246,
-																							"start": 247,
+																							"pos": 245,
+																							"start": 254,
 																							"children": [
 																								{
-																									"end": 258,
+																									"end": 264,
 																									"kind": "PropertyAccessExpression",
-																									"pos": 246,
-																									"start": 247,
+																									"pos": 245,
+																									"start": 254,
 																									"children": [
-																										{
-																											"end": 251,
-																											"kind": "Identifier",
-																											"name": "word",
-																											"pos": 246,
-																											"start": 247,
-																											"children": [
-																											]
-																										},
 																										{
 																											"end": 258,
 																											"kind": "Identifier",
-																											"name": "charAt",
-																											"pos": 252,
-																											"start": 252,
+																											"name": "path",
+																											"pos": 245,
+																											"start": 254,
 																											"children": [
-																											]
-																										}
-																									]
-																								},
-																								{
-																									"end": 260,
-																									"kind": "FirstLiteralToken",
-																									"pos": 259,
-																									"start": 259,
-																									"children": [
-																									]
-																								}
-																							]
-																						},
-																						{
-																							"end": 273,
-																							"kind": "Identifier",
-																							"name": "toLowerCase",
-																							"pos": 262,
-																							"start": 262,
-																							"children": [
-																							]
-																						}
-																					]
-																				}
-																			]
-																		}
-																	]
-																}
-															]
-														}
-													]
-												},
-												{
-													"end": 538,
-													"kind": "ForStatement",
-													"pos": 276,
-													"start": 285,
-													"children": [
-														{
-															"end": 299,
-															"kind": "VariableDeclarationList",
-															"pos": 290,
-															"start": 290,
-															"children": [
-																{
-																	"end": 299,
-																	"kind": "VariableDeclaration",
-																	"pos": 293,
-																	"start": 294,
-																	"children": [
-																		{
-																			"end": 295,
-																			"kind": "Identifier",
-																			"name": "i",
-																			"pos": 293,
-																			"start": 294,
-																			"children": [
-																			]
-																		},
-																		{
-																			"end": 299,
-																			"kind": "FirstLiteralToken",
-																			"pos": 297,
-																			"start": 298,
-																			"children": [
-																			]
-																		}
-																	]
-																}
-															]
-														},
-														{
-															"end": 316,
-															"kind": "BinaryExpression",
-															"pos": 300,
-															"start": 301,
-															"children": [
-																{
-																	"end": 302,
-																	"kind": "Identifier",
-																	"name": "i",
-																	"pos": 300,
-																	"start": 301,
-																	"children": [
-																	]
-																},
-																{
-																	"end": 304,
-																	"kind": "FirstBinaryOperator",
-																	"pos": 302,
-																	"start": 303,
-																	"children": [
-																	]
-																},
-																{
-																	"end": 316,
-																	"kind": "PropertyAccessExpression",
-																	"pos": 304,
-																	"start": 305,
-																	"children": [
-																		{
-																			"end": 309,
-																			"kind": "Identifier",
-																			"name": "word",
-																			"pos": 304,
-																			"start": 305,
-																			"children": [
-																			]
-																		},
-																		{
-																			"end": 316,
-																			"kind": "Identifier",
-																			"name": "length",
-																			"pos": 310,
-																			"start": 310,
-																			"children": [
-																			]
-																		}
-																	]
-																}
-															]
-														},
-														{
-															"end": 321,
-															"kind": "PostfixUnaryExpression",
-															"pos": 317,
-															"start": 318,
-															"children": [
-																{
-																	"end": 319,
-																	"kind": "Identifier",
-																	"name": "i",
-																	"pos": 317,
-																	"start": 318,
-																	"children": [
-																	]
-																}
-															]
-														},
-														{
-															"end": 538,
-															"kind": "Block",
-															"pos": 322,
-															"start": 323,
-															"children": [
-																{
-																	"end": 528,
-																	"kind": "IfStatement",
-																	"pos": 324,
-																	"start": 337,
-																	"children": [
-																		{
-																			"end": 388,
-																			"kind": "BinaryExpression",
-																			"pos": 341,
-																			"start": 341,
-																			"children": [
-																				{
-																					"end": 355,
-																					"kind": "CallExpression",
-																					"pos": 341,
-																					"start": 341,
-																					"children": [
-																						{
-																							"end": 352,
-																							"kind": "PropertyAccessExpression",
-																							"pos": 341,
-																							"start": 341,
-																							"children": [
-																								{
-																									"end": 345,
-																									"kind": "Identifier",
-																									"name": "word",
-																									"pos": 341,
-																									"start": 341,
-																									"children": [
-																									]
-																								},
-																								{
-																									"end": 352,
-																									"kind": "Identifier",
-																									"name": "charAt",
-																									"pos": 346,
-																									"start": 346,
-																									"children": [
-																									]
-																								}
-																							]
-																						},
-																						{
-																							"end": 354,
-																							"kind": "Identifier",
-																							"name": "i",
-																							"pos": 353,
-																							"start": 353,
-																							"children": [
-																							]
-																						}
-																					]
-																				},
-																				{
-																					"end": 359,
-																					"kind": "EqualsEqualsEqualsToken",
-																					"pos": 355,
-																					"start": 356,
-																					"children": [
-																					]
-																				},
-																				{
-																					"end": 388,
-																					"kind": "CallExpression",
-																					"pos": 359,
-																					"start": 360,
-																					"children": [
-																						{
-																							"end": 386,
-																							"kind": "PropertyAccessExpression",
-																							"pos": 359,
-																							"start": 360,
-																							"children": [
-																								{
-																									"end": 374,
-																									"kind": "CallExpression",
-																									"pos": 359,
-																									"start": 360,
-																									"children": [
-																										{
-																											"end": 371,
-																											"kind": "PropertyAccessExpression",
-																											"pos": 359,
-																											"start": 360,
-																											"children": [
-																												{
-																													"end": 364,
-																													"kind": "Identifier",
-																													"name": "word",
-																													"pos": 359,
-																													"start": 360,
-																													"children": [
-																													]
-																												},
-																												{
-																													"end": 371,
-																													"kind": "Identifier",
-																													"name": "charAt",
-																													"pos": 365,
-																													"start": 365,
-																													"children": [
-																													]
-																												}
 																											]
 																										},
 																										{
-																											"end": 373,
+																											"end": 264,
 																											"kind": "Identifier",
-																											"name": "i",
-																											"pos": 372,
-																											"start": 372,
+																											"name": "slice",
+																											"pos": 259,
+																											"start": 259,
 																											"children": [
 																											]
 																										}
 																									]
 																								},
 																								{
-																									"end": 386,
+																									"end": 266,
+																									"kind": "FirstLiteralToken",
+																									"pos": 265,
+																									"start": 265,
+																									"children": [
+																									]
+																								},
+																								{
+																									"end": 270,
+																									"kind": "PrefixUnaryExpression",
+																									"pos": 267,
+																									"start": 268,
+																									"children": [
+																										{
+																											"end": 270,
+																											"kind": "FirstLiteralToken",
+																											"pos": 269,
+																											"start": 269,
+																											"children": [
+																											]
+																										}
+																									]
+																								}
+																							]
+																						},
+																						{
+																							"end": 278,
+																							"kind": "Identifier",
+																							"name": "reduce",
+																							"pos": 272,
+																							"start": 272,
+																							"children": [
+																							]
+																						}
+																					]
+																				},
+																				{
+																					"end": 441,
+																					"kind": "ArrowFunction",
+																					"pos": 279,
+																					"start": 279,
+																					"children": [
+																						{
+																							"end": 291,
+																							"kind": "Parameter",
+																							"name": "acc",
+																							"pos": 280,
+																							"start": 280,
+																							"children": [
+																								{
+																									"end": 283,
 																									"kind": "Identifier",
-																									"name": "toUpperCase",
-																									"pos": 375,
-																									"start": 375,
+																									"name": "acc",
+																									"pos": 280,
+																									"start": 280,
+																									"children": [
+																									]
+																								},
+																								{
+																									"end": 291,
+																									"kind": "TypeReference",
+																									"pos": 284,
+																									"start": 285,
+																									"children": [
+																										{
+																											"end": 291,
+																											"kind": "Identifier",
+																											"name": "Object",
+																											"pos": 284,
+																											"start": 285,
+																											"children": [
+																											]
+																										}
+																									]
+																								}
+																							]
+																						},
+																						{
+																							"end": 302,
+																							"kind": "Parameter",
+																							"name": "curr",
+																							"pos": 292,
+																							"start": 293,
+																							"children": [
+																								{
+																									"end": 297,
+																									"kind": "Identifier",
+																									"name": "curr",
+																									"pos": 292,
+																									"start": 293,
+																									"children": [
+																									]
+																								},
+																								{
+																									"end": 302,
+																									"kind": "AnyKeyword",
+																									"pos": 298,
+																									"start": 299,
 																									"children": [
 																									]
 																								}
 																							]
-																						}
-																					]
-																				}
-																			]
-																		},
-																		{
-																			"end": 466,
-																			"kind": "Block",
-																			"pos": 389,
-																			"start": 390,
-																			"children": [
-																				{
-																					"end": 452,
-																					"kind": "ExpressionStatement",
-																					"pos": 391,
-																					"start": 408,
-																					"children": [
+																						},
 																						{
-																							"end": 451,
-																							"kind": "BinaryExpression",
-																							"pos": 391,
-																							"start": 408,
+																							"end": 317,
+																							"kind": "Parameter",
+																							"name": "index",
+																							"pos": 303,
+																							"start": 304,
 																							"children": [
 																								{
-																									"end": 413,
+																									"end": 309,
 																									"kind": "Identifier",
-																									"name": "snake",
-																									"pos": 391,
-																									"start": 408,
+																									"name": "index",
+																									"pos": 303,
+																									"start": 304,
 																									"children": [
 																									]
 																								},
 																								{
-																									"end": 416,
-																									"kind": "FirstCompoundAssignment",
-																									"pos": 413,
-																									"start": 414,
+																									"end": 317,
+																									"kind": "NumberKeyword",
+																									"pos": 310,
+																									"start": 311,
 																									"children": [
 																									]
-																								},
+																								}
+																							]
+																						},
+																						{
+																							"end": 321,
+																							"kind": "EqualsGreaterThanToken",
+																							"pos": 318,
+																							"start": 319,
+																							"children": [
+																							]
+																						},
+																						{
+																							"end": 441,
+																							"kind": "Block",
+																							"pos": 321,
+																							"start": 322,
+																							"children": [
 																								{
-																									"end": 451,
-																									"kind": "BinaryExpression",
-																									"pos": 416,
-																									"start": 417,
+																									"end": 370,
+																									"kind": "FirstStatement",
+																									"pos": 323,
+																									"start": 336,
 																									"children": [
 																										{
-																											"end": 420,
-																											"kind": "StringLiteral",
-																											"pos": 416,
-																											"start": 417,
-																											"children": [
-																											]
-																										},
-																										{
-																											"end": 422,
-																											"kind": "PlusToken",
-																											"pos": 420,
-																											"start": 421,
-																											"children": [
-																											]
-																										},
-																										{
-																											"end": 451,
-																											"kind": "CallExpression",
-																											"pos": 422,
-																											"start": 423,
+																											"end": 369,
+																											"kind": "VariableDeclarationList",
+																											"pos": 323,
+																											"start": 336,
 																											"children": [
 																												{
-																													"end": 449,
-																													"kind": "PropertyAccessExpression",
-																													"pos": 422,
-																													"start": 423,
+																													"end": 369,
+																													"kind": "VariableDeclaration",
+																													"pos": 341,
+																													"start": 342,
 																													"children": [
 																														{
-																															"end": 437,
-																															"kind": "CallExpression",
-																															"pos": 422,
-																															"start": 423,
+																															"end": 345,
+																															"kind": "Identifier",
+																															"name": "arg",
+																															"pos": 341,
+																															"start": 342,
+																															"children": [
+																															]
+																														},
+																														{
+																															"end": 369,
+																															"kind": "BinaryExpression",
+																															"pos": 347,
+																															"start": 348,
 																															"children": [
 																																{
-																																	"end": 434,
-																																	"kind": "PropertyAccessExpression",
-																																	"pos": 422,
-																																	"start": 423,
+																																	"end": 365,
+																																	"kind": "CallExpression",
+																																	"pos": 347,
+																																	"start": 348,
 																																	"children": [
 																																		{
-																																			"end": 427,
-																																			"kind": "Identifier",
-																																			"name": "word",
-																																			"pos": 422,
-																																			"start": 423,
+																																			"end": 358,
+																																			"kind": "PropertyAccessExpression",
+																																			"pos": 347,
+																																			"start": 348,
 																																			"children": [
+																																				{
+																																					"end": 352,
+																																					"kind": "Identifier",
+																																					"name": "Math",
+																																					"pos": 347,
+																																					"start": 348,
+																																					"children": [
+																																					]
+																																				},
+																																				{
+																																					"end": 358,
+																																					"kind": "Identifier",
+																																					"name": "round",
+																																					"pos": 353,
+																																					"start": 353,
+																																					"children": [
+																																					]
+																																				}
 																																			]
 																																		},
 																																		{
-																																			"end": 434,
+																																			"end": 364,
 																																			"kind": "Identifier",
-																																			"name": "charAt",
-																																			"pos": 428,
-																																			"start": 428,
+																																			"name": "index",
+																																			"pos": 359,
+																																			"start": 359,
 																																			"children": [
 																																			]
 																																		}
 																																	]
 																																},
 																																{
-																																	"end": 436,
-																																	"kind": "Identifier",
-																																	"name": "i",
-																																	"pos": 435,
-																																	"start": 435,
+																																	"end": 367,
+																																	"kind": "PercentToken",
+																																	"pos": 365,
+																																	"start": 366,
 																																	"children": [
+																																	]
+																																},
+																																{
+																																	"end": 369,
+																																	"kind": "FirstLiteralToken",
+																																	"pos": 367,
+																																	"start": 368,
+																																	"children": [
+																																	]
+																																}
+																															]
+																														}
+																													]
+																												}
+																											]
+																										}
+																									]
+																								},
+																								{
+																									"end": 431,
+																									"kind": "ReturnStatement",
+																									"pos": 370,
+																									"start": 383,
+																									"children": [
+																										{
+																											"end": 430,
+																											"kind": "BinaryExpression",
+																											"pos": 389,
+																											"start": 390,
+																											"children": [
+																												{
+																													"end": 407,
+																													"kind": "CallExpression",
+																													"pos": 389,
+																													"start": 390,
+																													"children": [
+																														{
+																															"end": 396,
+																															"kind": "Identifier",
+																															"name": "Object",
+																															"pos": 389,
+																															"start": 390,
+																															"children": [
+																															]
+																														},
+																														{
+																															"end": 406,
+																															"kind": "ElementAccessExpression",
+																															"pos": 397,
+																															"start": 397,
+																															"children": [
+																																{
+																																	"end": 400,
+																																	"kind": "Identifier",
+																																	"name": "acc",
+																																	"pos": 397,
+																																	"start": 397,
+																																	"children": [
+																																	]
+																																},
+																																{
+																																	"end": 405,
+																																	"kind": "Identifier",
+																																	"name": "curr",
+																																	"pos": 401,
+																																	"start": 401,
+																																	"children": [
+																																	]
+																																}
+																															]
+																														}
+																													]
+																												},
+																												{
+																													"end": 411,
+																													"kind": "EqualsEqualsEqualsToken",
+																													"pos": 407,
+																													"start": 408,
+																													"children": [
+																													]
+																												},
+																												{
+																													"end": 430,
+																													"kind": "ElementAccessExpression",
+																													"pos": 411,
+																													"start": 412,
+																													"children": [
+																														{
+																															"end": 427,
+																															"kind": "ElementAccessExpression",
+																															"pos": 411,
+																															"start": 412,
+																															"children": [
+																																{
+																																	"end": 415,
+																																	"kind": "Identifier",
+																																	"name": "acc",
+																																	"pos": 411,
+																																	"start": 412,
+																																	"children": [
+																																	]
+																																},
+																																{
+																																	"end": 426,
+																																	"kind": "BinaryExpression",
+																																	"pos": 416,
+																																	"start": 416,
+																																	"children": [
+																																		{
+																																			"end": 420,
+																																			"kind": "Identifier",
+																																			"name": "curr",
+																																			"pos": 416,
+																																			"start": 416,
+																																			"children": [
+																																			]
+																																		},
+																																		{
+																																			"end": 422,
+																																			"kind": "PlusToken",
+																																			"pos": 420,
+																																			"start": 421,
+																																			"children": [
+																																			]
+																																		},
+																																		{
+																																			"end": 426,
+																																			"kind": "Identifier",
+																																			"name": "arg",
+																																			"pos": 422,
+																																			"start": 423,
+																																			"children": [
+																																			]
+																																		}
 																																	]
 																																}
 																															]
 																														},
 																														{
-																															"end": 449,
-																															"kind": "Identifier",
-																															"name": "toLowerCase",
-																															"pos": 438,
-																															"start": 438,
+																															"end": 429,
+																															"kind": "FirstLiteralToken",
+																															"pos": 428,
+																															"start": 428,
 																															"children": [
 																															]
 																														}
@@ -622,87 +854,79 @@
 																							]
 																						}
 																					]
+																				},
+																				{
+																					"end": 449,
+																					"kind": "Identifier",
+																					"name": "object",
+																					"pos": 442,
+																					"start": 443,
+																					"children": [
+																					]
 																				}
 																			]
 																		},
 																		{
-																			"end": 528,
-																			"kind": "Block",
-																			"pos": 471,
-																			"start": 472,
+																			"end": 472,
+																			"kind": "ElementAccessExpression",
+																			"pos": 451,
+																			"start": 451,
 																			"children": [
 																				{
-																					"end": 514,
-																					"kind": "ExpressionStatement",
-																					"pos": 473,
-																					"start": 490,
+																					"end": 455,
+																					"kind": "Identifier",
+																					"name": "path",
+																					"pos": 451,
+																					"start": 451,
+																					"children": [
+																					]
+																				},
+																				{
+																					"end": 471,
+																					"kind": "BinaryExpression",
+																					"pos": 456,
+																					"start": 456,
 																					"children": [
 																						{
-																							"end": 513,
-																							"kind": "BinaryExpression",
-																							"pos": 473,
-																							"start": 490,
+																							"end": 467,
+																							"kind": "PropertyAccessExpression",
+																							"pos": 456,
+																							"start": 456,
 																							"children": [
 																								{
-																									"end": 495,
+																									"end": 460,
 																									"kind": "Identifier",
-																									"name": "snake",
-																									"pos": 473,
-																									"start": 490,
+																									"name": "path",
+																									"pos": 456,
+																									"start": 456,
 																									"children": [
 																									]
 																								},
 																								{
-																									"end": 498,
-																									"kind": "FirstCompoundAssignment",
-																									"pos": 495,
-																									"start": 496,
+																									"end": 467,
+																									"kind": "Identifier",
+																									"name": "length",
+																									"pos": 461,
+																									"start": 461,
 																									"children": [
-																									]
-																								},
-																								{
-																									"end": 513,
-																									"kind": "CallExpression",
-																									"pos": 498,
-																									"start": 499,
-																									"children": [
-																										{
-																											"end": 510,
-																											"kind": "PropertyAccessExpression",
-																											"pos": 498,
-																											"start": 499,
-																											"children": [
-																												{
-																													"end": 503,
-																													"kind": "Identifier",
-																													"name": "word",
-																													"pos": 498,
-																													"start": 499,
-																													"children": [
-																													]
-																												},
-																												{
-																													"end": 510,
-																													"kind": "Identifier",
-																													"name": "charAt",
-																													"pos": 504,
-																													"start": 504,
-																													"children": [
-																													]
-																												}
-																											]
-																										},
-																										{
-																											"end": 512,
-																											"kind": "Identifier",
-																											"name": "i",
-																											"pos": 511,
-																											"start": 511,
-																											"children": [
-																											]
-																										}
 																									]
 																								}
+																							]
+																						},
+																						{
+																							"end": 469,
+																							"kind": "MinusToken",
+																							"pos": 467,
+																							"start": 468,
+																							"children": [
+																							]
+																						},
+																						{
+																							"end": 471,
+																							"kind": "FirstLiteralToken",
+																							"pos": 469,
+																							"start": 470,
+																							"children": [
 																							]
 																						}
 																					]
@@ -710,24 +934,75 @@
 																			]
 																		}
 																	]
+																},
+																{
+																	"end": 475,
+																	"kind": "FirstAssignment",
+																	"pos": 473,
+																	"start": 474,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 481,
+																	"kind": "Identifier",
+																	"name": "value",
+																	"pos": 475,
+																	"start": 476,
+																	"children": [
+																	]
 																}
 															]
 														}
 													]
 												},
 												{
-													"end": 560,
+													"end": 527,
 													"kind": "ReturnStatement",
-													"pos": 538,
-													"start": 547,
+													"pos": 482,
+													"start": 491,
 													"children": [
 														{
-															"end": 559,
-															"kind": "Identifier",
-															"name": "snake",
-															"pos": 553,
-															"start": 554,
+															"end": 526,
+															"kind": "NewExpression",
+															"pos": 497,
+															"start": 498,
 															"children": [
+																{
+																	"end": 515,
+																	"kind": "Identifier",
+																	"name": "CallbacksMock",
+																	"pos": 501,
+																	"start": 502,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 517,
+																	"kind": "TypeReference",
+																	"pos": 516,
+																	"start": 516,
+																	"children": [
+																		{
+																			"end": 517,
+																			"kind": "Identifier",
+																			"name": "T",
+																			"pos": 516,
+																			"start": 516,
+																			"children": [
+																			]
+																		}
+																	]
+																},
+																{
+																	"end": 525,
+																	"kind": "Identifier",
+																	"name": "object",
+																	"pos": 519,
+																	"start": 519,
+																	"children": [
+																	]
+																}
 															]
 														}
 													]
@@ -739,10 +1014,10 @@
 							]
 						},
 						{
-							"end": 569,
+							"end": 537,
 							"kind": "EndOfFileToken",
-							"pos": 568,
-							"start": 569,
+							"pos": 536,
+							"start": 537,
 							"children": [
 							]
 						}

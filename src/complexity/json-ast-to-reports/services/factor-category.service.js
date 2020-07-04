@@ -6,11 +6,9 @@ const node_feature_enum_1 = require("../enums/node-feature.enum");
 class FactorCategoryService {
     getNodeFeature(syntaxKind) {
         switch (syntaxKind) {
-            case syntax_kind_enum_1.SyntaxKind.FalseKeyword:
-            case syntax_kind_enum_1.SyntaxKind.FirstLiteralToken:
-            case syntax_kind_enum_1.SyntaxKind.NumericLiteral:
-            case syntax_kind_enum_1.SyntaxKind.StringLiteral:
-            case syntax_kind_enum_1.SyntaxKind.TrueKeyword:
+            case syntax_kind_enum_1.SyntaxKind.ArrayType:
+            case syntax_kind_enum_1.SyntaxKind.Identifier:
+            case syntax_kind_enum_1.SyntaxKind.UnionType:
                 return node_feature_enum_1.NodeFeature.ATOMIC;
             case syntax_kind_enum_1.SyntaxKind.BinaryExpression:
                 return node_feature_enum_1.NodeFeature.BINARY;
@@ -18,24 +16,27 @@ class FactorCategoryService {
             case syntax_kind_enum_1.SyntaxKind.IfStatement:
             case syntax_kind_enum_1.SyntaxKind.SwitchStatement:
                 return node_feature_enum_1.NodeFeature.CONDITIONAL;
-            case syntax_kind_enum_1.SyntaxKind.FunctionDeclaration:
-            case syntax_kind_enum_1.SyntaxKind.MethodDeclaration:
-                return node_feature_enum_1.NodeFeature.DECLARATION;
-            case syntax_kind_enum_1.SyntaxKind.Block:
-            case syntax_kind_enum_1.SyntaxKind.CallExpression:
-            case syntax_kind_enum_1.SyntaxKind.ElementAccessExpression:
-            case syntax_kind_enum_1.SyntaxKind.EndOfFileToken:
-            case syntax_kind_enum_1.SyntaxKind.ExpressionStatement:
-            case syntax_kind_enum_1.SyntaxKind.FirstAssignment:
-            case syntax_kind_enum_1.SyntaxKind.FirstStatement:
-            case syntax_kind_enum_1.SyntaxKind.Parameter:
-            case syntax_kind_enum_1.SyntaxKind.PropertyAccessExpression:
-            case syntax_kind_enum_1.SyntaxKind.VariableDeclarationList:
-            case syntax_kind_enum_1.SyntaxKind.VariableStatement:
-                return node_feature_enum_1.NodeFeature.EMPTY;
             case syntax_kind_enum_1.SyntaxKind.ArrowFunction:
             case syntax_kind_enum_1.SyntaxKind.FunctionExpression:
                 return node_feature_enum_1.NodeFeature.FUNC;
+            case syntax_kind_enum_1.SyntaxKind.AnyKeyword:
+            case syntax_kind_enum_1.SyntaxKind.CaseClause:
+            case syntax_kind_enum_1.SyntaxKind.DefaultClause:
+            case syntax_kind_enum_1.SyntaxKind.FalseKeyword:
+            case syntax_kind_enum_1.SyntaxKind.Keyword:
+            case syntax_kind_enum_1.SyntaxKind.NewExpression:
+            case syntax_kind_enum_1.SyntaxKind.ReturnStatement:
+            case syntax_kind_enum_1.SyntaxKind.StringKeyword:
+            case syntax_kind_enum_1.SyntaxKind.ThisKeyword:
+            case syntax_kind_enum_1.SyntaxKind.TrueKeyword:
+            case syntax_kind_enum_1.SyntaxKind.VariableStatement:
+            case syntax_kind_enum_1.SyntaxKind.VoidKeyword:
+                return node_feature_enum_1.NodeFeature.KEYWORD;
+            case syntax_kind_enum_1.SyntaxKind.FirstLiteralToken:
+            case syntax_kind_enum_1.SyntaxKind.Literal:
+            case syntax_kind_enum_1.SyntaxKind.NumericLiteral:
+            case syntax_kind_enum_1.SyntaxKind.StringLiteral:
+                return node_feature_enum_1.NodeFeature.LITERAL;
             case syntax_kind_enum_1.SyntaxKind.AmpersandAmpersandToken:
             case syntax_kind_enum_1.SyntaxKind.BarBarToken:
                 return node_feature_enum_1.NodeFeature.LOGIC_DOOR;
@@ -50,7 +51,7 @@ class FactorCategoryService {
             case syntax_kind_enum_1.SyntaxKind.ConditionalExpression:
                 return node_feature_enum_1.NodeFeature.TERNARY;
             default:
-                return node_feature_enum_1.NodeFeature.ATOMIC;
+                return node_feature_enum_1.NodeFeature.EMPTY;
         }
     }
 }

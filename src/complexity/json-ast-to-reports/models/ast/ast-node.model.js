@@ -40,9 +40,9 @@ class AstNode {
         _isCallback.set(this, undefined); // True if the astNode is a method with a Callback, false if not
         _isRecursiveMethod.set(this, undefined); // True if the astNode is a recursive method, false if not
         _kind.set(this, undefined); // The kind of the node ('MethodDeclaration, IfStatement, ...)
-        _lineEnd.set(this, undefined);
-        _linePos.set(this, undefined);
-        _lineStart.set(this, undefined);
+        _lineEnd.set(this, undefined); // The issue of the line containing the character at the AstNode.end
+        _linePos.set(this, undefined); // The issue of the line containing the character at the AstNode.pos
+        _lineStart.set(this, undefined); // The issue of the line containing the character at the AstNode.start
         _name.set(this, undefined); // The name of the AstNode
         _parent.set(this, void 0); // The ast of the parent of the current node
         _pos.set(this, 0); // The pos of the beginning of the AST node, including spaces and comments before it. (start <= start)
@@ -255,7 +255,6 @@ class AstNode {
     calculateAndSetCpxFactors() {
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
         this.setGeneralCaseCpxFactors();
-        this.setAtomicCpxFactors();
         this.setRecursionOrCallbackCpxFactors();
         this.setElseCpxFactors();
         this.setRegexCpxFactors();
@@ -269,14 +268,10 @@ class AstNode {
      * Sets the nesting and structural complexities for "usual" cases
      */
     setGeneralCaseCpxFactors() {
+        var _a;
         this.cpxFactors.nesting[this.factorCategory] = cpx_factors_1.cpxFactors.nesting[this.factorCategory];
         this.cpxFactors.structural[this.factorCategory] = cpx_factors_1.cpxFactors.structural[this.factorCategory];
-    }
-    /**
-     * Sets the complexity index corresponding to "atomic" factor (ie atomic weight for all the AST nodes)
-     */
-    setAtomicCpxFactors() {
-        this.cpxFactors.atomic.node = this.factorCategory === node_feature_enum_1.NodeFeature.EMPTY ? 0 : cpx_factors_1.cpxFactors.atomic.node;
+        this.cpxFactors.atomic.node = (_a = cpx_factors_1.cpxFactors.atomic[this.factorCategory]) !== null && _a !== void 0 ? _a : cpx_factors_1.cpxFactors.atomic.node;
     }
     /**
      * Sets depth complexity factor
