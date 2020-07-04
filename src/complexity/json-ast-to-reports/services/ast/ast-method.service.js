@@ -39,15 +39,5 @@ class AstMethodService {
         }
         return status;
     }
-    static getCodeLines(astMethodNode) {
-        var _a, _b, _c;
-        if (!((_c = (_b = (_a = astMethodNode === null || astMethodNode === void 0 ? void 0 : astMethodNode.astFile) === null || _a === void 0 ? void 0 : _a.code) === null || _b === void 0 ? void 0 : _b.lines) === null || _c === void 0 ? void 0 : _c.length) || astMethodNode.astFile.code.lines.length < 2) {
-            return [];
-        }
-        let firstLine = astMethodNode.astFile.code.lines.slice(astMethodNode.linePos - 1)[0];
-        console.log('GET CODE LINNN', astMethodNode.kind, astMethodNode.pos, firstLine, '|');
-        let codeLines = astMethodNode.astFile.code.lines.slice(astMethodNode.linePos - 1, astMethodNode.lineEnd);
-        return codeLines;
-    }
 }
 exports.AstMethodService = AstMethodService;

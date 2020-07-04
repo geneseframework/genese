@@ -15,6 +15,9 @@ export class FactorCategoryService {
             case SyntaxKind.IfStatement:
             case SyntaxKind.SwitchStatement:
                 return NodeFeature.CONDITIONAL;
+            case SyntaxKind.FunctionDeclaration:
+            case SyntaxKind.MethodDeclaration:
+                return NodeFeature.DECLARATION;
             case SyntaxKind.ArrowFunction:
             case SyntaxKind.FunctionExpression:
                 return NodeFeature.FUNC;

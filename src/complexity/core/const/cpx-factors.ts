@@ -10,6 +10,7 @@ complexityFactors.aggregation = {
     regex: 0.1                          // each element in a regex
 };
 complexityFactors.atomic = {
+    declaration: 0,
     empty: 0,
     keyword: 0.1,
     literal: 0.1,
