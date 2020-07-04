@@ -44,7 +44,7 @@ class TsFileConversionService {
             newTsNode.start = ts_service_1.Ts.getStart(newTsNode.node, sourceFile);
             newTsNode.end = ts_service_1.Ts.getEnd(newTsNode.node);
             newTsNode.name = ts_service_1.Ts.getName(newTsNode.node);
-            newTsNode.kind = ts_service_1.Ts.getKind(newTsNode.node);
+            newTsNode.kind = ts_service_1.Ts.getKindAlias(newTsNode.node);
             tsNode.children.push(this.createTsNodeChildren(newTsNode, sourceFile));
         });
         return tsNode;

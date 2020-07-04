@@ -6,14 +6,14 @@ const complexityFactors: CpxFactors = new CpxFactors();
 complexityFactors.aggregation = {
     arr: 1,                             // Array of arrays
     density: 0.05,                      // Accumulation of nodes on a same line of code
-    differentLogicDoor: 2,              // a "or" after a "and" (or a "or" after a "and") without brackets
-    regex: 0.1                          // each element in a regex
+    differentLogicDoor: 2,              // A "or" after a "and" (or a "or" after a "and") without brackets
+    regex: 0.1                          // Each element in a regex
 };
 complexityFactors.atomic = {
-    declaration: 0,
-    empty: 0,
-    keyword: 0.1,
-    literal: 0.1,
+    declaration: 0,                     // Class, Method or Function declarations
+    empty: 0,                           // Abstract nodes, without complexity weight
+    keyword: 0.1,                       // Keyword alias ("AnyKeyword", "TrueKeyword", "VariableStatement", "VoidKeyword", ...)
+    literal: 0.1,                       // Literal alias ("StringLiteral", "NumericLiteral", ...)
     node: 0.1,                          // Any AST node ("Identifier", "Parameter", "Block", IfStatement, ...)
 };
 complexityFactors.depth = {
@@ -26,7 +26,7 @@ complexityFactors.nesting = {
     ternary: 2                          // Ternaries inside other ternaries
 };
 complexityFactors.recursion = {
-    callback: 2,                          // Callback (call to a parameter of the parentFunction (ie method) of the node)
+    callback: 2,                        // Callback (call to a parameter of the parentFunction (ie method) of the node)
     recursivity: 3                      // Recursive method (call to the node's method)
 };
 complexityFactors.structural = {

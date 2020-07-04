@@ -4,10 +4,21 @@ exports.Ts = void 0;
 const fs = require("fs-extra");
 const ts = require("typescript");
 const file_service_1 = require("../../../core/services/file.service");
+const kind_aliases_1 = require("../const/kind-aliases");
 /**
  * Service for operations on TsNode elements relative to a given node in Abstract Syntax TreeNode (AST)
  */
 class Ts {
+    static getKindAlias(node) {
+        let kind = Ts.getKind(node);
+        for (const alias of kind_aliases_1.KindAliases) {
+            if (alias.aliases.includes(kind)) {
+                kind = alias.name;
+                break;
+            }
+        }
+        return kind;
+    }
     /**
      * Gets the end pos of a node in the AST
      * @param node // The node in the AST
