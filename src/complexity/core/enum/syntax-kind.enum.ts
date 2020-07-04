@@ -1,3 +1,7 @@
+/**
+ * List of the TypeScript AST nodes
+ * // TODO : remove aliases
+ */
 export enum SyntaxKind {
     AbstractKeyword = 'AbstractKeyword',
     AmpersandAmpersandToken = 'AmpersandAmpersandToken',

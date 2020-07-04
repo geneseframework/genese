@@ -1,6 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SyntaxKind = void 0;
+/**
+ * List of the TypeScript AST nodes
+ * // TODO : remove aliases
+ */
 var SyntaxKind;
 (function (SyntaxKind) {
     SyntaxKind["AbstractKeyword"] = "AbstractKeyword";

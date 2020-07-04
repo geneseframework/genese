@@ -7,7 +7,7 @@ complexityFactors.aggregation = {
     arr: 1,
     density: 0.05,
     differentLogicDoor: 2,
-    regex: 0.1 // each element in a regex
+    regex: 0.1 // Each element in a regex
 };
 complexityFactors.atomic = {
     declaration: 0,

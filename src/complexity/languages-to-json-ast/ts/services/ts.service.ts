@@ -1,11 +1,28 @@
 import * as fs from 'fs-extra';
 import * as ts from 'typescript';
 import { getFilename } from '../../../core/services/file.service';
+import { KindAliases } from '../const/kind-aliases';
 
 /**
  * Service for operations on TsNode elements relative to a given node in Abstract Syntax TreeNode (AST)
  */
 export class Ts {
+
+
+    /**
+     * Returns the SyntaxKind of an AST node or its alias if exists
+     * @param node
+     */
+    static getKindAlias(node: ts.Node): string {
+        let kind = Ts.getKind(node);
+        for (const alias of KindAliases) {
+            if (alias.aliases.includes(kind)) {
+                kind = alias.name;
+                break;
+            }
+        }
+        return kind;
+    }
 
 
     /**
