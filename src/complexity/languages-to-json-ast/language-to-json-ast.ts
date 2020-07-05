@@ -16,12 +16,10 @@ export class LanguageToJsonAst {
 
     /**
      * Starts the parsing to Json Ast format
-     * @param pathCommand           // The path to the directory where the user enters the command line
      * @param pathToAnalyze         // The path of the folder to analyse
-     * @param pathGeneseNodeJs      // The path to Genese module installed globally on the user's device
      * @param language              // The language to parse and convert into JsonAst
      */
-    static start(pathCommand: string, pathToAnalyze: string, pathGeneseNodeJs: string, language?: Language): void {
+    static start(pathToAnalyze: string, language?: Language): void {
         console.log(chalk.blueBright('STARTS JSON AST GENERATION'));
         let jsonAst: JsonAst;
         switch (language) {

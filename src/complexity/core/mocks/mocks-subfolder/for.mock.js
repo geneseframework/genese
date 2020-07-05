@@ -22,6 +22,7 @@ class ForMock {
             }
             total += i;
         }
+        return total;
     }
 }
 exports.ForMock = ForMock;

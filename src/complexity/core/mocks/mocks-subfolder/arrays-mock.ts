@@ -5,7 +5,7 @@ export class ArraysMock {
     }
 
 
-    arrayLiteralExpression(a, b) {
+    arrayLiteralExpression(b) {
         return [b];
     }
 

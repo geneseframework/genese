@@ -63,7 +63,7 @@ export class DebugMock {
 
 
     methodWithCallback(a, callback) {
-        callback(3);
+        callback(a);
     }
 
     hyperComplex<T>(object: Object, path: string | string[] = '', value: any): CallbacksMock<T> {

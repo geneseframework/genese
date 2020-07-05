@@ -51,7 +51,7 @@ class DebugMock {
         this.recursion(a);
     }
     methodWithCallback(a, callback) {
-        callback(3);
+        callback(a);
     }
     hyperComplex(object, path = '', value) {
         path = path.toString().match(/[^.[\]]+/g);

@@ -1,14 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CallbacksMock = void 0;
+// @ts-ignore
 class CallbacksMock {
     constructor(object) {
+        console.log(object);
     }
     recursion(a) {
         this.recursion(a);
     }
     methodWithCallback(a, callback) {
-        callback(3);
+        return callback(a);
     }
     caller(a) {
         this.methodWithCallback(a, (b) => {

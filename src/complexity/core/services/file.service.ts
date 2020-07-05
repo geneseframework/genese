@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import {Options, WINDOWS} from '../models/options.model';
+import { Options, WINDOWS } from '../models/options.model';
 
 /**
  * Tools about files or folders

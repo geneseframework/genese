@@ -15,12 +15,10 @@ exports.DEV_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/gene
 class LanguageToJsonAst {
     /**
      * Starts the parsing to Json Ast format
-     * @param pathCommand           // The path to the directory where the user enters the command line
      * @param pathToAnalyze         // The path of the folder to analyse
-     * @param pathGeneseNodeJs      // The path to Genese module installed globally on the user's device
      * @param language              // The language to parse and convert into JsonAst
      */
-    static start(pathCommand, pathToAnalyze, pathGeneseNodeJs, language) {
+    static start(pathToAnalyze, language) {
         console.log(chalk.blueBright('STARTS JSON AST GENERATION'));
         let jsonAst;
         switch (language) {
