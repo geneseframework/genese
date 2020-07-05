@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createFile = exports.copyFile = exports.createOutDir = exports.createRelativeDir = exports.getLanguageExtensions = exports.getFilenameWithoutExtension = exports.getFileExtension = exports.getRouteToRoot = exports.getPathWithSlash = exports.getPathWithDotSlash = exports.getArrayOfPathsWithDotSlash = exports.getAllFiles = exports.getFilename = void 0;
+exports.createFile = exports.windowsPath = exports.platformPath = exports.copyFile = exports.createOutDir = exports.createRelativeDir = exports.getLanguageExtensions = exports.getFilenameWithoutExtension = exports.getFileExtension = exports.getRouteToRoot = exports.getPathWithSlash = exports.getPathWithDotSlash = exports.getArrayOfPathsWithDotSlash = exports.getAllFiles = exports.getFilename = void 0;
 const fs = require("fs-extra");
 const options_model_1 = require("../models/options.model");
 /**
@@ -157,9 +157,17 @@ exports.createOutDir = createOutDir;
  * @param targetPath        // The target's path
  */
 function copyFile(originPath, targetPath) {
-    fs.copyFileSync(originPath, targetPath);
+    fs.copyFileSync(platformPath(originPath), platformPath(targetPath));
 }
 exports.copyFile = copyFile;
+function platformPath(path) {
+    return options_model_1.WINDOWS ? windowsPath(path) : path;
+}
+exports.platformPath = platformPath;
+function windowsPath(path) {
+    return path.replace(/\//g, '\\').replace(/\\/g, '\\\\');
+}
+exports.windowsPath = windowsPath;
 /**
  * Copy a file from a path to another one
  * @param path
