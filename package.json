@@ -2,9 +2,7 @@
     "name": "genese",
     "version": "0.0.0",
     "scripts": {
-        "cleanjs": "rm -rf src/complexity/old/enums/*.js && rm -rf src/complexity/old/interfaces/*.js && rm -rf src/complexity/old/mocks/*.js && rm -rf src/complexity/old/models/*.js && rm -rf src/complexity/old/services/*.js",
-        "dev": "tsc && node dev.js && npm run cleanjs",
-        "dev-w": "tsc && node dev.js",
+        "dev": "tsc && node dev.js",
         "replace": "tsc && npm unpublish genese@0.0.0 --force && npm publish && npm i -g genese"
     },
     "author": {
