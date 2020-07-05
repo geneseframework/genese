@@ -453,6 +453,7 @@ You will find below the list of all the different kinds of AST nodes. If you wan
 
 Genese Complexity will consider all the other kinds of nodes as atomic nodes. This means that every node in the JsonAst which is not in the previous list file will add a cognitive complexity corresponding to atomic nodes, as `StringLiteral`, `TrueKeyword`, etc. If you don't want to increase complexity for a given kind of node, you will be able to set a property "empty" to true in the corresponding field of the JsonAst file.
 
+
 #### 7.2.2 JsonAst specifications
 
 
