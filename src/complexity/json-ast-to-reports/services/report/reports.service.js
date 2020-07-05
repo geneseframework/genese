@@ -57,7 +57,7 @@ class ReportsService {
         file_service_1.copyFile(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prettify.css`, `${options_model_1.Options.pathOutDir}/reports-styles/prettify.css`);
         file_service_1.copyFile(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prism.css`, `${options_model_1.Options.pathOutDir}/reports-styles/prism.css`);
         file_service_1.copyFile(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prism.js`, `${options_model_1.Options.pathOutDir}/reports-styles/prism.js`);
-        file_service_1.copyFile(`${options_model_1.Options.pathGeneseNodeJs}/node_modules/chart.js/dist/Chart.js`, `${options_model_1.Options.pathOutDir}/reports-styles/Chart.js`);
+        file_service_1.copyFile(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/core/chartjs/Chart.js`, `${options_model_1.Options.pathOutDir}/reports-styles/Chart.js`);
     }
 }
 exports.ReportsService = ReportsService;
