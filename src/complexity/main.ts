@@ -15,15 +15,14 @@ export class Main {
      * @param pathCommand
      * @param pathFolderToAnalyze
      * @param pathGeneseNodeJs
-     * @param jsonAstPath
      */
     // TODO : Add language option and path to JsonAst file
-    start(pathCommand: string, pathFolderToAnalyze: string, pathGeneseNodeJs: string, jsonAstPath = '/json-ast.json'): void {
+    start(pathCommand: string, pathFolderToAnalyze: string, pathGeneseNodeJs: string): void {
         console.log(`PATH TO ANALYZE : ${pathFolderToAnalyze}`);
         Options.setOptions(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs);
         createOutDir();
-        LanguageToJsonAst.start(pathCommand, Options.pathFolderToAnalyze, pathGeneseNodeJs);
-        JsonAstToReports.start(pathCommand, Options.pathFolderToAnalyze, pathGeneseNodeJs)
+        LanguageToJsonAst.start(Options.pathFolderToAnalyze);
+        JsonAstToReports.start(pathCommand)
     }
 
 }

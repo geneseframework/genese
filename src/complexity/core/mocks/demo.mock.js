@@ -3,11 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DebugMock = void 0;
 const callbacks_mock_1 = require("./mocks-subfolder/callbacks.mock");
 class DebugMock {
+    // @ts-ignore
     ifAlone(a) {
         if (a) {
             return 'b';
         }
     }
+    // @ts-ignore
     twoIfs(a, b) {
         if (a) {
             return 'b';
@@ -16,6 +18,7 @@ class DebugMock {
             return 'c';
         }
     }
+    // @ts-ignore
     ifNestedIf(a, b) {
         if (a) {
             if (b) {
@@ -24,6 +27,7 @@ class DebugMock {
             return 'b';
         }
     }
+    // @ts-ignore
     ifIfIf(a, b, c) {
         if (a) {
             if (b) {
@@ -51,7 +55,7 @@ class DebugMock {
         this.recursion(a);
     }
     methodWithCallback(a, callback) {
-        callback(3);
+        callback(a);
     }
     hyperComplex(object, path = '', value) {
         path = path.toString().match(/[^.[\]]+/g);

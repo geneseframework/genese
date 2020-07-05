@@ -3,7 +3,7 @@ import { DEV_MOCK, LIMIT_CONVERSIONS } from '../../language-to-json-ast';
 import { TsFolder } from '../models/ts-folder.model';
 import { TsFileConversionService } from './ts-file-conversion.service';
 import { TsJsonAst } from '../models/ts-json-ast.model';
-import {getFileExtension, platformPath} from '../../../core/services/file.service';
+import { getFileExtension, platformPath } from '../../../core/services/file.service';
 import { Options } from '../../../core/models/options.model';
 
 /**

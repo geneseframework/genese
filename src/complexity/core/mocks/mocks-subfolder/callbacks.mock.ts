@@ -1,7 +1,9 @@
+// @ts-ignore
 export class CallbacksMock<T> {
 
 
     constructor(object) {
+        console.log(object);
     }
 
     recursion(a) {
@@ -9,8 +11,8 @@ export class CallbacksMock<T> {
     }
 
 
-    methodWithCallback(a, callback) {
-        callback(3);
+    methodWithCallback<T>(a: T, callback): T {
+        return callback(a);
     }
 
 

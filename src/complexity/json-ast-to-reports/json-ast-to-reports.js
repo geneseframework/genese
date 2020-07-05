@@ -11,11 +11,9 @@ class JsonAstToReports {
     /**
      * Starts the analysis
      * @param pathCommand
-     * @param pathFolderToAnalyze
-     * @param pathGeneseNodeJs
      * @param jsonAstPath
      */
-    static start(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs, jsonAstPath = '/json-ast.json') {
+    static start(pathCommand, jsonAstPath = '/json-ast.json') {
         console.log(chalk.blueBright('START REPORTS GENERATION FROM JSON_AST'));
         const jsonAst = new init_service_1.InitService().generateAllFromJsonAst(JsonAstToReports.getJsonAst(pathCommand + jsonAstPath));
         jsonAst.astFolder.evaluate();

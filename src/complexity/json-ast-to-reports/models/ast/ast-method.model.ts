@@ -9,7 +9,6 @@ import { ComplexityType } from '../../enums/complexity-type.enum';
 import { CodeLine } from '../code/code-line.model';
 import { cpxFactors } from '../../../core/const/cpx-factors';
 import { FactorCategory } from '../../enums/factor-category.enum';
-import { LogService } from '../../services/log.service';
 import { Options } from '../../../core/models/options.model';
 
 /**

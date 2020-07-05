@@ -35,7 +35,7 @@ class BinariesMock {
     forIfAndAndOrAndAndOrOr(a, b, c, d, e, f) {
         for (let i = 0; i < 10; i++) {
             if (b && c || d && f || a) {
-                console.log(a);
+                console.log(e);
             }
         }
     }
@@ -43,7 +43,7 @@ class BinariesMock {
         for (let i = 0; i < 10; i++) {
             for (let j = 0; j < 10; j++) {
                 if (b && c || d && f || a) {
-                    console.log(a);
+                    console.log(e);
                 }
             }
         }

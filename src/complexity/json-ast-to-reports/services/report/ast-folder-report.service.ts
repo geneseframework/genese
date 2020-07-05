@@ -14,7 +14,6 @@ import { AstFile } from '../../models/ast/ast-file.model';
 import { AstFolder } from '../../models/ast/ast-folder.model';
 import { AstFolderService } from '../ast/ast-folder.service';
 import { Options } from '../../../core/models/options.model';
-import * as chalk from 'chalk';
 
 /**
  * Service generating folders reports

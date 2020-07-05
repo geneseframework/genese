@@ -24,6 +24,7 @@ export class ForMock {
             }
             total += i;
         }
+        return total;
     }
 
 }

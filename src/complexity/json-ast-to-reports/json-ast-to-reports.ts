@@ -1,9 +1,7 @@
 import { InitService } from './services/init.service';
 import { JsonAst } from './models/ast/json-ast.model';
-import { createOutDir } from '../core/services/file.service';
 import { ReportsService } from './services/report/reports.service';
 import * as chalk from 'chalk';
-import { Options } from '../core/models/options.model';
 
 
 /**
@@ -15,11 +13,9 @@ export class JsonAstToReports {
     /**
      * Starts the analysis
      * @param pathCommand
-     * @param pathFolderToAnalyze
-     * @param pathGeneseNodeJs
      * @param jsonAstPath
      */
-    static start(pathCommand: string, pathFolderToAnalyze: string, pathGeneseNodeJs: string, jsonAstPath = '/json-ast.json'): void {
+    static start(pathCommand: string, jsonAstPath = '/json-ast.json'): void {
         console.log(chalk.blueBright('START REPORTS GENERATION FROM JSON_AST'));
         const jsonAst = new InitService().generateAllFromJsonAst(JsonAstToReports.getJsonAst(pathCommand + jsonAstPath));
         jsonAst.astFolder.evaluate();

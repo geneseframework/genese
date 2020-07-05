@@ -5,7 +5,7 @@ class ArraysMock {
     elementAccessExpression(a) {
         return a[0];
     }
-    arrayLiteralExpression(a, b) {
+    arrayLiteralExpression(b) {
         return [b];
     }
     aggregateElementAccess(a, b, c) {

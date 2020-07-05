@@ -27,7 +27,7 @@ class SwitchesMock {
     }
     tryCatch() {
         try {
-            const a = 1;
+            console.log('Success');
         }
         catch (e) {
             console.log(e);

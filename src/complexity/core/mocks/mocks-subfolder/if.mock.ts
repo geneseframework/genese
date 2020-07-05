@@ -4,6 +4,7 @@ export class IfMock {
     }
 
 
+    // @ts-ignore
     ifAlone(a) {
         if (a) {
             return 'b';
@@ -20,6 +21,7 @@ export class IfMock {
     }
 
 
+    // @ts-ignore
     ifIfNested(a, b) {
         if (a) {
             return 'b';
@@ -41,6 +43,7 @@ export class IfMock {
     }
 
 
+    // @ts-ignore
     ifElseIfIfElse(a, b, c) {
         if (a) {
             return 1;
@@ -54,6 +57,7 @@ export class IfMock {
     }
 
 
+    // @ts-ignore
     ifElseIfInside(a, b) {
         if (a) {
             return 'b';
@@ -65,6 +69,7 @@ export class IfMock {
     }
 
 
+    // @ts-ignore
     ifNestedIf(a) {
         if (a) {
             return 'b';
@@ -76,6 +81,7 @@ export class IfMock {
 
 
 
+    // @ts-ignore
     ifIfElseInside(a) {
         if (a) {
             return 'b';

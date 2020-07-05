@@ -1,7 +1,5 @@
 import { Code } from '../models/code/code.model';
 import { CodeLine } from '../models/code/code-line.model';
-import * as chalk from 'chalk';
-import { LogService } from './log.service';
 
 /**
  * Service managing Code objects
