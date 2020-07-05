@@ -53,9 +53,9 @@ export class Ts {
             case ts.SyntaxKind.FunctionDeclaration:
             case ts.SyntaxKind.MethodDeclaration:
             case ts.SyntaxKind.Parameter:
-                return node['name']?.['escapedText'] ?? '';
+                return (node as any)['name']?.['escapedText'] ?? '';
             case ts.SyntaxKind.Identifier:
-                return node['escapedText'] ?? '';
+                return (node as any)['escapedText'] ?? '';
             default:
                 return undefined;
         }

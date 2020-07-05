@@ -4,6 +4,7 @@ exports.IfMock = void 0;
 class IfMock {
     constructor() {
     }
+    // @ts-ignore
     ifAlone(a) {
         if (a) {
             return 'b';
@@ -17,6 +18,7 @@ class IfMock {
             return 'c';
         }
     }
+    // @ts-ignore
     ifIfNested(a, b) {
         if (a) {
             return 'b';
@@ -36,6 +38,7 @@ class IfMock {
             return 'c';
         }
     }
+    // @ts-ignore
     ifElseIfIfElse(a, b, c) {
         if (a) {
             return 1;
@@ -49,6 +52,7 @@ class IfMock {
             return 2;
         }
     }
+    // @ts-ignore
     ifElseIfInside(a, b) {
         if (a) {
             return 'b';
@@ -59,6 +63,7 @@ class IfMock {
             }
         }
     }
+    // @ts-ignore
     ifNestedIf(a) {
         if (a) {
             return 'b';
@@ -67,6 +72,7 @@ class IfMock {
             }
         }
     }
+    // @ts-ignore
     ifIfElseInside(a) {
         if (a) {
             return 'b';

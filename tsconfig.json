@@ -3,6 +3,9 @@
     "compilerOptions": {
         "module": "commonjs",
         "moduleResolution": "node",
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "target": "es2018",

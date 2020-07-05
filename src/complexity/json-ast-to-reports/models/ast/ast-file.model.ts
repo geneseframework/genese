@@ -46,7 +46,7 @@ export class AstFile implements Evaluate, Logg {
         if (this.#astMethods) {
             return this.#astMethods;
         }
-        return
+        return [];
     }
 
 

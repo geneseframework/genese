@@ -4,6 +4,7 @@ import { CallbacksMock } from './mocks-subfolder/callbacks.mock';
 export class DebugMock {
 
 
+    // @ts-ignore
     ifAlone(a) {
         if (a) {
             return 'b';
@@ -11,6 +12,7 @@ export class DebugMock {
     }
 
 
+    // @ts-ignore
     twoIfs(a, b) {
         if (a) {
             return 'b';
@@ -21,6 +23,7 @@ export class DebugMock {
     }
 
 
+    // @ts-ignore
     ifNestedIf(a, b) {
         if (a) {
             if (b) {
@@ -31,6 +34,7 @@ export class DebugMock {
     }
 
 
+    // @ts-ignore
     ifIfIf(a, b, c) {
         if (a) {
             if (b) {

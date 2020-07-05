@@ -46,7 +46,7 @@ class AstFile {
         if (__classPrivateFieldGet(this, _astMethods)) {
             return __classPrivateFieldGet(this, _astMethods);
         }
-        return;
+        return [];
     }
     set astMethods(astMethods) {
         __classPrivateFieldSet(this, _astMethods, astMethods);
