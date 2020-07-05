@@ -6,6 +6,8 @@ import { ChartColor } from '../../json-ast-to-reports/enums/chart-color.enum';
 import { ComplexitiesByStatus } from '../../json-ast-to-reports/interfaces/complexities-by-status.interface';
 
 
+export var WINDOWS = false;
+
 /**
  * The options used by genese-complexity
  * Some options can be override by command-line options or with geneseconfig.json
@@ -41,6 +43,7 @@ export class Options {
      * @param pathGeneseNodeJs          // The path of the node_module Genese in the nodejs user environment (can't be overriden)
      */
     static setOptions(pathCommand: string, pathFolderToAnalyze: string, pathGeneseNodeJs: string): void {
+        WINDOWS = process.platform === 'win32';
         const geneseConfigPath = `${pathCommand}/geneseconfig.json`;
         if (fs.existsSync(geneseConfigPath)) {
             Options.setOptionsFromConfig(geneseConfigPath);

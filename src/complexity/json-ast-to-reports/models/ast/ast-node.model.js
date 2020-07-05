@@ -308,7 +308,6 @@ class AstNode {
      * Sets complexity factor for callbacks and recursions
      */
     setRecursionOrCallbackCpxFactors() {
-        // console.log('IS RECCURRSSSS', this.isRecursiveMethod)
         this.cpxFactors.recursion.recursivity = this.isRecursiveMethod ? cpx_factors_1.cpxFactors.recursion.recursivity : 0;
         this.cpxFactors.recursion.callback = this.isCallback ? cpx_factors_1.cpxFactors.recursion.callback : 0;
     }

@@ -3,7 +3,7 @@ import { DEV_MOCK, LIMIT_CONVERSIONS } from '../../language-to-json-ast';
 import { TsFolder } from '../models/ts-folder.model';
 import { TsFileConversionService } from './ts-file-conversion.service';
 import { TsJsonAst } from '../models/ts-json-ast.model';
-import { getFileExtension } from '../../../core/services/file.service';
+import {getFileExtension, platformPath} from '../../../core/services/file.service';
 import { Options } from '../../../core/models/options.model';
 
 /**
@@ -20,7 +20,7 @@ export class InitConversionService {
      */
     generateAll(path: string): TsJsonAst {
         if (!path) {
-            console.log('ERROR: no path.')
+            console.log('ERROR: no path.');
             return undefined;
         }
         const tsJsonAst = new TsJsonAst();
@@ -37,7 +37,7 @@ export class InitConversionService {
     private generateTsFolder(path: string, tsFolderParent?: TsFolder): TsFolder {
         let tsFolder = new TsFolder();
         tsFolder.parent = tsFolderParent;
-        tsFolder.path = path;
+        tsFolder.path = platformPath(path);
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach((elementName: string) => {
             const pathElement = path + elementName;

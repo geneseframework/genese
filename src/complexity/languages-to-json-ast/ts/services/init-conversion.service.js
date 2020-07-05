@@ -35,7 +35,7 @@ class InitConversionService {
     generateTsFolder(path, tsFolderParent) {
         let tsFolder = new ts_folder_model_1.TsFolder();
         tsFolder.parent = tsFolderParent;
-        tsFolder.path = path;
+        tsFolder.path = file_service_1.platformPath(path);
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach((elementName) => {
             const pathElement = path + elementName;

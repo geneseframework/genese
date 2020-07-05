@@ -99,7 +99,6 @@ class AstNodeService {
         if (!astNode.isFunctionOrMethodDeclaration) {
             return false;
         }
-        console.log('ISRECCC', astNode.kind);
         return this.hasRecursiveNode(astNode.astMethod, astNode);
     }
     /**
@@ -110,7 +109,6 @@ class AstNodeService {
     hasRecursiveNode(astNodeMethod, astNode) {
         for (const childAstNode of astNode === null || astNode === void 0 ? void 0 : astNode.children) {
             if (childAstNode.name === astNodeMethod.name && childAstNode.context === astNodeMethod.astNode.context && !astNode.isFunctionOrMethodDeclaration) {
-                console.log('INSIDE IFFF');
                 return true;
             }
             if (this.hasRecursiveNode(astNodeMethod, childAstNode)) {

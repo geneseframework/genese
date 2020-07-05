@@ -1,5 +1,5 @@
 import * as fs from 'fs-extra';
-import { Options } from '../models/options.model';
+import {Options, WINDOWS} from '../models/options.model';
 
 /**
  * Tools about files or folders
@@ -164,7 +164,17 @@ export function createOutDir(): void {
  * @param targetPath        // The target's path
  */
 export function copyFile(originPath: string, targetPath: string): void {
-    fs.copyFileSync(originPath, targetPath);
+    fs.copyFileSync(platformPath(originPath), platformPath(targetPath));
+}
+
+
+export function platformPath(path: string): string {
+    return WINDOWS ? windowsPath(path) : path;
+}
+
+
+export function windowsPath(path: string): string {
+    return path.replace(/\//g, '\\').replace(/\\/g, '\\\\')
 }
 
 

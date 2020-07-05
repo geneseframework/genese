@@ -9,6 +9,10 @@ const kind_aliases_1 = require("../const/kind-aliases");
  * Service for operations on TsNode elements relative to a given node in Abstract Syntax TreeNode (AST)
  */
 class Ts {
+    /**
+     * Returns the SyntaxKind of an AST node or its alias if exists
+     * @param node
+     */
     static getKindAlias(node) {
         let kind = Ts.getKind(node);
         for (const alias of kind_aliases_1.KindAliases) {
