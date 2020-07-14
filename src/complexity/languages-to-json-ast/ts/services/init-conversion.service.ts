@@ -39,8 +39,6 @@ export class InitConversionService {
             path: platformPath(path),
             astFiles: []
         };
-        // let tsFolder = new TsFolder();
-        // tsFolder.path = platformPath(path);
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach((elementName: string) => {
             const pathElement = path + elementName;

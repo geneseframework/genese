@@ -2,6 +2,7 @@ import * as fs from 'fs-extra';
 import * as ts from 'typescript';
 import { getFilename } from '../../../core/services/file.service';
 import { KindAliases } from '../const/kind-aliases';
+import { Node, SourceFile, SyntaxKind } from 'ts-morph';
 
 /**
  * Service for operations on TsNode elements relative to a given node in Abstract Syntax TreeNode (AST)
@@ -47,15 +48,15 @@ export class Ts {
      * Gets the name of the method of a node with type = MethodDeclaration
      * @param node // The AST node
      */
-    static getName(node: ts.Node): string {
-        switch (node?.kind) {
-            case ts.SyntaxKind.ClassDeclaration:
-            case ts.SyntaxKind.FunctionDeclaration:
-            case ts.SyntaxKind.MethodDeclaration:
-            case ts.SyntaxKind.Parameter:
-                return (node as any)['name']?.['escapedText'] ?? '';
-            case ts.SyntaxKind.Identifier:
-                return (node as any)['escapedText'] ?? '';
+    static getName(node: Node): string {
+        switch (node.getKind()) {
+            case SyntaxKind.ClassDeclaration:
+            case SyntaxKind.FunctionDeclaration:
+            case SyntaxKind.MethodDeclaration:
+            case SyntaxKind.Parameter:
+                return node.compilerNode['name']?.['escapedText'] ?? '';
+            case SyntaxKind.Identifier:
+                return node.getText();
             default:
                 return undefined;
         }

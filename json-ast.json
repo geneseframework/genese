@@ -10,21 +10,19 @@
 				"astNode": {
 					"end": 82,
 					"kind": "SourceFile",
-					"name": "zzz",
 					"pos": 0,
 					"start": 0,
 					"children": [
 						{
 							"end": 81,
 							"kind": "ClassDeclaration",
-							"name": "zzz",
+							"name": "DebugMock",
 							"pos": 0,
 							"start": 0,
 							"children": [
 								{
 									"end": 6,
 									"kind": "ExportKeyword",
-									"name": "zzz",
 									"pos": 0,
 									"start": 0,
 									"children": [
@@ -33,7 +31,7 @@
 								{
 									"end": 22,
 									"kind": "Identifier",
-									"name": "zzz",
+									"name": "DebugMock",
 									"pos": 12,
 									"start": 13,
 									"children": [
@@ -42,14 +40,14 @@
 								{
 									"end": 78,
 									"kind": "MethodDeclaration",
-									"name": "zzz",
+									"name": "recursion",
 									"pos": 25,
 									"start": 31,
 									"children": [
 										{
 											"end": 40,
 											"kind": "Identifier",
-											"name": "zzz",
+											"name": "recursion",
 											"pos": 25,
 											"start": 31,
 											"children": [
@@ -58,14 +56,14 @@
 										{
 											"end": 42,
 											"kind": "Parameter",
-											"name": "zzz",
+											"name": "a",
 											"pos": 41,
 											"start": 41,
 											"children": [
 												{
 													"end": 42,
 													"kind": "Identifier",
-													"name": "zzz",
+													"name": "a",
 													"pos": 41,
 													"start": 41,
 													"children": [
@@ -76,35 +74,30 @@
 										{
 											"end": 78,
 											"kind": "Block",
-											"name": "zzz",
 											"pos": 43,
 											"start": 44,
 											"children": [
 												{
 													"end": 72,
 													"kind": "ExpressionStatement",
-													"name": "zzz",
 													"pos": 45,
 													"start": 54,
 													"children": [
 														{
 															"end": 71,
 															"kind": "CallExpression",
-															"name": "zzz",
 															"pos": 45,
 															"start": 54,
 															"children": [
 																{
 																	"end": 68,
 																	"kind": "PropertyAccessExpression",
-																	"name": "zzz",
 																	"pos": 45,
 																	"start": 54,
 																	"children": [
 																		{
 																			"end": 58,
 																			"kind": "ThisKeyword",
-																			"name": "zzz",
 																			"pos": 45,
 																			"start": 54,
 																			"children": [
@@ -113,7 +106,7 @@
 																		{
 																			"end": 68,
 																			"kind": "Identifier",
-																			"name": "zzz",
+																			"name": "recursion",
 																			"pos": 59,
 																			"start": 59,
 																			"children": [
@@ -124,7 +117,7 @@
 																{
 																	"end": 70,
 																	"kind": "Identifier",
-																	"name": "zzz",
+																	"name": "a",
 																	"pos": 69,
 																	"start": 69,
 																	"children": [
@@ -143,7 +136,6 @@
 						{
 							"end": 82,
 							"kind": "EndOfFileToken",
-							"name": "zzz",
 							"pos": 81,
 							"start": 82,
 							"children": [

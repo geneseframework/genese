@@ -5,6 +5,7 @@ const fs = require("fs-extra");
 const ts = require("typescript");
 const file_service_1 = require("../../../core/services/file.service");
 const kind_aliases_1 = require("../const/kind-aliases");
+const ts_morph_1 = require("ts-morph");
 /**
  * Service for operations on TsNode elements relative to a given node in Abstract Syntax TreeNode (AST)
  */
@@ -42,15 +43,15 @@ class Ts {
      * @param node // The AST node
      */
     static getName(node) {
-        var _a, _b, _c;
-        switch (node === null || node === void 0 ? void 0 : node.kind) {
-            case ts.SyntaxKind.ClassDeclaration:
-            case ts.SyntaxKind.FunctionDeclaration:
-            case ts.SyntaxKind.MethodDeclaration:
-            case ts.SyntaxKind.Parameter:
-                return (_b = (_a = node['name']) === null || _a === void 0 ? void 0 : _a['escapedText']) !== null && _b !== void 0 ? _b : '';
-            case ts.SyntaxKind.Identifier:
-                return (_c = node['escapedText']) !== null && _c !== void 0 ? _c : '';
+        var _a, _b;
+        switch (node.getKind()) {
+            case ts_morph_1.SyntaxKind.ClassDeclaration:
+            case ts_morph_1.SyntaxKind.FunctionDeclaration:
+            case ts_morph_1.SyntaxKind.MethodDeclaration:
+            case ts_morph_1.SyntaxKind.Parameter:
+                return (_b = (_a = node.compilerNode['name']) === null || _a === void 0 ? void 0 : _a['escapedText']) !== null && _b !== void 0 ? _b : '';
+            case ts_morph_1.SyntaxKind.Identifier:
+                return node.getText();
             default:
                 return undefined;
         }
