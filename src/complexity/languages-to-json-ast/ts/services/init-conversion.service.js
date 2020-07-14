@@ -31,9 +31,9 @@ class InitConversionService {
      */
     generateAstFolder(path) {
         let tsFolder = {
-            astFiles: [],
             children: [],
-            path: file_service_1.platformPath(path)
+            path: file_service_1.platformPath(path),
+            astFiles: []
         };
         // let tsFolder = new TsFolder();
         // tsFolder.path = platformPath(path);

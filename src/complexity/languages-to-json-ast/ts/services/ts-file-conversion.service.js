@@ -22,13 +22,13 @@ class TsFileConversionService {
             return undefined;
         }
         const tsFile = {
+            name: file_service_1.getFilename(path),
+            text: ts_service_1.Ts.getTextFile(path),
             astNode: {
                 end: undefined,
                 kind: syntax_kind_enum_1.SyntaxKind.SourceFile,
                 pos: 0
-            },
-            name: file_service_1.getFilename(path),
-            text: ts_service_1.Ts.getTextFile(path)
+            }
         };
         // const tsFile = new TsFile();
         const name = file_service_1.getFilename(path);
@@ -59,10 +59,12 @@ class TsFileConversionService {
             children.push(this.createAstNodeChildren(childNode));
         });
         const newAstNode = {
-            children: children,
             end: node.getEnd(),
             kind: node.getKindName(),
-            pos: node.getPos()
+            name: 'zzz',
+            pos: node.getPos(),
+            start: node.getStart(),
+            children: children,
         };
         return newAstNode;
     }

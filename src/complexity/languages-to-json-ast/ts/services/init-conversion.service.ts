@@ -35,9 +35,9 @@ export class InitConversionService {
      */
     private generateAstFolder(path: string): AstFolderInterface {
         let tsFolder: AstFolderInterface = {
-            astFiles: [],
             children: [],
-            path: platformPath(path)
+            path: platformPath(path),
+            astFiles: []
         };
         // let tsFolder = new TsFolder();
         // tsFolder.path = platformPath(path);

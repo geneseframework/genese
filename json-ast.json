@@ -1,125 +1,157 @@
 {
 	"astFolder": {
-		"astFiles": [
-			{
-				"astNode": {
-					"children": [
-						{
-							"children": [
-								{
-									"children": [
-									],
-									"end": 6,
-									"kind": "ExportKeyword",
-									"pos": 0
-								},
-								{
-									"children": [
-									],
-									"end": 22,
-									"kind": "Identifier",
-									"pos": 12
-								},
-								{
-									"children": [
-										{
-											"children": [
-											],
-											"end": 40,
-											"kind": "Identifier",
-											"pos": 25
-										},
-										{
-											"children": [
-												{
-													"children": [
-													],
-													"end": 42,
-													"kind": "Identifier",
-													"pos": 41
-												}
-											],
-											"end": 42,
-											"kind": "Parameter",
-											"pos": 41
-										},
-										{
-											"children": [
-												{
-													"children": [
-														{
-															"children": [
-																{
-																	"children": [
-																		{
-																			"children": [
-																			],
-																			"end": 58,
-																			"kind": "ThisKeyword",
-																			"pos": 45
-																		},
-																		{
-																			"children": [
-																			],
-																			"end": 68,
-																			"kind": "Identifier",
-																			"pos": 59
-																		}
-																	],
-																	"end": 68,
-																	"kind": "PropertyAccessExpression",
-																	"pos": 45
-																},
-																{
-																	"children": [
-																	],
-																	"end": 70,
-																	"kind": "Identifier",
-																	"pos": 69
-																}
-															],
-															"end": 71,
-															"kind": "CallExpression",
-															"pos": 45
-														}
-													],
-													"end": 72,
-													"kind": "ExpressionStatement",
-													"pos": 45
-												}
-											],
-											"end": 78,
-											"kind": "Block",
-											"pos": 43
-										}
-									],
-									"end": 78,
-									"kind": "MethodDeclaration",
-									"pos": 25
-								}
-							],
-							"end": 81,
-							"kind": "ClassDeclaration",
-							"pos": 0
-						},
-						{
-							"children": [
-							],
-							"end": 82,
-							"kind": "EndOfFileToken",
-							"pos": 81
-						}
-					],
-					"end": 82,
-					"kind": "SourceFile",
-					"pos": 0
-				},
-				"name": "debug.mock.ts",
-				"text": "export class DebugMock  {\n\n    recursion(a) {\n        this.recursion(a);\n    }\n\n}\n"
-			}
-		],
 		"children": [
 		],
-		"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/"
+		"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/",
+		"astFiles": [
+			{
+				"name": "debug.mock.ts",
+				"text": "export class DebugMock  {\n\n    recursion(a) {\n        this.recursion(a);\n    }\n\n}\n",
+				"astNode": {
+					"end": 82,
+					"kind": "SourceFile",
+					"name": "zzz",
+					"pos": 0,
+					"start": 0,
+					"children": [
+						{
+							"end": 81,
+							"kind": "ClassDeclaration",
+							"name": "zzz",
+							"pos": 0,
+							"start": 0,
+							"children": [
+								{
+									"end": 6,
+									"kind": "ExportKeyword",
+									"name": "zzz",
+									"pos": 0,
+									"start": 0,
+									"children": [
+									]
+								},
+								{
+									"end": 22,
+									"kind": "Identifier",
+									"name": "zzz",
+									"pos": 12,
+									"start": 13,
+									"children": [
+									]
+								},
+								{
+									"end": 78,
+									"kind": "MethodDeclaration",
+									"name": "zzz",
+									"pos": 25,
+									"start": 31,
+									"children": [
+										{
+											"end": 40,
+											"kind": "Identifier",
+											"name": "zzz",
+											"pos": 25,
+											"start": 31,
+											"children": [
+											]
+										},
+										{
+											"end": 42,
+											"kind": "Parameter",
+											"name": "zzz",
+											"pos": 41,
+											"start": 41,
+											"children": [
+												{
+													"end": 42,
+													"kind": "Identifier",
+													"name": "zzz",
+													"pos": 41,
+													"start": 41,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 78,
+											"kind": "Block",
+											"name": "zzz",
+											"pos": 43,
+											"start": 44,
+											"children": [
+												{
+													"end": 72,
+													"kind": "ExpressionStatement",
+													"name": "zzz",
+													"pos": 45,
+													"start": 54,
+													"children": [
+														{
+															"end": 71,
+															"kind": "CallExpression",
+															"name": "zzz",
+															"pos": 45,
+															"start": 54,
+															"children": [
+																{
+																	"end": 68,
+																	"kind": "PropertyAccessExpression",
+																	"name": "zzz",
+																	"pos": 45,
+																	"start": 54,
+																	"children": [
+																		{
+																			"end": 58,
+																			"kind": "ThisKeyword",
+																			"name": "zzz",
+																			"pos": 45,
+																			"start": 54,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 68,
+																			"kind": "Identifier",
+																			"name": "zzz",
+																			"pos": 59,
+																			"start": 59,
+																			"children": [
+																			]
+																		}
+																	]
+																},
+																{
+																	"end": 70,
+																	"kind": "Identifier",
+																	"name": "zzz",
+																	"pos": 69,
+																	"start": 69,
+																	"children": [
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"end": 82,
+							"kind": "EndOfFileToken",
+							"name": "zzz",
+							"pos": 81,
+							"start": 82,
+							"children": [
+							]
+						}
+					]
+				}
+			}
+		]
 	}
 }

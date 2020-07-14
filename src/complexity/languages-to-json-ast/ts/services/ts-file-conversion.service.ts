@@ -26,13 +26,13 @@ export class TsFileConversionService {
             return undefined;
         }
         const tsFile: AstFileInterface = {
+            name: getFilename(path),
+            text: Ts.getTextFile(path),
             astNode: {
                 end: undefined,
                 kind: SyntaxKind.SourceFile,
                 pos: 0
-            },
-            name: getFilename(path),
-            text: Ts.getTextFile(path)
+            }
         };
         // const tsFile = new TsFile();
         const name = getFilename(path);
@@ -65,10 +65,12 @@ export class TsFileConversionService {
             children.push(this.createAstNodeChildren(childNode));
         });
         const newAstNode: AstNodeInterface = {
-            children: children,
             end: node.getEnd(),
             kind: node.getKindName(),
-            pos: node.getPos()
+            name: 'zzz',
+            pos: node.getPos(),
+            start: node.getStart(),
+            children: children,
         };
         return newAstNode;
     }
