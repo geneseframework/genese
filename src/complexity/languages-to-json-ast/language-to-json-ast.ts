@@ -4,9 +4,11 @@ import * as chalk from 'chalk';
 import { JsonService } from './json.service';
 import { createFile } from '../core/services/file.service';
 import { JsonAst } from '../json-ast-to-reports/models/ast/json-ast.model';
+import { Project } from 'ts-morph';
 
 export const LIMIT_CONVERSIONS = false;
 export const DEV_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
+export let project  = new Project();
 
 /**
  * Main process of the parsing to JsonAst format
@@ -21,6 +23,8 @@ export class LanguageToJsonAst {
      */
     static start(pathToAnalyze: string, language?: Language): void {
         console.log(chalk.blueBright('STARTS JSON AST GENERATION'));
+        project.addSourceFilesAtPaths(`${pathToAnalyze}/**/*.ts`);
+        console.log('project', project)
         let jsonAst: JsonAst;
         switch (language) {
             case Language.TS:
