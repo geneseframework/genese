@@ -49,7 +49,7 @@ export class InitService {
         newAstFolder.path = this.getPathFromJsonAstFolder(astFolderFromJsonAst);
         newAstFolder.parent = parentAstFolder;
         newAstFolder.astFiles = this.generateAstFiles(astFolderFromJsonAst, newAstFolder);
-        for (const childFolderFromJsonAst of astFolderFromJsonAst.children) {
+        for (const childFolderFromJsonAst of astFolderFromJsonAst.children ?? []) {
             newAstFolder.children.push(this.generateChildrenAstFolder(childFolderFromJsonAst, newAstFolder));
         }
         return newAstFolder;

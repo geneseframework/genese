@@ -4,7 +4,7 @@ import { AstFileInterface } from '../../../core/interfaces/ast/ast-file.interfac
 import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
 import { project } from '../../language-to-json-ast';
-import { Node, PropertyName, SourceFile } from 'ts-morph';
+import { Node, SourceFile } from 'ts-morph';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 
 /**
@@ -43,14 +43,17 @@ export class TsFileConversionService {
         node.forEachChild((childNode: Node) => {
             children.push(this.createAstNodeChildren(childNode));
         });
-        return {
+        const astNode: AstNodeInterface = {
             end: node.getEnd(),
             kind: Ts.getKindAlias(node),
             name: Ts.getName(node),
             pos: node.getPos(),
-            start: node.getStart(),
-            children: children,
+            start: node.getStart()
         };
+        if (children.length > 0) {
+            astNode.children = children;
+        }
+        return astNode;
     }
 
 

@@ -4,7 +4,7 @@ exports.Ts = void 0;
 const kind_aliases_1 = require("../const/kind-aliases");
 const ts_morph_1 = require("ts-morph");
 /**
- * Service for operations on TsNode elements relative to a given node in Abstract Syntax TreeNode (AST)
+ * Service for operations on Node elements (ts-morph nodes)
  */
 class Ts {
     /**
@@ -22,7 +22,7 @@ class Ts {
         return kind;
     }
     /**
-     * Gets the name of the method of a node with type = MethodDeclaration
+     * Gets the name of a Node
      * @param node // The AST node
      */
     static getName(node) {

@@ -31,15 +31,16 @@ class InitConversionService {
      */
     generateAstFolder(path) {
         let tsFolder = {
-            children: [],
             path: file_service_1.platformPath(path),
             astFiles: []
         };
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach((elementName) => {
+            var _a;
             const pathElement = path + elementName;
             if (!options_model_1.Options.isIgnored(pathElement)) {
                 if (fs.statSync(pathElement).isDirectory() && !language_to_json_ast_1.LIMIT_CONVERSIONS) {
+                    tsFolder.children = (_a = tsFolder.children) !== null && _a !== void 0 ? _a : [];
                     tsFolder.children.push(this.generateAstFolder(`${pathElement}/`));
                 }
                 else if (this.isFileToConvert(pathElement)) {
