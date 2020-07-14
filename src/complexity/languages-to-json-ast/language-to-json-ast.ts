@@ -3,10 +3,12 @@ import { Language } from '../core/enum/language.enum';
 import * as chalk from 'chalk';
 import { JsonService } from './json.service';
 import { createFile } from '../core/services/file.service';
-import { JsonAst } from '../json-ast-to-reports/models/ast/json-ast.model';
+import { Project } from 'ts-morph';
+import { JsonAstInterface } from '../core/interfaces/ast/json-ast.interface';
 
 export const LIMIT_CONVERSIONS = false;
 export const DEV_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
+export let project  = new Project();
 
 /**
  * Main process of the parsing to JsonAst format
@@ -21,7 +23,8 @@ export class LanguageToJsonAst {
      */
     static start(pathToAnalyze: string, language?: Language): void {
         console.log(chalk.blueBright('STARTS JSON AST GENERATION'));
-        let jsonAst: JsonAst;
+        project.addSourceFilesAtPaths(`${pathToAnalyze}/**/*.ts`);
+        let jsonAst: JsonAstInterface;
         switch (language) {
             case Language.TS:
                 jsonAst = LanguageToJsonAst.generateFromTsFiles(pathToAnalyze);
@@ -36,15 +39,18 @@ export class LanguageToJsonAst {
 
 
     // TODO: implement for all languages
-    private static generateFromAllFiles(pathToAnalyze: string): JsonAst {
+    private static generateFromAllFiles(pathToAnalyze: string): JsonAstInterface {
         return LanguageToJsonAst.generateFromTsFiles(pathToAnalyze);
     }
 
 
-    private static generateFromTsFiles(pathToAnalyze: string): JsonAst {
-        const jsonAst = new JsonAst();
+    private static generateFromTsFiles(pathToAnalyze: string): JsonAstInterface {
+        const jsonAst: JsonAstInterface = {
+            astFolder: undefined
+        };
+        // const jsonAst = new JsonAst();
         const initService = new InitConversionService();
-        let astFolder = initService.generateAll(pathToAnalyze).tsFolder as any;
+        let astFolder = initService.generateAll(pathToAnalyze).astFolder as any;
         astFolder = JsonService.astPropertyNames(astFolder);
         jsonAst.astFolder = astFolder;
         return jsonAst;

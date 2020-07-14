@@ -10,6 +10,10 @@
 						"name": "debug-2.mock.ts",
 						"text": "export class Debug2Mock {\n\n\n    // @ts-ignore\n    ifVeryAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n\n}\n",
 						"astNode": {
+							"end": 127,
+							"kind": "SourceFile",
+							"pos": 0,
+							"start": 0,
 							"children": [
 								{
 									"end": 126,
@@ -144,6 +148,10 @@
 						"name": "arrays-mock.ts",
 						"text": "export class ArraysMock {\n\n    elementAccessExpression(a) {\n        return a[0];\n    }\n\n\n    arrayLiteralExpression(b) {\n        return [b];\n    }\n\n\n    aggregateElementAccess(a, b, c) {\n        return c[a][b];\n    }\n\n\n    aggregateElementAccessX2(a, b, c, d) {\n        return c[a][b][d];\n    }\n\n\n    aggregateArrayLiteral(a, b) {\n        return [a][b];\n    }\n\n\n    nestingElementAccessElementAccess(a, b, c) {\n        return a[b[c]];\n    }\n\n\n    nestingElementAccessElementAccessX2(a, b, c, d) {\n        return a[b[c[d]]];\n    }\n\n\n    nestingTernaryElementAccess(a, b, c, d) {\n        return a[b ? c : d];\n    }\n\n}\n",
 						"astNode": {
+							"end": 616,
+							"kind": "SourceFile",
+							"pos": 0,
+							"start": 0,
 							"children": [
 								{
 									"end": 615,
@@ -1204,6 +1212,10 @@
 						"name": "binaries.mock.ts",
 						"text": "export class BinariesMock {\n\n    binary(a, b) {\n        if (a && b) {\n            console.log('b');\n        }\n    }\n\n\n    sameLogicDoor(a, b, c) {\n        if (a && b && c) {\n            console.log('b');\n        }\n    }\n\n\n    differentLogicDoor(a, b, c) {\n        if (a && b || c) {\n            console.log('b');\n        }\n    }\n\n\n    differentLogicDoorWithBrackets(a, b, c) {\n        if ((a && b) || c) {\n            console.log('b');\n        }\n    }\n\n\n    orBetweenTwoBinaries(a, b, c, d) {\n        if ((a && b) || (c && d)) {\n            console.log('b');\n        }\n    }\n\n\n    differentLogicDoorBetweenBinaries(a, b, c, d) {\n        if ((a && b) || (c && d) && a) {\n            console.log('b');\n        }\n    }\n\n\n    forIfAndAndOrAndAndOrOr(a, b, c, d, e, f) {\n        for (let i = 0; i < 10; i++) {\n            if (b && c || d && f || a) {\n                console.log(e);\n            }\n        }\n    }\n\n\n    forForIfAndAndOrAndAndOrOr(a, b, c, d, e, f) {\n        for (let i = 0; i < 10; i++) {\n            for (let j = 0; j < 10; j++) {\n                if (b && c || d && f || a) {\n                    console.log(e);\n                }\n            }\n        }\n        if (a > b) {\n            console.log(b);\n        }\n    }\n\n}\n",
 						"astNode": {
+							"end": 1234,
+							"kind": "SourceFile",
+							"pos": 0,
+							"start": 0,
 							"children": [
 								{
 									"end": 1233,
@@ -2753,7 +2765,7 @@
 																		},
 																		{
 																			"end": 793,
-																			"kind": "FirstBinaryOperator",
+																			"kind": "LessThanToken",
 																			"pos": 791,
 																			"start": 792,
 																			"children": [
@@ -3162,7 +3174,7 @@
 																		},
 																		{
 																			"end": 988,
-																			"kind": "FirstBinaryOperator",
+																			"kind": "LessThanToken",
 																			"pos": 986,
 																			"start": 987,
 																			"children": [
@@ -3257,7 +3269,7 @@
 																						},
 																						{
 																							"end": 1031,
-																							"kind": "FirstBinaryOperator",
+																							"kind": "LessThanToken",
 																							"pos": 1029,
 																							"start": 1030,
 																							"children": [
@@ -3602,6 +3614,10 @@
 						"name": "callbacks.mock.ts",
 						"text": "// @ts-ignore\nexport class CallbacksMock<T> {\n\n\n    constructor(object) {\n        console.log(object);\n    }\n\n    recursion(a) {\n        this.recursion(a);\n    }\n\n\n    methodWithCallback<T>(a: T, callback): T {\n        return callback(a);\n    }\n\n\n    caller(a) {\n        this.methodWithCallback(a, (b) => {\n            if (a < 2) {\n                console.log(b)\n            }\n        })\n    }\n\n\n    callerFunction(a) {\n        this.methodWithCallback(a, function (b) {\n            if (b < 6) {\n                console.log('b', b)\n            }\n        })\n    }\n\n}\n",
 						"astNode": {
+							"end": 565,
+							"kind": "SourceFile",
+							"pos": 0,
+							"start": 14,
 							"children": [
 								{
 									"end": 564,
@@ -4117,7 +4133,7 @@
 																										},
 																										{
 																											"end": 326,
-																											"kind": "FirstBinaryOperator",
+																											"kind": "LessThanToken",
 																											"pos": 324,
 																											"start": 325,
 																											"children": [
@@ -4345,7 +4361,7 @@
 																										},
 																										{
 																											"end": 489,
-																											"kind": "FirstBinaryOperator",
+																											"kind": "LessThanToken",
 																											"pos": 487,
 																											"start": 488,
 																											"children": [
@@ -4459,6 +4475,10 @@
 						"name": "for.mock.ts",
 						"text": "export class ForMock {\n\n    forMethod(a) {\n        for (const elt of a) {\n            console.log(elt);\n        }\n    }\n\n\n    forEachMethod(a) {\n        a.forEach(e => {\n            console.log(e);\n        })\n    }\n\n\n    forForFor(max: number) {\n        let total = 0;\n        for (let i = 1; i < max; ++i) {\n            for (let j = 2; j < i; ++j) {\n                for (let k = 2; k < 10; ++k) {\n                    console.log(`k = ${k}`);\n                }\n            }\n            total += i;\n        }\n        return total;\n    }\n\n}\n",
 						"astNode": {
+							"end": 540,
+							"kind": "SourceFile",
+							"pos": 0,
+							"start": 0,
 							"children": [
 								{
 									"end": 539,
@@ -4858,7 +4878,7 @@
 													"children": [
 														{
 															"end": 268,
-															"kind": "FirstStatement",
+															"kind": "Keyword",
 															"pos": 245,
 															"start": 254,
 															"children": [
@@ -4953,7 +4973,7 @@
 																		},
 																		{
 																			"end": 296,
-																			"kind": "FirstBinaryOperator",
+																			"kind": "LessThanToken",
 																			"pos": 294,
 																			"start": 295,
 																			"children": [
@@ -5049,7 +5069,7 @@
 																						},
 																						{
 																							"end": 340,
-																							"kind": "FirstBinaryOperator",
+																							"kind": "LessThanToken",
 																							"pos": 338,
 																							"start": 339,
 																							"children": [
@@ -5145,7 +5165,7 @@
 																										},
 																										{
 																											"end": 386,
-																											"kind": "FirstBinaryOperator",
+																											"kind": "LessThanToken",
 																											"pos": 384,
 																											"start": 385,
 																											"children": [
@@ -5253,7 +5273,7 @@
 																																		},
 																																		{
 																																			"end": 440,
-																																			"kind": "LastTemplateToken",
+																																			"kind": "TemplateTail",
 																																			"pos": 438,
 																																			"start": 438,
 																																			"children": [
@@ -5298,7 +5318,7 @@
 																						},
 																						{
 																							"end": 495,
-																							"kind": "FirstCompoundAssignment",
+																							"kind": "PlusEqualsToken",
 																							"pos": 492,
 																							"start": 493,
 																							"children": [
@@ -5359,6 +5379,10 @@
 						"name": "hyper-complex.mock.ts",
 						"text": "import { CallbacksMock } from './callbacks.mock';\n\n\nexport class HyperComplexMock {\n\n\n    hyperComplex<T>(object: Object, path: string | string[] = '', value: any): CallbacksMock<T> {\n        path = path.toString().match(/[^.[\\]]+/g);\n        path.slice(0, -1).reduce((acc: any, curr: any, index: number) => {\n            const arg = Math.round(index) % 3;\n            acc(0);\n            return Object(acc[curr]) === acc[curr + arg][0];\n        }, object)[path[path.length - 1]] = value;\n        return new CallbacksMock<T>(object);\n    }\n\n\n    ifIf(data) {\n        if (data === 'a') {\n            data = 'b';\n            if (data === 'v') {\n                data = 'c';\n            }\n        }\n    }\n\n\n    reducer(acc: Object, curr: any, index: number, path: number) {\n        return Object(acc[curr]) === acc[curr] ? acc[curr] : (acc[curr] = isNaN(+path[index + 1]) ? {} : []);\n    }\n}\n",
 						"astNode": {
+							"end": 888,
+							"kind": "SourceFile",
+							"pos": 0,
+							"start": 0,
 							"children": [
 								{
 									"end": 49,
@@ -5648,7 +5672,7 @@
 																		},
 																		{
 																			"end": 198,
-																			"kind": "FirstAssignment",
+																			"kind": "EqualsToken",
 																			"pos": 196,
 																			"start": 197,
 																			"children": [
@@ -5924,7 +5948,7 @@
 																									"children": [
 																										{
 																											"end": 356,
-																											"kind": "FirstStatement",
+																											"kind": "Keyword",
 																											"pos": 309,
 																											"start": 322,
 																											"children": [
@@ -6275,7 +6299,7 @@
 																		},
 																		{
 																			"end": 481,
-																			"kind": "FirstAssignment",
+																			"kind": "EqualsToken",
 																			"pos": 479,
 																			"start": 480,
 																			"children": [
@@ -6457,7 +6481,7 @@
 																						},
 																						{
 																							"end": 605,
-																							"kind": "FirstAssignment",
+																							"kind": "EqualsToken",
 																							"pos": 603,
 																							"start": 604,
 																							"children": [
@@ -6543,7 +6567,7 @@
 																										},
 																										{
 																											"end": 665,
-																											"kind": "FirstAssignment",
+																											"kind": "EqualsToken",
 																											"pos": 663,
 																											"start": 664,
 																											"children": [
@@ -6887,7 +6911,7 @@
 																						},
 																						{
 																							"end": 843,
-																							"kind": "FirstAssignment",
+																							"kind": "EqualsToken",
 																							"pos": 841,
 																							"start": 842,
 																							"children": [
@@ -7037,6 +7061,10 @@
 						"name": "if.mock.ts",
 						"text": "export class IfMock {\n\n    constructor() {\n    }\n\n\n    // @ts-ignore\n    ifAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n\n\n    ifElse(a) {\n        if (a) {\n            return 'b';\n        } else {\n            return 'c';\n        }\n    }\n\n\n    // @ts-ignore\n    ifIfNested(a, b) {\n        if (a) {\n            return 'b';\n            if (b) {\n                return 'c';\n            }\n        }\n    }\n\n\n    ifElseIfElse(a, b) {\n        if (a) {\n            return 'b';\n        } else if (b) {\n            return 'c';\n        } else {\n            return 'c';\n        }\n    }\n\n\n    // @ts-ignore\n    ifElseIfIfElse(a, b, c) {\n        if (a) {\n            return 1;\n        } else if (b) {\n            if (c) {\n                return 0;\n            }\n        } else {\n            return 2;\n        }\n    }\n\n\n    // @ts-ignore\n    ifElseIfInside(a, b) {\n        if (a) {\n            return 'b';\n        } else {\n            if (b) {\n                return 'c';\n            }\n        }\n    }\n\n\n    // @ts-ignore\n    ifNestedIf(a) {\n        if (a) {\n            return 'b';\n            if (a === 'v') {\n                return 'c';\n            }\n        }\n    }\n\n\n\n    // @ts-ignore\n    ifIfElseInside(a) {\n        if (a) {\n            return 'b';\n            if (a === 'v') {\n                return 'c';\n            } else {\n                return 'f';\n            }\n        }\n    }\n\n\n    ifAnd(a, b) {\n        if (a && b) {\n            console.log(a);\n        }\n    }\n\n\n    ifOr(a, b) {\n        if (a || b) {\n            console.log(a);\n        }\n    }\n\n\n    ifAndAnd(a, b, c) {\n        if (a && b && c) {\n            console.log(a);\n        }\n    }\n\n\n    ifAndOr(a, b, c) {\n        if (a && b || c) {\n            console.log(a);\n        }\n    }\n\n\n    ifAndAndOrAnd(a, b, c, d, e, f) {\n        if (a && b && c || d && e && f) {\n            console.log(a);\n        }\n    }\n\n\n    ifAndAndOrAndAndOrOr(a, b, c, d, e, f) {\n        if (a && b && c || d && e && f || a || b) {\n            console.log(a);\n        }\n    }\n\n\n    ifIfIf(a: number) {\n        if (a > 2) {\n            if (a > 3) {\n                if (a > 4) {\n                    console.log('a > 4');\n                }\n            }\n        }\n    }\n\n\n    ifIfIfElse(a: number) {\n        if (a > 2) {\n            if (a > 3) {\n                if (a > 4) {\n                    console.log('a > 4');\n                } else {\n                    console.log('a <= 4');\n                }\n            }\n        }\n    }\n\n}\n",
 						"astNode": {
+							"end": 2488,
+							"kind": "SourceFile",
+							"pos": 0,
+							"start": 0,
 							"children": [
 								{
 									"end": 2487,
@@ -10302,6 +10330,10 @@
 						"name": "regex.mock.ts",
 						"text": "export class RegexMock {\n\n    shortRegex() {\n        return /[^.[\\]]+/g;\n    }\n\n    email() {\n        return /^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$/g;\n    }\n\n    frenchPhoneNumber() {\n        return /^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$/;\n    }\n\n}\n",
 						"astNode": {
+							"end": 311,
+							"kind": "SourceFile",
+							"pos": 0,
+							"start": 0,
 							"children": [
 								{
 									"end": 310,
@@ -10470,6 +10502,10 @@
 						"name": "switches.mock.ts",
 						"text": "/*\n * @file utils.service.ts\n *\n * Copyright (c) Naval Group SA property, 2020[-2020], all rights reserved.\n *\n * Copyright (c) All rights reserved. Both the content and the form of this software are the property of Naval Group SA\n * and/or of third party. It is formally prohibited to use, copy, modify, translate, disclose or perform all or part of\n * this software without obtaining Naval Group SA’s prior written consent or authorization. Any such unauthorized use,\n * copying, modification, translation, disclosure or performance by any means whatsoever shall constitute\n * an infringement punishable by criminal or civil law and, more generally, a breach of Naval Group SA’s rights.\n */\n\nexport class SwitchesMock {\n\n\n    switches(numberOfWords: number) {\n        switch (numberOfWords) {\n            case 1:\n                console.log(\"one\");\n                break;\n            case 2:\n                console.log(\"a couple\");\n                break;\n            default:\n                console.log(\"lots\");\n        }\n    }\n\n\n    tryCatch() {\n        try {\n            console.log('Success');\n        } catch (e) {\n            console.log(e);\n        }\n    }\n\n\n    questionDotToken(time: any) {\n        time = time?.name;\n    }\n\n}\n",
 						"astNode": {
+							"end": 1239,
+							"kind": "SourceFile",
+							"pos": 0,
+							"start": 694,
 							"children": [
 								{
 									"end": 1238,
@@ -11025,7 +11061,7 @@
 																		},
 																		{
 																			"end": 1217,
-																			"kind": "FirstAssignment",
+																			"kind": "EqualsToken",
 																			"pos": 1215,
 																			"start": 1216,
 																			"children": [
@@ -11090,6 +11126,10 @@
 						"name": "ternaries.mock.ts",
 						"text": "export class TernariesMock {\n\n\n    ternary(a) {\n        return a ? 5 : 3;\n    }\n\n\n    nestedTernaries(a, b) {\n        return a ? 1 : b ? 0 : 2;\n    }\n\n\n    ifWithTernary(a, b) {\n        if (a) {\n            return 1;\n        } else {\n            return b ? 0 : 2;\n        }\n    }\n\n\n    NoTernary(a, b) {\n        if (a) {\n            return 1;\n        } else if (b) {\n            return 0;\n        } else {\n            return 2;\n        }\n    }\n\n\n    ternaries(a) {\n        return  a > 10 ? 5 : ((a <5) ? 3 : 2);\n    }\n\n}\n",
 						"astNode": {
+							"end": 521,
+							"kind": "SourceFile",
+							"pos": 0,
+							"start": 0,
 							"children": [
 								{
 									"end": 520,
@@ -11856,7 +11896,7 @@
 																										},
 																										{
 																											"end": 499,
-																											"kind": "FirstBinaryOperator",
+																											"kind": "LessThanToken",
 																											"pos": 497,
 																											"start": 498,
 																											"children": [
@@ -11940,6 +11980,10 @@
 				"name": "debug.mock.ts",
 				"text": "export class DebugMock  {\n\n    recursion(a) {\n        this.recursion(a);\n    }\n\n}\n",
 				"astNode": {
+					"end": 82,
+					"kind": "SourceFile",
+					"pos": 0,
+					"start": 0,
 					"children": [
 						{
 							"end": 81,
@@ -12076,6 +12120,10 @@
 				"name": "demo.mock.ts",
 				"text": "import { CallbacksMock } from './mocks-subfolder/callbacks.mock';\n\n\nexport class DebugMock {\n\n\n    // @ts-ignore\n    ifAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n\n\n    // @ts-ignore\n    twoIfs(a, b) {\n        if (a) {\n            return 'b';\n        }\n        if (b) {\n            return 'c';\n        }\n    }\n\n\n    // @ts-ignore\n    ifNestedIf(a, b) {\n        if (a) {\n            if (b) {\n                return 'c';\n            }\n            return 'b';\n        }\n    }\n\n\n    // @ts-ignore\n    ifIfIf(a, b, c) {\n        if (a) {\n            if (b) {\n                if (c) {\n                    return 'd';\n                }\n                return 'c';\n            }\n            return 'b';\n        }\n    }\n\n\n    switchCase(a) {\n        switch (a) {\n            case 1:\n                return 'one';\n            case 2:\n                return 'two';\n            case 3:\n                return 'three';\n            default:\n                return 'other';\n        }\n    }\n\n    recursion(a) {\n        this.recursion(a);\n    }\n\n\n    methodWithCallback(a, callback) {\n        callback(a);\n    }\n\n    hyperComplex<T>(object: Object, path: string | string[] = '', value: any): CallbacksMock<T> {\n        path = path.toString().match(/[^.[\\]]+/g);\n        path.slice(0, -1).reduce((acc: Object, curr: any, index: number) => {\n            const arg = Math.round(index) % 3;\n            return Object(acc[curr]) === acc[curr + arg][0];\n        }, object)[path[path.length - 1]] = value;\n        return new CallbacksMock<T>(object);\n    }\n\n\n}\n",
 				"astNode": {
+					"end": 1560,
+					"kind": "SourceFile",
+					"pos": 0,
+					"start": 0,
 					"children": [
 						{
 							"end": 65,
@@ -13320,7 +13368,7 @@
 																},
 																{
 																	"end": 1231,
-																	"kind": "FirstAssignment",
+																	"kind": "EqualsToken",
 																	"pos": 1229,
 																	"start": 1230,
 																	"children": [
@@ -13605,7 +13653,7 @@
 																							"children": [
 																								{
 																									"end": 1392,
-																									"kind": "FirstStatement",
+																									"kind": "Keyword",
 																									"pos": 1345,
 																									"start": 1358,
 																									"children": [
@@ -13923,7 +13971,7 @@
 																},
 																{
 																	"end": 1497,
-																	"kind": "FirstAssignment",
+																	"kind": "EqualsToken",
 																	"pos": 1495,
 																	"start": 1496,
 																	"children": [
@@ -14014,6 +14062,10 @@
 				"name": "php.mock.ts",
 				"text": "export class PhpMock {\n\n    ifMethod(a: number) {\n        if (a > 0) {\n            return 'a';\n        }\n\n        return 'none';\n    }\n\n\n    recursion(a: number) {\n        if (0 <= a) {\n            return 0;\n        }\n        return this.recursion(a - 10);\n    }\n\n\n    methodWithCallback(a: string, callback) {\n        return callback(a);\n    }\n\n}\n",
 				"astNode": {
+					"end": 348,
+					"kind": "SourceFile",
+					"pos": 0,
+					"start": 0,
 					"children": [
 						{
 							"end": 347,

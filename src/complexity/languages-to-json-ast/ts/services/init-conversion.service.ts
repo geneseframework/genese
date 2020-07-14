@@ -1,10 +1,10 @@
 import * as fs from 'fs-extra';
 import { DEV_MOCK, LIMIT_CONVERSIONS } from '../../language-to-json-ast';
-import { TsFolder } from '../models/ts-folder.model';
 import { TsFileConversionService } from './ts-file-conversion.service';
-import { TsJsonAst } from '../models/ts-json-ast.model';
 import { getFileExtension, platformPath } from '../../../core/services/file.service';
 import { Options } from '../../../core/models/options.model';
+import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
+import { JsonAstInterface } from '../../../core/interfaces/ast/json-ast.interface';
 
 /**
  * - TsFolders generation from Abstract Syntax Tree (AST) of its files (including files in subfolders)
@@ -18,34 +18,35 @@ export class InitConversionService {
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the folder
      * @param path              // The path of the folder
      */
-    generateAll(path: string): TsJsonAst {
+    generateAll(path: string): JsonAstInterface {
         if (!path) {
             console.log('ERROR: no path.');
             return undefined;
         }
-        const tsJsonAst = new TsJsonAst();
-        tsJsonAst.tsFolder = this.generateTsFolder(path);
-        return tsJsonAst;
+        return {
+            astFolder: this.generateAstFolder(path)
+        };
     }
 
 
     /**
      * Generates the TsFolder corresponding to a given path and to its potential TsFolder parent
      * @param path                  // The path of the TsFolder
-     * @param tsFolderParent        // The TsFolder parent
      */
-    private generateTsFolder(path: string, tsFolderParent?: TsFolder): TsFolder {
-        let tsFolder = new TsFolder();
-        tsFolder.parent = tsFolderParent;
-        tsFolder.path = platformPath(path);
+    private generateAstFolder(path: string): AstFolderInterface {
+        let tsFolder: AstFolderInterface = {
+            children: [],
+            path: platformPath(path),
+            astFiles: []
+        };
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach((elementName: string) => {
             const pathElement = path + elementName;
             if (!Options.isIgnored(pathElement)) {
                 if (fs.statSync(pathElement).isDirectory() && !LIMIT_CONVERSIONS) {
-                    tsFolder.children.push(this.generateTsFolder(`${pathElement}/`, tsFolder))
+                    tsFolder.children.push(this.generateAstFolder(`${pathElement}/`))
                 } else if (this.isFileToConvert(pathElement)) {
-                    tsFolder.tsFiles.push(new TsFileConversionService().generateTsFile(pathElement, tsFolder));
+                    tsFolder.astFiles.push(new TsFileConversionService().generateTsFile(pathElement, tsFolder));
                 }
             }
         });

@@ -507,8 +507,8 @@ Corresponds to an AST node of the source code of a file.
 | empty | Boolean | no | If true, the corresponding AstNode will not add any complexity |
 | end  | Integer | yes | The position of the last character of the AST node in the source code of the file |
 | kind | SyntaxKind | yes | The kind of the AST node |
-| pos  | Integer | yes | The position of the first character of the AST node in the source code of the file |
 | name | String | yes/no | The name of the AST node. This field MUST be present in the following cases: `ClassDeclaration`, `MethodDeclaration`, `FunctionDeclaration`, `Parameter`, `Identifier` |
+| pos  | Integer | yes | The position of the first character of the AST node in the source code of the file |
 
 
 #### 7.2.3 Structure of the AST nodes

@@ -9,8 +9,7 @@ export class TsNode {
     kind: string = undefined;                       // The kind of the TsNode ('MethodDeclaration, IfStatement, ...) : will be injected as is in the JsonAst file
     name: string = undefined;                       // The name of the TsNode : will be injected as is in the JsonAst file
     #node?: ts.Node = undefined;                    // The Typescript AST node of the TsNode
-    #parent?: TsNode;                               // The TsNode of the parent of the TsNode
-    pos?: number = undefined;                       // The pos of the beginning of the AST node, including spaces and comments before it. This field will be injected as is in the JsonAst file
+    pos: number = undefined;                       // The pos of the beginning of the AST node, including spaces and comments before it. This field will be injected as is in the JsonAst file
     start?: number = undefined;                     // The pos of the real beginning of the AST node, without spaces and comments before it. This field will be injected as is in the JsonAst file
     children?: TsNode[] = [];                       // The children trees corresponding to children AST nodes of the current AST node : will be used to create the children of the AstNodes in the JsonAst file
 
@@ -28,16 +27,6 @@ export class TsNode {
 
     set node(node: ts.Node) {
         this.#node = node;
-    }
-
-
-    get parent(): TsNode {
-        return this.#parent;
-    }
-
-
-    set parent(treeNode: TsNode) {
-        this.#parent = treeNode;
     }
 
 }
