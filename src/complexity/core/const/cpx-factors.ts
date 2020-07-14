@@ -42,5 +42,8 @@ complexityFactors.structural = {
     regex: 1,                           // Regular expression
     ternary: 1                          // Ternary expression
 };
+complexityFactors.use = {
+    method: 1,                          // Usage of a method
+};
 
 export const cpxFactors: CpxFactors = complexityFactors;

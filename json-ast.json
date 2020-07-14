@@ -4,15 +4,15 @@
 		"astFiles": [
 			{
 				"name": "debug.mock.ts",
-				"text": "export class DebugMock  {\n\n    recursion(a) {\n        return a.slice(0)\n    }\n\n}\n",
+				"text": "export class DebugMock  {\n\n    recursion(a: string) {\n        return a.slice(0)\n    }\n\n}\n",
 				"astNode": {
-					"end": 81,
+					"end": 89,
 					"kind": "SourceFile",
 					"pos": 0,
 					"start": 0,
 					"children": [
 						{
-							"end": 80,
+							"end": 88,
 							"kind": "ClassDeclaration",
 							"name": "DebugMock",
 							"pos": 0,
@@ -32,7 +32,7 @@
 									"start": 13
 								},
 								{
-									"end": 77,
+									"end": 85,
 									"kind": "MethodDeclaration",
 									"name": "recursion",
 									"pos": 25,
@@ -47,66 +47,81 @@
 											"type": "function"
 										},
 										{
-											"end": 42,
+											"end": 50,
 											"kind": "Parameter",
 											"name": "a",
 											"pos": 41,
 											"start": 41,
+											"type": "string",
 											"children": [
 												{
 													"end": 42,
 													"kind": "Identifier",
 													"name": "a",
 													"pos": 41,
-													"start": 41
+													"start": 41,
+													"type": "string"
+												},
+												{
+													"end": 50,
+													"kind": "Keyword",
+													"pos": 43,
+													"start": 44
 												}
 											]
 										},
 										{
-											"end": 77,
+											"end": 85,
 											"kind": "Block",
-											"pos": 43,
-											"start": 44,
+											"pos": 51,
+											"start": 52,
 											"children": [
 												{
-													"end": 71,
+													"end": 79,
 													"kind": "Keyword",
-													"pos": 45,
-													"start": 54,
+													"pos": 53,
+													"start": 62,
 													"children": [
 														{
-															"end": 71,
+															"end": 79,
 															"kind": "CallExpression",
-															"pos": 60,
-															"start": 61,
+															"pos": 68,
+															"start": 69,
 															"children": [
 																{
-																	"end": 68,
+																	"end": 76,
 																	"kind": "PropertyAccessExpression",
-																	"pos": 60,
-																	"start": 61,
+																	"pos": 68,
+																	"start": 69,
 																	"children": [
 																		{
-																			"end": 62,
+																			"end": 70,
 																			"kind": "Identifier",
 																			"name": "a",
-																			"pos": 60,
-																			"start": 61
+																			"pos": 68,
+																			"start": 69,
+																			"type": "string"
 																		},
 																		{
-																			"end": 68,
+																			"end": 76,
 																			"kind": "Identifier",
 																			"name": "slice",
-																			"pos": 63,
-																			"start": 63
+																			"pos": 71,
+																			"start": 71,
+																			"type": "function",
+																			"cpxFactors": {
+																				"use": {
+																					"method": 2
+																				}
+																			}
 																		}
 																	]
 																},
 																{
-																	"end": 70,
+																	"end": 78,
 																	"kind": "Literal",
-																	"pos": 69,
-																	"start": 69
+																	"pos": 77,
+																	"start": 77
 																}
 															]
 														}
@@ -119,10 +134,10 @@
 							]
 						},
 						{
-							"end": 81,
+							"end": 89,
 							"kind": "EndOfFileToken",
-							"pos": 80,
-							"start": 81
+							"pos": 88,
+							"start": 89
 						}
 					]
 				}

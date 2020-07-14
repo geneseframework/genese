@@ -43,14 +43,12 @@ class Ts {
         switch (node.getKind()) {
             case ts_morph_1.SyntaxKind.Identifier:
             case ts_morph_1.SyntaxKind.Parameter:
-                console.log('GET TYPPPP', node.getKindName(), this.getName(node), node.getType().getText());
                 return Ts.getIdentifierType(node.getType().getApparentType().getText());
             default:
                 return undefined;
         }
     }
     static getIdentifierType(text) {
-        console.log('ID TYPEEEE', text);
         switch (text) {
             case 'Any':
             case 'Boolean':

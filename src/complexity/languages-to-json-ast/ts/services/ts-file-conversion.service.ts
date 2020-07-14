@@ -4,10 +4,11 @@ import { AstFileInterface } from '../../../core/interfaces/ast/ast-file.interfac
 import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
 import { project } from '../../language-to-json-ast';
-import { createWrappedNode, Identifier, Node, SourceFile, ts } from 'ts-morph';
+import { createWrappedNode, DefinitionInfo, Identifier, Node, SourceFile, ts } from 'ts-morph';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 import { CpxFactors } from '../../../core/models/cpx-factor/cpx-factors.model';
 import * as chalk from 'chalk';
+import { TsWeights } from '../ts-weights.enum';
 
 /**
  * - TsFiles generation from their Abstract Syntax Tree (AST)
@@ -58,13 +59,15 @@ export class TsFileConversionService {
         }
         if (astNode.type === 'function') {
             const cpxFactors = this.getCpxFactors(node);
-            console.log('CPX FACTORSSS', cpxFactors)
+            if (cpxFactors) {
+                astNode.cpxFactors = cpxFactors;
+            }
         }
         return astNode;
     }
 
 
-    private getCpxFactors(node: Node): CpxFactors {
+    private getCpxFactors(node: Node): any {
         if (node.getKindName() !== SyntaxKind.Identifier) {
             return undefined;
         }
@@ -73,36 +76,30 @@ export class TsFileConversionService {
         if (!definition) {
             return undefined;
         }
-        console.log(chalk.yellowBright('IDENTIFIER IMPLEMENTATTTSS'), node.getKindName(), Ts.getName(node), definition.getSourceFile().getFilePath());
-        // const debugFile = project.getSourceFileOrThrow('debug.mock.ts');
-        // console.log('DEBUG FILE', debugFile)
-        // const classDeclaration = debugFile.getClasses()[0];
-        // // console.log('CLASS FILE', classDeclaration)
-        // const referencedSymbols = classDeclaration.findReferences();
-        //
-        // for (const referencedSymbol of referencedSymbols) {
-        //     for (const reference of referencedSymbol.getReferences()) {
-        //         console.log("---------")
-        //         console.log("REFERENCE")
-        //         console.log("---------")
-        //         console.log("File path: " + reference.getSourceFile().getFilePath());
-        //         console.log("Start: " + reference.getTextSpan().getStart());
-        //         console.log("Length: " + reference.getTextSpan().getLength());
-        //         console.log("Parent kind: " + reference.getNode().getParentOrThrow().getKindName());
-        //         console.log("\n");
-        //     }
-        // }
-        // const ref = classDeclaration.getMethodOrThrow('ref');
-        // console.log('METHOD  REF ', ref.getName())
-        // const desc  = ref.getDescendantsOfKind(SyntaxKind.Identifier);
-        // for (const d of desc) {
-        //     console.log(chalk.blueBright('IDENTIFIER', d.getText()), d.getType().getText());
-        //     const def = d.getImplementations()[0];
-        //     console.log(chalk.yellowBright('IDENTIFIER DEFS'), def?.getTextSpan());
-        // }
-        const cpxFactors: CpxFactors = undefined;
-        // const references = node.findReferences();
-        return cpxFactors;
+        if (this.isInTypeScript(definition) && this.isInTsWeights(Ts.getName(node))) {
+            return {
+                use: {
+                    method: TsWeights[Ts.getName(node)]
+                }
+            };
+        }
+        return undefined;
+    }
+
+
+    isInTypeScript(definition: DefinitionInfo): boolean {
+        return this.library(definition.getSourceFile().getFilePath()) === 'TypeScript';
+    }
+
+
+    isInTsWeights(name: string): boolean {
+        return TsWeights[name]
+    }
+
+
+    // TODO: Refacto
+    library(path: string): string {
+        return path.match(/typescript\/lib/) ? 'TypeScript' : undefined;
     }
 
 }

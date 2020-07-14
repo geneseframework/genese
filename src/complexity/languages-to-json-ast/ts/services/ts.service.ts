@@ -47,7 +47,6 @@ export class Ts {
         switch (node.getKind()) {
             case SyntaxKind.Identifier:
             case SyntaxKind.Parameter:
-                console.log('GET TYPPPP', node.getKindName(), this.getName(node), node.getType().getText())
                 return Ts.getIdentifierType(node.getType().getApparentType().getText());
             default:
                 return undefined;
@@ -56,7 +55,6 @@ export class Ts {
 
 
     private static getIdentifierType(text: string): IdentifierType {
-        console.log('ID TYPEEEE', text)
         switch (text) {
             case 'Any':
             case 'Boolean':

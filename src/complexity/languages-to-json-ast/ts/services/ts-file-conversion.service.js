@@ -5,7 +5,7 @@ const file_service_1 = require("../../../core/services/file.service");
 const ts_service_1 = require("./ts.service");
 const language_to_json_ast_1 = require("../../language-to-json-ast");
 const syntax_kind_enum_1 = require("../../../core/enum/syntax-kind.enum");
-const chalk = require("chalk");
+const ts_weights_enum_1 = require("../ts-weights.enum");
 /**
  * - TsFiles generation from their Abstract Syntax Tree (AST)
  */
@@ -51,7 +51,9 @@ class TsFileConversionService {
         }
         if (astNode.type === 'function') {
             const cpxFactors = this.getCpxFactors(node);
-            console.log('CPX FACTORSSS', cpxFactors);
+            if (cpxFactors) {
+                astNode.cpxFactors = cpxFactors;
+            }
         }
         return astNode;
     }
@@ -65,36 +67,24 @@ class TsFileConversionService {
         if (!definition) {
             return undefined;
         }
-        console.log(chalk.yellowBright('IDENTIFIER IMPLEMENTATTTSS'), node.getKindName(), ts_service_1.Ts.getName(node), definition.getSourceFile().getFilePath());
-        // const debugFile = project.getSourceFileOrThrow('debug.mock.ts');
-        // console.log('DEBUG FILE', debugFile)
-        // const classDeclaration = debugFile.getClasses()[0];
-        // // console.log('CLASS FILE', classDeclaration)
-        // const referencedSymbols = classDeclaration.findReferences();
-        //
-        // for (const referencedSymbol of referencedSymbols) {
-        //     for (const reference of referencedSymbol.getReferences()) {
-        //         console.log("---------")
-        //         console.log("REFERENCE")
-        //         console.log("---------")
-        //         console.log("File path: " + reference.getSourceFile().getFilePath());
-        //         console.log("Start: " + reference.getTextSpan().getStart());
-        //         console.log("Length: " + reference.getTextSpan().getLength());
-        //         console.log("Parent kind: " + reference.getNode().getParentOrThrow().getKindName());
-        //         console.log("\n");
-        //     }
-        // }
-        // const ref = classDeclaration.getMethodOrThrow('ref');
-        // console.log('METHOD  REF ', ref.getName())
-        // const desc  = ref.getDescendantsOfKind(SyntaxKind.Identifier);
-        // for (const d of desc) {
-        //     console.log(chalk.blueBright('IDENTIFIER', d.getText()), d.getType().getText());
-        //     const def = d.getImplementations()[0];
-        //     console.log(chalk.yellowBright('IDENTIFIER DEFS'), def?.getTextSpan());
-        // }
-        const cpxFactors = undefined;
-        // const references = node.findReferences();
-        return cpxFactors;
+        if (this.isInTypeScript(definition) && this.isInTsWeights(ts_service_1.Ts.getName(node))) {
+            return {
+                use: {
+                    method: ts_weights_enum_1.TsWeights[ts_service_1.Ts.getName(node)]
+                }
+            };
+        }
+        return undefined;
+    }
+    isInTypeScript(definition) {
+        return this.library(definition.getSourceFile().getFilePath()) === 'TypeScript';
+    }
+    isInTsWeights(name) {
+        return ts_weights_enum_1.TsWeights[name];
+    }
+    // TODO: Refacto
+    library(path) {
+        return path.match(/typescript\/lib/) ? 'TypeScript' : undefined;
     }
 }
 exports.TsFileConversionService = TsFileConversionService;

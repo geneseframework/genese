@@ -10,6 +10,7 @@ const structural_cpx_model_1 = require("./structural-cpx.model");
 const depth_cpx_model_1 = require("./depth-cpx.model");
 const context_cpx_model_1 = require("./context-cpx.model");
 const recursion_cpx_model_1 = require("./recursion-cpx.model");
+const use_cpx_model_1 = require("./use-cpx.model");
 /**
  * The Complexity Factors
  */
@@ -22,6 +23,7 @@ class CpxFactors {
         this.nesting = new nesting_cpx_model_1.NestingCpx(); // Nesting Complexity
         this.recursion = new recursion_cpx_model_1.RecursionCpx(); // Recursion Complexity
         this.structural = new structural_cpx_model_1.StructuralCpx(); // Structural Complexity
+        this.use = new use_cpx_model_1.UseCpx(); // Use Complexity
     }
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
@@ -53,6 +55,9 @@ class CpxFactors {
         return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.RECURSION);
     }
     get totalStructural() {
+        return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.STRUCTURAL);
+    }
+    get totalUse() {
         return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.STRUCTURAL);
     }
     // ---------------------------------------------------------------------------------

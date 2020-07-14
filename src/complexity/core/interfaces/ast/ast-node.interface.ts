@@ -4,7 +4,7 @@ import { IdentifierType } from '../identifier-type.type';
 export interface AstNodeInterface {
 
     children?: AstNodeInterface[];
-    cpxFactors?: CpxFactors;
+    cpxFactors?: any;
     end: number;
     kind: string;
     name?: string;
