@@ -15,7 +15,7 @@ class Ts {
      * @param node
      */
     static getKindAlias(node) {
-        let kind = Ts.getKind(node);
+        let kind = node.getKindName();
         for (const alias of kind_aliases_1.KindAliases) {
             if (alias.aliases.includes(kind)) {
                 kind = alias.name;

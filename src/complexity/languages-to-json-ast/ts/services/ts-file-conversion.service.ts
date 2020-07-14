@@ -45,7 +45,7 @@ export class TsFileConversionService {
         });
         return {
             end: node.getEnd(),
-            kind: node.getKindName(),
+            kind: Ts.getKindAlias(node),
             name: Ts.getName(node),
             pos: node.getPos(),
             start: node.getStart(),

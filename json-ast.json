@@ -102,13 +102,13 @@
 																	"children": [
 																		{
 																			"end": 107,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 83,
 																			"start": 96,
 																			"children": [
 																				{
 																					"end": 106,
-																					"kind": "StringLiteral",
+																					"kind": "Literal",
 																					"pos": 102,
 																					"start": 103,
 																					"children": [
@@ -219,7 +219,7 @@
 													"children": [
 														{
 															"end": 80,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 59,
 															"start": 68,
 															"children": [
@@ -240,7 +240,7 @@
 																		},
 																		{
 																			"end": 78,
-																			"kind": "NumericLiteral",
+																			"kind": "Literal",
 																			"pos": 77,
 																			"start": 77,
 																			"children": [
@@ -296,7 +296,7 @@
 													"children": [
 														{
 															"end": 140,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 120,
 															"start": 129,
 															"children": [
@@ -401,7 +401,7 @@
 													"children": [
 														{
 															"end": 210,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 186,
 															"start": 195,
 															"children": [
@@ -550,7 +550,7 @@
 													"children": [
 														{
 															"end": 288,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 261,
 															"start": 270,
 															"children": [
@@ -680,7 +680,7 @@
 													"children": [
 														{
 															"end": 353,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 330,
 															"start": 339,
 															"children": [
@@ -802,7 +802,7 @@
 													"children": [
 														{
 															"end": 434,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 410,
 															"start": 419,
 															"children": [
@@ -951,7 +951,7 @@
 													"children": [
 														{
 															"end": 523,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 496,
 															"start": 505,
 															"children": [
@@ -1117,7 +1117,7 @@
 													"children": [
 														{
 															"end": 606,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 577,
 															"start": 586,
 															"children": [
@@ -1385,7 +1385,7 @@
 																						},
 																						{
 																							"end": 97,
-																							"kind": "StringLiteral",
+																							"kind": "Literal",
 																							"pos": 94,
 																							"start": 94,
 																							"children": [
@@ -1590,7 +1590,7 @@
 																						},
 																						{
 																							"end": 201,
-																							"kind": "StringLiteral",
+																							"kind": "Literal",
 																							"pos": 198,
 																							"start": 198,
 																							"children": [
@@ -1795,7 +1795,7 @@
 																						},
 																						{
 																							"end": 310,
-																							"kind": "StringLiteral",
+																							"kind": "Literal",
 																							"pos": 307,
 																							"start": 307,
 																							"children": [
@@ -2008,7 +2008,7 @@
 																						},
 																						{
 																							"end": 433,
-																							"kind": "StringLiteral",
+																							"kind": "Literal",
 																							"pos": 430,
 																							"start": 430,
 																							"children": [
@@ -2272,7 +2272,7 @@
 																						},
 																						{
 																							"end": 556,
-																							"kind": "StringLiteral",
+																							"kind": "Literal",
 																							"pos": 553,
 																							"start": 553,
 																							"children": [
@@ -2561,7 +2561,7 @@
 																						},
 																						{
 																							"end": 697,
-																							"kind": "StringLiteral",
+																							"kind": "Literal",
 																							"pos": 694,
 																							"start": 694,
 																							"children": [
@@ -2738,7 +2738,7 @@
 																				},
 																				{
 																					"end": 788,
-																					"kind": "NumericLiteral",
+																					"kind": "Literal",
 																					"pos": 786,
 																					"start": 787,
 																					"children": [
@@ -2773,7 +2773,7 @@
 																		},
 																		{
 																			"end": 796,
-																			"kind": "NumericLiteral",
+																			"kind": "Literal",
 																			"pos": 793,
 																			"start": 794,
 																			"children": [
@@ -3147,7 +3147,7 @@
 																				},
 																				{
 																					"end": 983,
-																					"kind": "NumericLiteral",
+																					"kind": "Literal",
 																					"pos": 981,
 																					"start": 982,
 																					"children": [
@@ -3182,7 +3182,7 @@
 																		},
 																		{
 																			"end": 991,
-																			"kind": "NumericLiteral",
+																			"kind": "Literal",
 																			"pos": 988,
 																			"start": 989,
 																			"children": [
@@ -3242,7 +3242,7 @@
 																								},
 																								{
 																									"end": 1026,
-																									"kind": "NumericLiteral",
+																									"kind": "Literal",
 																									"pos": 1024,
 																									"start": 1025,
 																									"children": [
@@ -3277,7 +3277,7 @@
 																						},
 																						{
 																							"end": 1034,
-																							"kind": "NumericLiteral",
+																							"kind": "Literal",
 																							"pos": 1031,
 																							"start": 1032,
 																							"children": [
@@ -3950,7 +3950,7 @@
 													"children": [
 														{
 															"end": 238,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 210,
 															"start": 219,
 															"children": [
@@ -4141,7 +4141,7 @@
 																										},
 																										{
 																											"end": 328,
-																											"kind": "NumericLiteral",
+																											"kind": "Literal",
 																											"pos": 326,
 																											"start": 327,
 																											"children": [
@@ -4369,7 +4369,7 @@
 																										},
 																										{
 																											"end": 491,
-																											"kind": "NumericLiteral",
+																											"kind": "Literal",
 																											"pos": 489,
 																											"start": 490,
 																											"children": [
@@ -4423,7 +4423,7 @@
 																														},
 																														{
 																															"end": 526,
-																															"kind": "StringLiteral",
+																															"kind": "Literal",
 																															"pos": 523,
 																															"start": 523,
 																															"children": [
@@ -4878,7 +4878,7 @@
 													"children": [
 														{
 															"end": 268,
-															"kind": "VariableStatement",
+															"kind": "Keyword",
 															"pos": 245,
 															"start": 254,
 															"children": [
@@ -4905,7 +4905,7 @@
 																				},
 																				{
 																					"end": 267,
-																					"kind": "NumericLiteral",
+																					"kind": "Literal",
 																					"pos": 265,
 																					"start": 266,
 																					"children": [
@@ -4946,7 +4946,7 @@
 																				},
 																				{
 																					"end": 291,
-																					"kind": "NumericLiteral",
+																					"kind": "Literal",
 																					"pos": 289,
 																					"start": 290,
 																					"children": [
@@ -5042,7 +5042,7 @@
 																								},
 																								{
 																									"end": 335,
-																									"kind": "NumericLiteral",
+																									"kind": "Literal",
 																									"pos": 333,
 																									"start": 334,
 																									"children": [
@@ -5138,7 +5138,7 @@
 																												},
 																												{
 																													"end": 381,
-																													"kind": "NumericLiteral",
+																													"kind": "Literal",
 																													"pos": 379,
 																													"start": 380,
 																													"children": [
@@ -5173,7 +5173,7 @@
 																										},
 																										{
 																											"end": 389,
-																											"kind": "NumericLiteral",
+																											"kind": "Literal",
 																											"pos": 386,
 																											"start": 387,
 																											"children": [
@@ -5343,7 +5343,7 @@
 														},
 														{
 															"end": 530,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 508,
 															"start": 517,
 															"children": [
@@ -5425,7 +5425,7 @@
 										},
 										{
 											"end": 48,
-											"kind": "StringLiteral",
+											"kind": "Literal",
 											"pos": 29,
 											"start": 30,
 											"children": [
@@ -5549,7 +5549,7 @@
 															"children": [
 																{
 																	"end": 134,
-																	"kind": "StringKeyword",
+																	"kind": "Keyword",
 																	"pos": 127,
 																	"start": 128,
 																	"children": [
@@ -5563,7 +5563,7 @@
 																	"children": [
 																		{
 																			"end": 143,
-																			"kind": "StringKeyword",
+																			"kind": "Keyword",
 																			"pos": 136,
 																			"start": 137,
 																			"children": [
@@ -5575,7 +5575,7 @@
 														},
 														{
 															"end": 150,
-															"kind": "StringLiteral",
+															"kind": "Literal",
 															"pos": 147,
 															"start": 148,
 															"children": [
@@ -5601,7 +5601,7 @@
 														},
 														{
 															"end": 162,
-															"kind": "AnyKeyword",
+															"kind": "Keyword",
 															"pos": 158,
 															"start": 159,
 															"children": [
@@ -5813,7 +5813,7 @@
 																										},
 																										{
 																											"end": 255,
-																											"kind": "NumericLiteral",
+																											"kind": "Literal",
 																											"pos": 254,
 																											"start": 254,
 																											"children": [
@@ -5827,7 +5827,7 @@
 																											"children": [
 																												{
 																													"end": 259,
-																													"kind": "NumericLiteral",
+																													"kind": "Literal",
 																													"pos": 258,
 																													"start": 258,
 																													"children": [
@@ -5872,7 +5872,7 @@
 																										},
 																										{
 																											"end": 277,
-																											"kind": "AnyKeyword",
+																											"kind": "Keyword",
 																											"pos": 273,
 																											"start": 274,
 																											"children": [
@@ -5898,7 +5898,7 @@
 																										},
 																										{
 																											"end": 288,
-																											"kind": "AnyKeyword",
+																											"kind": "Keyword",
 																											"pos": 284,
 																											"start": 285,
 																											"children": [
@@ -5948,7 +5948,7 @@
 																									"children": [
 																										{
 																											"end": 356,
-																											"kind": "VariableStatement",
+																											"kind": "Keyword",
 																											"pos": 309,
 																											"start": 322,
 																											"children": [
@@ -6032,7 +6032,7 @@
 																																		},
 																																		{
 																																			"end": 355,
-																																			"kind": "NumericLiteral",
+																																			"kind": "Literal",
 																																			"pos": 353,
 																																			"start": 354,
 																																			"children": [
@@ -6069,7 +6069,7 @@
 																														},
 																														{
 																															"end": 374,
-																															"kind": "NumericLiteral",
+																															"kind": "Literal",
 																															"pos": 373,
 																															"start": 373,
 																															"children": [
@@ -6081,7 +6081,7 @@
 																										},
 																										{
 																											"end": 437,
-																											"kind": "ReturnStatement",
+																											"kind": "Keyword",
 																											"pos": 376,
 																											"start": 389,
 																											"children": [
@@ -6201,7 +6201,7 @@
 																																},
 																																{
 																																	"end": 435,
-																																	"kind": "NumericLiteral",
+																																	"kind": "Literal",
 																																	"pos": 434,
 																																	"start": 434,
 																																	"children": [
@@ -6285,7 +6285,7 @@
 																								},
 																								{
 																									"end": 477,
-																									"kind": "NumericLiteral",
+																									"kind": "Literal",
 																									"pos": 475,
 																									"start": 476,
 																									"children": [
@@ -6320,13 +6320,13 @@
 														},
 														{
 															"end": 533,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 488,
 															"start": 497,
 															"children": [
 																{
 																	"end": 532,
-																	"kind": "NewExpression",
+																	"kind": "Keyword",
 																	"pos": 503,
 																	"start": 504,
 																	"children": [
@@ -6444,7 +6444,7 @@
 																		},
 																		{
 																			"end": 583,
-																			"kind": "StringLiteral",
+																			"kind": "Literal",
 																			"pos": 579,
 																			"start": 580,
 																			"children": [
@@ -6489,7 +6489,7 @@
 																						},
 																						{
 																							"end": 609,
-																							"kind": "StringLiteral",
+																							"kind": "Literal",
 																							"pos": 605,
 																							"start": 606,
 																							"children": [
@@ -6530,7 +6530,7 @@
 																						},
 																						{
 																							"end": 639,
-																							"kind": "StringLiteral",
+																							"kind": "Literal",
 																							"pos": 635,
 																							"start": 636,
 																							"children": [
@@ -6575,7 +6575,7 @@
 																										},
 																										{
 																											"end": 669,
-																											"kind": "StringLiteral",
+																											"kind": "Literal",
 																											"pos": 665,
 																											"start": 666,
 																											"children": [
@@ -6666,7 +6666,7 @@
 														},
 														{
 															"end": 737,
-															"kind": "AnyKeyword",
+															"kind": "Keyword",
 															"pos": 733,
 															"start": 734,
 															"children": [
@@ -6734,7 +6734,7 @@
 													"children": [
 														{
 															"end": 879,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 769,
 															"start": 778,
 															"children": [
@@ -6984,7 +6984,7 @@
 																																},
 																																{
 																																	"end": 865,
-																																	"kind": "NumericLiteral",
+																																	"kind": "Literal",
 																																	"pos": 863,
 																																	"start": 864,
 																																	"children": [
@@ -7169,13 +7169,13 @@
 																	"children": [
 																		{
 																			"end": 126,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 102,
 																			"start": 115,
 																			"children": [
 																				{
 																					"end": 125,
-																					"kind": "StringLiteral",
+																					"kind": "Literal",
 																					"pos": 121,
 																					"start": 122,
 																					"children": [
@@ -7254,13 +7254,13 @@
 																	"children": [
 																		{
 																			"end": 201,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 177,
 																			"start": 190,
 																			"children": [
 																				{
 																					"end": 200,
-																					"kind": "StringLiteral",
+																					"kind": "Literal",
 																					"pos": 196,
 																					"start": 197,
 																					"children": [
@@ -7278,13 +7278,13 @@
 																	"children": [
 																		{
 																			"end": 242,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 218,
 																			"start": 231,
 																			"children": [
 																				{
 																					"end": 241,
-																					"kind": "StringLiteral",
+																					"kind": "Literal",
 																					"pos": 237,
 																					"start": 238,
 																					"children": [
@@ -7381,13 +7381,13 @@
 																	"children": [
 																		{
 																			"end": 342,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 318,
 																			"start": 331,
 																			"children": [
 																				{
 																					"end": 341,
-																					"kind": "StringLiteral",
+																					"kind": "Literal",
 																					"pos": 337,
 																					"start": 338,
 																					"children": [
@@ -7418,13 +7418,13 @@
 																					"children": [
 																						{
 																							"end": 391,
-																							"kind": "ReturnStatement",
+																							"kind": "Keyword",
 																							"pos": 363,
 																							"start": 380,
 																							"children": [
 																								{
 																									"end": 390,
-																									"kind": "StringLiteral",
+																									"kind": "Literal",
 																									"pos": 386,
 																									"start": 387,
 																									"children": [
@@ -7525,13 +7525,13 @@
 																	"children": [
 																		{
 																			"end": 489,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 465,
 																			"start": 478,
 																			"children": [
 																				{
 																					"end": 488,
-																					"kind": "StringLiteral",
+																					"kind": "Literal",
 																					"pos": 484,
 																					"start": 485,
 																					"children": [
@@ -7564,13 +7564,13 @@
 																			"children": [
 																				{
 																					"end": 537,
-																					"kind": "ReturnStatement",
+																					"kind": "Keyword",
 																					"pos": 513,
 																					"start": 526,
 																					"children": [
 																						{
 																							"end": 536,
-																							"kind": "StringLiteral",
+																							"kind": "Literal",
 																							"pos": 532,
 																							"start": 533,
 																							"children": [
@@ -7588,13 +7588,13 @@
 																			"children": [
 																				{
 																					"end": 578,
-																					"kind": "ReturnStatement",
+																					"kind": "Keyword",
 																					"pos": 554,
 																					"start": 567,
 																					"children": [
 																						{
 																							"end": 577,
-																							"kind": "StringLiteral",
+																							"kind": "Literal",
 																							"pos": 573,
 																							"start": 574,
 																							"children": [
@@ -7711,13 +7711,13 @@
 																	"children": [
 																		{
 																			"end": 683,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 661,
 																			"start": 674,
 																			"children": [
 																				{
 																					"end": 682,
-																					"kind": "NumericLiteral",
+																					"kind": "Literal",
 																					"pos": 680,
 																					"start": 681,
 																					"children": [
@@ -7771,13 +7771,13 @@
 																							"children": [
 																								{
 																									"end": 754,
-																									"kind": "ReturnStatement",
+																									"kind": "Keyword",
 																									"pos": 728,
 																									"start": 745,
 																									"children": [
 																										{
 																											"end": 753,
-																											"kind": "NumericLiteral",
+																											"kind": "Literal",
 																											"pos": 751,
 																											"start": 752,
 																											"children": [
@@ -7799,13 +7799,13 @@
 																			"children": [
 																				{
 																					"end": 807,
-																					"kind": "ReturnStatement",
+																					"kind": "Keyword",
 																					"pos": 785,
 																					"start": 798,
 																					"children": [
 																						{
 																							"end": 806,
-																							"kind": "NumericLiteral",
+																							"kind": "Literal",
 																							"pos": 804,
 																							"start": 805,
 																							"children": [
@@ -7904,13 +7904,13 @@
 																	"children": [
 																		{
 																			"end": 911,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 887,
 																			"start": 900,
 																			"children": [
 																				{
 																					"end": 910,
-																					"kind": "StringLiteral",
+																					"kind": "Literal",
 																					"pos": 906,
 																					"start": 907,
 																					"children": [
@@ -7949,13 +7949,13 @@
 																					"children": [
 																						{
 																							"end": 977,
-																							"kind": "ReturnStatement",
+																							"kind": "Keyword",
 																							"pos": 949,
 																							"start": 966,
 																							"children": [
 																								{
 																									"end": 976,
-																									"kind": "StringLiteral",
+																									"kind": "Literal",
 																									"pos": 972,
 																									"start": 973,
 																									"children": [
@@ -8038,13 +8038,13 @@
 																	"children": [
 																		{
 																			"end": 1088,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 1064,
 																			"start": 1077,
 																			"children": [
 																				{
 																					"end": 1087,
-																					"kind": "StringLiteral",
+																					"kind": "Literal",
 																					"pos": 1083,
 																					"start": 1084,
 																					"children": [
@@ -8083,7 +8083,7 @@
 																						},
 																						{
 																							"end": 1114,
-																							"kind": "StringLiteral",
+																							"kind": "Literal",
 																							"pos": 1110,
 																							"start": 1111,
 																							"children": [
@@ -8099,13 +8099,13 @@
 																					"children": [
 																						{
 																							"end": 1145,
-																							"kind": "ReturnStatement",
+																							"kind": "Keyword",
 																							"pos": 1117,
 																							"start": 1134,
 																							"children": [
 																								{
 																									"end": 1144,
-																									"kind": "StringLiteral",
+																									"kind": "Literal",
 																									"pos": 1140,
 																									"start": 1141,
 																									"children": [
@@ -8188,13 +8188,13 @@
 																	"children": [
 																		{
 																			"end": 1261,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 1237,
 																			"start": 1250,
 																			"children": [
 																				{
 																					"end": 1260,
-																					"kind": "StringLiteral",
+																					"kind": "Literal",
 																					"pos": 1256,
 																					"start": 1257,
 																					"children": [
@@ -8233,7 +8233,7 @@
 																						},
 																						{
 																							"end": 1287,
-																							"kind": "StringLiteral",
+																							"kind": "Literal",
 																							"pos": 1283,
 																							"start": 1284,
 																							"children": [
@@ -8249,13 +8249,13 @@
 																					"children": [
 																						{
 																							"end": 1318,
-																							"kind": "ReturnStatement",
+																							"kind": "Keyword",
 																							"pos": 1290,
 																							"start": 1307,
 																							"children": [
 																								{
 																									"end": 1317,
-																									"kind": "StringLiteral",
+																									"kind": "Literal",
 																									"pos": 1313,
 																									"start": 1314,
 																									"children": [
@@ -8273,13 +8273,13 @@
 																					"children": [
 																						{
 																							"end": 1367,
-																							"kind": "ReturnStatement",
+																							"kind": "Keyword",
 																							"pos": 1339,
 																							"start": 1356,
 																							"children": [
 																								{
 																									"end": 1366,
-																									"kind": "StringLiteral",
+																									"kind": "Literal",
 																									"pos": 1362,
 																									"start": 1363,
 																									"children": [
@@ -9836,7 +9836,7 @@
 																		},
 																		{
 																			"end": 2074,
-																			"kind": "NumericLiteral",
+																			"kind": "Literal",
 																			"pos": 2072,
 																			"start": 2073,
 																			"children": [
@@ -9881,7 +9881,7 @@
 																						},
 																						{
 																							"end": 2099,
-																							"kind": "NumericLiteral",
+																							"kind": "Literal",
 																							"pos": 2097,
 																							"start": 2098,
 																							"children": [
@@ -9926,7 +9926,7 @@
 																										},
 																										{
 																											"end": 2128,
-																											"kind": "NumericLiteral",
+																											"kind": "Literal",
 																											"pos": 2126,
 																											"start": 2127,
 																											"children": [
@@ -9980,7 +9980,7 @@
 																														},
 																														{
 																															"end": 2171,
-																															"kind": "StringLiteral",
+																															"kind": "Literal",
 																															"pos": 2164,
 																															"start": 2164,
 																															"children": [
@@ -10085,7 +10085,7 @@
 																		},
 																		{
 																			"end": 2269,
-																			"kind": "NumericLiteral",
+																			"kind": "Literal",
 																			"pos": 2267,
 																			"start": 2268,
 																			"children": [
@@ -10130,7 +10130,7 @@
 																						},
 																						{
 																							"end": 2294,
-																							"kind": "NumericLiteral",
+																							"kind": "Literal",
 																							"pos": 2292,
 																							"start": 2293,
 																							"children": [
@@ -10175,7 +10175,7 @@
 																										},
 																										{
 																											"end": 2323,
-																											"kind": "NumericLiteral",
+																											"kind": "Literal",
 																											"pos": 2321,
 																											"start": 2322,
 																											"children": [
@@ -10229,7 +10229,7 @@
 																														},
 																														{
 																															"end": 2366,
-																															"kind": "StringLiteral",
+																															"kind": "Literal",
 																															"pos": 2359,
 																															"start": 2359,
 																															"children": [
@@ -10287,7 +10287,7 @@
 																														},
 																														{
 																															"end": 2434,
-																															"kind": "StringLiteral",
+																															"kind": "Literal",
 																															"pos": 2426,
 																															"start": 2426,
 																															"children": [
@@ -10383,7 +10383,7 @@
 													"children": [
 														{
 															"end": 72,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 44,
 															"start": 53,
 															"children": [
@@ -10425,7 +10425,7 @@
 													"children": [
 														{
 															"end": 145,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 93,
 															"start": 102,
 															"children": [
@@ -10467,7 +10467,7 @@
 													"children": [
 														{
 															"end": 301,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 178,
 															"start": 187,
 															"children": [
@@ -10602,13 +10602,13 @@
 																	"children": [
 																		{
 																			"end": 873,
-																			"kind": "CaseClause",
+																			"kind": "Keyword",
 																			"pos": 794,
 																			"start": 807,
 																			"children": [
 																				{
 																					"end": 813,
-																					"kind": "NumericLiteral",
+																					"kind": "Literal",
 																					"pos": 811,
 																					"start": 812,
 																					"children": [
@@ -10654,7 +10654,7 @@
 																								},
 																								{
 																									"end": 848,
-																									"kind": "StringLiteral",
+																									"kind": "Literal",
 																									"pos": 843,
 																									"start": 843,
 																									"children": [
@@ -10676,13 +10676,13 @@
 																		},
 																		{
 																			"end": 957,
-																			"kind": "CaseClause",
+																			"kind": "Keyword",
 																			"pos": 873,
 																			"start": 886,
 																			"children": [
 																				{
 																					"end": 892,
-																					"kind": "NumericLiteral",
+																					"kind": "Literal",
 																					"pos": 890,
 																					"start": 891,
 																					"children": [
@@ -10728,7 +10728,7 @@
 																								},
 																								{
 																									"end": 932,
-																									"kind": "StringLiteral",
+																									"kind": "Literal",
 																									"pos": 922,
 																									"start": 922,
 																									"children": [
@@ -10750,7 +10750,7 @@
 																		},
 																		{
 																			"end": 1015,
-																			"kind": "DefaultClause",
+																			"kind": "Keyword",
 																			"pos": 957,
 																			"start": 970,
 																			"children": [
@@ -10794,7 +10794,7 @@
 																								},
 																								{
 																									"end": 1013,
-																									"kind": "StringLiteral",
+																									"kind": "Literal",
 																									"pos": 1007,
 																									"start": 1007,
 																									"children": [
@@ -10888,7 +10888,7 @@
 																						},
 																						{
 																							"end": 1098,
-																							"kind": "StringLiteral",
+																							"kind": "Literal",
 																							"pos": 1089,
 																							"start": 1089,
 																							"children": [
@@ -11024,7 +11024,7 @@
 														},
 														{
 															"end": 1199,
-															"kind": "AnyKeyword",
+															"kind": "Keyword",
 															"pos": 1195,
 															"start": 1196,
 															"children": [
@@ -11197,7 +11197,7 @@
 													"children": [
 														{
 															"end": 73,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 47,
 															"start": 56,
 															"children": [
@@ -11226,7 +11226,7 @@
 																		},
 																		{
 																			"end": 68,
-																			"kind": "NumericLiteral",
+																			"kind": "Literal",
 																			"pos": 66,
 																			"start": 67,
 																			"children": [
@@ -11242,7 +11242,7 @@
 																		},
 																		{
 																			"end": 72,
-																			"kind": "NumericLiteral",
+																			"kind": "Literal",
 																			"pos": 70,
 																			"start": 71,
 																			"children": [
@@ -11316,7 +11316,7 @@
 													"children": [
 														{
 															"end": 143,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 109,
 															"start": 118,
 															"children": [
@@ -11345,7 +11345,7 @@
 																		},
 																		{
 																			"end": 130,
-																			"kind": "NumericLiteral",
+																			"kind": "Literal",
 																			"pos": 128,
 																			"start": 129,
 																			"children": [
@@ -11384,7 +11384,7 @@
 																				},
 																				{
 																					"end": 138,
-																					"kind": "NumericLiteral",
+																					"kind": "Literal",
 																					"pos": 136,
 																					"start": 137,
 																					"children": [
@@ -11400,7 +11400,7 @@
 																				},
 																				{
 																					"end": 142,
-																					"kind": "NumericLiteral",
+																					"kind": "Literal",
 																					"pos": 140,
 																					"start": 141,
 																					"children": [
@@ -11497,13 +11497,13 @@
 																	"children": [
 																		{
 																			"end": 216,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 194,
 																			"start": 207,
 																			"children": [
 																				{
 																					"end": 215,
-																					"kind": "NumericLiteral",
+																					"kind": "Literal",
 																					"pos": 213,
 																					"start": 214,
 																					"children": [
@@ -11521,7 +11521,7 @@
 																	"children": [
 																		{
 																			"end": 263,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 233,
 																			"start": 246,
 																			"children": [
@@ -11550,7 +11550,7 @@
 																						},
 																						{
 																							"end": 258,
-																							"kind": "NumericLiteral",
+																							"kind": "Literal",
 																							"pos": 256,
 																							"start": 257,
 																							"children": [
@@ -11566,7 +11566,7 @@
 																						},
 																						{
 																							"end": 262,
-																							"kind": "NumericLiteral",
+																							"kind": "Literal",
 																							"pos": 260,
 																							"start": 261,
 																							"children": [
@@ -11665,13 +11665,13 @@
 																	"children": [
 																		{
 																			"end": 342,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 320,
 																			"start": 333,
 																			"children": [
 																				{
 																					"end": 341,
-																					"kind": "NumericLiteral",
+																					"kind": "Literal",
 																					"pos": 339,
 																					"start": 340,
 																					"children": [
@@ -11704,13 +11704,13 @@
 																			"children": [
 																				{
 																					"end": 388,
-																					"kind": "ReturnStatement",
+																					"kind": "Keyword",
 																					"pos": 366,
 																					"start": 379,
 																					"children": [
 																						{
 																							"end": 387,
-																							"kind": "NumericLiteral",
+																							"kind": "Literal",
 																							"pos": 385,
 																							"start": 386,
 																							"children": [
@@ -11728,13 +11728,13 @@
 																			"children": [
 																				{
 																					"end": 427,
-																					"kind": "ReturnStatement",
+																					"kind": "Keyword",
 																					"pos": 405,
 																					"start": 418,
 																					"children": [
 																						{
 																							"end": 426,
-																							"kind": "NumericLiteral",
+																							"kind": "Literal",
 																							"pos": 424,
 																							"start": 425,
 																							"children": [
@@ -11794,7 +11794,7 @@
 													"children": [
 														{
 															"end": 511,
-															"kind": "ReturnStatement",
+															"kind": "Keyword",
 															"pos": 464,
 															"start": 473,
 															"children": [
@@ -11829,7 +11829,7 @@
 																				},
 																				{
 																					"end": 487,
-																					"kind": "NumericLiteral",
+																					"kind": "Literal",
 																					"pos": 484,
 																					"start": 485,
 																					"children": [
@@ -11847,7 +11847,7 @@
 																		},
 																		{
 																			"end": 491,
-																			"kind": "NumericLiteral",
+																			"kind": "Literal",
 																			"pos": 489,
 																			"start": 490,
 																			"children": [
@@ -11904,7 +11904,7 @@
 																										},
 																										{
 																											"end": 500,
-																											"kind": "NumericLiteral",
+																											"kind": "Literal",
 																											"pos": 499,
 																											"start": 499,
 																											"children": [
@@ -11924,7 +11924,7 @@
 																						},
 																						{
 																							"end": 505,
-																							"kind": "NumericLiteral",
+																							"kind": "Literal",
 																							"pos": 503,
 																							"start": 504,
 																							"children": [
@@ -11940,7 +11940,7 @@
 																						},
 																						{
 																							"end": 509,
-																							"kind": "NumericLiteral",
+																							"kind": "Literal",
 																							"pos": 507,
 																							"start": 508,
 																							"children": [
@@ -12166,7 +12166,7 @@
 								},
 								{
 									"end": 64,
-									"kind": "StringLiteral",
+									"kind": "Literal",
 									"pos": 29,
 									"start": 30,
 									"children": [
@@ -12261,13 +12261,13 @@
 															"children": [
 																{
 																	"end": 170,
-																	"kind": "ReturnStatement",
+																	"kind": "Keyword",
 																	"pos": 146,
 																	"start": 159,
 																	"children": [
 																		{
 																			"end": 169,
-																			"kind": "StringLiteral",
+																			"kind": "Literal",
 																			"pos": 165,
 																			"start": 166,
 																			"children": [
@@ -12364,13 +12364,13 @@
 															"children": [
 																{
 																	"end": 266,
-																	"kind": "ReturnStatement",
+																	"kind": "Keyword",
 																	"pos": 242,
 																	"start": 255,
 																	"children": [
 																		{
 																			"end": 265,
-																			"kind": "StringLiteral",
+																			"kind": "Literal",
 																			"pos": 261,
 																			"start": 262,
 																			"children": [
@@ -12405,13 +12405,13 @@
 															"children": [
 																{
 																	"end": 317,
-																	"kind": "ReturnStatement",
+																	"kind": "Keyword",
 																	"pos": 293,
 																	"start": 306,
 																	"children": [
 																		{
 																			"end": 316,
-																			"kind": "StringLiteral",
+																			"kind": "Literal",
 																			"pos": 312,
 																			"start": 313,
 																			"children": [
@@ -12529,13 +12529,13 @@
 																			"children": [
 																				{
 																					"end": 442,
-																					"kind": "ReturnStatement",
+																					"kind": "Keyword",
 																					"pos": 414,
 																					"start": 431,
 																					"children": [
 																						{
 																							"end": 441,
-																							"kind": "StringLiteral",
+																							"kind": "Literal",
 																							"pos": 437,
 																							"start": 438,
 																							"children": [
@@ -12549,13 +12549,13 @@
 																},
 																{
 																	"end": 480,
-																	"kind": "ReturnStatement",
+																	"kind": "Keyword",
 																	"pos": 456,
 																	"start": 469,
 																	"children": [
 																		{
 																			"end": 479,
-																			"kind": "StringLiteral",
+																			"kind": "Literal",
 																			"pos": 475,
 																			"start": 476,
 																			"children": [
@@ -12712,13 +12712,13 @@
 																							"children": [
 																								{
 																									"end": 633,
-																									"kind": "ReturnStatement",
+																									"kind": "Keyword",
 																									"pos": 601,
 																									"start": 622,
 																									"children": [
 																										{
 																											"end": 632,
-																											"kind": "StringLiteral",
+																											"kind": "Literal",
 																											"pos": 628,
 																											"start": 629,
 																											"children": [
@@ -12732,13 +12732,13 @@
 																				},
 																				{
 																					"end": 679,
-																					"kind": "ReturnStatement",
+																					"kind": "Keyword",
 																					"pos": 651,
 																					"start": 668,
 																					"children": [
 																						{
 																							"end": 678,
-																							"kind": "StringLiteral",
+																							"kind": "Literal",
 																							"pos": 674,
 																							"start": 675,
 																							"children": [
@@ -12752,13 +12752,13 @@
 																},
 																{
 																	"end": 717,
-																	"kind": "ReturnStatement",
+																	"kind": "Keyword",
 																	"pos": 693,
 																	"start": 706,
 																	"children": [
 																		{
 																			"end": 716,
-																			"kind": "StringLiteral",
+																			"kind": "Literal",
 																			"pos": 712,
 																			"start": 713,
 																			"children": [
@@ -12837,13 +12837,13 @@
 															"children": [
 																{
 																	"end": 826,
-																	"kind": "CaseClause",
+																	"kind": "Keyword",
 																	"pos": 776,
 																	"start": 789,
 																	"children": [
 																		{
 																			"end": 795,
-																			"kind": "NumericLiteral",
+																			"kind": "Literal",
 																			"pos": 793,
 																			"start": 794,
 																			"children": [
@@ -12851,13 +12851,13 @@
 																		},
 																		{
 																			"end": 826,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 796,
 																			"start": 813,
 																			"children": [
 																				{
 																					"end": 825,
-																					"kind": "StringLiteral",
+																					"kind": "Literal",
 																					"pos": 819,
 																					"start": 820,
 																					"children": [
@@ -12869,13 +12869,13 @@
 																},
 																{
 																	"end": 876,
-																	"kind": "CaseClause",
+																	"kind": "Keyword",
 																	"pos": 826,
 																	"start": 839,
 																	"children": [
 																		{
 																			"end": 845,
-																			"kind": "NumericLiteral",
+																			"kind": "Literal",
 																			"pos": 843,
 																			"start": 844,
 																			"children": [
@@ -12883,13 +12883,13 @@
 																		},
 																		{
 																			"end": 876,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 846,
 																			"start": 863,
 																			"children": [
 																				{
 																					"end": 875,
-																					"kind": "StringLiteral",
+																					"kind": "Literal",
 																					"pos": 869,
 																					"start": 870,
 																					"children": [
@@ -12901,13 +12901,13 @@
 																},
 																{
 																	"end": 928,
-																	"kind": "CaseClause",
+																	"kind": "Keyword",
 																	"pos": 876,
 																	"start": 889,
 																	"children": [
 																		{
 																			"end": 895,
-																			"kind": "NumericLiteral",
+																			"kind": "Literal",
 																			"pos": 893,
 																			"start": 894,
 																			"children": [
@@ -12915,13 +12915,13 @@
 																		},
 																		{
 																			"end": 928,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 896,
 																			"start": 913,
 																			"children": [
 																				{
 																					"end": 927,
-																					"kind": "StringLiteral",
+																					"kind": "Literal",
 																					"pos": 919,
 																					"start": 920,
 																					"children": [
@@ -12933,19 +12933,19 @@
 																},
 																{
 																	"end": 981,
-																	"kind": "DefaultClause",
+																	"kind": "Keyword",
 																	"pos": 928,
 																	"start": 941,
 																	"children": [
 																		{
 																			"end": 981,
-																			"kind": "ReturnStatement",
+																			"kind": "Keyword",
 																			"pos": 949,
 																			"start": 966,
 																			"children": [
 																				{
 																					"end": 980,
-																					"kind": "StringLiteral",
+																					"kind": "Literal",
 																					"pos": 972,
 																					"start": 973,
 																					"children": [
@@ -13245,7 +13245,7 @@
 													"children": [
 														{
 															"end": 1167,
-															"kind": "StringKeyword",
+															"kind": "Keyword",
 															"pos": 1160,
 															"start": 1161,
 															"children": [
@@ -13259,7 +13259,7 @@
 															"children": [
 																{
 																	"end": 1176,
-																	"kind": "StringKeyword",
+																	"kind": "Keyword",
 																	"pos": 1169,
 																	"start": 1170,
 																	"children": [
@@ -13271,7 +13271,7 @@
 												},
 												{
 													"end": 1183,
-													"kind": "StringLiteral",
+													"kind": "Literal",
 													"pos": 1180,
 													"start": 1181,
 													"children": [
@@ -13297,7 +13297,7 @@
 												},
 												{
 													"end": 1195,
-													"kind": "AnyKeyword",
+													"kind": "Keyword",
 													"pos": 1191,
 													"start": 1192,
 													"children": [
@@ -13509,7 +13509,7 @@
 																								},
 																								{
 																									"end": 1288,
-																									"kind": "NumericLiteral",
+																									"kind": "Literal",
 																									"pos": 1287,
 																									"start": 1287,
 																									"children": [
@@ -13523,7 +13523,7 @@
 																									"children": [
 																										{
 																											"end": 1292,
-																											"kind": "NumericLiteral",
+																											"kind": "Literal",
 																											"pos": 1291,
 																											"start": 1291,
 																											"children": [
@@ -13603,7 +13603,7 @@
 																								},
 																								{
 																									"end": 1324,
-																									"kind": "AnyKeyword",
+																									"kind": "Keyword",
 																									"pos": 1320,
 																									"start": 1321,
 																									"children": [
@@ -13653,7 +13653,7 @@
 																							"children": [
 																								{
 																									"end": 1392,
-																									"kind": "VariableStatement",
+																									"kind": "Keyword",
 																									"pos": 1345,
 																									"start": 1358,
 																									"children": [
@@ -13737,7 +13737,7 @@
 																																},
 																																{
 																																	"end": 1391,
-																																	"kind": "NumericLiteral",
+																																	"kind": "Literal",
 																																	"pos": 1389,
 																																	"start": 1390,
 																																	"children": [
@@ -13753,7 +13753,7 @@
 																								},
 																								{
 																									"end": 1453,
-																									"kind": "ReturnStatement",
+																									"kind": "Keyword",
 																									"pos": 1392,
 																									"start": 1405,
 																									"children": [
@@ -13873,7 +13873,7 @@
 																														},
 																														{
 																															"end": 1451,
-																															"kind": "NumericLiteral",
+																															"kind": "Literal",
 																															"pos": 1450,
 																															"start": 1450,
 																															"children": [
@@ -13957,7 +13957,7 @@
 																						},
 																						{
 																							"end": 1493,
-																							"kind": "NumericLiteral",
+																							"kind": "Literal",
 																							"pos": 1491,
 																							"start": 1492,
 																							"children": [
@@ -13992,13 +13992,13 @@
 												},
 												{
 													"end": 1549,
-													"kind": "ReturnStatement",
+													"kind": "Keyword",
 													"pos": 1504,
 													"start": 1513,
 													"children": [
 														{
 															"end": 1548,
-															"kind": "NewExpression",
+															"kind": "Keyword",
 															"pos": 1519,
 															"start": 1520,
 															"children": [
@@ -14170,7 +14170,7 @@
 																},
 																{
 																	"end": 67,
-																	"kind": "NumericLiteral",
+																	"kind": "Literal",
 																	"pos": 65,
 																	"start": 66,
 																	"children": [
@@ -14186,13 +14186,13 @@
 															"children": [
 																{
 																	"end": 94,
-																	"kind": "ReturnStatement",
+																	"kind": "Keyword",
 																	"pos": 70,
 																	"start": 83,
 																	"children": [
 																		{
 																			"end": 93,
-																			"kind": "StringLiteral",
+																			"kind": "Literal",
 																			"pos": 89,
 																			"start": 90,
 																			"children": [
@@ -14206,13 +14206,13 @@
 												},
 												{
 													"end": 128,
-													"kind": "ReturnStatement",
+													"kind": "Keyword",
 													"pos": 104,
 													"start": 114,
 													"children": [
 														{
 															"end": 127,
-															"kind": "StringLiteral",
+															"kind": "Literal",
 															"pos": 120,
 															"start": 121,
 															"children": [
@@ -14286,7 +14286,7 @@
 															"children": [
 																{
 																	"end": 177,
-																	"kind": "NumericLiteral",
+																	"kind": "Literal",
 																	"pos": 176,
 																	"start": 176,
 																	"children": [
@@ -14319,13 +14319,13 @@
 															"children": [
 																{
 																	"end": 207,
-																	"kind": "ReturnStatement",
+																	"kind": "Keyword",
 																	"pos": 185,
 																	"start": 198,
 																	"children": [
 																		{
 																			"end": 206,
-																			"kind": "NumericLiteral",
+																			"kind": "Literal",
 																			"pos": 204,
 																			"start": 205,
 																			"children": [
@@ -14339,7 +14339,7 @@
 												},
 												{
 													"end": 256,
-													"kind": "ReturnStatement",
+													"kind": "Keyword",
 													"pos": 217,
 													"start": 226,
 													"children": [
@@ -14399,7 +14399,7 @@
 																		},
 																		{
 																			"end": 254,
-																			"kind": "NumericLiteral",
+																			"kind": "Literal",
 																			"pos": 251,
 																			"start": 252,
 																			"children": [
@@ -14449,7 +14449,7 @@
 												},
 												{
 													"end": 297,
-													"kind": "StringKeyword",
+													"kind": "Keyword",
 													"pos": 290,
 													"start": 291,
 													"children": [
@@ -14483,7 +14483,7 @@
 											"children": [
 												{
 													"end": 338,
-													"kind": "ReturnStatement",
+													"kind": "Keyword",
 													"pos": 310,
 													"start": 319,
 													"children": [
