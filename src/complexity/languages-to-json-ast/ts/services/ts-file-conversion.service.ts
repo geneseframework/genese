@@ -1,10 +1,9 @@
 import * as ts from 'typescript';
 import { getFilename } from '../../../core/services/file.service';
-import { TsFolder } from '../models/ts-folder.model';
-import { TsFile } from '../models/ts-file.model';
 import { Ts } from './ts.service';
 import { TsNode } from '../models/ts-node.model';
-import { project } from '../../language-to-json-ast';
+import { AstFileInterface } from '../../../core/interfaces/ast/ast-file.interface';
+import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
 
 /**
  * - TsFiles generation from their Abstract Syntax Tree (AST)
@@ -17,12 +16,17 @@ export class TsFileConversionService {
      * @param path          // The path of the file
      * @param astFolder     // The TsFolder containing the TsFile
      */
-    generateTsFile(path: string, astFolder: TsFolder): TsFile {
+    generateTsFile(path: string, astFolder: AstFolderInterface): AstFileInterface {
         if (!path || !astFolder) {
             console.warn('No path or TsFolder : impossible to create TsFile');
             return undefined;
         }
-        const tsFile = new TsFile();
+        const tsFile: AstFileInterface = {
+            astNode: undefined,
+            name: getFilename(path),
+            text: Ts.getTextFile(path)
+        };
+        // const tsFile = new TsFile();
         const name = getFilename(path);
         if (name) {
             tsFile.name = name;
@@ -31,8 +35,8 @@ export class TsFileConversionService {
         // const tsNode = new TsNode();
         // tsNode.node = project.getSourceFile(path);
         tsNode.node = Ts.getSourceFile(path);
-        tsFile.text = Ts.getTextFile(path);
-        tsFile.tsNode = this.createTsNodeChildren(tsNode, Ts.getSourceFile(path));
+        // tsFile.text = Ts.getTextFile(path);
+        tsFile.astNode = this.createTsNodeChildren(tsNode, Ts.getSourceFile(path));
         return tsFile;
     }
 

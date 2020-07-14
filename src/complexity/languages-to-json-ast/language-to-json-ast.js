@@ -44,7 +44,7 @@ class LanguageToJsonAst {
         };
         // const jsonAst = new JsonAst();
         const initService = new init_conversion_service_1.InitConversionService();
-        let astFolder = initService.generateAll(pathToAnalyze).tsFolder;
+        let astFolder = initService.generateAll(pathToAnalyze).astFolder;
         astFolder = json_service_1.JsonService.astPropertyNames(astFolder);
         jsonAst.astFolder = astFolder;
         return jsonAst;

@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TsFileConversionService = void 0;
 const ts = require("typescript");
 const file_service_1 = require("../../../core/services/file.service");
-const ts_file_model_1 = require("../models/ts-file.model");
 const ts_service_1 = require("./ts.service");
 const ts_node_model_1 = require("../models/ts-node.model");
 /**
@@ -20,7 +19,12 @@ class TsFileConversionService {
             console.warn('No path or TsFolder : impossible to create TsFile');
             return undefined;
         }
-        const tsFile = new ts_file_model_1.TsFile();
+        const tsFile = {
+            astNode: undefined,
+            name: file_service_1.getFilename(path),
+            text: ts_service_1.Ts.getTextFile(path)
+        };
+        // const tsFile = new TsFile();
         const name = file_service_1.getFilename(path);
         if (name) {
             tsFile.name = name;
@@ -29,8 +33,8 @@ class TsFileConversionService {
         // const tsNode = new TsNode();
         // tsNode.node = project.getSourceFile(path);
         tsNode.node = ts_service_1.Ts.getSourceFile(path);
-        tsFile.text = ts_service_1.Ts.getTextFile(path);
-        tsFile.tsNode = this.createTsNodeChildren(tsNode, ts_service_1.Ts.getSourceFile(path));
+        // tsFile.text = Ts.getTextFile(path);
+        tsFile.astNode = this.createTsNodeChildren(tsNode, ts_service_1.Ts.getSourceFile(path));
         return tsFile;
     }
     /**

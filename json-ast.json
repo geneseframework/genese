@@ -1,14 +1,2555 @@
 {
 	"astFolder": {
+		"astFiles": [
+			{
+				"astNode": {
+					"children": [
+						{
+							"end": 81,
+							"kind": "ClassDeclaration",
+							"name": "DebugMock",
+							"pos": 0,
+							"start": 0,
+							"children": [
+								{
+									"end": 6,
+									"kind": "ExportKeyword",
+									"pos": 0,
+									"start": 0,
+									"children": [
+									]
+								},
+								{
+									"end": 22,
+									"kind": "Identifier",
+									"name": "DebugMock",
+									"pos": 12,
+									"start": 13,
+									"children": [
+									]
+								},
+								{
+									"end": 78,
+									"kind": "MethodDeclaration",
+									"name": "recursion",
+									"pos": 25,
+									"start": 31,
+									"children": [
+										{
+											"end": 40,
+											"kind": "Identifier",
+											"name": "recursion",
+											"pos": 25,
+											"start": 31,
+											"children": [
+											]
+										},
+										{
+											"end": 42,
+											"kind": "Parameter",
+											"name": "a",
+											"pos": 41,
+											"start": 41,
+											"children": [
+												{
+													"end": 42,
+													"kind": "Identifier",
+													"name": "a",
+													"pos": 41,
+													"start": 41,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 78,
+											"kind": "Block",
+											"pos": 43,
+											"start": 44,
+											"children": [
+												{
+													"end": 72,
+													"kind": "ExpressionStatement",
+													"pos": 45,
+													"start": 54,
+													"children": [
+														{
+															"end": 71,
+															"kind": "CallExpression",
+															"pos": 45,
+															"start": 54,
+															"children": [
+																{
+																	"end": 68,
+																	"kind": "PropertyAccessExpression",
+																	"pos": 45,
+																	"start": 54,
+																	"children": [
+																		{
+																			"end": 58,
+																			"kind": "ThisKeyword",
+																			"pos": 45,
+																			"start": 54,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 68,
+																			"kind": "Identifier",
+																			"name": "recursion",
+																			"pos": 59,
+																			"start": 59,
+																			"children": [
+																			]
+																		}
+																	]
+																},
+																{
+																	"end": 70,
+																	"kind": "Identifier",
+																	"name": "a",
+																	"pos": 69,
+																	"start": 69,
+																	"children": [
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"end": 82,
+							"kind": "EndOfFileToken",
+							"pos": 81,
+							"start": 82,
+							"children": [
+							]
+						}
+					]
+				},
+				"name": "debug.mock.ts",
+				"text": "export class DebugMock  {\n\n    recursion(a) {\n        this.recursion(a);\n    }\n\n}\n"
+			},
+			{
+				"astNode": {
+					"children": [
+						{
+							"end": 65,
+							"kind": "ImportDeclaration",
+							"pos": 0,
+							"start": 0,
+							"children": [
+								{
+									"end": 24,
+									"kind": "ImportClause",
+									"pos": 6,
+									"start": 7,
+									"children": [
+										{
+											"end": 24,
+											"kind": "NamedImports",
+											"pos": 6,
+											"start": 7,
+											"children": [
+												{
+													"end": 22,
+													"kind": "ImportSpecifier",
+													"pos": 8,
+													"start": 9,
+													"children": [
+														{
+															"end": 22,
+															"kind": "Identifier",
+															"name": "CallbacksMock",
+															"pos": 8,
+															"start": 9,
+															"children": [
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"end": 64,
+									"kind": "Literal",
+									"pos": 29,
+									"start": 30,
+									"children": [
+									]
+								}
+							]
+						},
+						{
+							"end": 1559,
+							"kind": "ClassDeclaration",
+							"name": "DebugMock",
+							"pos": 65,
+							"start": 68,
+							"children": [
+								{
+									"end": 74,
+									"kind": "ExportKeyword",
+									"pos": 65,
+									"start": 68,
+									"children": [
+									]
+								},
+								{
+									"end": 90,
+									"kind": "Identifier",
+									"name": "DebugMock",
+									"pos": 80,
+									"start": 81,
+									"children": [
+									]
+								},
+								{
+									"end": 186,
+									"kind": "MethodDeclaration",
+									"name": "ifAlone",
+									"pos": 92,
+									"start": 117,
+									"children": [
+										{
+											"end": 124,
+											"kind": "Identifier",
+											"name": "ifAlone",
+											"pos": 92,
+											"start": 117,
+											"children": [
+											]
+										},
+										{
+											"end": 126,
+											"kind": "Parameter",
+											"name": "a",
+											"pos": 125,
+											"start": 125,
+											"children": [
+												{
+													"end": 126,
+													"kind": "Identifier",
+													"name": "a",
+													"pos": 125,
+													"start": 125,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 186,
+											"kind": "Block",
+											"pos": 127,
+											"start": 128,
+											"children": [
+												{
+													"end": 180,
+													"kind": "IfStatement",
+													"pos": 129,
+													"start": 138,
+													"children": [
+														{
+															"end": 143,
+															"kind": "Identifier",
+															"name": "a",
+															"pos": 142,
+															"start": 142,
+															"children": [
+															]
+														},
+														{
+															"end": 180,
+															"kind": "Block",
+															"pos": 144,
+															"start": 145,
+															"children": [
+																{
+																	"end": 170,
+																	"kind": "Keyword",
+																	"pos": 146,
+																	"start": 159,
+																	"children": [
+																		{
+																			"end": 169,
+																			"kind": "Literal",
+																			"pos": 165,
+																			"start": 166,
+																			"children": [
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"end": 333,
+									"kind": "MethodDeclaration",
+									"name": "twoIfs",
+									"pos": 186,
+									"start": 211,
+									"children": [
+										{
+											"end": 217,
+											"kind": "Identifier",
+											"name": "twoIfs",
+											"pos": 186,
+											"start": 211,
+											"children": [
+											]
+										},
+										{
+											"end": 219,
+											"kind": "Parameter",
+											"name": "a",
+											"pos": 218,
+											"start": 218,
+											"children": [
+												{
+													"end": 219,
+													"kind": "Identifier",
+													"name": "a",
+													"pos": 218,
+													"start": 218,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 222,
+											"kind": "Parameter",
+											"name": "b",
+											"pos": 220,
+											"start": 221,
+											"children": [
+												{
+													"end": 222,
+													"kind": "Identifier",
+													"name": "b",
+													"pos": 220,
+													"start": 221,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 333,
+											"kind": "Block",
+											"pos": 223,
+											"start": 224,
+											"children": [
+												{
+													"end": 276,
+													"kind": "IfStatement",
+													"pos": 225,
+													"start": 234,
+													"children": [
+														{
+															"end": 239,
+															"kind": "Identifier",
+															"name": "a",
+															"pos": 238,
+															"start": 238,
+															"children": [
+															]
+														},
+														{
+															"end": 276,
+															"kind": "Block",
+															"pos": 240,
+															"start": 241,
+															"children": [
+																{
+																	"end": 266,
+																	"kind": "Keyword",
+																	"pos": 242,
+																	"start": 255,
+																	"children": [
+																		{
+																			"end": 265,
+																			"kind": "Literal",
+																			"pos": 261,
+																			"start": 262,
+																			"children": [
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												},
+												{
+													"end": 327,
+													"kind": "IfStatement",
+													"pos": 276,
+													"start": 285,
+													"children": [
+														{
+															"end": 290,
+															"kind": "Identifier",
+															"name": "b",
+															"pos": 289,
+															"start": 289,
+															"children": [
+															]
+														},
+														{
+															"end": 327,
+															"kind": "Block",
+															"pos": 291,
+															"start": 292,
+															"children": [
+																{
+																	"end": 317,
+																	"kind": "Keyword",
+																	"pos": 293,
+																	"start": 306,
+																	"children": [
+																		{
+																			"end": 316,
+																			"kind": "Literal",
+																			"pos": 312,
+																			"start": 313,
+																			"children": [
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"end": 496,
+									"kind": "MethodDeclaration",
+									"name": "ifNestedIf",
+									"pos": 333,
+									"start": 358,
+									"children": [
+										{
+											"end": 368,
+											"kind": "Identifier",
+											"name": "ifNestedIf",
+											"pos": 333,
+											"start": 358,
+											"children": [
+											]
+										},
+										{
+											"end": 370,
+											"kind": "Parameter",
+											"name": "a",
+											"pos": 369,
+											"start": 369,
+											"children": [
+												{
+													"end": 370,
+													"kind": "Identifier",
+													"name": "a",
+													"pos": 369,
+													"start": 369,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 373,
+											"kind": "Parameter",
+											"name": "b",
+											"pos": 371,
+											"start": 372,
+											"children": [
+												{
+													"end": 373,
+													"kind": "Identifier",
+													"name": "b",
+													"pos": 371,
+													"start": 372,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 496,
+											"kind": "Block",
+											"pos": 374,
+											"start": 375,
+											"children": [
+												{
+													"end": 490,
+													"kind": "IfStatement",
+													"pos": 376,
+													"start": 385,
+													"children": [
+														{
+															"end": 390,
+															"kind": "Identifier",
+															"name": "a",
+															"pos": 389,
+															"start": 389,
+															"children": [
+															]
+														},
+														{
+															"end": 490,
+															"kind": "Block",
+															"pos": 391,
+															"start": 392,
+															"children": [
+																{
+																	"end": 456,
+																	"kind": "IfStatement",
+																	"pos": 393,
+																	"start": 406,
+																	"children": [
+																		{
+																			"end": 411,
+																			"kind": "Identifier",
+																			"name": "b",
+																			"pos": 410,
+																			"start": 410,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 456,
+																			"kind": "Block",
+																			"pos": 412,
+																			"start": 413,
+																			"children": [
+																				{
+																					"end": 442,
+																					"kind": "Keyword",
+																					"pos": 414,
+																					"start": 431,
+																					"children": [
+																						{
+																							"end": 441,
+																							"kind": "Literal",
+																							"pos": 437,
+																							"start": 438,
+																							"children": [
+																							]
+																						}
+																					]
+																				}
+																			]
+																		}
+																	]
+																},
+																{
+																	"end": 480,
+																	"kind": "Keyword",
+																	"pos": 456,
+																	"start": 469,
+																	"children": [
+																		{
+																			"end": 479,
+																			"kind": "Literal",
+																			"pos": 475,
+																			"start": 476,
+																			"children": [
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"end": 733,
+									"kind": "MethodDeclaration",
+									"name": "ifIfIf",
+									"pos": 496,
+									"start": 521,
+									"children": [
+										{
+											"end": 527,
+											"kind": "Identifier",
+											"name": "ifIfIf",
+											"pos": 496,
+											"start": 521,
+											"children": [
+											]
+										},
+										{
+											"end": 529,
+											"kind": "Parameter",
+											"name": "a",
+											"pos": 528,
+											"start": 528,
+											"children": [
+												{
+													"end": 529,
+													"kind": "Identifier",
+													"name": "a",
+													"pos": 528,
+													"start": 528,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 532,
+											"kind": "Parameter",
+											"name": "b",
+											"pos": 530,
+											"start": 531,
+											"children": [
+												{
+													"end": 532,
+													"kind": "Identifier",
+													"name": "b",
+													"pos": 530,
+													"start": 531,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 535,
+											"kind": "Parameter",
+											"name": "c",
+											"pos": 533,
+											"start": 534,
+											"children": [
+												{
+													"end": 535,
+													"kind": "Identifier",
+													"name": "c",
+													"pos": 533,
+													"start": 534,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 733,
+											"kind": "Block",
+											"pos": 536,
+											"start": 537,
+											"children": [
+												{
+													"end": 727,
+													"kind": "IfStatement",
+													"pos": 538,
+													"start": 547,
+													"children": [
+														{
+															"end": 552,
+															"kind": "Identifier",
+															"name": "a",
+															"pos": 551,
+															"start": 551,
+															"children": [
+															]
+														},
+														{
+															"end": 727,
+															"kind": "Block",
+															"pos": 553,
+															"start": 554,
+															"children": [
+																{
+																	"end": 693,
+																	"kind": "IfStatement",
+																	"pos": 555,
+																	"start": 568,
+																	"children": [
+																		{
+																			"end": 573,
+																			"kind": "Identifier",
+																			"name": "b",
+																			"pos": 572,
+																			"start": 572,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 693,
+																			"kind": "Block",
+																			"pos": 574,
+																			"start": 575,
+																			"children": [
+																				{
+																					"end": 651,
+																					"kind": "IfStatement",
+																					"pos": 576,
+																					"start": 593,
+																					"children": [
+																						{
+																							"end": 598,
+																							"kind": "Identifier",
+																							"name": "c",
+																							"pos": 597,
+																							"start": 597,
+																							"children": [
+																							]
+																						},
+																						{
+																							"end": 651,
+																							"kind": "Block",
+																							"pos": 599,
+																							"start": 600,
+																							"children": [
+																								{
+																									"end": 633,
+																									"kind": "Keyword",
+																									"pos": 601,
+																									"start": 622,
+																									"children": [
+																										{
+																											"end": 632,
+																											"kind": "Literal",
+																											"pos": 628,
+																											"start": 629,
+																											"children": [
+																											]
+																										}
+																									]
+																								}
+																							]
+																						}
+																					]
+																				},
+																				{
+																					"end": 679,
+																					"kind": "Keyword",
+																					"pos": 651,
+																					"start": 668,
+																					"children": [
+																						{
+																							"end": 678,
+																							"kind": "Literal",
+																							"pos": 674,
+																							"start": 675,
+																							"children": [
+																							]
+																						}
+																					]
+																				}
+																			]
+																		}
+																	]
+																},
+																{
+																	"end": 717,
+																	"kind": "Keyword",
+																	"pos": 693,
+																	"start": 706,
+																	"children": [
+																		{
+																			"end": 716,
+																			"kind": "Literal",
+																			"pos": 712,
+																			"start": 713,
+																			"children": [
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"end": 997,
+									"kind": "MethodDeclaration",
+									"name": "switchCase",
+									"pos": 733,
+									"start": 740,
+									"children": [
+										{
+											"end": 750,
+											"kind": "Identifier",
+											"name": "switchCase",
+											"pos": 733,
+											"start": 740,
+											"children": [
+											]
+										},
+										{
+											"end": 752,
+											"kind": "Parameter",
+											"name": "a",
+											"pos": 751,
+											"start": 751,
+											"children": [
+												{
+													"end": 752,
+													"kind": "Identifier",
+													"name": "a",
+													"pos": 751,
+													"start": 751,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 997,
+											"kind": "Block",
+											"pos": 753,
+											"start": 754,
+											"children": [
+												{
+													"end": 991,
+													"kind": "SwitchStatement",
+													"pos": 755,
+													"start": 764,
+													"children": [
+														{
+															"end": 773,
+															"kind": "Identifier",
+															"name": "a",
+															"pos": 772,
+															"start": 772,
+															"children": [
+															]
+														},
+														{
+															"end": 991,
+															"kind": "CaseBlock",
+															"pos": 774,
+															"start": 775,
+															"children": [
+																{
+																	"end": 826,
+																	"kind": "Keyword",
+																	"pos": 776,
+																	"start": 789,
+																	"children": [
+																		{
+																			"end": 795,
+																			"kind": "Literal",
+																			"pos": 793,
+																			"start": 794,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 826,
+																			"kind": "Keyword",
+																			"pos": 796,
+																			"start": 813,
+																			"children": [
+																				{
+																					"end": 825,
+																					"kind": "Literal",
+																					"pos": 819,
+																					"start": 820,
+																					"children": [
+																					]
+																				}
+																			]
+																		}
+																	]
+																},
+																{
+																	"end": 876,
+																	"kind": "Keyword",
+																	"pos": 826,
+																	"start": 839,
+																	"children": [
+																		{
+																			"end": 845,
+																			"kind": "Literal",
+																			"pos": 843,
+																			"start": 844,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 876,
+																			"kind": "Keyword",
+																			"pos": 846,
+																			"start": 863,
+																			"children": [
+																				{
+																					"end": 875,
+																					"kind": "Literal",
+																					"pos": 869,
+																					"start": 870,
+																					"children": [
+																					]
+																				}
+																			]
+																		}
+																	]
+																},
+																{
+																	"end": 928,
+																	"kind": "Keyword",
+																	"pos": 876,
+																	"start": 889,
+																	"children": [
+																		{
+																			"end": 895,
+																			"kind": "Literal",
+																			"pos": 893,
+																			"start": 894,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 928,
+																			"kind": "Keyword",
+																			"pos": 896,
+																			"start": 913,
+																			"children": [
+																				{
+																					"end": 927,
+																					"kind": "Literal",
+																					"pos": 919,
+																					"start": 920,
+																					"children": [
+																					]
+																				}
+																			]
+																		}
+																	]
+																},
+																{
+																	"end": 981,
+																	"kind": "Keyword",
+																	"pos": 928,
+																	"start": 941,
+																	"children": [
+																		{
+																			"end": 981,
+																			"kind": "Keyword",
+																			"pos": 949,
+																			"start": 966,
+																			"children": [
+																				{
+																					"end": 980,
+																					"kind": "Literal",
+																					"pos": 972,
+																					"start": 973,
+																					"children": [
+																					]
+																				}
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"end": 1050,
+									"kind": "MethodDeclaration",
+									"name": "recursion",
+									"pos": 997,
+									"start": 1003,
+									"children": [
+										{
+											"end": 1012,
+											"kind": "Identifier",
+											"name": "recursion",
+											"pos": 997,
+											"start": 1003,
+											"children": [
+											]
+										},
+										{
+											"end": 1014,
+											"kind": "Parameter",
+											"name": "a",
+											"pos": 1013,
+											"start": 1013,
+											"children": [
+												{
+													"end": 1014,
+													"kind": "Identifier",
+													"name": "a",
+													"pos": 1013,
+													"start": 1013,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 1050,
+											"kind": "Block",
+											"pos": 1015,
+											"start": 1016,
+											"children": [
+												{
+													"end": 1044,
+													"kind": "ExpressionStatement",
+													"pos": 1017,
+													"start": 1026,
+													"children": [
+														{
+															"end": 1043,
+															"kind": "CallExpression",
+															"pos": 1017,
+															"start": 1026,
+															"children": [
+																{
+																	"end": 1040,
+																	"kind": "PropertyAccessExpression",
+																	"pos": 1017,
+																	"start": 1026,
+																	"children": [
+																		{
+																			"end": 1030,
+																			"kind": "ThisKeyword",
+																			"pos": 1017,
+																			"start": 1026,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 1040,
+																			"kind": "Identifier",
+																			"name": "recursion",
+																			"pos": 1031,
+																			"start": 1031,
+																			"children": [
+																			]
+																		}
+																	]
+																},
+																{
+																	"end": 1042,
+																	"kind": "Identifier",
+																	"name": "a",
+																	"pos": 1041,
+																	"start": 1041,
+																	"children": [
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"end": 1117,
+									"kind": "MethodDeclaration",
+									"name": "methodWithCallback",
+									"pos": 1050,
+									"start": 1057,
+									"children": [
+										{
+											"end": 1075,
+											"kind": "Identifier",
+											"name": "methodWithCallback",
+											"pos": 1050,
+											"start": 1057,
+											"children": [
+											]
+										},
+										{
+											"end": 1077,
+											"kind": "Parameter",
+											"name": "a",
+											"pos": 1076,
+											"start": 1076,
+											"children": [
+												{
+													"end": 1077,
+													"kind": "Identifier",
+													"name": "a",
+													"pos": 1076,
+													"start": 1076,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 1087,
+											"kind": "Parameter",
+											"name": "callback",
+											"pos": 1078,
+											"start": 1079,
+											"children": [
+												{
+													"end": 1087,
+													"kind": "Identifier",
+													"name": "callback",
+													"pos": 1078,
+													"start": 1079,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 1117,
+											"kind": "Block",
+											"pos": 1088,
+											"start": 1089,
+											"children": [
+												{
+													"end": 1111,
+													"kind": "ExpressionStatement",
+													"pos": 1090,
+													"start": 1099,
+													"children": [
+														{
+															"end": 1110,
+															"kind": "CallExpression",
+															"pos": 1090,
+															"start": 1099,
+															"children": [
+																{
+																	"end": 1107,
+																	"kind": "Identifier",
+																	"name": "callback",
+																	"pos": 1090,
+																	"start": 1099,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 1109,
+																	"kind": "Identifier",
+																	"name": "a",
+																	"pos": 1108,
+																	"start": 1108,
+																	"children": [
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"end": 1555,
+									"kind": "MethodDeclaration",
+									"name": "hyperComplex",
+									"pos": 1117,
+									"start": 1123,
+									"children": [
+										{
+											"end": 1135,
+											"kind": "Identifier",
+											"name": "hyperComplex",
+											"pos": 1117,
+											"start": 1123,
+											"children": [
+											]
+										},
+										{
+											"end": 1137,
+											"kind": "TypeParameter",
+											"pos": 1136,
+											"start": 1136,
+											"children": [
+												{
+													"end": 1137,
+													"kind": "Identifier",
+													"name": "T",
+													"pos": 1136,
+													"start": 1136,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 1153,
+											"kind": "Parameter",
+											"name": "object",
+											"pos": 1139,
+											"start": 1139,
+											"children": [
+												{
+													"end": 1145,
+													"kind": "Identifier",
+													"name": "object",
+													"pos": 1139,
+													"start": 1139,
+													"children": [
+													]
+												},
+												{
+													"end": 1153,
+													"kind": "TypeReference",
+													"pos": 1146,
+													"start": 1147,
+													"children": [
+														{
+															"end": 1153,
+															"kind": "Identifier",
+															"name": "Object",
+															"pos": 1146,
+															"start": 1147,
+															"children": [
+															]
+														}
+													]
+												}
+											]
+										},
+										{
+											"end": 1183,
+											"kind": "Parameter",
+											"name": "path",
+											"pos": 1154,
+											"start": 1155,
+											"children": [
+												{
+													"end": 1159,
+													"kind": "Identifier",
+													"name": "path",
+													"pos": 1154,
+													"start": 1155,
+													"children": [
+													]
+												},
+												{
+													"end": 1178,
+													"kind": "UnionType",
+													"pos": 1160,
+													"start": 1161,
+													"children": [
+														{
+															"end": 1167,
+															"kind": "Keyword",
+															"pos": 1160,
+															"start": 1161,
+															"children": [
+															]
+														},
+														{
+															"end": 1178,
+															"kind": "ArrayType",
+															"pos": 1169,
+															"start": 1170,
+															"children": [
+																{
+																	"end": 1176,
+																	"kind": "Keyword",
+																	"pos": 1169,
+																	"start": 1170,
+																	"children": [
+																	]
+																}
+															]
+														}
+													]
+												},
+												{
+													"end": 1183,
+													"kind": "Literal",
+													"pos": 1180,
+													"start": 1181,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 1195,
+											"kind": "Parameter",
+											"name": "value",
+											"pos": 1184,
+											"start": 1185,
+											"children": [
+												{
+													"end": 1190,
+													"kind": "Identifier",
+													"name": "value",
+													"pos": 1184,
+													"start": 1185,
+													"children": [
+													]
+												},
+												{
+													"end": 1195,
+													"kind": "Keyword",
+													"pos": 1191,
+													"start": 1192,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 1214,
+											"kind": "TypeReference",
+											"pos": 1197,
+											"start": 1198,
+											"children": [
+												{
+													"end": 1211,
+													"kind": "Identifier",
+													"name": "CallbacksMock",
+													"pos": 1197,
+													"start": 1198,
+													"children": [
+													]
+												},
+												{
+													"end": 1213,
+													"kind": "TypeReference",
+													"pos": 1212,
+													"start": 1212,
+													"children": [
+														{
+															"end": 1213,
+															"kind": "Identifier",
+															"name": "T",
+															"pos": 1212,
+															"start": 1212,
+															"children": [
+															]
+														}
+													]
+												}
+											]
+										},
+										{
+											"end": 1555,
+											"kind": "Block",
+											"pos": 1214,
+											"start": 1215,
+											"children": [
+												{
+													"end": 1267,
+													"kind": "ExpressionStatement",
+													"pos": 1216,
+													"start": 1225,
+													"children": [
+														{
+															"end": 1266,
+															"kind": "BinaryExpression",
+															"pos": 1216,
+															"start": 1225,
+															"children": [
+																{
+																	"end": 1229,
+																	"kind": "Identifier",
+																	"name": "path",
+																	"pos": 1216,
+																	"start": 1225,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 1231,
+																	"kind": "FirstAssignment",
+																	"pos": 1229,
+																	"start": 1230,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 1266,
+																	"kind": "CallExpression",
+																	"pos": 1231,
+																	"start": 1232,
+																	"children": [
+																		{
+																			"end": 1253,
+																			"kind": "PropertyAccessExpression",
+																			"pos": 1231,
+																			"start": 1232,
+																			"children": [
+																				{
+																					"end": 1247,
+																					"kind": "CallExpression",
+																					"pos": 1231,
+																					"start": 1232,
+																					"children": [
+																						{
+																							"end": 1245,
+																							"kind": "PropertyAccessExpression",
+																							"pos": 1231,
+																							"start": 1232,
+																							"children": [
+																								{
+																									"end": 1236,
+																									"kind": "Identifier",
+																									"name": "path",
+																									"pos": 1231,
+																									"start": 1232,
+																									"children": [
+																									]
+																								},
+																								{
+																									"end": 1245,
+																									"kind": "Identifier",
+																									"name": "toString",
+																									"pos": 1237,
+																									"start": 1237,
+																									"children": [
+																									]
+																								}
+																							]
+																						}
+																					]
+																				},
+																				{
+																					"end": 1253,
+																					"kind": "Identifier",
+																					"name": "match",
+																					"pos": 1248,
+																					"start": 1248,
+																					"children": [
+																					]
+																				}
+																			]
+																		},
+																		{
+																			"end": 1265,
+																			"kind": "RegularExpressionLiteral",
+																			"pos": 1254,
+																			"start": 1254,
+																			"children": [
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												},
+												{
+													"end": 1504,
+													"kind": "ExpressionStatement",
+													"pos": 1267,
+													"start": 1276,
+													"children": [
+														{
+															"end": 1503,
+															"kind": "BinaryExpression",
+															"pos": 1267,
+															"start": 1276,
+															"children": [
+																{
+																	"end": 1495,
+																	"kind": "ElementAccessExpression",
+																	"pos": 1267,
+																	"start": 1276,
+																	"children": [
+																		{
+																			"end": 1472,
+																			"kind": "CallExpression",
+																			"pos": 1267,
+																			"start": 1276,
+																			"children": [
+																				{
+																					"end": 1300,
+																					"kind": "PropertyAccessExpression",
+																					"pos": 1267,
+																					"start": 1276,
+																					"children": [
+																						{
+																							"end": 1293,
+																							"kind": "CallExpression",
+																							"pos": 1267,
+																							"start": 1276,
+																							"children": [
+																								{
+																									"end": 1286,
+																									"kind": "PropertyAccessExpression",
+																									"pos": 1267,
+																									"start": 1276,
+																									"children": [
+																										{
+																											"end": 1280,
+																											"kind": "Identifier",
+																											"name": "path",
+																											"pos": 1267,
+																											"start": 1276,
+																											"children": [
+																											]
+																										},
+																										{
+																											"end": 1286,
+																											"kind": "Identifier",
+																											"name": "slice",
+																											"pos": 1281,
+																											"start": 1281,
+																											"children": [
+																											]
+																										}
+																									]
+																								},
+																								{
+																									"end": 1288,
+																									"kind": "Literal",
+																									"pos": 1287,
+																									"start": 1287,
+																									"children": [
+																									]
+																								},
+																								{
+																									"end": 1292,
+																									"kind": "PrefixUnaryExpression",
+																									"pos": 1289,
+																									"start": 1290,
+																									"children": [
+																										{
+																											"end": 1292,
+																											"kind": "Literal",
+																											"pos": 1291,
+																											"start": 1291,
+																											"children": [
+																											]
+																										}
+																									]
+																								}
+																							]
+																						},
+																						{
+																							"end": 1300,
+																							"kind": "Identifier",
+																							"name": "reduce",
+																							"pos": 1294,
+																							"start": 1294,
+																							"children": [
+																							]
+																						}
+																					]
+																				},
+																				{
+																					"end": 1463,
+																					"kind": "ArrowFunction",
+																					"pos": 1301,
+																					"start": 1301,
+																					"children": [
+																						{
+																							"end": 1313,
+																							"kind": "Parameter",
+																							"name": "acc",
+																							"pos": 1302,
+																							"start": 1302,
+																							"children": [
+																								{
+																									"end": 1305,
+																									"kind": "Identifier",
+																									"name": "acc",
+																									"pos": 1302,
+																									"start": 1302,
+																									"children": [
+																									]
+																								},
+																								{
+																									"end": 1313,
+																									"kind": "TypeReference",
+																									"pos": 1306,
+																									"start": 1307,
+																									"children": [
+																										{
+																											"end": 1313,
+																											"kind": "Identifier",
+																											"name": "Object",
+																											"pos": 1306,
+																											"start": 1307,
+																											"children": [
+																											]
+																										}
+																									]
+																								}
+																							]
+																						},
+																						{
+																							"end": 1324,
+																							"kind": "Parameter",
+																							"name": "curr",
+																							"pos": 1314,
+																							"start": 1315,
+																							"children": [
+																								{
+																									"end": 1319,
+																									"kind": "Identifier",
+																									"name": "curr",
+																									"pos": 1314,
+																									"start": 1315,
+																									"children": [
+																									]
+																								},
+																								{
+																									"end": 1324,
+																									"kind": "Keyword",
+																									"pos": 1320,
+																									"start": 1321,
+																									"children": [
+																									]
+																								}
+																							]
+																						},
+																						{
+																							"end": 1339,
+																							"kind": "Parameter",
+																							"name": "index",
+																							"pos": 1325,
+																							"start": 1326,
+																							"children": [
+																								{
+																									"end": 1331,
+																									"kind": "Identifier",
+																									"name": "index",
+																									"pos": 1325,
+																									"start": 1326,
+																									"children": [
+																									]
+																								},
+																								{
+																									"end": 1339,
+																									"kind": "NumberKeyword",
+																									"pos": 1332,
+																									"start": 1333,
+																									"children": [
+																									]
+																								}
+																							]
+																						},
+																						{
+																							"end": 1343,
+																							"kind": "EqualsGreaterThanToken",
+																							"pos": 1340,
+																							"start": 1341,
+																							"children": [
+																							]
+																						},
+																						{
+																							"end": 1463,
+																							"kind": "Block",
+																							"pos": 1343,
+																							"start": 1344,
+																							"children": [
+																								{
+																									"end": 1392,
+																									"kind": "FirstStatement",
+																									"pos": 1345,
+																									"start": 1358,
+																									"children": [
+																										{
+																											"end": 1391,
+																											"kind": "VariableDeclarationList",
+																											"pos": 1345,
+																											"start": 1358,
+																											"children": [
+																												{
+																													"end": 1391,
+																													"kind": "VariableDeclaration",
+																													"pos": 1363,
+																													"start": 1364,
+																													"children": [
+																														{
+																															"end": 1367,
+																															"kind": "Identifier",
+																															"name": "arg",
+																															"pos": 1363,
+																															"start": 1364,
+																															"children": [
+																															]
+																														},
+																														{
+																															"end": 1391,
+																															"kind": "BinaryExpression",
+																															"pos": 1369,
+																															"start": 1370,
+																															"children": [
+																																{
+																																	"end": 1387,
+																																	"kind": "CallExpression",
+																																	"pos": 1369,
+																																	"start": 1370,
+																																	"children": [
+																																		{
+																																			"end": 1380,
+																																			"kind": "PropertyAccessExpression",
+																																			"pos": 1369,
+																																			"start": 1370,
+																																			"children": [
+																																				{
+																																					"end": 1374,
+																																					"kind": "Identifier",
+																																					"name": "Math",
+																																					"pos": 1369,
+																																					"start": 1370,
+																																					"children": [
+																																					]
+																																				},
+																																				{
+																																					"end": 1380,
+																																					"kind": "Identifier",
+																																					"name": "round",
+																																					"pos": 1375,
+																																					"start": 1375,
+																																					"children": [
+																																					]
+																																				}
+																																			]
+																																		},
+																																		{
+																																			"end": 1386,
+																																			"kind": "Identifier",
+																																			"name": "index",
+																																			"pos": 1381,
+																																			"start": 1381,
+																																			"children": [
+																																			]
+																																		}
+																																	]
+																																},
+																																{
+																																	"end": 1389,
+																																	"kind": "PercentToken",
+																																	"pos": 1387,
+																																	"start": 1388,
+																																	"children": [
+																																	]
+																																},
+																																{
+																																	"end": 1391,
+																																	"kind": "Literal",
+																																	"pos": 1389,
+																																	"start": 1390,
+																																	"children": [
+																																	]
+																																}
+																															]
+																														}
+																													]
+																												}
+																											]
+																										}
+																									]
+																								},
+																								{
+																									"end": 1453,
+																									"kind": "Keyword",
+																									"pos": 1392,
+																									"start": 1405,
+																									"children": [
+																										{
+																											"end": 1452,
+																											"kind": "BinaryExpression",
+																											"pos": 1411,
+																											"start": 1412,
+																											"children": [
+																												{
+																													"end": 1429,
+																													"kind": "CallExpression",
+																													"pos": 1411,
+																													"start": 1412,
+																													"children": [
+																														{
+																															"end": 1418,
+																															"kind": "Identifier",
+																															"name": "Object",
+																															"pos": 1411,
+																															"start": 1412,
+																															"children": [
+																															]
+																														},
+																														{
+																															"end": 1428,
+																															"kind": "ElementAccessExpression",
+																															"pos": 1419,
+																															"start": 1419,
+																															"children": [
+																																{
+																																	"end": 1422,
+																																	"kind": "Identifier",
+																																	"name": "acc",
+																																	"pos": 1419,
+																																	"start": 1419,
+																																	"children": [
+																																	]
+																																},
+																																{
+																																	"end": 1427,
+																																	"kind": "Identifier",
+																																	"name": "curr",
+																																	"pos": 1423,
+																																	"start": 1423,
+																																	"children": [
+																																	]
+																																}
+																															]
+																														}
+																													]
+																												},
+																												{
+																													"end": 1433,
+																													"kind": "EqualsEqualsEqualsToken",
+																													"pos": 1429,
+																													"start": 1430,
+																													"children": [
+																													]
+																												},
+																												{
+																													"end": 1452,
+																													"kind": "ElementAccessExpression",
+																													"pos": 1433,
+																													"start": 1434,
+																													"children": [
+																														{
+																															"end": 1449,
+																															"kind": "ElementAccessExpression",
+																															"pos": 1433,
+																															"start": 1434,
+																															"children": [
+																																{
+																																	"end": 1437,
+																																	"kind": "Identifier",
+																																	"name": "acc",
+																																	"pos": 1433,
+																																	"start": 1434,
+																																	"children": [
+																																	]
+																																},
+																																{
+																																	"end": 1448,
+																																	"kind": "BinaryExpression",
+																																	"pos": 1438,
+																																	"start": 1438,
+																																	"children": [
+																																		{
+																																			"end": 1442,
+																																			"kind": "Identifier",
+																																			"name": "curr",
+																																			"pos": 1438,
+																																			"start": 1438,
+																																			"children": [
+																																			]
+																																		},
+																																		{
+																																			"end": 1444,
+																																			"kind": "PlusToken",
+																																			"pos": 1442,
+																																			"start": 1443,
+																																			"children": [
+																																			]
+																																		},
+																																		{
+																																			"end": 1448,
+																																			"kind": "Identifier",
+																																			"name": "arg",
+																																			"pos": 1444,
+																																			"start": 1445,
+																																			"children": [
+																																			]
+																																		}
+																																	]
+																																}
+																															]
+																														},
+																														{
+																															"end": 1451,
+																															"kind": "Literal",
+																															"pos": 1450,
+																															"start": 1450,
+																															"children": [
+																															]
+																														}
+																													]
+																												}
+																											]
+																										}
+																									]
+																								}
+																							]
+																						}
+																					]
+																				},
+																				{
+																					"end": 1471,
+																					"kind": "Identifier",
+																					"name": "object",
+																					"pos": 1464,
+																					"start": 1465,
+																					"children": [
+																					]
+																				}
+																			]
+																		},
+																		{
+																			"end": 1494,
+																			"kind": "ElementAccessExpression",
+																			"pos": 1473,
+																			"start": 1473,
+																			"children": [
+																				{
+																					"end": 1477,
+																					"kind": "Identifier",
+																					"name": "path",
+																					"pos": 1473,
+																					"start": 1473,
+																					"children": [
+																					]
+																				},
+																				{
+																					"end": 1493,
+																					"kind": "BinaryExpression",
+																					"pos": 1478,
+																					"start": 1478,
+																					"children": [
+																						{
+																							"end": 1489,
+																							"kind": "PropertyAccessExpression",
+																							"pos": 1478,
+																							"start": 1478,
+																							"children": [
+																								{
+																									"end": 1482,
+																									"kind": "Identifier",
+																									"name": "path",
+																									"pos": 1478,
+																									"start": 1478,
+																									"children": [
+																									]
+																								},
+																								{
+																									"end": 1489,
+																									"kind": "Identifier",
+																									"name": "length",
+																									"pos": 1483,
+																									"start": 1483,
+																									"children": [
+																									]
+																								}
+																							]
+																						},
+																						{
+																							"end": 1491,
+																							"kind": "MinusToken",
+																							"pos": 1489,
+																							"start": 1490,
+																							"children": [
+																							]
+																						},
+																						{
+																							"end": 1493,
+																							"kind": "Literal",
+																							"pos": 1491,
+																							"start": 1492,
+																							"children": [
+																							]
+																						}
+																					]
+																				}
+																			]
+																		}
+																	]
+																},
+																{
+																	"end": 1497,
+																	"kind": "FirstAssignment",
+																	"pos": 1495,
+																	"start": 1496,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 1503,
+																	"kind": "Identifier",
+																	"name": "value",
+																	"pos": 1497,
+																	"start": 1498,
+																	"children": [
+																	]
+																}
+															]
+														}
+													]
+												},
+												{
+													"end": 1549,
+													"kind": "Keyword",
+													"pos": 1504,
+													"start": 1513,
+													"children": [
+														{
+															"end": 1548,
+															"kind": "Keyword",
+															"pos": 1519,
+															"start": 1520,
+															"children": [
+																{
+																	"end": 1537,
+																	"kind": "Identifier",
+																	"name": "CallbacksMock",
+																	"pos": 1523,
+																	"start": 1524,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 1539,
+																	"kind": "TypeReference",
+																	"pos": 1538,
+																	"start": 1538,
+																	"children": [
+																		{
+																			"end": 1539,
+																			"kind": "Identifier",
+																			"name": "T",
+																			"pos": 1538,
+																			"start": 1538,
+																			"children": [
+																			]
+																		}
+																	]
+																},
+																{
+																	"end": 1547,
+																	"kind": "Identifier",
+																	"name": "object",
+																	"pos": 1541,
+																	"start": 1541,
+																	"children": [
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"end": 1560,
+							"kind": "EndOfFileToken",
+							"pos": 1559,
+							"start": 1560,
+							"children": [
+							]
+						}
+					]
+				},
+				"name": "demo.mock.ts",
+				"text": "import { CallbacksMock } from './mocks-subfolder/callbacks.mock';\n\n\nexport class DebugMock {\n\n\n    // @ts-ignore\n    ifAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n\n\n    // @ts-ignore\n    twoIfs(a, b) {\n        if (a) {\n            return 'b';\n        }\n        if (b) {\n            return 'c';\n        }\n    }\n\n\n    // @ts-ignore\n    ifNestedIf(a, b) {\n        if (a) {\n            if (b) {\n                return 'c';\n            }\n            return 'b';\n        }\n    }\n\n\n    // @ts-ignore\n    ifIfIf(a, b, c) {\n        if (a) {\n            if (b) {\n                if (c) {\n                    return 'd';\n                }\n                return 'c';\n            }\n            return 'b';\n        }\n    }\n\n\n    switchCase(a) {\n        switch (a) {\n            case 1:\n                return 'one';\n            case 2:\n                return 'two';\n            case 3:\n                return 'three';\n            default:\n                return 'other';\n        }\n    }\n\n    recursion(a) {\n        this.recursion(a);\n    }\n\n\n    methodWithCallback(a, callback) {\n        callback(a);\n    }\n\n    hyperComplex<T>(object: Object, path: string | string[] = '', value: any): CallbacksMock<T> {\n        path = path.toString().match(/[^.[\\]]+/g);\n        path.slice(0, -1).reduce((acc: Object, curr: any, index: number) => {\n            const arg = Math.round(index) % 3;\n            return Object(acc[curr]) === acc[curr + arg][0];\n        }, object)[path[path.length - 1]] = value;\n        return new CallbacksMock<T>(object);\n    }\n\n\n}\n"
+			},
+			{
+				"astNode": {
+					"children": [
+						{
+							"end": 347,
+							"kind": "ClassDeclaration",
+							"name": "PhpMock",
+							"pos": 0,
+							"start": 0,
+							"children": [
+								{
+									"end": 6,
+									"kind": "ExportKeyword",
+									"pos": 0,
+									"start": 0,
+									"children": [
+									]
+								},
+								{
+									"end": 20,
+									"kind": "Identifier",
+									"name": "PhpMock",
+									"pos": 12,
+									"start": 13,
+									"children": [
+									]
+								},
+								{
+									"end": 134,
+									"kind": "MethodDeclaration",
+									"name": "ifMethod",
+									"pos": 22,
+									"start": 28,
+									"children": [
+										{
+											"end": 36,
+											"kind": "Identifier",
+											"name": "ifMethod",
+											"pos": 22,
+											"start": 28,
+											"children": [
+											]
+										},
+										{
+											"end": 46,
+											"kind": "Parameter",
+											"name": "a",
+											"pos": 37,
+											"start": 37,
+											"children": [
+												{
+													"end": 38,
+													"kind": "Identifier",
+													"name": "a",
+													"pos": 37,
+													"start": 37,
+													"children": [
+													]
+												},
+												{
+													"end": 46,
+													"kind": "NumberKeyword",
+													"pos": 39,
+													"start": 40,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 134,
+											"kind": "Block",
+											"pos": 47,
+											"start": 48,
+											"children": [
+												{
+													"end": 104,
+													"kind": "IfStatement",
+													"pos": 49,
+													"start": 58,
+													"children": [
+														{
+															"end": 67,
+															"kind": "BinaryExpression",
+															"pos": 62,
+															"start": 62,
+															"children": [
+																{
+																	"end": 63,
+																	"kind": "Identifier",
+																	"name": "a",
+																	"pos": 62,
+																	"start": 62,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 65,
+																	"kind": "GreaterThanToken",
+																	"pos": 63,
+																	"start": 64,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 67,
+																	"kind": "Literal",
+																	"pos": 65,
+																	"start": 66,
+																	"children": [
+																	]
+																}
+															]
+														},
+														{
+															"end": 104,
+															"kind": "Block",
+															"pos": 68,
+															"start": 69,
+															"children": [
+																{
+																	"end": 94,
+																	"kind": "Keyword",
+																	"pos": 70,
+																	"start": 83,
+																	"children": [
+																		{
+																			"end": 93,
+																			"kind": "Literal",
+																			"pos": 89,
+																			"start": 90,
+																			"children": [
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												},
+												{
+													"end": 128,
+													"kind": "Keyword",
+													"pos": 104,
+													"start": 114,
+													"children": [
+														{
+															"end": 127,
+															"kind": "Literal",
+															"pos": 120,
+															"start": 121,
+															"children": [
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"end": 262,
+									"kind": "MethodDeclaration",
+									"name": "recursion",
+									"pos": 134,
+									"start": 141,
+									"children": [
+										{
+											"end": 150,
+											"kind": "Identifier",
+											"name": "recursion",
+											"pos": 134,
+											"start": 141,
+											"children": [
+											]
+										},
+										{
+											"end": 160,
+											"kind": "Parameter",
+											"name": "a",
+											"pos": 151,
+											"start": 151,
+											"children": [
+												{
+													"end": 152,
+													"kind": "Identifier",
+													"name": "a",
+													"pos": 151,
+													"start": 151,
+													"children": [
+													]
+												},
+												{
+													"end": 160,
+													"kind": "NumberKeyword",
+													"pos": 153,
+													"start": 154,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 262,
+											"kind": "Block",
+											"pos": 161,
+											"start": 162,
+											"children": [
+												{
+													"end": 217,
+													"kind": "IfStatement",
+													"pos": 163,
+													"start": 172,
+													"children": [
+														{
+															"end": 182,
+															"kind": "BinaryExpression",
+															"pos": 176,
+															"start": 176,
+															"children": [
+																{
+																	"end": 177,
+																	"kind": "Literal",
+																	"pos": 176,
+																	"start": 176,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 180,
+																	"kind": "LessThanEqualsToken",
+																	"pos": 177,
+																	"start": 178,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 182,
+																	"kind": "Identifier",
+																	"name": "a",
+																	"pos": 180,
+																	"start": 181,
+																	"children": [
+																	]
+																}
+															]
+														},
+														{
+															"end": 217,
+															"kind": "Block",
+															"pos": 183,
+															"start": 184,
+															"children": [
+																{
+																	"end": 207,
+																	"kind": "Keyword",
+																	"pos": 185,
+																	"start": 198,
+																	"children": [
+																		{
+																			"end": 206,
+																			"kind": "Literal",
+																			"pos": 204,
+																			"start": 205,
+																			"children": [
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												},
+												{
+													"end": 256,
+													"kind": "Keyword",
+													"pos": 217,
+													"start": 226,
+													"children": [
+														{
+															"end": 255,
+															"kind": "CallExpression",
+															"pos": 232,
+															"start": 233,
+															"children": [
+																{
+																	"end": 247,
+																	"kind": "PropertyAccessExpression",
+																	"pos": 232,
+																	"start": 233,
+																	"children": [
+																		{
+																			"end": 237,
+																			"kind": "ThisKeyword",
+																			"pos": 232,
+																			"start": 233,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 247,
+																			"kind": "Identifier",
+																			"name": "recursion",
+																			"pos": 238,
+																			"start": 238,
+																			"children": [
+																			]
+																		}
+																	]
+																},
+																{
+																	"end": 254,
+																	"kind": "BinaryExpression",
+																	"pos": 248,
+																	"start": 248,
+																	"children": [
+																		{
+																			"end": 249,
+																			"kind": "Identifier",
+																			"name": "a",
+																			"pos": 248,
+																			"start": 248,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 251,
+																			"kind": "MinusToken",
+																			"pos": 249,
+																			"start": 250,
+																			"children": [
+																			]
+																		},
+																		{
+																			"end": 254,
+																			"kind": "Literal",
+																			"pos": 251,
+																			"start": 252,
+																			"children": [
+																			]
+																		}
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								},
+								{
+									"end": 344,
+									"kind": "MethodDeclaration",
+									"name": "methodWithCallback",
+									"pos": 262,
+									"start": 269,
+									"children": [
+										{
+											"end": 287,
+											"kind": "Identifier",
+											"name": "methodWithCallback",
+											"pos": 262,
+											"start": 269,
+											"children": [
+											]
+										},
+										{
+											"end": 297,
+											"kind": "Parameter",
+											"name": "a",
+											"pos": 288,
+											"start": 288,
+											"children": [
+												{
+													"end": 289,
+													"kind": "Identifier",
+													"name": "a",
+													"pos": 288,
+													"start": 288,
+													"children": [
+													]
+												},
+												{
+													"end": 297,
+													"kind": "Keyword",
+													"pos": 290,
+													"start": 291,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 307,
+											"kind": "Parameter",
+											"name": "callback",
+											"pos": 298,
+											"start": 299,
+											"children": [
+												{
+													"end": 307,
+													"kind": "Identifier",
+													"name": "callback",
+													"pos": 298,
+													"start": 299,
+													"children": [
+													]
+												}
+											]
+										},
+										{
+											"end": 344,
+											"kind": "Block",
+											"pos": 308,
+											"start": 309,
+											"children": [
+												{
+													"end": 338,
+													"kind": "Keyword",
+													"pos": 310,
+													"start": 319,
+													"children": [
+														{
+															"end": 337,
+															"kind": "CallExpression",
+															"pos": 325,
+															"start": 326,
+															"children": [
+																{
+																	"end": 334,
+																	"kind": "Identifier",
+																	"name": "callback",
+																	"pos": 325,
+																	"start": 326,
+																	"children": [
+																	]
+																},
+																{
+																	"end": 336,
+																	"kind": "Identifier",
+																	"name": "a",
+																	"pos": 335,
+																	"start": 335,
+																	"children": [
+																	]
+																}
+															]
+														}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						},
+						{
+							"end": 348,
+							"kind": "EndOfFileToken",
+							"pos": 347,
+							"start": 348,
+							"children": [
+							]
+						}
+					]
+				},
+				"name": "php.mock.ts",
+				"text": "export class PhpMock {\n\n    ifMethod(a: number) {\n        if (a > 0) {\n            return 'a';\n        }\n\n        return 'none';\n    }\n\n\n    recursion(a: number) {\n        if (0 <= a) {\n            return 0;\n        }\n        return this.recursion(a - 10);\n    }\n\n\n    methodWithCallback(a: string, callback) {\n        return callback(a);\n    }\n\n}\n"
+			}
+		],
 		"children": [
 			{
-				"children": [
-				],
-				"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/mocks-mocks/",
 				"astFiles": [
 					{
-						"name": "debug-2.mock.ts",
-						"text": "export class Debug2Mock {\n\n\n    // @ts-ignore\n    ifVeryAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n\n}\n",
 						"astNode": {
 							"children": [
 								{
@@ -131,18 +2672,18 @@
 									]
 								}
 							]
-						}
+						},
+						"name": "debug-2.mock.ts",
+						"text": "export class Debug2Mock {\n\n\n    // @ts-ignore\n    ifVeryAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n\n}\n"
 					}
-				]
-			},
-			{
+				],
 				"children": [
 				],
-				"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/mocks-subfolder/",
+				"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/mocks-mocks/"
+			},
+			{
 				"astFiles": [
 					{
-						"name": "arrays-mock.ts",
-						"text": "export class ArraysMock {\n\n    elementAccessExpression(a) {\n        return a[0];\n    }\n\n\n    arrayLiteralExpression(b) {\n        return [b];\n    }\n\n\n    aggregateElementAccess(a, b, c) {\n        return c[a][b];\n    }\n\n\n    aggregateElementAccessX2(a, b, c, d) {\n        return c[a][b][d];\n    }\n\n\n    aggregateArrayLiteral(a, b) {\n        return [a][b];\n    }\n\n\n    nestingElementAccessElementAccess(a, b, c) {\n        return a[b[c]];\n    }\n\n\n    nestingElementAccessElementAccessX2(a, b, c, d) {\n        return a[b[c[d]]];\n    }\n\n\n    nestingTernaryElementAccess(a, b, c, d) {\n        return a[b ? c : d];\n    }\n\n}\n",
 						"astNode": {
 							"children": [
 								{
@@ -1198,11 +3739,11 @@
 									]
 								}
 							]
-						}
+						},
+						"name": "arrays-mock.ts",
+						"text": "export class ArraysMock {\n\n    elementAccessExpression(a) {\n        return a[0];\n    }\n\n\n    arrayLiteralExpression(b) {\n        return [b];\n    }\n\n\n    aggregateElementAccess(a, b, c) {\n        return c[a][b];\n    }\n\n\n    aggregateElementAccessX2(a, b, c, d) {\n        return c[a][b][d];\n    }\n\n\n    aggregateArrayLiteral(a, b) {\n        return [a][b];\n    }\n\n\n    nestingElementAccessElementAccess(a, b, c) {\n        return a[b[c]];\n    }\n\n\n    nestingElementAccessElementAccessX2(a, b, c, d) {\n        return a[b[c[d]]];\n    }\n\n\n    nestingTernaryElementAccess(a, b, c, d) {\n        return a[b ? c : d];\n    }\n\n}\n"
 					},
 					{
-						"name": "binaries.mock.ts",
-						"text": "export class BinariesMock {\n\n    binary(a, b) {\n        if (a && b) {\n            console.log('b');\n        }\n    }\n\n\n    sameLogicDoor(a, b, c) {\n        if (a && b && c) {\n            console.log('b');\n        }\n    }\n\n\n    differentLogicDoor(a, b, c) {\n        if (a && b || c) {\n            console.log('b');\n        }\n    }\n\n\n    differentLogicDoorWithBrackets(a, b, c) {\n        if ((a && b) || c) {\n            console.log('b');\n        }\n    }\n\n\n    orBetweenTwoBinaries(a, b, c, d) {\n        if ((a && b) || (c && d)) {\n            console.log('b');\n        }\n    }\n\n\n    differentLogicDoorBetweenBinaries(a, b, c, d) {\n        if ((a && b) || (c && d) && a) {\n            console.log('b');\n        }\n    }\n\n\n    forIfAndAndOrAndAndOrOr(a, b, c, d, e, f) {\n        for (let i = 0; i < 10; i++) {\n            if (b && c || d && f || a) {\n                console.log(e);\n            }\n        }\n    }\n\n\n    forForIfAndAndOrAndAndOrOr(a, b, c, d, e, f) {\n        for (let i = 0; i < 10; i++) {\n            for (let j = 0; j < 10; j++) {\n                if (b && c || d && f || a) {\n                    console.log(e);\n                }\n            }\n        }\n        if (a > b) {\n            console.log(b);\n        }\n    }\n\n}\n",
 						"astNode": {
 							"children": [
 								{
@@ -3596,11 +6137,11 @@
 									]
 								}
 							]
-						}
+						},
+						"name": "binaries.mock.ts",
+						"text": "export class BinariesMock {\n\n    binary(a, b) {\n        if (a && b) {\n            console.log('b');\n        }\n    }\n\n\n    sameLogicDoor(a, b, c) {\n        if (a && b && c) {\n            console.log('b');\n        }\n    }\n\n\n    differentLogicDoor(a, b, c) {\n        if (a && b || c) {\n            console.log('b');\n        }\n    }\n\n\n    differentLogicDoorWithBrackets(a, b, c) {\n        if ((a && b) || c) {\n            console.log('b');\n        }\n    }\n\n\n    orBetweenTwoBinaries(a, b, c, d) {\n        if ((a && b) || (c && d)) {\n            console.log('b');\n        }\n    }\n\n\n    differentLogicDoorBetweenBinaries(a, b, c, d) {\n        if ((a && b) || (c && d) && a) {\n            console.log('b');\n        }\n    }\n\n\n    forIfAndAndOrAndAndOrOr(a, b, c, d, e, f) {\n        for (let i = 0; i < 10; i++) {\n            if (b && c || d && f || a) {\n                console.log(e);\n            }\n        }\n    }\n\n\n    forForIfAndAndOrAndAndOrOr(a, b, c, d, e, f) {\n        for (let i = 0; i < 10; i++) {\n            for (let j = 0; j < 10; j++) {\n                if (b && c || d && f || a) {\n                    console.log(e);\n                }\n            }\n        }\n        if (a > b) {\n            console.log(b);\n        }\n    }\n\n}\n"
 					},
 					{
-						"name": "callbacks.mock.ts",
-						"text": "// @ts-ignore\nexport class CallbacksMock<T> {\n\n\n    constructor(object) {\n        console.log(object);\n    }\n\n    recursion(a) {\n        this.recursion(a);\n    }\n\n\n    methodWithCallback<T>(a: T, callback): T {\n        return callback(a);\n    }\n\n\n    caller(a) {\n        this.methodWithCallback(a, (b) => {\n            if (a < 2) {\n                console.log(b)\n            }\n        })\n    }\n\n\n    callerFunction(a) {\n        this.methodWithCallback(a, function (b) {\n            if (b < 6) {\n                console.log('b', b)\n            }\n        })\n    }\n\n}\n",
 						"astNode": {
 							"children": [
 								{
@@ -4453,11 +6994,11 @@
 									]
 								}
 							]
-						}
+						},
+						"name": "callbacks.mock.ts",
+						"text": "// @ts-ignore\nexport class CallbacksMock<T> {\n\n\n    constructor(object) {\n        console.log(object);\n    }\n\n    recursion(a) {\n        this.recursion(a);\n    }\n\n\n    methodWithCallback<T>(a: T, callback): T {\n        return callback(a);\n    }\n\n\n    caller(a) {\n        this.methodWithCallback(a, (b) => {\n            if (a < 2) {\n                console.log(b)\n            }\n        })\n    }\n\n\n    callerFunction(a) {\n        this.methodWithCallback(a, function (b) {\n            if (b < 6) {\n                console.log('b', b)\n            }\n        })\n    }\n\n}\n"
 					},
 					{
-						"name": "for.mock.ts",
-						"text": "export class ForMock {\n\n    forMethod(a) {\n        for (const elt of a) {\n            console.log(elt);\n        }\n    }\n\n\n    forEachMethod(a) {\n        a.forEach(e => {\n            console.log(e);\n        })\n    }\n\n\n    forForFor(max: number) {\n        let total = 0;\n        for (let i = 1; i < max; ++i) {\n            for (let j = 2; j < i; ++j) {\n                for (let k = 2; k < 10; ++k) {\n                    console.log(`k = ${k}`);\n                }\n            }\n            total += i;\n        }\n        return total;\n    }\n\n}\n",
 						"astNode": {
 							"children": [
 								{
@@ -5353,11 +7894,11 @@
 									]
 								}
 							]
-						}
+						},
+						"name": "for.mock.ts",
+						"text": "export class ForMock {\n\n    forMethod(a) {\n        for (const elt of a) {\n            console.log(elt);\n        }\n    }\n\n\n    forEachMethod(a) {\n        a.forEach(e => {\n            console.log(e);\n        })\n    }\n\n\n    forForFor(max: number) {\n        let total = 0;\n        for (let i = 1; i < max; ++i) {\n            for (let j = 2; j < i; ++j) {\n                for (let k = 2; k < 10; ++k) {\n                    console.log(`k = ${k}`);\n                }\n            }\n            total += i;\n        }\n        return total;\n    }\n\n}\n"
 					},
 					{
-						"name": "hyper-complex.mock.ts",
-						"text": "import { CallbacksMock } from './callbacks.mock';\n\n\nexport class HyperComplexMock {\n\n\n    hyperComplex<T>(object: Object, path: string | string[] = '', value: any): CallbacksMock<T> {\n        path = path.toString().match(/[^.[\\]]+/g);\n        path.slice(0, -1).reduce((acc: any, curr: any, index: number) => {\n            const arg = Math.round(index) % 3;\n            acc(0);\n            return Object(acc[curr]) === acc[curr + arg][0];\n        }, object)[path[path.length - 1]] = value;\n        return new CallbacksMock<T>(object);\n    }\n\n\n    ifIf(data) {\n        if (data === 'a') {\n            data = 'b';\n            if (data === 'v') {\n                data = 'c';\n            }\n        }\n    }\n\n\n    reducer(acc: Object, curr: any, index: number, path: number) {\n        return Object(acc[curr]) === acc[curr] ? acc[curr] : (acc[curr] = isNaN(+path[index + 1]) ? {} : []);\n    }\n}\n",
 						"astNode": {
 							"children": [
 								{
@@ -7031,11 +9572,11 @@
 									]
 								}
 							]
-						}
+						},
+						"name": "hyper-complex.mock.ts",
+						"text": "import { CallbacksMock } from './callbacks.mock';\n\n\nexport class HyperComplexMock {\n\n\n    hyperComplex<T>(object: Object, path: string | string[] = '', value: any): CallbacksMock<T> {\n        path = path.toString().match(/[^.[\\]]+/g);\n        path.slice(0, -1).reduce((acc: any, curr: any, index: number) => {\n            const arg = Math.round(index) % 3;\n            acc(0);\n            return Object(acc[curr]) === acc[curr + arg][0];\n        }, object)[path[path.length - 1]] = value;\n        return new CallbacksMock<T>(object);\n    }\n\n\n    ifIf(data) {\n        if (data === 'a') {\n            data = 'b';\n            if (data === 'v') {\n                data = 'c';\n            }\n        }\n    }\n\n\n    reducer(acc: Object, curr: any, index: number, path: number) {\n        return Object(acc[curr]) === acc[curr] ? acc[curr] : (acc[curr] = isNaN(+path[index + 1]) ? {} : []);\n    }\n}\n"
 					},
 					{
-						"name": "if.mock.ts",
-						"text": "export class IfMock {\n\n    constructor() {\n    }\n\n\n    // @ts-ignore\n    ifAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n\n\n    ifElse(a) {\n        if (a) {\n            return 'b';\n        } else {\n            return 'c';\n        }\n    }\n\n\n    // @ts-ignore\n    ifIfNested(a, b) {\n        if (a) {\n            return 'b';\n            if (b) {\n                return 'c';\n            }\n        }\n    }\n\n\n    ifElseIfElse(a, b) {\n        if (a) {\n            return 'b';\n        } else if (b) {\n            return 'c';\n        } else {\n            return 'c';\n        }\n    }\n\n\n    // @ts-ignore\n    ifElseIfIfElse(a, b, c) {\n        if (a) {\n            return 1;\n        } else if (b) {\n            if (c) {\n                return 0;\n            }\n        } else {\n            return 2;\n        }\n    }\n\n\n    // @ts-ignore\n    ifElseIfInside(a, b) {\n        if (a) {\n            return 'b';\n        } else {\n            if (b) {\n                return 'c';\n            }\n        }\n    }\n\n\n    // @ts-ignore\n    ifNestedIf(a) {\n        if (a) {\n            return 'b';\n            if (a === 'v') {\n                return 'c';\n            }\n        }\n    }\n\n\n\n    // @ts-ignore\n    ifIfElseInside(a) {\n        if (a) {\n            return 'b';\n            if (a === 'v') {\n                return 'c';\n            } else {\n                return 'f';\n            }\n        }\n    }\n\n\n    ifAnd(a, b) {\n        if (a && b) {\n            console.log(a);\n        }\n    }\n\n\n    ifOr(a, b) {\n        if (a || b) {\n            console.log(a);\n        }\n    }\n\n\n    ifAndAnd(a, b, c) {\n        if (a && b && c) {\n            console.log(a);\n        }\n    }\n\n\n    ifAndOr(a, b, c) {\n        if (a && b || c) {\n            console.log(a);\n        }\n    }\n\n\n    ifAndAndOrAnd(a, b, c, d, e, f) {\n        if (a && b && c || d && e && f) {\n            console.log(a);\n        }\n    }\n\n\n    ifAndAndOrAndAndOrOr(a, b, c, d, e, f) {\n        if (a && b && c || d && e && f || a || b) {\n            console.log(a);\n        }\n    }\n\n\n    ifIfIf(a: number) {\n        if (a > 2) {\n            if (a > 3) {\n                if (a > 4) {\n                    console.log('a > 4');\n                }\n            }\n        }\n    }\n\n\n    ifIfIfElse(a: number) {\n        if (a > 2) {\n            if (a > 3) {\n                if (a > 4) {\n                    console.log('a > 4');\n                } else {\n                    console.log('a <= 4');\n                }\n            }\n        }\n    }\n\n}\n",
 						"astNode": {
 							"children": [
 								{
@@ -10296,11 +12837,11 @@
 									]
 								}
 							]
-						}
+						},
+						"name": "if.mock.ts",
+						"text": "export class IfMock {\n\n    constructor() {\n    }\n\n\n    // @ts-ignore\n    ifAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n\n\n    ifElse(a) {\n        if (a) {\n            return 'b';\n        } else {\n            return 'c';\n        }\n    }\n\n\n    // @ts-ignore\n    ifIfNested(a, b) {\n        if (a) {\n            return 'b';\n            if (b) {\n                return 'c';\n            }\n        }\n    }\n\n\n    ifElseIfElse(a, b) {\n        if (a) {\n            return 'b';\n        } else if (b) {\n            return 'c';\n        } else {\n            return 'c';\n        }\n    }\n\n\n    // @ts-ignore\n    ifElseIfIfElse(a, b, c) {\n        if (a) {\n            return 1;\n        } else if (b) {\n            if (c) {\n                return 0;\n            }\n        } else {\n            return 2;\n        }\n    }\n\n\n    // @ts-ignore\n    ifElseIfInside(a, b) {\n        if (a) {\n            return 'b';\n        } else {\n            if (b) {\n                return 'c';\n            }\n        }\n    }\n\n\n    // @ts-ignore\n    ifNestedIf(a) {\n        if (a) {\n            return 'b';\n            if (a === 'v') {\n                return 'c';\n            }\n        }\n    }\n\n\n\n    // @ts-ignore\n    ifIfElseInside(a) {\n        if (a) {\n            return 'b';\n            if (a === 'v') {\n                return 'c';\n            } else {\n                return 'f';\n            }\n        }\n    }\n\n\n    ifAnd(a, b) {\n        if (a && b) {\n            console.log(a);\n        }\n    }\n\n\n    ifOr(a, b) {\n        if (a || b) {\n            console.log(a);\n        }\n    }\n\n\n    ifAndAnd(a, b, c) {\n        if (a && b && c) {\n            console.log(a);\n        }\n    }\n\n\n    ifAndOr(a, b, c) {\n        if (a && b || c) {\n            console.log(a);\n        }\n    }\n\n\n    ifAndAndOrAnd(a, b, c, d, e, f) {\n        if (a && b && c || d && e && f) {\n            console.log(a);\n        }\n    }\n\n\n    ifAndAndOrAndAndOrOr(a, b, c, d, e, f) {\n        if (a && b && c || d && e && f || a || b) {\n            console.log(a);\n        }\n    }\n\n\n    ifIfIf(a: number) {\n        if (a > 2) {\n            if (a > 3) {\n                if (a > 4) {\n                    console.log('a > 4');\n                }\n            }\n        }\n    }\n\n\n    ifIfIfElse(a: number) {\n        if (a > 2) {\n            if (a > 3) {\n                if (a > 4) {\n                    console.log('a > 4');\n                } else {\n                    console.log('a <= 4');\n                }\n            }\n        }\n    }\n\n}\n"
 					},
 					{
-						"name": "regex.mock.ts",
-						"text": "export class RegexMock {\n\n    shortRegex() {\n        return /[^.[\\]]+/g;\n    }\n\n    email() {\n        return /^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$/g;\n    }\n\n    frenchPhoneNumber() {\n        return /^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$/;\n    }\n\n}\n",
 						"astNode": {
 							"children": [
 								{
@@ -10464,11 +13005,11 @@
 									]
 								}
 							]
-						}
+						},
+						"name": "regex.mock.ts",
+						"text": "export class RegexMock {\n\n    shortRegex() {\n        return /[^.[\\]]+/g;\n    }\n\n    email() {\n        return /^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$/g;\n    }\n\n    frenchPhoneNumber() {\n        return /^(?:(?:\\+|00)33[\\s.-]{0,3}(?:\\(0\\)[\\s.-]{0,3})?|0)[1-9](?:(?:[\\s.-]?\\d{2}){4}|\\d{2}(?:[\\s.-]?\\d{3}){2})$/;\n    }\n\n}\n"
 					},
 					{
-						"name": "switches.mock.ts",
-						"text": "/*\n * @file utils.service.ts\n *\n * Copyright (c) Naval Group SA property, 2020[-2020], all rights reserved.\n *\n * Copyright (c) All rights reserved. Both the content and the form of this software are the property of Naval Group SA\n * and/or of third party. It is formally prohibited to use, copy, modify, translate, disclose or perform all or part of\n * this software without obtaining Naval Group SA’s prior written consent or authorization. Any such unauthorized use,\n * copying, modification, translation, disclosure or performance by any means whatsoever shall constitute\n * an infringement punishable by criminal or civil law and, more generally, a breach of Naval Group SA’s rights.\n */\n\nexport class SwitchesMock {\n\n\n    switches(numberOfWords: number) {\n        switch (numberOfWords) {\n            case 1:\n                console.log(\"one\");\n                break;\n            case 2:\n                console.log(\"a couple\");\n                break;\n            default:\n                console.log(\"lots\");\n        }\n    }\n\n\n    tryCatch() {\n        try {\n            console.log('Success');\n        } catch (e) {\n            console.log(e);\n        }\n    }\n\n\n    questionDotToken(time: any) {\n        time = time?.name;\n    }\n\n}\n",
 						"astNode": {
 							"children": [
 								{
@@ -11084,11 +13625,11 @@
 									]
 								}
 							]
-						}
+						},
+						"name": "switches.mock.ts",
+						"text": "/*\n * @file utils.service.ts\n *\n * Copyright (c) Naval Group SA property, 2020[-2020], all rights reserved.\n *\n * Copyright (c) All rights reserved. Both the content and the form of this software are the property of Naval Group SA\n * and/or of third party. It is formally prohibited to use, copy, modify, translate, disclose or perform all or part of\n * this software without obtaining Naval Group SA’s prior written consent or authorization. Any such unauthorized use,\n * copying, modification, translation, disclosure or performance by any means whatsoever shall constitute\n * an infringement punishable by criminal or civil law and, more generally, a breach of Naval Group SA’s rights.\n */\n\nexport class SwitchesMock {\n\n\n    switches(numberOfWords: number) {\n        switch (numberOfWords) {\n            case 1:\n                console.log(\"one\");\n                break;\n            case 2:\n                console.log(\"a couple\");\n                break;\n            default:\n                console.log(\"lots\");\n        }\n    }\n\n\n    tryCatch() {\n        try {\n            console.log('Success');\n        } catch (e) {\n            console.log(e);\n        }\n    }\n\n\n    questionDotToken(time: any) {\n        time = time?.name;\n    }\n\n}\n"
 					},
 					{
-						"name": "ternaries.mock.ts",
-						"text": "export class TernariesMock {\n\n\n    ternary(a) {\n        return a ? 5 : 3;\n    }\n\n\n    nestedTernaries(a, b) {\n        return a ? 1 : b ? 0 : 2;\n    }\n\n\n    ifWithTernary(a, b) {\n        if (a) {\n            return 1;\n        } else {\n            return b ? 0 : 2;\n        }\n    }\n\n\n    NoTernary(a, b) {\n        if (a) {\n            return 1;\n        } else if (b) {\n            return 0;\n        } else {\n            return 2;\n        }\n    }\n\n\n    ternaries(a) {\n        return  a > 10 ? 5 : ((a <5) ? 3 : 2);\n    }\n\n}\n",
 						"astNode": {
 							"children": [
 								{
@@ -11929,2557 +14470,16 @@
 									]
 								}
 							]
-						}
+						},
+						"name": "ternaries.mock.ts",
+						"text": "export class TernariesMock {\n\n\n    ternary(a) {\n        return a ? 5 : 3;\n    }\n\n\n    nestedTernaries(a, b) {\n        return a ? 1 : b ? 0 : 2;\n    }\n\n\n    ifWithTernary(a, b) {\n        if (a) {\n            return 1;\n        } else {\n            return b ? 0 : 2;\n        }\n    }\n\n\n    NoTernary(a, b) {\n        if (a) {\n            return 1;\n        } else if (b) {\n            return 0;\n        } else {\n            return 2;\n        }\n    }\n\n\n    ternaries(a) {\n        return  a > 10 ? 5 : ((a <5) ? 3 : 2);\n    }\n\n}\n"
 					}
-				]
+				],
+				"children": [
+				],
+				"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/mocks-subfolder/"
 			}
 		],
-		"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/",
-		"astFiles": [
-			{
-				"name": "debug.mock.ts",
-				"text": "export class DebugMock  {\n\n    recursion(a) {\n        this.recursion(a);\n    }\n\n}\n",
-				"astNode": {
-					"children": [
-						{
-							"end": 81,
-							"kind": "ClassDeclaration",
-							"name": "DebugMock",
-							"pos": 0,
-							"start": 0,
-							"children": [
-								{
-									"end": 6,
-									"kind": "ExportKeyword",
-									"pos": 0,
-									"start": 0,
-									"children": [
-									]
-								},
-								{
-									"end": 22,
-									"kind": "Identifier",
-									"name": "DebugMock",
-									"pos": 12,
-									"start": 13,
-									"children": [
-									]
-								},
-								{
-									"end": 78,
-									"kind": "MethodDeclaration",
-									"name": "recursion",
-									"pos": 25,
-									"start": 31,
-									"children": [
-										{
-											"end": 40,
-											"kind": "Identifier",
-											"name": "recursion",
-											"pos": 25,
-											"start": 31,
-											"children": [
-											]
-										},
-										{
-											"end": 42,
-											"kind": "Parameter",
-											"name": "a",
-											"pos": 41,
-											"start": 41,
-											"children": [
-												{
-													"end": 42,
-													"kind": "Identifier",
-													"name": "a",
-													"pos": 41,
-													"start": 41,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 78,
-											"kind": "Block",
-											"pos": 43,
-											"start": 44,
-											"children": [
-												{
-													"end": 72,
-													"kind": "ExpressionStatement",
-													"pos": 45,
-													"start": 54,
-													"children": [
-														{
-															"end": 71,
-															"kind": "CallExpression",
-															"pos": 45,
-															"start": 54,
-															"children": [
-																{
-																	"end": 68,
-																	"kind": "PropertyAccessExpression",
-																	"pos": 45,
-																	"start": 54,
-																	"children": [
-																		{
-																			"end": 58,
-																			"kind": "ThisKeyword",
-																			"pos": 45,
-																			"start": 54,
-																			"children": [
-																			]
-																		},
-																		{
-																			"end": 68,
-																			"kind": "Identifier",
-																			"name": "recursion",
-																			"pos": 59,
-																			"start": 59,
-																			"children": [
-																			]
-																		}
-																	]
-																},
-																{
-																	"end": 70,
-																	"kind": "Identifier",
-																	"name": "a",
-																	"pos": 69,
-																	"start": 69,
-																	"children": [
-																	]
-																}
-															]
-														}
-													]
-												}
-											]
-										}
-									]
-								}
-							]
-						},
-						{
-							"end": 82,
-							"kind": "EndOfFileToken",
-							"pos": 81,
-							"start": 82,
-							"children": [
-							]
-						}
-					]
-				}
-			},
-			{
-				"name": "demo.mock.ts",
-				"text": "import { CallbacksMock } from './mocks-subfolder/callbacks.mock';\n\n\nexport class DebugMock {\n\n\n    // @ts-ignore\n    ifAlone(a) {\n        if (a) {\n            return 'b';\n        }\n    }\n\n\n    // @ts-ignore\n    twoIfs(a, b) {\n        if (a) {\n            return 'b';\n        }\n        if (b) {\n            return 'c';\n        }\n    }\n\n\n    // @ts-ignore\n    ifNestedIf(a, b) {\n        if (a) {\n            if (b) {\n                return 'c';\n            }\n            return 'b';\n        }\n    }\n\n\n    // @ts-ignore\n    ifIfIf(a, b, c) {\n        if (a) {\n            if (b) {\n                if (c) {\n                    return 'd';\n                }\n                return 'c';\n            }\n            return 'b';\n        }\n    }\n\n\n    switchCase(a) {\n        switch (a) {\n            case 1:\n                return 'one';\n            case 2:\n                return 'two';\n            case 3:\n                return 'three';\n            default:\n                return 'other';\n        }\n    }\n\n    recursion(a) {\n        this.recursion(a);\n    }\n\n\n    methodWithCallback(a, callback) {\n        callback(a);\n    }\n\n    hyperComplex<T>(object: Object, path: string | string[] = '', value: any): CallbacksMock<T> {\n        path = path.toString().match(/[^.[\\]]+/g);\n        path.slice(0, -1).reduce((acc: Object, curr: any, index: number) => {\n            const arg = Math.round(index) % 3;\n            return Object(acc[curr]) === acc[curr + arg][0];\n        }, object)[path[path.length - 1]] = value;\n        return new CallbacksMock<T>(object);\n    }\n\n\n}\n",
-				"astNode": {
-					"children": [
-						{
-							"end": 65,
-							"kind": "ImportDeclaration",
-							"pos": 0,
-							"start": 0,
-							"children": [
-								{
-									"end": 24,
-									"kind": "ImportClause",
-									"pos": 6,
-									"start": 7,
-									"children": [
-										{
-											"end": 24,
-											"kind": "NamedImports",
-											"pos": 6,
-											"start": 7,
-											"children": [
-												{
-													"end": 22,
-													"kind": "ImportSpecifier",
-													"pos": 8,
-													"start": 9,
-													"children": [
-														{
-															"end": 22,
-															"kind": "Identifier",
-															"name": "CallbacksMock",
-															"pos": 8,
-															"start": 9,
-															"children": [
-															]
-														}
-													]
-												}
-											]
-										}
-									]
-								},
-								{
-									"end": 64,
-									"kind": "Literal",
-									"pos": 29,
-									"start": 30,
-									"children": [
-									]
-								}
-							]
-						},
-						{
-							"end": 1559,
-							"kind": "ClassDeclaration",
-							"name": "DebugMock",
-							"pos": 65,
-							"start": 68,
-							"children": [
-								{
-									"end": 74,
-									"kind": "ExportKeyword",
-									"pos": 65,
-									"start": 68,
-									"children": [
-									]
-								},
-								{
-									"end": 90,
-									"kind": "Identifier",
-									"name": "DebugMock",
-									"pos": 80,
-									"start": 81,
-									"children": [
-									]
-								},
-								{
-									"end": 186,
-									"kind": "MethodDeclaration",
-									"name": "ifAlone",
-									"pos": 92,
-									"start": 117,
-									"children": [
-										{
-											"end": 124,
-											"kind": "Identifier",
-											"name": "ifAlone",
-											"pos": 92,
-											"start": 117,
-											"children": [
-											]
-										},
-										{
-											"end": 126,
-											"kind": "Parameter",
-											"name": "a",
-											"pos": 125,
-											"start": 125,
-											"children": [
-												{
-													"end": 126,
-													"kind": "Identifier",
-													"name": "a",
-													"pos": 125,
-													"start": 125,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 186,
-											"kind": "Block",
-											"pos": 127,
-											"start": 128,
-											"children": [
-												{
-													"end": 180,
-													"kind": "IfStatement",
-													"pos": 129,
-													"start": 138,
-													"children": [
-														{
-															"end": 143,
-															"kind": "Identifier",
-															"name": "a",
-															"pos": 142,
-															"start": 142,
-															"children": [
-															]
-														},
-														{
-															"end": 180,
-															"kind": "Block",
-															"pos": 144,
-															"start": 145,
-															"children": [
-																{
-																	"end": 170,
-																	"kind": "Keyword",
-																	"pos": 146,
-																	"start": 159,
-																	"children": [
-																		{
-																			"end": 169,
-																			"kind": "Literal",
-																			"pos": 165,
-																			"start": 166,
-																			"children": [
-																			]
-																		}
-																	]
-																}
-															]
-														}
-													]
-												}
-											]
-										}
-									]
-								},
-								{
-									"end": 333,
-									"kind": "MethodDeclaration",
-									"name": "twoIfs",
-									"pos": 186,
-									"start": 211,
-									"children": [
-										{
-											"end": 217,
-											"kind": "Identifier",
-											"name": "twoIfs",
-											"pos": 186,
-											"start": 211,
-											"children": [
-											]
-										},
-										{
-											"end": 219,
-											"kind": "Parameter",
-											"name": "a",
-											"pos": 218,
-											"start": 218,
-											"children": [
-												{
-													"end": 219,
-													"kind": "Identifier",
-													"name": "a",
-													"pos": 218,
-													"start": 218,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 222,
-											"kind": "Parameter",
-											"name": "b",
-											"pos": 220,
-											"start": 221,
-											"children": [
-												{
-													"end": 222,
-													"kind": "Identifier",
-													"name": "b",
-													"pos": 220,
-													"start": 221,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 333,
-											"kind": "Block",
-											"pos": 223,
-											"start": 224,
-											"children": [
-												{
-													"end": 276,
-													"kind": "IfStatement",
-													"pos": 225,
-													"start": 234,
-													"children": [
-														{
-															"end": 239,
-															"kind": "Identifier",
-															"name": "a",
-															"pos": 238,
-															"start": 238,
-															"children": [
-															]
-														},
-														{
-															"end": 276,
-															"kind": "Block",
-															"pos": 240,
-															"start": 241,
-															"children": [
-																{
-																	"end": 266,
-																	"kind": "Keyword",
-																	"pos": 242,
-																	"start": 255,
-																	"children": [
-																		{
-																			"end": 265,
-																			"kind": "Literal",
-																			"pos": 261,
-																			"start": 262,
-																			"children": [
-																			]
-																		}
-																	]
-																}
-															]
-														}
-													]
-												},
-												{
-													"end": 327,
-													"kind": "IfStatement",
-													"pos": 276,
-													"start": 285,
-													"children": [
-														{
-															"end": 290,
-															"kind": "Identifier",
-															"name": "b",
-															"pos": 289,
-															"start": 289,
-															"children": [
-															]
-														},
-														{
-															"end": 327,
-															"kind": "Block",
-															"pos": 291,
-															"start": 292,
-															"children": [
-																{
-																	"end": 317,
-																	"kind": "Keyword",
-																	"pos": 293,
-																	"start": 306,
-																	"children": [
-																		{
-																			"end": 316,
-																			"kind": "Literal",
-																			"pos": 312,
-																			"start": 313,
-																			"children": [
-																			]
-																		}
-																	]
-																}
-															]
-														}
-													]
-												}
-											]
-										}
-									]
-								},
-								{
-									"end": 496,
-									"kind": "MethodDeclaration",
-									"name": "ifNestedIf",
-									"pos": 333,
-									"start": 358,
-									"children": [
-										{
-											"end": 368,
-											"kind": "Identifier",
-											"name": "ifNestedIf",
-											"pos": 333,
-											"start": 358,
-											"children": [
-											]
-										},
-										{
-											"end": 370,
-											"kind": "Parameter",
-											"name": "a",
-											"pos": 369,
-											"start": 369,
-											"children": [
-												{
-													"end": 370,
-													"kind": "Identifier",
-													"name": "a",
-													"pos": 369,
-													"start": 369,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 373,
-											"kind": "Parameter",
-											"name": "b",
-											"pos": 371,
-											"start": 372,
-											"children": [
-												{
-													"end": 373,
-													"kind": "Identifier",
-													"name": "b",
-													"pos": 371,
-													"start": 372,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 496,
-											"kind": "Block",
-											"pos": 374,
-											"start": 375,
-											"children": [
-												{
-													"end": 490,
-													"kind": "IfStatement",
-													"pos": 376,
-													"start": 385,
-													"children": [
-														{
-															"end": 390,
-															"kind": "Identifier",
-															"name": "a",
-															"pos": 389,
-															"start": 389,
-															"children": [
-															]
-														},
-														{
-															"end": 490,
-															"kind": "Block",
-															"pos": 391,
-															"start": 392,
-															"children": [
-																{
-																	"end": 456,
-																	"kind": "IfStatement",
-																	"pos": 393,
-																	"start": 406,
-																	"children": [
-																		{
-																			"end": 411,
-																			"kind": "Identifier",
-																			"name": "b",
-																			"pos": 410,
-																			"start": 410,
-																			"children": [
-																			]
-																		},
-																		{
-																			"end": 456,
-																			"kind": "Block",
-																			"pos": 412,
-																			"start": 413,
-																			"children": [
-																				{
-																					"end": 442,
-																					"kind": "Keyword",
-																					"pos": 414,
-																					"start": 431,
-																					"children": [
-																						{
-																							"end": 441,
-																							"kind": "Literal",
-																							"pos": 437,
-																							"start": 438,
-																							"children": [
-																							]
-																						}
-																					]
-																				}
-																			]
-																		}
-																	]
-																},
-																{
-																	"end": 480,
-																	"kind": "Keyword",
-																	"pos": 456,
-																	"start": 469,
-																	"children": [
-																		{
-																			"end": 479,
-																			"kind": "Literal",
-																			"pos": 475,
-																			"start": 476,
-																			"children": [
-																			]
-																		}
-																	]
-																}
-															]
-														}
-													]
-												}
-											]
-										}
-									]
-								},
-								{
-									"end": 733,
-									"kind": "MethodDeclaration",
-									"name": "ifIfIf",
-									"pos": 496,
-									"start": 521,
-									"children": [
-										{
-											"end": 527,
-											"kind": "Identifier",
-											"name": "ifIfIf",
-											"pos": 496,
-											"start": 521,
-											"children": [
-											]
-										},
-										{
-											"end": 529,
-											"kind": "Parameter",
-											"name": "a",
-											"pos": 528,
-											"start": 528,
-											"children": [
-												{
-													"end": 529,
-													"kind": "Identifier",
-													"name": "a",
-													"pos": 528,
-													"start": 528,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 532,
-											"kind": "Parameter",
-											"name": "b",
-											"pos": 530,
-											"start": 531,
-											"children": [
-												{
-													"end": 532,
-													"kind": "Identifier",
-													"name": "b",
-													"pos": 530,
-													"start": 531,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 535,
-											"kind": "Parameter",
-											"name": "c",
-											"pos": 533,
-											"start": 534,
-											"children": [
-												{
-													"end": 535,
-													"kind": "Identifier",
-													"name": "c",
-													"pos": 533,
-													"start": 534,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 733,
-											"kind": "Block",
-											"pos": 536,
-											"start": 537,
-											"children": [
-												{
-													"end": 727,
-													"kind": "IfStatement",
-													"pos": 538,
-													"start": 547,
-													"children": [
-														{
-															"end": 552,
-															"kind": "Identifier",
-															"name": "a",
-															"pos": 551,
-															"start": 551,
-															"children": [
-															]
-														},
-														{
-															"end": 727,
-															"kind": "Block",
-															"pos": 553,
-															"start": 554,
-															"children": [
-																{
-																	"end": 693,
-																	"kind": "IfStatement",
-																	"pos": 555,
-																	"start": 568,
-																	"children": [
-																		{
-																			"end": 573,
-																			"kind": "Identifier",
-																			"name": "b",
-																			"pos": 572,
-																			"start": 572,
-																			"children": [
-																			]
-																		},
-																		{
-																			"end": 693,
-																			"kind": "Block",
-																			"pos": 574,
-																			"start": 575,
-																			"children": [
-																				{
-																					"end": 651,
-																					"kind": "IfStatement",
-																					"pos": 576,
-																					"start": 593,
-																					"children": [
-																						{
-																							"end": 598,
-																							"kind": "Identifier",
-																							"name": "c",
-																							"pos": 597,
-																							"start": 597,
-																							"children": [
-																							]
-																						},
-																						{
-																							"end": 651,
-																							"kind": "Block",
-																							"pos": 599,
-																							"start": 600,
-																							"children": [
-																								{
-																									"end": 633,
-																									"kind": "Keyword",
-																									"pos": 601,
-																									"start": 622,
-																									"children": [
-																										{
-																											"end": 632,
-																											"kind": "Literal",
-																											"pos": 628,
-																											"start": 629,
-																											"children": [
-																											]
-																										}
-																									]
-																								}
-																							]
-																						}
-																					]
-																				},
-																				{
-																					"end": 679,
-																					"kind": "Keyword",
-																					"pos": 651,
-																					"start": 668,
-																					"children": [
-																						{
-																							"end": 678,
-																							"kind": "Literal",
-																							"pos": 674,
-																							"start": 675,
-																							"children": [
-																							]
-																						}
-																					]
-																				}
-																			]
-																		}
-																	]
-																},
-																{
-																	"end": 717,
-																	"kind": "Keyword",
-																	"pos": 693,
-																	"start": 706,
-																	"children": [
-																		{
-																			"end": 716,
-																			"kind": "Literal",
-																			"pos": 712,
-																			"start": 713,
-																			"children": [
-																			]
-																		}
-																	]
-																}
-															]
-														}
-													]
-												}
-											]
-										}
-									]
-								},
-								{
-									"end": 997,
-									"kind": "MethodDeclaration",
-									"name": "switchCase",
-									"pos": 733,
-									"start": 740,
-									"children": [
-										{
-											"end": 750,
-											"kind": "Identifier",
-											"name": "switchCase",
-											"pos": 733,
-											"start": 740,
-											"children": [
-											]
-										},
-										{
-											"end": 752,
-											"kind": "Parameter",
-											"name": "a",
-											"pos": 751,
-											"start": 751,
-											"children": [
-												{
-													"end": 752,
-													"kind": "Identifier",
-													"name": "a",
-													"pos": 751,
-													"start": 751,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 997,
-											"kind": "Block",
-											"pos": 753,
-											"start": 754,
-											"children": [
-												{
-													"end": 991,
-													"kind": "SwitchStatement",
-													"pos": 755,
-													"start": 764,
-													"children": [
-														{
-															"end": 773,
-															"kind": "Identifier",
-															"name": "a",
-															"pos": 772,
-															"start": 772,
-															"children": [
-															]
-														},
-														{
-															"end": 991,
-															"kind": "CaseBlock",
-															"pos": 774,
-															"start": 775,
-															"children": [
-																{
-																	"end": 826,
-																	"kind": "Keyword",
-																	"pos": 776,
-																	"start": 789,
-																	"children": [
-																		{
-																			"end": 795,
-																			"kind": "Literal",
-																			"pos": 793,
-																			"start": 794,
-																			"children": [
-																			]
-																		},
-																		{
-																			"end": 826,
-																			"kind": "Keyword",
-																			"pos": 796,
-																			"start": 813,
-																			"children": [
-																				{
-																					"end": 825,
-																					"kind": "Literal",
-																					"pos": 819,
-																					"start": 820,
-																					"children": [
-																					]
-																				}
-																			]
-																		}
-																	]
-																},
-																{
-																	"end": 876,
-																	"kind": "Keyword",
-																	"pos": 826,
-																	"start": 839,
-																	"children": [
-																		{
-																			"end": 845,
-																			"kind": "Literal",
-																			"pos": 843,
-																			"start": 844,
-																			"children": [
-																			]
-																		},
-																		{
-																			"end": 876,
-																			"kind": "Keyword",
-																			"pos": 846,
-																			"start": 863,
-																			"children": [
-																				{
-																					"end": 875,
-																					"kind": "Literal",
-																					"pos": 869,
-																					"start": 870,
-																					"children": [
-																					]
-																				}
-																			]
-																		}
-																	]
-																},
-																{
-																	"end": 928,
-																	"kind": "Keyword",
-																	"pos": 876,
-																	"start": 889,
-																	"children": [
-																		{
-																			"end": 895,
-																			"kind": "Literal",
-																			"pos": 893,
-																			"start": 894,
-																			"children": [
-																			]
-																		},
-																		{
-																			"end": 928,
-																			"kind": "Keyword",
-																			"pos": 896,
-																			"start": 913,
-																			"children": [
-																				{
-																					"end": 927,
-																					"kind": "Literal",
-																					"pos": 919,
-																					"start": 920,
-																					"children": [
-																					]
-																				}
-																			]
-																		}
-																	]
-																},
-																{
-																	"end": 981,
-																	"kind": "Keyword",
-																	"pos": 928,
-																	"start": 941,
-																	"children": [
-																		{
-																			"end": 981,
-																			"kind": "Keyword",
-																			"pos": 949,
-																			"start": 966,
-																			"children": [
-																				{
-																					"end": 980,
-																					"kind": "Literal",
-																					"pos": 972,
-																					"start": 973,
-																					"children": [
-																					]
-																				}
-																			]
-																		}
-																	]
-																}
-															]
-														}
-													]
-												}
-											]
-										}
-									]
-								},
-								{
-									"end": 1050,
-									"kind": "MethodDeclaration",
-									"name": "recursion",
-									"pos": 997,
-									"start": 1003,
-									"children": [
-										{
-											"end": 1012,
-											"kind": "Identifier",
-											"name": "recursion",
-											"pos": 997,
-											"start": 1003,
-											"children": [
-											]
-										},
-										{
-											"end": 1014,
-											"kind": "Parameter",
-											"name": "a",
-											"pos": 1013,
-											"start": 1013,
-											"children": [
-												{
-													"end": 1014,
-													"kind": "Identifier",
-													"name": "a",
-													"pos": 1013,
-													"start": 1013,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 1050,
-											"kind": "Block",
-											"pos": 1015,
-											"start": 1016,
-											"children": [
-												{
-													"end": 1044,
-													"kind": "ExpressionStatement",
-													"pos": 1017,
-													"start": 1026,
-													"children": [
-														{
-															"end": 1043,
-															"kind": "CallExpression",
-															"pos": 1017,
-															"start": 1026,
-															"children": [
-																{
-																	"end": 1040,
-																	"kind": "PropertyAccessExpression",
-																	"pos": 1017,
-																	"start": 1026,
-																	"children": [
-																		{
-																			"end": 1030,
-																			"kind": "ThisKeyword",
-																			"pos": 1017,
-																			"start": 1026,
-																			"children": [
-																			]
-																		},
-																		{
-																			"end": 1040,
-																			"kind": "Identifier",
-																			"name": "recursion",
-																			"pos": 1031,
-																			"start": 1031,
-																			"children": [
-																			]
-																		}
-																	]
-																},
-																{
-																	"end": 1042,
-																	"kind": "Identifier",
-																	"name": "a",
-																	"pos": 1041,
-																	"start": 1041,
-																	"children": [
-																	]
-																}
-															]
-														}
-													]
-												}
-											]
-										}
-									]
-								},
-								{
-									"end": 1117,
-									"kind": "MethodDeclaration",
-									"name": "methodWithCallback",
-									"pos": 1050,
-									"start": 1057,
-									"children": [
-										{
-											"end": 1075,
-											"kind": "Identifier",
-											"name": "methodWithCallback",
-											"pos": 1050,
-											"start": 1057,
-											"children": [
-											]
-										},
-										{
-											"end": 1077,
-											"kind": "Parameter",
-											"name": "a",
-											"pos": 1076,
-											"start": 1076,
-											"children": [
-												{
-													"end": 1077,
-													"kind": "Identifier",
-													"name": "a",
-													"pos": 1076,
-													"start": 1076,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 1087,
-											"kind": "Parameter",
-											"name": "callback",
-											"pos": 1078,
-											"start": 1079,
-											"children": [
-												{
-													"end": 1087,
-													"kind": "Identifier",
-													"name": "callback",
-													"pos": 1078,
-													"start": 1079,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 1117,
-											"kind": "Block",
-											"pos": 1088,
-											"start": 1089,
-											"children": [
-												{
-													"end": 1111,
-													"kind": "ExpressionStatement",
-													"pos": 1090,
-													"start": 1099,
-													"children": [
-														{
-															"end": 1110,
-															"kind": "CallExpression",
-															"pos": 1090,
-															"start": 1099,
-															"children": [
-																{
-																	"end": 1107,
-																	"kind": "Identifier",
-																	"name": "callback",
-																	"pos": 1090,
-																	"start": 1099,
-																	"children": [
-																	]
-																},
-																{
-																	"end": 1109,
-																	"kind": "Identifier",
-																	"name": "a",
-																	"pos": 1108,
-																	"start": 1108,
-																	"children": [
-																	]
-																}
-															]
-														}
-													]
-												}
-											]
-										}
-									]
-								},
-								{
-									"end": 1555,
-									"kind": "MethodDeclaration",
-									"name": "hyperComplex",
-									"pos": 1117,
-									"start": 1123,
-									"children": [
-										{
-											"end": 1135,
-											"kind": "Identifier",
-											"name": "hyperComplex",
-											"pos": 1117,
-											"start": 1123,
-											"children": [
-											]
-										},
-										{
-											"end": 1137,
-											"kind": "TypeParameter",
-											"pos": 1136,
-											"start": 1136,
-											"children": [
-												{
-													"end": 1137,
-													"kind": "Identifier",
-													"name": "T",
-													"pos": 1136,
-													"start": 1136,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 1153,
-											"kind": "Parameter",
-											"name": "object",
-											"pos": 1139,
-											"start": 1139,
-											"children": [
-												{
-													"end": 1145,
-													"kind": "Identifier",
-													"name": "object",
-													"pos": 1139,
-													"start": 1139,
-													"children": [
-													]
-												},
-												{
-													"end": 1153,
-													"kind": "TypeReference",
-													"pos": 1146,
-													"start": 1147,
-													"children": [
-														{
-															"end": 1153,
-															"kind": "Identifier",
-															"name": "Object",
-															"pos": 1146,
-															"start": 1147,
-															"children": [
-															]
-														}
-													]
-												}
-											]
-										},
-										{
-											"end": 1183,
-											"kind": "Parameter",
-											"name": "path",
-											"pos": 1154,
-											"start": 1155,
-											"children": [
-												{
-													"end": 1159,
-													"kind": "Identifier",
-													"name": "path",
-													"pos": 1154,
-													"start": 1155,
-													"children": [
-													]
-												},
-												{
-													"end": 1178,
-													"kind": "UnionType",
-													"pos": 1160,
-													"start": 1161,
-													"children": [
-														{
-															"end": 1167,
-															"kind": "Keyword",
-															"pos": 1160,
-															"start": 1161,
-															"children": [
-															]
-														},
-														{
-															"end": 1178,
-															"kind": "ArrayType",
-															"pos": 1169,
-															"start": 1170,
-															"children": [
-																{
-																	"end": 1176,
-																	"kind": "Keyword",
-																	"pos": 1169,
-																	"start": 1170,
-																	"children": [
-																	]
-																}
-															]
-														}
-													]
-												},
-												{
-													"end": 1183,
-													"kind": "Literal",
-													"pos": 1180,
-													"start": 1181,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 1195,
-											"kind": "Parameter",
-											"name": "value",
-											"pos": 1184,
-											"start": 1185,
-											"children": [
-												{
-													"end": 1190,
-													"kind": "Identifier",
-													"name": "value",
-													"pos": 1184,
-													"start": 1185,
-													"children": [
-													]
-												},
-												{
-													"end": 1195,
-													"kind": "Keyword",
-													"pos": 1191,
-													"start": 1192,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 1214,
-											"kind": "TypeReference",
-											"pos": 1197,
-											"start": 1198,
-											"children": [
-												{
-													"end": 1211,
-													"kind": "Identifier",
-													"name": "CallbacksMock",
-													"pos": 1197,
-													"start": 1198,
-													"children": [
-													]
-												},
-												{
-													"end": 1213,
-													"kind": "TypeReference",
-													"pos": 1212,
-													"start": 1212,
-													"children": [
-														{
-															"end": 1213,
-															"kind": "Identifier",
-															"name": "T",
-															"pos": 1212,
-															"start": 1212,
-															"children": [
-															]
-														}
-													]
-												}
-											]
-										},
-										{
-											"end": 1555,
-											"kind": "Block",
-											"pos": 1214,
-											"start": 1215,
-											"children": [
-												{
-													"end": 1267,
-													"kind": "ExpressionStatement",
-													"pos": 1216,
-													"start": 1225,
-													"children": [
-														{
-															"end": 1266,
-															"kind": "BinaryExpression",
-															"pos": 1216,
-															"start": 1225,
-															"children": [
-																{
-																	"end": 1229,
-																	"kind": "Identifier",
-																	"name": "path",
-																	"pos": 1216,
-																	"start": 1225,
-																	"children": [
-																	]
-																},
-																{
-																	"end": 1231,
-																	"kind": "FirstAssignment",
-																	"pos": 1229,
-																	"start": 1230,
-																	"children": [
-																	]
-																},
-																{
-																	"end": 1266,
-																	"kind": "CallExpression",
-																	"pos": 1231,
-																	"start": 1232,
-																	"children": [
-																		{
-																			"end": 1253,
-																			"kind": "PropertyAccessExpression",
-																			"pos": 1231,
-																			"start": 1232,
-																			"children": [
-																				{
-																					"end": 1247,
-																					"kind": "CallExpression",
-																					"pos": 1231,
-																					"start": 1232,
-																					"children": [
-																						{
-																							"end": 1245,
-																							"kind": "PropertyAccessExpression",
-																							"pos": 1231,
-																							"start": 1232,
-																							"children": [
-																								{
-																									"end": 1236,
-																									"kind": "Identifier",
-																									"name": "path",
-																									"pos": 1231,
-																									"start": 1232,
-																									"children": [
-																									]
-																								},
-																								{
-																									"end": 1245,
-																									"kind": "Identifier",
-																									"name": "toString",
-																									"pos": 1237,
-																									"start": 1237,
-																									"children": [
-																									]
-																								}
-																							]
-																						}
-																					]
-																				},
-																				{
-																					"end": 1253,
-																					"kind": "Identifier",
-																					"name": "match",
-																					"pos": 1248,
-																					"start": 1248,
-																					"children": [
-																					]
-																				}
-																			]
-																		},
-																		{
-																			"end": 1265,
-																			"kind": "RegularExpressionLiteral",
-																			"pos": 1254,
-																			"start": 1254,
-																			"children": [
-																			]
-																		}
-																	]
-																}
-															]
-														}
-													]
-												},
-												{
-													"end": 1504,
-													"kind": "ExpressionStatement",
-													"pos": 1267,
-													"start": 1276,
-													"children": [
-														{
-															"end": 1503,
-															"kind": "BinaryExpression",
-															"pos": 1267,
-															"start": 1276,
-															"children": [
-																{
-																	"end": 1495,
-																	"kind": "ElementAccessExpression",
-																	"pos": 1267,
-																	"start": 1276,
-																	"children": [
-																		{
-																			"end": 1472,
-																			"kind": "CallExpression",
-																			"pos": 1267,
-																			"start": 1276,
-																			"children": [
-																				{
-																					"end": 1300,
-																					"kind": "PropertyAccessExpression",
-																					"pos": 1267,
-																					"start": 1276,
-																					"children": [
-																						{
-																							"end": 1293,
-																							"kind": "CallExpression",
-																							"pos": 1267,
-																							"start": 1276,
-																							"children": [
-																								{
-																									"end": 1286,
-																									"kind": "PropertyAccessExpression",
-																									"pos": 1267,
-																									"start": 1276,
-																									"children": [
-																										{
-																											"end": 1280,
-																											"kind": "Identifier",
-																											"name": "path",
-																											"pos": 1267,
-																											"start": 1276,
-																											"children": [
-																											]
-																										},
-																										{
-																											"end": 1286,
-																											"kind": "Identifier",
-																											"name": "slice",
-																											"pos": 1281,
-																											"start": 1281,
-																											"children": [
-																											]
-																										}
-																									]
-																								},
-																								{
-																									"end": 1288,
-																									"kind": "Literal",
-																									"pos": 1287,
-																									"start": 1287,
-																									"children": [
-																									]
-																								},
-																								{
-																									"end": 1292,
-																									"kind": "PrefixUnaryExpression",
-																									"pos": 1289,
-																									"start": 1290,
-																									"children": [
-																										{
-																											"end": 1292,
-																											"kind": "Literal",
-																											"pos": 1291,
-																											"start": 1291,
-																											"children": [
-																											]
-																										}
-																									]
-																								}
-																							]
-																						},
-																						{
-																							"end": 1300,
-																							"kind": "Identifier",
-																							"name": "reduce",
-																							"pos": 1294,
-																							"start": 1294,
-																							"children": [
-																							]
-																						}
-																					]
-																				},
-																				{
-																					"end": 1463,
-																					"kind": "ArrowFunction",
-																					"pos": 1301,
-																					"start": 1301,
-																					"children": [
-																						{
-																							"end": 1313,
-																							"kind": "Parameter",
-																							"name": "acc",
-																							"pos": 1302,
-																							"start": 1302,
-																							"children": [
-																								{
-																									"end": 1305,
-																									"kind": "Identifier",
-																									"name": "acc",
-																									"pos": 1302,
-																									"start": 1302,
-																									"children": [
-																									]
-																								},
-																								{
-																									"end": 1313,
-																									"kind": "TypeReference",
-																									"pos": 1306,
-																									"start": 1307,
-																									"children": [
-																										{
-																											"end": 1313,
-																											"kind": "Identifier",
-																											"name": "Object",
-																											"pos": 1306,
-																											"start": 1307,
-																											"children": [
-																											]
-																										}
-																									]
-																								}
-																							]
-																						},
-																						{
-																							"end": 1324,
-																							"kind": "Parameter",
-																							"name": "curr",
-																							"pos": 1314,
-																							"start": 1315,
-																							"children": [
-																								{
-																									"end": 1319,
-																									"kind": "Identifier",
-																									"name": "curr",
-																									"pos": 1314,
-																									"start": 1315,
-																									"children": [
-																									]
-																								},
-																								{
-																									"end": 1324,
-																									"kind": "Keyword",
-																									"pos": 1320,
-																									"start": 1321,
-																									"children": [
-																									]
-																								}
-																							]
-																						},
-																						{
-																							"end": 1339,
-																							"kind": "Parameter",
-																							"name": "index",
-																							"pos": 1325,
-																							"start": 1326,
-																							"children": [
-																								{
-																									"end": 1331,
-																									"kind": "Identifier",
-																									"name": "index",
-																									"pos": 1325,
-																									"start": 1326,
-																									"children": [
-																									]
-																								},
-																								{
-																									"end": 1339,
-																									"kind": "NumberKeyword",
-																									"pos": 1332,
-																									"start": 1333,
-																									"children": [
-																									]
-																								}
-																							]
-																						},
-																						{
-																							"end": 1343,
-																							"kind": "EqualsGreaterThanToken",
-																							"pos": 1340,
-																							"start": 1341,
-																							"children": [
-																							]
-																						},
-																						{
-																							"end": 1463,
-																							"kind": "Block",
-																							"pos": 1343,
-																							"start": 1344,
-																							"children": [
-																								{
-																									"end": 1392,
-																									"kind": "FirstStatement",
-																									"pos": 1345,
-																									"start": 1358,
-																									"children": [
-																										{
-																											"end": 1391,
-																											"kind": "VariableDeclarationList",
-																											"pos": 1345,
-																											"start": 1358,
-																											"children": [
-																												{
-																													"end": 1391,
-																													"kind": "VariableDeclaration",
-																													"pos": 1363,
-																													"start": 1364,
-																													"children": [
-																														{
-																															"end": 1367,
-																															"kind": "Identifier",
-																															"name": "arg",
-																															"pos": 1363,
-																															"start": 1364,
-																															"children": [
-																															]
-																														},
-																														{
-																															"end": 1391,
-																															"kind": "BinaryExpression",
-																															"pos": 1369,
-																															"start": 1370,
-																															"children": [
-																																{
-																																	"end": 1387,
-																																	"kind": "CallExpression",
-																																	"pos": 1369,
-																																	"start": 1370,
-																																	"children": [
-																																		{
-																																			"end": 1380,
-																																			"kind": "PropertyAccessExpression",
-																																			"pos": 1369,
-																																			"start": 1370,
-																																			"children": [
-																																				{
-																																					"end": 1374,
-																																					"kind": "Identifier",
-																																					"name": "Math",
-																																					"pos": 1369,
-																																					"start": 1370,
-																																					"children": [
-																																					]
-																																				},
-																																				{
-																																					"end": 1380,
-																																					"kind": "Identifier",
-																																					"name": "round",
-																																					"pos": 1375,
-																																					"start": 1375,
-																																					"children": [
-																																					]
-																																				}
-																																			]
-																																		},
-																																		{
-																																			"end": 1386,
-																																			"kind": "Identifier",
-																																			"name": "index",
-																																			"pos": 1381,
-																																			"start": 1381,
-																																			"children": [
-																																			]
-																																		}
-																																	]
-																																},
-																																{
-																																	"end": 1389,
-																																	"kind": "PercentToken",
-																																	"pos": 1387,
-																																	"start": 1388,
-																																	"children": [
-																																	]
-																																},
-																																{
-																																	"end": 1391,
-																																	"kind": "Literal",
-																																	"pos": 1389,
-																																	"start": 1390,
-																																	"children": [
-																																	]
-																																}
-																															]
-																														}
-																													]
-																												}
-																											]
-																										}
-																									]
-																								},
-																								{
-																									"end": 1453,
-																									"kind": "Keyword",
-																									"pos": 1392,
-																									"start": 1405,
-																									"children": [
-																										{
-																											"end": 1452,
-																											"kind": "BinaryExpression",
-																											"pos": 1411,
-																											"start": 1412,
-																											"children": [
-																												{
-																													"end": 1429,
-																													"kind": "CallExpression",
-																													"pos": 1411,
-																													"start": 1412,
-																													"children": [
-																														{
-																															"end": 1418,
-																															"kind": "Identifier",
-																															"name": "Object",
-																															"pos": 1411,
-																															"start": 1412,
-																															"children": [
-																															]
-																														},
-																														{
-																															"end": 1428,
-																															"kind": "ElementAccessExpression",
-																															"pos": 1419,
-																															"start": 1419,
-																															"children": [
-																																{
-																																	"end": 1422,
-																																	"kind": "Identifier",
-																																	"name": "acc",
-																																	"pos": 1419,
-																																	"start": 1419,
-																																	"children": [
-																																	]
-																																},
-																																{
-																																	"end": 1427,
-																																	"kind": "Identifier",
-																																	"name": "curr",
-																																	"pos": 1423,
-																																	"start": 1423,
-																																	"children": [
-																																	]
-																																}
-																															]
-																														}
-																													]
-																												},
-																												{
-																													"end": 1433,
-																													"kind": "EqualsEqualsEqualsToken",
-																													"pos": 1429,
-																													"start": 1430,
-																													"children": [
-																													]
-																												},
-																												{
-																													"end": 1452,
-																													"kind": "ElementAccessExpression",
-																													"pos": 1433,
-																													"start": 1434,
-																													"children": [
-																														{
-																															"end": 1449,
-																															"kind": "ElementAccessExpression",
-																															"pos": 1433,
-																															"start": 1434,
-																															"children": [
-																																{
-																																	"end": 1437,
-																																	"kind": "Identifier",
-																																	"name": "acc",
-																																	"pos": 1433,
-																																	"start": 1434,
-																																	"children": [
-																																	]
-																																},
-																																{
-																																	"end": 1448,
-																																	"kind": "BinaryExpression",
-																																	"pos": 1438,
-																																	"start": 1438,
-																																	"children": [
-																																		{
-																																			"end": 1442,
-																																			"kind": "Identifier",
-																																			"name": "curr",
-																																			"pos": 1438,
-																																			"start": 1438,
-																																			"children": [
-																																			]
-																																		},
-																																		{
-																																			"end": 1444,
-																																			"kind": "PlusToken",
-																																			"pos": 1442,
-																																			"start": 1443,
-																																			"children": [
-																																			]
-																																		},
-																																		{
-																																			"end": 1448,
-																																			"kind": "Identifier",
-																																			"name": "arg",
-																																			"pos": 1444,
-																																			"start": 1445,
-																																			"children": [
-																																			]
-																																		}
-																																	]
-																																}
-																															]
-																														},
-																														{
-																															"end": 1451,
-																															"kind": "Literal",
-																															"pos": 1450,
-																															"start": 1450,
-																															"children": [
-																															]
-																														}
-																													]
-																												}
-																											]
-																										}
-																									]
-																								}
-																							]
-																						}
-																					]
-																				},
-																				{
-																					"end": 1471,
-																					"kind": "Identifier",
-																					"name": "object",
-																					"pos": 1464,
-																					"start": 1465,
-																					"children": [
-																					]
-																				}
-																			]
-																		},
-																		{
-																			"end": 1494,
-																			"kind": "ElementAccessExpression",
-																			"pos": 1473,
-																			"start": 1473,
-																			"children": [
-																				{
-																					"end": 1477,
-																					"kind": "Identifier",
-																					"name": "path",
-																					"pos": 1473,
-																					"start": 1473,
-																					"children": [
-																					]
-																				},
-																				{
-																					"end": 1493,
-																					"kind": "BinaryExpression",
-																					"pos": 1478,
-																					"start": 1478,
-																					"children": [
-																						{
-																							"end": 1489,
-																							"kind": "PropertyAccessExpression",
-																							"pos": 1478,
-																							"start": 1478,
-																							"children": [
-																								{
-																									"end": 1482,
-																									"kind": "Identifier",
-																									"name": "path",
-																									"pos": 1478,
-																									"start": 1478,
-																									"children": [
-																									]
-																								},
-																								{
-																									"end": 1489,
-																									"kind": "Identifier",
-																									"name": "length",
-																									"pos": 1483,
-																									"start": 1483,
-																									"children": [
-																									]
-																								}
-																							]
-																						},
-																						{
-																							"end": 1491,
-																							"kind": "MinusToken",
-																							"pos": 1489,
-																							"start": 1490,
-																							"children": [
-																							]
-																						},
-																						{
-																							"end": 1493,
-																							"kind": "Literal",
-																							"pos": 1491,
-																							"start": 1492,
-																							"children": [
-																							]
-																						}
-																					]
-																				}
-																			]
-																		}
-																	]
-																},
-																{
-																	"end": 1497,
-																	"kind": "FirstAssignment",
-																	"pos": 1495,
-																	"start": 1496,
-																	"children": [
-																	]
-																},
-																{
-																	"end": 1503,
-																	"kind": "Identifier",
-																	"name": "value",
-																	"pos": 1497,
-																	"start": 1498,
-																	"children": [
-																	]
-																}
-															]
-														}
-													]
-												},
-												{
-													"end": 1549,
-													"kind": "Keyword",
-													"pos": 1504,
-													"start": 1513,
-													"children": [
-														{
-															"end": 1548,
-															"kind": "Keyword",
-															"pos": 1519,
-															"start": 1520,
-															"children": [
-																{
-																	"end": 1537,
-																	"kind": "Identifier",
-																	"name": "CallbacksMock",
-																	"pos": 1523,
-																	"start": 1524,
-																	"children": [
-																	]
-																},
-																{
-																	"end": 1539,
-																	"kind": "TypeReference",
-																	"pos": 1538,
-																	"start": 1538,
-																	"children": [
-																		{
-																			"end": 1539,
-																			"kind": "Identifier",
-																			"name": "T",
-																			"pos": 1538,
-																			"start": 1538,
-																			"children": [
-																			]
-																		}
-																	]
-																},
-																{
-																	"end": 1547,
-																	"kind": "Identifier",
-																	"name": "object",
-																	"pos": 1541,
-																	"start": 1541,
-																	"children": [
-																	]
-																}
-															]
-														}
-													]
-												}
-											]
-										}
-									]
-								}
-							]
-						},
-						{
-							"end": 1560,
-							"kind": "EndOfFileToken",
-							"pos": 1559,
-							"start": 1560,
-							"children": [
-							]
-						}
-					]
-				}
-			},
-			{
-				"name": "php.mock.ts",
-				"text": "export class PhpMock {\n\n    ifMethod(a: number) {\n        if (a > 0) {\n            return 'a';\n        }\n\n        return 'none';\n    }\n\n\n    recursion(a: number) {\n        if (0 <= a) {\n            return 0;\n        }\n        return this.recursion(a - 10);\n    }\n\n\n    methodWithCallback(a: string, callback) {\n        return callback(a);\n    }\n\n}\n",
-				"astNode": {
-					"children": [
-						{
-							"end": 347,
-							"kind": "ClassDeclaration",
-							"name": "PhpMock",
-							"pos": 0,
-							"start": 0,
-							"children": [
-								{
-									"end": 6,
-									"kind": "ExportKeyword",
-									"pos": 0,
-									"start": 0,
-									"children": [
-									]
-								},
-								{
-									"end": 20,
-									"kind": "Identifier",
-									"name": "PhpMock",
-									"pos": 12,
-									"start": 13,
-									"children": [
-									]
-								},
-								{
-									"end": 134,
-									"kind": "MethodDeclaration",
-									"name": "ifMethod",
-									"pos": 22,
-									"start": 28,
-									"children": [
-										{
-											"end": 36,
-											"kind": "Identifier",
-											"name": "ifMethod",
-											"pos": 22,
-											"start": 28,
-											"children": [
-											]
-										},
-										{
-											"end": 46,
-											"kind": "Parameter",
-											"name": "a",
-											"pos": 37,
-											"start": 37,
-											"children": [
-												{
-													"end": 38,
-													"kind": "Identifier",
-													"name": "a",
-													"pos": 37,
-													"start": 37,
-													"children": [
-													]
-												},
-												{
-													"end": 46,
-													"kind": "NumberKeyword",
-													"pos": 39,
-													"start": 40,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 134,
-											"kind": "Block",
-											"pos": 47,
-											"start": 48,
-											"children": [
-												{
-													"end": 104,
-													"kind": "IfStatement",
-													"pos": 49,
-													"start": 58,
-													"children": [
-														{
-															"end": 67,
-															"kind": "BinaryExpression",
-															"pos": 62,
-															"start": 62,
-															"children": [
-																{
-																	"end": 63,
-																	"kind": "Identifier",
-																	"name": "a",
-																	"pos": 62,
-																	"start": 62,
-																	"children": [
-																	]
-																},
-																{
-																	"end": 65,
-																	"kind": "GreaterThanToken",
-																	"pos": 63,
-																	"start": 64,
-																	"children": [
-																	]
-																},
-																{
-																	"end": 67,
-																	"kind": "Literal",
-																	"pos": 65,
-																	"start": 66,
-																	"children": [
-																	]
-																}
-															]
-														},
-														{
-															"end": 104,
-															"kind": "Block",
-															"pos": 68,
-															"start": 69,
-															"children": [
-																{
-																	"end": 94,
-																	"kind": "Keyword",
-																	"pos": 70,
-																	"start": 83,
-																	"children": [
-																		{
-																			"end": 93,
-																			"kind": "Literal",
-																			"pos": 89,
-																			"start": 90,
-																			"children": [
-																			]
-																		}
-																	]
-																}
-															]
-														}
-													]
-												},
-												{
-													"end": 128,
-													"kind": "Keyword",
-													"pos": 104,
-													"start": 114,
-													"children": [
-														{
-															"end": 127,
-															"kind": "Literal",
-															"pos": 120,
-															"start": 121,
-															"children": [
-															]
-														}
-													]
-												}
-											]
-										}
-									]
-								},
-								{
-									"end": 262,
-									"kind": "MethodDeclaration",
-									"name": "recursion",
-									"pos": 134,
-									"start": 141,
-									"children": [
-										{
-											"end": 150,
-											"kind": "Identifier",
-											"name": "recursion",
-											"pos": 134,
-											"start": 141,
-											"children": [
-											]
-										},
-										{
-											"end": 160,
-											"kind": "Parameter",
-											"name": "a",
-											"pos": 151,
-											"start": 151,
-											"children": [
-												{
-													"end": 152,
-													"kind": "Identifier",
-													"name": "a",
-													"pos": 151,
-													"start": 151,
-													"children": [
-													]
-												},
-												{
-													"end": 160,
-													"kind": "NumberKeyword",
-													"pos": 153,
-													"start": 154,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 262,
-											"kind": "Block",
-											"pos": 161,
-											"start": 162,
-											"children": [
-												{
-													"end": 217,
-													"kind": "IfStatement",
-													"pos": 163,
-													"start": 172,
-													"children": [
-														{
-															"end": 182,
-															"kind": "BinaryExpression",
-															"pos": 176,
-															"start": 176,
-															"children": [
-																{
-																	"end": 177,
-																	"kind": "Literal",
-																	"pos": 176,
-																	"start": 176,
-																	"children": [
-																	]
-																},
-																{
-																	"end": 180,
-																	"kind": "LessThanEqualsToken",
-																	"pos": 177,
-																	"start": 178,
-																	"children": [
-																	]
-																},
-																{
-																	"end": 182,
-																	"kind": "Identifier",
-																	"name": "a",
-																	"pos": 180,
-																	"start": 181,
-																	"children": [
-																	]
-																}
-															]
-														},
-														{
-															"end": 217,
-															"kind": "Block",
-															"pos": 183,
-															"start": 184,
-															"children": [
-																{
-																	"end": 207,
-																	"kind": "Keyword",
-																	"pos": 185,
-																	"start": 198,
-																	"children": [
-																		{
-																			"end": 206,
-																			"kind": "Literal",
-																			"pos": 204,
-																			"start": 205,
-																			"children": [
-																			]
-																		}
-																	]
-																}
-															]
-														}
-													]
-												},
-												{
-													"end": 256,
-													"kind": "Keyword",
-													"pos": 217,
-													"start": 226,
-													"children": [
-														{
-															"end": 255,
-															"kind": "CallExpression",
-															"pos": 232,
-															"start": 233,
-															"children": [
-																{
-																	"end": 247,
-																	"kind": "PropertyAccessExpression",
-																	"pos": 232,
-																	"start": 233,
-																	"children": [
-																		{
-																			"end": 237,
-																			"kind": "ThisKeyword",
-																			"pos": 232,
-																			"start": 233,
-																			"children": [
-																			]
-																		},
-																		{
-																			"end": 247,
-																			"kind": "Identifier",
-																			"name": "recursion",
-																			"pos": 238,
-																			"start": 238,
-																			"children": [
-																			]
-																		}
-																	]
-																},
-																{
-																	"end": 254,
-																	"kind": "BinaryExpression",
-																	"pos": 248,
-																	"start": 248,
-																	"children": [
-																		{
-																			"end": 249,
-																			"kind": "Identifier",
-																			"name": "a",
-																			"pos": 248,
-																			"start": 248,
-																			"children": [
-																			]
-																		},
-																		{
-																			"end": 251,
-																			"kind": "MinusToken",
-																			"pos": 249,
-																			"start": 250,
-																			"children": [
-																			]
-																		},
-																		{
-																			"end": 254,
-																			"kind": "Literal",
-																			"pos": 251,
-																			"start": 252,
-																			"children": [
-																			]
-																		}
-																	]
-																}
-															]
-														}
-													]
-												}
-											]
-										}
-									]
-								},
-								{
-									"end": 344,
-									"kind": "MethodDeclaration",
-									"name": "methodWithCallback",
-									"pos": 262,
-									"start": 269,
-									"children": [
-										{
-											"end": 287,
-											"kind": "Identifier",
-											"name": "methodWithCallback",
-											"pos": 262,
-											"start": 269,
-											"children": [
-											]
-										},
-										{
-											"end": 297,
-											"kind": "Parameter",
-											"name": "a",
-											"pos": 288,
-											"start": 288,
-											"children": [
-												{
-													"end": 289,
-													"kind": "Identifier",
-													"name": "a",
-													"pos": 288,
-													"start": 288,
-													"children": [
-													]
-												},
-												{
-													"end": 297,
-													"kind": "Keyword",
-													"pos": 290,
-													"start": 291,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 307,
-											"kind": "Parameter",
-											"name": "callback",
-											"pos": 298,
-											"start": 299,
-											"children": [
-												{
-													"end": 307,
-													"kind": "Identifier",
-													"name": "callback",
-													"pos": 298,
-													"start": 299,
-													"children": [
-													]
-												}
-											]
-										},
-										{
-											"end": 344,
-											"kind": "Block",
-											"pos": 308,
-											"start": 309,
-											"children": [
-												{
-													"end": 338,
-													"kind": "Keyword",
-													"pos": 310,
-													"start": 319,
-													"children": [
-														{
-															"end": 337,
-															"kind": "CallExpression",
-															"pos": 325,
-															"start": 326,
-															"children": [
-																{
-																	"end": 334,
-																	"kind": "Identifier",
-																	"name": "callback",
-																	"pos": 325,
-																	"start": 326,
-																	"children": [
-																	]
-																},
-																{
-																	"end": 336,
-																	"kind": "Identifier",
-																	"name": "a",
-																	"pos": 335,
-																	"start": 335,
-																	"children": [
-																	]
-																}
-															]
-														}
-													]
-												}
-											]
-										}
-									]
-								}
-							]
-						},
-						{
-							"end": 348,
-							"kind": "EndOfFileToken",
-							"pos": 347,
-							"start": 348,
-							"children": [
-							]
-						}
-					]
-				}
-			}
-		]
+		"path": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/"
 	}
 }

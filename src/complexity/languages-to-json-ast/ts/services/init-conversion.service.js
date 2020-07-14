@@ -3,9 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.InitConversionService = void 0;
 const fs = require("fs-extra");
 const language_to_json_ast_1 = require("../../language-to-json-ast");
-const ts_folder_model_1 = require("../models/ts-folder.model");
 const ts_file_conversion_service_1 = require("./ts-file-conversion.service");
-const ts_json_ast_model_1 = require("../models/ts-json-ast.model");
 const file_service_1 = require("../../../core/services/file.service");
 const options_model_1 = require("../../../core/models/options.model");
 /**
@@ -23,28 +21,31 @@ class InitConversionService {
             console.log('ERROR: no path.');
             return undefined;
         }
-        const tsJsonAst = new ts_json_ast_model_1.TsJsonAst();
-        tsJsonAst.tsFolder = this.generateTsFolder(path);
-        return tsJsonAst;
+        return {
+            astFolder: this.generateAstFolder(path)
+        };
     }
     /**
      * Generates the TsFolder corresponding to a given path and to its potential TsFolder parent
      * @param path                  // The path of the TsFolder
-     * @param tsFolderParent        // The TsFolder parent
      */
-    generateTsFolder(path) {
-        let tsFolder = new ts_folder_model_1.TsFolder();
-        // tsFolder.parent = tsFolderParent;
-        tsFolder.path = file_service_1.platformPath(path);
+    generateAstFolder(path) {
+        let tsFolder = {
+            astFiles: [],
+            children: [],
+            path: file_service_1.platformPath(path)
+        };
+        // let tsFolder = new TsFolder();
+        // tsFolder.path = platformPath(path);
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach((elementName) => {
             const pathElement = path + elementName;
             if (!options_model_1.Options.isIgnored(pathElement)) {
                 if (fs.statSync(pathElement).isDirectory() && !language_to_json_ast_1.LIMIT_CONVERSIONS) {
-                    tsFolder.children.push(this.generateTsFolder(`${pathElement}/`));
+                    tsFolder.children.push(this.generateAstFolder(`${pathElement}/`));
                 }
                 else if (this.isFileToConvert(pathElement)) {
-                    tsFolder.tsFiles.push(new ts_file_conversion_service_1.TsFileConversionService().generateTsFile(pathElement, tsFolder));
+                    tsFolder.astFiles.push(new ts_file_conversion_service_1.TsFileConversionService().generateTsFile(pathElement, tsFolder));
                 }
             }
         });

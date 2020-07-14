@@ -50,7 +50,7 @@ export class LanguageToJsonAst {
         };
         // const jsonAst = new JsonAst();
         const initService = new InitConversionService();
-        let astFolder = initService.generateAll(pathToAnalyze).tsFolder as any;
+        let astFolder = initService.generateAll(pathToAnalyze).astFolder as any;
         astFolder = JsonService.astPropertyNames(astFolder);
         jsonAst.astFolder = astFolder;
         return jsonAst;

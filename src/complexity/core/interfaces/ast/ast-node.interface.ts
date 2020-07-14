@@ -7,7 +7,7 @@ export interface AstNodeInterface {
     children?: AstNodeInterface[];
     cpxFactors?: CpxFactors;
     end: number;
-    kind: SyntaxKind;
+    kind: string;
     name?: string;
     pos: number;
     start?: number;
