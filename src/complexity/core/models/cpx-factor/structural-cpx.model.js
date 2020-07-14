@@ -15,6 +15,7 @@ class StructuralCpx {
         this.jump = 0; // "break", "continue"
         this.logicDoor = 0; // "and", "or", "not"
         this.loop = 0; // "for", "foreach", "while"
+        this.method = 0; // Call of another method (ex : a.slice(1))
         this.recursion = 0; // Recursion (call to the node's method)
         this.regex = 0; // Regular expression
         this.ternary = 0; // Ternary expression

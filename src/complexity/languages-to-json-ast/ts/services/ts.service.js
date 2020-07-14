@@ -39,5 +39,26 @@ class Ts {
                 return undefined;
         }
     }
+    static getType(node) {
+        switch (node.getKind()) {
+            case ts_morph_1.SyntaxKind.Identifier:
+            case ts_morph_1.SyntaxKind.Parameter:
+                return Ts.getIdentifierType(node.getType().getApparentType().getText());
+            default:
+                return undefined;
+        }
+    }
+    static getIdentifierType(text) {
+        switch (text) {
+            case 'Any':
+            case 'Boolean':
+            case 'Number':
+            case 'Object':
+            case 'String':
+                return text.toLowerCase();
+            default:
+                return text.match(/=>/) ? 'function' : undefined;
+        }
+    }
 }
 exports.Ts = Ts;
