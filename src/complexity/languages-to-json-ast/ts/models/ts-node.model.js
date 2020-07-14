@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _node, _parent;
+var _node;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TsNode = void 0;
 /**
@@ -24,7 +24,6 @@ class TsNode {
         this.kind = undefined; // The kind of the TsNode ('MethodDeclaration, IfStatement, ...) : will be injected as is in the JsonAst file
         this.name = undefined; // The name of the TsNode : will be injected as is in the JsonAst file
         _node.set(this, undefined); // The Typescript AST node of the TsNode
-        _parent.set(this, void 0); // The TsNode of the parent of the TsNode
         this.pos = undefined; // The pos of the beginning of the AST node, including spaces and comments before it. This field will be injected as is in the JsonAst file
         this.start = undefined; // The pos of the real beginning of the AST node, without spaces and comments before it. This field will be injected as is in the JsonAst file
         this.children = []; // The children trees corresponding to children AST nodes of the current AST node : will be used to create the children of the AstNodes in the JsonAst file
@@ -38,12 +37,6 @@ class TsNode {
     set node(node) {
         __classPrivateFieldSet(this, _node, node);
     }
-    get parent() {
-        return __classPrivateFieldGet(this, _parent);
-    }
-    set parent(treeNode) {
-        __classPrivateFieldSet(this, _parent, treeNode);
-    }
 }
 exports.TsNode = TsNode;
-_node = new WeakMap(), _parent = new WeakMap();
+_node = new WeakMap();

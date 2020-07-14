@@ -4,6 +4,10 @@ import { Ts } from './ts.service';
 import { TsNode } from '../models/ts-node.model';
 import { AstFileInterface } from '../../../core/interfaces/ast/ast-file.interface';
 import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
+import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
+import { project } from '../../language-to-json-ast';
+import { Node, SourceFile } from 'ts-morph';
+import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 
 /**
  * - TsFiles generation from their Abstract Syntax Tree (AST)
@@ -22,7 +26,11 @@ export class TsFileConversionService {
             return undefined;
         }
         const tsFile: AstFileInterface = {
-            astNode: undefined,
+            astNode: {
+                end: undefined,
+                kind: SyntaxKind.SourceFile,
+                pos: 0
+            },
             name: getFilename(path),
             text: Ts.getTextFile(path)
         };
@@ -31,13 +39,38 @@ export class TsFileConversionService {
         if (name) {
             tsFile.name = name;
         }
-        const tsNode = new TsNode();
+        // const tsNode = new TsNode();
         // const tsNode = new TsNode();
         // tsNode.node = project.getSourceFile(path);
-        tsNode.node = Ts.getSourceFile(path);
+        // tsNode.node = Ts.getSourceFile(path);
         // tsFile.text = Ts.getTextFile(path);
-        tsFile.astNode = this.createTsNodeChildren(tsNode, Ts.getSourceFile(path));
+        // tsFile.astNode = this.createTsNodeChildren(tsNode, Ts.getSourceFile(path));
+        const sourceFile: SourceFile = project.getSourceFileOrThrow(path);
+        tsFile.astNode = this.createAstNodeChildren(sourceFile)
+        console.log('TSFILEEE', tsFile)
+        console.log('TSFILEEE CHILDRENNN', tsFile.astNode.children)
         return tsFile;
+    }
+
+
+    createAstNodeChildren(node: Node): AstNodeInterface {
+        // const astNode: AstNodeInterface = {
+        //     children: [],
+        //     end: undefined,
+        //     kind: undefined,
+        //     pos: undefined
+        // }
+        const children: AstNodeInterface[] = [];
+        node.forEachChild((childNode: Node) => {
+            children.push(this.createAstNodeChildren(childNode));
+        });
+        const newAstNode: AstNodeInterface = {
+            children: children,
+            end: node.getEnd(),
+            kind: node.getKindName(),
+            pos: node.getPos()
+        };
+        return newAstNode;
     }
 
 

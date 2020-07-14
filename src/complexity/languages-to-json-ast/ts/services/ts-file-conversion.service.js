@@ -5,6 +5,8 @@ const ts = require("typescript");
 const file_service_1 = require("../../../core/services/file.service");
 const ts_service_1 = require("./ts.service");
 const ts_node_model_1 = require("../models/ts-node.model");
+const language_to_json_ast_1 = require("../../language-to-json-ast");
+const syntax_kind_enum_1 = require("../../../core/enum/syntax-kind.enum");
 /**
  * - TsFiles generation from their Abstract Syntax Tree (AST)
  */
@@ -20,7 +22,11 @@ class TsFileConversionService {
             return undefined;
         }
         const tsFile = {
-            astNode: undefined,
+            astNode: {
+                end: undefined,
+                kind: syntax_kind_enum_1.SyntaxKind.SourceFile,
+                pos: 0
+            },
             name: file_service_1.getFilename(path),
             text: ts_service_1.Ts.getTextFile(path)
         };
@@ -29,13 +35,36 @@ class TsFileConversionService {
         if (name) {
             tsFile.name = name;
         }
-        const tsNode = new ts_node_model_1.TsNode();
+        // const tsNode = new TsNode();
         // const tsNode = new TsNode();
         // tsNode.node = project.getSourceFile(path);
-        tsNode.node = ts_service_1.Ts.getSourceFile(path);
+        // tsNode.node = Ts.getSourceFile(path);
         // tsFile.text = Ts.getTextFile(path);
-        tsFile.astNode = this.createTsNodeChildren(tsNode, ts_service_1.Ts.getSourceFile(path));
+        // tsFile.astNode = this.createTsNodeChildren(tsNode, Ts.getSourceFile(path));
+        const sourceFile = language_to_json_ast_1.project.getSourceFileOrThrow(path);
+        tsFile.astNode = this.createAstNodeChildren(sourceFile);
+        console.log('TSFILEEE', tsFile);
+        console.log('TSFILEEE CHILDRENNN', tsFile.astNode.children);
         return tsFile;
+    }
+    createAstNodeChildren(node) {
+        // const astNode: AstNodeInterface = {
+        //     children: [],
+        //     end: undefined,
+        //     kind: undefined,
+        //     pos: undefined
+        // }
+        const children = [];
+        node.forEachChild((childNode) => {
+            children.push(this.createAstNodeChildren(childNode));
+        });
+        const newAstNode = {
+            children: children,
+            end: node.getEnd(),
+            kind: node.getKindName(),
+            pos: node.getPos()
+        };
+        return newAstNode;
     }
     /**
      * Returns the TsNode children of a given TsNode
