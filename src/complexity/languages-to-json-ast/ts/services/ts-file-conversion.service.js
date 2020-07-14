@@ -19,16 +19,16 @@ class TsFileConversionService {
             console.warn('No path or TsFolder : impossible to create TsFile');
             return undefined;
         }
+        const sourceFile = language_to_json_ast_1.project.getSourceFileOrThrow(path);
         const tsFile = {
             name: file_service_1.getFilename(path),
-            text: ts_service_1.Ts.getTextFile(path),
+            text: sourceFile.getFullText(),
             astNode: {
                 end: undefined,
                 kind: syntax_kind_enum_1.SyntaxKind.SourceFile,
                 pos: 0
             }
         };
-        const sourceFile = language_to_json_ast_1.project.getSourceFileOrThrow(path);
         tsFile.astNode = this.createAstNodeChildren(sourceFile);
         return tsFile;
     }

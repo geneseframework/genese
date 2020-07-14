@@ -23,16 +23,16 @@ export class TsFileConversionService {
             console.warn('No path or TsFolder : impossible to create TsFile');
             return undefined;
         }
+        const sourceFile: SourceFile = project.getSourceFileOrThrow(path);
         const tsFile: AstFileInterface = {
             name: getFilename(path),
-            text: Ts.getTextFile(path),
+            text: sourceFile.getFullText(),
             astNode: {
                 end: undefined,
                 kind: SyntaxKind.SourceFile,
                 pos: 0
             }
         };
-        const sourceFile: SourceFile = project.getSourceFileOrThrow(path);
         tsFile.astNode = this.createAstNodeChildren(sourceFile)
         return tsFile;
     }
