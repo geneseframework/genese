@@ -35,7 +35,6 @@ export class InitConversionService {
      */
     private generateAstFolder(path: string): AstFolderInterface {
         let tsFolder: AstFolderInterface = {
-            children: [],
             path: platformPath(path),
             astFiles: []
         };
@@ -44,6 +43,7 @@ export class InitConversionService {
             const pathElement = path + elementName;
             if (!Options.isIgnored(pathElement)) {
                 if (fs.statSync(pathElement).isDirectory() && !LIMIT_CONVERSIONS) {
+                    tsFolder.children = tsFolder.children ?? [];
                     tsFolder.children.push(this.generateAstFolder(`${pathElement}/`))
                 } else if (this.isFileToConvert(pathElement)) {
                     tsFolder.astFiles.push(new TsFileConversionService().generateTsFile(pathElement, tsFolder));

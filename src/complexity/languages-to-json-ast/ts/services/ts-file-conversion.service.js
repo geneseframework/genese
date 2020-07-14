@@ -37,14 +37,17 @@ class TsFileConversionService {
         node.forEachChild((childNode) => {
             children.push(this.createAstNodeChildren(childNode));
         });
-        return {
+        const astNode = {
             end: node.getEnd(),
             kind: ts_service_1.Ts.getKindAlias(node),
             name: ts_service_1.Ts.getName(node),
             pos: node.getPos(),
-            start: node.getStart(),
-            children: children,
+            start: node.getStart()
         };
+        if (children.length > 0) {
+            astNode.children = children;
+        }
+        return astNode;
     }
 }
 exports.TsFileConversionService = TsFileConversionService;

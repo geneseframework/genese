@@ -44,11 +44,12 @@ class InitService {
      * @param parentAstFolder           // The parent AstFolder
      */
     generateChildrenAstFolder(astFolderFromJsonAst, parentAstFolder) {
+        var _a;
         const newAstFolder = new ast_folder_model_1.AstFolder();
         newAstFolder.path = this.getPathFromJsonAstFolder(astFolderFromJsonAst);
         newAstFolder.parent = parentAstFolder;
         newAstFolder.astFiles = this.generateAstFiles(astFolderFromJsonAst, newAstFolder);
-        for (const childFolderFromJsonAst of astFolderFromJsonAst.children) {
+        for (const childFolderFromJsonAst of (_a = astFolderFromJsonAst.children) !== null && _a !== void 0 ? _a : []) {
             newAstFolder.children.push(this.generateChildrenAstFolder(childFolderFromJsonAst, newAstFolder));
         }
         return newAstFolder;

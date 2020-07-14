@@ -2,7 +2,7 @@ import { KindAliases } from '../const/kind-aliases';
 import { Node, SyntaxKind } from 'ts-morph';
 
 /**
- * Service for operations on TsNode elements relative to a given node in Abstract Syntax TreeNode (AST)
+ * Service for operations on Node elements (ts-morph nodes)
  */
 export class Ts {
 
@@ -24,7 +24,7 @@ export class Ts {
 
 
     /**
-     * Gets the name of the method of a node with type = MethodDeclaration
+     * Gets the name of a Node
      * @param node // The AST node
      */
     static getName(node: Node): string {
