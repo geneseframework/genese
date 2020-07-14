@@ -4,8 +4,10 @@ import { AstFileInterface } from '../../../core/interfaces/ast/ast-file.interfac
 import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
 import { project } from '../../language-to-json-ast';
-import { Node, SourceFile } from 'ts-morph';
+import { createWrappedNode, Identifier, Node, SourceFile, ts } from 'ts-morph';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
+import { CpxFactors } from '../../../core/models/cpx-factor/cpx-factors.model';
+import * as chalk from 'chalk';
 
 /**
  * - TsFiles generation from their Abstract Syntax Tree (AST)
@@ -24,20 +26,18 @@ export class TsFileConversionService {
             return undefined;
         }
         const sourceFile: SourceFile = project.getSourceFileOrThrow(path);
-        const tsFile: AstFileInterface = {
+        return {
             name: getFilename(path),
             text: sourceFile.getFullText(),
-            astNode: {
-                end: undefined,
-                kind: SyntaxKind.SourceFile,
-                pos: 0
-            }
+            astNode: this.createAstNodeChildren(sourceFile)
         };
-        tsFile.astNode = this.createAstNodeChildren(sourceFile)
-        return tsFile;
     }
 
 
+    /**
+     * Returns the Node children of a given Node
+     * @param node      // The Node to analyse
+     */
     createAstNodeChildren(node: Node): AstNodeInterface {
         const children: AstNodeInterface[] = [];
         node.forEachChild((childNode: Node) => {
@@ -56,27 +56,53 @@ export class TsFileConversionService {
         if (children.length > 0) {
             astNode.children = children;
         }
+        if (astNode.type === 'function') {
+            const cpxFactors = this.getCpxFactors(node);
+            console.log('CPX FACTORSSS', cpxFactors)
+        }
         return astNode;
     }
 
 
-    /**
-     * Returns the TsNode children of a given TsNode
-     * @param tsNode            // The TsNode parent
-     * @param sourceFile        // The AST node of the file itself
-     */
-    // createTsNodeChildren(tsNode: TsNode, sourceFile: ts.SourceFile): TsNode {
-    //     ts.forEachChild(tsNode.node, (childTsNode: ts.Node) => {
-    //         const newTsNode = new TsNode();
-    //         newTsNode.node = childTsNode;
-    //         newTsNode.pos = Ts.getPosition(newTsNode.node);
-    //         newTsNode.start = Ts.getStart(newTsNode.node, sourceFile);
-    //         newTsNode.end = Ts.getEnd(newTsNode.node);
-    //         newTsNode.name = Ts.getName(newTsNode.node);
-    //         newTsNode.kind = Ts.getKindAlias(newTsNode.node);
-    //         tsNode.children.push(this.createTsNodeChildren(newTsNode, sourceFile))
-    //     });
-    //     return tsNode;
-    // }
+    private getCpxFactors(node: Node): CpxFactors {
+        if (node.getKindName() !== SyntaxKind.Identifier) {
+            return undefined;
+        }
+        const identifier = node as Identifier;
+        const definition = identifier.getDefinitions()?.[0];
+        if (!definition) {
+            return undefined;
+        }
+        console.log(chalk.yellowBright('IDENTIFIER IMPLEMENTATTTSS'), node.getKindName(), Ts.getName(node), definition.getSourceFile().getFilePath());
+        // const debugFile = project.getSourceFileOrThrow('debug.mock.ts');
+        // console.log('DEBUG FILE', debugFile)
+        // const classDeclaration = debugFile.getClasses()[0];
+        // // console.log('CLASS FILE', classDeclaration)
+        // const referencedSymbols = classDeclaration.findReferences();
+        //
+        // for (const referencedSymbol of referencedSymbols) {
+        //     for (const reference of referencedSymbol.getReferences()) {
+        //         console.log("---------")
+        //         console.log("REFERENCE")
+        //         console.log("---------")
+        //         console.log("File path: " + reference.getSourceFile().getFilePath());
+        //         console.log("Start: " + reference.getTextSpan().getStart());
+        //         console.log("Length: " + reference.getTextSpan().getLength());
+        //         console.log("Parent kind: " + reference.getNode().getParentOrThrow().getKindName());
+        //         console.log("\n");
+        //     }
+        // }
+        // const ref = classDeclaration.getMethodOrThrow('ref');
+        // console.log('METHOD  REF ', ref.getName())
+        // const desc  = ref.getDescendantsOfKind(SyntaxKind.Identifier);
+        // for (const d of desc) {
+        //     console.log(chalk.blueBright('IDENTIFIER', d.getText()), d.getType().getText());
+        //     const def = d.getImplementations()[0];
+        //     console.log(chalk.yellowBright('IDENTIFIER DEFS'), def?.getTextSpan());
+        // }
+        const cpxFactors: CpxFactors = undefined;
+        // const references = node.findReferences();
+        return cpxFactors;
+    }
 
 }
