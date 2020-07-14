@@ -32,16 +32,16 @@ class InitConversionService {
      * @param path                  // The path of the TsFolder
      * @param tsFolderParent        // The TsFolder parent
      */
-    generateTsFolder(path, tsFolderParent) {
+    generateTsFolder(path) {
         let tsFolder = new ts_folder_model_1.TsFolder();
-        tsFolder.parent = tsFolderParent;
+        // tsFolder.parent = tsFolderParent;
         tsFolder.path = file_service_1.platformPath(path);
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach((elementName) => {
             const pathElement = path + elementName;
             if (!options_model_1.Options.isIgnored(pathElement)) {
                 if (fs.statSync(pathElement).isDirectory() && !language_to_json_ast_1.LIMIT_CONVERSIONS) {
-                    tsFolder.children.push(this.generateTsFolder(`${pathElement}/`, tsFolder));
+                    tsFolder.children.push(this.generateTsFolder(`${pathElement}/`));
                 }
                 else if (this.isFileToConvert(pathElement)) {
                     tsFolder.tsFiles.push(new ts_file_conversion_service_1.TsFileConversionService().generateTsFile(pathElement, tsFolder));

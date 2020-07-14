@@ -1,17 +1,4 @@
 "use strict";
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to get private field on non-instance");
-    }
-    return privateMap.get(receiver);
-};
-var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, privateMap, value) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to set private field on non-instance");
-    }
-    privateMap.set(receiver, value);
-    return value;
-};
 var _parent;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TsFolder = void 0;
@@ -26,12 +13,15 @@ class TsFolder {
     // ---------------------------------------------------------------------------------
     //                                Getters and setters
     // ---------------------------------------------------------------------------------
-    get parent() {
-        return __classPrivateFieldGet(this, _parent);
-    }
-    set parent(tsFolder) {
-        __classPrivateFieldSet(this, _parent, tsFolder);
-    }
+    //
+    // get parent(): TsFolder {
+    //     return this.#parent;
+    // }
+    //
+    //
+    // set parent(tsFolder: TsFolder) {
+    //     this.#parent = tsFolder;
+    // }
     // ---------------------------------------------------------------------------------
     //                                  Other methods
     // ---------------------------------------------------------------------------------
@@ -40,14 +30,14 @@ class TsFolder {
      * @param message
      */
     logg(message) {
-        var _a, _b;
+        var _a;
         console.log('-----------------------------');
         console.log(chalk.yellowBright(message !== null && message !== void 0 ? message : 'AST_FOLDER'));
         console.log(this.path);
         console.log('-----------------------------');
-        console.log(chalk.blueBright('parent :'), (_a = this.parent) === null || _a === void 0 ? void 0 : _a.path);
+        // console.log(chalk.blueBright('parent :'), this.parent?.path);
         for (const astFile of this.tsFiles) {
-            const name = (_b = astFile === null || astFile === void 0 ? void 0 : astFile.name) !== null && _b !== void 0 ? _b : '';
+            const name = (_a = astFile === null || astFile === void 0 ? void 0 : astFile.name) !== null && _a !== void 0 ? _a : '';
             console.log(chalk.blueBright('TsFile'), chalk.yellowBright(`  ${name}`));
             this.loggChildren(astFile === null || astFile === void 0 ? void 0 : astFile.tsNode, `  `);
         }

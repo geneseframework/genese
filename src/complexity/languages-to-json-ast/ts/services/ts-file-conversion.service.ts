@@ -4,6 +4,7 @@ import { TsFolder } from '../models/ts-folder.model';
 import { TsFile } from '../models/ts-file.model';
 import { Ts } from './ts.service';
 import { TsNode } from '../models/ts-node.model';
+import { project } from '../../language-to-json-ast';
 
 /**
  * - TsFiles generation from their Abstract Syntax Tree (AST)
@@ -27,6 +28,8 @@ export class TsFileConversionService {
             tsFile.name = name;
         }
         const tsNode = new TsNode();
+        // const tsNode = new TsNode();
+        // tsNode.node = project.getSourceFile(path);
         tsNode.node = Ts.getSourceFile(path);
         tsFile.text = Ts.getTextFile(path);
         tsFile.tsNode = this.createTsNodeChildren(tsNode, Ts.getSourceFile(path));

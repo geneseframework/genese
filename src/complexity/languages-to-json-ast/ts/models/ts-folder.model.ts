@@ -7,24 +7,9 @@ export class TsFolder implements Logg {
 
 
     children?: TsFolder[] = [];                                             // The subfolders of this TsFolder
-    #parent?: TsFolder = undefined;                                         // The TsFolder corresponding to the parent folder of this TsFolder
     path?: string = undefined;                                              // The absolute path of this TsFolder : will be injected as is in the JsonAst file
     tsFiles?: TsFile[] = [];                                                // The array of files of this TsFolder (not in the subfolders) : will be used to create the property "astFiles" of the JsonAst
 
-
-    // ---------------------------------------------------------------------------------
-    //                                Getters and setters
-    // ---------------------------------------------------------------------------------
-
-
-    get parent(): TsFolder {
-        return this.#parent;
-    }
-
-
-    set parent(tsFolder: TsFolder) {
-        this.#parent = tsFolder;
-    }
 
 
     // ---------------------------------------------------------------------------------
@@ -41,7 +26,6 @@ export class TsFolder implements Logg {
         console.log(chalk.yellowBright(message ?? 'AST_FOLDER'));
         console.log(this.path);
         console.log('-----------------------------');
-        console.log(chalk.blueBright('parent :'), this.parent?.path);
         for (const astFile of this.tsFiles) {
             const name = astFile?.name ?? '';
             console.log(chalk.blueBright('TsFile'), chalk.yellowBright(`  ${name}`));
