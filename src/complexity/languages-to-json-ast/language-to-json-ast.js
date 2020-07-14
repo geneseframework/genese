@@ -7,7 +7,7 @@ const chalk = require("chalk");
 const json_service_1 = require("./json.service");
 const file_service_1 = require("../core/services/file.service");
 const ts_morph_1 = require("ts-morph");
-exports.LIMIT_CONVERSIONS = false;
+exports.LIMIT_CONVERSIONS = true;
 exports.DEV_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
 exports.project = new ts_morph_1.Project();
 /**

@@ -44,6 +44,9 @@ class TsFileConversionService {
             pos: node.getPos(),
             start: node.getStart()
         };
+        if (ts_service_1.Ts.getType(node)) {
+            astNode.type = ts_service_1.Ts.getType(node);
+        }
         if (children.length > 0) {
             astNode.children = children;
         }

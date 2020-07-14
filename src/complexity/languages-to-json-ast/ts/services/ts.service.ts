@@ -1,5 +1,6 @@
 import { KindAliases } from '../const/kind-aliases';
 import { Node, SyntaxKind } from 'ts-morph';
+import { IdentifierType } from '../../../core/interfaces/identifier-type.type';
 
 /**
  * Service for operations on Node elements (ts-morph nodes)
@@ -39,6 +40,32 @@ export class Ts {
             default:
                 return undefined;
         }
+    }
+
+
+    static getType(node: Node): IdentifierType {
+        switch (node.getKind()) {
+            case SyntaxKind.Identifier:
+            case SyntaxKind.Parameter:
+                return Ts.getIdentifierType(node.getType().getApparentType().getText());
+            default:
+                return undefined;
+        }
+    }
+
+
+    private static getIdentifierType(text: string): IdentifierType {
+        switch (text) {
+            case 'Any':
+            case 'Boolean':
+            case 'Number':
+            case 'Object':
+            case 'String':
+                return text.toLowerCase() as IdentifierType;
+            default:
+                return text.match(/=>/) ? 'function' : undefined;
+        }
+
     }
 
 }

@@ -1,7 +1,7 @@
 export class DebugMock  {
 
-    recursion(a) {
-        this.recursion(a);
+    recursion(a: string) {
+        return a.slice(1);
     }
 
 }

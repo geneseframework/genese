@@ -1,1 +1,1 @@
-export type IdentifierType = 'string' | 'number' | 'boolean' | 'object' | 'function';
+export type IdentifierType = 'any' | 'boolean' | 'function' | 'number' | 'object' | 'string' ;
