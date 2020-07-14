@@ -32,16 +32,8 @@ export class TsFileConversionService {
                 pos: 0
             }
         };
-        const name = getFilename(path);
-        if (name) {
-            tsFile.name = name;
-        }
         const sourceFile: SourceFile = project.getSourceFileOrThrow(path);
-        const clss = sourceFile.getClass('DebugMock');
-        console.log('NAME CLASSS', clss.getName())
         tsFile.astNode = this.createAstNodeChildren(sourceFile)
-        // console.log('TSFILEEE', tsFile)
-        // console.log('TSFILEEE CHILDRENNN', tsFile.astNode.children)
         return tsFile;
     }
 
@@ -51,8 +43,7 @@ export class TsFileConversionService {
         node.forEachChild((childNode: Node) => {
             children.push(this.createAstNodeChildren(childNode));
         });
-        // const zzz: PropertyName;
-        const newAstNode: AstNodeInterface = {
+        return {
             end: node.getEnd(),
             kind: node.getKindName(),
             name: Ts.getName(node),
@@ -60,7 +51,6 @@ export class TsFileConversionService {
             start: node.getStart(),
             children: children,
         };
-        return newAstNode;
     }
 
 

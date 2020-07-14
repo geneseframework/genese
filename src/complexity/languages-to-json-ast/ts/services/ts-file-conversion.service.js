@@ -28,16 +28,8 @@ class TsFileConversionService {
                 pos: 0
             }
         };
-        const name = file_service_1.getFilename(path);
-        if (name) {
-            tsFile.name = name;
-        }
         const sourceFile = language_to_json_ast_1.project.getSourceFileOrThrow(path);
-        const clss = sourceFile.getClass('DebugMock');
-        console.log('NAME CLASSS', clss.getName());
         tsFile.astNode = this.createAstNodeChildren(sourceFile);
-        // console.log('TSFILEEE', tsFile)
-        // console.log('TSFILEEE CHILDRENNN', tsFile.astNode.children)
         return tsFile;
     }
     createAstNodeChildren(node) {
@@ -45,8 +37,7 @@ class TsFileConversionService {
         node.forEachChild((childNode) => {
             children.push(this.createAstNodeChildren(childNode));
         });
-        // const zzz: PropertyName;
-        const newAstNode = {
+        return {
             end: node.getEnd(),
             kind: node.getKindName(),
             name: ts_service_1.Ts.getName(node),
@@ -54,7 +45,6 @@ class TsFileConversionService {
             start: node.getStart(),
             children: children,
         };
-        return newAstNode;
     }
 }
 exports.TsFileConversionService = TsFileConversionService;
