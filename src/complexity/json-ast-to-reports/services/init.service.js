@@ -11,8 +11,7 @@ const code_service_1 = require("./code.service");
 const ast_node_service_1 = require("./ast/ast-node.service");
 const ast_service_1 = require("./ast/ast.service");
 /**
- * - TreeFolders generation from Abstract Syntax TreeNode of a folder
- * - Other services for TreeFolders
+ * - AstFolders generation from Abstract Syntax Tree of a folder
  */
 class InitService {
     constructor() {
@@ -20,7 +19,7 @@ class InitService {
     }
     /**
      * Generates the AstFolder for a given folder
-     * The tree is generated according to the Abstract Syntax TreeNode (AST) of the folder
+     * The tree is generated according to the Abstract Syntax Tree (AST) of the folder
      * @param jsonAst
      */
     generateAllFromJsonAst(jsonAst) {

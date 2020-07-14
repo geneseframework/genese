@@ -10,8 +10,9 @@ import { AstMethodService } from '../../services/ast/ast-method.service';
 import { Logg } from '../../../core/interfaces/logg.interface';
 import * as chalk from 'chalk';
 import { Code } from '../code/code.model';
+import { AstFileInterface } from '../../../core/interfaces/ast/ast-file.interface';
 
-export class AstFile implements Evaluate, Logg {
+export class AstFile implements AstFileInterface, Evaluate, Logg {
 
     #astFolder?: AstFolder = undefined;                         // The AstFolder which includes this AstFile
     #astMethods?: AstMethod[] = [];                             // The AstMethods included in this AstFile

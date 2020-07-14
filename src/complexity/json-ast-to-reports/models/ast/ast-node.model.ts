@@ -12,8 +12,9 @@ import { AstNodeService } from '../../services/ast/ast-node.service';
 import * as chalk from 'chalk';
 import { Logg } from '../../../core/interfaces/logg.interface';
 import { CodeService } from '../../services/code.service';
+import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
 
-export class AstNode implements Evaluate, Logg {
+export class AstNode implements AstNodeInterface, Evaluate, Logg {
 
     #astFile?: AstFile = undefined;                                             // The AstFile containing the AST node of the AstNode
     #astMethod?: AstMethod = undefined;                                         // The method at the root of the current ast (if this ast is inside a method)

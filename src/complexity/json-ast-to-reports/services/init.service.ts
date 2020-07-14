@@ -9,8 +9,7 @@ import { AstNodeService } from './ast/ast-node.service';
 import { Ast } from './ast/ast.service';
 
 /**
- * - TreeFolders generation from Abstract Syntax TreeNode of a folder
- * - Other services for TreeFolders
+ * - AstFolders generation from Abstract Syntax Tree of a folder
  */
 export class InitService {
 
@@ -20,7 +19,7 @@ export class InitService {
 
     /**
      * Generates the AstFolder for a given folder
-     * The tree is generated according to the Abstract Syntax TreeNode (AST) of the folder
+     * The tree is generated according to the Abstract Syntax Tree (AST) of the folder
      * @param jsonAst
      */
     generateAllFromJsonAst(jsonAst: JsonAst): JsonAst {

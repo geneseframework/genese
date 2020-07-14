@@ -10,8 +10,9 @@ import { AstFolderService } from '../../services/ast/ast-folder.service';
 import { Logg } from '../../../core/interfaces/logg.interface';
 import * as chalk from 'chalk';
 import { AstNode } from './ast-node.model';
+import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
 
-export class AstFolder implements Evaluate, Logg {
+export class AstFolder implements AstFolderInterface, Evaluate, Logg {
 
     #astFiles?: AstFile[] = [];                                                     // The array of files of this folder (not in the subfolders)
     #astFolderService?: AstFolderService = new AstFolderService();                  // The service managing AstFolders
