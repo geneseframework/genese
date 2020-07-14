@@ -27,7 +27,7 @@ complexityFactors.nesting = {
 };
 complexityFactors.recursion = {
     callback: 2,                        // Callback (call to a parameter of the parentFunction (ie method) of the node)
-    recursivity: 3                      // Recursive method (call to the node's method)
+    recursivity: 2                      // Recursive method (call to the node's method)
 };
 complexityFactors.structural = {
     arr: 0.1,                           // "Array", "Set"
@@ -38,6 +38,7 @@ complexityFactors.structural = {
     jump: 1,                            // "break", "continue"
     logicDoor: 1,                       // "and", "or", "not"
     loop: 1,                            // "for", "foreach", "while"
+    method: 1,                          // Usage of a method (located in the project or elsewhere)
     regex: 1,                           // Regular expression
     ternary: 1                          // Ternary expression
 };

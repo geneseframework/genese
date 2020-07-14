@@ -13,6 +13,7 @@ import * as chalk from 'chalk';
 import { Logg } from '../../../core/interfaces/logg.interface';
 import { CodeService } from '../../services/code.service';
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
+import { IdentifierType } from '../../../core/interfaces/identifier-type.type';
 
 export class AstNode implements AstNodeInterface, Evaluate, Logg {
 
@@ -38,6 +39,7 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
     #pos ?= 0;                                                                  // The pos of the beginning of the AST node, including spaces and comments before it. (start <= start)
     #start ?= 0;                                                                // The pos of the beginning of the AST node, without spaces and comments before it. (start >= start)
     #text: string = undefined;                                                  // The code of the AstNode
+    #type: IdentifierType = undefined;                                          // The type of the AstNode (if given)
 
 
 
@@ -307,6 +309,16 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
     }
 
 
+    get type(): IdentifierType {
+        return this.#type;
+    }
+
+
+    set type(type: IdentifierType) {
+        this.#type = type;
+    }
+
+
     // ---------------------------------------------------------------------------------
     //                                  Other methods
     // ---------------------------------------------------------------------------------
@@ -338,6 +350,7 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
     calculateAndSetCpxFactors(): CpxFactors {
         this.cpxFactors = new CpxFactors();
         this.setGeneralCaseCpxFactors();
+        this.setMethodUsageCpxFactors();
         this.setRecursionOrCallbackCpxFactors();
         this.setElseCpxFactors();
         this.setRegexCpxFactors();
@@ -356,6 +369,13 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
         this.cpxFactors.nesting[this.factorCategory] = cpxFactors.nesting[this.factorCategory];
         this.cpxFactors.structural[this.factorCategory] = cpxFactors.structural[this.factorCategory];
         this.cpxFactors.atomic.node = cpxFactors.atomic[this.factorCategory] ?? cpxFactors.atomic.node;
+    }
+
+
+    private setMethodUsageCpxFactors(): void {
+        if (this.type === 'function' && this.parent?.kind !== SyntaxKind.MethodDeclaration) {
+            this.cpxFactors.structural.method = cpxFactors.structural.method;
+        }
     }
 
 

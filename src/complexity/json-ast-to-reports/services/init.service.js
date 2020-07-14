@@ -135,6 +135,7 @@ class InitService {
         newAstNode.pos = astNodeFromJsonAst.pos;
         newAstNode.start = astNodeFromJsonAst.start;
         newAstNode.text = astNodeFromJsonAst.text;
+        newAstNode.type = astNodeFromJsonAst.type;
         newAstNode.children = this.generateAstNodes(astNodeFromJsonAst.children, newAstNode);
         if (ast_service_1.Ast.isFunctionOrMethod(astNodeFromJsonAst)) {
             if (!newAstNode.name && ((_a = newAstNode.firstSon) === null || _a === void 0 ? void 0 : _a.kind) === syntax_kind_enum_1.SyntaxKind.Identifier) {

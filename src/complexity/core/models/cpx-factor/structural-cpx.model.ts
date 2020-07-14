@@ -12,6 +12,7 @@ export class StructuralCpx {
     jump ?= 0;                              // "break", "continue"
     logicDoor ?= 0;                         // "and", "or", "not"
     loop ?= 0;                              // "for", "foreach", "while"
+    method ?= 0;                            // Call of another method (ex : a.slice(1))
     recursion ?= 0;                         // Recursion (call to the node's method)
     regex ?= 0;                             // Regular expression
     ternary ?= 0;                           // Ternary expression

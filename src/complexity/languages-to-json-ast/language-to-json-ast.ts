@@ -6,7 +6,7 @@ import { createFile } from '../core/services/file.service';
 import { Project } from 'ts-morph';
 import { JsonAstInterface } from '../core/interfaces/ast/json-ast.interface';
 
-export const LIMIT_CONVERSIONS = true;
+export const LIMIT_CONVERSIONS = false;
 export const DEV_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
 export let project  = new Project();
 
