@@ -36,7 +36,8 @@ export class Ts {
             case SyntaxKind.Parameter:
                 return node.compilerNode['name']?.['escapedText'] ?? '';
             case SyntaxKind.Identifier:
-                return node.getText();
+                // console.log('NODE GET TXTTTT', node.compilerNode['escapedText'], node.getText())
+                return node.compilerNode['escapedText'];
             default:
                 return undefined;
         }

@@ -34,7 +34,8 @@ class Ts {
             case ts_morph_1.SyntaxKind.Parameter:
                 return (_b = (_a = node.compilerNode['name']) === null || _a === void 0 ? void 0 : _a['escapedText']) !== null && _b !== void 0 ? _b : '';
             case ts_morph_1.SyntaxKind.Identifier:
-                return node.getText();
+                // console.log('NODE GET TXTTTT', node.compilerNode['escapedText'], node.getText())
+                return node.compilerNode['escapedText'];
             default:
                 return undefined;
         }

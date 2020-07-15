@@ -3,12 +3,11 @@ import { Ts } from './ts.service';
 import { AstFileInterface } from '../../../core/interfaces/ast/ast-file.interface';
 import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
-import { project } from '../../language-to-json-ast';
-import { createWrappedNode, DefinitionInfo, Identifier, Node, SourceFile, ts } from 'ts-morph';
+import { project, WEIGHTS } from '../../language-to-json-ast';
+import { DefinitionInfo, Identifier, Node, SourceFile } from 'ts-morph';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
-import { CpxFactors } from '../../../core/models/cpx-factor/cpx-factors.model';
-import * as chalk from 'chalk';
-import { TsWeights } from '../ts-weights.enum';
+import { WeightsService } from '../libraries-weights/weights.service';
+import { CpxFactorsInterface } from '../../../core/interfaces/cpx-factors.interface';
 
 /**
  * - TsFiles generation from their Abstract Syntax Tree (AST)
@@ -58,7 +57,7 @@ export class TsFileConversionService {
             astNode.children = children;
         }
         if (astNode.type === 'function') {
-            const cpxFactors = this.getCpxFactors(node);
+            const cpxFactors: CpxFactorsInterface = this.getCpxFactors(node);
             if (cpxFactors) {
                 astNode.cpxFactors = cpxFactors;
             }
@@ -67,39 +66,60 @@ export class TsFileConversionService {
     }
 
 
-    private getCpxFactors(node: Node): any {
+    private getCpxFactors(node: Node): CpxFactorsInterface {
         if (node.getKindName() !== SyntaxKind.Identifier) {
             return undefined;
         }
         const identifier = node as Identifier;
         const definition = identifier.getDefinitions()?.[0];
+        return this.useWeight(definition, Ts.getName(node));
+    }
+
+
+    useWeight(definition: DefinitionInfo, nodeName: string): CpxFactorsInterface {
         if (!definition) {
             return undefined;
         }
-        if (this.isInTypeScript(definition) && this.isInTsWeights(Ts.getName(node))) {
-            return {
+        const lib = this.library(definition);
+        const method = lib ? Object.keys(WEIGHTS[lib]).find(e => e === nodeName) : undefined;
+        const useCpx = method ?
+            {
                 use: {
-                    method: TsWeights[Ts.getName(node)]
+                    method: WEIGHTS[lib][method]
                 }
-            };
-        }
-        return undefined;
+            }
+            : undefined;
+        return useCpx;
+        // if (this.isInTypeScript(definition) && this.isInTsWeights(Ts.getName(node))) {
+        //     const zzz = {
+        //         use: {
+        //             method: TsWeights[Ts.getName(node)]
+        //         }
+        //     };
+        //     console.log('ZZZZ', node.getKindName(), Ts.getName(node), TsWeights[`${Ts.getName(node)} `], zzz)
+        //     return zzz
+        // }
+
     }
 
 
-    isInTypeScript(definition: DefinitionInfo): boolean {
-        return this.library(definition.getSourceFile().getFilePath()) === 'TypeScript';
-    }
 
 
-    isInTsWeights(name: string): boolean {
-        return TsWeights[name]
-    }
+    // isInTypeScript(definition: DefinitionInfo): boolean {
+    //     return this.library(definition.getSourceFile().getFilePath()) === 'TypeScript';
+    // }
+
+
+    // isInTsWeights(name: string): boolean {
+    //     console.log('TSWEIGHTS NAMEEEE', name, Object.keys(TsWeights), TsWeights[name.toString()])
+    //     return Object.keys(TsWeights).includes(name)
+    // }
 
 
     // TODO: Refacto
-    library(path: string): string {
-        return path.match(/typescript\/lib/) ? 'TypeScript' : undefined;
+    library(definition: DefinitionInfo): string {
+        const path = definition.getSourceFile().getFilePath();
+        return path.match(/typescript\/lib/) ? 'typescript' : undefined;
     }
 
 }

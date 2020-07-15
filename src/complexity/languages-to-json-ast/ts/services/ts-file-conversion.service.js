@@ -5,7 +5,6 @@ const file_service_1 = require("../../../core/services/file.service");
 const ts_service_1 = require("./ts.service");
 const language_to_json_ast_1 = require("../../language-to-json-ast");
 const syntax_kind_enum_1 = require("../../../core/enum/syntax-kind.enum");
-const ts_weights_enum_1 = require("../ts-weights.enum");
 /**
  * - TsFiles generation from their Abstract Syntax Tree (AST)
  */
@@ -64,27 +63,43 @@ class TsFileConversionService {
         }
         const identifier = node;
         const definition = (_a = identifier.getDefinitions()) === null || _a === void 0 ? void 0 : _a[0];
+        return this.useWeight(definition, ts_service_1.Ts.getName(node));
+    }
+    useWeight(definition, nodeName) {
         if (!definition) {
             return undefined;
         }
-        if (this.isInTypeScript(definition) && this.isInTsWeights(ts_service_1.Ts.getName(node))) {
-            return {
+        const lib = this.library(definition);
+        const method = lib ? Object.keys(language_to_json_ast_1.WEIGHTS[lib]).find(e => e === nodeName) : undefined;
+        const useCpx = method ?
+            {
                 use: {
-                    method: ts_weights_enum_1.TsWeights[ts_service_1.Ts.getName(node)]
+                    method: language_to_json_ast_1.WEIGHTS[lib][method]
                 }
-            };
-        }
-        return undefined;
+            }
+            : undefined;
+        return useCpx;
+        // if (this.isInTypeScript(definition) && this.isInTsWeights(Ts.getName(node))) {
+        //     const zzz = {
+        //         use: {
+        //             method: TsWeights[Ts.getName(node)]
+        //         }
+        //     };
+        //     console.log('ZZZZ', node.getKindName(), Ts.getName(node), TsWeights[`${Ts.getName(node)} `], zzz)
+        //     return zzz
+        // }
     }
-    isInTypeScript(definition) {
-        return this.library(definition.getSourceFile().getFilePath()) === 'TypeScript';
-    }
-    isInTsWeights(name) {
-        return ts_weights_enum_1.TsWeights[name];
-    }
+    // isInTypeScript(definition: DefinitionInfo): boolean {
+    //     return this.library(definition.getSourceFile().getFilePath()) === 'TypeScript';
+    // }
+    // isInTsWeights(name: string): boolean {
+    //     console.log('TSWEIGHTS NAMEEEE', name, Object.keys(TsWeights), TsWeights[name.toString()])
+    //     return Object.keys(TsWeights).includes(name)
+    // }
     // TODO: Refacto
-    library(path) {
-        return path.match(/typescript\/lib/) ? 'TypeScript' : undefined;
+    library(definition) {
+        const path = definition.getSourceFile().getFilePath();
+        return path.match(/typescript\/lib/) ? 'typescript' : undefined;
     }
 }
 exports.TsFileConversionService = TsFileConversionService;

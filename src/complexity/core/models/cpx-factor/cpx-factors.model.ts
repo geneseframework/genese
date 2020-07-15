@@ -9,11 +9,12 @@ import { DepthCpx } from './depth-cpx.model';
 import { ContextCpx } from './context-cpx.model';
 import { RecursionCpx } from './recursion-cpx.model';
 import { UseCpx } from './use-cpx.model';
+import { CpxFactorsInterface } from '../../interfaces/cpx-factors.interface';
 
 /**
  * The Complexity Factors
  */
-export class CpxFactors implements Addition<CpxFactors>{
+export class CpxFactors implements CpxFactorsInterface, Addition<CpxFactors>{
 
     aggregation?: AggregationCpx = new AggregationCpx();        // Aggregation Complexity
     atomic?: AtomicCpx = new AtomicCpx();                       // Atomic Complexity

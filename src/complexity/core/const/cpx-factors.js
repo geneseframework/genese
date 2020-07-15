@@ -1,8 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cpxFactors = void 0;
-const cpx_factors_model_1 = require("../models/cpx-factor/cpx-factors.model");
-const complexityFactors = new cpx_factors_model_1.CpxFactors();
+const complexityFactors = {};
 complexityFactors.aggregation = {
     arr: 1,
     density: 0.05,

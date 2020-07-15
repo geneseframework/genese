@@ -1,6 +1,6 @@
-import { CpxFactors } from '../models/cpx-factor/cpx-factors.model';
+import { CpxFactorsInterface } from '../interfaces/cpx-factors.interface';
 
-const complexityFactors: CpxFactors = new CpxFactors();
+const complexityFactors: CpxFactorsInterface = {};
 
 
 complexityFactors.aggregation = {
@@ -9,6 +9,7 @@ complexityFactors.aggregation = {
     differentLogicDoor: 2,              // A "or" after a "and" (or a "or" after a "and") without brackets
     regex: 0.1                          // Each element in a regex
 };
+
 complexityFactors.atomic = {
     declaration: 0,                     // Class, Method or Function declarations
     empty: 0,                           // Abstract nodes, without complexity weight
@@ -16,19 +17,23 @@ complexityFactors.atomic = {
     literal: 0.1,                       // Literal alias ("StringLiteral", "NumericLiteral", ...)
     node: 0.1,                          // Any AST node ("Identifier", "Parameter", "Block", IfStatement, ...)
 };
+
 complexityFactors.depth = {
     arr: 1.5,                           // Depth of elements inside an array
 };
+
 complexityFactors.nesting = {
     conditional: 0.5,                   // Inside a conditional
     func: 1,                            // Usage of a function or method inside a block of code
     loop: 0.5,                          // Inside a loop
     ternary: 2                          // Ternaries inside other ternaries
 };
+
 complexityFactors.recursion = {
     callback: 2,                        // Callback (call to a parameter of the parentFunction (ie method) of the node)
     recursivity: 2                      // Recursive method (call to the node's method)
 };
+
 complexityFactors.structural = {
     arr: 0.1,                           // "Array", "Set"
     asynchronicity: 1,                  // "Promise", "Observable"
@@ -42,8 +47,9 @@ complexityFactors.structural = {
     regex: 1,                           // Regular expression
     ternary: 1                          // Ternary expression
 };
+
 complexityFactors.use = {
     method: 1,                          // Usage of a method
 };
 
-export const cpxFactors: CpxFactors = complexityFactors;
+export const cpxFactors: CpxFactorsInterface = complexityFactors;
