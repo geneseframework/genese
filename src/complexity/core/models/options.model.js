@@ -71,9 +71,9 @@ class Options {
 }
 exports.Options = Options;
 Options.cognitiveCpx = {
-    errorThreshold: 10,
+    errorThreshold: 20,
     type: complexity_type_enum_1.ComplexityType.COGNITIVE,
-    warningThreshold: 5 // A complexity strictly greater than warning threshold and lower or equal than errorThreshold will be seen as warning (can be overriden)
+    warningThreshold: 10 // A complexity strictly greater than warning threshold and lower or equal than errorThreshold will be seen as warning (can be overriden)
 };
 Options.colors = [
     chart_color_enum_1.ChartColor.CORRECT,

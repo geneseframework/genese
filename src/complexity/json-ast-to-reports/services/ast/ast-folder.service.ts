@@ -213,7 +213,7 @@ wq
             console.log(`The folder ${astSubfolder.path} is not a subfolder of ${astFolder.path}`);
             return undefined;
         } else {
-            const linkStarter = astFolder.relativePath === '' ? './' : '.';
+            const linkStarter = astFolder.relativePath === '' ? './' : '';
             return `${linkStarter}${astSubfolder.path.slice(astFolder.path.length + 1)}`;
         }
     }
