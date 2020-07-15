@@ -79,15 +79,6 @@ class TsFileConversionService {
             }
             : undefined;
         return useCpx;
-        // if (this.isInTypeScript(definition) && this.isInTsWeights(Ts.getName(node))) {
-        //     const zzz = {
-        //         use: {
-        //             method: TsWeights[Ts.getName(node)]
-        //         }
-        //     };
-        //     console.log('ZZZZ', node.getKindName(), Ts.getName(node), TsWeights[`${Ts.getName(node)} `], zzz)
-        //     return zzz
-        // }
     }
     // isInTypeScript(definition: DefinitionInfo): boolean {
     //     return this.library(definition.getSourceFile().getFilePath()) === 'TypeScript';
@@ -99,6 +90,7 @@ class TsFileConversionService {
     // TODO: Refacto
     library(definition) {
         const path = definition.getSourceFile().getFilePath();
+        console.log('PATHHHH', path);
         return path.match(/typescript\/lib/) ? 'typescript' : undefined;
     }
 }
