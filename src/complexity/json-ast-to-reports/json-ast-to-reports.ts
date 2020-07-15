@@ -16,7 +16,8 @@ export class JsonAstToReports {
      * @param jsonAstPath
      */
     static start(pathCommand: string, jsonAstPath = '/json-ast.json'): void {
-        console.log(chalk.blueBright('START REPORTS GENERATION FROM JSON_AST'));
+        console.log(chalk.blueBright('STARTS REPORTS GENERATION FROM JSON_AST'));
+        console.log('Please wait...')
         const jsonAst = new InitService().generateAllFromJsonAst(JsonAstToReports.getJsonAst(pathCommand + jsonAstPath));
         jsonAst.astFolder.evaluate();
         ReportsService.generateAllReports(jsonAst);

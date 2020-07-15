@@ -7,7 +7,7 @@ import { Project } from 'ts-morph';
 import { JsonAstInterface } from '../core/interfaces/ast/json-ast.interface';
 import { WeightsService } from './ts/libraries-weights/weights.service';
 
-export const LIMIT_CONVERSIONS = true;
+export const LIMIT_CONVERSIONS = false;
 export const DEV_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
 export const WEIGHTS = WeightsService.merge();
 export let project  = new Project();
@@ -25,6 +25,7 @@ export class LanguageToJsonAst {
      */
     static start(pathToAnalyze: string, language?: Language): void {
         console.log(chalk.blueBright('STARTS JSON AST GENERATION'));
+        console.log('Please wait...')
         project.addSourceFilesAtPaths(`${pathToAnalyze}/**/*.ts`);
         let jsonAst: JsonAstInterface;
         switch (language) {

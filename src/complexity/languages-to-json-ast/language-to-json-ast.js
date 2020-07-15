@@ -8,7 +8,7 @@ const json_service_1 = require("./json.service");
 const file_service_1 = require("../core/services/file.service");
 const ts_morph_1 = require("ts-morph");
 const weights_service_1 = require("./ts/libraries-weights/weights.service");
-exports.LIMIT_CONVERSIONS = true;
+exports.LIMIT_CONVERSIONS = false;
 exports.DEV_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
 exports.WEIGHTS = weights_service_1.WeightsService.merge();
 exports.project = new ts_morph_1.Project();
@@ -23,6 +23,7 @@ class LanguageToJsonAst {
      */
     static start(pathToAnalyze, language) {
         console.log(chalk.blueBright('STARTS JSON AST GENERATION'));
+        console.log('Please wait...');
         exports.project.addSourceFilesAtPaths(`${pathToAnalyze}/**/*.ts`);
         let jsonAst;
         switch (language) {
