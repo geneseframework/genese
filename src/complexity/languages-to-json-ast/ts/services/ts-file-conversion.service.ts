@@ -3,11 +3,12 @@ import { Ts } from './ts.service';
 import { AstFileInterface } from '../../../core/interfaces/ast/ast-file.interface';
 import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
-import { project, WEIGHTS } from '../../language-to-json-ast';
+import { project, WEIGHTED_METHODS, WEIGHTS } from '../../language-to-json-ast';
 import { DefinitionInfo, Identifier, Node, SourceFile } from 'ts-morph';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
-import { WeightsService } from '../libraries-weights/weights.service';
 import { CpxFactorsInterface } from '../../../core/interfaces/cpx-factors.interface';
+import * as ts from 'typescript';
+import { showDuration } from '../../../main';
 
 /**
  * - TsFiles generation from their Abstract Syntax Tree (AST)
@@ -25,6 +26,7 @@ export class TsFileConversionService {
             console.warn('No path or TsFolder : impossible to create TsFile');
             return undefined;
         }
+        // const sourceFile: SourceFile = ts.createSourceFile(getFilename(path), fs.readFileSync(path, 'utf8'));
         const sourceFile: SourceFile = project.getSourceFileOrThrow(path);
         return {
             name: getFilename(path),
@@ -39,29 +41,32 @@ export class TsFileConversionService {
      * @param node      // The Node to analyse
      */
     createAstNodeChildren(node: Node): AstNodeInterface {
-        const children: AstNodeInterface[] = [];
-        node.forEachChild((childNode: Node) => {
-            children.push(this.createAstNodeChildren(childNode));
-        });
+        // const tsNode = node.compilerNode;
         const astNode: AstNodeInterface = {
             end: node.getEnd(),
             kind: Ts.getKindAlias(node),
             name: Ts.getName(node),
+            // name: Ts.getName(node),
             pos: node.getPos(),
             start: node.getStart()
         };
-        if (Ts.getType(node)) {
-            astNode.type = Ts.getType(node);
+        const type = Ts.getType(node);
+        if (type) {
+            astNode.type = type;
         }
-        if (children.length > 0) {
-            astNode.children = children;
-        }
-        if (astNode.type === 'function') {
+        // console.log('WEIGHTTTTT', WEIGHTS);
+        if (astNode.type === 'function' && WEIGHTED_METHODS.includes(astNode.name)) {
             const cpxFactors: CpxFactorsInterface = this.getCpxFactors(node);
             if (cpxFactors) {
                 astNode.cpxFactors = cpxFactors;
             }
         }
+        node.forEachChild((childNode: Node) => {
+            if (!astNode.children) {
+                astNode.children = [];
+            }
+            astNode.children.push(this.createAstNodeChildren(childNode));
+        });
         return astNode;
     }
 
@@ -71,8 +76,11 @@ export class TsFileConversionService {
             return undefined;
         }
         const identifier = node as Identifier;
-        const definition = identifier.getDefinitions()?.[0];
-        return this.useWeight(definition, Ts.getName(node));
+        // showDuration('BEFORE GET CPX FACTTT')
+        // const definition = identifier.getDefinitions()?.[0];
+        // showDuration('AFTER GET CPX FACTTT')
+        return undefined;
+        // return this.useWeight(definition, Ts.getName(node));
     }
 
 

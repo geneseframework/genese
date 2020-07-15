@@ -19,6 +19,7 @@ class TsFileConversionService {
             console.warn('No path or TsFolder : impossible to create TsFile');
             return undefined;
         }
+        // const sourceFile: SourceFile = ts.createSourceFile(getFilename(path), fs.readFileSync(path, 'utf8'));
         const sourceFile = language_to_json_ast_1.project.getSourceFileOrThrow(path);
         return {
             name: file_service_1.getFilename(path),
@@ -31,39 +32,44 @@ class TsFileConversionService {
      * @param node      // The Node to analyse
      */
     createAstNodeChildren(node) {
-        const children = [];
-        node.forEachChild((childNode) => {
-            children.push(this.createAstNodeChildren(childNode));
-        });
+        // const tsNode = node.compilerNode;
         const astNode = {
             end: node.getEnd(),
             kind: ts_service_1.Ts.getKindAlias(node),
             name: ts_service_1.Ts.getName(node),
+            // name: Ts.getName(node),
             pos: node.getPos(),
             start: node.getStart()
         };
-        if (ts_service_1.Ts.getType(node)) {
-            astNode.type = ts_service_1.Ts.getType(node);
+        const type = ts_service_1.Ts.getType(node);
+        if (type) {
+            astNode.type = type;
         }
-        if (children.length > 0) {
-            astNode.children = children;
-        }
-        if (astNode.type === 'function') {
+        // console.log('WEIGHTTTTT', WEIGHTS);
+        if (astNode.type === 'function' && language_to_json_ast_1.WEIGHTED_METHODS.includes(astNode.name)) {
             const cpxFactors = this.getCpxFactors(node);
             if (cpxFactors) {
                 astNode.cpxFactors = cpxFactors;
             }
         }
+        node.forEachChild((childNode) => {
+            if (!astNode.children) {
+                astNode.children = [];
+            }
+            astNode.children.push(this.createAstNodeChildren(childNode));
+        });
         return astNode;
     }
     getCpxFactors(node) {
-        var _a;
         if (node.getKindName() !== syntax_kind_enum_1.SyntaxKind.Identifier) {
             return undefined;
         }
         const identifier = node;
-        const definition = (_a = identifier.getDefinitions()) === null || _a === void 0 ? void 0 : _a[0];
-        return this.useWeight(definition, ts_service_1.Ts.getName(node));
+        // showDuration('BEFORE GET CPX FACTTT')
+        // const definition = identifier.getDefinitions()?.[0];
+        // showDuration('AFTER GET CPX FACTTT')
+        return undefined;
+        // return this.useWeight(definition, Ts.getName(node));
     }
     useWeight(definition, nodeName) {
         if (!definition) {

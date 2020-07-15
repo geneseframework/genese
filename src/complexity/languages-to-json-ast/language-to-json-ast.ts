@@ -10,6 +10,7 @@ import { WeightsService } from './ts/libraries-weights/weights.service';
 export const LIMIT_CONVERSIONS = false;
 export const DEV_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
 export const WEIGHTS = WeightsService.merge();
+export const WEIGHTED_METHODS = WeightsService.weightedMethods();
 export let project  = new Project();
 
 /**

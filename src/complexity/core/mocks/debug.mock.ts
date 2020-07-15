@@ -6,7 +6,7 @@ export class DebugMock  {
     method(a: string) {
         const b: number[] = [1, 2];
         const c = _.tail(b);
-        console.log('C = ', c)
+        console.log('C = ', c.toString())
         return a.slice(0);
     }
 
