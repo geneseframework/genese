@@ -187,7 +187,7 @@ class AstFolderService extends stats_service_1.StatsService {
             return undefined;
         }
         else {
-            const linkStarter = astFolder.relativePath === '' ? './' : '.';
+            const linkStarter = astFolder.relativePath === '' ? './' : '';
             return `${linkStarter}${astSubfolder.path.slice(astFolder.path.length + 1)}`;
         }
     }
