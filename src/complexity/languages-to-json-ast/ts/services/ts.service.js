@@ -41,8 +41,6 @@ class Ts {
     }
     static getType(node) {
         var _a;
-        // console.log('GET TYPPPP', node.getKindName(), node.getSymbol()?.getFlags())
-        // console.log('GET TYPPPP 2', node.getKind())
         if (!((_a = node.getSymbol()) === null || _a === void 0 ? void 0 : _a.getFlags())) {
             return undefined;
         }

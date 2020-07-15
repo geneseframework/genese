@@ -58,7 +58,7 @@ class CpxFactors {
         return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.STRUCTURAL);
     }
     get totalUse() {
-        return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.STRUCTURAL);
+        return this.totalByFactorCategory(factor_category_enum_1.FactorCategory.USE);
     }
     // ---------------------------------------------------------------------------------
     //                                  Other methods

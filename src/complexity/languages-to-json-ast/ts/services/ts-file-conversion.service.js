@@ -90,7 +90,6 @@ class TsFileConversionService {
     // TODO: Refacto
     library(definition) {
         const path = definition.getSourceFile().getFilePath();
-        console.log('PATHHHH', path);
         return path.match(/typescript\/lib/) ? 'typescript' : undefined;
     }
 }

@@ -137,8 +137,9 @@ export class InitService {
     private generateAstNode(astNodeFromJsonAst: any, astParentNode: AstNode): AstNode {
         const newAstNode = new AstNode();
         newAstNode.astFile = astParentNode.astFile;
+        newAstNode.cpxFactorsFromJsonAST = astNodeFromJsonAst.cpxFactors;
         newAstNode.end = astNodeFromJsonAst.end;
-        newAstNode.kind = astNodeFromJsonAst.kind; // TODO : check if kind is correct
+        newAstNode.kind = astNodeFromJsonAst.kind;
         newAstNode.name = astNodeFromJsonAst.name;
         newAstNode.parent = astParentNode;
         newAstNode.pos = astNodeFromJsonAst.pos;

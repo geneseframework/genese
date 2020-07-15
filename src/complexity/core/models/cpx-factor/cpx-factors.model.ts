@@ -75,7 +75,7 @@ export class CpxFactors implements CpxFactorsInterface, Addition<CpxFactors>{
 
 
     get totalUse(): number {
-        return this.totalByFactorCategory(FactorCategory.STRUCTURAL)
+        return this.totalByFactorCategory(FactorCategory.USE)
     }
 
 
