@@ -1,10 +1,10 @@
-import { CpxFactors } from '../../models/cpx-factor/cpx-factors.model';
 import { IdentifierType } from '../identifier-type.type';
+import { CpxFactorsInterface } from '../cpx-factors.interface';
 
 export interface AstNodeInterface {
 
     children?: AstNodeInterface[];
-    cpxFactors?: CpxFactors;
+    cpxFactors?: CpxFactorsInterface;
     end: number;
     kind: string;
     name?: string;

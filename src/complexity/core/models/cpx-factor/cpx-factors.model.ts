@@ -8,11 +8,13 @@ import { StructuralCpx } from './structural-cpx.model';
 import { DepthCpx } from './depth-cpx.model';
 import { ContextCpx } from './context-cpx.model';
 import { RecursionCpx } from './recursion-cpx.model';
+import { UseCpx } from './use-cpx.model';
+import { CpxFactorsInterface } from '../../interfaces/cpx-factors.interface';
 
 /**
  * The Complexity Factors
  */
-export class CpxFactors implements Addition<CpxFactors>{
+export class CpxFactors implements CpxFactorsInterface, Addition<CpxFactors>{
 
     aggregation?: AggregationCpx = new AggregationCpx();        // Aggregation Complexity
     atomic?: AtomicCpx = new AtomicCpx();                       // Atomic Complexity
@@ -21,6 +23,7 @@ export class CpxFactors implements Addition<CpxFactors>{
     nesting?: NestingCpx = new NestingCpx();                    // Nesting Complexity
     recursion?: RecursionCpx = new RecursionCpx();              // Recursion Complexity
     structural?: StructuralCpx = new StructuralCpx();           // Structural Complexity
+    use?: UseCpx = new UseCpx();                                // Use Complexity
 
 
 
@@ -68,6 +71,11 @@ export class CpxFactors implements Addition<CpxFactors>{
 
     get totalStructural(): number {
         return this.totalByFactorCategory(FactorCategory.STRUCTURAL)
+    }
+
+
+    get totalUse(): number {
+        return this.totalByFactorCategory(FactorCategory.USE)
     }
 
 

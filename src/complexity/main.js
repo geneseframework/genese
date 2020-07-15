@@ -20,6 +20,7 @@ class Main {
         console.log(`PATH TO ANALYZE : ${pathFolderToAnalyze}`);
         options_model_1.Options.setOptions(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs);
         file_service_1.createOutDir();
+        // LanguageToJsonAst.start('/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese-tests/src/');
         language_to_json_ast_1.LanguageToJsonAst.start(options_model_1.Options.pathFolderToAnalyze);
         json_ast_to_reports_1.JsonAstToReports.start(pathCommand);
     }

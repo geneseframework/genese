@@ -10,4 +10,5 @@ var FactorCategory;
     FactorCategory["NESTING"] = "nesting";
     FactorCategory["RECURSION"] = "recursion";
     FactorCategory["STRUCTURAL"] = "structural";
+    FactorCategory["USE"] = "use";
 })(FactorCategory = exports.FactorCategory || (exports.FactorCategory = {}));

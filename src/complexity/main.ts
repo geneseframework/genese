@@ -21,6 +21,7 @@ export class Main {
         console.log(`PATH TO ANALYZE : ${pathFolderToAnalyze}`);
         Options.setOptions(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs);
         createOutDir();
+        // LanguageToJsonAst.start('/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese-tests/src/');
         LanguageToJsonAst.start(Options.pathFolderToAnalyze);
         JsonAstToReports.start(pathCommand)
     }

@@ -36,7 +36,7 @@ export class Ts {
             case SyntaxKind.Parameter:
                 return node.compilerNode['name']?.['escapedText'] ?? '';
             case SyntaxKind.Identifier:
-                return node.getText();
+                return node.compilerNode['escapedText'];
             default:
                 return undefined;
         }
@@ -44,6 +44,9 @@ export class Ts {
 
 
     static getType(node: Node): IdentifierType {
+        if (!node.getSymbol()?.getFlags()) {
+            return undefined;
+        }
         switch (node.getKind()) {
             case SyntaxKind.Identifier:
             case SyntaxKind.Parameter:

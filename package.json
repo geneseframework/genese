@@ -26,9 +26,12 @@
         "eol": "^0.9.1",
         "fs-extra": "^9.0.0",
         "handlebars": "^4.7.6",
+        "lodash": "^4.17.19",
         "paths": "^0.1.1",
         "prismjs": "^1.20.0",
         "ts-morph": "^7.1.2"
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "@types/lodash": "^4.14.157"
+    }
 }

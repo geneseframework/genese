@@ -14,6 +14,7 @@ import { Logg } from '../../../core/interfaces/logg.interface';
 import { CodeService } from '../../services/code.service';
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
 import { IdentifierType } from '../../../core/interfaces/identifier-type.type';
+import { CpxFactorsInterface } from '../../../core/interfaces/cpx-factors.interface';
 
 export class AstNode implements AstNodeInterface, Evaluate, Logg {
 
@@ -23,6 +24,7 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
     #children?: AstNode[] = [];                                                 // The children AstNodes of the AstNode
     #context?: AstNode = undefined;                                             // The context of the AstNode
     #cpxFactors?: CpxFactors = undefined;                                       // The complexity factors of the AstNode
+    #cpxFactorsFromJsonAST?: CpxFactorsInterface = undefined;                   // The complexity factors added manually in JsonAST (have priority on calculated cpxFactors)
     #cyclomaticCpx ?= 0;                                                        // The cyclomatic complexity of the AstNode
     #end ?= 0;                                                                  // The pos of the end of the source code of the AstNode in the source code of the AstFile
     #factorCategory?: NodeFeature = undefined;                                  // The NodeFeature of the node of the AstNode
@@ -106,6 +108,16 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
 
     set cpxFactors(cpxFactors: CpxFactors) {
         this.#cpxFactors = cpxFactors;
+    }
+
+
+    get cpxFactorsFromJsonAST(): CpxFactorsInterface {
+        return this.#cpxFactorsFromJsonAST;
+    }
+
+
+    set cpxFactorsFromJsonAST(cpxFactorsFromJsonAST: CpxFactorsInterface) {
+        this.#cpxFactorsFromJsonAST = cpxFactorsFromJsonAST;
     }
 
 
@@ -350,7 +362,7 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
     calculateAndSetCpxFactors(): CpxFactors {
         this.cpxFactors = new CpxFactors();
         this.setGeneralCaseCpxFactors();
-        this.setMethodUsageCpxFactors();
+        this.setFunctionStructuralCpx();
         this.setRecursionOrCallbackCpxFactors();
         this.setElseCpxFactors();
         this.setRegexCpxFactors();
@@ -358,6 +370,7 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
         this.setAggregationCpxFactors();
         this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
         this.intrinsicDepthCpx = this.cpxFactors.totalDepth;
+        this.forceCpxFactors();
         return this.#cpxFactors;
     }
 
@@ -371,10 +384,21 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
         this.cpxFactors.atomic.node = cpxFactors.atomic[this.factorCategory] ?? cpxFactors.atomic.node;
     }
 
-
-    private setMethodUsageCpxFactors(): void {
+z
+    private setFunctionStructuralCpx(): void {
         if (this.type === 'function' && this.parent?.kind !== SyntaxKind.MethodDeclaration) {
             this.cpxFactors.structural.method = cpxFactors.structural.method;
+        }
+    }
+
+
+    private forceCpxFactors(): void {
+        if (this.cpxFactorsFromJsonAST) {
+            for (const category of Object.keys(this.cpxFactorsFromJsonAST)) {
+                for (const factor of Object.keys(this.cpxFactorsFromJsonAST[category])) {
+                    this.cpxFactors[category][factor] = this.cpxFactorsFromJsonAST[category][factor];
+                }
+            }
         }
     }
 

@@ -12,7 +12,7 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     privateMap.set(receiver, value);
     return value;
 };
-var _astFile, _astMethod, _astNodeService, _children, _context, _cpxFactors, _cyclomaticCpx, _end, _factorCategory, _intrinsicDepthCpx, _intrinsicNestingCpx, _isCallback, _isRecursiveMethod, _kind, _lineEnd, _linePos, _lineStart, _name, _parent, _pos, _start, _text, _type;
+var _astFile, _astMethod, _astNodeService, _children, _context, _cpxFactors, _cpxFactorsFromJsonAST, _cyclomaticCpx, _end, _factorCategory, _intrinsicDepthCpx, _intrinsicNestingCpx, _isCallback, _isRecursiveMethod, _kind, _lineEnd, _linePos, _lineStart, _name, _parent, _pos, _start, _text, _type;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstNode = void 0;
 const syntax_kind_enum_1 = require("../../../core/enum/syntax-kind.enum");
@@ -33,6 +33,7 @@ class AstNode {
         _children.set(this, []); // The children AstNodes of the AstNode
         _context.set(this, undefined); // The context of the AstNode
         _cpxFactors.set(this, undefined); // The complexity factors of the AstNode
+        _cpxFactorsFromJsonAST.set(this, undefined); // The complexity factors added manually in JsonAST (have priority on calculated cpxFactors)
         _cyclomaticCpx.set(this, 0); // The cyclomatic complexity of the AstNode
         _end.set(this, 0); // The pos of the end of the source code of the AstNode in the source code of the AstFile
         _factorCategory.set(this, undefined); // The NodeFeature of the node of the AstNode
@@ -92,6 +93,12 @@ class AstNode {
     }
     set cpxFactors(cpxFactors) {
         __classPrivateFieldSet(this, _cpxFactors, cpxFactors);
+    }
+    get cpxFactorsFromJsonAST() {
+        return __classPrivateFieldGet(this, _cpxFactorsFromJsonAST);
+    }
+    set cpxFactorsFromJsonAST(cpxFactorsFromJsonAST) {
+        __classPrivateFieldSet(this, _cpxFactorsFromJsonAST, cpxFactorsFromJsonAST);
     }
     get cyclomaticCpx() {
         return __classPrivateFieldGet(this, _cyclomaticCpx);
@@ -263,7 +270,7 @@ class AstNode {
     calculateAndSetCpxFactors() {
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
         this.setGeneralCaseCpxFactors();
-        this.setMethodUsageCpxFactors();
+        this.setFunctionStructuralCpx();
         this.setRecursionOrCallbackCpxFactors();
         this.setElseCpxFactors();
         this.setRegexCpxFactors();
@@ -271,6 +278,7 @@ class AstNode {
         this.setAggregationCpxFactors();
         this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
         this.intrinsicDepthCpx = this.cpxFactors.totalDepth;
+        this.forceCpxFactors();
         return __classPrivateFieldGet(this, _cpxFactors);
     }
     /**
@@ -282,10 +290,19 @@ class AstNode {
         this.cpxFactors.structural[this.factorCategory] = cpx_factors_1.cpxFactors.structural[this.factorCategory];
         this.cpxFactors.atomic.node = (_a = cpx_factors_1.cpxFactors.atomic[this.factorCategory]) !== null && _a !== void 0 ? _a : cpx_factors_1.cpxFactors.atomic.node;
     }
-    setMethodUsageCpxFactors() {
+    setFunctionStructuralCpx() {
         var _a;
         if (this.type === 'function' && ((_a = this.parent) === null || _a === void 0 ? void 0 : _a.kind) !== syntax_kind_enum_1.SyntaxKind.MethodDeclaration) {
             this.cpxFactors.structural.method = cpx_factors_1.cpxFactors.structural.method;
+        }
+    }
+    forceCpxFactors() {
+        if (this.cpxFactorsFromJsonAST) {
+            for (const category of Object.keys(this.cpxFactorsFromJsonAST)) {
+                for (const factor of Object.keys(this.cpxFactorsFromJsonAST[category])) {
+                    this.cpxFactors[category][factor] = this.cpxFactorsFromJsonAST[category][factor];
+                }
+            }
         }
     }
     /**
@@ -360,4 +377,4 @@ class AstNode {
     }
 }
 exports.AstNode = AstNode;
-_astFile = new WeakMap(), _astMethod = new WeakMap(), _astNodeService = new WeakMap(), _children = new WeakMap(), _context = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _factorCategory = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _isCallback = new WeakMap(), _isRecursiveMethod = new WeakMap(), _kind = new WeakMap(), _lineEnd = new WeakMap(), _linePos = new WeakMap(), _lineStart = new WeakMap(), _name = new WeakMap(), _parent = new WeakMap(), _pos = new WeakMap(), _start = new WeakMap(), _text = new WeakMap(), _type = new WeakMap();
+_astFile = new WeakMap(), _astMethod = new WeakMap(), _astNodeService = new WeakMap(), _children = new WeakMap(), _context = new WeakMap(), _cpxFactors = new WeakMap(), _cpxFactorsFromJsonAST = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _factorCategory = new WeakMap(), _intrinsicDepthCpx = new WeakMap(), _intrinsicNestingCpx = new WeakMap(), _isCallback = new WeakMap(), _isRecursiveMethod = new WeakMap(), _kind = new WeakMap(), _lineEnd = new WeakMap(), _linePos = new WeakMap(), _lineStart = new WeakMap(), _name = new WeakMap(), _parent = new WeakMap(), _pos = new WeakMap(), _start = new WeakMap(), _text = new WeakMap(), _type = new WeakMap();
