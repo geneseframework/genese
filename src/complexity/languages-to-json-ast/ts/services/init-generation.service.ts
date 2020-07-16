@@ -1,20 +1,20 @@
 import * as fs from 'fs-extra';
 import { DEV_MOCK, LIMIT_CONVERSIONS } from '../../language-to-json-ast';
-import { TsFileGenerationService } from './ts-file-generation.service';
+import { AstFileGenerationService } from './ast-file-generation.service';
 import { getFileExtension, platformPath } from '../../../core/services/file.service';
 import { Options } from '../../../core/models/options.model';
 import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
 import { JsonAstInterface } from '../../../core/interfaces/ast/json-ast.interface';
 
 /**
- * - TsFolders generation from Abstract Syntax Tree (AST) of its files (including files in subfolders)
+ * - AstFolders generation from Abstract Syntax Tree (AST) of its files (including files in subfolders)
  * - Conversion in JsonAst format
  */
-export class InitConversionService {
+export class InitGenerationService {
 
 
     /**
-     * Generates the TsFolder for a given folder
+     * Generates the AstFolder for a given folder
      * The tree is generated according to the Abstract Syntax TreeNode (AST) of the folder
      * @param path              // The path of the folder
      */
@@ -30,11 +30,11 @@ export class InitConversionService {
 
 
     /**
-     * Generates the TsFolder corresponding to a given path and to its potential TsFolder parent
-     * @param path                  // The path of the TsFolder
+     * Generates the AstFolder corresponding to a given path and to its potential AstFolder parent
+     * @param path                  // The path of the AstFolder
      */
     private generateAstFolder(path: string): AstFolderInterface {
-        let tsFolder: AstFolderInterface = {
+        let astFolder: AstFolderInterface = {
             path: platformPath(path),
             astFiles: []
         };
@@ -43,22 +43,22 @@ export class InitConversionService {
             const pathElement = path + elementName;
             if (!Options.isIgnored(pathElement)) {
                 if (fs.statSync(pathElement).isDirectory() && !LIMIT_CONVERSIONS) {
-                    tsFolder.children = tsFolder.children ?? [];
-                    tsFolder.children.push(this.generateAstFolder(`${pathElement}/`))
-                } else if (this.isFileToConvert(pathElement)) {
-                    tsFolder.astFiles.push(new TsFileGenerationService().generateTsFile(pathElement, tsFolder));
+                    astFolder.children = astFolder.children ?? [];
+                    astFolder.children.push(this.generateAstFolder(`${pathElement}/`))
+                } else if (this.isFileToGenerate(pathElement)) {
+                    astFolder.astFiles.push(new AstFileGenerationService().generate(pathElement, astFolder));
                 }
             }
         });
-        return tsFolder;
+        return astFolder;
     }
 
 
     /**
-     * Returns true if a path corresponds to a file to convert in JsonAst
-     * @param path
+     * Returns true if a path corresponds to a file to generate in JsonAst
+     * @param path      // The path of the file
      */
-    private isFileToConvert(path: string): boolean {
+    private isFileToGenerate(path: string): boolean {
         return (getFileExtension(path) === 'ts' && !LIMIT_CONVERSIONS) || path === DEV_MOCK;
     }
 

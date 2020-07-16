@@ -1,8 +1,6 @@
-import { KindAliases } from '../const/kind-aliases';
+import { KindAliases } from '../../const/kind.aliases.const';
 import { Node, SyntaxKind } from 'ts-morph';
-import * as ts from 'typescript';
 import { IdentifierType } from '../../../core/interfaces/identifier-type.type';
-import { LanguageToJsonAst } from '../../language-to-json-ast';
 
 /**
  * Service for operations on Node elements (ts-morph nodes)
@@ -45,6 +43,10 @@ export class Ts {
     }
 
 
+    /**
+     * Returns the type of identifiers or parameters
+     * @param node
+     */
     static getType(node: Node): IdentifierType {
         switch (node.getKind()) {
             case SyntaxKind.Identifier:
@@ -56,16 +58,20 @@ export class Ts {
     }
 
 
-    private static getIdentifierType(text: string): IdentifierType {
-        switch (text) {
+    /**
+     * Returns the IdentifierType associated to a given string coming from compilerNode.getText()
+     * @param compilerNodeText
+     */
+    private static getIdentifierType(compilerNodeText: string): IdentifierType {
+        switch (compilerNodeText) {
             case 'Any':
             case 'Boolean':
             case 'Number':
             case 'Object':
             case 'String':
-                return text.toLowerCase() as IdentifierType;
+                return compilerNodeText.toLowerCase() as IdentifierType;
             default:
-                return text.match(/=>/) ? 'function' : undefined;
+                return compilerNodeText.match(/=>/) ? 'function' : undefined;
         }
 
     }

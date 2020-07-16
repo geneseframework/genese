@@ -11,7 +11,6 @@ import { Logg } from '../../../core/interfaces/logg.interface';
 import * as chalk from 'chalk';
 import { AstNode } from './ast-node.model';
 import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
-import { LanguageToJsonAst } from '../../../languages-to-json-ast/language-to-json-ast';
 
 export class AstFolder implements AstFolderInterface, Evaluate, Logg {
 

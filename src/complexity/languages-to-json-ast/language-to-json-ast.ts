@@ -1,4 +1,4 @@
-import { InitConversionService } from './ts/services/init-conversion.service';
+import { InitGenerationService } from './ts/services/init-generation.service';
 import { Language } from '../core/enum/language.enum';
 import * as chalk from 'chalk';
 import { JsonService } from './json.service';
@@ -12,6 +12,7 @@ export const DEV_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets
 export const WEIGHTS = WeightsService.merge();
 export const WEIGHTED_METHODS = WeightsService.weightedMethods();
 export let project  = new Project();
+
 
 /**
  * Main process of the parsing to JsonAst format
@@ -52,7 +53,7 @@ export class LanguageToJsonAst {
             astFolder: undefined
         };
         // const jsonAst = new JsonAst();
-        const initService = new InitConversionService();
+        const initService = new InitGenerationService();
         let astFolder = initService.generateAll(pathToAnalyze).astFolder as any;
         astFolder = JsonService.astPropertyNames(astFolder);
         jsonAst.astFolder = astFolder;

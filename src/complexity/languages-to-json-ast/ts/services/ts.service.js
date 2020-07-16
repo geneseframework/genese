@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ts = void 0;
-const kind_aliases_1 = require("../const/kind-aliases");
+const kind_aliases_const_1 = require("../../const/kind.aliases.const");
 const ts_morph_1 = require("ts-morph");
 /**
  * Service for operations on Node elements (ts-morph nodes)
@@ -13,7 +13,7 @@ class Ts {
      */
     static getKindAlias(node) {
         let kind = node.getKindName();
-        for (const alias of kind_aliases_1.KindAliases) {
+        for (const alias of kind_aliases_const_1.KindAliases) {
             if (alias.aliases.includes(kind)) {
                 kind = alias.name;
                 break;
@@ -39,6 +39,10 @@ class Ts {
                 return undefined;
         }
     }
+    /**
+     * Returns the type of identifiers or parameters
+     * @param node
+     */
     static getType(node) {
         switch (node.getKind()) {
             case ts_morph_1.SyntaxKind.Identifier:
@@ -48,16 +52,20 @@ class Ts {
                 return undefined;
         }
     }
-    static getIdentifierType(text) {
-        switch (text) {
+    /**
+     * Returns the IdentifierType associated to a given string coming from compilerNode.getText()
+     * @param compilerNodeText
+     */
+    static getIdentifierType(compilerNodeText) {
+        switch (compilerNodeText) {
             case 'Any':
             case 'Boolean':
             case 'Number':
             case 'Object':
             case 'String':
-                return text.toLowerCase();
+                return compilerNodeText.toLowerCase();
             default:
-                return text.match(/=>/) ? 'function' : undefined;
+                return compilerNodeText.match(/=>/) ? 'function' : undefined;
         }
     }
 }

@@ -2,7 +2,6 @@ import { InitService } from './services/init.service';
 import { JsonAst } from './models/ast/json-ast.model';
 import { ReportsService } from './services/report/reports.service';
 import * as chalk from 'chalk';
-import { LanguageToJsonAst } from '../languages-to-json-ast/language-to-json-ast';
 
 
 /**

@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LanguageToJsonAst = exports.project = exports.WEIGHTED_METHODS = exports.WEIGHTS = exports.DEV_MOCK = exports.LIMIT_CONVERSIONS = void 0;
-const init_conversion_service_1 = require("./ts/services/init-conversion.service");
+const init_generation_service_1 = require("./ts/services/init-generation.service");
 const language_enum_1 = require("../core/enum/language.enum");
 const chalk = require("chalk");
 const json_service_1 = require("./json.service");
@@ -47,7 +47,7 @@ class LanguageToJsonAst {
             astFolder: undefined
         };
         // const jsonAst = new JsonAst();
-        const initService = new init_conversion_service_1.InitConversionService();
+        const initService = new init_generation_service_1.InitGenerationService();
         let astFolder = initService.generateAll(pathToAnalyze).astFolder;
         astFolder = json_service_1.JsonService.astPropertyNames(astFolder);
         jsonAst.astFolder = astFolder;

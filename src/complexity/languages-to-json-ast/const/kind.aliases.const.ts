@@ -1,4 +1,4 @@
-import { KindAlias } from '../models/kind-alias';
+import { KindAlias } from '../ts/models/kind-alias';
 
 export const KindAliases: KindAlias[] = [
     {
