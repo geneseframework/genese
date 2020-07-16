@@ -33,7 +33,7 @@ export class Main {
         showDuration('START ! ', 'greenBright');
         LanguageToJsonAst.start(Options.pathFolderToAnalyze);
         showDuration('END LANGUAGE TO JSON ! ', 'greenBright');
-        JsonAstToReports.start(pathCommand)
+        // JsonAstToReports.start(pathCommand)
         console.log('IDENTIFIER DURATION', LanguageToJsonAst.duration)
         showDuration('END OF END ! ', 'greenBright');
     }

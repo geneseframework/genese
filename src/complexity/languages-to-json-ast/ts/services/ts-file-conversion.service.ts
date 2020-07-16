@@ -39,32 +39,17 @@ export class TsFileConversionService {
     /**
      * Returns the Node children of a given Node
      * @param node      // The Node to analyse
+     * @param sourceFile
      */
     createAstNodeChildren(node: Node, sourceFile: ts.SourceFile): AstNodeInterface {
-        const start = Date.now();
-        // const tsNode = node.compilerNode;
-        const astNode: AstNodeInterface = {
+        let astNode: AstNodeInterface = {
             end: node.getEnd(),
             kind: Ts.getKindAlias(node),
             name: Ts.getName(node),
-            // name: Ts.getName(node),
             pos: node.getPos(),
             start: node.getStart()
         };
-        const type = Ts.getType(node);
-        if (type) {
-            astNode.type = type;
-        }
-        // console.log('WEIGHTTTTT', WEIGHTS);
-        if (astNode.type === 'function' && WEIGHTED_METHODS.includes(astNode.name)) {
-            const cpxFactors: CpxFactorsInterface = this.getCpxFactors(node);
-            if (cpxFactors) {
-                astNode.cpxFactors = cpxFactors;
-            }
-        }
-        const end = Date.now() - start;
-        // if (end > 1)
-        //     console.log('DURATIONNN', astNode.kind, astNode.name, end)
+        astNode = this.addTypeAndCpxFactors(node, astNode);
         node.forEachChild((childNode: Node) => {
             if (!astNode.children) {
                 astNode.children = [];
@@ -75,16 +60,28 @@ export class TsFileConversionService {
     }
 
 
+    private addTypeAndCpxFactors(node: Node, astNode: AstNodeInterface): AstNodeInterface {
+        const type = Ts.getType(node);
+        if (type) {
+            astNode.type = type;
+            if (astNode.type === 'function' && WEIGHTED_METHODS.includes(astNode.name)) {
+                const cpxFactors: CpxFactorsInterface = this.getCpxFactors(node);
+                if (cpxFactors) {
+                    astNode.cpxFactors = cpxFactors;
+                }
+            }
+        }
+        return astNode
+    }
+
+
     private getCpxFactors(node: Node): CpxFactorsInterface {
         if (node.getKindName() !== SyntaxKind.Identifier) {
             return undefined;
         }
         const identifier = node as Identifier;
-        // showDuration('BEFORE GET CPX FACTTT')
-        // const definition = identifier.getDefinitions()?.[0];
-        // showDuration('AFTER GET CPX FACTTT')
-        return undefined;
-        // return this.useWeight(definition, Ts.getName(node));
+        const definition = identifier.getDefinitions()?.[0];
+        return this.useWeight(definition, Ts.getName(node));
     }
 
 
