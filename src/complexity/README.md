@@ -30,10 +30,12 @@ This module creates an HTML report displaying an overview of the complexities in
 * [How to contribute ?](#7-how-to-contribute-)
   * [Confirm, refute, specify](#71-confirm-refute-specify)
   * [Add new languages](#72-add-new-languages)
-    * [Kinds of nodes](#721-kinds-of-nodes)
-    * [JsonAst specifications](#722-jsonast-specifications)
-    * [Structure of the AST nodes](#723-structure-of-the-ast-nodes)
-    * [Exhaustive list of the kinds of node](#724-exhaustive-list-of-the-kinds-of-node)
+  * [Add use-complexity for other languages and libraries](#73-add-use-complexity-values-for-other-languages-or-libraries)
+* [Specifications](#8-specifications)
+  * [Kinds of nodes](#81-kinds-of-nodes)
+  * [JsonAst specifications](#82-jsonast-specifications)
+  * [Structure of the AST nodes](#83-structure-of-the-ast-nodes)
+  * [Exhaustive list of the kinds of node](#84-exhaustive-list-of-the-kinds-of-node)
 
 
 ## 1. Why use Genese Complexity ?
@@ -278,7 +280,7 @@ if (a) {  // ------------------------- + 0.2 (0.1 for the "if" and 0.1 for the "
 
 Some code structures present an intrinsic difficulty which implies that the human brain needs a significant time to take in account their logic implications. The cognitive complexity relative to the intrinsic difficulty of these code structures is called the ***structural complexity***.
 
-The structural category contains different factors: the loops (`for`, `while`, ...), the logic doors (`&&`, `||`), the conditions (`if`, `else`, `switch`, ...), the recursions, the callbacks, the regular expressions, etc. You will find the exhaustive list of the structural factors [in the table below](#632-table-of-weights-v100).  
+The structural category contains different factors: the loops (`for`, `while`, ...), the logic doors (`&&`, `||`), the conditions (`if`, `else`, `switch`, ...), the recursions, the callbacks, the regular expressions, etc. All the methods (language methods like `slice`, `map`, `push`, ... and methods of the project and its imported libraries) are increasing structural complexity too. You will find the exhaustive list of the structural factors [in the table below](#632-table-of-weights-v100).  
 
 - ***Nesting***
 
@@ -365,6 +367,25 @@ function f(a) {
     return a(1);
 }
 ```
+  
+- ***Use***
+
+The other categories were relative to the complexity relative with the structure of the code (loops, conditions, recursivity, etc.). There is another kind of cognitive complexity which is induced by the difficulty to understand the role and the use of a Node. It's typically important when the Node is a method : we need to understand what is its role and how to use it correctly. 
+
+- Examples
+
+```ts
+function f(a: string) {
+    return a.toString();        // The method 'toString()' is easy to understand, no 'use complexity' to add
+}
+```
+
+```ts
+function f(a) {
+    return a.map(...).reduce(...);      // The method 'reduce()' is difficult to understand and to use : we must add some 'use complexity'
+}
+```
+
 
 #### 6.3.2 Table of weights (v1.0.0)
 
@@ -387,6 +408,7 @@ This table of weights should never be seen as the exact way to calculate the Com
 | Structural | Jumps | 1 | ```for (const a of arr) { ```<br/>  ```if (b) { ```<br/>    ```continue;```<br/>  ```}```<br/>```}``` |  Applies to elements breaking loops |
 | Structural | Logic door | 1 | `&&` or \|\| | |
 | Structural | Loops | 1 | ```for (const a of arr) { ... }``` |  Applies to `for`, `forEach`, `do ... while` |
+| Structural | Methods | 1 | ```a.slice(1)``` | Applies to each method, defined in the current language or in the project itself |
 | Structural | Regex | 1 | ```/[^.[\]]+/ // ---- Structural cpx = 1``` | |
 | Structural | Ternary | 1 | ```const a = b ? 0 : 1;``` | |
 
@@ -407,9 +429,18 @@ Each time the algorithm will be updated, the version indicated at the top of the
 
 We developed Genese Complexity at first for TypeScript files, but you can now "plug" any language into this module. What does it mean ? To be simple, Genese Complexity parses a Json file with a specific format : [JsonAst](#722-jsonast-specifications). This format corresponds to a simplified AST (Abstract Syntax Tree) of the source code. So if you want to be able to "plug" your language into Genese Complexity, you "just" need to convert the specific AST structure of your language into JsonAst format. In other words, your AST nodes must "match" with the nodes of the JsonAst format. If your plugin is correct, we will add it to Genese Complexity module.
 
-There are hundreds kinds of TypeScript AST nodes, so it can be fastidious to "bind" all of them to the AST nodes of your language. Fortunately, JsonAst only needs few kinds of nodes; you will find them below. 
+There are hundreds kinds of TypeScript AST nodes, so it can be fastidious to "bind" all of them to the AST nodes of your language. Fortunately, JsonAst only needs few kinds of nodes; you will find them [below](#81-kinds-of-nodes).
 
-#### 7.2.1 Kinds of nodes
+### 7.3 Add 'use complexity' values for other languages or libraries
+
+In genese-complexity, the `use complexity` is defined in Json files defining the `use complexity` values for methods which can increase significantly the difficulty to understand them. This is an 'in progress' feature, which is only able for now to add `use complexity` for TypeScript methods. We need at first to complete the list of TypeScript methods which have a significant `use complexity`. In a second time, we need to do the same for other languages : any help will be appreciated. And last but not least, we need to add `use complexity` Json files for libraries which are widely used.
+ 
+ 
+
+[Top](#table-of-contents)
+## 8. Specifications
+
+### 8.1 Kinds of nodes
 
 You will find below the list of all the different kinds of AST nodes. If you want to understand exactly what they mean, you may refer to the TypeScript documentation : for example, the node's kind `IfStatement` refers to the TypeScript AST node `ts.SyntaxKind.IfStatement`. The exhaustive list of TypeScript SyntaxKinds are accessible [here](https://github.com/microsoft/TypeScript/blob/master/lib/typescript.d.ts) (from line 77 to 447).   
 
@@ -454,10 +485,10 @@ You will find below the list of all the different kinds of AST nodes. If you wan
 Genese Complexity will consider all the other kinds of nodes as atomic nodes. This means that every node in the JsonAst which is not in the previous list file will add a cognitive complexity corresponding to atomic nodes, as `StringLiteral`, `TrueKeyword`, etc. If you don't want to increase complexity for a given kind of node, you will be able to set a property "empty" to true in the corresponding field of the JsonAst file.
 
 
-#### 7.2.2 JsonAst specifications
+### 8.2 JsonAst specifications
 
 
-##### ***JsonAst***
+#### ***JsonAst***
 
 This is the root document (the .json file itself)
 
@@ -469,7 +500,7 @@ This is the root document (the .json file itself)
 
 
 
-##### ***astFolder***
+#### ***astFolder***
 
 Corresponds to a folder to analyze.
 
@@ -482,7 +513,7 @@ Corresponds to a folder to analyze.
 | path | String | yes | The absolute path of the folder |
 
 
-##### ***astFile***
+#### ***astFile***
 
 Corresponds to a file to analyze.
 
@@ -495,7 +526,7 @@ Corresponds to a file to analyze.
 | text | String | yes | The source code of the file, including break lines |
 
 
-##### ***astNode***
+#### ***astNode***
 
 Corresponds to an AST node of the source code of a file.
 
@@ -511,7 +542,7 @@ Corresponds to an AST node of the source code of a file.
 | pos  | Integer | yes | The position of the first character of the AST node in the source code of the file |
 
 
-#### 7.2.3 Structure of the AST nodes
+### 8.3 Structure of the AST nodes
 
 You must respect some conventions to be able to create JsonAst files correctly interpreted by Genese Complexity.
 
@@ -563,7 +594,7 @@ Your JsonAst MUST be structured like this :
 
 The AstNode "IfStatement" always have a first son which is what is inside the `if` brackets and a second son which is what is inside the `if` condition (the curly brackets). This AstNode MAY has a third son which is the AstNode corresponding to the `ElseStatement`, like in the example above.
 
-#### 7.2.4 Exhaustive list of the kinds of node
+### 8.4 Exhaustive list of the kinds of node
 
 This list corresponds to the [ts.SyntaxKind enum](https://github.com/microsoft/TypeScript/blob/master/lib/typescript.d.ts) (from line 77 to 447)
 ```

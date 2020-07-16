@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.InitConversionService = void 0;
 const fs = require("fs-extra");
 const language_to_json_ast_1 = require("../../language-to-json-ast");
-const ts_file_conversion_service_1 = require("./ts-file-conversion.service");
+const ts_file_generation_service_1 = require("./ts-file-generation.service");
 const file_service_1 = require("../../../core/services/file.service");
 const options_model_1 = require("../../../core/models/options.model");
 /**
@@ -39,12 +39,12 @@ class InitConversionService {
             var _a;
             const pathElement = path + elementName;
             if (!options_model_1.Options.isIgnored(pathElement)) {
-                if (fs.statSync(pathElement).isDirectory() && !language_to_json_ast_1.LIMIT_CONVERSIONS) {
+                if (fs.statSync(pathElement).isDirectory() && !language_to_json_ast_1.LIMIT_GENERATIONS) {
                     tsFolder.children = (_a = tsFolder.children) !== null && _a !== void 0 ? _a : [];
                     tsFolder.children.push(this.generateAstFolder(`${pathElement}/`));
                 }
                 else if (this.isFileToConvert(pathElement)) {
-                    tsFolder.astFiles.push(new ts_file_conversion_service_1.TsFileConversionService().generateTsFile(pathElement, tsFolder));
+                    tsFolder.astFiles.push(new ts_file_generation_service_1.TsFileGenerationService().generateTsFile(pathElement, tsFolder));
                 }
             }
         });
@@ -55,7 +55,7 @@ class InitConversionService {
      * @param path
      */
     isFileToConvert(path) {
-        return (file_service_1.getFileExtension(path) === 'ts' && !language_to_json_ast_1.LIMIT_CONVERSIONS) || path === language_to_json_ast_1.DEV_MOCK;
+        return (file_service_1.getFileExtension(path) === 'ts' && !language_to_json_ast_1.LIMIT_GENERATIONS) || path === language_to_json_ast_1.DEV_MOCK;
     }
 }
 exports.InitConversionService = InitConversionService;

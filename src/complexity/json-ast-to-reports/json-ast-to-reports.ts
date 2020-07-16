@@ -31,8 +31,7 @@ export class JsonAstToReports {
      * @param jsonAstPath
      */
     private static getJsonAst(jsonAstPath: string): JsonAst {
-        const jsonAst: JsonAst = require(jsonAstPath);
-        return jsonAst;
+        return require(jsonAstPath);
     }
 
 }

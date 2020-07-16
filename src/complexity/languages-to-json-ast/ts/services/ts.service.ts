@@ -1,4 +1,4 @@
-import { KindAliases } from '../const/kind-aliases';
+import { KindAliases, WEIGHTED_METHODS } from '../../globals.const';
 import { Node, SyntaxKind } from 'ts-morph';
 import { IdentifierType } from '../../../core/interfaces/identifier-type.type';
 
@@ -43,13 +43,15 @@ export class Ts {
     }
 
 
+    /**
+     * Returns the type of identifiers or parameters
+     * @param node
+     */
     static getType(node: Node): IdentifierType {
-        if (!node.getSymbol()?.getFlags()) {
-            return undefined;
-        }
         switch (node.getKind()) {
             case SyntaxKind.Identifier:
             case SyntaxKind.Parameter:
+                // console.log('IDENTIFIER ', node.getKindName(), node.compilerNode.getText())
                 return Ts.getIdentifierType(node.getType().getApparentType().getText());
             default:
                 return undefined;
@@ -57,16 +59,20 @@ export class Ts {
     }
 
 
-    private static getIdentifierType(text: string): IdentifierType {
-        switch (text) {
+    /**
+     * Returns the IdentifierType associated to a given string coming from compilerNode.getText()
+     * @param compilerNodeText
+     */
+    private static getIdentifierType(compilerNodeText: string): IdentifierType {
+        switch (compilerNodeText) {
             case 'Any':
             case 'Boolean':
             case 'Number':
             case 'Object':
             case 'String':
-                return text.toLowerCase() as IdentifierType;
+                return compilerNodeText.toLowerCase() as IdentifierType;
             default:
-                return text.match(/=>/) ? 'function' : undefined;
+                return compilerNodeText.match(/=>/) ? 'function' : undefined;
         }
 
     }

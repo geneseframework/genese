@@ -3,26 +3,25 @@ import { Ts } from './ts.service';
 import { AstFileInterface } from '../../../core/interfaces/ast/ast-file.interface';
 import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
-import { project, WEIGHTS } from '../../language-to-json-ast';
 import { DefinitionInfo, Identifier, Node, SourceFile } from 'ts-morph';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
-import { WeightsService } from '../libraries-weights/weights.service';
 import { CpxFactorsInterface } from '../../../core/interfaces/cpx-factors.interface';
+import { project, WEIGHTED_METHODS, WEIGHTS } from '../../globals.const';
 
 /**
- * - TsFiles generation from their Abstract Syntax Tree (AST)
+ * - AstFiles generation from their Abstract Syntax Tree (AST)
  */
-export class TsFileConversionService {
+export class AstFileGenerationService {
 
 
     /**
-     * Generates the TsFile corresponding to a given path and a given TsFolder
+     * Generates the AstFile corresponding to a given path and a given AstFolder
      * @param path          // The path of the file
-     * @param astFolder     // The TsFolder containing the TsFile
+     * @param astFolder     // The AstFolder containing the AstFile
      */
-    generateTsFile(path: string, astFolder: AstFolderInterface): AstFileInterface {
+    generate(path: string, astFolder: AstFolderInterface): AstFileInterface {
         if (!path || !astFolder) {
-            console.warn('No path or TsFolder : impossible to create TsFile');
+            console.warn('No path or AstFolder : impossible to create AstFile');
             return undefined;
         }
         const sourceFile: SourceFile = project.getSourceFileOrThrow(path);
@@ -39,33 +38,48 @@ export class TsFileConversionService {
      * @param node      // The Node to analyse
      */
     createAstNodeChildren(node: Node): AstNodeInterface {
-        const children: AstNodeInterface[] = [];
-        node.forEachChild((childNode: Node) => {
-            children.push(this.createAstNodeChildren(childNode));
-        });
-        const astNode: AstNodeInterface = {
+        let astNode: AstNodeInterface = {
             end: node.getEnd(),
             kind: Ts.getKindAlias(node),
             name: Ts.getName(node),
             pos: node.getPos(),
             start: node.getStart()
         };
-        if (Ts.getType(node)) {
-            astNode.type = Ts.getType(node);
-        }
-        if (children.length > 0) {
-            astNode.children = children;
-        }
-        if (astNode.type === 'function') {
-            const cpxFactors: CpxFactorsInterface = this.getCpxFactors(node);
-            if (cpxFactors) {
-                astNode.cpxFactors = cpxFactors;
+        astNode = this.addTypeAndCpxFactors(node, astNode);
+        node.forEachChild((childNode: Node) => {
+            if (!astNode.children) {
+                astNode.children = [];
+            }
+            astNode.children.push(this.createAstNodeChildren(childNode));
+        });
+        return astNode;
+    }
+
+
+    /**
+     * Adds the type to identifiers or parameters and calculates the CpxFactors of identifiers
+     * @param node          // The Node to analyse
+     * @param astNode       // The AstNode which will be updated with its type and CpxFactors
+     */
+    private addTypeAndCpxFactors(node: Node, astNode: AstNodeInterface): AstNodeInterface {
+        const type = Ts.getType(node);
+        if (type) {
+            astNode.type = type;
+            if (astNode.type === 'function' && WEIGHTED_METHODS.includes(astNode.name)) {
+                const cpxFactors: CpxFactorsInterface = this.getCpxFactors(node);
+                if (cpxFactors) {
+                    astNode.cpxFactors = cpxFactors;
+                }
             }
         }
         return astNode;
     }
 
 
+    /**
+     * Returns the CpxFactors of a given Node (Identifier)
+     * @param node      // The Node to analyse
+     */
     private getCpxFactors(node: Node): CpxFactorsInterface {
         if (node.getKindName() !== SyntaxKind.Identifier) {
             return undefined;
@@ -76,37 +90,32 @@ export class TsFileConversionService {
     }
 
 
+    /**
+     * Returns the cpxFActors relative to method usage.
+     * @param definition        // The DefinitionInfo of the Node corresponding to a method
+     * @param nodeName          // The name of the Node (redundant, but avoids new calculation of this value)
+     */
     useWeight(definition: DefinitionInfo, nodeName: string): CpxFactorsInterface {
         if (!definition) {
             return undefined;
         }
         const lib = this.library(definition);
         const method = lib ? Object.keys(WEIGHTS[lib]).find(e => e === nodeName) : undefined;
-        const useCpx = method ?
+        return method ?
             {
                 use: {
                     method: WEIGHTS[lib][method]
                 }
             }
             : undefined;
-        return useCpx;
     }
 
 
-
-
-    // isInTypeScript(definition: DefinitionInfo): boolean {
-    //     return this.library(definition.getSourceFile().getFilePath()) === 'TypeScript';
-    // }
-
-
-    // isInTsWeights(name: string): boolean {
-    //     console.log('TSWEIGHTS NAMEEEE', name, Object.keys(TsWeights), TsWeights[name.toString()])
-    //     return Object.keys(TsWeights).includes(name)
-    // }
-
-
-    // TODO: Refacto
+    // TODO: implement this method for libraries different than TypeScript itself
+    /**
+     * Returns the library corresponding to the DefinitionInfo of a method's Node.
+     * @param definition
+     */
     library(definition: DefinitionInfo): string {
         const path = definition.getSourceFile().getFilePath();
         return path.match(/typescript\/lib/) ? 'typescript' : undefined;

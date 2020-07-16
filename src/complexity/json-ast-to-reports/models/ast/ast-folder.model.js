@@ -126,14 +126,17 @@ class AstFolder {
     evaluateCpxFactors(astFolder) {
         for (const astFile of astFolder.astFiles) {
             astFile.evaluate();
-            this.cpxFactors = this.cpxFactors.add(astFile.cpxFactors);
-            this.cyclomaticCpx = this.cyclomaticCpx + astFile.cyclomaticCpx;
-            this.complexitiesByStatus = this.complexitiesByStatus.add(astFile.complexitiesByStatus);
+            this.addCpx(astFile);
         }
         for (const childAstFolder of astFolder.children) {
             childAstFolder.evaluate();
-            this.evaluateCpxFactors(childAstFolder);
+            this.addCpx(childAstFolder);
         }
+    }
+    addCpx(element) {
+        this.cpxFactors = this.cpxFactors.add(element.cpxFactors);
+        this.cyclomaticCpx = this.cyclomaticCpx + element.cyclomaticCpx;
+        this.complexitiesByStatus = this.complexitiesByStatus.add(element.complexitiesByStatus);
     }
     /**
      * Logs the main elements of the AstFolder

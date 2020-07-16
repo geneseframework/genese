@@ -27,8 +27,7 @@ class JsonAstToReports {
      * @param jsonAstPath
      */
     static getJsonAst(jsonAstPath) {
-        const jsonAst = require(jsonAstPath);
-        return jsonAst;
+        return require(jsonAstPath);
     }
 }
 exports.JsonAstToReports = JsonAstToReports;

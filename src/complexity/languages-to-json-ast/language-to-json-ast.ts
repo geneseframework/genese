@@ -1,22 +1,17 @@
-import { InitConversionService } from './ts/services/init-conversion.service';
+import { InitGenerationService } from './ts/services/init-generation.service';
 import { Language } from '../core/enum/language.enum';
 import * as chalk from 'chalk';
 import { JsonService } from './json.service';
 import { createFile } from '../core/services/file.service';
-import { Project } from 'ts-morph';
 import { JsonAstInterface } from '../core/interfaces/ast/json-ast.interface';
-import { WeightsService } from './ts/libraries-weights/weights.service';
+import { project } from './globals.const';
 
-export const LIMIT_CONVERSIONS = false;
-export const DEV_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
-export const WEIGHTS = WeightsService.merge();
-export let project  = new Project();
+
 
 /**
  * Main process of the parsing to JsonAst format
  */
 export class LanguageToJsonAst {
-
 
     /**
      * Starts the parsing to Json Ast format
@@ -51,8 +46,7 @@ export class LanguageToJsonAst {
         const jsonAst: JsonAstInterface = {
             astFolder: undefined
         };
-        // const jsonAst = new JsonAst();
-        const initService = new InitConversionService();
+        const initService = new InitGenerationService();
         let astFolder = initService.generateAll(pathToAnalyze).astFolder as any;
         astFolder = JsonService.astPropertyNames(astFolder);
         jsonAst.astFolder = astFolder;
