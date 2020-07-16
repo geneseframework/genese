@@ -24,14 +24,15 @@ class TsFileConversionService {
         return {
             name: file_service_1.getFilename(path),
             text: sourceFile.getFullText(),
-            astNode: this.createAstNodeChildren(sourceFile)
+            astNode: this.createAstNodeChildren(sourceFile, sourceFile.compilerNode.getSourceFile())
         };
     }
     /**
      * Returns the Node children of a given Node
      * @param node      // The Node to analyse
      */
-    createAstNodeChildren(node) {
+    createAstNodeChildren(node, sourceFile) {
+        const start = Date.now();
         // const tsNode = node.compilerNode;
         const astNode = {
             end: node.getEnd(),
@@ -52,11 +53,14 @@ class TsFileConversionService {
                 astNode.cpxFactors = cpxFactors;
             }
         }
+        const end = Date.now() - start;
+        // if (end > 1)
+        //     console.log('DURATIONNN', astNode.kind, astNode.name, end)
         node.forEachChild((childNode) => {
             if (!astNode.children) {
                 astNode.children = [];
             }
-            astNode.children.push(this.createAstNodeChildren(childNode));
+            astNode.children.push(this.createAstNodeChildren(childNode, sourceFile));
         });
         return astNode;
     }

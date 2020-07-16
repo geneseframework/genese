@@ -21,7 +21,6 @@ class WeightsService {
         for (const library of Object.keys(language_to_json_ast_1.WEIGHTS)) {
             methods = methods.concat(Object.keys(language_to_json_ast_1.WEIGHTS[library]));
         }
-        console.log('METHODDDS', methods);
         return methods;
     }
 }

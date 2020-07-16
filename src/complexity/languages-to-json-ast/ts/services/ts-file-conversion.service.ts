@@ -31,7 +31,7 @@ export class TsFileConversionService {
         return {
             name: getFilename(path),
             text: sourceFile.getFullText(),
-            astNode: this.createAstNodeChildren(sourceFile)
+            astNode: this.createAstNodeChildren(sourceFile, sourceFile.compilerNode.getSourceFile())
         };
     }
 
@@ -40,7 +40,8 @@ export class TsFileConversionService {
      * Returns the Node children of a given Node
      * @param node      // The Node to analyse
      */
-    createAstNodeChildren(node: Node): AstNodeInterface {
+    createAstNodeChildren(node: Node, sourceFile: ts.SourceFile): AstNodeInterface {
+        const start = Date.now();
         // const tsNode = node.compilerNode;
         const astNode: AstNodeInterface = {
             end: node.getEnd(),
@@ -61,11 +62,14 @@ export class TsFileConversionService {
                 astNode.cpxFactors = cpxFactors;
             }
         }
+        const end = Date.now() - start;
+        // if (end > 1)
+        //     console.log('DURATIONNN', astNode.kind, astNode.name, end)
         node.forEachChild((childNode: Node) => {
             if (!astNode.children) {
                 astNode.children = [];
             }
-            astNode.children.push(this.createAstNodeChildren(childNode));
+            astNode.children.push(this.createAstNodeChildren(childNode, sourceFile));
         });
         return astNode;
     }

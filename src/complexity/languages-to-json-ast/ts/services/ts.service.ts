@@ -2,6 +2,7 @@ import { KindAliases } from '../const/kind-aliases';
 import { Node, SyntaxKind } from 'ts-morph';
 import * as ts from 'typescript';
 import { IdentifierType } from '../../../core/interfaces/identifier-type.type';
+import { LanguageToJsonAst } from '../../language-to-json-ast';
 
 /**
  * Service for operations on Node elements (ts-morph nodes)
@@ -63,14 +64,28 @@ export class Ts {
     }
 
 
-    static getType(node: Node): IdentifierType {
+    static getType(node: Node, sourceFile?: ts.SourceFile): any {
         // if (!node.getSymbol()?.getFlags()) {
         //     return undefined;
         // }
+        // return ;
         switch (node.getKind()) {
             case SyntaxKind.Identifier:
             case SyntaxKind.Parameter:
-                return Ts.getIdentifierType(node.getType().getApparentType().getText());
+                let stat = Date.now();
+                const a = node.compilerNode.getText(sourceFile);
+                LanguageToJsonAst.incrementIdentifierDuration(stat, 'getTypeDuration');
+                return Ts.getIdentifierType(a);
+                // stat = Date.now();
+                // const b = a.getApparentType();
+                // LanguageToJsonAst.incrementIdentifierDuration(stat, 'getApparentTypeDuration');
+                // console.log('BBB', a)
+                // throw Error;
+                // stat = Date.now();
+                // const c = b.getText();
+                // LanguageToJsonAst.incrementIdentifierDuration(stat, 'getTextDuration');
+                // const zzz = Ts.getIdentifierType(node.getType().getApparentType().getText());
+                return;
             default:
                 return undefined;
         }

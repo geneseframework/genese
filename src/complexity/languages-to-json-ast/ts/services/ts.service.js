@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ts = void 0;
 const kind_aliases_1 = require("../const/kind-aliases");
 const ts_morph_1 = require("ts-morph");
+const language_to_json_ast_1 = require("../../language-to-json-ast");
 /**
  * Service for operations on Node elements (ts-morph nodes)
  */
@@ -56,14 +57,28 @@ class Ts {
                 return undefined;
         }
     }
-    static getType(node) {
+    static getType(node, sourceFile) {
         // if (!node.getSymbol()?.getFlags()) {
         //     return undefined;
         // }
+        // return ;
         switch (node.getKind()) {
             case ts_morph_1.SyntaxKind.Identifier:
             case ts_morph_1.SyntaxKind.Parameter:
-                return Ts.getIdentifierType(node.getType().getApparentType().getText());
+                let stat = Date.now();
+                const a = node.compilerNode.getText(sourceFile);
+                language_to_json_ast_1.LanguageToJsonAst.incrementIdentifierDuration(stat, 'getTypeDuration');
+                return Ts.getIdentifierType(a);
+                // stat = Date.now();
+                // const b = a.getApparentType();
+                // LanguageToJsonAst.incrementIdentifierDuration(stat, 'getApparentTypeDuration');
+                // console.log('BBB', a)
+                // throw Error;
+                // stat = Date.now();
+                // const c = b.getText();
+                // LanguageToJsonAst.incrementIdentifierDuration(stat, 'getTextDuration');
+                // const zzz = Ts.getIdentifierType(node.getType().getApparentType().getText());
+                return;
             default:
                 return undefined;
         }
