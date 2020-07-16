@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
 import { DEV_MOCK, LIMIT_CONVERSIONS } from '../../language-to-json-ast';
-import { TsFileConversionService } from './ts-file-conversion.service';
+import { TsFileGenerationService } from './ts-file-generation.service';
 import { getFileExtension, platformPath } from '../../../core/services/file.service';
 import { Options } from '../../../core/models/options.model';
 import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
@@ -46,7 +46,7 @@ export class InitConversionService {
                     tsFolder.children = tsFolder.children ?? [];
                     tsFolder.children.push(this.generateAstFolder(`${pathElement}/`))
                 } else if (this.isFileToConvert(pathElement)) {
-                    tsFolder.astFiles.push(new TsFileConversionService().generateTsFile(pathElement, tsFolder));
+                    tsFolder.astFiles.push(new TsFileGenerationService().generateTsFile(pathElement, tsFolder));
                 }
             }
         });

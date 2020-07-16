@@ -30,25 +30,6 @@ export class Ts {
      * Gets the name of a Node
      * @param node // The AST node
      */
-    // static getName(node: ts.Node): string {
-    //     switch (node.kind) {
-    //         case SyntaxKind.ClassDeclaration:
-    //         case SyntaxKind.FunctionDeclaration:
-    //         case SyntaxKind.MethodDeclaration:
-    //         case SyntaxKind.Parameter:
-    //             return node['name']?.['escapedText'] ?? '';
-    //         case SyntaxKind.Identifier:
-    //             return node['escapedText'];
-    //         default:
-    //             return undefined;
-    //     }
-    // }
-
-
-    /**
-     * Gets the name of a Node
-     * @param node // The AST node
-     */
     static getName(node: Node): string {
         switch (node.getKind()) {
             case SyntaxKind.ClassDeclaration:
@@ -64,11 +45,11 @@ export class Ts {
     }
 
 
-    static getType(node: Node, sourceFile?: ts.SourceFile): IdentifierType {
+    static getType(node: Node): IdentifierType {
         switch (node.getKind()) {
             case SyntaxKind.Identifier:
             case SyntaxKind.Parameter:
-                return Ts.getIdentifierType(node.compilerNode.getText(sourceFile));
+                return Ts.getIdentifierType(node.compilerNode.getText());
             default:
                 return undefined;
         }

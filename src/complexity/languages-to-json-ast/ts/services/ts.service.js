@@ -25,23 +25,6 @@ class Ts {
      * Gets the name of a Node
      * @param node // The AST node
      */
-    // static getName(node: ts.Node): string {
-    //     switch (node.kind) {
-    //         case SyntaxKind.ClassDeclaration:
-    //         case SyntaxKind.FunctionDeclaration:
-    //         case SyntaxKind.MethodDeclaration:
-    //         case SyntaxKind.Parameter:
-    //             return node['name']?.['escapedText'] ?? '';
-    //         case SyntaxKind.Identifier:
-    //             return node['escapedText'];
-    //         default:
-    //             return undefined;
-    //     }
-    // }
-    /**
-     * Gets the name of a Node
-     * @param node // The AST node
-     */
     static getName(node) {
         var _a, _b;
         switch (node.getKind()) {
@@ -56,11 +39,11 @@ class Ts {
                 return undefined;
         }
     }
-    static getType(node, sourceFile) {
+    static getType(node) {
         switch (node.getKind()) {
             case ts_morph_1.SyntaxKind.Identifier:
             case ts_morph_1.SyntaxKind.Parameter:
-                return Ts.getIdentifierType(node.compilerNode.getText(sourceFile));
+                return Ts.getIdentifierType(node.compilerNode.getText());
             default:
                 return undefined;
         }

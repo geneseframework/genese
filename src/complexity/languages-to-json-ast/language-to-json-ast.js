@@ -17,9 +17,6 @@ exports.project = new ts_morph_1.Project();
  * Main process of the parsing to JsonAst format
  */
 class LanguageToJsonAst {
-    static incrementIdentifierDuration(dt, v) {
-        LanguageToJsonAst.duration[v] = LanguageToJsonAst.duration[v] ? LanguageToJsonAst.duration[v] + Date.now() - dt : Date.now() - dt;
-    }
     /**
      * Starts the parsing to Json Ast format
      * @param pathToAnalyze         // The path of the folder to analyse
@@ -58,4 +55,3 @@ class LanguageToJsonAst {
     }
 }
 exports.LanguageToJsonAst = LanguageToJsonAst;
-LanguageToJsonAst.duration = {};

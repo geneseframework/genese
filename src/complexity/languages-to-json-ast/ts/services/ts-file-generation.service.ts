@@ -7,13 +7,11 @@ import { project, WEIGHTED_METHODS, WEIGHTS } from '../../language-to-json-ast';
 import { DefinitionInfo, Identifier, Node, SourceFile } from 'ts-morph';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 import { CpxFactorsInterface } from '../../../core/interfaces/cpx-factors.interface';
-import * as ts from 'typescript';
-import { showDuration } from '../../../main';
 
 /**
  * - TsFiles generation from their Abstract Syntax Tree (AST)
  */
-export class TsFileConversionService {
+export class TsFileGenerationService {
 
 
     /**
@@ -26,12 +24,11 @@ export class TsFileConversionService {
             console.warn('No path or TsFolder : impossible to create TsFile');
             return undefined;
         }
-        // const sourceFile: SourceFile = ts.createSourceFile(getFilename(path), fs.readFileSync(path, 'utf8'));
         const sourceFile: SourceFile = project.getSourceFileOrThrow(path);
         return {
             name: getFilename(path),
             text: sourceFile.getFullText(),
-            astNode: this.createAstNodeChildren(sourceFile, sourceFile.compilerNode.getSourceFile())
+            astNode: this.createAstNodeChildren(sourceFile)
         };
     }
 
@@ -39,9 +36,8 @@ export class TsFileConversionService {
     /**
      * Returns the Node children of a given Node
      * @param node      // The Node to analyse
-     * @param sourceFile
      */
-    createAstNodeChildren(node: Node, sourceFile: ts.SourceFile): AstNodeInterface {
+    createAstNodeChildren(node: Node): AstNodeInterface {
         let astNode: AstNodeInterface = {
             end: node.getEnd(),
             kind: Ts.getKindAlias(node),
@@ -54,7 +50,7 @@ export class TsFileConversionService {
             if (!astNode.children) {
                 astNode.children = [];
             }
-            astNode.children.push(this.createAstNodeChildren(childNode, sourceFile));
+            astNode.children.push(this.createAstNodeChildren(childNode));
         });
         return astNode;
     }

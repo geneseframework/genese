@@ -1,12 +1,19 @@
+
+import { TConstructor } from '../interfaces/t-constructor.interface';
+
+
 /**
  * Sets in capitals the first letter of a text
  * @param text
  */
-import { TConstructor } from '../interfaces/t-constructor.interface';
-
-
 export function capitalize(text: string): string {
     return `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
+}
+
+// TODO: Remove in release version
+export let duration = {};
+export function incrementIdentifierDuration(dt: number, v: string) {
+    duration[v] = duration[v] ? duration[v] + dt : dt;
 }
 
 

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TsFileConversionService = void 0;
+exports.TsFileGenerationService = void 0;
 const file_service_1 = require("../../../core/services/file.service");
 const ts_service_1 = require("./ts.service");
 const language_to_json_ast_1 = require("../../language-to-json-ast");
@@ -8,7 +8,7 @@ const syntax_kind_enum_1 = require("../../../core/enum/syntax-kind.enum");
 /**
  * - TsFiles generation from their Abstract Syntax Tree (AST)
  */
-class TsFileConversionService {
+class TsFileGenerationService {
     /**
      * Generates the TsFile corresponding to a given path and a given TsFolder
      * @param path          // The path of the file
@@ -19,20 +19,18 @@ class TsFileConversionService {
             console.warn('No path or TsFolder : impossible to create TsFile');
             return undefined;
         }
-        // const sourceFile: SourceFile = ts.createSourceFile(getFilename(path), fs.readFileSync(path, 'utf8'));
         const sourceFile = language_to_json_ast_1.project.getSourceFileOrThrow(path);
         return {
             name: file_service_1.getFilename(path),
             text: sourceFile.getFullText(),
-            astNode: this.createAstNodeChildren(sourceFile, sourceFile.compilerNode.getSourceFile())
+            astNode: this.createAstNodeChildren(sourceFile)
         };
     }
     /**
      * Returns the Node children of a given Node
      * @param node      // The Node to analyse
-     * @param sourceFile
      */
-    createAstNodeChildren(node, sourceFile) {
+    createAstNodeChildren(node) {
         let astNode = {
             end: node.getEnd(),
             kind: ts_service_1.Ts.getKindAlias(node),
@@ -45,7 +43,7 @@ class TsFileConversionService {
             if (!astNode.children) {
                 astNode.children = [];
             }
-            astNode.children.push(this.createAstNodeChildren(childNode, sourceFile));
+            astNode.children.push(this.createAstNodeChildren(childNode));
         });
         return astNode;
     }
@@ -99,4 +97,4 @@ class TsFileConversionService {
         return path.match(/typescript\/lib/) ? 'typescript' : undefined;
     }
 }
-exports.TsFileConversionService = TsFileConversionService;
+exports.TsFileGenerationService = TsFileGenerationService;

@@ -11,6 +11,7 @@ import { Logg } from '../../../core/interfaces/logg.interface';
 import * as chalk from 'chalk';
 import { AstNode } from './ast-node.model';
 import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
+import { LanguageToJsonAst } from '../../../languages-to-json-ast/language-to-json-ast';
 
 export class AstFolder implements AstFolderInterface, Evaluate, Logg {
 
@@ -168,14 +169,19 @@ export class AstFolder implements AstFolderInterface, Evaluate, Logg {
     private evaluateCpxFactors(astFolder: AstFolder): void {
         for (const astFile of astFolder.astFiles) {
             astFile.evaluate();
-            this.cpxFactors = this.cpxFactors.add(astFile.cpxFactors);
-            this.cyclomaticCpx = this.cyclomaticCpx + astFile.cyclomaticCpx;
-            this.complexitiesByStatus = this.complexitiesByStatus.add(astFile.complexitiesByStatus);
+            this.addCpx(astFile);
         }
         for (const childAstFolder of astFolder.children) {
             childAstFolder.evaluate();
-            this.evaluateCpxFactors(childAstFolder);
+            this.addCpx(childAstFolder);
         }
+    }
+
+
+    private addCpx(element: AstFile | AstFolder): void {
+        this.cpxFactors = this.cpxFactors.add(element.cpxFactors);
+        this.cyclomaticCpx = this.cyclomaticCpx + element.cyclomaticCpx;
+        this.complexitiesByStatus = this.complexitiesByStatus.add(element.complexitiesByStatus);
     }
 
 

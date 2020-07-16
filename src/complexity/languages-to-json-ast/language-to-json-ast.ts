@@ -17,10 +17,7 @@ export let project  = new Project();
  * Main process of the parsing to JsonAst format
  */
 export class LanguageToJsonAst {
-    static duration = {};
-    static incrementIdentifierDuration(dt: number, v: string) {
-        LanguageToJsonAst.duration[v] = LanguageToJsonAst.duration[v] ? LanguageToJsonAst.duration[v] + Date.now() - dt : Date.now() - dt;
-    }
+
     /**
      * Starts the parsing to Json Ast format
      * @param pathToAnalyze         // The path of the folder to analyse

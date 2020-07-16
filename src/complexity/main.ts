@@ -24,18 +24,12 @@ export class Main {
      * @param pathFolderToAnalyze
      * @param pathGeneseNodeJs
      */
-    // TODO : Add language option and path to JsonAst file
     start(pathCommand: string, pathFolderToAnalyze: string, pathGeneseNodeJs: string): void {
         console.log(`PATH TO ANALYZE : ${pathFolderToAnalyze}`);
         Options.setOptions(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs);
         createOutDir();
-        // LanguageToJsonAst.start('/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese-tests/src/');
-        showDuration('START ! ', 'greenBright');
         LanguageToJsonAst.start(Options.pathFolderToAnalyze);
-        showDuration('END LANGUAGE TO JSON ! ', 'greenBright');
-        // JsonAstToReports.start(pathCommand)
-        console.log('IDENTIFIER DURATION', LanguageToJsonAst.duration)
-        showDuration('END OF END ! ', 'greenBright');
+        JsonAstToReports.start(pathCommand)
     }
 
 }
