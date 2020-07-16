@@ -13,6 +13,8 @@
 /src/complexity/mocks/*.js
 /src/complexity/models/*.js
 /src/complexity/services/*.js
+/json-ast.json
+
 # Only exists if Bazel was run
 /bazel-out
 
