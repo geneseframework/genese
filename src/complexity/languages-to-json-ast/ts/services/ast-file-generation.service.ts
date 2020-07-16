@@ -72,7 +72,7 @@ export class AstFileGenerationService {
                 }
             }
         }
-        return astNode
+        return astNode;
     }
 
 

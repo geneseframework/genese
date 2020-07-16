@@ -2,6 +2,9 @@ import { KindAlias } from './ts/models/kind-alias';
 import { WeightsService } from './ts/libraries-weights/weights.service';
 import { Project } from 'ts-morph';
 
+/**
+ * Merge different node's kind names in a more generic one. It simplifies the JsonAst format
+ */
 export const KindAliases: KindAlias[] = [
     {
         name: 'Keyword',

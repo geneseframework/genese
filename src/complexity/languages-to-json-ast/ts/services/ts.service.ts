@@ -1,4 +1,4 @@
-import { KindAliases } from '../../globals.const';
+import { KindAliases, WEIGHTED_METHODS } from '../../globals.const';
 import { Node, SyntaxKind } from 'ts-morph';
 import { IdentifierType } from '../../../core/interfaces/identifier-type.type';
 
@@ -51,7 +51,8 @@ export class Ts {
         switch (node.getKind()) {
             case SyntaxKind.Identifier:
             case SyntaxKind.Parameter:
-                return Ts.getIdentifierType(node.compilerNode.getText());
+                // console.log('IDENTIFIER ', node.getKindName(), node.compilerNode.getText())
+                return Ts.getIdentifierType(node.getType().getApparentType().getText());
             default:
                 return undefined;
         }

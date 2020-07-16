@@ -47,7 +47,8 @@ class Ts {
         switch (node.getKind()) {
             case ts_morph_1.SyntaxKind.Identifier:
             case ts_morph_1.SyntaxKind.Parameter:
-                return Ts.getIdentifierType(node.compilerNode.getText());
+                // console.log('IDENTIFIER ', node.getKindName(), node.compilerNode.getText())
+                return Ts.getIdentifierType(node.getType().getApparentType().getText());
             default:
                 return undefined;
         }
