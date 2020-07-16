@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstFileGenerationService = void 0;
 const file_service_1 = require("../../../core/services/file.service");
 const ts_service_1 = require("./ts.service");
-const language_to_json_ast_1 = require("../../language-to-json-ast");
 const syntax_kind_enum_1 = require("../../../core/enum/syntax-kind.enum");
+const globals_const_1 = require("../../globals.const");
 /**
  * - AstFiles generation from their Abstract Syntax Tree (AST)
  */
@@ -19,7 +19,7 @@ class AstFileGenerationService {
             console.warn('No path or AstFolder : impossible to create AstFile');
             return undefined;
         }
-        const sourceFile = language_to_json_ast_1.project.getSourceFileOrThrow(path);
+        const sourceFile = globals_const_1.project.getSourceFileOrThrow(path);
         return {
             name: file_service_1.getFilename(path),
             text: sourceFile.getFullText(),
@@ -56,7 +56,7 @@ class AstFileGenerationService {
         const type = ts_service_1.Ts.getType(node);
         if (type) {
             astNode.type = type;
-            if (astNode.type === 'function' && language_to_json_ast_1.WEIGHTED_METHODS.includes(astNode.name)) {
+            if (astNode.type === 'function' && globals_const_1.WEIGHTED_METHODS.includes(astNode.name)) {
                 const cpxFactors = this.getCpxFactors(node);
                 if (cpxFactors) {
                     astNode.cpxFactors = cpxFactors;
@@ -88,11 +88,11 @@ class AstFileGenerationService {
             return undefined;
         }
         const lib = this.library(definition);
-        const method = lib ? Object.keys(language_to_json_ast_1.WEIGHTS[lib]).find(e => e === nodeName) : undefined;
+        const method = lib ? Object.keys(globals_const_1.WEIGHTS[lib]).find(e => e === nodeName) : undefined;
         return method ?
             {
                 use: {
-                    method: language_to_json_ast_1.WEIGHTS[lib][method]
+                    method: globals_const_1.WEIGHTS[lib][method]
                 }
             }
             : undefined;

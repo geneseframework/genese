@@ -3,10 +3,10 @@ import { Ts } from './ts.service';
 import { AstFileInterface } from '../../../core/interfaces/ast/ast-file.interface';
 import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
-import { project, WEIGHTED_METHODS, WEIGHTS } from '../../language-to-json-ast';
 import { DefinitionInfo, Identifier, Node, SourceFile } from 'ts-morph';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 import { CpxFactorsInterface } from '../../../core/interfaces/cpx-factors.interface';
+import { project, WEIGHTED_METHODS, WEIGHTS } from '../../globals.const';
 
 /**
  * - AstFiles generation from their Abstract Syntax Tree (AST)

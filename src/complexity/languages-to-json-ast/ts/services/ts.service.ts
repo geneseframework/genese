@@ -1,4 +1,4 @@
-import { KindAliases } from '../../const/kind.aliases.const';
+import { KindAliases } from '../../globals.const';
 import { Node, SyntaxKind } from 'ts-morph';
 import { IdentifierType } from '../../../core/interfaces/identifier-type.type';
 

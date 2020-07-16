@@ -1,8 +1,14 @@
 import { Weights } from './weights.interface';
-import { WEIGHTS } from '../../language-to-json-ast';
+import { WEIGHTS } from '../../globals.const';
 
+/**
+ * Manages the custom Node weights added with libraries-weights Json files
+ */
 export class WeightsService {
 
+    /**
+     * Merges the libraries-weights Json files
+     */
     static merge(): Weights {
         try {
             const index = require('./index.json');
@@ -17,6 +23,9 @@ export class WeightsService {
     }
 
 
+    /**
+     * Returns the names of the methods included in the libraries-weights Json files
+     */
     static weightedMethods(): string[] {
         let methods: string[] = [];
         for (const library of Object.keys(WEIGHTS)) {

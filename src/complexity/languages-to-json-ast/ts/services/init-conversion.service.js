@@ -39,7 +39,7 @@ class InitConversionService {
             var _a;
             const pathElement = path + elementName;
             if (!options_model_1.Options.isIgnored(pathElement)) {
-                if (fs.statSync(pathElement).isDirectory() && !language_to_json_ast_1.LIMIT_CONVERSIONS) {
+                if (fs.statSync(pathElement).isDirectory() && !language_to_json_ast_1.LIMIT_GENERATIONS) {
                     tsFolder.children = (_a = tsFolder.children) !== null && _a !== void 0 ? _a : [];
                     tsFolder.children.push(this.generateAstFolder(`${pathElement}/`));
                 }
@@ -55,7 +55,7 @@ class InitConversionService {
      * @param path
      */
     isFileToConvert(path) {
-        return (file_service_1.getFileExtension(path) === 'ts' && !language_to_json_ast_1.LIMIT_CONVERSIONS) || path === language_to_json_ast_1.DEV_MOCK;
+        return (file_service_1.getFileExtension(path) === 'ts' && !language_to_json_ast_1.LIMIT_GENERATIONS) || path === language_to_json_ast_1.DEV_MOCK;
     }
 }
 exports.InitConversionService = InitConversionService;

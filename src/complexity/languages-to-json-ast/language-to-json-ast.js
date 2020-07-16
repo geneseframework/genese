@@ -1,18 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LanguageToJsonAst = exports.project = exports.WEIGHTED_METHODS = exports.WEIGHTS = exports.DEV_MOCK = exports.LIMIT_CONVERSIONS = void 0;
+exports.LanguageToJsonAst = void 0;
 const init_generation_service_1 = require("./ts/services/init-generation.service");
 const language_enum_1 = require("../core/enum/language.enum");
 const chalk = require("chalk");
 const json_service_1 = require("./json.service");
 const file_service_1 = require("../core/services/file.service");
-const ts_morph_1 = require("ts-morph");
-const weights_service_1 = require("./ts/libraries-weights/weights.service");
-exports.LIMIT_CONVERSIONS = false;
-exports.DEV_MOCK = '/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks/debug.mock.ts';
-exports.WEIGHTS = weights_service_1.WeightsService.merge();
-exports.WEIGHTED_METHODS = weights_service_1.WeightsService.weightedMethods();
-exports.project = new ts_morph_1.Project();
+const globals_const_1 = require("./globals.const");
 /**
  * Main process of the parsing to JsonAst format
  */
@@ -25,7 +19,7 @@ class LanguageToJsonAst {
     static start(pathToAnalyze, language) {
         console.log(chalk.blueBright('STARTS JSON AST GENERATION'));
         console.log('Please wait...');
-        exports.project.addSourceFilesAtPaths(`${pathToAnalyze}/**/*.ts`);
+        globals_const_1.project.addSourceFilesAtPaths(`${pathToAnalyze}/**/*.ts`);
         let jsonAst;
         switch (language) {
             case language_enum_1.Language.TS:
@@ -46,7 +40,6 @@ class LanguageToJsonAst {
         const jsonAst = {
             astFolder: undefined
         };
-        // const jsonAst = new JsonAst();
         const initService = new init_generation_service_1.InitGenerationService();
         let astFolder = initService.generateAll(pathToAnalyze).astFolder;
         astFolder = json_service_1.JsonService.astPropertyNames(astFolder);

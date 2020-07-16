@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ts = void 0;
-const kind_aliases_const_1 = require("../../const/kind.aliases.const");
+const globals_const_1 = require("../../globals.const");
 const ts_morph_1 = require("ts-morph");
 /**
  * Service for operations on Node elements (ts-morph nodes)
@@ -13,7 +13,7 @@ class Ts {
      */
     static getKindAlias(node) {
         let kind = node.getKindName();
-        for (const alias of kind_aliases_const_1.KindAliases) {
+        for (const alias of globals_const_1.KindAliases) {
             if (alias.aliases.includes(kind)) {
                 kind = alias.name;
                 break;
