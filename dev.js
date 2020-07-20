@@ -11,7 +11,9 @@ try {
     console.log(ansi_colors_1.yellowBright("JSON AST CREATION"));
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
     var mainProcess = new main.Main();
-    const pathFolderToAnalyze = __dirname + '/src/complexity/core/mocks/';
+    // const pathFolderToAnalyze = '/Users/utilisateur/Documents/projets/naval-group/code/full/20200611-1756-release-sprint-5/cyms/src/';
+    const pathFolderToAnalyze = '/Users/utilisateur/Documents/projets/retex/airbus-retex-front/src/';
+    // const pathFolderToAnalyze = __dirname + '/src/complexity/core/mocks/';
     mainProcess.start(__dirname, pathFolderToAnalyze, __dirname, 'typescript');
 
 }
