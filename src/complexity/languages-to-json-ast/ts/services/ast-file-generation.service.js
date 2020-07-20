@@ -53,10 +53,9 @@ class AstFileGenerationService {
      * @param astNode       // The AstNode which will be updated with its type and CpxFactors
      */
     addTypeAndCpxFactors(node, astNode) {
-        const type = ts_service_1.Ts.getType(node);
-        if (type) {
-            astNode.type = type;
-            if (astNode.type === 'function' && globals_const_1.WEIGHTED_METHODS.includes(astNode.name)) {
+        if (ts_service_1.Ts.isFunctionCall(node)) {
+            astNode.type = 'function';
+            if (globals_const_1.WEIGHTED_METHODS.includes(astNode.name)) {
                 const cpxFactors = this.getCpxFactors(node);
                 if (cpxFactors) {
                     astNode.cpxFactors = cpxFactors;

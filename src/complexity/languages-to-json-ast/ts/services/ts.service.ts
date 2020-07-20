@@ -1,6 +1,5 @@
-import { KindAliases, WEIGHTED_METHODS } from '../../globals.const';
+import { KindAliases } from '../../globals.const';
 import { Node, SyntaxKind } from 'ts-morph';
-import { IdentifierType } from '../../../core/interfaces/identifier-type.type';
 
 /**
  * Service for operations on Node elements (ts-morph nodes)
@@ -44,37 +43,24 @@ export class Ts {
 
 
     /**
-     * Returns the type of identifiers or parameters
-     * @param node
+     * Checks if a node is a call to a function or method
+     * Example : a.slice(1)
+     * @param node      // The node to check
      */
-    static getType(node: Node): IdentifierType {
-        switch (node.getKind()) {
-            case SyntaxKind.Identifier:
-            case SyntaxKind.Parameter:
-                // console.log('IDENTIFIER ', node.getKindName(), node.compilerNode.getText())
-                return Ts.getIdentifierType(node.getType().getApparentType().getText());
-            default:
-                return undefined;
-        }
+    static isFunctionCall(node: Node): boolean {
+        return node?.getParent()?.getParent()?.getKind() === SyntaxKind.CallExpression && Ts.isSecondSon(node);
     }
 
 
     /**
-     * Returns the IdentifierType associated to a given string coming from compilerNode.getText()
-     * @param compilerNodeText
+     * Checks is a given node is the second son of its parent
+     * @param node      // The node to check
      */
-    private static getIdentifierType(compilerNodeText: string): IdentifierType {
-        switch (compilerNodeText) {
-            case 'Any':
-            case 'Boolean':
-            case 'Number':
-            case 'Object':
-            case 'String':
-                return compilerNodeText.toLowerCase() as IdentifierType;
-            default:
-                return compilerNodeText.match(/=>/) ? 'function' : undefined;
+    private static isSecondSon(node: Node): boolean {
+        if (!node?.getParent()) {
+            return false;
         }
-
+        return node?.getChildIndex() === 2;
     }
 
 }

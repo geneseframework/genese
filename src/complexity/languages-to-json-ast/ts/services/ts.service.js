@@ -40,34 +40,23 @@ class Ts {
         }
     }
     /**
-     * Returns the type of identifiers or parameters
-     * @param node
+     * Checks if a node is a call to a function or method
+     * Example : a.slice(1)
+     * @param node      // The node to check
      */
-    static getType(node) {
-        switch (node.getKind()) {
-            case ts_morph_1.SyntaxKind.Identifier:
-            case ts_morph_1.SyntaxKind.Parameter:
-                // console.log('IDENTIFIER ', node.getKindName(), node.compilerNode.getText())
-                return Ts.getIdentifierType(node.getType().getApparentType().getText());
-            default:
-                return undefined;
-        }
+    static isFunctionCall(node) {
+        var _a, _b;
+        return ((_b = (_a = node === null || node === void 0 ? void 0 : node.getParent()) === null || _a === void 0 ? void 0 : _a.getParent()) === null || _b === void 0 ? void 0 : _b.getKind()) === ts_morph_1.SyntaxKind.CallExpression && Ts.isSecondSon(node);
     }
     /**
-     * Returns the IdentifierType associated to a given string coming from compilerNode.getText()
-     * @param compilerNodeText
+     * Checks is a given node is the second son of its parent
+     * @param node      // The node to check
      */
-    static getIdentifierType(compilerNodeText) {
-        switch (compilerNodeText) {
-            case 'Any':
-            case 'Boolean':
-            case 'Number':
-            case 'Object':
-            case 'String':
-                return compilerNodeText.toLowerCase();
-            default:
-                return compilerNodeText.match(/=>/) ? 'function' : undefined;
+    static isSecondSon(node) {
+        if (!(node === null || node === void 0 ? void 0 : node.getParent())) {
+            return false;
         }
+        return (node === null || node === void 0 ? void 0 : node.getChildIndex()) === 2;
     }
 }
 exports.Ts = Ts;
