@@ -5,6 +5,7 @@ import { JsonService } from './json.service';
 import { createFile } from '../core/services/file.service';
 import { JsonAstInterface } from '../core/interfaces/ast/json-ast.interface';
 import { project } from './globals.const';
+import { InitGenerationJavaService } from './java/services/init-generation-java.service';
 
 
 
@@ -26,6 +27,9 @@ export class LanguageToJsonAst {
         switch (language) {
             case Language.TS:
                 jsonAst = LanguageToJsonAst.generateFromTsFiles(pathToAnalyze);
+                break;
+            case Language.JAVA:
+                jsonAst = LanguageToJsonAst.generateFromJavaFiles(pathToAnalyze);
                 break;
             default:
                 jsonAst = LanguageToJsonAst.generateFromAllFiles(pathToAnalyze);
@@ -53,4 +57,18 @@ export class LanguageToJsonAst {
         return jsonAst;
     }
 
+    /**
+     * generate AST for Java files
+     * @param pathToAnalyze // File path
+     */
+    private static generateFromJavaFiles(pathToAnalyze: string): JsonAstInterface {
+        const jsonAst: JsonAstInterface = {
+            astFolder: undefined
+        };
+        const initJavaService = new InitGenerationJavaService();
+        let astFolder = initJavaService.generateAll(pathToAnalyze).astFolder as any;
+        astFolder = JsonService.astPropertyNames(astFolder);
+        jsonAst.astFolder = astFolder;
+        return jsonAst;
+    }
 }

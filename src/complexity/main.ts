@@ -3,6 +3,7 @@ import { Options } from './core/models/options.model';
 import { LanguageToJsonAst } from './languages-to-json-ast/language-to-json-ast';
 import { JsonAstToReports } from './json-ast-to-reports/json-ast-to-reports';
 import * as chalk from 'chalk';
+import { Language } from './core/enum/language.enum';
 
 export const START = Date.now();
 export function duration() {
@@ -24,11 +25,11 @@ export class Main {
      * @param pathFolderToAnalyze
      * @param pathGeneseNodeJs
      */
-    start(pathCommand: string, pathFolderToAnalyze: string, pathGeneseNodeJs: string): void {
+    start(pathCommand: string, pathFolderToAnalyze: string, pathGeneseNodeJs: string, language?: Language): void {
         console.log(`PATH TO ANALYZE : ${pathFolderToAnalyze}`);
         Options.setOptions(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs);
         createOutDir();
-        LanguageToJsonAst.start(Options.pathFolderToAnalyze);
+        LanguageToJsonAst.start(Options.pathFolderToAnalyze, language);
         JsonAstToReports.start(pathCommand)
     }
 

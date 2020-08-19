@@ -25,11 +25,11 @@ class Main {
      * @param pathFolderToAnalyze
      * @param pathGeneseNodeJs
      */
-    start(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs) {
+    start(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs, language) {
         console.log(`PATH TO ANALYZE : ${pathFolderToAnalyze}`);
         options_model_1.Options.setOptions(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs);
         file_service_1.createOutDir();
-        language_to_json_ast_1.LanguageToJsonAst.start(options_model_1.Options.pathFolderToAnalyze);
+        language_to_json_ast_1.LanguageToJsonAst.start(options_model_1.Options.pathFolderToAnalyze, language);
         json_ast_to_reports_1.JsonAstToReports.start(pathCommand);
     }
 }
