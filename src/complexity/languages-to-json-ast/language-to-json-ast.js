@@ -7,6 +7,7 @@ const chalk = require("chalk");
 const json_service_1 = require("./json.service");
 const file_service_1 = require("../core/services/file.service");
 const globals_const_1 = require("./globals.const");
+const init_generation_java_service_1 = require("./java/services/init-generation-java.service");
 /**
  * Main process of the parsing to JsonAst format
  */
@@ -25,6 +26,9 @@ class LanguageToJsonAst {
             case language_enum_1.Language.TS:
                 jsonAst = LanguageToJsonAst.generateFromTsFiles(pathToAnalyze);
                 break;
+            case language_enum_1.Language.JAVA:
+                jsonAst = LanguageToJsonAst.generateFromJavaFiles(pathToAnalyze);
+                break;
             default:
                 jsonAst = LanguageToJsonAst.generateFromAllFiles(pathToAnalyze);
                 break;
@@ -42,6 +46,20 @@ class LanguageToJsonAst {
         };
         const initService = new init_generation_service_1.InitGenerationService();
         let astFolder = initService.generateAll(pathToAnalyze).astFolder;
+        astFolder = json_service_1.JsonService.astPropertyNames(astFolder);
+        jsonAst.astFolder = astFolder;
+        return jsonAst;
+    }
+    /**
+     * generate AST for Java files
+     * @param pathToAnalyze // File path
+     */
+    static generateFromJavaFiles(pathToAnalyze) {
+        const jsonAst = {
+            astFolder: undefined
+        };
+        const initJavaService = new init_generation_java_service_1.InitGenerationJavaService();
+        let astFolder = initJavaService.generateAll(pathToAnalyze).astFolder;
         astFolder = json_service_1.JsonService.astPropertyNames(astFolder);
         jsonAst.astFolder = astFolder;
         return jsonAst;
