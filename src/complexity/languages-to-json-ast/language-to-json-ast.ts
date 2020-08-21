@@ -24,10 +24,8 @@ export class LanguageToJsonAst {
         let jsonAst: JsonAstInterface;
         switch (language) {
             case Language.TS:
-                jsonAst = LanguageToJsonAst.generateFromTsFiles(pathToAnalyze);
-                break;
             case Language.JAVA:
-                jsonAst = LanguageToJsonAst.generateFromJavaFiles(pathToAnalyze);
+                jsonAst = LanguageToJsonAst.generateFromTsOrJavaFiles(pathToAnalyze, language);
                 break;
             default:
                 jsonAst = LanguageToJsonAst.generateFromAllFiles(pathToAnalyze);
@@ -56,15 +54,15 @@ export class LanguageToJsonAst {
     }
 
     /**
-     * generate AST for Java files
+     * generate AST for Ts or Java files
      * @param pathToAnalyze // File path
      */
-    private static generateFromJavaFiles(pathToAnalyze: string): JsonAstInterface {
+    private static generateFromTsOrJavaFiles(pathToAnalyze: string, language: Language): JsonAstInterface {
         const jsonAst: JsonAstInterface = {
             astFolder: undefined
         };
-        const initJavaService = new InitGenerationJavaService();
-        let astFolder = initJavaService.generateAll(pathToAnalyze).astFolder as any;
+        const initService = language === Language.TS ?  new InitGenerationService() : new InitGenerationJavaService();
+        let astFolder = initService.generateAll(pathToAnalyze).astFolder as any;
         astFolder = JsonService.astPropertyNames(astFolder);
         jsonAst.astFolder = astFolder;
         return jsonAst;
