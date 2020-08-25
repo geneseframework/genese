@@ -3,7 +3,8 @@
  * // TODO : remove aliases
  */
 export enum SyntaxKind {
-    //Classe
+
+    compilationUnit = 'compilationUnit',
     ordinaryCompilationUnit = 'ordinaryCompilationUnit',
     SourceFile = 'sourceFile',
     Result = 'result',

@@ -26,11 +26,11 @@ class Java {
      */
     static getAstNodeWithChildren(node) {
         let astNode = {
-            end: node.endOffset,
-            kind: node.name,
-            name: node.image,
-            pos: node.startOffset,
-            start: node.startOffset
+            end: node.location.endOffset,
+            kind: node.location.name,
+            name: node.location.image,
+            pos: node.location.startOffset,
+            start: node.location.startOffset
         };
         astNode.children = [];
         return astNode;
@@ -124,6 +124,28 @@ class Java {
         astNode.kind = syntax_kind_enum_1.SyntaxKind.RBrace;
         rBraceAstNode.children.push(astNode);
         return rBraceAstNode;
+    }
+    /**
+     *
+     * @param semicolon
+     * @param semicolonAstNode
+     */
+    static getSemicolon(semicolon, semicolonAstNode) {
+        let astNode = this.getAstNode(semicolon[0]);
+        astNode.kind = syntax_kind_enum_1.SyntaxKind.semiColon;
+        semicolonAstNode.children.push(astNode);
+        return semicolonAstNode;
+    }
+    /**
+     *
+     * @param importNode
+     * @param getImportAstNode
+     */
+    static getImport(importNode, importAstNode) {
+        let astNode = this.getAstNode(importNode[0]);
+        astNode.kind = syntax_kind_enum_1.SyntaxKind.import;
+        importAstNode.children.push(astNode);
+        return importAstNode;
     }
     /**
      *

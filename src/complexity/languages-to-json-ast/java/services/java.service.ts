@@ -27,11 +27,11 @@ export class Java {
      */
     static getAstNodeWithChildren(node): AstNodeInterface{
         let astNode: AstNodeInterface = {
-            end: node.endOffset,
-            kind: node.name,
-            name: node.image,
-            pos: node.startOffset,
-            start: node.startOffset
+            end: node.location.endOffset,
+            kind: node.location.name,
+            name: node.location.image,
+            pos: node.location.startOffset,
+            start: node.location.startOffset
         }
         astNode.children = [];
 
@@ -154,6 +154,34 @@ export class Java {
         return rBraceAstNode;
     }
     
+    /**
+     * 
+     * @param semicolon 
+     * @param semicolonAstNode 
+     */
+    static getSemicolon(semicolon, semicolonAstNode): AstNodeInterface{
+        let astNode = this.getAstNode(semicolon[0]);
+        astNode.kind = SyntaxKind.semiColon;
+
+        semicolonAstNode.children.push(astNode);
+
+        return semicolonAstNode;
+    }
+
+    /**
+     * 
+     * @param importNode 
+     * @param getImportAstNode 
+     */
+    static getImport(importNode, importAstNode): AstNodeInterface{
+        let astNode = this.getAstNode(importNode[0]);
+        astNode.kind = SyntaxKind.import;
+
+        importAstNode.children.push(astNode);
+
+        return importAstNode;
+    }
+
     /**
      * 
      * @param child 

@@ -9,6 +9,8 @@ import { AstImportGenerationJavaService } from './ast-import-generation-java.ser
 import { AstClassGenerationJavaService } from './ast-class-generation-java.service';
 import * as fs from 'fs-extra';
 import { Java } from './java.service';
+import { GeneseMapperService } from './genese-mapper.service';
+import { compilationUnit, packageDeclaration, importDeclaration } from '../models/Node';
 
 /**
  * - AstFiles generation from their Abstract Syntax Tree (AST)
@@ -35,7 +37,6 @@ export class AstFileGenerationJavaService {
         };
     }
 
-
     /**
      * Returns the Node children of a given Node
      * @param node      // The Node to analyse
@@ -43,21 +44,26 @@ export class AstFileGenerationJavaService {
     createAstNodeChildren(node): AstNodeInterface {
         let astNode: AstNodeInterface;
 
-        if(node.children.ordinaryCompilationUnit){
+        const mappedNode: compilationUnit = GeneseMapperService.getMappedCompilationUnit(node);
+
+        if(mappedNode?.children?.ordinaryCompilationUnit){
             const ordinaryCompilationUnit = node.children.ordinaryCompilationUnit[0];
             
-            astNode = Java.getAstNodeWithChildren(ordinaryCompilationUnit);
-            astNode.kind = SyntaxKind.SourceFile;
+            const ordinaryCompilationUnitObject = mappedNode.children.ordinaryCompilationUnit[0];
 
+            astNode = Java.getAstNodeWithChildren(ordinaryCompilationUnitObject);
+            astNode.kind = SyntaxKind.SourceFile;
+            
             //Generate package
-            if(ordinaryCompilationUnit.children.packageDeclaration){
+            const packageObject: packageDeclaration = GeneseMapperService.getMappedPackage(ordinaryCompilationUnit.children.packageDeclaration[0]);
+            if(packageObject?.name === SyntaxKind.PackageDeclaration){
                 new AstPackageGenerationJavaService().generate(ordinaryCompilationUnit.children.packageDeclaration[0], astNode);
             }
                 
             //Generate Import nodes
-            if(ordinaryCompilationUnit.children.importDeclaration){
+            const importObject: importDeclaration[] = GeneseMapperService.getMappedImports(ordinaryCompilationUnit.children.importDeclaration);
+            if(importObject){
                 new AstImportGenerationJavaService().generate(ordinaryCompilationUnit.children.importDeclaration, astNode);
-                
             }
 
             //Generate typeDeclaration
