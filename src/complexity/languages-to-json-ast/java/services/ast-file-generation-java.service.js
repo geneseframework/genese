@@ -9,6 +9,7 @@ const ast_import_generation_java_service_1 = require("./ast-import-generation-ja
 const ast_class_generation_java_service_1 = require("./ast-class-generation-java.service");
 const fs = require("fs-extra");
 const java_service_1 = require("./java.service");
+const genese_mapper_service_1 = require("./genese-mapper.service");
 /**
  * - AstFiles generation from their Abstract Syntax Tree (AST)
  */
@@ -36,17 +37,23 @@ class AstFileGenerationJavaService {
      * @param node      // The Node to analyse
      */
     createAstNodeChildren(node) {
+        var _a;
         let astNode;
-        if (node.children.ordinaryCompilationUnit) {
+        const mappedNode = genese_mapper_service_1.GeneseMapperService.getMappedCompilationUnit(node);
+        if ((_a = mappedNode === null || mappedNode === void 0 ? void 0 : mappedNode.children) === null || _a === void 0 ? void 0 : _a.ordinaryCompilationUnit) {
             const ordinaryCompilationUnit = node.children.ordinaryCompilationUnit[0];
-            astNode = java_service_1.Java.getAstNodeWithChildren(ordinaryCompilationUnit);
+            const ordinaryCompilationUnitObject = mappedNode.children.ordinaryCompilationUnit[0];
+            astNode = java_service_1.Java.getAstNodeWithChildren(ordinaryCompilationUnitObject);
             astNode.kind = syntax_kind_enum_1.SyntaxKind.SourceFile;
             //Generate package
-            if (ordinaryCompilationUnit.children.packageDeclaration) {
+            const packageObject = genese_mapper_service_1.GeneseMapperService.getMappedPackage(ordinaryCompilationUnit.children.packageDeclaration[0]);
+            if ((packageObject === null || packageObject === void 0 ? void 0 : packageObject.name) === syntax_kind_enum_1.SyntaxKind.PackageDeclaration) {
                 new ast_package_generation_java_service_1.AstPackageGenerationJavaService().generate(ordinaryCompilationUnit.children.packageDeclaration[0], astNode);
             }
             //Generate Import nodes
-            if (ordinaryCompilationUnit.children.importDeclaration) {
+            const importObject = genese_mapper_service_1.GeneseMapperService.getMappedImports(ordinaryCompilationUnit.children.importDeclaration);
+            if (importObject) {
+                console.log('ImportDeclaration 1 ...');
                 new ast_import_generation_java_service_1.AstImportGenerationJavaService().generate(ordinaryCompilationUnit.children.importDeclaration, astNode);
             }
             //Generate typeDeclaration

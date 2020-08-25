@@ -7,7 +7,7 @@ exports.SyntaxKind = void 0;
  */
 var SyntaxKind;
 (function (SyntaxKind) {
-    //Classe
+    SyntaxKind["compilationUnit"] = "compilationUnit";
     SyntaxKind["ordinaryCompilationUnit"] = "ordinaryCompilationUnit";
     SyntaxKind["SourceFile"] = "sourceFile";
     SyntaxKind["Result"] = "result";

@@ -8,11 +8,23 @@
 # genese
 /genese
 /gn-reports
-/src/complexity/enums/*.js
-/src/complexity/interfaces/*.js
-/src/complexity/mocks/*.js
-/src/complexity/models/*.js
-/src/complexity/services/*.js
+/src/complexity/core/const/*.js
+/src/complexity/core/enums/*.js
+/src/complexity/core/interfaces/*.js
+/src/complexity/core/mocks/*.js
+/src/complexity/core/models/*.js
+/src/complexity/core/services/*.js
+/src/complexity/json-ast-to-reports/enums/*.js
+/src/complexity/json-ast-to-reports/interfaces/*.js
+/src/complexity/json-ast-to-reports/mocks/*.js
+/src/complexity/json-ast-to-reports/models/*.js
+/src/complexity/json-ast-to-reports/services/*.js
+/src/complexity/languages-to-json-ast/java/core/*.js
+/src/complexity/languages-to-json-ast/java/models/*.js
+/src/complexity/languages-to-json-ast/java/services/*.js
+/src/complexity/languages-to-json-ast/ts/libraries-weights/*.js
+/src/complexity/languages-to-json-ast/ts/models/*.js
+/src/complexity/languages-to-json-ast/ts/services/*.js
 /json-ast.json
 
 # Only exists if Bazel was run
