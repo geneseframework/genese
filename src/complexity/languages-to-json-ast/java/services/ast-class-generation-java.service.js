@@ -12,32 +12,39 @@ class AstClassGenerationJavaService {
      * Gets the classDeclaration Node List
      * @param node // AST Node
      */
-    generate(classDeclaration, classDeclarationAstNode) {
-        let astNode = java_service_1.Java.getAstNodeWithChildren(classDeclaration[0]);
-        astNode.kind = syntax_kind_enum_1.SyntaxKind.classDeclaration;
-        //classModifier
-        this.getClassModifierList(classDeclaration[0].children.classModifier, astNode);
-        //normalClassDeclaration
-        if (classDeclaration[0].children.normalClassDeclaration) {
-            this.getNormalClassDeclaration(classDeclaration[0].children.normalClassDeclaration, astNode);
-        }
-        classDeclarationAstNode.children.push(astNode);
+    generate(classDeclarationList, classDeclarationAstNode) {
+        console.log('classDeclarationList: ', classDeclarationList);
+        classDeclarationList.forEach(classDeclaration => {
+            var _a, _b;
+            let astNode = java_service_1.Java.getAstNodeWithChildren(classDeclaration);
+            astNode.kind = syntax_kind_enum_1.SyntaxKind.classDeclaration;
+            //classModifier
+            if ((_a = classDeclaration.children) === null || _a === void 0 ? void 0 : _a.classModifier) {
+                this.getClassModifierList(classDeclaration.children.classModifier, astNode);
+            }
+            //normalClassDeclaration
+            if ((_b = classDeclaration.children) === null || _b === void 0 ? void 0 : _b.normalClassDeclaration) {
+                this.getNormalClassDeclaration(classDeclaration.children.normalClassDeclaration, astNode);
+            }
+            classDeclarationAstNode.children.push(astNode);
+        });
         return classDeclarationAstNode;
     }
     /**
      * Gets the classModifier Node List
      * @param node // AST Node
      */
-    getClassModifierList(node, classModifierAstNode) {
-        node.forEach(child => {
+    getClassModifierList(classModifier, classModifierAstNode) {
+        classModifier.forEach(child => {
+            var _a, _b;
             let astNode = java_service_1.Java.getAstNodeWithChildren(child);
             astNode.kind = syntax_kind_enum_1.SyntaxKind.classModifier;
             //annotation
-            if (child.children.annotation) {
+            if ((_a = child.children) === null || _a === void 0 ? void 0 : _a.annotation) {
                 java_service_1.Java.getAnnotation(child.children.annotation, astNode);
             }
             //Public
-            else if (child.children.Public) {
+            else if ((_b = child.children) === null || _b === void 0 ? void 0 : _b.Public) {
                 astNode.children.push(java_service_1.Java.getAstNode(child.children.Public));
             }
             classModifierAstNode.children.push(astNode);

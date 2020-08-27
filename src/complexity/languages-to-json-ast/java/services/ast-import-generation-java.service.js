@@ -12,8 +12,8 @@ class AstImportGenerationJavaService {
      * Gets the package Node
      * @param node // AST Node
      */
-    generate(node, importNodes) {
-        node.forEach(child => {
+    generate(importDeclaration, importAstNodes) {
+        importDeclaration.forEach(child => {
             let astNode = java_service_1.Java.getAstNodeWithChildren(child);
             astNode.kind = syntax_kind_enum_1.SyntaxKind.importDeclaration;
             //ImportDeclaration mapping
@@ -31,10 +31,10 @@ class AstImportGenerationJavaService {
                 if (child.children.Semicolon) {
                     java_service_1.Java.getSemicolon(child.children.Semicolon, astNode);
                 }
-                importNodes.children.push(astNode);
+                importAstNodes.children.push(astNode);
             }
         });
-        return importNodes;
+        return importAstNodes;
     }
     /**
      *

@@ -25,39 +25,35 @@ class AstFileGenerationJavaService {
             return undefined;
         }
         const fileContent = fs.readFileSync(path, 'utf8');
-        const parsedFile = java_parser_1.parse(fileContent);
+        //mapper compilationUnit
+        const compilationUnit = genese_mapper_service_1.GeneseMapperService.getMappedCompilationUnit(java_parser_1.parse(fileContent));
         return {
             name: file_service_1.getFilename(path),
             text: fileContent,
-            astNode: this.createAstNodeChildren(parsedFile)
+            astNode: this.createAstNodeChildren(compilationUnit)
         };
     }
     /**
      * Returns the Node children of a given Node
      * @param node      // The Node to analyse
      */
-    createAstNodeChildren(node) {
-        var _a;
+    createAstNodeChildren(compilationUnit) {
+        var _a, _b, _c, _d;
         let astNode;
-        const mappedNode = genese_mapper_service_1.GeneseMapperService.getMappedCompilationUnit(node);
-        if ((_a = mappedNode === null || mappedNode === void 0 ? void 0 : mappedNode.children) === null || _a === void 0 ? void 0 : _a.ordinaryCompilationUnit) {
-            const ordinaryCompilationUnit = node.children.ordinaryCompilationUnit[0];
-            const ordinaryCompilationUnitObject = mappedNode.children.ordinaryCompilationUnit[0];
-            astNode = java_service_1.Java.getAstNodeWithChildren(ordinaryCompilationUnitObject);
+        if ((_a = compilationUnit === null || compilationUnit === void 0 ? void 0 : compilationUnit.children) === null || _a === void 0 ? void 0 : _a.ordinaryCompilationUnit) {
+            const ordinaryCompilationUnit = compilationUnit.children.ordinaryCompilationUnit[0];
+            astNode = java_service_1.Java.getAstNodeWithChildren(ordinaryCompilationUnit);
             astNode.kind = syntax_kind_enum_1.SyntaxKind.SourceFile;
             //Generate package
-            const packageObject = genese_mapper_service_1.GeneseMapperService.getMappedPackage(ordinaryCompilationUnit.children.packageDeclaration[0]);
-            if ((packageObject === null || packageObject === void 0 ? void 0 : packageObject.name) === syntax_kind_enum_1.SyntaxKind.PackageDeclaration) {
+            if ((_b = ordinaryCompilationUnit.children) === null || _b === void 0 ? void 0 : _b.packageDeclaration) {
                 new ast_package_generation_java_service_1.AstPackageGenerationJavaService().generate(ordinaryCompilationUnit.children.packageDeclaration[0], astNode);
             }
             //Generate Import nodes
-            const importObject = genese_mapper_service_1.GeneseMapperService.getMappedImports(ordinaryCompilationUnit.children.importDeclaration);
-            if (importObject) {
-                console.log('ImportDeclaration 1 ...');
+            if ((_c = ordinaryCompilationUnit.children) === null || _c === void 0 ? void 0 : _c.importDeclaration) {
                 new ast_import_generation_java_service_1.AstImportGenerationJavaService().generate(ordinaryCompilationUnit.children.importDeclaration, astNode);
             }
             //Generate typeDeclaration
-            if (ordinaryCompilationUnit.children.typeDeclaration) {
+            if ((_d = ordinaryCompilationUnit.children) === null || _d === void 0 ? void 0 : _d.typeDeclaration) {
                 this.getTypeDeclaration(ordinaryCompilationUnit.children.typeDeclaration, astNode);
             }
         }
@@ -67,14 +63,17 @@ class AstFileGenerationJavaService {
      *
      * @param typeDeclaration
      */
-    getTypeDeclaration(typeDeclaration, typeDeclarationAstNode) {
-        let astNode = java_service_1.Java.getAstNodeWithChildren(typeDeclaration[0]);
-        astNode.kind = syntax_kind_enum_1.SyntaxKind.typeIdentifier;
-        //classDeclaration
-        if (typeDeclaration[0].children.classDeclaration) {
-            new ast_class_generation_java_service_1.AstClassGenerationJavaService().generate(typeDeclaration[0].children.classDeclaration, astNode);
-        }
-        typeDeclarationAstNode.children.push(astNode);
+    getTypeDeclaration(typeDeclarationList, typeDeclarationAstNode) {
+        typeDeclarationList.forEach(typeDeclaration => {
+            var _a;
+            let astNode = java_service_1.Java.getAstNodeWithChildren(typeDeclaration);
+            astNode.kind = syntax_kind_enum_1.SyntaxKind.typeIdentifier;
+            //classDeclaration
+            if ((_a = typeDeclaration.children) === null || _a === void 0 ? void 0 : _a.classDeclaration) {
+                new ast_class_generation_java_service_1.AstClassGenerationJavaService().generate(typeDeclaration.children.classDeclaration, astNode);
+            }
+            typeDeclarationAstNode.children.push(astNode);
+        });
         return typeDeclarationAstNode;
     }
 }

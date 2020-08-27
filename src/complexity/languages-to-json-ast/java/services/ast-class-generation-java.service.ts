@@ -2,6 +2,7 @@ import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interfac
 import { SyntaxKind } from '../core/syntax-kind.enum';
 import { Java } from './java.service';
 import { AstFunctionageGenerationJavaService } from './ast-function-generation-java.service';
+import { ClassDeclaration, ClassModifier } from '../models/TypeDeclaration';
 
 /**
  * - Generate AstNode for class from their Abstract Syntax Tree (AST)
@@ -12,19 +13,23 @@ export class AstClassGenerationJavaService {
      * Gets the classDeclaration Node List
      * @param node // AST Node
      */
-    generate(classDeclaration, classDeclarationAstNode): AstNodeInterface{
-        let astNode = Java.getAstNodeWithChildren(classDeclaration[0]);
-        astNode.kind = SyntaxKind.classDeclaration;
+    generate(classDeclarationList: ClassDeclaration[], classDeclarationAstNode): AstNodeInterface{
+        console.log('classDeclarationList: ', classDeclarationList);
+        classDeclarationList.forEach(classDeclaration => {         
+            let astNode = Java.getAstNodeWithChildren(classDeclaration);
+            astNode.kind = SyntaxKind.classDeclaration;
 
-        //classModifier
-        this.getClassModifierList(classDeclaration[0].children.classModifier, astNode);
-            
-        //normalClassDeclaration
-        if(classDeclaration[0].children.normalClassDeclaration){
-            this.getNormalClassDeclaration(classDeclaration[0].children.normalClassDeclaration, astNode);
-        }
+            //classModifier
+            if(classDeclaration.children?.classModifier){
+                this.getClassModifierList(classDeclaration.children.classModifier, astNode);
+            }
+            //normalClassDeclaration
+            if(classDeclaration.children?.normalClassDeclaration){
+                this.getNormalClassDeclaration(classDeclaration.children.normalClassDeclaration, astNode);
+            }
 
-        classDeclarationAstNode.children.push(astNode);
+            classDeclarationAstNode.children.push(astNode);
+        });
 
         return classDeclarationAstNode;
     }
@@ -34,17 +39,17 @@ export class AstClassGenerationJavaService {
      * Gets the classModifier Node List
      * @param node // AST Node
      */
-    getClassModifierList(node, classModifierAstNode): AstNodeInterface[]{
-        node.forEach(child => {
+    getClassModifierList(classModifier: ClassModifier[], classModifierAstNode): AstNodeInterface[]{
+        classModifier.forEach(child => {
             let astNode = Java.getAstNodeWithChildren(child);
             astNode.kind = SyntaxKind.classModifier;
 
             //annotation
-            if(child.children.annotation) {
+            if(child.children?.annotation) {
                 Java.getAnnotation(child.children.annotation, astNode);
             } 
             //Public
-            else if (child.children.Public) {
+            else if (child.children?.Public) {
                 astNode.children.push(Java.getAstNode(child.children.Public));
             }
             classModifierAstNode.children.push(astNode);

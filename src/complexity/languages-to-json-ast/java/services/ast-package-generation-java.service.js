@@ -11,15 +11,15 @@ class AstPackageGenerationJavaService {
      * Gets the package Node
      * @param node // AST Node
      */
-    generate(node, packageNode) {
-        let astNode = java_service_1.Java.getAstNodeWithChildren(node);
+    generate(packageDeclaration, packageAstNode) {
+        let astNode = java_service_1.Java.getAstNodeWithChildren(packageDeclaration);
         astNode.kind = syntax_kind_enum_1.SyntaxKind.PackageDeclaration;
         //Identifier
-        if (node.children.Identifier) {
-            java_service_1.Java.getIdentifier(node.children.Identifier, astNode);
+        if (packageDeclaration.children.Identifier) {
+            java_service_1.Java.getIdentifier(packageDeclaration.children.Identifier, astNode);
         }
-        packageNode.children.push(astNode);
-        return packageNode;
+        packageAstNode.children.push(astNode);
+        return packageAstNode;
     }
 }
 exports.AstPackageGenerationJavaService = AstPackageGenerationJavaService;
