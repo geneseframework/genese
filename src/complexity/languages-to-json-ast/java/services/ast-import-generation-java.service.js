@@ -34,15 +34,13 @@ class AstImportGenerationJavaService {
         return importAstNodes;
     }
     /**
-     *
-     * @param packageOrTypeName
-     * @param packageOrTypeNameAstNode
+     * @param  {PackageOrTypeName} packageOrTypeName
+     * @param  {} packageOrTypeNameAstNode
      */
     getPackageOrTypeName(packageOrTypeName, packageOrTypeNameAstNode) {
         let astNode = java_service_1.Java.getAstNodeWithChildren(packageOrTypeName);
         astNode.kind = syntax_kind_enum_1.SyntaxKind.packageOrTypeName;
         if ((packageOrTypeName === null || packageOrTypeName === void 0 ? void 0 : packageOrTypeName.name) === syntax_kind_enum_1.SyntaxKind.packageOrTypeName && packageOrTypeName.children) {
-            //identifiers
             if (packageOrTypeName.children.Identifier) {
                 java_service_1.Java.getIdentifier(packageOrTypeName.children.Identifier, astNode);
             }

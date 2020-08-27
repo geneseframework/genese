@@ -1,8 +1,8 @@
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
 import { Java } from './java.service';
 import { SyntaxKind } from '../core/syntax-kind.enum';
-import { GeneseMapperService } from './genese-mapper.service';
-import { ImportDeclaration, PackageOrTypeName } from '../models/ImportDeclaration';
+import { ImportDeclaration } from '../models/import-declaration.model';
+import { PackageOrTypeName } from '../models/package-or-type-name.model';
 
 /**
  * - Generate AstNode for imports from their Abstract Syntax Tree (AST)
@@ -42,16 +42,14 @@ export class AstImportGenerationJavaService {
     }
 
     /**
-     * 
-     * @param packageOrTypeName 
-     * @param packageOrTypeNameAstNode 
+     * @param  {PackageOrTypeName} packageOrTypeName
+     * @param  {} packageOrTypeNameAstNode
      */
     getPackageOrTypeName(packageOrTypeName: PackageOrTypeName, packageOrTypeNameAstNode): AstNodeInterface {        
         let astNode = Java.getAstNodeWithChildren(packageOrTypeName);
         astNode.kind = SyntaxKind.packageOrTypeName;
 
         if(packageOrTypeName?.name === SyntaxKind.packageOrTypeName && packageOrTypeName.children){
-            //identifiers
             if(packageOrTypeName.children.Identifier){
                 Java.getIdentifier(packageOrTypeName.children.Identifier, astNode);
             }
