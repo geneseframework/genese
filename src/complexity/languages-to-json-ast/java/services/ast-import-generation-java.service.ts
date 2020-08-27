@@ -14,26 +14,24 @@ export class AstImportGenerationJavaService {
      * @param node // AST Node
      */
     generate(importDeclaration: ImportDeclaration[], importAstNodes): AstNodeInterface[]{
-        importDeclaration.forEach(child => {
-            let astNode = Java.getAstNodeWithChildren(child);
+        importDeclaration.forEach(importObject => {
+            let astNode = Java.getAstNodeWithChildren(importObject);
             astNode.kind = SyntaxKind.importDeclaration
 
-            //ImportDeclaration mapping
-            const importObject: ImportDeclaration = GeneseMapperService.getMappedImport(child);
             if(importObject?.name === SyntaxKind.importDeclaration && importObject.children){
                 //Import
-                if(child.children.Import){
-                    Java.getImport(child.children.Import, astNode);
+                if(importObject.children.Import){
+                    Java.getImport(importObject.children.Import, astNode);
                 }
 
                 //packageOrTypeName
-                if(child.children.packageOrTypeName){
-                    this.getPackageOrTypeName(child.children.packageOrTypeName[0], astNode);
+                if(importObject.children.packageOrTypeName){
+                    this.getPackageOrTypeName(importObject.children.packageOrTypeName[0], astNode);
                 }
 
                 //Semicolon
-                if(child.children.Semicolon){
-                    Java.getSemicolon(child.children.Semicolon, astNode);
+                if(importObject.children.Semicolon){
+                    Java.getSemicolon(importObject.children.Semicolon, astNode);
                 }
 
                 importAstNodes.children.push(astNode);
@@ -48,15 +46,11 @@ export class AstImportGenerationJavaService {
      * @param packageOrTypeName 
      * @param packageOrTypeNameAstNode 
      */
-    getPackageOrTypeName(packageOrTypeName, packageOrTypeNameAstNode): AstNodeInterface {        
+    getPackageOrTypeName(packageOrTypeName: PackageOrTypeName, packageOrTypeNameAstNode): AstNodeInterface {        
         let astNode = Java.getAstNodeWithChildren(packageOrTypeName);
         astNode.kind = SyntaxKind.packageOrTypeName;
 
-        //mapper packageOrTypeName
-        const packageOrTypeNameObject: PackageOrTypeName = GeneseMapperService.getMappedPackageOrTypeName(packageOrTypeName);
-
-        if(packageOrTypeNameObject?.name === SyntaxKind.packageOrTypeName && packageOrTypeNameObject.children){
-
+        if(packageOrTypeName?.name === SyntaxKind.packageOrTypeName && packageOrTypeName.children){
             //identifiers
             if(packageOrTypeName.children.Identifier){
                 Java.getIdentifier(packageOrTypeName.children.Identifier, astNode);

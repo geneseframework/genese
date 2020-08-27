@@ -1,8 +1,7 @@
 import { GeneseMapper } from 'genese-mapper';
-import { CompilationUnit, OrdinaryCompilationUnit } from '../models/CompilationUnit';
+import { CompilationUnit } from '../models/CompilationUnit';
 import { SyntaxKind } from '../core/syntax-kind.enum';
-import { PackageDeclaration } from '../models/PackageDeclaration';
-import { ImportDeclaration, PackageOrTypeName } from '../models/ImportDeclaration';
+import { OrdinaryCompilationUnit } from '../models/OrdinaryCompilationUnit';
 
 export class GeneseMapperService{
 
@@ -18,38 +17,6 @@ export class GeneseMapperService{
         }
 
         return mappedCompilationUnit;
-    }
-
-    static getMappedPackage(node): PackageDeclaration{
-        //Mapper declaration
-        const nodeGeneseMapper = new GeneseMapper(PackageDeclaration);
-        const packageObject: PackageDeclaration = nodeGeneseMapper.map(node);
-
-        return packageObject;
-    }
-
-    static getMappedImports(node): ImportDeclaration[]{
-        //Mapper declaration
-        const nodeGeneseMapper = new GeneseMapper(ImportDeclaration);
-        const importsObject: ImportDeclaration[] = nodeGeneseMapper.arrayMap(node);
-
-        return importsObject;
-    }
-
-    static getMappedImport(node): ImportDeclaration{
-        //Mapper declaration
-        const nodeGeneseMapper = new GeneseMapper(ImportDeclaration);
-        const importObject: ImportDeclaration = nodeGeneseMapper.map(node);
-
-        return importObject;
-    }
-
-    static getMappedPackageOrTypeName(node): PackageOrTypeName{
-        //Mapper declaration
-        const nodeGeneseMapper = new GeneseMapper(PackageOrTypeName);
-        const packageOrTypeNameObject: PackageOrTypeName = nodeGeneseMapper.map(node);
-
-        return packageOrTypeNameObject;
     }
 
 }

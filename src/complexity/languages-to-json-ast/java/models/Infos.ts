@@ -1,10 +1,10 @@
 export class Infos{
-    image?: string;
-    startOffset?: number;
-    endOffset?: number;
-    startLine?: number;
-    endLine?: number;
-    startColumn?: number;
-    endColumn?: number;
-    tokenTypeIdx?: number;
+    image?: string = '';
+    startOffset?: number = 0;
+    endOffset?: number = 0;
+    startLine?: number = 0;
+    endLine?: number = 0;
+    startColumn?: number = 0;
+    endColumn?: number = 0;
+    tokenTypeIdx?: number = 0;
 }

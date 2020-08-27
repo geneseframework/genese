@@ -13,7 +13,6 @@ class AstClassGenerationJavaService {
      * @param node // AST Node
      */
     generate(classDeclarationList, classDeclarationAstNode) {
-        console.log('classDeclarationList: ', classDeclarationList);
         classDeclarationList.forEach(classDeclaration => {
             var _a, _b;
             let astNode = java_service_1.Java.getAstNodeWithChildren(classDeclaration);
