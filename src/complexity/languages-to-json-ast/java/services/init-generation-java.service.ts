@@ -46,7 +46,6 @@ export class InitGenerationJavaService {
                     astFolder.children = astFolder.children ?? [];
                     astFolder.children.push(this.generateAstFolder(`${pathElement}/`))
                 } else if (this.isFileToGenerate(pathElement)) {
-                    console.log('')
                     astFolder.astFiles.push(new AstFileGenerationJavaService().generate(pathElement, astFolder));
                 }
             } else {

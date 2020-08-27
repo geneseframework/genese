@@ -2,7 +2,7 @@ import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interfac
 import { Java } from './java.service';
 import { SyntaxKind } from '../core/syntax-kind.enum';
 import { GeneseMapperService } from './genese-mapper.service';
-import { importDeclaration, packageOrTypeName } from '../models/Node';
+import { ImportDeclaration, PackageOrTypeName } from '../models/ImportDeclaration';
 
 /**
  * - Generate AstNode for imports from their Abstract Syntax Tree (AST)
@@ -13,13 +13,13 @@ export class AstImportGenerationJavaService {
      * Gets the package Node
      * @param node // AST Node
      */
-    generate(node, importNodes): AstNodeInterface[]{
-        node.forEach(child => {
+    generate(importDeclaration: ImportDeclaration[], importAstNodes): AstNodeInterface[]{
+        importDeclaration.forEach(child => {
             let astNode = Java.getAstNodeWithChildren(child);
             astNode.kind = SyntaxKind.importDeclaration
 
             //ImportDeclaration mapping
-            const importObject: importDeclaration = GeneseMapperService.getMappedImport(child);
+            const importObject: ImportDeclaration = GeneseMapperService.getMappedImport(child);
             if(importObject?.name === SyntaxKind.importDeclaration && importObject.children){
                 //Import
                 if(child.children.Import){
@@ -36,11 +36,11 @@ export class AstImportGenerationJavaService {
                     Java.getSemicolon(child.children.Semicolon, astNode);
                 }
 
-                importNodes.children.push(astNode);
+                importAstNodes.children.push(astNode);
             }
         });
 
-        return importNodes;
+        return importAstNodes;
     }
 
     /**
@@ -53,7 +53,7 @@ export class AstImportGenerationJavaService {
         astNode.kind = SyntaxKind.packageOrTypeName;
 
         //mapper packageOrTypeName
-        const packageOrTypeNameObject: packageOrTypeName = GeneseMapperService.getMappedPackageOrTypeName(packageOrTypeName);
+        const packageOrTypeNameObject: PackageOrTypeName = GeneseMapperService.getMappedPackageOrTypeName(packageOrTypeName);
 
         if(packageOrTypeNameObject?.name === SyntaxKind.packageOrTypeName && packageOrTypeNameObject.children){
 

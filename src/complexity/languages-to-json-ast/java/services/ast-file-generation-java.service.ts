@@ -10,7 +10,8 @@ import { AstClassGenerationJavaService } from './ast-class-generation-java.servi
 import * as fs from 'fs-extra';
 import { Java } from './java.service';
 import { GeneseMapperService } from './genese-mapper.service';
-import { compilationUnit, packageDeclaration, importDeclaration } from '../models/Node';
+import { CompilationUnit } from '../models/CompilationUnit';
+import { TypeDeclaration } from '../models/TypeDeclaration';
 
 /**
  * - AstFiles generation from their Abstract Syntax Tree (AST)
@@ -29,11 +30,12 @@ export class AstFileGenerationJavaService {
             return undefined;
         }
         const fileContent = fs.readFileSync(path,'utf8')
-        const parsedFile = parse(fileContent);
+        //mapper compilationUnit
+        const compilationUnit: CompilationUnit = GeneseMapperService.getMappedCompilationUnit(parse(fileContent));
         return {
             name: getFilename(path),
             text: fileContent,
-            astNode: this.createAstNodeChildren(parsedFile)
+            astNode: this.createAstNodeChildren(compilationUnit)
         };
     }
 
@@ -41,33 +43,27 @@ export class AstFileGenerationJavaService {
      * Returns the Node children of a given Node
      * @param node      // The Node to analyse
      */
-    createAstNodeChildren(node): AstNodeInterface {
+    createAstNodeChildren(compilationUnit: CompilationUnit): AstNodeInterface {
         let astNode: AstNodeInterface;
-
-        const mappedNode: compilationUnit = GeneseMapperService.getMappedCompilationUnit(node);
-
-        if(mappedNode?.children?.ordinaryCompilationUnit){
-            const ordinaryCompilationUnit = node.children.ordinaryCompilationUnit[0];
+        
+        if(compilationUnit?.children?.ordinaryCompilationUnit){
+            const ordinaryCompilationUnit = compilationUnit.children.ordinaryCompilationUnit[0];
             
-            const ordinaryCompilationUnitObject = mappedNode.children.ordinaryCompilationUnit[0];
-
-            astNode = Java.getAstNodeWithChildren(ordinaryCompilationUnitObject);
+            astNode = Java.getAstNodeWithChildren(ordinaryCompilationUnit);
             astNode.kind = SyntaxKind.SourceFile;
             
             //Generate package
-            const packageObject: packageDeclaration = GeneseMapperService.getMappedPackage(ordinaryCompilationUnit.children.packageDeclaration[0]);
-            if(packageObject?.name === SyntaxKind.PackageDeclaration){
+            if(ordinaryCompilationUnit.children?.packageDeclaration){
                 new AstPackageGenerationJavaService().generate(ordinaryCompilationUnit.children.packageDeclaration[0], astNode);
             }
                 
             //Generate Import nodes
-            const importObject: importDeclaration[] = GeneseMapperService.getMappedImports(ordinaryCompilationUnit.children.importDeclaration);
-            if(importObject){
+            if(ordinaryCompilationUnit.children?.importDeclaration){
                 new AstImportGenerationJavaService().generate(ordinaryCompilationUnit.children.importDeclaration, astNode);
             }
 
             //Generate typeDeclaration
-            if(ordinaryCompilationUnit.children.typeDeclaration){
+            if(ordinaryCompilationUnit.children?.typeDeclaration){
                 this.getTypeDeclaration(ordinaryCompilationUnit.children.typeDeclaration, astNode);
             }
         }
@@ -78,16 +74,17 @@ export class AstFileGenerationJavaService {
      * 
      * @param typeDeclaration 
      */
-    getTypeDeclaration(typeDeclaration, typeDeclarationAstNode): AstNodeInterface{
-        let astNode = Java.getAstNodeWithChildren(typeDeclaration[0]);
-        astNode.kind = SyntaxKind.typeIdentifier;
+    getTypeDeclaration(typeDeclarationList: TypeDeclaration[], typeDeclarationAstNode): AstNodeInterface{
+        typeDeclarationList.forEach(typeDeclaration => {
+            let astNode = Java.getAstNodeWithChildren(typeDeclaration);
+            astNode.kind = SyntaxKind.typeIdentifier;
 
-        //classDeclaration
-        if(typeDeclaration[0].children.classDeclaration){
-            new AstClassGenerationJavaService().generate(typeDeclaration[0].children.classDeclaration, astNode);
-        }
-
-        typeDeclarationAstNode.children.push(astNode);
+            //classDeclaration
+            if(typeDeclaration.children?.classDeclaration){
+                new AstClassGenerationJavaService().generate(typeDeclaration.children.classDeclaration, astNode);
+            }
+            typeDeclarationAstNode.children.push(astNode);
+        });
         
         return typeDeclarationAstNode;
     }
