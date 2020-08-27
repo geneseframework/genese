@@ -1,8 +1,9 @@
-import { CompilationUnitChildren, OrdinaryCompilationUnitChildren } from './CompilationUnit';
+import { CompilationUnitChildren } from './CompilationUnit';
 import { Infos } from './Infos';
 import { PackageDeclarationChildren, PackageDeclaration } from './PackageDeclaration';
 import { ImportDeclaration, ImportChildren, PackageOrTypeName, PackageOrTypeNameChildren } from './ImportDeclaration';
 import { ClassDeclaration, ClassDeclarationChildren, ClassModifier, NormalClassDeclaration, ClassModifierChildren, Annotation, AnnotationChildren, TypeDeclaration, TypeDeclarationChildren, NormalClassDeclarationChildren } from './TypeDeclaration';
+import { OrdinaryCompilationUnitChildren } from './OrdinaryCompilationUnit';
 
 /**
  * Service contains common functions

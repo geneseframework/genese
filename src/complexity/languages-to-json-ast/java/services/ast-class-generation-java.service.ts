@@ -14,7 +14,6 @@ export class AstClassGenerationJavaService {
      * @param node // AST Node
      */
     generate(classDeclarationList: ClassDeclaration[], classDeclarationAstNode): AstNodeInterface{
-        console.log('classDeclarationList: ', classDeclarationList);
         classDeclarationList.forEach(classDeclaration => {         
             let astNode = Java.getAstNodeWithChildren(classDeclaration);
             astNode.kind = SyntaxKind.classDeclaration;
