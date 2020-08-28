@@ -1,9 +1,9 @@
 import { Location } from "./location.model";
 import { PackageDeclarationChildren } from "./package-declaration-children.model";
 
-export class PackageDeclaration{
+export class PackageDeclaration {
     packageDeclaration?: PackageDeclaration[];
-    name? = '';
+    name ?= '';
     children?: PackageDeclarationChildren = new PackageDeclarationChildren();
     location?: Location = new Location();
 }

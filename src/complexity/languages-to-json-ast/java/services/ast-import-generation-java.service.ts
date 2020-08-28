@@ -1,8 +1,9 @@
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
-import { Java } from './java.service';
+import { JavaService } from './java.service';
 import { SyntaxKind } from '../core/syntax-kind.enum';
 import { ImportDeclaration } from '../models/import-declaration.model';
 import { PackageOrTypeName } from '../models/package-or-type-name.model';
+import { ImportChildren } from '../models/import-children.model';
 
 /**
  * - Generate AstNode for imports from their Abstract Syntax Tree (AST)
@@ -13,48 +14,40 @@ export class AstImportGenerationJavaService {
      * Gets the package Node
      * @param node // AST Node
      */
-    generate(importDeclaration: ImportDeclaration[], importAstNodes): AstNodeInterface[]{
-        importDeclaration.forEach(importObject => {
-            let astNode = Java.getAstNodeWithChildren(importObject);
+    generate(importDeclarationList: ImportDeclaration[], importAstNodes): AstNodeInterface[]{
+        importDeclarationList.forEach(importDeclaration => {
+            let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(importDeclaration);
             astNode.kind = SyntaxKind.importDeclaration
-
-            if(importObject?.name === SyntaxKind.importDeclaration && importObject.children){
-                //Import
-                if(importObject.children.Import){
-                    Java.getImport(importObject.children.Import, astNode);
-                }
-
-                //packageOrTypeName
-                if(importObject.children.packageOrTypeName){
-                    this.getPackageOrTypeName(importObject.children.packageOrTypeName[0], astNode);
-                }
-
-                //Semicolon
-                if(importObject.children.Semicolon){
-                    Java.getSemicolon(importObject.children.Semicolon, astNode);
-                }
-
-                importAstNodes.children.push(astNode);
-            }
+            this.generateImportChildren(importDeclaration.children, importAstNodes);
+            importAstNodes.children.push(astNode);
         });
-
         return importAstNodes;
+    }
+
+    /**
+     * @param  {ImportChildren} importChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateImportChildren(importChildren: ImportChildren, astNode: AstNodeInterface): void {
+        if(importChildren) {
+            JavaService.getAstNodeInfos(importChildren.Import, astNode);
+            this.generatePackageOrTypeName(importChildren.packageOrTypeName[0], astNode);
+            JavaService.getAstNodeInfos(importChildren.Semicolon, astNode);
+        }
     }
 
     /**
      * @param  {PackageOrTypeName} packageOrTypeName
      * @param  {} packageOrTypeNameAstNode
      */
-    getPackageOrTypeName(packageOrTypeName: PackageOrTypeName, packageOrTypeNameAstNode): AstNodeInterface {        
-        let astNode = Java.getAstNodeWithChildren(packageOrTypeName);
+    generatePackageOrTypeName(packageOrTypeName: PackageOrTypeName, packageOrTypeNameAstNode): AstNodeInterface {        
+        let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(packageOrTypeName);
         astNode.kind = SyntaxKind.packageOrTypeName;
 
-        if(packageOrTypeName?.name === SyntaxKind.packageOrTypeName && packageOrTypeName.children){
-            if(packageOrTypeName.children.Identifier){
-                Java.getIdentifier(packageOrTypeName.children.Identifier, astNode);
-            }
+        if(packageOrTypeName.children.Identifier){
+            JavaService.getAstNodeInfos(packageOrTypeName.children.Identifier, astNode);
         }
-
         packageOrTypeNameAstNode.children.push(astNode);
 
         return packageOrTypeNameAstNode;

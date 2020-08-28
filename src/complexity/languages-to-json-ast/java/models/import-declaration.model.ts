@@ -1,9 +1,9 @@
 import { Location } from "./location.model";
 import { ImportChildren } from "./import-children.model";
 
-export class ImportDeclaration{
+export class ImportDeclaration {
     importDeclaration?: ImportDeclaration[];
-    name? = '';
+    name ?= '';
     children?: ImportChildren = new ImportChildren();
     location?: Location = new Location();
 }

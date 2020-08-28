@@ -1,9 +1,9 @@
 import { Location } from "./location.model";
-import { ClassDeclaration } from "./class-declaration.model";
+import { TypeDeclarationChildren } from "./type-declaration-children.model";
 
-export class TypeDeclaration{
+export class TypeDeclaration {
     typeDeclaration?: TypeDeclaration[];
-    name? = '';
-    children?: ClassDeclaration = new ClassDeclaration();
+    name ?= '';
+    children?: TypeDeclarationChildren = new TypeDeclarationChildren();
     location?: Location = new Location();
 }

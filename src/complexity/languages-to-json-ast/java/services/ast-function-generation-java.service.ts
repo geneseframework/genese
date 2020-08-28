@@ -1,83 +1,96 @@
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
 import { SyntaxKind } from '../core/syntax-kind.enum';
-import { Java } from './java.service';
+import { JavaService } from './java.service';
+import { MethodDeclaration } from '../models/method-declaration.model';
+import { MethodDeclarationChildren } from '../models/method-declaration-children.model';
+import { MethodHeader } from '../models/method-header.model';
+import { MethodHeaderChildren } from '../models/method-header-children.model';
+import { MethodDeclarator } from '../models/method-declarator.model';
+import { MethodDeclaratorChildren } from '../models/method-declarator-children.model';
+import { FormalParameterList } from '../models/formal-parameter-list.model';
+import { FormalParameterListChildren } from '../models/formal-parameter-list-children.model';
+import { VariableParaRegularParameter } from '../models/variable-para-regular-parameter.model';
+import { VariableParaRegularParameterChildren } from '../models/variable-para-regular-parameter-children.model';
+import { MethodModifier } from '../models/method-modifier.model';
 
 /**
  * - AstFunction generation from their Abstract Syntax Tree (AST)
  */
 export class AstFunctionageGenerationJavaService {
     
-
     /**
      * Gets the methodDeclaration Node
      * @param methodDeclaration // AST Node
      */
-    generate(methodDeclaration, methodDeclarationAstNode): AstNodeInterface{
-        let astNode = Java.getAstNodeWithChildren(methodDeclaration[0]);
-        astNode.kind = SyntaxKind.methodDeclaration;
-
-        //methodModifier
-        if(methodDeclaration[0].children.methodModifier){
-            this.getMethodModifier(methodDeclaration[0].children.methodModifier, astNode);
-        }
-        //methodHeader
-        if(methodDeclaration[0].children.methodHeader){
-            this.getMethodHeader(methodDeclaration[0].children.methodHeader, astNode);
-        }
-        //methodBody
-        if(methodDeclaration[0].children.methodBody){
-            this.getMethodBody(methodDeclaration[0].children.methodBody, astNode);
-        }
-        
-        methodDeclarationAstNode.children.push(astNode);
+    generate(methodDeclarationList: MethodDeclaration[], methodDeclarationAstNode: AstNodeInterface): AstNodeInterface {
+        methodDeclarationList.forEach(methodDeclaration => {
+            let astNode = JavaService.getAstNodeWithChildren(methodDeclaration);
+            astNode.kind = SyntaxKind.methodDeclaration;
+            this.generateAstMethodDeclaration(methodDeclaration.children, astNode);
+            methodDeclarationAstNode.children.push(astNode);
+        });
 
         return methodDeclarationAstNode;
+    }
+
+    /**
+     * @param  {MethodDeclarationChildren} methodDeclarationChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstMethodDeclaration(methodDeclarationChildren: MethodDeclarationChildren, astNode: AstNodeInterface): void {
+        if(MethodDeclarationChildren) {
+            this.generateAstMethodModifier(methodDeclarationChildren.methodModifier, astNode);
+            this.generateAstMethodHeader(methodDeclarationChildren.methodHeader, astNode);
+            this.generateAstMethodBody(methodDeclarationChildren.methodBody, astNode);
+        }
     }
 
     /**
      * Gets the methodModifier Node List
      * @param methodModifier // AST Node
      */
-    getMethodModifier(methodModifier, methodModifierAstNode): AstNodeInterface[]{
+    generateAstMethodModifier(methodModifierList: MethodModifier[], astNodeMethodModifier: AstNodeInterface): AstNodeInterface{
+        methodModifierList.forEach(methodModifier => {
+            let astNode = JavaService.getAstNodeWithChildren(methodModifier);
+            astNode.kind = SyntaxKind.methodModifier;
+        })
 
-        //mapper
-        methodModifier.forEach(child => {
-            methodModifierAstNode.children.push(Java.getModificatorAstNode(child));
-        });
-
-        return methodModifierAstNode;
+        return astNodeMethodModifier;
     }
-
+    
     /**
      * Gets the methodHeader Node
      * @param methodHeader // AST Node
      */
-    getMethodHeader(methodHeader, methodHeaderAstNode): AstNodeInterface{
-        let astNode = Java.getAstNodeWithChildren(methodHeader[0]);
-        astNode.kind = SyntaxKind.methodHeader;
-
-        let headerChildren = methodHeader[0].children;
-
-        //result
-        if(headerChildren.result) {
-            this.getResult(headerChildren.result, astNode);
-        }
-        //methodDeclarator
-        if(headerChildren.methodDeclarator){
-            this.getMethodDeclarator(headerChildren.methodDeclarator, astNode);
-        }
-
-        methodHeaderAstNode.children.push(astNode);
-
+    generateAstMethodHeader(methodHeaderList: MethodHeader[], methodHeaderAstNode: AstNodeInterface): AstNodeInterface {
+        methodHeaderList.forEach(methodHeader => {
+            let astNode = JavaService.getAstNodeWithChildren(methodHeader);
+            astNode.kind = SyntaxKind.methodHeader;
+            this.generateAstMethodHeaderChildren(methodHeader.children, astNode);
+            methodHeaderAstNode.children.push(astNode);
+        });
         return methodHeaderAstNode;
+    }
+
+    /**
+     * @param  {MethodHeaderChildren} methodHeaderChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstMethodHeaderChildren(methodHeaderChildren: MethodHeaderChildren, astNode: AstNodeInterface): void {
+        if(methodHeaderChildren) {
+            //this.getResult(methodHeader.children.result, astNode);
+            this.generateAstMethodDeclarator(methodHeaderChildren.methodDeclarator, astNode);
+        }
     }
 
     /**
      * Gets the methodBody Node
      * @param methodBody // AST Node
      */
-    getMethodBody(methodBody, methodBodyAstNode): AstNodeInterface{
-        let astNode = Java.getAstNode(methodBody[0]);
+    generateAstMethodBody(methodBody, methodBodyAstNode): AstNodeInterface{
+        let astNode = JavaService.getAstNode(methodBody[0]);
         astNode.kind = SyntaxKind.methodDeclaration;
 
         methodBodyAstNode.children.push(astNode);
@@ -90,101 +103,106 @@ export class AstFunctionageGenerationJavaService {
      * @param result // AST Node
      */
     getResult(result, resultAstNode): AstNodeInterface{
-        let astNode = Java.getAstNodeWithChildren(result[0]);
+        let astNode = JavaService.getAstNodeWithChildren(result[0]);
         astNode.kind = SyntaxKind.Result;
-
-        //Void
         if(result[0].children.Void){
-            astNode.children.push(Java.getAstNode(result[0].children.Void));
+            astNode.children.push(JavaService.getAstNode(result[0].children.Void));
         }
-
         resultAstNode.children.push(astNode);
-
         return resultAstNode; 
     }
 
     /**
-     * 
-     * @param methodDeclarator // AST Node
+     * @param  {MethodDeclarator[]} methodDeclaratorList
+     * @param  {} methodDeclaratorAstNode
+     * @returns AstNodeInterface
      */
-    getMethodDeclarator(methodDeclarator, methodDeclaratorAstNode): AstNodeInterface{
-        let astNode = Java.getAstNodeWithChildren(methodDeclarator[0]);
-        astNode.kind = SyntaxKind.methodDeclarator;
-
-        //Identifier
-        if(methodDeclarator[0].children.Identifier){
-            Java.getIdentifier(methodDeclarator[0].children.Identifier, astNode);
-        }
-        //LBrace
-        if(methodDeclarator[0].children.LBrace){
-            Java.getLBrace(methodDeclarator[0].children.LBrace, astNode);
-        }
-        //formalParameterList
-        if(methodDeclarator[0].children.formalParameterList){
-            this.getFormalParameterList(methodDeclarator[0].children.formalParameterList, astNode);
-        }
-        //RBrace
-        if(methodDeclarator[0].children.RBrace){
-            Java.getRBrace(methodDeclarator[0].children.RBrace, astNode);
-        }
-
-        methodDeclaratorAstNode.children.push(astNode);
-
+    generateAstMethodDeclarator(methodDeclaratorList: MethodDeclarator[], methodDeclaratorAstNode): AstNodeInterface {
+        methodDeclaratorList.forEach(methodDeclarator => {
+            let astNode = JavaService.getAstNodeWithChildren(methodDeclarator[0]);
+            astNode.kind = SyntaxKind.methodDeclarator;
+            this.generateAstMethodDeclaratorChildren(methodDeclarator.children,astNode);
+            methodDeclaratorAstNode.children.push(astNode);
+        });
         return methodDeclaratorAstNode;
     }
 
     /**
-     * 
-     * @param formalParameterList 
+     * @param  {MethodDeclaratorChildren} methodDeclaratorChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
      */
-    getFormalParameterList(formalParameterList, formalParameterAstNode): AstNodeInterface{
-        let astNode = Java.getAstNodeWithChildren(formalParameterList[0]);
-        astNode.kind = SyntaxKind.formalParameterList;
-
-        //formalParameter
-        if(formalParameterList[0].children.formalParameter){
-            this.getFormalParameter(formalParameterList[0].children.formalParameter);
+    generateAstMethodDeclaratorChildren(methodDeclaratorChildren: MethodDeclaratorChildren,astNode: AstNodeInterface): void {
+        if(methodDeclaratorChildren) {
+            JavaService.getAstNodeInfos(methodDeclaratorChildren.Identifier, astNode);
+            JavaService.getAstNodeInfos(methodDeclaratorChildren.LBrace, astNode);
+            this.generateAstFormalParameterList(methodDeclaratorChildren.formalParameterList, astNode);
+            JavaService.getAstNodeInfos(methodDeclaratorChildren.RBrace, astNode);
         }
+    }
 
-        formalParameterAstNode.children.push(astNode);
-
+    /**
+     * @param  {} formalParameterList
+     * @param  {} formalParameterAstNode
+     * @returns AstNodeInterface
+     */
+    generateAstFormalParameterList(formalParameterList: FormalParameterList[], formalParameterAstNode: AstNodeInterface): AstNodeInterface {
+        formalParameterList.forEach(formalParameter => {
+            let astNode = JavaService.getAstNodeWithChildren(formalParameter);
+            astNode.kind = SyntaxKind.formalParameter;
+            if(formalParameter.children){
+                this.generateAstFormalParameter(formalParameter.children, astNode);
+            }
+            formalParameterAstNode.children.push(astNode);
+        })
         return formalParameterAstNode;
     }
 
     /**
-     * 
-     * @param formalParameter 
+     * @param  {FormalParameterListChildren} formalParameterListChildren
+     * @param  {AstNodeInterface} formalParameterAstNode
+     * @returns AstNodeInterface
      */
-    getFormalParameter(formalParameter): AstNodeInterface{
-        let astNode = Java.getAstNodeWithChildren(formalParameter[0]);
-        astNode.kind = SyntaxKind.formalParameter;
+    generateAstFormalParameter(formalParameterListChildren: FormalParameterListChildren, formalParameterAstNode: AstNodeInterface): AstNodeInterface{
+        if(formalParameterListChildren?.formalParameter) {
+            formalParameterListChildren.formalParameter.forEach(child => {
+                let astNode = JavaService.getAstNodeWithChildren(formalParameterListChildren.formalParameter);
+                astNode.kind = SyntaxKind.formalParameter;
 
-        //variableParaRegularParameter
-        if(formalParameter[0].variableParaRegularParameter){
-            this.getVariableParaRegularParameter(formalParameter[0].variableParaRegularParameter);
+                if(child.children?.variableParaRegularParameter){
+                    this.generateAstVariableParaRegularParameter(child.children.variableParaRegularParameter, astNode);
+                }
+                formalParameterAstNode.children.push(astNode);
+            })
         }
-
-        return astNode;
+        return formalParameterAstNode;
     }
 
     /**
-     * 
-     * @param variableParaRegularParameter 
+     * @param  {VariableParaRegularParameter[]} variableParaRegularParameterList
+     * @param  {AstNodeInterface} vPRPAstNode
+     * @returns AstNodeInterface
      */
-    getVariableParaRegularParameter(variableParaRegularParameter): AstNodeInterface{
-        let astNode = Java.getAstNodeWithChildren(variableParaRegularParameter[0]);
-        astNode.kind = SyntaxKind.variableParaRegularParameter;
+    generateAstVariableParaRegularParameter(variableParaRegularParameterList: VariableParaRegularParameter[], vPRPAstNode: AstNodeInterface): AstNodeInterface {
+        variableParaRegularParameterList.forEach(variableParaRegularParameter => {
+            let astNode = JavaService.getAstNodeWithChildren(variableParaRegularParameter);
+            astNode.kind = SyntaxKind.variableParaRegularParameter;
+            this.generateAstVariableParaRegularParameterChildren(variableParaRegularParameter.children, astNode);
+            vPRPAstNode.children.push(astNode);
+        })
+        return vPRPAstNode;
+    }
 
-        //unannType
-        if(variableParaRegularParameter[0].children.unannType){
-            astNode.children.push(this.getUnannType(variableParaRegularParameter[0].children.unannType));
+    /**
+     * @param  {VariableParaRegularParameterChildren} variableParaRegularParameterChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstVariableParaRegularParameterChildren(variableParaRegularParameterChildren: VariableParaRegularParameterChildren, astNode: AstNodeInterface): void {
+        if(variableParaRegularParameterChildren) {
+            JavaService.getAstNodeInfos(variableParaRegularParameterChildren.unannType, astNode);
+            JavaService.getAstNodeInfos(variableParaRegularParameterChildren.variableDeclaratorId, astNode);
         }
-        //variableDeclaratorId
-        if(variableParaRegularParameter[0].children.variableDeclaratorId){
-            astNode.children.push(this.getVariableDeclaratorId(variableParaRegularParameter[0].children.variableDeclaratorId));
-        }
-
-        return astNode;
     }
 
     /**
@@ -192,7 +210,7 @@ export class AstFunctionageGenerationJavaService {
      * @param unannType 
      */
     getUnannType(unannType): AstNodeInterface{
-        let astNode = Java.getAstNodeWithChildren(unannType[0]);
+        let astNode = JavaService.getAstNodeWithChildren(unannType[0]);
         astNode.kind = SyntaxKind.unannType;
 
         //unannReferenceType
@@ -208,12 +226,12 @@ export class AstFunctionageGenerationJavaService {
      * @param variableDeclaratorId 
      */
     getVariableDeclaratorId(variableDeclaratorId): AstNodeInterface{
-        let astNode = Java.getAstNodeWithChildren(variableDeclaratorId[0]);
+        let astNode = JavaService.getAstNodeWithChildren(variableDeclaratorId[0]);
         astNode.kind = SyntaxKind.variableDeclaratorId;
 
         //Identifier
         if(variableDeclaratorId[0].children.Identifier){
-            Java.getIdentifier(variableDeclaratorId[0].children.Identifier, astNode);
+            JavaService.getIdentifier(variableDeclaratorId[0].children.Identifier, astNode);
         }
 
         return astNode;
@@ -224,7 +242,7 @@ export class AstFunctionageGenerationJavaService {
      * @param unannReferenceType 
      */
     getUnannReferenceType(unannReferenceType): AstNodeInterface{
-        let astNode = Java.getAstNodeWithChildren(unannReferenceType[0]);
+        let astNode = JavaService.getAstNodeWithChildren(unannReferenceType[0]);
         astNode.kind = SyntaxKind.unannReferenceType;
 
         //unannClassType
@@ -240,12 +258,12 @@ export class AstFunctionageGenerationJavaService {
      * @param unannClassType 
      */
     getUnannClassType(unannClassType): AstNodeInterface{
-        let astNode = Java.getAstNodeWithChildren(unannClassType[0]);
+        let astNode = JavaService.getAstNodeWithChildren(unannClassType[0]);
         astNode.kind = SyntaxKind.unannClassType;
 
         //Identifier
         if(unannClassType[0].children.Identifier){
-            Java.getIdentifier(unannClassType[0].children.Identifier, astNode);
+            JavaService.getIdentifier(unannClassType[0].children.Identifier, astNode);
         }
 
         return astNode;

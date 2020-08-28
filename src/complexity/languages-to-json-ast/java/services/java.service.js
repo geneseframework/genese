@@ -1,23 +1,43 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Java = void 0;
+exports.JavaService = void 0;
 const syntax_kind_enum_1 = require("../core/syntax-kind.enum");
 /**
  * Service contains common functions
  */
-class Java {
+class JavaService {
     /**
      * Gets the AstNode of Node
      * @param node // AST Node
      */
     static getAstNode(node) {
         let astNode = {
-            end: node.endOffset,
-            kind: node.image,
-            name: node.image,
-            pos: node.startOffset,
-            start: node.startOffset
+            end: node.location.endOffset,
+            kind: node.location.image,
+            name: node.location.image,
+            pos: node.location.startOffset,
+            start: node.location.startOffset
         };
+        return astNode;
+    }
+    /**
+     * @param  {Infos} infos
+     * @param  {AstNodeInterface} astNode
+     * @returns AstNodeInterface
+     */
+    static getAstNodeInfos(infos, astNode) {
+        if (infos) {
+            infos.forEach(info => {
+                let childrenAstNode = {
+                    end: info.endOffset,
+                    kind: info.image,
+                    name: info.image,
+                    pos: info.startOffset,
+                    start: info.startOffset
+                };
+                astNode.children.push(childrenAstNode);
+            });
+        }
         return astNode;
     }
     /**
@@ -68,19 +88,46 @@ class Java {
         return identifierAstNode;
     }
     /**
-     * Gets the annotation Node
-     * @param annotation // AST Node
+     * @param  {Annotation[]} annotations
+     * @param  {AstNodeInterface} annotationAstNode
+     * @returns AstNodeInterface
      */
-    static getAnnotation(annotation, annotationAstNode) {
-        let astNode = this.getAstNodeWithChildren(annotation[0]);
-        astNode.kind = syntax_kind_enum_1.SyntaxKind.annotation;
-        //At
-        let atNode = this.getAtNode(annotation[0].children.At);
-        astNode.children.push(atNode);
-        //TypeName
-        let typeNameNode = this.getTypeNameNode(annotation[0].children.typeName);
-        astNode.children.push(typeNameNode);
-        annotationAstNode.children.push(astNode);
+    static generateAstAnnotation(annotations, annotationAstNode) {
+        annotations.forEach(annotation => {
+            let astNode = JavaService.getAstNodeWithChildren(annotation);
+            astNode.kind = syntax_kind_enum_1.SyntaxKind.annotation;
+            JavaService.generateAstAnnotationChildren(annotation.children, astNode);
+            annotationAstNode.children.push(astNode);
+        });
+        return annotationAstNode;
+    }
+    /**
+     * @param  {AnnotationChildren} annotationChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    static generateAstAnnotationChildren(annotationChildren, astNode) {
+        if (annotationChildren) {
+            JavaService.getAstNodeInfos(annotationChildren.at, astNode);
+            JavaService.getAstNodeInfos(annotationChildren.typeName, astNode);
+        }
+    }
+    /**
+     * @param  {TypeIdentifier[]} typeIdentifierList
+     * @param  {AstNodeInterface} annotationAstNode
+     * @returns AstNodeInterface
+     */
+    static generateAstTypeIdentifier(typeIdentifierList, annotationAstNode) {
+        typeIdentifierList.forEach(typeIdentifier => {
+            var _a;
+            let astNode = JavaService.getAstNodeWithChildren(typeIdentifier);
+            astNode.kind = syntax_kind_enum_1.SyntaxKind.annotation;
+            //Identifiers
+            if ((_a = typeIdentifier.children) === null || _a === void 0 ? void 0 : _a.Identifier) {
+                JavaService.getAstNodeInfos(typeIdentifier.children.Identifier, astNode);
+            }
+            annotationAstNode.children.push(astNode);
+        });
         return annotationAstNode;
     }
     /**
@@ -152,7 +199,7 @@ class Java {
      * @param child
      */
     static getModificatorAstNode(child) {
-        let astNode = Java.getAstNodeWithChildren(child);
+        let astNode = this.getAstNodeWithChildren(child);
         astNode.kind = syntax_kind_enum_1.SyntaxKind.methodModifier;
         if (child.children.Public) {
             this.getModificator(child.children.Public[0], astNode);
@@ -178,4 +225,4 @@ class Java {
         return modificatorAstNode;
     }
 }
-exports.Java = Java;
+exports.JavaService = JavaService;

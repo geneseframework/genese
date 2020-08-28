@@ -1,10 +1,14 @@
 import { SyntaxKind } from '../core/syntax-kind.enum';
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
+import { Infos } from '../models/infos.model';
+import { Annotation } from '../models/annotation.model';
+import { TypeIdentifier } from '../models/type-identifier.model';
+import { AnnotationChildren } from '../models/annotation-children.model';
 
 /**
  * Service contains common functions
  */
-export class Java {
+export class JavaService {
 
     /**
      * Gets the AstNode of Node
@@ -12,11 +16,32 @@ export class Java {
      */
     static getAstNode(node): AstNodeInterface{
         let astNode: AstNodeInterface = {
-            end: node.endOffset,
-            kind: node.image,
-            name: node.image,
-            pos: node.startOffset,
-            start: node.startOffset
+            end: node.location.endOffset,
+            kind: node.location.image,
+            name: node.location.image,
+            pos: node.location.startOffset,
+            start: node.location.startOffset
+        }
+        return astNode;
+    }
+
+    /**
+     * @param  {Infos} infos
+     * @param  {AstNodeInterface} astNode
+     * @returns AstNodeInterface
+     */
+    static getAstNodeInfos(infos: Infos[], astNode: AstNodeInterface): AstNodeInterface {
+        if(infos) {
+            infos.forEach(info => {
+                let childrenAstNode: AstNodeInterface = {
+                    end: info.endOffset,
+                    kind: info.image,
+                    name: info.image,
+                    pos: info.startOffset,
+                    start: info.startOffset
+                }
+                astNode.children.push(childrenAstNode);
+            });
         }
         return astNode;
     }
@@ -77,25 +102,49 @@ export class Java {
         
         return identifierAstNode;
     }
+    
+    /**
+     * @param  {Annotation[]} annotations
+     * @param  {AstNodeInterface} annotationAstNode
+     * @returns AstNodeInterface
+     */
+    static generateAstAnnotation(annotations: Annotation[], annotationAstNode: AstNodeInterface): AstNodeInterface {
+        annotations.forEach(annotation => {
+            let astNode = JavaService.getAstNodeWithChildren(annotation);
+            astNode.kind = SyntaxKind.annotation;
+            JavaService.generateAstAnnotationChildren(annotation.children, astNode);
+            annotationAstNode.children.push(astNode);
+        })
+        return annotationAstNode;
+    }
 
     /**
-     * Gets the annotation Node
-     * @param annotation // AST Node
+     * @param  {AnnotationChildren} annotationChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
      */
-    static getAnnotation(annotation, annotationAstNode): AstNodeInterface{
-        let astNode = this.getAstNodeWithChildren(annotation[0]);
-        astNode.kind = SyntaxKind.annotation;
-        
-        //At
-        let atNode = this.getAtNode(annotation[0].children.At);
-        astNode.children.push(atNode)
+    static generateAstAnnotationChildren(annotationChildren: AnnotationChildren, astNode: AstNodeInterface): void {
+        if(annotationChildren) {
+            JavaService.getAstNodeInfos(annotationChildren.at, astNode);
+            JavaService.getAstNodeInfos(annotationChildren.typeName, astNode);
+        } 
+    }
 
-        //TypeName
-        let typeNameNode = this.getTypeNameNode(annotation[0].children.typeName);
-        astNode.children.push(typeNameNode)
-       
-        annotationAstNode.children.push(astNode);
-
+    /**
+     * @param  {TypeIdentifier[]} typeIdentifierList
+     * @param  {AstNodeInterface} annotationAstNode
+     * @returns AstNodeInterface
+     */
+    static generateAstTypeIdentifier(typeIdentifierList: TypeIdentifier[], annotationAstNode: AstNodeInterface): AstNodeInterface {
+        typeIdentifierList.forEach(typeIdentifier => {
+            let astNode = JavaService.getAstNodeWithChildren(typeIdentifier);
+            astNode.kind = SyntaxKind.annotation;
+            //Identifiers
+            if(typeIdentifier.children?.Identifier) {
+                JavaService.getAstNodeInfos(typeIdentifier.children.Identifier, astNode);
+            }
+            annotationAstNode.children.push(astNode);
+        });
         return annotationAstNode;
     }
 
@@ -187,7 +236,7 @@ export class Java {
      * @param child 
      */
     static getModificatorAstNode(child): AstNodeInterface{
-        let astNode = Java.getAstNodeWithChildren(child);
+        let astNode = this.getAstNodeWithChildren(child);
         astNode.kind = SyntaxKind.methodModifier;
         
         
