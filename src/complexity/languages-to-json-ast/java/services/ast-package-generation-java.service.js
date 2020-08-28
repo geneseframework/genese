@@ -14,13 +14,24 @@ class AstPackageGenerationJavaService {
      * @returns AstNodeInterface
      */
     generate(packageDeclaration, packageAstNode) {
-        let astNode = java_service_1.Java.getAstNodeWithChildren(packageDeclaration);
+        let astNode = java_service_1.JavaService.getAstNodeWithChildren(packageDeclaration);
         astNode.kind = syntax_kind_enum_1.SyntaxKind.PackageDeclaration;
-        if (packageDeclaration.children.Identifier) {
-            java_service_1.Java.getIdentifier(packageDeclaration.children.Identifier, astNode);
-        }
+        this.generatePackageChildren(packageDeclaration.children, astNode);
         packageAstNode.children.push(astNode);
         return packageAstNode;
+    }
+    /**
+     * @param  {PackageDeclarationChildren} packageDeclarationChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generatePackageChildren(packageDeclarationChildren, astNode) {
+        if (packageDeclarationChildren) {
+            java_service_1.JavaService.getAstNodeInfos(packageDeclarationChildren.Package, astNode);
+            java_service_1.JavaService.getAstNodeInfos(packageDeclarationChildren.Identifier, astNode);
+            java_service_1.JavaService.getAstNodeInfos(packageDeclarationChildren.Dot, astNode);
+            java_service_1.JavaService.getAstNodeInfos(packageDeclarationChildren.Semicolon, astNode);
+        }
     }
 }
 exports.AstPackageGenerationJavaService = AstPackageGenerationJavaService;

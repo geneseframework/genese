@@ -8,17 +8,17 @@ import { AstPackageGenerationJavaService } from './ast-package-generation-java.s
 import { AstImportGenerationJavaService } from './ast-import-generation-java.service';
 import { AstClassGenerationJavaService } from './ast-class-generation-java.service';
 import * as fs from 'fs-extra';
-import { Java } from './java.service';
+import { JavaService } from './java.service';
 import { GeneseMapperService } from './genese-mapper.service';
 import { CompilationUnit } from '../models/compilation-unit.model';
 import { TypeDeclaration } from '../models/type.declaration-model';
+import { OrdinaryCompilationUnitChildren } from '../models/ordinary-compilation-unit-children.model';
+import { OrdinaryCompilationUnit } from '../models/ordinary-compilation-unit.model';
 
 /**
  * - AstFiles generation from their Abstract Syntax Tree (AST)
  */
 export class AstFileGenerationJavaService {
-
-
     
     /**
      * Generates the AstFile corresponding to a given path and a given AstFolder
@@ -47,48 +47,73 @@ export class AstFileGenerationJavaService {
      * @returns AstNodeInterface
      */
     createAstNodeChildren(compilationUnit: CompilationUnit): AstNodeInterface {
-        let astNode: AstNodeInterface;
-
-        if (!compilationUnit?.children?.ordinaryCompilationUnit) {
+        if (!compilationUnit?.children?.ordinaryCompilationUnit?.[0]?.children) {
             return undefined;
         }
-        
-        const ordinaryCompilationUnit = compilationUnit.children.ordinaryCompilationUnit[0];
-            
-        astNode = Java.getAstNodeWithChildren(ordinaryCompilationUnit);
+        const ordinaryCompilationUnit: OrdinaryCompilationUnit = compilationUnit.children.ordinaryCompilationUnit[0];
+        let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(ordinaryCompilationUnit);
         astNode.kind = SyntaxKind.SourceFile;
-            
-        if(ordinaryCompilationUnit.children.packageDeclaration){
-            new AstPackageGenerationJavaService().generate(ordinaryCompilationUnit.children.packageDeclaration[0], astNode);
-        }
-                
-        if(ordinaryCompilationUnit.children.importDeclaration){
-            new AstImportGenerationJavaService().generate(ordinaryCompilationUnit.children.importDeclaration, astNode);
-        }
-
-        if(ordinaryCompilationUnit.children.typeDeclaration){
-            this.getTypeDeclaration(ordinaryCompilationUnit.children.typeDeclaration, astNode);
-        }
-
+        this.generateAstPackageImportTypeDeclaration(ordinaryCompilationUnit.children, astNode);
         return astNode;
+    }    
+    
+    /**
+     * @param  {OrdinaryCompilationUnitChildren} children
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstPackageImportTypeDeclaration(children: OrdinaryCompilationUnitChildren, astNode: AstNodeInterface): void {
+        this.generateAstPackage(children, astNode);
+        this.generateAstImport(children, astNode);
+        this.generateAstTypeDeclaration(children, astNode);
     }
 
     /**
+     * @param  {OrdinaryCompilationUnitChildren} ordinaryCompilationUnitChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstPackage(ordinaryCompilationUnitChildren: OrdinaryCompilationUnitChildren, astNode: AstNodeInterface): void {
+        if(ordinaryCompilationUnitChildren.packageDeclaration){
+            new AstPackageGenerationJavaService().generate(ordinaryCompilationUnitChildren.packageDeclaration[0], astNode);
+        }
+    }    
+    
+    /**
+     * @param  {OrdinaryCompilationUnitChildren} ordinaryCompilationUnitChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstImport(ordinaryCompilationUnitChildren: OrdinaryCompilationUnitChildren, astNode: AstNodeInterface): void {
+        if(ordinaryCompilationUnitChildren.importDeclaration){
+            new AstImportGenerationJavaService().generate(ordinaryCompilationUnitChildren.importDeclaration, astNode);
+        }
+    }    
+    
+    /**
+     * @param  {OrdinaryCompilationUnitChildren} ordinaryCompilationUnitChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstTypeDeclaration(ordinaryCompilationUnitChildren: OrdinaryCompilationUnitChildren, astNode: AstNodeInterface): void {
+        if(ordinaryCompilationUnitChildren.typeDeclaration){
+            this.generateTypeDeclaration(ordinaryCompilationUnitChildren.typeDeclaration, astNode);
+        }
+    }
+    
+    /**
      * @param  {TypeDeclaration[]} typeDeclarationList
      * @param  {AstNodeInterface} typeDeclarationAstNode
-     * @returns AstNodeInterface
+     * @returns void
      */
-    getTypeDeclaration(typeDeclarationList: TypeDeclaration[], typeDeclarationAstNode: AstNodeInterface): AstNodeInterface{
+    generateTypeDeclaration(typeDeclarationList: TypeDeclaration[], typeDeclarationAstNode: AstNodeInterface): void {
         typeDeclarationList.forEach(typeDeclaration => {
-            let astNode = Java.getAstNodeWithChildren(typeDeclaration);
+            let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(typeDeclaration);
             astNode.kind = SyntaxKind.typeIdentifier;
-
             if(typeDeclaration.children?.classDeclaration){
                 new AstClassGenerationJavaService().generate(typeDeclaration.children.classDeclaration, astNode);
             }
             typeDeclarationAstNode.children.push(astNode);
         });
-        
-        return typeDeclarationAstNode;
     }
 }
