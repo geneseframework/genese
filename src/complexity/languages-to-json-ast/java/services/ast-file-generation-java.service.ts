@@ -2,7 +2,6 @@ import { getFilename } from '../../../core/services/file.service';
 import { AstFileInterface } from '../../../core/interfaces/ast/ast-file.interface';
 import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
-import { SyntaxKind } from '../core/syntax-kind.enum';
 import { parse } from 'java-parser';
 import { AstPackageGenerationJavaService } from './ast-package-generation-java.service';
 import { AstImportGenerationJavaService } from './ast-import-generation-java.service';
@@ -14,6 +13,7 @@ import { CompilationUnit } from '../models/compilation-unit.model';
 import { TypeDeclaration } from '../models/type.declaration-model';
 import { OrdinaryCompilationUnitChildren } from '../models/ordinary-compilation-unit-children.model';
 import { OrdinaryCompilationUnit } from '../models/ordinary-compilation-unit.model';
+import { SyntaxKind } from '../core/syntax-kind.enum';
 
 /**
  * - AstFiles generation from their Abstract Syntax Tree (AST)

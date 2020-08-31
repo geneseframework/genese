@@ -1,5 +1,4 @@
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
-import { SyntaxKind } from '../core/syntax-kind.enum';
 import { JavaService } from './java.service';
 import { AstFunctionageGenerationJavaService } from './ast-function-generation-java.service';
 import { ClassDeclaration } from '../models/class-declaration.model';
@@ -46,12 +45,11 @@ export class AstClassGenerationJavaService {
     }
 
     /**
-     * Gets the classModifier Node List
-     * @param  {ClassModifier[]} classModifier
-     * @param  {} classModifierAstNode
+     * @param  {ClassModifier[]} classModifierList
+     * @param  {AstNodeInterface} classModifierAstNode
      * @returns AstNodeInterface
      */
-    generateAstClassModifier(classModifierList: ClassModifier[], classModifierAstNode: AstNodeInterface): AstNodeInterface{
+    generateAstClassModifier(classModifierList: ClassModifier[], classModifierAstNode: AstNodeInterface): AstNodeInterface {
         classModifierList.forEach(classModifier => {
             let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(classModifier);
             this.generateAstClassModifierChildren(classModifier.children, astNode);
@@ -73,12 +71,11 @@ export class AstClassGenerationJavaService {
     }
 
     /**
-     * Gets the normalClass Node
-     * @param  {} normalClass
-     * @param  {} normalClassAstNode
+     * @param  {NormalClassDeclaration[]} normalClassDeclaration
+     * @param  {AstNodeInterface} normalAstNode
      * @returns AstNodeInterface
      */
-    generateAstNormalClassDeclaration(normalClassDeclaration: NormalClassDeclaration[], normalAstNode: AstNodeInterface): AstNodeInterface{
+    generateAstNormalClassDeclaration(normalClassDeclaration: NormalClassDeclaration[], normalAstNode: AstNodeInterface): AstNodeInterface {
         normalClassDeclaration.forEach(normalClass => {
             let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(normalClass);
             this.generateAstClassTypeIdentifierClassBody(normalClass.children,astNode);
@@ -107,7 +104,7 @@ export class AstClassGenerationJavaService {
      * @param  {} normalClassAstNode
      * @returns AstNodeInterface
      */
-    getNormalClass(normalClass, normalClassAstNode): AstNodeInterface{
+    getNormalClass(normalClass, normalClassAstNode): AstNodeInterface {
         let astNode: AstNodeInterface = JavaService.getAstNode(normalClass);
         normalClassAstNode.children.push(astNode);
         return normalClassAstNode;

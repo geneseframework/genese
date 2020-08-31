@@ -1,4 +1,3 @@
-import { SyntaxKind } from '../core/syntax-kind.enum';
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
 import { Infos } from '../models/infos.model';
 import { Annotation } from '../models/annotation.model';
@@ -61,46 +60,6 @@ export class JavaService {
         astNode.children = [];
 
         return astNode;
-    }
-
-    /**
-     * Gets the lCurly Node
-     * @param lCurly // AST Node
-     */
-    static getLCurly(lCurly, lCurlyAstNode): AstNodeInterface{
-        let astNode = this.getAstNode(lCurly[0]);
-        astNode.kind = SyntaxKind.LCurly;
-        
-        lCurlyAstNode.children.push(astNode);
-
-        return lCurlyAstNode;
-    }
-
-    /**
-     * Gets the rCurly Node
-     * @param rCurly // AST Node
-     */
-    static getRCurly(rCurly, rCurlyAstNode): AstNodeInterface{
-        let astNode = this.getAstNode(rCurly[0]);
-        astNode.kind = SyntaxKind.RCurly;
-
-        rCurlyAstNode.children.push(astNode);
-
-        return rCurlyAstNode;
-    }
-
-    /**
-     * Gets the identifier Node List
-     * @param node // AST Node
-     */
-    static getIdentifier(node, identifierAstNode): AstNodeInterface[]{
-        node.forEach(identifier =>{
-            let astNode = this.getAstNode(identifier);
-            astNode.kind = SyntaxKind.Identifier;
-            identifierAstNode.children.push(astNode);
-        });
-        
-        return identifierAstNode;
     }
     
     /**
