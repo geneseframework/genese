@@ -1,9 +1,9 @@
 import { Location } from "./location.model";
-import { MethodHeaderChildren } from "./method-header-children.model";
+import { MethodBodyChildren } from "./method-body-children.model";
 
 export class MethodBody {
     methodHeader?: MethodBody[];
     name ?= '';
-    children?: MethodHeaderChildren = new MethodHeaderChildren();
+    children?: MethodBodyChildren = new MethodBodyChildren();
     location?: Location = new Location();
 }

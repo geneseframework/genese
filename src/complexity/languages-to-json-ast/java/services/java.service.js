@@ -13,8 +13,8 @@ class JavaService {
     static getAstNode(node) {
         let astNode = {
             end: node.location.endOffset,
-            kind: node.location.image,
-            name: node.location.image,
+            kind: node.name,
+            name: node.name,
             pos: node.location.startOffset,
             start: node.location.startOffset
         };
@@ -47,8 +47,8 @@ class JavaService {
     static getAstNodeWithChildren(node) {
         let astNode = {
             end: node.location.endOffset,
-            kind: node.location.name,
-            name: node.location.image,
+            kind: node.name,
+            name: node.name,
             pos: node.location.startOffset,
             start: node.location.startOffset
         };
@@ -95,7 +95,6 @@ class JavaService {
     static generateAstAnnotation(annotations, annotationAstNode) {
         annotations.forEach(annotation => {
             let astNode = JavaService.getAstNodeWithChildren(annotation);
-            astNode.kind = syntax_kind_enum_1.SyntaxKind.annotation;
             JavaService.generateAstAnnotationChildren(annotation.children, astNode);
             annotationAstNode.children.push(astNode);
         });
@@ -121,8 +120,6 @@ class JavaService {
         typeIdentifierList.forEach(typeIdentifier => {
             var _a;
             let astNode = JavaService.getAstNodeWithChildren(typeIdentifier);
-            astNode.kind = syntax_kind_enum_1.SyntaxKind.annotation;
-            //Identifiers
             if ((_a = typeIdentifier.children) === null || _a === void 0 ? void 0 : _a.Identifier) {
                 JavaService.getAstNodeInfos(typeIdentifier.children.Identifier, astNode);
             }
@@ -193,27 +190,6 @@ class JavaService {
         astNode.kind = syntax_kind_enum_1.SyntaxKind.import;
         importAstNode.children.push(astNode);
         return importAstNode;
-    }
-    /**
-     *
-     * @param child
-     */
-    static getModificatorAstNode(child) {
-        let astNode = this.getAstNodeWithChildren(child);
-        astNode.kind = syntax_kind_enum_1.SyntaxKind.methodModifier;
-        if (child.children.Public) {
-            this.getModificator(child.children.Public[0], astNode);
-        }
-        else if (child.children.Private) {
-            this.getModificator(child.children.Private[0], astNode);
-        }
-        else if (child.children.Static) {
-            this.getModificator(child.children.Static[0], astNode);
-        }
-        else if (child.children.Protected) {
-            this.getModificator(child.children.Protected[0], astNode);
-        }
-        return astNode;
     }
     /**
      *

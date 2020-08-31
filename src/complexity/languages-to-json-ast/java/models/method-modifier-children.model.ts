@@ -1,7 +1,8 @@
-import { MethodDeclarator } from "./method-declarator.model";
-import { Result } from "./result.model";
+import { Infos } from "./infos.model";
 
 export class MethodModifierChildren {
-    result?: Result = new Result();
-    methodDeclarator?: MethodDeclarator = new MethodDeclarator();
+    Public?: Infos[] = [new Infos()];
+    Private?: Infos[] = [new Infos()];
+    Static?: Infos[] = [new Infos()];
+    Protected?: Infos[] = [new Infos()]; 
 }

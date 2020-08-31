@@ -27,7 +27,6 @@ export class AstClassGenerationJavaService {
     generate(classDeclarationList: ClassDeclaration[], classDeclarationAstNode: AstNodeInterface): AstNodeInterface{
         classDeclarationList.forEach(classDeclaration => {         
             let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(classDeclaration);
-            astNode.kind = SyntaxKind.classDeclaration;
             this.generateAstClassChildren(classDeclaration.children, astNode);
             classDeclarationAstNode.children.push(astNode);
         });
@@ -46,7 +45,6 @@ export class AstClassGenerationJavaService {
         }
     }
 
-
     /**
      * Gets the classModifier Node List
      * @param  {ClassModifier[]} classModifier
@@ -56,9 +54,7 @@ export class AstClassGenerationJavaService {
     generateAstClassModifier(classModifierList: ClassModifier[], classModifierAstNode: AstNodeInterface): AstNodeInterface{
         classModifierList.forEach(classModifier => {
             let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(classModifier);
-            astNode.kind = SyntaxKind.classModifier;
             this.generateAstClassModifierChildren(classModifier.children, astNode);
-            
             classModifierAstNode.children.push(astNode);
         });
         return classModifierAstNode;
@@ -85,7 +81,6 @@ export class AstClassGenerationJavaService {
     generateAstNormalClassDeclaration(normalClassDeclaration: NormalClassDeclaration[], normalAstNode: AstNodeInterface): AstNodeInterface{
         normalClassDeclaration.forEach(normalClass => {
             let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(normalClass);
-            astNode.kind = SyntaxKind.normalClassDeclaration;
             this.generateAstClassTypeIdentifierClassBody(normalClass.children,astNode);
             normalAstNode.children.push(astNode);
         });
@@ -114,7 +109,6 @@ export class AstClassGenerationJavaService {
      */
     getNormalClass(normalClass, normalClassAstNode): AstNodeInterface{
         let astNode: AstNodeInterface = JavaService.getAstNode(normalClass);
-        astNode.kind = SyntaxKind.Class;
         normalClassAstNode.children.push(astNode);
         return normalClassAstNode;
     }
@@ -127,7 +121,6 @@ export class AstClassGenerationJavaService {
     generateAstClassBody(classBodyList: ClassBody[], classBodyAstNode: AstNodeInterface): AstNodeInterface {  
         classBodyList.forEach(classBody => {         
             let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(classBody);
-            astNode.kind = SyntaxKind.classBody;
             this.generateAstClassBodyChildren(classBody.children, astNode);
             classBodyAstNode.children.push(astNode);
         });
@@ -141,9 +134,9 @@ export class AstClassGenerationJavaService {
      */
     generateAstClassBodyChildren(classBodyChildren: ClassBodyChildren, astNode: AstNodeInterface): void {
         if(classBodyChildren) {
-            JavaService.getAstNodeInfos(classBodyChildren.LCurly,astNode);
+            JavaService.getAstNodeInfos(classBodyChildren.lCurly,astNode);
             this.generateAstClassBodyDeclaration(classBodyChildren.classBodyDeclaration,astNode);
-            JavaService.getAstNodeInfos(classBodyChildren.RCurly,astNode);
+            JavaService.getAstNodeInfos(classBodyChildren.rCurly,astNode);
         }
     }
     
@@ -155,8 +148,6 @@ export class AstClassGenerationJavaService {
     generateAstClassBodyDeclaration(classBodyDeclarationList: ClassBodyDeclaration[], classBodyDeclarationAstNode: AstNodeInterface): AstNodeInterface {
         classBodyDeclarationList.forEach(classBodyDeclaration => {
             let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(classBodyDeclaration);
-            astNode.kind = SyntaxKind.classBodyDeclaration;
-
             if(classBodyDeclaration.children.classMemberDeclaration){
                 this.generateAstClassMemberDeclaration(classBodyDeclaration.children.classMemberDeclaration, astNode);
             }
@@ -172,9 +163,7 @@ export class AstClassGenerationJavaService {
      */
     generateAstClassMemberDeclaration(classMemberDeclarationList: ClassMemberDeclaration[], classMemberDeclarationAstNode: AstNodeInterface): AstNodeInterface {
         classMemberDeclarationList.forEach(classMemberDeclaration =>{
-            let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(classMemberDeclaration[0]);
-            astNode.kind = SyntaxKind.classMemberDeclaration;
-
+            let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(classMemberDeclaration);
             if(classMemberDeclaration.children.methodDeclaration){
                 new AstFunctionageGenerationJavaService().generate(classMemberDeclaration.children.methodDeclaration, astNode);
             }
