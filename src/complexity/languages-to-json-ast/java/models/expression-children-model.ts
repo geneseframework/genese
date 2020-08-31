@@ -1,3 +1,3 @@
 export class ExpressionChildren {
-    ternaryExpression?: ExpressionChildren[];
+    ternaryExpression?: ExpressionChildren[] = [new ExpressionChildren()];
 }

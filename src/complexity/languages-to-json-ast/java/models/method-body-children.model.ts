@@ -1,5 +1,5 @@
 import { Block } from "./block.model";
 
 export class MethodBodyChildren {
-    block?: Block[];
+    block?: Block[] = [new Block()];
 }

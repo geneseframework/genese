@@ -1,5 +1,5 @@
 import { FormalParameter } from "./formal-parameter.model";
 
 export class FormalParameterListChildren {
-    formalParameter?: FormalParameter[];
+    formalParameter?: FormalParameter[] = [new FormalParameter()];
 }

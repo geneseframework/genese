@@ -1,5 +1,5 @@
 import { IfStatement } from "./if-statement-model";
 
 export class StatementChildren {
-    ifStatement?: IfStatement[];
+    ifStatement?: IfStatement[] = [new IfStatement()];
 }
