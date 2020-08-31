@@ -137,105 +137,12 @@ export class JavaService {
     static generateAstTypeIdentifier(typeIdentifierList: TypeIdentifier[], annotationAstNode: AstNodeInterface): AstNodeInterface {
         typeIdentifierList.forEach(typeIdentifier => {
             let astNode = JavaService.getAstNodeWithChildren(typeIdentifier);
-            if(typeIdentifier.children?.Identifier) {
-                JavaService.getAstNodeInfos(typeIdentifier.children.Identifier, astNode);
+            if(typeIdentifier.children?.identifier) {
+                JavaService.getAstNodeInfos(typeIdentifier.children.identifier, astNode);
             }
             annotationAstNode.children.push(astNode);
         });
         return annotationAstNode;
     }
 
-    /**
-     * Gets the At Node
-     * @param atNode // AST Node
-     */
-    static getAtNode(node): AstNodeInterface{
-        let astNode = this.getAstNode(node[0]);
-        astNode.kind = SyntaxKind.At;
-
-        return astNode;
-    }
-
-    /**
-     * Gets the typeNameNode Node
-     * @param typeNameNode // AST Node
-     */
-    static getTypeNameNode(typeNameNode): AstNodeInterface{
-        let astNode = this.getAstNodeWithChildren(typeNameNode[0]);
-        astNode.kind = SyntaxKind.typeName;
-
-        //Identifier
-        if(typeNameNode[0].children.Identifier) {
-            this.getIdentifier(typeNameNode[0].children.Identifier, astNode);
-        }
-        
-        return astNode;
-    }
-
-    
-
-    /**
-     * 
-     * @param lBrace 
-     */
-    static getLBrace(lBrace, lBraceAstNode): AstNodeInterface{
-        let astNode = this.getAstNode(lBrace[0]);
-        astNode.kind = SyntaxKind.LBrace;
-
-        lBraceAstNode.children.push(astNode);
-
-        return lBraceAstNode;
-    }
-
-    /**
-     * 
-     * @param rBrace 
-     */
-    static getRBrace(rBrace, rBraceAstNode): AstNodeInterface{
-        let astNode = this.getAstNode(rBrace[0]);
-        astNode.kind = SyntaxKind.RBrace;
-
-        rBraceAstNode.children.push(astNode);
-
-        return rBraceAstNode;
-    }
-    
-    /**
-     * 
-     * @param semicolon 
-     * @param semicolonAstNode 
-     */
-    static getSemicolon(semicolon, semicolonAstNode): AstNodeInterface{
-        let astNode = this.getAstNode(semicolon[0]);
-        astNode.kind = SyntaxKind.semiColon;
-
-        semicolonAstNode.children.push(astNode);
-
-        return semicolonAstNode;
-    }
-
-    /**
-     * 
-     * @param importNode 
-     * @param getImportAstNode 
-     */
-    static getImport(importNode, importAstNode): AstNodeInterface{
-        let astNode = this.getAstNode(importNode[0]);
-        astNode.kind = SyntaxKind.import;
-
-        importAstNode.children.push(astNode);
-
-        return importAstNode;
-    }
-
-    /**
-     * 
-     * @param node 
-     * @param modificatorAstNode 
-     */
-    static getModificator(node, modificatorAstNode): AstNodeInterface{
-        modificatorAstNode.children.push(this.getAstNode(node));
-
-        return modificatorAstNode;
-    }
 }

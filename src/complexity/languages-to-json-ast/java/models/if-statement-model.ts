@@ -1,9 +1,16 @@
 import { Location } from "./location.model";
-import { IfStatementChildren } from "./if-statement-children-model";
+import { Infos } from "./infos.model";
+import { Expression } from "./expression-model";
+import { Statement } from "./statement.model";
 
 export class IfStatement {
-    ifStatement?: IfStatement[] = [new IfStatement()];
     name ?= '';
-    children?: IfStatementChildren = new IfStatementChildren();
+    children: {
+        if?: Infos[],
+        lBrace?: Infos[],
+        expression?: Expression[],
+        rBrace?: Infos[],
+        statement?: Statement[],
+    }
     location?: Location = new Location();
 }

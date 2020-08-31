@@ -30,9 +30,9 @@ export class AstImportGenerationJavaService {
      */
     generateImportChildren(importChildren: ImportChildren, astNode: AstNodeInterface): void {
         if(importChildren) {
-            JavaService.getAstNodeInfos(importChildren.Import, astNode);
+            JavaService.getAstNodeInfos(importChildren.import, astNode);
             this.generatePackageOrTypeName(importChildren.packageOrTypeName[0], astNode);
-            JavaService.getAstNodeInfos(importChildren.Semicolon, astNode);
+            JavaService.getAstNodeInfos(importChildren.semicolon, astNode);
         }
     }
 
@@ -42,7 +42,7 @@ export class AstImportGenerationJavaService {
      */
     generatePackageOrTypeName(packageOrTypeName: PackageOrTypeName, packageOrTypeNameAstNode): AstNodeInterface {        
         let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(packageOrTypeName);
-        JavaService.getAstNodeInfos(packageOrTypeName.children.Identifier, astNode);
+        JavaService.getAstNodeInfos(packageOrTypeName.children.identifier, astNode);
         packageOrTypeNameAstNode.children.push(astNode);
 
         return packageOrTypeNameAstNode;

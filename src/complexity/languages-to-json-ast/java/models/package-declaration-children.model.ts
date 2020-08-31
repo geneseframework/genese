@@ -1,8 +1,8 @@
 import { Infos } from "./infos.model";
 
 export class PackageDeclarationChildren {
-    Package?: Infos[] = [new Infos()];
-    Identifier?: Infos[] = [new Infos()];
-    Dot?: Infos[] = [new Infos()];
-    Semicolon?: Infos[] = [new Infos()];
+    package?: Infos[] = [new Infos()];
+    identifier?: Infos[] = [new Infos()];
+    dot?: Infos[] = [new Infos()];
+    semicolon?: Infos[] = [new Infos()];
 }

@@ -27,10 +27,10 @@ class AstPackageGenerationJavaService {
      */
     generatePackageChildren(packageDeclarationChildren, astNode) {
         if (packageDeclarationChildren) {
-            java_service_1.JavaService.getAstNodeInfos(packageDeclarationChildren.Package, astNode);
-            java_service_1.JavaService.getAstNodeInfos(packageDeclarationChildren.Identifier, astNode);
-            java_service_1.JavaService.getAstNodeInfos(packageDeclarationChildren.Dot, astNode);
-            java_service_1.JavaService.getAstNodeInfos(packageDeclarationChildren.Semicolon, astNode);
+            java_service_1.JavaService.getAstNodeInfos(packageDeclarationChildren.package, astNode);
+            java_service_1.JavaService.getAstNodeInfos(packageDeclarationChildren.identifier, astNode);
+            java_service_1.JavaService.getAstNodeInfos(packageDeclarationChildren.dot, astNode);
+            java_service_1.JavaService.getAstNodeInfos(packageDeclarationChildren.semicolon, astNode);
         }
     }
 }

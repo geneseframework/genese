@@ -25,9 +25,9 @@ class AstImportGenerationJavaService {
      */
     generateImportChildren(importChildren, astNode) {
         if (importChildren) {
-            java_service_1.JavaService.getAstNodeInfos(importChildren.Import, astNode);
+            java_service_1.JavaService.getAstNodeInfos(importChildren.import, astNode);
             this.generatePackageOrTypeName(importChildren.packageOrTypeName[0], astNode);
-            java_service_1.JavaService.getAstNodeInfos(importChildren.Semicolon, astNode);
+            java_service_1.JavaService.getAstNodeInfos(importChildren.semicolon, astNode);
         }
     }
     /**
@@ -36,7 +36,7 @@ class AstImportGenerationJavaService {
      */
     generatePackageOrTypeName(packageOrTypeName, packageOrTypeNameAstNode) {
         let astNode = java_service_1.JavaService.getAstNodeWithChildren(packageOrTypeName);
-        java_service_1.JavaService.getAstNodeInfos(packageOrTypeName.children.Identifier, astNode);
+        java_service_1.JavaService.getAstNodeInfos(packageOrTypeName.children.identifier, astNode);
         packageOrTypeNameAstNode.children.push(astNode);
         return packageOrTypeNameAstNode;
     }

@@ -30,10 +30,10 @@ export class AstPackageGenerationJavaService {
      */
     generatePackageChildren(packageDeclarationChildren: PackageDeclarationChildren, astNode: AstNodeInterface): void {
         if(packageDeclarationChildren) {
-            JavaService.getAstNodeInfos(packageDeclarationChildren.Package, astNode);
-            JavaService.getAstNodeInfos(packageDeclarationChildren.Identifier, astNode);
-            JavaService.getAstNodeInfos(packageDeclarationChildren.Dot, astNode);
-            JavaService.getAstNodeInfos(packageDeclarationChildren.Semicolon, astNode);
+            JavaService.getAstNodeInfos(packageDeclarationChildren.package, astNode);
+            JavaService.getAstNodeInfos(packageDeclarationChildren.identifier, astNode);
+            JavaService.getAstNodeInfos(packageDeclarationChildren.dot, astNode);
+            JavaService.getAstNodeInfos(packageDeclarationChildren.semicolon, astNode);
         }
     }
 

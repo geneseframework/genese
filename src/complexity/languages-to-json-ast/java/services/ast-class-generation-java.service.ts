@@ -68,7 +68,7 @@ export class AstClassGenerationJavaService {
     generateAstClassModifierChildren(classModifierChildren: ClassModifierChildren, astNode: AstNodeInterface): void {
         if(classModifierChildren) {
             JavaService.generateAstAnnotation(classModifierChildren.annotation, astNode);
-            JavaService.getAstNodeInfos(classModifierChildren.Public, astNode);
+            JavaService.getAstNodeInfos(classModifierChildren.public, astNode);
         }
     }
 
@@ -95,7 +95,7 @@ export class AstClassGenerationJavaService {
      */
     generateAstClassTypeIdentifierClassBody(normalClassDeclarationChildren: NormalClassDeclarationChildren, astNode: AstNodeInterface): void {
         if(normalClassDeclarationChildren) {
-            JavaService.getAstNodeInfos(normalClassDeclarationChildren.Class, astNode);
+            JavaService.getAstNodeInfos(normalClassDeclarationChildren.class, astNode);
             JavaService.generateAstTypeIdentifier(normalClassDeclarationChildren.typeIdentifier, astNode)
             this.generateAstClassBody(normalClassDeclarationChildren.classBody, astNode);
         }
@@ -148,14 +148,23 @@ export class AstClassGenerationJavaService {
     generateAstClassBodyDeclaration(classBodyDeclarationList: ClassBodyDeclaration[], classBodyDeclarationAstNode: AstNodeInterface): AstNodeInterface {
         classBodyDeclarationList.forEach(classBodyDeclaration => {
             let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(classBodyDeclaration);
-            if(classBodyDeclaration.children.classMemberDeclaration){
-                this.generateAstClassMemberDeclaration(classBodyDeclaration.children.classMemberDeclaration, astNode);
-            }
+            this.generateAstClassBodyDeclarationChildren(classBodyDeclaration, astNode);
             classBodyDeclarationAstNode.children.push(astNode);
         });
         return classBodyDeclarationAstNode;
     }
     
+    /**
+     * @param  {ClassBodyDeclaration} classBodyDeclaration
+     * @param  {AstNodeInterface} classBodyDeclarationAstNode
+     * @returns void
+     */
+    generateAstClassBodyDeclarationChildren(classBodyDeclaration: ClassBodyDeclaration, classBodyDeclarationAstNode: AstNodeInterface): void {
+        if(classBodyDeclaration.children?.classMemberDeclaration){
+            this.generateAstClassMemberDeclaration(classBodyDeclaration.children.classMemberDeclaration, classBodyDeclarationAstNode);
+        }
+    }
+
     /**
      * @param  {ClassMemberDeclaration[]} classMemberDeclarationList
      * @param  {AstNodeInterface} classMemberDeclarationAstNode

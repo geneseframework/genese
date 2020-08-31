@@ -49,10 +49,10 @@ class AstFunctionageGenerationJavaService {
      */
     generateAstMethodModifierChildren(methodModifierChildren, astNode) {
         if (methodModifierChildren) {
-            java_service_1.JavaService.getAstNodeInfos(methodModifierChildren.Public, astNode);
-            java_service_1.JavaService.getAstNodeInfos(methodModifierChildren.Private, astNode);
-            java_service_1.JavaService.getAstNodeInfos(methodModifierChildren.Static, astNode);
-            java_service_1.JavaService.getAstNodeInfos(methodModifierChildren.Protected, astNode);
+            java_service_1.JavaService.getAstNodeInfos(methodModifierChildren.public, astNode);
+            java_service_1.JavaService.getAstNodeInfos(methodModifierChildren.private, astNode);
+            java_service_1.JavaService.getAstNodeInfos(methodModifierChildren.static, astNode);
+            java_service_1.JavaService.getAstNodeInfos(methodModifierChildren.protected, astNode);
         }
     }
     /**
@@ -87,19 +87,21 @@ class AstFunctionageGenerationJavaService {
         if (resultList) {
             resultList.forEach(result => {
                 let astNode = java_service_1.JavaService.getAstNodeWithChildren(result);
-                java_service_1.JavaService.getAstNodeInfos(result.children.Void, astNode);
+                java_service_1.JavaService.getAstNodeInfos(result.children.void, astNode);
                 resultAstNode.children.push(astNode);
             });
         }
     }
     /**
-     * Gets the methodBody Node
-     * @param methodBody // AST Node
+     * @param  {MethodBody[]} methodBodyList
+     * @param  {AstNodeInterface} methodBodyAstNode
+     * @returns void
      */
-    generateAstMethodBody(methodBody, methodBodyAstNode) {
-        let astNode = java_service_1.JavaService.getAstNode(methodBody);
-        methodBodyAstNode.children.push(astNode);
-        return methodBodyAstNode;
+    generateAstMethodBody(methodBodyList, methodBodyAstNode) {
+        methodBodyList.forEach(methodBody => {
+            let astNode = java_service_1.JavaService.getAstNode(methodBody);
+            methodBodyAstNode.children.push(astNode);
+        });
     }
     /**
      * @param  {MethodDeclarator[]} methodDeclaratorList
@@ -121,10 +123,10 @@ class AstFunctionageGenerationJavaService {
      */
     generateAstMethodDeclaratorChildren(methodDeclaratorChildren, astNode) {
         if (methodDeclaratorChildren) {
-            java_service_1.JavaService.getAstNodeInfos(methodDeclaratorChildren.Identifier, astNode);
-            java_service_1.JavaService.getAstNodeInfos(methodDeclaratorChildren.LBrace, astNode);
+            java_service_1.JavaService.getAstNodeInfos(methodDeclaratorChildren.identifier, astNode);
+            java_service_1.JavaService.getAstNodeInfos(methodDeclaratorChildren.lBrace, astNode);
             this.generateAstFormalParameterList(methodDeclaratorChildren.formalParameterList, astNode);
-            java_service_1.JavaService.getAstNodeInfos(methodDeclaratorChildren.RBrace, astNode);
+            java_service_1.JavaService.getAstNodeInfos(methodDeclaratorChildren.rBrace, astNode);
         }
     }
     /**
