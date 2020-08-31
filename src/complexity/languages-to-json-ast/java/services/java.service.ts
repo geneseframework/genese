@@ -17,8 +17,8 @@ export class JavaService {
     static getAstNode(node): AstNodeInterface{
         let astNode: AstNodeInterface = {
             end: node.location.endOffset,
-            kind: node.location.image,
-            name: node.location.image,
+            kind: node.name,
+            name: node.name,
             pos: node.location.startOffset,
             start: node.location.startOffset
         }
@@ -53,8 +53,8 @@ export class JavaService {
     static getAstNodeWithChildren(node): AstNodeInterface{
         let astNode: AstNodeInterface = {
             end: node.location.endOffset,
-            kind: node.location.name,
-            name: node.location.image,
+            kind: node.name,
+            name: node.name,
             pos: node.location.startOffset,
             start: node.location.startOffset
         }
@@ -111,7 +111,6 @@ export class JavaService {
     static generateAstAnnotation(annotations: Annotation[], annotationAstNode: AstNodeInterface): AstNodeInterface {
         annotations.forEach(annotation => {
             let astNode = JavaService.getAstNodeWithChildren(annotation);
-            astNode.kind = SyntaxKind.annotation;
             JavaService.generateAstAnnotationChildren(annotation.children, astNode);
             annotationAstNode.children.push(astNode);
         })
@@ -138,8 +137,6 @@ export class JavaService {
     static generateAstTypeIdentifier(typeIdentifierList: TypeIdentifier[], annotationAstNode: AstNodeInterface): AstNodeInterface {
         typeIdentifierList.forEach(typeIdentifier => {
             let astNode = JavaService.getAstNodeWithChildren(typeIdentifier);
-            astNode.kind = SyntaxKind.annotation;
-            //Identifiers
             if(typeIdentifier.children?.Identifier) {
                 JavaService.getAstNodeInfos(typeIdentifier.children.Identifier, astNode);
             }
@@ -229,28 +226,6 @@ export class JavaService {
         importAstNode.children.push(astNode);
 
         return importAstNode;
-    }
-
-    /**
-     * 
-     * @param child 
-     */
-    static getModificatorAstNode(child): AstNodeInterface{
-        let astNode = this.getAstNodeWithChildren(child);
-        astNode.kind = SyntaxKind.methodModifier;
-        
-        
-        if(child.children.Public){
-            this.getModificator(child.children.Public[0], astNode);
-        } else if(child.children.Private) {
-            this.getModificator(child.children.Private[0], astNode);
-        } else if(child.children.Static){
-            this.getModificator(child.children.Static[0], astNode);
-        } else if(child.children.Protected){
-            this.getModificator(child.children.Protected[0], astNode); 
-        }
-
-        return astNode;
     }
 
     /**

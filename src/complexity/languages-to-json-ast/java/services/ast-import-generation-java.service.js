@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstImportGenerationJavaService = void 0;
 const java_service_1 = require("./java.service");
-const syntax_kind_enum_1 = require("../core/syntax-kind.enum");
 /**
  * - Generate AstNode for imports from their Abstract Syntax Tree (AST)
  */
@@ -14,7 +13,6 @@ class AstImportGenerationJavaService {
     generate(importDeclarationList, importAstNodes) {
         importDeclarationList.forEach(importDeclaration => {
             let astNode = java_service_1.JavaService.getAstNodeWithChildren(importDeclaration);
-            astNode.kind = syntax_kind_enum_1.SyntaxKind.importDeclaration;
             this.generateImportChildren(importDeclaration.children, importAstNodes);
             importAstNodes.children.push(astNode);
         });
@@ -38,10 +36,7 @@ class AstImportGenerationJavaService {
      */
     generatePackageOrTypeName(packageOrTypeName, packageOrTypeNameAstNode) {
         let astNode = java_service_1.JavaService.getAstNodeWithChildren(packageOrTypeName);
-        astNode.kind = syntax_kind_enum_1.SyntaxKind.packageOrTypeName;
-        if (packageOrTypeName.children.Identifier) {
-            java_service_1.JavaService.getAstNodeInfos(packageOrTypeName.children.Identifier, astNode);
-        }
+        java_service_1.JavaService.getAstNodeInfos(packageOrTypeName.children.Identifier, astNode);
         packageOrTypeNameAstNode.children.push(astNode);
         return packageOrTypeNameAstNode;
     }

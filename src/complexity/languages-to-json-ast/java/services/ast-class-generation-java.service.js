@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AstClassGenerationJavaService = void 0;
-const syntax_kind_enum_1 = require("../core/syntax-kind.enum");
 const java_service_1 = require("./java.service");
 const ast_function_generation_java_service_1 = require("./ast-function-generation-java.service");
 /**
@@ -17,7 +16,6 @@ class AstClassGenerationJavaService {
     generate(classDeclarationList, classDeclarationAstNode) {
         classDeclarationList.forEach(classDeclaration => {
             let astNode = java_service_1.JavaService.getAstNodeWithChildren(classDeclaration);
-            astNode.kind = syntax_kind_enum_1.SyntaxKind.classDeclaration;
             this.generateAstClassChildren(classDeclaration.children, astNode);
             classDeclarationAstNode.children.push(astNode);
         });
@@ -43,7 +41,6 @@ class AstClassGenerationJavaService {
     generateAstClassModifier(classModifierList, classModifierAstNode) {
         classModifierList.forEach(classModifier => {
             let astNode = java_service_1.JavaService.getAstNodeWithChildren(classModifier);
-            astNode.kind = syntax_kind_enum_1.SyntaxKind.classModifier;
             this.generateAstClassModifierChildren(classModifier.children, astNode);
             classModifierAstNode.children.push(astNode);
         });
@@ -69,7 +66,6 @@ class AstClassGenerationJavaService {
     generateAstNormalClassDeclaration(normalClassDeclaration, normalAstNode) {
         normalClassDeclaration.forEach(normalClass => {
             let astNode = java_service_1.JavaService.getAstNodeWithChildren(normalClass);
-            astNode.kind = syntax_kind_enum_1.SyntaxKind.normalClassDeclaration;
             this.generateAstClassTypeIdentifierClassBody(normalClass.children, astNode);
             normalAstNode.children.push(astNode);
         });
@@ -95,7 +91,6 @@ class AstClassGenerationJavaService {
      */
     getNormalClass(normalClass, normalClassAstNode) {
         let astNode = java_service_1.JavaService.getAstNode(normalClass);
-        astNode.kind = syntax_kind_enum_1.SyntaxKind.Class;
         normalClassAstNode.children.push(astNode);
         return normalClassAstNode;
     }
@@ -107,7 +102,6 @@ class AstClassGenerationJavaService {
     generateAstClassBody(classBodyList, classBodyAstNode) {
         classBodyList.forEach(classBody => {
             let astNode = java_service_1.JavaService.getAstNodeWithChildren(classBody);
-            astNode.kind = syntax_kind_enum_1.SyntaxKind.classBody;
             this.generateAstClassBodyChildren(classBody.children, astNode);
             classBodyAstNode.children.push(astNode);
         });
@@ -120,9 +114,9 @@ class AstClassGenerationJavaService {
      */
     generateAstClassBodyChildren(classBodyChildren, astNode) {
         if (classBodyChildren) {
-            java_service_1.JavaService.getAstNodeInfos(classBodyChildren.LCurly, astNode);
+            java_service_1.JavaService.getAstNodeInfos(classBodyChildren.lCurly, astNode);
             this.generateAstClassBodyDeclaration(classBodyChildren.classBodyDeclaration, astNode);
-            java_service_1.JavaService.getAstNodeInfos(classBodyChildren.RCurly, astNode);
+            java_service_1.JavaService.getAstNodeInfos(classBodyChildren.rCurly, astNode);
         }
     }
     /**
@@ -133,7 +127,6 @@ class AstClassGenerationJavaService {
     generateAstClassBodyDeclaration(classBodyDeclarationList, classBodyDeclarationAstNode) {
         classBodyDeclarationList.forEach(classBodyDeclaration => {
             let astNode = java_service_1.JavaService.getAstNodeWithChildren(classBodyDeclaration);
-            astNode.kind = syntax_kind_enum_1.SyntaxKind.classBodyDeclaration;
             if (classBodyDeclaration.children.classMemberDeclaration) {
                 this.generateAstClassMemberDeclaration(classBodyDeclaration.children.classMemberDeclaration, astNode);
             }
@@ -148,8 +141,7 @@ class AstClassGenerationJavaService {
      */
     generateAstClassMemberDeclaration(classMemberDeclarationList, classMemberDeclarationAstNode) {
         classMemberDeclarationList.forEach(classMemberDeclaration => {
-            let astNode = java_service_1.JavaService.getAstNodeWithChildren(classMemberDeclaration[0]);
-            astNode.kind = syntax_kind_enum_1.SyntaxKind.classMemberDeclaration;
+            let astNode = java_service_1.JavaService.getAstNodeWithChildren(classMemberDeclaration);
             if (classMemberDeclaration.children.methodDeclaration) {
                 new ast_function_generation_java_service_1.AstFunctionageGenerationJavaService().generate(classMemberDeclaration.children.methodDeclaration, astNode);
             }

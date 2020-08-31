@@ -17,7 +17,6 @@ export class AstImportGenerationJavaService {
     generate(importDeclarationList: ImportDeclaration[], importAstNodes): AstNodeInterface[]{
         importDeclarationList.forEach(importDeclaration => {
             let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(importDeclaration);
-            astNode.kind = SyntaxKind.importDeclaration
             this.generateImportChildren(importDeclaration.children, importAstNodes);
             importAstNodes.children.push(astNode);
         });
@@ -43,11 +42,7 @@ export class AstImportGenerationJavaService {
      */
     generatePackageOrTypeName(packageOrTypeName: PackageOrTypeName, packageOrTypeNameAstNode): AstNodeInterface {        
         let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(packageOrTypeName);
-        astNode.kind = SyntaxKind.packageOrTypeName;
-
-        if(packageOrTypeName.children.Identifier){
-            JavaService.getAstNodeInfos(packageOrTypeName.children.Identifier, astNode);
-        }
+        JavaService.getAstNodeInfos(packageOrTypeName.children.Identifier, astNode);
         packageOrTypeNameAstNode.children.push(astNode);
 
         return packageOrTypeNameAstNode;
