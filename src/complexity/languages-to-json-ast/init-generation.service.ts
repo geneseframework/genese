@@ -1,12 +1,12 @@
 import * as fs from 'fs-extra';
-import { AstFileGenerationService } from './ast-file-generation.service';
-import { AstFileGenerationJavaService } from '../../java/services/ast-file-generation-java.service';
-import { getFileExtension, platformPath } from '../../../core/services/file.service';
-import { Options } from '../../../core/models/options.model';
-import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
-import { JsonAstInterface } from '../../../core/interfaces/ast/json-ast.interface';
-import { DEV_MOCK, LIMIT_GENERATIONS } from '../../globals.const';
-import { Language } from '../../../core/enum/language.enum';
+import { AstFileGenerationService } from './ts/services/ast-file-generation.service';
+import { AstFileGenerationJavaService } from './java/services/ast-file-generation-java.service';
+import { getFileExtension, platformPath } from '../core/services/file.service';
+import { Options } from '../core/models/options.model';
+import { AstFolderInterface } from '../core/interfaces/ast/ast-folder.interface';
+import { JsonAstInterface } from '../core/interfaces/ast/json-ast.interface';
+import { DEV_MOCK, LIMIT_GENERATIONS } from './globals.const';
+import { Language } from '../core/enum/language.enum';
 
 /**
  * - AstFolders generation from Abstract Syntax Tree (AST) of its files (including files in subfolders)

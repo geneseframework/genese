@@ -111,7 +111,9 @@ export class AstFileGenerationJavaService {
             if(typeDeclarationElement.children?.classDeclaration){
                 new AstClassGenerationJavaService().generate(typeDeclarationElement.children.classDeclaration, astNode);
             }
-            typeDeclarationAstNode.children.push(astNode);
+            if(typeDeclarationAstNode.children){
+                typeDeclarationAstNode.children.push(astNode);
+            }
         });
     }
 }

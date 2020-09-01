@@ -15,40 +15,7 @@ export class AstImportGenerationJavaService {
      * @param  {AstNodeInterface} importAstNodes
      * @returns AstNodeInterface
      */
-    generate(importDeclaration: ImportDeclarationElement[], importAstNodes: AstNodeInterface): AstNodeInterface {
-        importDeclaration.forEach(importDeclarationElement => {
-            let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(importDeclarationElement);
-            this.generateImportChildren(importDeclarationElement.children, importAstNodes);
-            importAstNodes.children.push(astNode);
-        });
+    generate(_importDeclaration: ImportDeclarationElement[], importAstNodes: AstNodeInterface): AstNodeInterface {
         return importAstNodes;
-    }
-
-    /**
-     * Gets the import Node children
-     * @param  {ImportChildren} importChildren
-     * @param  {AstNodeInterface} astNode
-     * @returns void
-     */
-    private generateImportChildren(importChildren: ImportChildren, astNode: AstNodeInterface): void {
-        if(importChildren) {
-            JavaService.getAstNodeInfos(importChildren.import, astNode);
-            this.generatePackageOrTypeName(importChildren.packageOrTypeName[0], astNode);
-            JavaService.getAstNodeInfos(importChildren.semicolon, astNode);
-        }
-    }
-    
-    /**
-     * Gets the PackageOrTypeName Node
-     * @param  {PackageOrTypeName} packageOrTypeName
-     * @param  {AstNodeInterface} packageOrTypeNameAstNode
-     * @returns AstNodeInterface
-     */
-    private generatePackageOrTypeName(packageOrTypeName: PackageOrTypeName, packageOrTypeNameAstNode: AstNodeInterface): AstNodeInterface {        
-        let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(packageOrTypeName);
-        JavaService.getAstNodeInfos(packageOrTypeName.children.identifier, astNode);
-        packageOrTypeNameAstNode.children.push(astNode);
-
-        return packageOrTypeNameAstNode;
     }
 }

@@ -1,4 +1,4 @@
-import { InitGenerationService } from './ts/services/init-generation.service';
+import { InitGenerationService } from './init-generation.service';
 import { Language } from '../core/enum/language.enum';
 import * as chalk from 'chalk';
 import { JsonService } from './json.service';

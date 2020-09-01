@@ -15,26 +15,7 @@ export class AstPackageGenerationJavaService {
      * @param  {AstNodeInterface} packageAstNode
      * @returns AstNodeInterface
      */
-    generate(packageDeclarationElement: PackageDeclarationElement, packageAstNode: AstNodeInterface): AstNodeInterface {
-        let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(packageDeclarationElement);
-        astNode.kind = SyntaxKind.PackageDeclaration;
-        this.generatePackageChildren(packageDeclarationElement.children, astNode);
-        packageAstNode.children.push(astNode);
+    generate(_packageDeclarationElement: PackageDeclarationElement, packageAstNode?: AstNodeInterface): AstNodeInterface {
         return packageAstNode;
     }
-
-    /**
-     * @param  {PackageDeclarationChildren} packageDeclarationChildren
-     * @param  {AstNodeInterface} astNode
-     * @returns void
-     */
-    private generatePackageChildren(packageDeclarationChildren: PackageDeclarationChildren, astNode: AstNodeInterface): void {
-        if(packageDeclarationChildren) {
-            JavaService.getAstNodeInfos(packageDeclarationChildren.package, astNode);
-            JavaService.getAstNodeInfos(packageDeclarationChildren.identifier, astNode);
-            JavaService.getAstNodeInfos(packageDeclarationChildren.dot, astNode);
-            JavaService.getAstNodeInfos(packageDeclarationChildren.semicolon, astNode);
-        }
-    }
-
 }
