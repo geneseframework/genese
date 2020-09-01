@@ -8,6 +8,7 @@
 # genese
 /genese
 /gn-reports
+/quality-reports
 /*.js
 /src/complexity/*js
 /src/complexity/core/const/*.js

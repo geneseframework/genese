@@ -1,9 +1,9 @@
-import { PackageDeclaration } from "./package-declaration.model";
-import { ImportDeclaration } from "./import-declaration.model";
-import { TypeDeclaration } from "./type.declaration-model";
+import { PackageDeclarationElement } from "./package-declaration-element.model";
+import { ImportDeclarationElement } from "./import-declaration-element.model";
+import { TypeDeclarationElement } from "./type-declaration-element.model";
 
 export class OrdinaryCompilationUnitChildren {
-    packageDeclaration?: PackageDeclaration[] = [new PackageDeclaration()];
-    importDeclaration?: ImportDeclaration[] = [new ImportDeclaration()];
-    typeDeclaration?: TypeDeclaration[] = [new TypeDeclaration()];
+    packageDeclaration?: PackageDeclarationElement[] = [new PackageDeclarationElement()];
+    importDeclaration?: ImportDeclarationElement[] = [new ImportDeclarationElement()];
+    typeDeclaration?: TypeDeclarationElement[] = [new TypeDeclarationElement()];
 }
