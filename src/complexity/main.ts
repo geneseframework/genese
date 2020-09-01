@@ -17,13 +17,14 @@ export function showDuration(message: string, color = 'cyanBright') {
  * Parse AST files into JsonAst format and then creates Complexity reports from the JsonAst file
  */
 export class Main {
-
-
+    
     /**
      * Starts the analysis
-     * @param pathCommand
-     * @param pathFolderToAnalyze
-     * @param pathGeneseNodeJs
+     * @param  {string} pathCommand
+     * @param  {string} pathFolderToAnalyze
+     * @param  {string} pathGeneseNodeJs
+     * @param  {Language} language?
+     * @returns void
      */
     start(pathCommand: string, pathFolderToAnalyze: string, pathGeneseNodeJs: string, language?: Language): void {
         console.log(`PATH TO ANALYZE : ${pathFolderToAnalyze}`);

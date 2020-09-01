@@ -3,5 +3,5 @@ import { Infos } from "./infos.model";
 
 export class ClassModifierChildren {
     annotation?: Annotation[] = [new Annotation()];
-    Public?: Infos[] = [new Infos()];
+    public?: Infos[] = [new Infos()];
 }

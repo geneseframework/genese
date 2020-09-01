@@ -1,4 +1,4 @@
-import { InitGenerationService } from './ts/services/init-generation.service';
+import { InitGenerationService } from './init-generation.service';
 import { Language } from '../core/enum/language.enum';
 import * as chalk from 'chalk';
 import { JsonService } from './json.service';
@@ -13,8 +13,9 @@ export class LanguageToJsonAst {
 
     /**
      * Starts the parsing to Json Ast format
-     * @param pathToAnalyze         // The path of the folder to analyse
-     * @param language              // The language to parse and convert into JsonAst
+     * @param  {string} pathToAnalyze          // The path of the folder to analyse
+     * @param  {Language} language?         // The language to parse and convert into JsonAst
+     * @returns void
      */
     static start(pathToAnalyze: string, language?: Language): void {
         console.log(chalk.blueBright('STARTS JSON AST GENERATION'));
@@ -23,7 +24,8 @@ export class LanguageToJsonAst {
         let jsonAst: JsonAstInterface;
         switch (language) {
             case Language.TS:
-                jsonAst = LanguageToJsonAst.generateFromTsFiles(pathToAnalyze);
+            case Language.JAVA:
+                jsonAst = LanguageToJsonAst.generateFromFiles(pathToAnalyze, language);
                 break;
             default:
                 jsonAst = LanguageToJsonAst.generateFromAllFiles(pathToAnalyze);
@@ -36,16 +38,20 @@ export class LanguageToJsonAst {
 
     // TODO: implement for all languages
     private static generateFromAllFiles(pathToAnalyze: string): JsonAstInterface {
-        return LanguageToJsonAst.generateFromTsFiles(pathToAnalyze);
+        return LanguageToJsonAst.generateFromFiles(pathToAnalyze, Language.TS);
     }
 
-
-    private static generateFromTsFiles(pathToAnalyze: string): JsonAstInterface {
+    /**
+     * Generate AST for Ts or Java files
+     * @param  {string} pathToAnalyze
+     * @param  {Language} language
+     * @returns JsonAstInterface
+     */
+    private static generateFromFiles(pathToAnalyze: string, language: Language): JsonAstInterface {
         const jsonAst: JsonAstInterface = {
             astFolder: undefined
         };
-        const initService = new InitGenerationService();
-        let astFolder = initService.generateAll(pathToAnalyze).astFolder as any;
+        let astFolder = new InitGenerationService().generateAll(pathToAnalyze, language).astFolder as any;
         astFolder = JsonService.astPropertyNames(astFolder);
         jsonAst.astFolder = astFolder;
         return jsonAst;

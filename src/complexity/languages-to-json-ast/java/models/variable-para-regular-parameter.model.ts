@@ -2,7 +2,6 @@ import { VariableParaRegularParameterChildren } from "./variable-para-regular-pa
 import { Location } from './location.model';
 
 export class VariableParaRegularParameter {
-    variableParaRegularParameter?: VariableParaRegularParameter[] = [new VariableParaRegularParameter()];
     name ?= '';
     children?: VariableParaRegularParameterChildren = new VariableParaRegularParameterChildren();
     location?: Location = new Location();
