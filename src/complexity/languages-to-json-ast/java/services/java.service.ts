@@ -10,21 +10,6 @@ import { AnnotationChildren } from '../models/annotation-children.model';
 export class JavaService {
 
     /**
-     * Gets the AstNode of Node
-     * @param node // AST Node
-     */
-    static getAstNode(node): AstNodeInterface{
-        let astNode: AstNodeInterface = {
-            end: node.location.endOffset,
-            kind: node.name,
-            name: node.name,
-            pos: node.location.startOffset,
-            start: node.location.startOffset
-        }
-        return astNode;
-    }
-
-    /**
      * @param  {Infos} infos
      * @param  {AstNodeInterface} astNode
      * @returns AstNodeInterface
@@ -87,14 +72,4 @@ export class JavaService {
             JavaService.getAstNodeInfos(annotationChildren.typeName, astNode);
         } 
     }
-
-    /**
-     * @param  {TypeIdentifier[]} typeIdentifierList
-     * @param  {AstNodeInterface} annotationAstNode
-     * @returns AstNodeInterface
-     */
-    static generateAstTypeIdentifier(_typeIdentifierList: TypeIdentifier[], annotationAstNode: AstNodeInterface): AstNodeInterface {
-        return annotationAstNode;
-    }
-
 }
