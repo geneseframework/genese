@@ -1,7 +1,7 @@
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
 import { SyntaxKind } from '../core/syntax-kind.enum';
 import { JavaService } from './java.service';
-import { PackageDeclaration } from '../models/package-declaration.model';
+import { PackageDeclarationElement } from '../models/package-declaration-element.model';
 import { PackageDeclarationChildren } from '../models/package-declaration-children.model';
 
 /**
@@ -11,14 +11,14 @@ export class AstPackageGenerationJavaService {
 
     /**
      * Gets the package Node
-     * @param  {PackageDeclaration} packageDeclaration
+     * @param  {PackageDeclarationElement} packageDeclaration
      * @param  {AstNodeInterface} packageAstNode
      * @returns AstNodeInterface
      */
-    generate(packageDeclaration: PackageDeclaration, packageAstNode: AstNodeInterface): AstNodeInterface {
-        let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(packageDeclaration);
+    generate(packageDeclarationElement: PackageDeclarationElement, packageAstNode: AstNodeInterface): AstNodeInterface {
+        let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(packageDeclarationElement);
         astNode.kind = SyntaxKind.PackageDeclaration;
-        this.generatePackageChildren(packageDeclaration.children, astNode);
+        this.generatePackageChildren(packageDeclarationElement.children, astNode);
         packageAstNode.children.push(astNode);
         return packageAstNode;
     }
@@ -28,7 +28,7 @@ export class AstPackageGenerationJavaService {
      * @param  {AstNodeInterface} astNode
      * @returns void
      */
-    generatePackageChildren(packageDeclarationChildren: PackageDeclarationChildren, astNode: AstNodeInterface): void {
+    private generatePackageChildren(packageDeclarationChildren: PackageDeclarationChildren, astNode: AstNodeInterface): void {
         if(packageDeclarationChildren) {
             JavaService.getAstNodeInfos(packageDeclarationChildren.package, astNode);
             JavaService.getAstNodeInfos(packageDeclarationChildren.identifier, astNode);
