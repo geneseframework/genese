@@ -93,14 +93,7 @@ export class JavaService {
      * @param  {AstNodeInterface} annotationAstNode
      * @returns AstNodeInterface
      */
-    static generateAstTypeIdentifier(typeIdentifierList: TypeIdentifier[], annotationAstNode: AstNodeInterface): AstNodeInterface {
-        typeIdentifierList.forEach(typeIdentifier => {
-            let astNode = JavaService.getAstNodeWithChildren(typeIdentifier);
-            if(typeIdentifier.children?.identifier) {
-                JavaService.getAstNodeInfos(typeIdentifier.children.identifier, astNode);
-            }
-            annotationAstNode.children.push(astNode);
-        });
+    static generateAstTypeIdentifier(_typeIdentifierList: TypeIdentifier[], annotationAstNode: AstNodeInterface): AstNodeInterface {
         return annotationAstNode;
     }
 
