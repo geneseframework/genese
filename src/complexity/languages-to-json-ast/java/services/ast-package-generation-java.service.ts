@@ -15,7 +15,28 @@ export class AstPackageGenerationJavaService {
      * @param  {AstNodeInterface} packageAstNode
      * @returns AstNodeInterface
      */
-    generate(_packageDeclarationElement: PackageDeclarationElement, packageAstNode?: AstNodeInterface): AstNodeInterface {
+    generate(packageDeclarationElement: PackageDeclarationElement, packageAstNode: AstNodeInterface): AstNodeInterface {
+        let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(packageDeclarationElement);
+        astNode.kind = SyntaxKind.PackageDeclaration;
+        this.generatePackageChildren(packageDeclarationElement.children, astNode);
+        if(packageAstNode?.children){
+            packageAstNode.children.push(astNode);
+        }
         return packageAstNode;
     }
+
+    /**
+     * @param  {PackageDeclarationChildren} packageDeclarationChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    private generatePackageChildren(packageDeclarationChildren: PackageDeclarationChildren, astNode: AstNodeInterface): void {
+        if(packageDeclarationChildren) {
+            JavaService.getAstNodeInfos(packageDeclarationChildren.Package, astNode);
+            JavaService.getAstNodeInfos(packageDeclarationChildren.Identifier, astNode);
+            JavaService.getAstNodeInfos(packageDeclarationChildren.Dot, astNode);
+            JavaService.getAstNodeInfos(packageDeclarationChildren.Semicolon, astNode);
+        }
+    }
+
 }
