@@ -25,6 +25,7 @@ export class AstPackageGenerationJavaService {
         return packageAstNode;
     }
 
+    
     /**
      * @param  {PackageDeclarationChildren} packageDeclarationChildren
      * @param  {AstNodeInterface} astNode

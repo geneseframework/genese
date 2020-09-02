@@ -24,11 +24,12 @@ export class JavaService {
                 pos: node.location.startOffset,
                 start: node.location.startOffset
             }
-            astNode.children = [];
         }
+        astNode.children = [];
         return astNode;
     }
 
+    
     /**
      * @param  {Infos} infos
      * @param  {AstNodeInterface} astNode
