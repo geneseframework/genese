@@ -1,7 +1,6 @@
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
 import { Node } from '../models/node.model';
 import { Infos } from '../models/infos.model';
-import { Node } from '../models/node.model';
 import { Annotation } from '../models/annotation.model';
 import { TypeIdentifier } from '../models/type-identifier.model';
 import { AnnotationChildren } from '../models/annotation-children.model';
