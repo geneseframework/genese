@@ -1,5 +1,5 @@
 import { Infos } from "./infos.model";
-import { PackageOrTypeName } from "./package-or-type-name.model";
+import { PackageOrTypeNameElement } from "./package-or-type-name-element.model";
 
 /**
  * We are forced to write on PascalCase some properties
@@ -7,6 +7,6 @@ import { PackageOrTypeName } from "./package-or-type-name.model";
  */
 export class ImportChildren {
     Import?: Infos[] = [new Infos()];
-    packageOrTypeName?: PackageOrTypeName[] = [new PackageOrTypeName()];
+    packageOrTypeName?: PackageOrTypeNameElement[] = [new PackageOrTypeNameElement()];
     Semicolon?: Infos[] = [new Infos()];
 }
