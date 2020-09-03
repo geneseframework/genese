@@ -1,6 +1,6 @@
 import { Infos } from "./infos.model";
 
 export class PackageOrTypeNameChildren {
-    identifier?: Infos[] = [new Infos()];
-    dot?: Infos[] = [new Infos()];
+    Identifier?: Infos[] = [new Infos()];
+    Dot?: Infos[] = [new Infos()];
 }
