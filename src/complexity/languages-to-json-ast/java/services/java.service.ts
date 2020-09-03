@@ -36,7 +36,7 @@ export class JavaService {
      * @returns AstNodeInterface
      */
     static getAstNodeInfos(infos: Infos[], astNode: AstNodeInterface): AstNodeInterface {
-        if(infos) {
+        if(Array.isArray(infos)) {
             infos.forEach(info => {
                 let childrenAstNode: AstNodeInterface = {
                     end: info.endOffset,

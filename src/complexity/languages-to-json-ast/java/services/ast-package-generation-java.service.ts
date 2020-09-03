@@ -11,7 +11,7 @@ export class AstPackageGenerationJavaService {
 
     /**
      * Gets the package Node
-     * @param  {PackageDeclarationElement} packageDeclaration
+     * @param  {PackageDeclarationElement} packageDeclarationElement
      * @param  {AstNodeInterface} packageAstNode
      * @returns AstNodeInterface
      */
