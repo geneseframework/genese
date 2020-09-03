@@ -9,10 +9,11 @@ import { AnnotationChildren } from '../models/annotation-children.model';
  * Service contains common functions
  */
 export class JavaService {
-
+    
     /**
      * Gets astNode with children
-     * @param node // AST Node
+     * @param  {Node} node
+     * @returns AstNodeInterface
      */
     static getAstNodeWithChildren(node: Node): AstNodeInterface {
         let astNode: AstNodeInterface;
@@ -31,7 +32,7 @@ export class JavaService {
 
     
     /**
-     * @param  {Infos} infos
+     * @param  {Infos[]} infos
      * @param  {AstNodeInterface} astNode
      * @returns AstNodeInterface
      */
