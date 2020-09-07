@@ -1,7 +1,7 @@
-import { ClassModifier } from "./class-modifier.model";
-import { NormalClassDeclaration } from "./normal-class-declaration.model";
+import { ClassModifierElement } from "./class-modifier-element.model";
+import { NormalClassDeclarationElement } from "./normal-class-declaration-element.model";
 
 export class ClassDeclarationChildren {
-    classModifier?: ClassModifier[] = [new ClassModifier()];
-    normalClassDeclaration?: NormalClassDeclaration[] = [new NormalClassDeclaration()];
+    classModifier?: ClassModifierElement[] = [new ClassModifierElement()];
+    normalClassDeclaration?: NormalClassDeclarationElement[] = [new NormalClassDeclarationElement()];
 }

@@ -1,9 +1,9 @@
 import { Infos } from "./infos.model";
-import { TypeIdentifier } from "./type-identifier.model";
-import { ClassBody } from "./class-body.model";
+import { TypeIdentifierElement } from "./type-identifier-element.model";
+import { ClassBodyElement } from "./class-body-element.model";
 
 export class NormalClassDeclarationChildren {
-    class?: Infos[] = [new Infos()];
-    typeIdentifier?: TypeIdentifier[] = [new TypeIdentifier()];
-    classBody?: ClassBody[] = [new ClassBody()];
+    Class?: Infos[] = [new Infos()];
+    typeIdentifier?: TypeIdentifierElement[] = [new TypeIdentifierElement()];
+    classBody?: ClassBodyElement[] = [new ClassBodyElement()];
 }

@@ -1,8 +1,8 @@
 import { Infos } from "./infos.model";
-import { ClassBodyDeclaration } from "./class-body-declaration.model";
+import { ClassBodyDeclarationElement } from "./class-body-declaration-element.model";
 
 export class ClassBodyChildren {
-    lCurly?: Infos[] = [new Infos()];
-    classBodyDeclaration?: ClassBodyDeclaration[] = [new ClassBodyDeclaration()];
-    rCurly?: Infos[] = [new Infos()];
+    LCurly?: Infos[] = [new Infos()];
+    classBodyDeclaration?: ClassBodyDeclarationElement[] = [new ClassBodyDeclarationElement()];
+    RCurly?: Infos[] = [new Infos()];
 }

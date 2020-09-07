@@ -1,5 +1,5 @@
-import { ClassMemberDeclaration } from "./class-member-declaration.model";
+import { ClassMemberDeclarationElement } from "./class-member-declaration-element.model";
 
 export class ClassBodyDeclarationChildren {
-    classMemberDeclaration?: ClassMemberDeclaration[] = [new ClassMemberDeclaration()];
+    classMemberDeclaration?: ClassMemberDeclarationElement[] = [new ClassMemberDeclarationElement()];
 }
