@@ -20,24 +20,17 @@ import { ClassBodyDeclarationChildren } from '../models/class-body-declaration-c
 export class AstClassGenerationJavaService {
 
     /**
+     * Generate AstNode for classDeclaration
      * @param  {ClassDeclarationElement[]} classDeclaration
      * @param  {AstNodeInterface} classDeclarationAstNode
      * @returns AstNodeInterface
      */
     generate(classDeclaration: ClassDeclarationElement[], classDeclarationAstNode: AstNodeInterface): AstNodeInterface {
-        if(Array.isArray(classDeclaration)){
-            classDeclaration.forEach(classDeclarationElement => {         
-                let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(classDeclarationElement);
-                this.generateAstClassChildren(classDeclarationElement.children, astNode);
-                if(classDeclarationAstNode?.children){
-                    classDeclarationAstNode.children.push(astNode);  
-                }
-            });
-        }
-        return classDeclarationAstNode;
+        return JavaService.generateAstNode(classDeclaration, classDeclarationAstNode, this.generateAstClassChildren.bind(this));
     }
 
     /**
+     * Generate AstNode for classDeclaration children
      * @param  {ClassDeclarationChildren} classDeclarationChildren
      * @param  {AstNodeInterface} astNode
      * @returns void
@@ -50,55 +43,40 @@ export class AstClassGenerationJavaService {
     }
 
     /**
-     * @param  {ClassModifier[]} classModifierList
+     * Generate AstNode for classModifier
+     * @param  {ClassModifierElement[]} classModifier
      * @param  {AstNodeInterface} classModifierAstNode
      * @returns AstNodeInterface
      */
     private generateAstClassModifier(classModifier: ClassModifierElement[], classModifierAstNode: AstNodeInterface): AstNodeInterface {
-        if(Array.isArray(classModifier)){
-            classModifier.forEach(classModifierElement => {
-                let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(classModifierElement);
-                this.generateAstClassModifierChildren(classModifierElement.children, astNode);
-                if(classModifierAstNode?.children){
-                    classModifierAstNode.children.push(astNode);
-                }
-            });
-        }
-        return classModifierAstNode;
+        return JavaService.generateAstNode(classModifier, classModifierAstNode, this.generateAstClassModifierChildren.bind(this));
     }
 
     /**
+     * Generate AstNode for classModifier children
      * @param  {ClassModifierChildren} classModifierChildren
-     * @param  {AstNodeInterface} astNode
+     * @param  {AstNodeInterface} classModifierChildrenAstNode
      * @returns void
      */
-    private generateAstClassModifierChildren(classModifierChildren: ClassModifierChildren, classModifierChildrenAstNode: AstNodeInterface): void {
+    generateAstClassModifierChildren(classModifierChildren: ClassModifierChildren, classModifierChildrenAstNode: AstNodeInterface): void {
         if(classModifierChildren) {
             JavaService.generateAstAnnotation(classModifierChildren.annotation, classModifierChildrenAstNode);
             JavaService.getAstNodeInfos(classModifierChildren.Public, classModifierChildrenAstNode);
         }
     }
-
     
     /**
+     * Generate AstNode for normalClassDeclaration
      * @param  {NormalClassDeclarationElement[]} normalClassDeclaration
      * @param  {AstNodeInterface} normalClassDeclarationAstNode
      * @returns AstNodeInterface
      */
     private generateAstNormalClassDeclaration(normalClassDeclaration: NormalClassDeclarationElement[], normalClassDeclarationAstNode: AstNodeInterface): AstNodeInterface {
-        if(Array.isArray(normalClassDeclaration)){
-            normalClassDeclaration.forEach(normalClass => {
-                let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(normalClass);
-                this.generateAstClassTypeIdentifierClassBody(normalClass.children,astNode);
-                if(normalClassDeclarationAstNode?.children){
-                    normalClassDeclarationAstNode.children.push(astNode);
-                }
-            });
-        }
-        return normalClassDeclarationAstNode;
+        return JavaService.generateAstNode(normalClassDeclaration, normalClassDeclarationAstNode, this.generateAstClassTypeIdentifierClassBody.bind(this));
     }
 
     /**
+     * Generate AstNode for normalClassDeclaration children
      * @param  {NormalClassDeclarationChildren} normalClassDeclarationChildren
      * @param  {AstNodeInterface} astNode
      * @returns void
@@ -111,27 +89,18 @@ export class AstClassGenerationJavaService {
         }
     }
 
-
     /**
+     * Generate AstNode for classBody
      * @param  {ClassBodyElement[]} classBody
      * @param  {AstNodeInterface} classBodyAstNode
      * @returns AstNodeInterface
      */
     private generateAstClassBody(classBody: ClassBodyElement[], classBodyAstNode: AstNodeInterface): AstNodeInterface {
-        if(Array.isArray(classBody)){
-            classBody.forEach(classBodyElement => {         
-                let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(classBodyElement);
-                this.generateAstClassBodyChildren(classBodyElement.children, astNode);
-                if(classBodyAstNode?.children){
-                    classBodyAstNode.children.push(astNode);
-                }
-            });
-        }
-        return classBodyAstNode;
+        return JavaService.generateAstNode(classBody, classBodyAstNode, this.generateAstClassBodyChildren.bind(this));
     }
-    
 
     /**
+     * Generate AstNode for classBody children
      * @param  {ClassBodyChildren} classBodyChildren
      * @param  {AstNodeInterface} astNode
      * @returns void
@@ -144,27 +113,18 @@ export class AstClassGenerationJavaService {
         }
     }
     
-
     /**
+     * Generate AstNode for classBodyDeclaration
      * @param  {ClassBodyDeclarationElement[]} classBodyDeclaration
      * @param  {AstNodeInterface} classBodyDeclarationAstNode
      * @returns AstNodeInterface
      */
     private generateAstClassBodyDeclaration(classBodyDeclaration: ClassBodyDeclarationElement[], classBodyDeclarationAstNode: AstNodeInterface): AstNodeInterface {
-        if(Array.isArray(classBodyDeclaration)){
-            classBodyDeclaration.forEach(classBodyDeclarationElement => {
-                let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(classBodyDeclarationElement);
-                this.generateAstClassBodyDeclarationChildren(classBodyDeclarationElement.children, astNode);
-                if(classBodyDeclarationAstNode?.children){
-                    classBodyDeclarationAstNode.children.push(astNode);
-                }
-            });
-        }
-        return classBodyDeclarationAstNode;
+        return JavaService.generateAstNode(classBodyDeclaration, classBodyDeclarationAstNode, this.generateAstClassBodyDeclarationChildren.bind(this));
     }
     
-    
     /**
+     * Generate AstNode for classBodyDeclaration children
      * @param  {ClassBodyDeclarationChildren} classBodyDeclarationChildren
      * @param  {AstNodeInterface} classBodyDeclarationAstNode
      * @returns void
@@ -174,28 +134,19 @@ export class AstClassGenerationJavaService {
             this.generateAstClassMemberDeclaration(classBodyDeclarationChildren.classMemberDeclaration, classBodyDeclarationAstNode);
         }
     }
-
     
     /**
+     * Generate AstNode for classMemberDeclaration
      * @param  {ClassMemberDeclarationElement[]} classMemberDeclaration
      * @param  {AstNodeInterface} classMemberDeclarationAstNode
      * @returns AstNodeInterface
      */
     private generateAstClassMemberDeclaration(classMemberDeclaration: ClassMemberDeclarationElement[], classMemberDeclarationAstNode: AstNodeInterface): AstNodeInterface {
-        if(Array.isArray(classMemberDeclaration)){
-            classMemberDeclaration.forEach(classMemberDeclarationElement =>{
-                let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(classMemberDeclarationElement);
-                this.generateAstClassMemberDeclarationChildren(classMemberDeclarationElement.children, astNode);
-                if(classMemberDeclarationAstNode?.children){
-                    classMemberDeclarationAstNode.children.push(astNode);
-                }
-            });
-        }
-        return classMemberDeclarationAstNode;
+        return JavaService.generateAstNode(classMemberDeclaration, classMemberDeclarationAstNode, this.generateAstClassMemberDeclarationChildren.bind(this));
     }
 
-
     /**
+     * Generate AstNode for classMemberDeclaration children
      * @param  {ClassMemberDeclarationChildren} classMemberDeclarationChildren
      * @param  {AstNodeInterface} classMemberDeclarationChildrenAstNode
      * @returns void

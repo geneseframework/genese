@@ -6,6 +6,8 @@ import { TypeIdentifierElement } from '../models/type-identifier-element.model';
 import { AnnotationChildren } from '../models/annotation-children.model';
 import { TypeNameElement } from '../models/type-name-element.model';
 import { TypeNameChildren } from '../models/type-name-children.model';
+import { Children } from '../interfaces/Children';
+import { TypeIdentifierChildren } from '../models/type-identifier-Children.model';
 
 /**
  * Service contains common functions
@@ -44,6 +46,7 @@ export class JavaService {
     
 
     /**
+     * Generate AstNode from node informations
      * @param  {Infos[]} infos
      * @param  {AstNodeInterface} astNode
      * @returns AstNodeInterface
@@ -59,9 +62,7 @@ export class JavaService {
                         pos: info.startOffset,
                         start: info.startOffset
                     }
-                    if(astNode?.children){
-                        astNode.children.push(childrenAstNode);
-                    }
+                    this.pushChildren(astNode, childrenAstNode);
                 }
             });
         }
@@ -70,6 +71,7 @@ export class JavaService {
 
 
     /**
+     * Generate AstNode for annotation
      * @param  {AnnotationElement[]} annotation
      * @param  {AstNodeInterface} annotationAstNode
      * @returns AstNodeInterface
@@ -80,17 +82,15 @@ export class JavaService {
                 if(annotationElement.name !== ''){
                     let astNode = JavaService.getAstNodeWithChildren(annotationElement);
                     JavaService.generateAstAnnotationChildren(annotationElement.children, astNode);
-                    if(annotationAstNode?.children){
-                        annotationAstNode.children.push(astNode);
-                    }
+                    this.pushChildren(annotationAstNode, astNode);
                 }
             })
         }
         return annotationAstNode;
     }
 
-
     /**
+     * Generate AstNode for annotation children
      * @param  {AnnotationChildren} annotationChildren
      * @param  {AstNodeInterface} astNode
      * @returns void
@@ -101,28 +101,19 @@ export class JavaService {
             JavaService.generateAstTypeName(annotationChildren.typeName, astNode);
         } 
     }
-
     
     /**
+     * Generate AstNode for typeName
      * @param  {TypeNameElement[]} typeName
      * @param  {AstNodeInterface} typeNameAstNode
      * @returns AstNodeInterface
      */
     static generateAstTypeName(typeName: TypeNameElement[], typeNameAstNode: AstNodeInterface): AstNodeInterface {
-        if(Array.isArray(typeName)){
-            typeName.forEach(typeNameElement => {
-                let astNode = JavaService.getAstNodeWithChildren(typeNameElement);
-                JavaService.generateAstTypeNameChildren(typeNameElement.children, astNode);
-                if(typeNameAstNode?.children){
-                    typeNameAstNode.children.push(astNode);
-                }
-            });
-        }
-        return typeNameAstNode;
+        return this.generateAstNode(typeName, typeNameAstNode, this.generateAstTypeNameChildren.bind(this));
     }
 
-
     /**
+     * Generate AstNode for typeName children
      * @param  {TypeNameChildren} typeNameChildren
      * @param  {AstNodeInterface} typeNameChildrenAstNode
      * @returns void
@@ -134,23 +125,55 @@ export class JavaService {
     }
 
     /**
+     * Generate AstNode for typeIdentifier
      * @param  {TypeIdentifierElement[]} typeIdentifier
-     * @param  {AstNodeInterface} annotationAstNode
+     * @param  {AstNodeInterface} typeIdentifierAstNode
      * @returns AstNodeInterface
      */
-    static generateAstTypeIdentifier(typeIdentifier: TypeIdentifierElement[], annotationAstNode: AstNodeInterface): AstNodeInterface {
-        if(Array.isArray(typeIdentifier)){
-            typeIdentifier.forEach(typeIdentifierElement => {
-                let astNode = JavaService.getAstNodeWithChildren(typeIdentifierElement);
-                if(typeIdentifierElement.children?.Identifier) {
-                    JavaService.getAstNodeInfos(typeIdentifierElement.children.Identifier, astNode);
-                }
-                if(annotationAstNode?.children){
-                    annotationAstNode.children.push(astNode);
-                }
-            });
+    static generateAstTypeIdentifier(typeIdentifier: TypeIdentifierElement[], typeIdentifierAstNode: AstNodeInterface): AstNodeInterface {
+        return this.generateAstNode(typeIdentifier, typeIdentifierAstNode, this.generateAstTypeIdentifierChildren.bind(this));
+    }
+    
+    /**
+     * Generate AstNode for typeIdentifier children
+     * @param  {TypeIdentifierChildren} typeIdentifierChildren
+     * @param  {AstNodeInterface} typeIdentifierChildrenAstNode
+     * @returns void
+     */
+    static generateAstTypeIdentifierChildren(typeIdentifierChildren: TypeIdentifierChildren, typeIdentifierChildrenAstNode: AstNodeInterface): void {
+        if(typeIdentifierChildren) {
+            JavaService.getAstNodeInfos(typeIdentifierChildren.Identifier, typeIdentifierChildrenAstNode);
         }
-        return annotationAstNode;
     }
 
+    /**
+     * Generic function used to generate AstNode for declaration elements
+     * @param  {Children[]} declarations
+     * @param  {AstNodeInterface} declarationAstNode
+     * @param  {(children:any,astNode:AstNodeInterface)=>void} method
+     * @returns AstNodeInterface
+     */
+    static generateAstNode(declarations: Children[], declarationAstNode: AstNodeInterface, method: (children: any, astNode: AstNodeInterface) => void): AstNodeInterface {
+        if(Array.isArray(declarations)){
+            declarations.forEach(declaration => {
+                let astNodeElement: AstNodeInterface = JavaService.getAstNodeWithChildren(declaration);
+                method(declaration.children, astNodeElement);
+                this.pushChildren(declarationAstNode, astNodeElement);
+            })
+        }
+        return declarationAstNode;
+    }
+
+    /**
+     * Push astNode on element children
+     * @param  {any} element
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    static pushChildren(element: any, astNode: AstNodeInterface): void {
+        if(element?.children) {
+            element.children.push(astNode);
+        }
+    }
+    
 }
