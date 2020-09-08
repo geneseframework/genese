@@ -19,7 +19,7 @@ class AstFolderReportService {
         this.foldersArray = []; // The array of subfolders reports
         this.isRootFolder = false; // True if the AstFolder relative to this service is the root folder of the analysis
         this.methodsArray = []; // The array of methods reports
-        this.relativeRootReports = ''; // The route between the pos of the current TsFolder and the root of the analysis
+        this.relativeRootReports = ""; // The route between the pos of the current TsFolder and the root of the analysis
         this.astFolder = astFolder;
         this.astFolderService.astFolder = this.astFolder;
     }
@@ -29,7 +29,8 @@ class AstFolderReportService {
      */
     getFoldersArray(astFolder) {
         let report = [];
-        if (file_service_1.getPathWithSlash(this.astFolder.path) !== file_service_1.getPathWithSlash(options_model_1.Options.pathFolderToAnalyze)) {
+        if (file_service_1.getPathWithSlash(this.astFolder.path) !==
+            file_service_1.getPathWithSlash(options_model_1.Options.pathFolderToAnalyze)) {
             report.push(this.addRowBackToParentFolder());
         }
         return report.concat(this.getSubfoldersArray(astFolder));
@@ -43,14 +44,16 @@ class AstFolderReportService {
         var _a, _b, _c;
         let report = [];
         for (const subfolder of astFolder.children) {
-            if (subfolder.relativePath !== '') {
+            if (subfolder.relativePath !== "") {
+                const ROUTE_FROM_CURRENT_FOLDER = this.astFolderService.getRouteFromFolderToSubFolder(this.astFolder, subfolder);
                 const subfolderReport = {
                     complexitiesByStatus: (_a = subfolder.stats) === null || _a === void 0 ? void 0 : _a.numberOfMethodsByStatus,
                     numberOfFiles: (_b = subfolder.stats) === null || _b === void 0 ? void 0 : _b.numberOfFiles,
                     numberOfMethods: (_c = subfolder.stats) === null || _c === void 0 ? void 0 : _c.numberOfMethods,
                     path: subfolder.relativePath,
-                    routeFromCurrentFolder: this.astFolderService.getRouteFromFolderToSubFolder(this.astFolder, subfolder)
+                    routeFromCurrentFolder: file_service_1.deleteLastSlash(ROUTE_FROM_CURRENT_FOLDER),
                 };
+                console.log("HERE : ", file_service_1.deleteLastSlash(ROUTE_FROM_CURRENT_FOLDER), file_service_1.deleteLastSlash(ROUTE_FROM_CURRENT_FOLDER) === "");
                 report.push(subfolderReport);
             }
             if (!isSubfolder) {
@@ -67,8 +70,8 @@ class AstFolderReportService {
             complexitiesByStatus: undefined,
             numberOfFiles: undefined,
             numberOfMethods: undefined,
-            path: '../',
-            routeFromCurrentFolder: '..'
+            path: "../",
+            routeFromCurrentFolder: "..",
         };
     }
     /**
@@ -86,7 +89,7 @@ class AstFolderReportService {
                     cyclomaticValue: astMethod.cyclomaticCpx,
                     filename: tsFile.name,
                     linkFile: this.getFileLink(tsFile),
-                    methodName: astMethod.name
+                    methodName: astMethod.name,
                 });
             }
         }
@@ -116,7 +119,7 @@ class AstFolderReportService {
                         cyclomaticValue: astMethod.cyclomaticCpx,
                         filename: tsFile.name,
                         linkFile: this.getFileLink(tsFile),
-                        methodName: astMethod.name
+                        methodName: astMethod.name,
                     });
                 }
             }
@@ -141,7 +144,7 @@ class AstFolderReportService {
             return `./${file_service_1.getFilenameWithoutExtension(astFile.name)}.html`;
         }
         const route = this.astFolderService.getRouteFromFolderToFile(this.astFolder, astFile);
-        return `${route}/${file_service_1.getFilenameWithoutExtension(astFile.name)}.html`;
+        return `${file_service_1.deleteLastSlash(route)}/${file_service_1.getFilenameWithoutExtension(astFile.name)}.html`;
     }
     /**
      * Generates the folder's report
@@ -153,13 +156,13 @@ class AstFolderReportService {
         this.filesArray = this.getFilesArray(this.astFolder);
         this.foldersArray = this.getFoldersArray(parentFolder);
         this.methodsArray = this.getMethodsArraySortedByDecreasingCognitiveCpx(parentFolder);
-        this.registerPartial("cognitiveBarchartScript", 'cognitive-barchart');
-        this.registerPartial("cyclomaticBarchartScript", 'cyclomatic-barchart');
-        this.registerPartial("cognitiveDoughnutScript", 'cognitive-doughnut');
-        this.registerPartial("cyclomaticDoughnutScript", 'cyclomatic-doughnut');
-        this.registerPartial("rowFolder", 'row-folders');
-        this.registerPartial("rowFile", 'row-files');
-        const reportTemplate = eol.auto(fs.readFileSync(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/folder-report.handlebars`, 'utf-8'));
+        this.registerPartial("cognitiveBarchartScript", "cognitive-barchart");
+        this.registerPartial("cyclomaticBarchartScript", "cyclomatic-barchart");
+        this.registerPartial("cognitiveDoughnutScript", "cognitive-doughnut");
+        this.registerPartial("cyclomaticDoughnutScript", "cyclomatic-doughnut");
+        this.registerPartial("rowFolder", "row-folders");
+        this.registerPartial("rowFile", "row-files");
+        const reportTemplate = eol.auto(fs.readFileSync(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/folder-report.handlebars`, "utf-8"));
         this.template = Handlebars.compile(reportTemplate);
         this.writeReport();
     }
@@ -175,13 +178,20 @@ class AstFolderReportService {
             methodsArray: this.methodsArray,
             relativeRootReports: this.relativeRootReports,
             stats: this.astFolder.stats,
-            thresholds: options_model_1.Options.getThresholds()
+            thresholds: options_model_1.Options.getThresholds(),
         });
         if (this.astFolder.relativePath) {
             file_service_1.createRelativeDir(this.astFolder.relativePath);
         }
-        const pathReport = `${options_model_1.Options.pathOutDir}/${this.astFolder.relativePath}/folder-report.html`;
-        fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
+        const PATH_OUT_DIR = file_service_1.constructLink(options_model_1.Options.pathOutDir);
+        const RELATIVE_PATH = file_service_1.constructLink(this.astFolder.relativePath);
+        const pathReport = `${file_service_1.deleteLastSlash(PATH_OUT_DIR)}/${file_service_1.deleteLastSlash(RELATIVE_PATH)}/folder-report.html`;
+        try {
+            fs.writeFileSync(pathReport, template, { encoding: "utf-8" });
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
     /**
      * Registers a HandleBar's partial
@@ -189,7 +199,7 @@ class AstFolderReportService {
      * @param filename
      */
     registerPartial(partialName, filename) {
-        const partial = eol.auto(fs.readFileSync(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/${filename}.handlebars`, 'utf-8'));
+        const partial = eol.auto(fs.readFileSync(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/${filename}.handlebars`, "utf-8"));
         Handlebars.registerPartial(partialName, partial);
     }
 }

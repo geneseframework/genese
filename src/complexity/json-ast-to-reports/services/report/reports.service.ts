@@ -1,17 +1,18 @@
-import { copyFile, createRelativeDir } from '../../../core/services/file.service';
-import { AstFolder } from '../../models/ast/ast-folder.model';
-import { AstFolderReportService } from './ast-folder-report.service';
-import { AstFileReportService } from './ast-file-report.service';
-import { AstFile } from '../../models/ast/ast-file.model';
-import { JsonAst } from '../../models/ast/json-ast.model';
-import { Options } from '../../../core/models/options.model';
-
+import {
+    copyFile,
+    createRelativeDir,
+} from "../../../core/services/file.service";
+import { AstFolder } from "../../models/ast/ast-folder.model";
+import { AstFolderReportService } from "./ast-folder-report.service";
+import { AstFileReportService } from "./ast-file-report.service";
+import { AstFile } from "../../models/ast/ast-file.model";
+import { JsonAst } from "../../models/ast/json-ast.model";
+import { Options } from "../../../core/models/options.model";
 
 /**
  * Service for reports generation
  */
 export class ReportsService {
-
     /**
      * LanguageToJsonAst reports generation process
      * @param jsonAst
@@ -22,18 +23,17 @@ export class ReportsService {
         ReportsService.generateSubfoldersReports(parentFolder);
     }
 
-
     /**
      * Generates reports of children recursively
      * @param astFolder        // The AstFolder to analyse
      */
-    private static generateSubfoldersReports(astFolder: AstFolder): void{
+    private static generateSubfoldersReports(astFolder: AstFolder): void {
         ReportsService.generateFolderReport(astFolder);
+
         for (const subFolder of astFolder.children) {
             ReportsService.generateSubfoldersReports(subFolder);
         }
     }
-
 
     /**
      * Generates a report for a given folder
@@ -47,7 +47,6 @@ export class ReportsService {
         }
     }
 
-
     /**
      * Generates a report for a given file
      * @param astFile        // The AstFile to analyse
@@ -57,17 +56,35 @@ export class ReportsService {
         fileReportService.generateReport();
     }
 
-
     /**
      * Copy the css files, prism.js and chart.js to a subfolder of the outDir
      */
     private static createStyleFiles(): void {
-        createRelativeDir('reports-styles');
-        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/report.css`, `${Options.pathOutDir}/reports-styles/report.css`);
-        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/styles.css`, `${Options.pathOutDir}/reports-styles/styles.css`);
-        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prettify.css`, `${Options.pathOutDir}/reports-styles/prettify.css`);
-        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prism.css`, `${Options.pathOutDir}/reports-styles/prism.css`);
-        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prism.js`, `${Options.pathOutDir}/reports-styles/prism.js`);
-        copyFile(`${Options.pathGeneseNodeJs}/src/complexity/core/chartjs/Chart.js`, `${Options.pathOutDir}/reports-styles/Chart.js`);
+        createRelativeDir("reports-styles");
+
+        copyFile(
+            `${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/report.css`,
+            `${Options.pathOutDir}/reports-styles/report.css`
+        );
+        copyFile(
+            `${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/styles.css`,
+            `${Options.pathOutDir}/reports-styles/styles.css`
+        );
+        copyFile(
+            `${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prettify.css`,
+            `${Options.pathOutDir}/reports-styles/prettify.css`
+        );
+        copyFile(
+            `${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prism.css`,
+            `${Options.pathOutDir}/reports-styles/prism.css`
+        );
+        copyFile(
+            `${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prism.js`,
+            `${Options.pathOutDir}/reports-styles/prism.js`
+        );
+        copyFile(
+            `${Options.pathGeneseNodeJs}/src/complexity/core/chartjs/Chart.js`,
+            `${Options.pathOutDir}/reports-styles/Chart.js`
+        );
     }
 }

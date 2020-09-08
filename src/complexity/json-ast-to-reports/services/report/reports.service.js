@@ -51,7 +51,7 @@ class ReportsService {
      * Copy the css files, prism.js and chart.js to a subfolder of the outDir
      */
     static createStyleFiles() {
-        file_service_1.createRelativeDir('reports-styles');
+        file_service_1.createRelativeDir("reports-styles");
         file_service_1.copyFile(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/report.css`, `${options_model_1.Options.pathOutDir}/reports-styles/report.css`);
         file_service_1.copyFile(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/styles.css`, `${options_model_1.Options.pathOutDir}/reports-styles/styles.css`);
         file_service_1.copyFile(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/styles/prettify.css`, `${options_model_1.Options.pathOutDir}/reports-styles/prettify.css`);

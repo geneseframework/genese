@@ -1,20 +1,19 @@
-import * as fs from 'fs-extra';
-import { Options, WINDOWS } from '../models/options.model';
+import * as fs from "fs-extra";
+import { OS } from "../../json-ast-to-reports/enums/os.enum";
+import { Options, WINDOWS } from "../models/options.model";
 
 /**
  * Tools about files or folders
  */
 
-
 /**
  * Returns the name of the file at a given path
  * @param pathFile      // The path of the file
  */
-export function getFilename(pathFile = ''): string {
-    const splittedPath = pathFile.split('/');
+export function getFilename(pathFile = ""): string {
+    const splittedPath = pathFile.split("/");
     return splittedPath[splittedPath.length - 1];
 }
-
 
 /**
  * Returns the array of files included in a given folder and its subfolders
@@ -22,19 +21,21 @@ export function getFilename(pathFile = ''): string {
  * @param dirPath           // The path of the folder
  * @param arrayOfFiles      // Recursion parameter
  */
-export function getAllFiles(dirPath: string, arrayOfFiles?: string[]): string[] {
-    const files = fs.readdirSync(dirPath)
+export function getAllFiles(
+    dirPath: string,
+    arrayOfFiles?: string[]
+): string[] {
+    const files = fs.readdirSync(dirPath);
     arrayOfFiles = arrayOfFiles || [];
-    files.forEach(function(file) {
+    files.forEach(function (file) {
         if (fs.statSync(dirPath + "/" + file).isDirectory()) {
             arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
         } else {
             arrayOfFiles.push(`${dirPath}/${file}`);
         }
-    })
+    });
     return arrayOfFiles;
 }
-
 
 /**
  * Returns an array of paths with a ./ at the beginning
@@ -51,30 +52,28 @@ export function getArrayOfPathsWithDotSlash(paths: string[]): string[] {
     return pathsWithDotSlash;
 }
 
-
 /**
  * Returns a path with a ./ at the beginning
  * @param path      // The path to analyse
  */
 export function getPathWithDotSlash(path: string): string {
     let pathWithDotSlash = path;
-    if (path?.slice(0, 1) === '/') {
+    if (path?.slice(0, 1) === "/") {
         pathWithDotSlash = `.${pathWithDotSlash}`;
-    } else if (path?.slice(0,2) !== './') {
+    } else if (path?.slice(0, 2) !== "./") {
         pathWithDotSlash = `./${path}`;
     }
+
     return pathWithDotSlash;
 }
-
 
 /**
  * Returns a path with a ./ at the beginning
  * @param path      // The path to analyse
  */
 export function getPathWithSlash(path: string): string {
-    return path?.slice(-1) !== '/' ? `${path}/` : path;
+    return path?.slice(-1) !== "/" ? `${path}/` : path;
 }
-
 
 /**
  * Returns the path between a subfolder and its root
@@ -83,54 +82,58 @@ export function getPathWithSlash(path: string): string {
  */
 export function getRouteToRoot(relativePath: string): string {
     if (!relativePath) {
-        return '';
+        return "";
     }
-    let relativeRoot = '/..';
+
+    let relativeRoot = "/..";
+
     for (let i = 0; i < relativePath.length; i++) {
-        relativeRoot = relativePath.charAt(i) === '/' ? `/..${relativeRoot}` : relativeRoot;
+        relativeRoot =
+            relativePath.charAt(i) === constructLink("/") &&
+            i !== relativePath.length - 1
+                ? constructLink("/") + `..${relativeRoot}`
+                : relativeRoot;
     }
     return relativeRoot.slice(1);
 }
-
 
 /**
  * Returns the extension of a file
  * @param filename      // The name of the file
  */
 export function getFileExtension(filename: string): string {
-    return filename ? filename.split('.').pop() : '';
+    return filename ? filename.split(".").pop() : "";
 }
-
 
 /**
  * Returns the filename without its extension
  * @param filename      // The name of the file
  */
-export function getFilenameWithoutExtension(filename: string): string {
-    if (!filename) {
-        return '';
+export function getFilenameWithoutExtension(path: string): string {
+    if (!path) {
+        return "";
     }
+    const filename = path.substring(path.lastIndexOf("/") + 1);
+
     const extensionLength = getFileExtension(filename).length;
     return filename.slice(0, -(extensionLength + 1));
 }
 
-
 export function getLanguageExtensions(language: string): string[] {
     switch (language) {
-        case 'java':
-            return ['java'];
-        case 'json':
-            return ['json'];
-        case 'php':
-            return ['php'];
-        case 'typescript':
-        case 'ts':
-            return ['ts'];
+        case "java":
+            return ["java"];
+        case "json":
+            return ["json"];
+        case "php":
+            return ["php"];
+        case "typescript":
+        case "ts":
+            return ["ts"];
         default:
-            return ['json'];
+            return ["json"];
     }
 }
-
 
 /**
  * Creates a subFolder of the outDir folder
@@ -145,7 +148,6 @@ export function createRelativeDir(relativePath: string): void {
     }
 }
 
-
 /**
  * Creates the outDir folder
  */
@@ -157,26 +159,22 @@ export function createOutDir(): void {
     }
 }
 
-
 /**
  * Copy a file from a path to another one
  * @param originPath        // The origin's path
  * @param targetPath        // The target's path
  */
 export function copyFile(originPath: string, targetPath: string): void {
-    fs.copyFileSync(platformPath(originPath), platformPath(targetPath));
+    fs.copyFileSync(constructLink(originPath), constructLink(targetPath));
 }
-
 
 export function platformPath(path: string): string {
     return WINDOWS ? windowsPath(path) : path;
 }
 
-
 export function windowsPath(path: string): string {
-    return path.replace(/\//g, '\\').replace(/\\/g, '\\\\')
+    return path.replace(/\//g, "\\").replace(/\\/g, "\\\\");
 }
-
 
 /**
  * Copy a file from a path to another one
@@ -184,5 +182,59 @@ export function windowsPath(path: string): string {
  * @param content
  */
 export function createFile(path: string, content: string): void {
-    fs.writeFileSync(path, content, {encoding: 'utf-8'});
+    fs.writeFileSync(path, content, { encoding: "utf-8" });
+}
+
+/**
+ * Get the current OS
+ * @returns {OS}
+ */
+export function getOS(): OS {
+    let platform = process.platform;
+
+    let macosPlatforms = ["MACINTOSH", "MACINTEL", "MACPPC", "MAC68K"];
+    let windowsPlatforms = ["WIN32", "WIN64", "WINDOWS", "WINCE"];
+    let os = null;
+
+    if (macosPlatforms.indexOf(platform.toUpperCase()) !== -1) {
+        os = OS.MACOS;
+    } else if (windowsPlatforms.indexOf(platform.toUpperCase()) !== -1) {
+        os = OS.WINDOWS;
+    } else if (!os && /Linux/.test(platform)) {
+        os = OS.LINUX;
+    }
+
+    return os;
+}
+
+/**
+ * Replace a slash by an antislash
+ * @param text
+ * @returns {string}
+ */
+export function antislash(text: string): string {
+    return text.split("/").join("\\");
+}
+
+/**
+ * Check if the OS is windows transform the link with antislash
+ * Else, returns the normal link
+ * @param link
+ * @returns {string}
+ */
+export function constructLink(link: string): string {
+    return getOS() === OS.WINDOWS ? antislash(link) : link;
+}
+
+/**
+ * Delete the last slash in a string
+ * @param text
+ * @returns {string}
+ */
+export function deleteLastSlash(text: string): string {
+    const TEXT_REWORK = (text && constructLink(text)) || "";
+    return TEXT_REWORK &&
+        TEXT_REWORK[TEXT_REWORK.length - 1] === constructLink("/")
+        ? TEXT_REWORK.slice(0, TEXT_REWORK.length - 1)
+        : TEXT_REWORK;
 }

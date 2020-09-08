@@ -12,7 +12,7 @@ const options_model_1 = require("../../../core/models/options.model");
 class AstFileReportService {
     constructor(astFile) {
         this.methodReports = []; // The array of method reports
-        this.relativeRootReports = ''; // The route between the pos of the current TsFile and the root of the analysis
+        this.relativeRootReports = ""; // The route between the pos of the current TsFile and the root of the analysis
         this.astFile = undefined; // The AstFile relative to this service
         this.astFile = astFile;
     }
@@ -42,12 +42,12 @@ class AstFileReportService {
         var _a;
         this.methodReports = this.getMethodsArray();
         this.relativeRootReports = file_service_1.getRouteToRoot((_a = this.astFile.astFolder) === null || _a === void 0 ? void 0 : _a.relativePath);
-        this.registerPartial("cognitiveBarchartScript", 'cognitive-barchart');
-        this.registerPartial("cyclomaticBarchartScript", 'cyclomatic-barchart');
-        this.registerPartial("cognitiveDoughnutScript", 'cognitive-doughnut');
-        this.registerPartial("cyclomaticDoughnutScript", 'cyclomatic-doughnut');
-        this.registerPartial("method", 'methods');
-        const reportTemplate = eol.auto(fs.readFileSync(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/file-report.handlebars`, 'utf-8'));
+        this.registerPartial("cognitiveBarchartScript", "cognitive-barchart");
+        this.registerPartial("cyclomaticBarchartScript", "cyclomatic-barchart");
+        this.registerPartial("cognitiveDoughnutScript", "cognitive-doughnut");
+        this.registerPartial("cyclomaticDoughnutScript", "cyclomatic-doughnut");
+        this.registerPartial("method", "methods");
+        const reportTemplate = eol.auto(fs.readFileSync(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/file-report.handlebars`, "utf-8"));
         this.template = Handlebars.compile(reportTemplate);
         this.writeReport();
     }
@@ -61,11 +61,13 @@ class AstFileReportService {
             methods: this.methodReports,
             relativeRootReports: file_service_1.getPathWithDotSlash(this.relativeRootReports),
             stats: this.astFile.stats,
-            thresholds: options_model_1.Options.getThresholds()
+            thresholds: options_model_1.Options.getThresholds(),
         });
         const filenameWithoutExtension = file_service_1.getFilenameWithoutExtension(this.astFile.name);
-        const pathReport = `${options_model_1.Options.pathOutDir}/${(_a = this.astFile.astFolder) === null || _a === void 0 ? void 0 : _a.relativePath}/${filenameWithoutExtension}.html`;
-        fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
+        const RELATIVE_PATH = file_service_1.constructLink((_a = this.astFile.astFolder) === null || _a === void 0 ? void 0 : _a.relativePath);
+        const OUT_DIR = file_service_1.constructLink(options_model_1.Options.pathOutDir);
+        let pathReport = `${file_service_1.deleteLastSlash(OUT_DIR)}/${file_service_1.deleteLastSlash(RELATIVE_PATH)}/${filenameWithoutExtension}.html`;
+        fs.writeFileSync(pathReport, template, { encoding: "utf-8" });
     }
     /**
      * Registers a HandleBar's partial for a given partial's name and a given filename
@@ -73,7 +75,7 @@ class AstFileReportService {
      * @param filename      // The name of the file
      */
     registerPartial(partialName, filename) {
-        const partial = eol.auto(fs.readFileSync(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/${filename}.handlebars`, 'utf-8'));
+        const partial = eol.auto(fs.readFileSync(`${options_model_1.Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/${filename}.handlebars`, "utf-8"));
         Handlebars.registerPartial(partialName, partial);
     }
 }

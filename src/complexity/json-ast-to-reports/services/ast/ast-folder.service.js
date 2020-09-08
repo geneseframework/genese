@@ -5,6 +5,7 @@ const stats_service_1 = require("../report/stats.service");
 const stats_model_1 = require("../../models/stats.model");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const barchart_service_1 = require("../report/barchart.service");
+const file_service_1 = require("../../../core/services/file.service");
 /**
  * - AstFolders generation from Abstract Syntax AstNode of a folder
  * - Other services for AstFolders
@@ -21,7 +22,10 @@ class AstFolderService extends stats_service_1.StatsService {
      */
     calculateStats(astFolder) {
         this._stats = new stats_model_1.Stats();
-        this._stats.subject = astFolder.relativePath === '' ? astFolder.path : astFolder.relativePath;
+        this._stats.subject =
+            astFolder.relativePath === ""
+                ? astFolder.path
+                : astFolder.relativePath;
         this._stats.numberOfFiles = astFolder.numberOfFiles;
         this._stats.numberOfMethods = astFolder.numberOfMethods;
         this._stats.totalCognitiveComplexity = astFolder.cpxFactors.total;
@@ -58,9 +62,12 @@ class AstFolderService extends stats_service_1.StatsService {
      * @param tsFileStats
      */
     incrementMethodsByStatus(type, tsFileStats) {
-        this._stats.numberOfMethodsByStatus[type].correct += tsFileStats.numberOfMethodsByStatus[type].correct;
-        this._stats.numberOfMethodsByStatus[type].error += tsFileStats.numberOfMethodsByStatus[type].error;
-        this._stats.numberOfMethodsByStatus[type].warning += tsFileStats.numberOfMethodsByStatus[type].warning;
+        this._stats.numberOfMethodsByStatus[type].correct +=
+            tsFileStats.numberOfMethodsByStatus[type].correct;
+        this._stats.numberOfMethodsByStatus[type].error +=
+            tsFileStats.numberOfMethodsByStatus[type].error;
+        this._stats.numberOfMethodsByStatus[type].warning +=
+            tsFileStats.numberOfMethodsByStatus[type].warning;
     }
     /**
      * Returns the relative path of an AstFolder
@@ -164,12 +171,13 @@ class AstFolderService extends stats_service_1.StatsService {
         if (!astFile || !astFolder) {
             return undefined;
         }
-        if (astFile.astFolder.path.slice(0, astFolder.path.length) !== astFolder.path) {
+        if (astFile.astFolder.path.slice(0, astFolder.path.length) !==
+            astFolder.path) {
             console.log(`The file ${astFile.name} is not inside the folder ${astFolder.path}`);
             return undefined;
         }
         else {
-            const linkStarter = astFolder.relativePath === '' ? './' : '.';
+            const linkStarter = astFolder.relativePath === "" ? "./" : "";
             return `${linkStarter}${astFile.astFolder.path.slice(astFolder.path.length)}`;
         }
     }
@@ -179,7 +187,9 @@ class AstFolderService extends stats_service_1.StatsService {
      * @param astSubfolder
      */
     getRouteFromFolderToSubFolder(astFolder, astSubfolder) {
-        if (!astFolder || !astSubfolder || astSubfolder.path === astFolder.path) {
+        if (!astFolder ||
+            !astSubfolder ||
+            astSubfolder.path === astFolder.path) {
             return undefined;
         }
         if (astSubfolder.path.slice(0, astFolder.path.length) !== astFolder.path) {
@@ -187,9 +197,18 @@ class AstFolderService extends stats_service_1.StatsService {
             return undefined;
         }
         else {
-            const linkStarter = astFolder.relativePath === '' ? './' : '';
-            return `${linkStarter}${astSubfolder.path.slice(astFolder.path.length + 1)}`;
+            const linkStarter = astFolder.relativePath === "" ? "./" : "";
+            const finalLink = `${linkStarter}${this.linkSlicer(astSubfolder.path, astFolder.path)}`;
+            return finalLink;
         }
+    }
+    isSlashExist(text, parentText) {
+        return text[parentText.length + 1] === file_service_1.constructLink("/");
+    }
+    linkSlicer(text, parentText) {
+        return this.isSlashExist(text, parentText)
+            ? text.slice(parentText.length + 1)
+            : text.slice(parentText.length);
     }
 }
 exports.AstFolderService = AstFolderService;
