@@ -17,16 +17,7 @@ export class AstImportGenerationJavaService {
      * @returns AstNodeInterface
      */
     generate(importDeclaration: ImportDeclarationElement[], importAstNodes: AstNodeInterface): AstNodeInterface {
-        if(Array.isArray(importDeclaration)){
-            importDeclaration.forEach(importDeclarationElement => {
-                let astNode: AstNodeInterface = JavaService.getAstNodeWithChildren(importDeclarationElement);
-                this.generateImportChildren(importDeclarationElement.children, astNode);
-                if(importAstNodes?.children){
-                    importAstNodes.children.push(astNode);
-                }
-            });
-        }
-        return importAstNodes;
+        return JavaService.generateAstNode(importDeclaration, importAstNodes, this.generateImportChildren.bind(this));
     }
 
 
