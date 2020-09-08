@@ -1,6 +1,7 @@
 import { Infos } from "./infos.model";
+import { TypeNameElement } from "./type-name-element.model";
 
 export class AnnotationChildren {
-    at?: Infos[] = [new Infos()];
-    typeName?: Infos[] = [new Infos()];
+    At?: Infos[] = [new Infos()];
+    typeName?: TypeNameElement[] = [new TypeNameElement()];
 }
