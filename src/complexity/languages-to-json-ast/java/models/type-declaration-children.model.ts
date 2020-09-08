@@ -1,5 +1,5 @@
-import { ClassDeclaration } from "./class-declaration.model";
+import { ClassDeclarationElement } from "./class-declaration-element.model";
 
 export class TypeDeclarationChildren {
-    classDeclaration?: ClassDeclaration[] = [new ClassDeclaration()];
+    classDeclaration?: ClassDeclarationElement[] = [new ClassDeclarationElement()];
 }

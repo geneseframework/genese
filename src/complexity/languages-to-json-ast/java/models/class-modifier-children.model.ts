@@ -1,7 +1,7 @@
-import { Annotation } from "./annotation.model";
+import { AnnotationElement } from "./annotation-element.model";
 import { Infos } from "./infos.model";
 
 export class ClassModifierChildren {
-    annotation?: Annotation[] = [new Annotation()];
-    public?: Infos[] = [new Infos()];
+    annotation?: AnnotationElement[] = [new AnnotationElement()];
+    Public?: Infos[] = [new Infos()];
 }
