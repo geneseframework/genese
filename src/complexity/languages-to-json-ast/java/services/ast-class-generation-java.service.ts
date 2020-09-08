@@ -1,18 +1,13 @@
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
 import { JavaService } from './java.service';
 import { AstFunctionageGenerationJavaService } from './ast-function-generation-java.service';
-import { ClassDeclarationElement } from '../models/class-declaration-element.model';
-import { NormalClassDeclarationElement } from '../models/normal-class-declaration-element.model';
-import { ClassBodyDeclarationElement } from '../models/class-body-declaration-element.model';
-import { ClassMemberDeclarationElement } from '../models/class-member-declaration-element.model';
 import { NormalClassDeclarationChildren } from '../models/normal-class-declaration-children.model';
 import { ClassBodyChildren } from '../models/class-body-children.model';
 import { ClassModifierChildren } from '../models/class-modifier-children.model';
 import { ClassDeclarationChildren } from '../models/class-declaration-children.model';
-import { ClassBodyElement } from '../models/class-body-element.model';
-import { ClassModifierElement } from '../models/class-modifier-element.model';
 import { ClassMemberDeclarationChildren } from '../models/class-member-declaration-children';
 import { ClassBodyDeclarationChildren } from '../models/class-body-declaration-children.model';
+import { ClassDeclarationElement } from '../models/class-declaration-element.model';
 
 /**
  * - Generate AstNode for class from their Abstract Syntax Tree (AST)
@@ -28,28 +23,18 @@ export class AstClassGenerationJavaService {
     generate(classDeclaration: ClassDeclarationElement[], classDeclarationAstNode: AstNodeInterface): AstNodeInterface {
         return JavaService.generateAstNode(classDeclaration, classDeclarationAstNode, this.generateAstClassChildren.bind(this));
     }
-
+    
     /**
      * Generate AstNode for classDeclaration children
      * @param  {ClassDeclarationChildren} classDeclarationChildren
      * @param  {AstNodeInterface} astNode
      * @returns void
      */
-    private generateAstClassChildren(classDeclarationChildren: ClassDeclarationChildren, astNode: AstNodeInterface): void {
+    generateAstClassChildren(classDeclarationChildren: ClassDeclarationChildren, astNode: AstNodeInterface): void {
         if(classDeclarationChildren) {
-            this.generateAstClassModifier(classDeclarationChildren.classModifier, astNode);
-            this.generateAstNormalClassDeclaration(classDeclarationChildren.normalClassDeclaration, astNode);
+            JavaService.generateAstNode(classDeclarationChildren.classModifier, astNode, this.generateAstClassModifierChildren.bind(this));
+            JavaService.generateAstNode(classDeclarationChildren.normalClassDeclaration, astNode, this.generateAstClassTypeIdentifierClassBody.bind(this));
         }
-    }
-
-    /**
-     * Generate AstNode for classModifier
-     * @param  {ClassModifierElement[]} classModifier
-     * @param  {AstNodeInterface} classModifierAstNode
-     * @returns AstNodeInterface
-     */
-    private generateAstClassModifier(classModifier: ClassModifierElement[], classModifierAstNode: AstNodeInterface): AstNodeInterface {
-        return JavaService.generateAstNode(classModifier, classModifierAstNode, this.generateAstClassModifierChildren.bind(this));
     }
 
     /**
@@ -64,16 +49,6 @@ export class AstClassGenerationJavaService {
             JavaService.getAstNodeInfos(classModifierChildren.Public, classModifierChildrenAstNode);
         }
     }
-    
-    /**
-     * Generate AstNode for normalClassDeclaration
-     * @param  {NormalClassDeclarationElement[]} normalClassDeclaration
-     * @param  {AstNodeInterface} normalClassDeclarationAstNode
-     * @returns AstNodeInterface
-     */
-    private generateAstNormalClassDeclaration(normalClassDeclaration: NormalClassDeclarationElement[], normalClassDeclarationAstNode: AstNodeInterface): AstNodeInterface {
-        return JavaService.generateAstNode(normalClassDeclaration, normalClassDeclarationAstNode, this.generateAstClassTypeIdentifierClassBody.bind(this));
-    }
 
     /**
      * Generate AstNode for normalClassDeclaration children
@@ -85,18 +60,8 @@ export class AstClassGenerationJavaService {
         if(normalClassDeclarationChildren) {
             JavaService.getAstNodeInfos(normalClassDeclarationChildren.Class, astNode);
             JavaService.generateAstTypeIdentifier(normalClassDeclarationChildren.typeIdentifier, astNode)
-            this.generateAstClassBody(normalClassDeclarationChildren.classBody, astNode);
+            JavaService.generateAstNode(normalClassDeclarationChildren.classBody, astNode, this.generateAstClassBodyChildren.bind(this));
         }
-    }
-
-    /**
-     * Generate AstNode for classBody
-     * @param  {ClassBodyElement[]} classBody
-     * @param  {AstNodeInterface} classBodyAstNode
-     * @returns AstNodeInterface
-     */
-    private generateAstClassBody(classBody: ClassBodyElement[], classBodyAstNode: AstNodeInterface): AstNodeInterface {
-        return JavaService.generateAstNode(classBody, classBodyAstNode, this.generateAstClassBodyChildren.bind(this));
     }
 
     /**
@@ -108,19 +73,9 @@ export class AstClassGenerationJavaService {
     private generateAstClassBodyChildren(classBodyChildren: ClassBodyChildren, astNode: AstNodeInterface): void {
         if(classBodyChildren) {
             JavaService.getAstNodeInfos(classBodyChildren.LCurly,astNode);
-            this.generateAstClassBodyDeclaration(classBodyChildren.classBodyDeclaration,astNode);
+            JavaService.generateAstNode(classBodyChildren.classBodyDeclaration,astNode, this.generateAstClassBodyDeclarationChildren.bind(this));
             JavaService.getAstNodeInfos(classBodyChildren.RCurly,astNode);
         }
-    }
-    
-    /**
-     * Generate AstNode for classBodyDeclaration
-     * @param  {ClassBodyDeclarationElement[]} classBodyDeclaration
-     * @param  {AstNodeInterface} classBodyDeclarationAstNode
-     * @returns AstNodeInterface
-     */
-    private generateAstClassBodyDeclaration(classBodyDeclaration: ClassBodyDeclarationElement[], classBodyDeclarationAstNode: AstNodeInterface): AstNodeInterface {
-        return JavaService.generateAstNode(classBodyDeclaration, classBodyDeclarationAstNode, this.generateAstClassBodyDeclarationChildren.bind(this));
     }
     
     /**
@@ -131,18 +86,8 @@ export class AstClassGenerationJavaService {
      */
     private generateAstClassBodyDeclarationChildren(classBodyDeclarationChildren: ClassBodyDeclarationChildren, classBodyDeclarationAstNode: AstNodeInterface): void {
         if(classBodyDeclarationChildren){
-            this.generateAstClassMemberDeclaration(classBodyDeclarationChildren.classMemberDeclaration, classBodyDeclarationAstNode);
+            JavaService.generateAstNode(classBodyDeclarationChildren.classMemberDeclaration, classBodyDeclarationAstNode, this.generateAstClassMemberDeclarationChildren.bind(this));
         }
-    }
-    
-    /**
-     * Generate AstNode for classMemberDeclaration
-     * @param  {ClassMemberDeclarationElement[]} classMemberDeclaration
-     * @param  {AstNodeInterface} classMemberDeclarationAstNode
-     * @returns AstNodeInterface
-     */
-    private generateAstClassMemberDeclaration(classMemberDeclaration: ClassMemberDeclarationElement[], classMemberDeclarationAstNode: AstNodeInterface): AstNodeInterface {
-        return JavaService.generateAstNode(classMemberDeclaration, classMemberDeclarationAstNode, this.generateAstClassMemberDeclarationChildren.bind(this));
     }
 
     /**
