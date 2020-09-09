@@ -1,8 +1,8 @@
-import { Infos } from "./infos.model";
 import { Location } from "./location.model";
+import { StatementWithoutTrailingSubstatementChildren } from "./statement-without-trailing-substatement-childre.model";
 
 export class StatementWithoutTrailingSubstatement {
     name?: '';
-    children?: Infos = new Infos();
-    location?: Location = new Location()
+    children?: StatementWithoutTrailingSubstatementChildren = new StatementWithoutTrailingSubstatementChildren();
+    location?: Location = new Location();
 }
