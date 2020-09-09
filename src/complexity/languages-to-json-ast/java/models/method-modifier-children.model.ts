@@ -1,8 +1,8 @@
 import { Infos } from "./infos.model";
 
 export class MethodModifierChildren {
-    private?: Infos[] = [new Infos()];
-    protected?: Infos[] = [new Infos()];
-    public?: Infos[] = [new Infos()];
-    static?: Infos[] = [new Infos()];
+    Private?: Infos[] = [new Infos()];
+    Protected?: Infos[] = [new Infos()];
+    Public?: Infos[] = [new Infos()];
+    Static?: Infos[] = [new Infos()];
 }

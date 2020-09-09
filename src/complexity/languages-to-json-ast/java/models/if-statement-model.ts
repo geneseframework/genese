@@ -1,21 +1,21 @@
 import { Location } from "./location.model";
 import { Infos } from "./infos.model";
-import { Expression } from "./expression-model";
+import { Expression } from "./expression.model";
 import { OtherStatement } from "./other-statement.model";
 
 export class IfStatement {
     name ?= '';
     children?: {
-        if?: Infos[],
-        lBrace?: Infos[],
+        If?: Infos[],
+        LBrace?: Infos[],
         expression?: Expression[],
-        rBrace?: Infos[],
+        RBrace?: Infos[],
         statement?: OtherStatement[]
     } = {
-        if: [new Infos()],
-        lBrace: [new Infos()],
+        If: [new Infos()],
+        LBrace: [new Infos()],
         expression: [new Expression()],
-        rBrace: [new Infos()],
+        RBrace: [new Infos()],
         statement: [new OtherStatement()]
     }
     location?: Location = new Location();

@@ -1,6 +1,7 @@
-import { Infos } from "./infos.model";
+import { UnannType } from "./unann-type.model";
+import { VariableDeclaratorId } from "./variable-declarator-id.model";
 
 export class VariableParaRegularParameterChildren {
-    unannType: Infos[] = [new Infos()];
-    variableDeclaratorId: Infos[] = [new Infos()];
+    unannType: UnannType[] = [new UnannType()];
+    variableDeclaratorId: VariableDeclaratorId[] = [new VariableDeclaratorId()];
 }
