@@ -91,6 +91,7 @@ export class AstFileReportService {
             RELATIVE_PATH
         )}/${filenameWithoutExtension}.html`;
 
+
         fs.writeFileSync(pathReport, template, { encoding: "utf-8" });
     }
 

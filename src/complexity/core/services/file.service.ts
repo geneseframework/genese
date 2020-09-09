@@ -90,7 +90,7 @@ export function getRouteToRoot(relativePath: string): string {
     for (let i = 0; i < relativePath.length; i++) {
         relativeRoot =
             relativePath.charAt(i) === constructLink("/") &&
-            i !== relativePath.length - 1
+                i !== relativePath.length - 1
                 ? constructLink("/") + `..${relativeRoot}`
                 : relativeRoot;
     }
@@ -233,6 +233,7 @@ export function constructLink(link: string): string {
  */
 export function deleteLastSlash(text: string): string {
     const TEXT_REWORK = (text && constructLink(text)) || "";
+
     return TEXT_REWORK &&
         TEXT_REWORK[TEXT_REWORK.length - 1] === constructLink("/")
         ? TEXT_REWORK.slice(0, TEXT_REWORK.length - 1)

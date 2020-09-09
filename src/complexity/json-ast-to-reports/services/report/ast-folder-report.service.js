@@ -53,7 +53,11 @@ class AstFolderReportService {
                     path: subfolder.relativePath,
                     routeFromCurrentFolder: file_service_1.deleteLastSlash(ROUTE_FROM_CURRENT_FOLDER),
                 };
-                console.log("HERE : ", file_service_1.deleteLastSlash(ROUTE_FROM_CURRENT_FOLDER), file_service_1.deleteLastSlash(ROUTE_FROM_CURRENT_FOLDER) === "");
+                // console.log(
+                //     "HERE : ",
+                //     deleteLastSlash(ROUTE_FROM_CURRENT_FOLDER),
+                //     deleteLastSlash(ROUTE_FROM_CURRENT_FOLDER) === ""
+                // );
                 report.push(subfolderReport);
             }
             if (!isSubfolder) {
@@ -143,7 +147,11 @@ class AstFolderReportService {
         if (this.astFolder.relativePath === ((_a = astFile.astFolder) === null || _a === void 0 ? void 0 : _a.relativePath)) {
             return `./${file_service_1.getFilenameWithoutExtension(astFile.name)}.html`;
         }
+        // console.log("CHECK PATHS : ", this.astFolder.relativePath === astFile.astFolder?.relativePath, this.astFolder.relativePath, astFile.astFolder?.relativePath);
         const route = this.astFolderService.getRouteFromFolderToFile(this.astFolder, astFile);
+        // console.log("FILE ROUTE : ", route, `${deleteLastSlash(route)}/${getFilenameWithoutExtension(
+        //     astFile.name
+        // )}.html`);
         return `${file_service_1.deleteLastSlash(route)}/${file_service_1.getFilenameWithoutExtension(astFile.name)}.html`;
     }
     /**

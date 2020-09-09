@@ -76,11 +76,11 @@ export class AstFolderReportService {
                         ROUTE_FROM_CURRENT_FOLDER
                     ),
                 };
-                console.log(
-                    "HERE : ",
-                    deleteLastSlash(ROUTE_FROM_CURRENT_FOLDER),
-                    deleteLastSlash(ROUTE_FROM_CURRENT_FOLDER) === ""
-                );
+                // console.log(
+                //     "HERE : ",
+                //     deleteLastSlash(ROUTE_FROM_CURRENT_FOLDER),
+                //     deleteLastSlash(ROUTE_FROM_CURRENT_FOLDER) === ""
+                // );
 
                 report.push(subfolderReport);
             }
@@ -183,10 +183,17 @@ export class AstFolderReportService {
         if (this.astFolder.relativePath === astFile.astFolder?.relativePath) {
             return `./${getFilenameWithoutExtension(astFile.name)}.html`;
         }
+        // console.log("CHECK PATHS : ", this.astFolder.relativePath === astFile.astFolder?.relativePath, this.astFolder.relativePath, astFile.astFolder?.relativePath);
+
+
         const route = this.astFolderService.getRouteFromFolderToFile(
             this.astFolder,
             astFile
         );
+        // console.log("FILE ROUTE : ", route, `${deleteLastSlash(route)}/${getFilenameWithoutExtension(
+        //     astFile.name
+        // )}.html`);
+
         return `${deleteLastSlash(route)}/${getFilenameWithoutExtension(
             astFile.name
         )}.html`;

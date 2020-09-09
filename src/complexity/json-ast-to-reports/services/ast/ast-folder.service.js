@@ -6,6 +6,7 @@ const stats_model_1 = require("../../models/stats.model");
 const complexity_type_enum_1 = require("../../enums/complexity-type.enum");
 const barchart_service_1 = require("../report/barchart.service");
 const file_service_1 = require("../../../core/services/file.service");
+const os_enum_1 = require("../../enums/os.enum");
 /**
  * - AstFolders generation from Abstract Syntax AstNode of a folder
  * - Other services for AstFolders
@@ -177,9 +178,13 @@ class AstFolderService extends stats_service_1.StatsService {
             return undefined;
         }
         else {
-            const linkStarter = astFolder.relativePath === "" ? "./" : "";
+            const linkStarter = this.getLinkStarter(astFolder);
+            console.log(linkStarter);
             return `${linkStarter}${astFile.astFolder.path.slice(astFolder.path.length)}`;
         }
+    }
+    getLinkStarter(astFolder) {
+        return file_service_1.getOS() !== os_enum_1.OS.WINDOWS ? (astFolder === null || astFolder === void 0 ? void 0 : astFolder.relativePath) === "" ? "./" : "." : (astFolder === null || astFolder === void 0 ? void 0 : astFolder.relativePath) === "" ? "./" : "";
     }
     /**
      * Returns the route from the folder of a AstFolder to one of its subfolders
@@ -197,13 +202,14 @@ class AstFolderService extends stats_service_1.StatsService {
             return undefined;
         }
         else {
-            const linkStarter = astFolder.relativePath === "" ? "./" : "";
+            const linkStarter = this.getLinkStarter(astFolder);
+            // console.log("LINK STARTER GET ROUTE SUB 1 ", astSubfolder.path, astFolder.path);
             const finalLink = `${linkStarter}${this.linkSlicer(astSubfolder.path, astFolder.path)}`;
             return finalLink;
         }
     }
     isSlashExist(text, parentText) {
-        return text[parentText.length + 1] === file_service_1.constructLink("/");
+        return file_service_1.constructLink(text[parentText.length + 1]) === file_service_1.constructLink("/");
     }
     linkSlicer(text, parentText) {
         return this.isSlashExist(text, parentText)
