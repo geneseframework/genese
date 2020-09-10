@@ -3,7 +3,7 @@
     "version": "0.2.4",
     "scripts": {
         "dev": "tsc && node dev.js",
-        "replace": "tsc && npm unpublish genese@0.2.5 --force && npm publish && npm i -g genese"
+        "replace": "tsc && npm unpublish genese@0.2.4 --force && npm publish && npm i -g genese"
     },
     "author": {
         "name": "Gilles Fabre",
