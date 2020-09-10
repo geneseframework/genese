@@ -196,16 +196,20 @@ export class AstFolderService extends StatsService {
             console.log(`The file ${astFile.name} is not inside the folder ${astFolder.path}`);
             return undefined;
         } else {
-            const linkStarter = this.getLinkStarter(astFolder);
 
-            return `${linkStarter}${astFile.astFolder.path.slice(
+            return `${this.getLinkStarter(astFolder)}${astFile.astFolder.path.slice(
                 astFolder.path.length
             )}`;
 
         }
     }
 
-    getLinkStarter(astFolder: AstFolder) {
+    /**
+     * Get the link starter taking care of OS
+     * @param astFolder 
+     * @returns {string}
+     */
+    getLinkStarter(astFolder: AstFolder) : string{
         return getOS() !== OS.WINDOWS ? astFolder?.relativePath === "" ? "./" : "." : astFolder?.relativePath === "" ? "./" : ""
     }
 
@@ -213,6 +217,7 @@ export class AstFolderService extends StatsService {
      * Returns the route from the folder of a AstFolder to one of its subfolders
      * @param astFolder
      * @param astSubfolder
+     * @returns {string}
      */
     getRouteFromFolderToSubFolder(astFolder: AstFolder, astSubfolder: AstFolder): string {
         if (!astFolder || !astSubfolder|| astSubfolder.path === astFolder.path ) {
@@ -223,21 +228,31 @@ export class AstFolderService extends StatsService {
             return undefined;
         } else {
 
-            const linkStarter = this.getLinkStarter(astFolder);
-
-            const finalLink = `${linkStarter}${this.linkSlicer(
+            return `${this.getLinkStarter(astFolder)}${this.linkSlicer(
                 astSubfolder.path,
                 astFolder.path
             )}`;
-
-            return finalLink;
         }
     }
 
-    isSlashExist(text: string, parentText: string) {
+    /**
+     * Check if the slash exist in the first position of child path (taking care of OS)
+     * To do that, compare parent and children link to get only the path that we need
+     * @param text child full link
+     * @param parentText Parent full link
+     * @returns {boolean}
+     */
+    isSlashExist(text: string, parentText: string) : boolean {
         return constructLink(text[parentText.length + 1]) === constructLink("/");
     }
 
+    /**
+     * Check if there is a slash
+     * If it does, delete it and send the relative path
+     * Else, send the relative path
+     * @param text child full link
+     * @param parentText Parent full link
+     */
     linkSlicer(text: string, parentText: string): string {
         return this.isSlashExist(text, parentText)
             ? text.slice(parentText.length + 1)
