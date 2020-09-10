@@ -1,4 +1,5 @@
 import * as fs from 'fs-extra';
+import { OS } from '../../json-ast-to-reports/enums/os.enum';
 import { Options, WINDOWS } from '../models/options.model';
 
 /**
@@ -31,7 +32,7 @@ export function getAllFiles(dirPath: string, arrayOfFiles?: string[]): string[] 
         } else {
             arrayOfFiles.push(`${dirPath}/${file}`);
         }
-    })
+    });
     return arrayOfFiles;
 }
 
@@ -60,7 +61,7 @@ export function getPathWithDotSlash(path: string): string {
     let pathWithDotSlash = path;
     if (path?.slice(0, 1) === '/') {
         pathWithDotSlash = `.${pathWithDotSlash}`;
-    } else if (path?.slice(0,2) !== './') {
+    } else if (path?.slice(0, 2) !== './') {
         pathWithDotSlash = `./${path}`;
     }
     return pathWithDotSlash;
@@ -87,7 +88,11 @@ export function getRouteToRoot(relativePath: string): string {
     }
     let relativeRoot = '/..';
     for (let i = 0; i < relativePath.length; i++) {
-        relativeRoot = relativePath.charAt(i) === '/' ? `/..${relativeRoot}` : relativeRoot;
+        relativeRoot =
+            relativePath.charAt(i) === constructLink("/") &&
+                i !== relativePath.length - 1
+                ? constructLink("/") + `..${relativeRoot}`
+                : relativeRoot;
     }
     return relativeRoot.slice(1);
 }
@@ -106,10 +111,12 @@ export function getFileExtension(filename: string): string {
  * Returns the filename without its extension
  * @param filename      // The name of the file
  */
-export function getFilenameWithoutExtension(filename: string): string {
-    if (!filename) {
+export function getFilenameWithoutExtension(path: string): string {
+    if (!path) {
         return '';
     }
+    const filename = path.substring(path.lastIndexOf('/') + 1);
+
     const extensionLength = getFileExtension(filename).length;
     return filename.slice(0, -(extensionLength + 1));
 }
@@ -164,7 +171,7 @@ export function createOutDir(): void {
  * @param targetPath        // The target's path
  */
 export function copyFile(originPath: string, targetPath: string): void {
-    fs.copyFileSync(platformPath(originPath), platformPath(targetPath));
+    fs.copyFileSync(constructLink(originPath), constructLink(targetPath));
 }
 
 
@@ -184,5 +191,60 @@ export function windowsPath(path: string): string {
  * @param content
  */
 export function createFile(path: string, content: string): void {
-    fs.writeFileSync(path, content, {encoding: 'utf-8'});
+    fs.writeFileSync(path, content, { encoding: "utf-8" });
+}
+
+/**
+ * Get the current OS
+ * @returns {OS}
+ */
+export function getOS(): OS {
+    let platform = process.platform;
+
+    let macosPlatforms = ["MACINTOSH", "MACINTEL", "MACPPC", "MAC68K"];
+    let windowsPlatforms = ["WIN32", "WIN64", "WINDOWS", "WINCE"];
+    let os = null;
+
+    if (macosPlatforms.indexOf(platform.toUpperCase()) !== -1) {
+        os = OS.MACOS;
+    } else if (windowsPlatforms.indexOf(platform.toUpperCase()) !== -1) {
+        os = OS.WINDOWS;
+    } else if (!os && /Linux/.test(platform)) {
+        os = OS.LINUX;
+    }
+
+    return os;
+}
+
+/**
+ * Replace a slash by an antislash
+ * @param text
+ * @returns {string}
+ */
+export function antislash(text: string): string {
+    return text.split("/").join("\\");
+}
+
+/**
+ * Check if the OS is windows transform the link with antislash
+ * Else, returns the normal link
+ * @param link
+ * @returns {string}
+ */
+export function constructLink(link: string): string {
+    return getOS() === OS.WINDOWS ? antislash(link) : link;
+}
+
+/**
+ * Delete the last slash in a string
+ * @param text
+ * @returns {string}
+ */
+export function deleteLastSlash(text: string): string {
+    const TEXT_REWORK = (text && constructLink(text)) || "";
+
+    return TEXT_REWORK &&
+        TEXT_REWORK[TEXT_REWORK.length - 1] === constructLink("/")
+        ? TEXT_REWORK.slice(0, TEXT_REWORK.length - 1)
+        : TEXT_REWORK;
 }

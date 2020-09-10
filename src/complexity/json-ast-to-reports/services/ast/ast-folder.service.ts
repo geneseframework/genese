@@ -4,6 +4,8 @@ import { AstFolder } from '../../models/ast/ast-folder.model';
 import { AstFile } from '../../models/ast/ast-file.model';
 import { ComplexityType } from '../../enums/complexity-type.enum';
 import { BarchartService } from '../report/barchart.service';
+import { constructLink, getOS } from '../../../core/services/file.service';
+import { OS } from '../../enums/os.enum';
 
 /**
  * - AstFolders generation from Abstract Syntax AstNode of a folder
@@ -80,7 +82,7 @@ export class AstFolderService extends StatsService {
     protected getNameOrPath(astFolder: AstFolder): void {
         this._stats.subject = astFolder.relativePath;
     }
-wq
+
 
     /**
      * Returns the number of files of an astFolder and its subfolders
@@ -194,11 +196,18 @@ wq
             console.log(`The file ${astFile.name} is not inside the folder ${astFolder.path}`);
             return undefined;
         } else {
-            const linkStarter = astFolder.relativePath === '' ? './' : '.';
-            return `${linkStarter}${astFile.astFolder.path.slice(astFolder.path.length)}`;
+            const linkStarter = this.getLinkStarter(astFolder);
+
+            return `${linkStarter}${astFile.astFolder.path.slice(
+                astFolder.path.length
+            )}`;
+
         }
     }
 
+    getLinkStarter(astFolder: AstFolder) {
+        return getOS() !== OS.WINDOWS ? astFolder?.relativePath === "" ? "./" : "." : astFolder?.relativePath === "" ? "./" : ""
+    }
 
     /**
      * Returns the route from the folder of a AstFolder to one of its subfolders
@@ -213,9 +222,26 @@ wq
             console.log(`The folder ${astSubfolder.path} is not a subfolder of ${astFolder.path}`);
             return undefined;
         } else {
-            const linkStarter = astFolder.relativePath === '' ? './' : '';
-            return `${linkStarter}${astSubfolder.path.slice(astFolder.path.length + 1)}`;
+
+            const linkStarter = this.getLinkStarter(astFolder);
+
+            const finalLink = `${linkStarter}${this.linkSlicer(
+                astSubfolder.path,
+                astFolder.path
+            )}`;
+
+            return finalLink;
         }
+    }
+
+    isSlashExist(text: string, parentText: string) {
+        return constructLink(text[parentText.length + 1]) === constructLink("/");
+    }
+
+    linkSlicer(text: string, parentText: string): string {
+        return this.isSlashExist(text, parentText)
+            ? text.slice(parentText.length + 1)
+            : text.slice(parentText.length);
     }
 
 }

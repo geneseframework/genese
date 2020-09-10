@@ -1,26 +1,30 @@
 import * as fs from 'fs-extra';
 import * as eol from "eol";
 import * as Handlebars from "handlebars";
-import { getFilenameWithoutExtension, getPathWithDotSlash, getRouteToRoot } from '../../../core/services/file.service';
+import {
+    constructLink,
+    deleteLastSlash,
+    getFilenameWithoutExtension,
+    getPathWithDotSlash,
+    getRouteToRoot,
+} from '../../../core/services/file.service';
 import { MethodReport } from '../../models/report/method-report.model';
 import { AstFile } from '../../models/ast/ast-file.model';
 import { Options } from '../../../core/models/options.model';
+import { mainModule } from "process";
 
 /**
  * Service generating files reports
  */
 export class AstFileReportService {
-
     private methodReports: MethodReport[] = [];     // The array of method reports
     private relativeRootReports = '';               // The route between the pos of the current TsFile and the root of the analysis
     template: HandlebarsTemplateDelegate;           // The HandleBar template used to generate the report
     astFile: AstFile = undefined;                   // The AstFile relative to this service
 
-
     constructor(astFile: AstFile) {
         this.astFile = astFile;
     }
-
 
     /**
      * Returns the array of methods with their analysis
@@ -41,7 +45,6 @@ export class AstFileReportService {
         return report;
     }
 
-
     /**
      * Generates the file's report
      */
@@ -58,7 +61,6 @@ export class AstFileReportService {
         this.writeReport();
     }
 
-
     /**
      * Creates the file of the report
      */
@@ -70,11 +72,20 @@ export class AstFileReportService {
             stats: this.astFile.stats,
             thresholds: Options.getThresholds()
         });
-        const filenameWithoutExtension = getFilenameWithoutExtension(this.astFile.name);
-        const pathReport = `${Options.pathOutDir}/${this.astFile.astFolder?.relativePath}/${filenameWithoutExtension}.html`;
-        fs.writeFileSync(pathReport, template, {encoding: 'utf-8'});
-    }
+        const filenameWithoutExtension = getFilenameWithoutExtension(
+            this.astFile.name
+        );
+        const RELATIVE_PATH = constructLink(
+            this.astFile.astFolder?.relativePath
+        );
+        const OUT_DIR = constructLink(Options.pathOutDir);
+        let pathReport = `${deleteLastSlash(OUT_DIR)}/${deleteLastSlash(
+            RELATIVE_PATH
+        )}/${filenameWithoutExtension}.html`;
 
+
+        fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
+    }
 
     /**
      * Registers a HandleBar's partial for a given partial's name and a given filename
