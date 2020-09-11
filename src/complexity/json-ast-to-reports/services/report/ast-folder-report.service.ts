@@ -1,8 +1,8 @@
-import * as fs from "fs-extra";
-import * as eol from "eol";
-import * as Handlebars from "handlebars";
-import { RowFolderReport } from "../../models/report/row-folder-report.model";
-import { RowFileReport } from "../../models/report/row-file-report.model";
+import * as fs from 'fs-extra';
+import * as eol from 'eol';
+import * as Handlebars from 'handlebars';
+import { RowFolderReport } from '../../models/report/row-folder-report.model';
+import { RowFileReport } from '../../models/report/row-file-report.model';
 import {
     constructLink,
     createRelativeDir,
@@ -10,12 +10,12 @@ import {
     getFilenameWithoutExtension,
     getPathWithSlash,
     getRouteToRoot,
-} from "../../../core/services/file.service";
-import { MethodReport } from "../../models/report/method-report.model";
-import { AstFile } from "../../models/ast/ast-file.model";
-import { AstFolder } from "../../models/ast/ast-folder.model";
-import { AstFolderService } from "../ast/ast-folder.service";
-import { Options } from "../../../core/models/options.model";
+} from '../../../core/services/file.service';
+import { MethodReport } from '../../models/report/method-report.model';
+import { AstFile } from '../../models/ast/ast-file.model';
+import { AstFolder } from '../../models/ast/ast-folder.model';
+import { AstFolderService } from '../ast/ast-folder.service';
+import { Options } from '../../../core/models/options.model';
 
 /**
  * Service generating folders reports
@@ -27,7 +27,7 @@ export class AstFolderReportService {
     private foldersArray: RowFolderReport[] = []; // The array of subfolders reports
     private isRootFolder = false; // True if the AstFolder relative to this service is the root folder of the analysis
     private methodsArray: RowFileReport[] = []; // The array of methods reports
-    private relativeRootReports = ""; // The route between the pos of the current TsFolder and the root of the analysis
+    private relativeRootReports = ''; // The route between the pos of the current TsFolder and the root of the analysis
     template: HandlebarsTemplateDelegate; // The HandleBar template used to generate the report
 
     constructor(astFolder: AstFolder) {
@@ -61,7 +61,7 @@ export class AstFolderReportService {
     ): RowFolderReport[] {
         let report: RowFolderReport[] = [];
         for (const subfolder of astFolder.children) {
-            if (subfolder.relativePath !== "") {
+            if (subfolder.relativePath !== '') {
                 const routeFromCurrentFolderBase = this.astFolderService.getRouteFromFolderToSubFolder(
                     this.astFolder,
                     subfolder
@@ -99,8 +99,8 @@ export class AstFolderReportService {
                 complexitiesByStatus: undefined,
                 numberOfFiles: undefined,
                 numberOfMethods: undefined,
-                path: "../",
-                routeFromCurrentFolder: "..",
+                path: '../',
+                routeFromCurrentFolder: '..',
             };
 
         } 
@@ -204,16 +204,16 @@ export class AstFolderReportService {
         this.methodsArray = this.getMethodsArraySortedByDecreasingCognitiveCpx(
             parentFolder
         );
-        this.registerPartial("cognitiveBarchartScript", "cognitive-barchart");
-        this.registerPartial("cyclomaticBarchartScript", "cyclomatic-barchart");
-        this.registerPartial("cognitiveDoughnutScript", "cognitive-doughnut");
-        this.registerPartial("cyclomaticDoughnutScript", "cyclomatic-doughnut");
-        this.registerPartial("rowFolder", "row-folders");
-        this.registerPartial("rowFile", "row-files");
+        this.registerPartial('cognitiveBarchartScript', 'cognitive-barchart');
+        this.registerPartial('cyclomaticBarchartScript', 'cyclomatic-barchart');
+        this.registerPartial('cognitiveDoughnutScript', 'cognitive-doughnut');
+        this.registerPartial('cyclomaticDoughnutScript', 'cyclomatic-doughnut');
+        this.registerPartial('rowFolder', 'row-folders');
+        this.registerPartial('rowFile', 'row-files');
         const reportTemplate = eol.auto(
             fs.readFileSync(
                 `${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/folder-report.handlebars`,
-                "utf-8"
+                'utf-8'
             )
         );
         this.template = Handlebars.compile(reportTemplate);
@@ -245,7 +245,7 @@ export class AstFolderReportService {
         )}/folder-report.html`;
 
         try {
-            fs.writeFileSync(pathReport, template, { encoding: "utf-8" });
+            fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
         } catch (err) {
             console.log(err);
         }
@@ -260,7 +260,7 @@ export class AstFolderReportService {
         const partial = eol.auto(
             fs.readFileSync(
                 `${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/${filename}.handlebars`,
-                "utf-8"
+                'utf-8'
             )
         );
         Handlebars.registerPartial(partialName, partial);
