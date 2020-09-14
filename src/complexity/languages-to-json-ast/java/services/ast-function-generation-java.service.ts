@@ -25,6 +25,7 @@ import { BlockStatementChildren } from '../models/block-statement-children.model
 import { StatementChildren } from '../models/statement-children.model';
 import { ExpressionChildren } from '../models/expression-children.model';
 import { IfStatementChildren } from '../models/if-statement-children.model';
+import { SwitchStatementChildren } from '../models/switch-statement-children.model';
 
 /**
  * - AstFunction generation from their Abstract Syntax Tree (AST)
@@ -142,6 +143,7 @@ export class AstFunctionageGenerationJavaService {
     generateAstStatementChildren(statementChildren: StatementChildren, astNode: AstNodeInterface): void {
         if(statementChildren){
             JavaService.generateAstNode(statementChildren.ifStatement, astNode, this.generateAstIfStatementChildren.bind(this));
+            JavaService.generateAstNode(statementChildren.statementWithoutTrailingSubstatement, astNode, this.generateAstStatementWithoutTrailingSubstatementChildren.bind(this));
         }
     }
     
@@ -158,6 +160,20 @@ export class AstFunctionageGenerationJavaService {
             JavaService.generateAstNode(ifStatementChildren.expression, astNode, this.generateAstExpressionChildren.bind(this));
             JavaService.getAstNodeInfos(ifStatementChildren.RCurly, astNode);
         }
+    }
+
+    generateAstStatementWithoutTrailingSubstatementChildren(switchStatement: SwitchStatementChildren, astNode: AstNodeInterface): void {
+        if(switchStatement){
+            JavaService.getAstNodeInfos(switchStatement.Switch, astNode);
+            JavaService.getAstNodeInfos(switchStatement.LBrace, astNode);
+            JavaService.generateAstNode(switchStatement.expression, astNode, this.generateAstExpressionChildren.bind(this));
+            JavaService.getAstNodeInfos(switchStatement.BBrace, astNode);
+            JavaService.generateAstNode(switchStatement.switchBlock, astNode, this.generateAstSwitchBlockChildren.bind(this));
+        }
+    }
+
+    generateAstSwitchBlockChildren(): void {
+        
     }
     
     /**
