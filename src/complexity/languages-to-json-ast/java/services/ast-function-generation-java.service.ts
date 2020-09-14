@@ -26,6 +26,10 @@ import { StatementChildren } from '../models/statement-children.model';
 import { ExpressionChildren } from '../models/expression-children.model';
 import { IfStatementChildren } from '../models/if-statement-children.model';
 import { SwitchStatementChildren } from '../models/switch-statement-children.model';
+import { SwitchBlockChildren } from '../models/switch-block-children.model';
+import { SwitchCaseChildren } from '../models/switch-case-children.model';
+import { SwitchLabelChildren } from '../models/switch-label-children.model';
+import { ConstantExpressionChildren } from '../models/constant-expression-children.model';
 
 /**
  * - AstFunction generation from their Abstract Syntax Tree (AST)
@@ -162,6 +166,12 @@ export class AstFunctionageGenerationJavaService {
         }
     }
 
+    /**
+     * Generate AstNode for statementWithoutTrailingSubstatement children
+     * @param  {SwitchStatementChildren} switchStatement
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
     generateAstStatementWithoutTrailingSubstatementChildren(switchStatement: SwitchStatementChildren, astNode: AstNodeInterface): void {
         if(switchStatement){
             JavaService.getAstNodeInfos(switchStatement.Switch, astNode);
@@ -172,10 +182,59 @@ export class AstFunctionageGenerationJavaService {
         }
     }
 
-    generateAstSwitchBlockChildren(): void {
-        
+    /**
+     * Generate AstNode for switchBlock children
+     * @param  {SwitchBlockChildren} switchBlockChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstSwitchBlockChildren(switchBlockChildren: SwitchBlockChildren, astNode: AstNodeInterface): void {
+        if(switchBlockChildren){
+            JavaService.getAstNodeInfos(switchBlockChildren.LCurly, astNode);
+            JavaService.generateAstNode(switchBlockChildren.switchCase, astNode, this.generateAstSwitchCaseChildren.bind(this));
+            JavaService.getAstNodeInfos(switchBlockChildren.RCurly, astNode);
+        }
     }
     
+    /**
+     * Generate AstNode for switchCase children
+     * @param  {SwitchCaseChildren} switchCaseChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstSwitchCaseChildren(switchCaseChildren: SwitchCaseChildren, astNode: AstNodeInterface): void {
+        if(switchCaseChildren){
+            JavaService.generateAstNode(switchCaseChildren.switchLabel, astNode, this.generateAstSwitchLabelChildren.bind(this));
+            JavaService.generateAstNode(switchCaseChildren.blockStatements, astNode, this.generateAstBlockStatementsChildren.bind(this));
+        }
+    }
+   
+    /**
+     * Generate AstNode for switchLabel children
+     * @param  {SwitchLabelChildren} switchLabelChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstSwitchLabelChildren(switchLabelChildren: SwitchLabelChildren, astNode: AstNodeInterface): void {
+        if(switchLabelChildren){
+            JavaService.getAstNodeInfos(switchLabelChildren.Case, astNode);
+            JavaService.generateAstNode(switchLabelChildren.constantExpression, astNode, this.generateAstConstantExpressionChildren.bind(this));
+            JavaService.getAstNodeInfos(switchLabelChildren.Colon, astNode);
+        }
+    }
+    
+    /**
+     * Generate AstNode for constantExpression children
+     * @param  {ConstantExpressionChildren} constantExpressionChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstConstantExpressionChildren(constantExpressionChildren: ConstantExpressionChildren, astNode: AstNodeInterface): void {
+        if(constantExpressionChildren){
+            JavaService.generateAstNode(constantExpressionChildren.expression, astNode, this.generateAstExpressionChildren.bind(this));
+        }
+    }
+
     /**
      * Generate AstNode for expression children
      * @param  {ExpressionChildren} expressionChildren
