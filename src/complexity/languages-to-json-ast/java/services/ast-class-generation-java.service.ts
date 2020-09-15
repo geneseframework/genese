@@ -5,7 +5,7 @@ import { NormalClassDeclarationChildren } from '../models/normal-class-declarati
 import { ClassBodyChildren } from '../models/class-body-children.model';
 import { ClassModifierChildren } from '../models/class-modifier-children.model';
 import { ClassDeclarationChildren } from '../models/class-declaration-children.model';
-import { ClassMemberDeclarationChildren } from '../models/class-member-declaration-children';
+import { ClassMemberDeclarationChildren } from '../models/class-member-declaration-children.model';
 import { ClassBodyDeclarationChildren } from '../models/class-body-declaration-children.model';
 import { ClassDeclarationElement } from '../models/class-declaration-element.model';
 
