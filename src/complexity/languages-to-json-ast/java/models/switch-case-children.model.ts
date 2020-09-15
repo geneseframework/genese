@@ -1,6 +1,5 @@
 import { SwitchLabel } from "./switch-label.model";
 import { Location } from "./location.model";
-import { ExpressionStatement } from "./expression-statement.model";
 import { StatementExpression } from "./statement-expression.model";
 
 export class SwitchCaseChildren {

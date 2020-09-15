@@ -30,6 +30,7 @@ import { SwitchBlockChildren } from '../models/switch-block-children.model';
 import { SwitchCaseChildren } from '../models/switch-case-children.model';
 import { SwitchLabelChildren } from '../models/switch-label-children.model';
 import { ConstantExpressionChildren } from '../models/constant-expression-children.model';
+import { StatementWithoutTrailingSubstatementChildren } from '../models/statement-without-trailing-substatement-children.model';
 
 /**
  * - AstFunction generation from their Abstract Syntax Tree (AST)
@@ -163,6 +164,7 @@ export class AstFunctionageGenerationJavaService {
             JavaService.getAstNodeInfos(ifStatementChildren.LCurly, astNode);
             JavaService.generateAstNode(ifStatementChildren.expression, astNode, this.generateAstExpressionChildren.bind(this));
             JavaService.getAstNodeInfos(ifStatementChildren.RCurly, astNode);
+            JavaService.generateAstNode(ifStatementChildren.statement, astNode, this.generateAstStatementChildren.bind(this));
         }
     }
 
@@ -172,13 +174,25 @@ export class AstFunctionageGenerationJavaService {
      * @param  {AstNodeInterface} astNode
      * @returns void
      */
-    generateAstStatementWithoutTrailingSubstatementChildren(switchStatement: SwitchStatementChildren, astNode: AstNodeInterface): void {
-        if(switchStatement){
-            JavaService.getAstNodeInfos(switchStatement.Switch, astNode);
-            JavaService.getAstNodeInfos(switchStatement.LBrace, astNode);
-            JavaService.generateAstNode(switchStatement.expression, astNode, this.generateAstExpressionChildren.bind(this));
-            JavaService.getAstNodeInfos(switchStatement.BBrace, astNode);
-            JavaService.generateAstNode(switchStatement.switchBlock, astNode, this.generateAstSwitchBlockChildren.bind(this));
+    generateAstStatementWithoutTrailingSubstatementChildren(statementWithoutTrailingSubstatementChildren: StatementWithoutTrailingSubstatementChildren, astNode: AstNodeInterface): void {
+        if(statementWithoutTrailingSubstatementChildren){
+            JavaService.generateAstNode(statementWithoutTrailingSubstatementChildren.switchStatement, astNode, this.generateAstSwitchStatementChildren.bind(this));
+        }
+    }
+
+    /**
+     * Generate AstNode for switchStatement children
+     * @param  {SwitchStatementChildren} switchStatementChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstSwitchStatementChildren(switchStatementChildren: SwitchStatementChildren, astNode: AstNodeInterface): void {
+        if(switchStatementChildren){
+            JavaService.getAstNodeInfos(switchStatementChildren.Switch, astNode);
+            JavaService.getAstNodeInfos(switchStatementChildren.LBrace, astNode);
+            JavaService.generateAstNode(switchStatementChildren.expression, astNode, this.generateAstExpressionChildren.bind(this));
+            JavaService.getAstNodeInfos(switchStatementChildren.BBrace, astNode);
+            JavaService.generateAstNode(switchStatementChildren.switchBlock, astNode, this.generateAstSwitchBlockChildren.bind(this));
         }
     }
 

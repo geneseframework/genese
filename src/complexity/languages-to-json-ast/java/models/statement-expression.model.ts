@@ -2,7 +2,7 @@ import { Location } from "./location.model";
 import { Expression } from "./expression.model";
 
 export class StatementExpression {
-    name?: '';
+    name ?= '';
     children?: Expression[] = [new Expression()];
     location?: Location = new Location();
 }
