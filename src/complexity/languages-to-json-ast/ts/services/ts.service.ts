@@ -48,7 +48,11 @@ export class Ts {
      * @param node      // The node to check
      */
     static isFunctionCall(node: Node): boolean {
-        return node?.getParent()?.getParent()?.getKind() === SyntaxKind.CallExpression && Ts.isSecondSon(node);
+        const grandParent: Node = node?.getParent()?.getParent();
+        if (!grandParent) {
+            return false;
+        }
+        return grandParent.getKind() === SyntaxKind.CallExpression && grandParent.compilerNode['expression'].end === node.getEnd();
     }
 
 
