@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createFile = exports.windowsPath = exports.platformPath = exports.copyFile = exports.createOutDir = exports.createRelativeDir = exports.getLanguageExtensions = exports.getFilenameWithoutExtension = exports.getFileExtension = exports.getRouteToRoot = exports.getPathWithSlash = exports.getPathWithDotSlash = exports.getArrayOfPathsWithDotSlash = exports.getAllFiles = exports.getFilename = void 0;
+exports.deleteLastSlash = exports.constructLink = exports.antislash = exports.getOS = exports.createFile = exports.windowsPath = exports.platformPath = exports.copyFile = exports.createOutDir = exports.createRelativeDir = exports.getLanguageExtensions = exports.getFilenameWithoutExtension = exports.getFileExtension = exports.getRouteToRoot = exports.getPathWithSlash = exports.getPathWithDotSlash = exports.getArrayOfPathsWithDotSlash = exports.getAllFiles = exports.getFilename = void 0;
 const fs = require("fs-extra");
+const os_enum_1 = require("../../json-ast-to-reports/enums/os.enum");
 const options_model_1 = require("../models/options.model");
 /**
  * Tools about files or folders
@@ -84,7 +85,11 @@ function getRouteToRoot(relativePath) {
     }
     let relativeRoot = '/..';
     for (let i = 0; i < relativePath.length; i++) {
-        relativeRoot = relativePath.charAt(i) === '/' ? `/..${relativeRoot}` : relativeRoot;
+        relativeRoot =
+            relativePath.charAt(i) === constructLink("/") &&
+                i !== relativePath.length - 1
+                ? constructLink("/") + `..${relativeRoot}`
+                : relativeRoot;
     }
     return relativeRoot.slice(1);
 }
@@ -101,10 +106,11 @@ exports.getFileExtension = getFileExtension;
  * Returns the filename without its extension
  * @param filename      // The name of the file
  */
-function getFilenameWithoutExtension(filename) {
-    if (!filename) {
+function getFilenameWithoutExtension(path) {
+    if (!path) {
         return '';
     }
+    const filename = path.substring(path.lastIndexOf('/') + 1);
     const extensionLength = getFileExtension(filename).length;
     return filename.slice(0, -(extensionLength + 1));
 }
@@ -157,7 +163,7 @@ exports.createOutDir = createOutDir;
  * @param targetPath        // The target's path
  */
 function copyFile(originPath, targetPath) {
-    fs.copyFileSync(platformPath(originPath), platformPath(targetPath));
+    fs.copyFileSync(constructLink(originPath), constructLink(targetPath));
 }
 exports.copyFile = copyFile;
 function platformPath(path) {
@@ -174,6 +180,59 @@ exports.windowsPath = windowsPath;
  * @param content
  */
 function createFile(path, content) {
-    fs.writeFileSync(path, content, { encoding: 'utf-8' });
+    fs.writeFileSync(path, content, { encoding: "utf-8" });
 }
 exports.createFile = createFile;
+/**
+ * Get the current OS
+ * @returns {OS}
+ */
+function getOS() {
+    let platform = process.platform;
+    let macosPlatforms = ["MACINTOSH", "MACINTEL", "MACPPC", "MAC68K"];
+    let windowsPlatforms = ["WIN32", "WIN64", "WINDOWS", "WINCE"];
+    let os = null;
+    if (macosPlatforms.indexOf(platform.toUpperCase()) !== -1) {
+        os = os_enum_1.OS.MACOS;
+    }
+    else if (windowsPlatforms.indexOf(platform.toUpperCase()) !== -1) {
+        os = os_enum_1.OS.WINDOWS;
+    }
+    else if (!os && /Linux/.test(platform)) {
+        os = os_enum_1.OS.LINUX;
+    }
+    return os;
+}
+exports.getOS = getOS;
+/**
+ * Replace a slash by an antislash
+ * @param text
+ * @returns {string}
+ */
+function antislash(text) {
+    return text.split("/").join("\\");
+}
+exports.antislash = antislash;
+/**
+ * Check if the OS is windows transform the link with antislash
+ * Else, returns the normal link
+ * @param link
+ * @returns {string}
+ */
+function constructLink(link) {
+    return getOS() === os_enum_1.OS.WINDOWS ? antislash(link) : link;
+}
+exports.constructLink = constructLink;
+/**
+ * Delete the last slash in a string
+ * @param text
+ * @returns {string}
+ */
+function deleteLastSlash(text) {
+    const TEXT_REWORK = (text && constructLink(text)) || "";
+    return TEXT_REWORK &&
+        TEXT_REWORK[TEXT_REWORK.length - 1] === constructLink("/")
+        ? TEXT_REWORK.slice(0, TEXT_REWORK.length - 1)
+        : TEXT_REWORK;
+}
+exports.deleteLastSlash = deleteLastSlash;

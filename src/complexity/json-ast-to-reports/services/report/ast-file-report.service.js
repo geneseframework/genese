@@ -64,7 +64,9 @@ class AstFileReportService {
             thresholds: options_model_1.Options.getThresholds()
         });
         const filenameWithoutExtension = file_service_1.getFilenameWithoutExtension(this.astFile.name);
-        const pathReport = `${options_model_1.Options.pathOutDir}/${(_a = this.astFile.astFolder) === null || _a === void 0 ? void 0 : _a.relativePath}/${filenameWithoutExtension}.html`;
+        const RELATIVE_PATH = file_service_1.constructLink((_a = this.astFile.astFolder) === null || _a === void 0 ? void 0 : _a.relativePath);
+        const OUT_DIR = file_service_1.constructLink(options_model_1.Options.pathOutDir);
+        let pathReport = `${file_service_1.deleteLastSlash(OUT_DIR)}/${file_service_1.deleteLastSlash(RELATIVE_PATH)}/${filenameWithoutExtension}.html`;
         fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
     }
     /**
