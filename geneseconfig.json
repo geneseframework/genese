@@ -14,7 +14,7 @@
             "api",
             "/node_modules",
             "./genese",
-            ".d.ts"
+            "*.d.ts"
         ],
         "pathFolderToAnalyze": "/Users/utilisateur/Documents/perso_gilles_fabre/projets/genese/genese/src/complexity/core/mocks",
         "pathReports": "./genese"
