@@ -1,25 +1,34 @@
 import { SwitchLabel } from "./switch-label.model";
 import { Location } from "./location.model";
 import { StatementExpression } from "./statement-expression.model";
+import { Infos } from "./infos.model";
+import { Expression } from "./expression.model";
 
 export class SwitchCaseChildren {
     switchLabel?: SwitchLabel[] = [new SwitchLabel()];
     blockStatements?: [{
-        name?: '',
+        name ?: '',
         children?: {
             blockStatement?: [{
-                name?: '',
+                name ?: '',
                 children?: {
                     statement?: [{
-                        name?: '',
+                        name ?: '',
                         children?: {
                                 statementWithoutTrailingSubstatement?: [{
-                                    name?: '',
+                                    name ?: '',
                                     children?: {
                                         expressionStatement?: [{
-                                            name?: '',
+                                            name ?: '',
                                             children?: {
-                                                statementExpression?: StatementExpression[]
+                                                statementExpression?: [{
+                                                        name ?: '',
+                                                        children?: {
+                                                            expression?: Expression[]
+                                                        }
+                                                        location?: Location
+                                                    }],
+                                                Semicolon?: Infos[]
                                             }
                                             location?: Location
                                         }]
@@ -49,7 +58,14 @@ export class SwitchCaseChildren {
                                     expressionStatement: [{
                                         name: '',
                                         children: {
-                                            statementExpression: [new StatementExpression()]
+                                            statementExpression: [{
+                                                    name: '',
+                                                    children: {
+                                                        expression: [new Expression()],
+                                                    },
+                                                    location: new Location()
+                                                }],
+                                            Semicolon: [new Infos()]
                                         },
                                         location: new Location()
                                     }],

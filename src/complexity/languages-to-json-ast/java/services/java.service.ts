@@ -156,9 +156,11 @@ export class JavaService {
     static generateAstNode(declarations: Children[], declarationAstNode: AstNodeInterface, method: (children: any, astNode: AstNodeInterface) => void): AstNodeInterface {
         if(Array.isArray(declarations)){
             declarations.forEach(declaration => {
-                let astNodeElement: AstNodeInterface = JavaService.getAstNodeWithChildren(declaration);
-                method(declaration.children, astNodeElement);
-                this.pushChildren(declarationAstNode, astNodeElement);
+                if(declaration.name !== '') {
+                    let astNodeElement: AstNodeInterface = JavaService.getAstNodeWithChildren(declaration);
+                    method(declaration.children, astNodeElement);
+                    this.pushChildren(declarationAstNode, astNodeElement);
+                }
             })
         }
         return declarationAstNode;

@@ -1,8 +1,8 @@
 import { Location } from "./location.model";
-import { Expression } from "./expression.model";
+import { StatementExpressionChildren } from "./statement-expression-children.model";
 
 export class StatementExpression {
     name ?= '';
-    children?: Expression[] = [new Expression()];
+    children?: StatementExpressionChildren[] = [new StatementExpressionChildren()];
     location?: Location = new Location();
 }
