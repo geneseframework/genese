@@ -16,6 +16,7 @@ export var WINDOWS = false;
  * Some options can be override by command-line options or with geneseconfig.json
  */
 export class Options {
+
     static cognitiveCpx: Complexity = { // Options concerning the cognitive complexity
         errorThreshold: 20, // A complexity strictly greater than errorThreshold will be seen as error (can be overriden)
         type: ComplexityType.COGNITIVE, // Sets the complexity type for this option (can't be overriden)
@@ -37,6 +38,8 @@ export class Options {
     static pathFolderToAnalyze = './'; // The path of the folder to analyse (can be overriden)
     static pathGeneseNodeJs = ''; // The path of the node_module Genese in the nodejs user environment (can't be overriden)
     static pathOutDir = ''; // The path where the reports are created (can be overriden)
+
+
     /**
      * Sets the options of genese-complexity module
      * @param pathCommand               // The path of the folder where the command-line was entered (can't be overriden)
@@ -60,6 +63,7 @@ export class Options {
         );
     }
 
+
     /**
      * Sets the options of genese-complexity module with command-line options (lower priority than geneseconfig.json options)
      * @param pathCommand               // The path of the folder where the command-line was entered (can't be overriden)
@@ -72,6 +76,7 @@ export class Options {
         Options.pathGeneseNodeJs = pathGeneseNodeJs;
         Options.pathOutDir = `${pathCommand}/genese/complexity/reports`;
     }
+
 
     /**
      * Sets the options of genese-complexity module with geneseconfig.json options (higher priority than geneseconfig.json options)
@@ -93,6 +98,7 @@ export class Options {
         Options.ignore.push(Options.pathOutDir);
     }
 
+
     /**
      * Separate paths which needs to start by "./" and others
      * @param ignorePaths
@@ -107,6 +113,7 @@ export class Options {
             ignorePathsToKeep
         );
     }
+
 
     /**
      * Checks if a file or a folder is ignored in geneseconfig.json
@@ -145,35 +152,7 @@ export class Options {
         });
         return pathTester;
     }
-    /**
-     * Compare the path and the ignorePath to see if it needs to be excluded from the analysis
-     * @param ignorePath
-     * @param path
-     */
-    static pathSeparator(ignorePath: string, path: string): boolean {
-        const SEPARATED_PATH = path.split('/');
-        const SEPARATED_IGNORE_PATH = ignorePath.split('/');
-        if (this.handleStarPath(ignorePath, path)) {
-            return true;
-        }
-        let isSamePath: boolean[] = [];
-        for (let i = 0; i < SEPARATED_IGNORE_PATH.length; i++) {
-            if (
-                SEPARATED_IGNORE_PATH[i] !== '**' &&
-                SEPARATED_PATH.length > i
-            ) {
-                isSamePath.push(
-                    this.handleStarPath(
-                        SEPARATED_IGNORE_PATH[i],
-                        SEPARATED_PATH[i]
-                    )
-                        ? true
-                        : SEPARATED_PATH[i] === SEPARATED_IGNORE_PATH[i]
-                );
-            }
-        }
-        return isSamePath.findIndex((x) => x === false) === -1;
-    }
+
 
     static handleStarPath(ignorePath: string, path: string) {
         if (ignorePath.startsWith('*.')) {
@@ -181,6 +160,8 @@ export class Options {
         }
         return false;
     }
+
+
     /**
      * Gets the different thresholds defined in Options class
      * @returns {ComplexitiesByStatus}

@@ -45,8 +45,12 @@ class Ts {
      * @param node      // The node to check
      */
     static isFunctionCall(node) {
-        var _a, _b;
-        return ((_b = (_a = node === null || node === void 0 ? void 0 : node.getParent()) === null || _a === void 0 ? void 0 : _a.getParent()) === null || _b === void 0 ? void 0 : _b.getKind()) === ts_morph_1.SyntaxKind.CallExpression && Ts.isSecondSon(node);
+        var _a;
+        const grandParent = (_a = node === null || node === void 0 ? void 0 : node.getParent()) === null || _a === void 0 ? void 0 : _a.getParent();
+        if (!grandParent) {
+            return false;
+        }
+        return grandParent.getKind() === ts_morph_1.SyntaxKind.CallExpression && grandParent.compilerNode['expression'].end === node.getEnd();
     }
     /**
      * Checks is a given node is the second son of its parent

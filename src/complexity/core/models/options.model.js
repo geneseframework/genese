@@ -99,28 +99,6 @@ class Options {
         });
         return pathTester;
     }
-    /**
-     * Compare the path and the ignorePath to see if it needs to be excluded from the analysis
-     * @param ignorePath
-     * @param path
-     */
-    static pathSeparator(ignorePath, path) {
-        const SEPARATED_PATH = path.split('/');
-        const SEPARATED_IGNORE_PATH = ignorePath.split('/');
-        if (this.handleStarPath(ignorePath, path)) {
-            return true;
-        }
-        let isSamePath = [];
-        for (let i = 0; i < SEPARATED_IGNORE_PATH.length; i++) {
-            if (SEPARATED_IGNORE_PATH[i] !== '**' &&
-                SEPARATED_PATH.length > i) {
-                isSamePath.push(this.handleStarPath(SEPARATED_IGNORE_PATH[i], SEPARATED_PATH[i])
-                    ? true
-                    : SEPARATED_PATH[i] === SEPARATED_IGNORE_PATH[i]);
-            }
-        }
-        return isSamePath.findIndex((x) => x === false) === -1;
-    }
     static handleStarPath(ignorePath, path) {
         if (ignorePath.startsWith('*.')) {
             return path.includes(ignorePath.slice(1));
