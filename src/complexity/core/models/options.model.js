@@ -43,22 +43,93 @@ class Options {
      * @param geneseConfigPath  // The path of the geneseconfig.json file
      */
     static setOptionsFromConfig(geneseConfigPath) {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c, _d, _e;
         const config = require(geneseConfigPath);
-        Options.ignore = (_b = file_service_1.getArrayOfPathsWithDotSlash((_a = config.complexity) === null || _a === void 0 ? void 0 : _a.ignore)) !== null && _b !== void 0 ? _b : Options.ignore;
-        Options.pathFolderToAnalyze = (_d = (_c = config.complexity) === null || _c === void 0 ? void 0 : _c.pathFolderToAnalyze) !== null && _d !== void 0 ? _d : Options.pathFolderToAnalyze;
-        Options.pathOutDir = (_f = (_e = config.complexity) === null || _e === void 0 ? void 0 : _e.pathReports) !== null && _f !== void 0 ? _f : Options.pathOutDir;
+        Options.ignore = (_a = this.filterIgnorePathsForDotSlash(config.complexity.ignore)) !== null && _a !== void 0 ? _a : Options.ignore;
+        Options.ignore.forEach((path, i) => {
+            Options.ignoreRegex += i !== Options.ignore.length - 1 ? `${this.pathTransformator(path)}|` : `${this.pathTransformator(path)}`;
+        });
+        Options.pathFolderToAnalyze = (_c = (_b = config.complexity) === null || _b === void 0 ? void 0 : _b.pathFolderToAnalyze) !== null && _c !== void 0 ? _c : Options.pathFolderToAnalyze;
+        Options.pathOutDir = (_e = (_d = config.complexity) === null || _d === void 0 ? void 0 : _d.pathReports) !== null && _e !== void 0 ? _e : Options.pathOutDir;
         Options.ignore.push(Options.pathOutDir);
+    }
+    /**
+     * Separate paths which needs to start by "./" and others
+     * @param ignorePaths
+     * @returns {String[]}
+     */
+    static filterIgnorePathsForDotSlash(ignorePaths) {
+        const ignorePathsToFormat = ignorePaths.filter((x) => !x.startsWith('*.'));
+        const ignorePathsToKeep = ignorePaths.filter((x) => x.startsWith('*.'));
+        return file_service_1.getArrayOfPathsWithDotSlash(ignorePathsToFormat).concat(ignorePathsToKeep);
     }
     /**
      * Checks if a file or a folder is ignored in geneseconfig.json
      * @param path
      */
     static isIgnored(path) {
-        return Options.ignore.includes(path);
+        var _a;
+        return ((_a = path.match(Options.ignoreRegex)) === null || _a === void 0 ? void 0 : _a.length) > 0;
+    }
+    static pathTransformator(path) {
+        const SEPARATED_PATH = path.split('/');
+        let pathTester = '';
+        SEPARATED_PATH.forEach((subPath, i) => {
+            if (subPath.startsWith('*.')) {
+                subPath = subPath.split('.').join('\\.');
+                pathTester = subPath.replace('*\\.', '[a-z]*\\.');
+            }
+            else {
+                if (subPath.match('([a-z].*)')) {
+                    i !== SEPARATED_PATH.length - 1
+                        ? (pathTester += `${subPath}\\/`)
+                        : (pathTester += `${subPath}`);
+                }
+                if (subPath.match('(\\*\\*)') || subPath.match('(\\*)')) {
+                    i !== SEPARATED_PATH.length - 1
+                        ? (pathTester += '([a-z].*)\\/')
+                        : (pathTester += '([a-z].*)');
+                }
+                if (subPath.match('(\\.$)')) {
+                    i !== SEPARATED_PATH.length - 1
+                        ? (pathTester += `${subPath}\\/`)
+                        : (pathTester += subPath);
+                }
+            }
+        });
+        return pathTester;
+    }
+    /**
+     * Compare the path and the ignorePath to see if it needs to be excluded from the analysis
+     * @param ignorePath
+     * @param path
+     */
+    static pathSeparator(ignorePath, path) {
+        const SEPARATED_PATH = path.split('/');
+        const SEPARATED_IGNORE_PATH = ignorePath.split('/');
+        if (this.handleStarPath(ignorePath, path)) {
+            return true;
+        }
+        let isSamePath = [];
+        for (let i = 0; i < SEPARATED_IGNORE_PATH.length; i++) {
+            if (SEPARATED_IGNORE_PATH[i] !== '**' &&
+                SEPARATED_PATH.length > i) {
+                isSamePath.push(this.handleStarPath(SEPARATED_IGNORE_PATH[i], SEPARATED_PATH[i])
+                    ? true
+                    : SEPARATED_PATH[i] === SEPARATED_IGNORE_PATH[i]);
+            }
+        }
+        return isSamePath.findIndex((x) => x === false) === -1;
+    }
+    static handleStarPath(ignorePath, path) {
+        if (ignorePath.startsWith('*.')) {
+            return path.includes(ignorePath.slice(1));
+        }
+        return false;
     }
     /**
      * Gets the different thresholds defined in Options class
+     * @returns {ComplexitiesByStatus}
      */
     static getThresholds() {
         const cpxByStatus = new complexities_by_status_interface_1.ComplexitiesByStatus();
@@ -73,19 +144,20 @@ exports.Options = Options;
 Options.cognitiveCpx = {
     errorThreshold: 20,
     type: complexity_type_enum_1.ComplexityType.COGNITIVE,
-    warningThreshold: 10 // A complexity strictly greater than warning threshold and lower or equal than errorThreshold will be seen as warning (can be overriden)
+    warningThreshold: 10,
 };
 Options.colors = [
     chart_color_enum_1.ChartColor.CORRECT,
     chart_color_enum_1.ChartColor.WARNING,
-    chart_color_enum_1.ChartColor.ERROR
+    chart_color_enum_1.ChartColor.ERROR,
 ];
 Options.cyclomaticCpx = {
     errorThreshold: 10,
     type: complexity_type_enum_1.ComplexityType.CYCLOMATIC,
-    warningThreshold: 5 // A complexity strictly greater than warning threshold and lower or equal than errorThreshold will be seen as warning (can be overriden)
+    warningThreshold: 5,
 };
 Options.ignore = []; // The paths of the files or folders to ignore
+Options.ignoreRegex = '';
 Options.pathCommand = ''; // The path of the folder where the command-line was entered (can't be overriden)
 Options.pathFolderToAnalyze = './'; // The path of the folder to analyse (can be overriden)
 Options.pathGeneseNodeJs = ''; // The path of the node_module Genese in the nodejs user environment (can't be overriden)

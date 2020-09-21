@@ -17,7 +17,6 @@ export function showDuration(message: string, color = 'cyanBright') {
  */
 export class Main {
 
-
     /**
      * Starts the analysis
      * @param pathCommand

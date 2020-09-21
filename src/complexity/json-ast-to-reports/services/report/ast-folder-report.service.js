@@ -44,12 +44,13 @@ class AstFolderReportService {
         let report = [];
         for (const subfolder of astFolder.children) {
             if (subfolder.relativePath !== '') {
+                const routeFromCurrentFolderBase = this.astFolderService.getRouteFromFolderToSubFolder(this.astFolder, subfolder);
                 const subfolderReport = {
                     complexitiesByStatus: (_a = subfolder.stats) === null || _a === void 0 ? void 0 : _a.numberOfMethodsByStatus,
                     numberOfFiles: (_b = subfolder.stats) === null || _b === void 0 ? void 0 : _b.numberOfFiles,
                     numberOfMethods: (_c = subfolder.stats) === null || _c === void 0 ? void 0 : _c.numberOfMethods,
                     path: subfolder.relativePath,
-                    routeFromCurrentFolder: this.astFolderService.getRouteFromFolderToSubFolder(this.astFolder, subfolder)
+                    routeFromCurrentFolder: file_service_1.deleteLastSlash(routeFromCurrentFolderBase),
                 };
                 report.push(subfolderReport);
             }
@@ -141,7 +142,7 @@ class AstFolderReportService {
             return `./${file_service_1.getFilenameWithoutExtension(astFile.name)}.html`;
         }
         const route = this.astFolderService.getRouteFromFolderToFile(this.astFolder, astFile);
-        return `${route}/${file_service_1.getFilenameWithoutExtension(astFile.name)}.html`;
+        return `${file_service_1.deleteLastSlash(route)}/${file_service_1.getFilenameWithoutExtension(astFile.name)}.html`;
     }
     /**
      * Generates the folder's report
@@ -180,8 +181,15 @@ class AstFolderReportService {
         if (this.astFolder.relativePath) {
             file_service_1.createRelativeDir(this.astFolder.relativePath);
         }
-        const pathReport = `${options_model_1.Options.pathOutDir}/${this.astFolder.relativePath}/folder-report.html`;
-        fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
+        const pathOutDir = file_service_1.constructLink(options_model_1.Options.pathOutDir);
+        const relativePath = file_service_1.constructLink(this.astFolder.relativePath);
+        const pathReport = `${file_service_1.deleteLastSlash(pathOutDir)}/${file_service_1.deleteLastSlash(relativePath)}/folder-report.html`;
+        try {
+            fs.writeFileSync(pathReport, template, { encoding: "utf-8" });
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
     /**
      * Registers a HandleBar's partial

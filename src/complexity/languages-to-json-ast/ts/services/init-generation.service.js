@@ -22,7 +22,7 @@ class InitGenerationService {
             return undefined;
         }
         return {
-            astFolder: this.generateAstFolder(path)
+            astFolder: this.generateAstFolder(path),
         };
     }
     /**
@@ -32,14 +32,15 @@ class InitGenerationService {
     generateAstFolder(path) {
         let astFolder = {
             path: file_service_1.platformPath(path),
-            astFiles: []
+            astFiles: [],
         };
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach((elementName) => {
             var _a;
             const pathElement = path + elementName;
             if (!options_model_1.Options.isIgnored(pathElement)) {
-                if (fs.statSync(pathElement).isDirectory() && !globals_const_1.LIMIT_GENERATIONS) {
+                if (fs.statSync(pathElement).isDirectory() &&
+                    !globals_const_1.LIMIT_GENERATIONS) {
                     astFolder.children = (_a = astFolder.children) !== null && _a !== void 0 ? _a : [];
                     astFolder.children.push(this.generateAstFolder(`${pathElement}/`));
                 }
@@ -55,7 +56,7 @@ class InitGenerationService {
      * @param path      // The path of the file
      */
     isFileToGenerate(path) {
-        return (file_service_1.getFileExtension(path) === 'ts' && !globals_const_1.LIMIT_GENERATIONS) || path === globals_const_1.DEV_MOCK;
+        return ((file_service_1.getFileExtension(path) === "ts" && !globals_const_1.LIMIT_GENERATIONS) || path === globals_const_1.DEV_MOCK);
     }
 }
 exports.InitGenerationService = InitGenerationService;
