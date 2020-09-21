@@ -1,4 +1,4 @@
-import { IfStatement } from "./if-statement-model";
+import { IfStatement } from "./if-statement.model";
 import { StatementWithoutTrailingSubstatement } from "./statement-without-trailing-sub-statement.model";
 
 export class StatementChildren {

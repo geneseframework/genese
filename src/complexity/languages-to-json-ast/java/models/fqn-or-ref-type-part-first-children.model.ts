@@ -1,5 +1,5 @@
-import { fqnOrRefTypePartCommon } from "./fqn-or-ref-type-part-common.model";
+import { FqnOrRefTypePartCommon } from "./fqn-or-ref-type-part-common.model";
 
 export class FqnOrRefTypePartFirstChildren {
-    children?: fqnOrRefTypePartCommon[] = [new fqnOrRefTypePartCommon()];
+    fqnOrRefTypePartCommon?: FqnOrRefTypePartCommon[] = [new FqnOrRefTypePartCommon()];
 }

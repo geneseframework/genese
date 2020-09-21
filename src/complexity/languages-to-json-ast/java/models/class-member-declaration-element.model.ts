@@ -1,5 +1,5 @@
 import { Location } from './location.model';
-import { ClassMemberDeclarationChildren } from './class-member-declaration-children';
+import { ClassMemberDeclarationChildren } from './class-member-declaration-children.model';
 
 export class ClassMemberDeclarationElement {
     name ?= '';
