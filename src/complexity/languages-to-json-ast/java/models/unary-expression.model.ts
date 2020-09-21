@@ -1,5 +1,5 @@
 import { Location } from "./location.model";
-import { UnaryExpressionChildren } from "./unary.expression.children.model";
+import { UnaryExpressionChildren } from "./unary-expression-children.model";
 
 export class UnaryExpression {
     name ?= '';

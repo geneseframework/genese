@@ -30,6 +30,24 @@ import { SwitchBlockChildren } from '../models/switch-block-children.model';
 import { SwitchCaseChildren } from '../models/switch-case-children.model';
 import { SwitchLabelChildren } from '../models/switch-label-children.model';
 import { ConstantExpressionChildren } from '../models/constant-expression-children.model';
+import { StatementWithoutTrailingSubstatementChildren } from '../models/statement-without-trailing-substatement-children.model';
+import { TernaryExpressionChildren } from '../models/ternary-expression-children.model';
+import { BinaryExpressionChildren } from '../models/binary-expression-children.model';
+import { UnaryExpressionChildren } from '../models/unary-expression-children.model';
+import { PrimaryChildren } from '../models/primary-children.model';
+import { PrimaryPrefixChildren } from '../models/primary-prefix-children.model';
+import { FqnOrRefTypeChildren } from '../models/fqn-or-ref-type-children.model';
+import { FqnOrRefTypePartFirstChildren } from '../models/fqn-or-ref-type-part-first-children.model';
+import { FqnOrRefTypePartCommonChildren } from '../models/fqn-or-ref-type-part-common-children.model';
+import { LiteralChildren } from '../models/literal.children.model';
+import { IntegerLiteralChildren } from '../models/integer-literal-children.model';
+import { ExpressionStatementChildren } from '../models/expression-statement-children.model';
+import { StatementExpressionChildren } from '../models/statement-expression-children.model';
+import { UnannPrimitiveTypeChildren } from '../models/unann-primitive-type-children.model';
+import { NumericTypeChildren } from '../models/numeric-type-children.model';
+import { IntegralTypeChildren } from '../models/integral-type-children.model';
+import { BooleanLiteralChildren } from '../models/boolean-literal-children.model';
+import { ReturnStatementChildren } from '../models/return-statement-children.model';
 
 /**
  * - AstFunction generation from their Abstract Syntax Tree (AST)
@@ -95,7 +113,7 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstMethodBodyChildren(methodBodyChildren: MethodBodyChildren, methodBodyChildrenAstNode: AstNodeInterface): void {
-        if(methodBodyChildren){
+        if(methodBodyChildren) {
             JavaService.generateAstNode(methodBodyChildren.block, methodBodyChildrenAstNode, this.generateAstBlockChildren.bind(this));
         }
     }
@@ -107,7 +125,7 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstBlockChildren(blockChildren: BlockChildren, astNode: AstNodeInterface): void {
-        if(blockChildren){
+        if(blockChildren) {
             JavaService.getAstNodeInfos(blockChildren.LCurly, astNode);
             JavaService.generateAstNode(blockChildren.blockStatements, astNode, this.generateAstBlockStatementsChildren.bind(this));
             JavaService.getAstNodeInfos(blockChildren.RCurly, astNode);
@@ -121,7 +139,7 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstBlockStatementsChildren(blockStatementsChildren: BlockStatementsChildren, astNode: AstNodeInterface): void {
-        if(blockStatementsChildren){
+        if(blockStatementsChildren) {
             JavaService.generateAstNode(blockStatementsChildren.blockStatement, astNode, this.generateAstBlockStatementChildren.bind(this));
         }
     }
@@ -133,7 +151,7 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstBlockStatementChildren(blockStatementChildren: BlockStatementChildren, astNode: AstNodeInterface): void {
-        if(blockStatementChildren){
+        if(blockStatementChildren) {
             JavaService.generateAstNode(blockStatementChildren.statement, astNode, this.generateAstStatementChildren.bind(this));
         }
     }
@@ -145,7 +163,7 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstStatementChildren(statementChildren: StatementChildren, astNode: AstNodeInterface): void {
-        if(statementChildren){
+        if(statementChildren) {
             JavaService.generateAstNode(statementChildren.ifStatement, astNode, this.generateAstIfStatementChildren.bind(this));
             JavaService.generateAstNode(statementChildren.statementWithoutTrailingSubstatement, astNode, this.generateAstStatementWithoutTrailingSubstatementChildren.bind(this));
         }
@@ -158,27 +176,81 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstIfStatementChildren(ifStatementChildren: IfStatementChildren, astNode: AstNodeInterface): void {
-        if(ifStatementChildren){
+        if(ifStatementChildren) {
             JavaService.getAstNodeInfos(ifStatementChildren.If, astNode);
             JavaService.getAstNodeInfos(ifStatementChildren.LCurly, astNode);
             JavaService.generateAstNode(ifStatementChildren.expression, astNode, this.generateAstExpressionChildren.bind(this));
             JavaService.getAstNodeInfos(ifStatementChildren.RCurly, astNode);
+            JavaService.generateAstNode(ifStatementChildren.statement, astNode, this.generateAstStatementChildren.bind(this));
         }
     }
-
+    
     /**
      * Generate AstNode for statementWithoutTrailingSubstatement children
      * @param  {SwitchStatementChildren} switchStatement
      * @param  {AstNodeInterface} astNode
      * @returns void
      */
-    generateAstStatementWithoutTrailingSubstatementChildren(switchStatement: SwitchStatementChildren, astNode: AstNodeInterface): void {
-        if(switchStatement){
-            JavaService.getAstNodeInfos(switchStatement.Switch, astNode);
-            JavaService.getAstNodeInfos(switchStatement.LBrace, astNode);
-            JavaService.generateAstNode(switchStatement.expression, astNode, this.generateAstExpressionChildren.bind(this));
-            JavaService.getAstNodeInfos(switchStatement.BBrace, astNode);
-            JavaService.generateAstNode(switchStatement.switchBlock, astNode, this.generateAstSwitchBlockChildren.bind(this));
+    generateAstStatementWithoutTrailingSubstatementChildren(statementWithoutTrailingSubstatementChildren: StatementWithoutTrailingSubstatementChildren, astNode: AstNodeInterface): void {
+        if(statementWithoutTrailingSubstatementChildren) {
+            JavaService.generateAstNode(statementWithoutTrailingSubstatementChildren.switchStatement, astNode, this.generateAstSwitchStatementChildren.bind(this));
+            JavaService.generateAstNode(statementWithoutTrailingSubstatementChildren.expressionStatement, astNode, this.generateAstExpressionStatementChildren.bind(this));
+            JavaService.generateAstNode(statementWithoutTrailingSubstatementChildren.returnStatement, astNode, this.generateAstReturnStatementChildren.bind(this));
+        }
+    }
+
+    /**
+     * Generate AstNode for returnStatement children
+     * @param  {ReturnStatementChildren} returnStatementChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstReturnStatementChildren(returnStatementChildren: ReturnStatementChildren, astNode: AstNodeInterface): void {
+        if(returnStatementChildren) {
+            JavaService.getAstNodeInfos(returnStatementChildren.Return, astNode);
+            JavaService.generateAstNode(returnStatementChildren.expression, astNode, this.generateAstExpressionChildren.bind(this));
+            JavaService.getAstNodeInfos(returnStatementChildren.Semicolon, astNode);
+        }
+    }
+    
+    /**
+     * Generate AstNode for expressionStatement children
+     * @param  {ExpressionStatementChildren} expressionStatementChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstExpressionStatementChildren(expressionStatementChildren: ExpressionStatementChildren, astNode: AstNodeInterface): void {
+        if(expressionStatementChildren) {
+            JavaService.generateAstNode(expressionStatementChildren.statementExpression, astNode, this.generateAstStatementExpressionChildren.bind(this));
+            JavaService.getAstNodeInfos(expressionStatementChildren.Semicolon, astNode);
+        }
+    }
+    
+    /**
+     * Generate AstNode for statementExpression children
+     * @param  {StatementExpressionChildren} statementExpressionChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstStatementExpressionChildren(statementExpressionChildren: StatementExpressionChildren, astNode: AstNodeInterface): void {
+        if(statementExpressionChildren) {
+            JavaService.generateAstNode(statementExpressionChildren.expression, astNode, this.generateAstExpressionChildren.bind(this));
+        }
+    }
+
+    /**
+     * Generate AstNode for switchStatement children
+     * @param  {SwitchStatementChildren} switchStatementChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstSwitchStatementChildren(switchStatementChildren: SwitchStatementChildren, astNode: AstNodeInterface): void {
+        if(switchStatementChildren) {
+            JavaService.getAstNodeInfos(switchStatementChildren.Switch, astNode);
+            JavaService.getAstNodeInfos(switchStatementChildren.LBrace, astNode);
+            JavaService.generateAstNode(switchStatementChildren.expression, astNode, this.generateAstExpressionChildren.bind(this));
+            JavaService.getAstNodeInfos(switchStatementChildren.BBrace, astNode);
+            JavaService.generateAstNode(switchStatementChildren.switchBlock, astNode, this.generateAstSwitchBlockChildren.bind(this));
         }
     }
 
@@ -189,7 +261,7 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstSwitchBlockChildren(switchBlockChildren: SwitchBlockChildren, astNode: AstNodeInterface): void {
-        if(switchBlockChildren){
+        if(switchBlockChildren) {
             JavaService.getAstNodeInfos(switchBlockChildren.LCurly, astNode);
             JavaService.generateAstNode(switchBlockChildren.switchCase, astNode, this.generateAstSwitchCaseChildren.bind(this));
             JavaService.getAstNodeInfos(switchBlockChildren.RCurly, astNode);
@@ -203,12 +275,12 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstSwitchCaseChildren(switchCaseChildren: SwitchCaseChildren, astNode: AstNodeInterface): void {
-        if(switchCaseChildren){
+        if(switchCaseChildren) {
             JavaService.generateAstNode(switchCaseChildren.switchLabel, astNode, this.generateAstSwitchLabelChildren.bind(this));
             JavaService.generateAstNode(switchCaseChildren.blockStatements, astNode, this.generateAstBlockStatementsChildren.bind(this));
         }
     }
-   
+    
     /**
      * Generate AstNode for switchLabel children
      * @param  {SwitchLabelChildren} switchLabelChildren
@@ -216,7 +288,7 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstSwitchLabelChildren(switchLabelChildren: SwitchLabelChildren, astNode: AstNodeInterface): void {
-        if(switchLabelChildren){
+        if(switchLabelChildren) {
             JavaService.getAstNodeInfos(switchLabelChildren.Case, astNode);
             JavaService.generateAstNode(switchLabelChildren.constantExpression, astNode, this.generateAstConstantExpressionChildren.bind(this));
             JavaService.getAstNodeInfos(switchLabelChildren.Colon, astNode);
@@ -230,7 +302,7 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstConstantExpressionChildren(constantExpressionChildren: ConstantExpressionChildren, astNode: AstNodeInterface): void {
-        if(constantExpressionChildren){
+        if(constantExpressionChildren) {
             JavaService.generateAstNode(constantExpressionChildren.expression, astNode, this.generateAstExpressionChildren.bind(this));
         }
     }
@@ -242,8 +314,146 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstExpressionChildren(expressionChildren: ExpressionChildren, astNode: AstNodeInterface): void {
-        if(expressionChildren){
-            JavaService.generateAstNode(expressionChildren.ternaryExpression, astNode, this.generateAstExpressionChildren.bind(this));
+        if(expressionChildren) {
+            JavaService.generateAstNode(expressionChildren.ternaryExpression, astNode, this.generateAstTernaryExpressionChildren.bind(this));
+        }
+    }
+
+    /**
+     * Generate AstNode for ternaryExpression children
+     * @param  {TernaryExpressionChildren} ternaryExpressionChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstTernaryExpressionChildren(ternaryExpressionChildren: TernaryExpressionChildren, astNode: AstNodeInterface): void {
+        if(ternaryExpressionChildren) {
+            JavaService.generateAstNode(ternaryExpressionChildren.binaryExpression, astNode, this.generateAstBinaryExpressionChildren.bind(this));
+        }
+    }
+
+    /**
+     * Generate AstNode for binaryExpression children
+     * @param  {BinaryExpressionChildren} binaryExpressionChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstBinaryExpressionChildren(binaryExpressionChildren: BinaryExpressionChildren, astNode: AstNodeInterface): void {
+        if(binaryExpressionChildren) {
+            JavaService.getAstNodeInfos(binaryExpressionChildren.AssignmentOperator, astNode);
+            JavaService.generateAstNode(binaryExpressionChildren.unaryExpression, astNode, this.generateAstUnaryExpressionChildren.bind(this));
+            JavaService.getAstNodeInfos(binaryExpressionChildren.BinaryOperator, astNode);
+            JavaService.generateAstNode(binaryExpressionChildren.expression, astNode, this.generateAstExpressionChildren.bind(this));
+
+        }
+    }
+
+    /**
+     * Generate AstNode for unaryExpression children
+     * @param  {UnaryExpressionChildren} unaryExpressionChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstUnaryExpressionChildren(unaryExpressionChildren: UnaryExpressionChildren, astNode: AstNodeInterface): void {
+        if(unaryExpressionChildren) {
+            JavaService.generateAstNode(unaryExpressionChildren.primary, astNode, this.generateAstPrimaryChildren.bind(this));
+        }
+    }
+    
+    /**
+     * Generate AstNode for primary children
+     * @param  {PrimaryChildren} primaryChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstPrimaryChildren(primaryChildren: PrimaryChildren, astNode: AstNodeInterface): void {
+        if(primaryChildren) {
+            JavaService.generateAstNode(primaryChildren.primaryPrefix, astNode, this.generateAstPrimaryPrefixChildren.bind(this));
+        }
+    }
+    
+    /**
+     * Generate AstNode for primaryPrefix children
+     * @param  {PrimaryPrefixChildren} primaryPrefixChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstPrimaryPrefixChildren(primaryPrefixChildren: PrimaryPrefixChildren, astNode: AstNodeInterface): void {
+        if(primaryPrefixChildren) {
+            JavaService.generateAstNode(primaryPrefixChildren.fqnOrRefType, astNode, this.generateAstFqnOrRefTypeChildren.bind(this));
+            JavaService.generateAstNode(primaryPrefixChildren.literal, astNode, this.generateAstLiteralChildren.bind(this));
+        }
+    }
+    
+    /**
+     * Generate AstNode for literal children
+     * @param  {LiteralChildren} literalChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstLiteralChildren(literalChildren: LiteralChildren, astNode: AstNodeInterface): void {
+        if(literalChildren) {
+            JavaService.generateAstNode(literalChildren.integerLiteral, astNode, this.generateAstIntegerLiteralChildren.bind(this));
+            JavaService.generateAstNode(literalChildren.booleanLiteral, astNode, this.generateAstBooleanLiteralChildren.bind(this));
+        }
+    }
+
+    /**
+     * Generate AstNode for integerLiteral children
+     * @param  {IntegerLiteralChildren} integerLiteralChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstIntegerLiteralChildren(integerLiteralChildren: IntegerLiteralChildren, astNode: AstNodeInterface): void {
+        if(integerLiteralChildren) {
+            JavaService.getAstNodeInfos(integerLiteralChildren.DecimalLiteral, astNode);
+        }
+    }
+    
+    /**
+     * Generate AstNode for booleanLiteral children
+     * @param  {BooleanLiteralChildren} booleanLiteralChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstBooleanLiteralChildren(booleanLiteralChildren: BooleanLiteralChildren, astNode: AstNodeInterface): void {
+        if(booleanLiteralChildren) {
+            JavaService.getAstNodeInfos(booleanLiteralChildren.True, astNode);
+        }
+    }
+
+    /**
+     * Generate AstNode for fqnOrRefType children
+     * @param  {FqnOrRefTypeChildren} fqnOrRefTypeChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstFqnOrRefTypeChildren(fqnOrRefTypeChildren: FqnOrRefTypeChildren, astNode: AstNodeInterface): void {
+        if(fqnOrRefTypeChildren) {
+            JavaService.generateAstNode(fqnOrRefTypeChildren.fqnOrRefTypePartFirst, astNode, this.generateAstFqnOrRefTypePartFirstChildren.bind(this));
+        }
+    }
+    
+    /**
+     * Generate AstNode for fqnOrRefTypePartFirst children
+     * @param  {FqnOrRefTypePartFirstChildren} fqnOrRefTypePartFirstChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstFqnOrRefTypePartFirstChildren(fqnOrRefTypePartFirstChildren: FqnOrRefTypePartFirstChildren, astNode: AstNodeInterface): void {
+        if(fqnOrRefTypePartFirstChildren) {
+            JavaService.generateAstNode(fqnOrRefTypePartFirstChildren.fqnOrRefTypePartCommon, astNode, this.generateAstFqnOrRefTypePartCommonChildren.bind(this));
+        }
+    }
+    
+    /**
+     * Generate AstNode for fqnOrRefTypePartCommon children
+     * @param  {FqnOrRefTypePartCommonChildren} fqnOrRefTypePartCommonChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstFqnOrRefTypePartCommonChildren(fqnOrRefTypePartCommonChildren: FqnOrRefTypePartCommonChildren, astNode: AstNodeInterface): void {
+        if(fqnOrRefTypePartCommonChildren) {
+            JavaService.getAstNodeInfos(fqnOrRefTypePartCommonChildren.Identifier, astNode);
         }
     }
 
@@ -278,7 +488,7 @@ export class AstFunctionageGenerationJavaService {
     generateAstMethodDeclarator(methodDeclarator: MethodDeclarator[], methodDeclaratorAstNode): AstNodeInterface {
         return JavaService.generateAstNode(methodDeclarator, methodDeclaratorAstNode, this.generateAstMethodDeclaratorChildren.bind(this));
     }
-
+    
     /**
      * Generate AstNode for methodDeclarator children
      * @param  {MethodDeclaratorChildren} methodDeclaratorChildren
@@ -301,7 +511,7 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstFormalParameterListChildren(formalParameterListChildren: FormalParameterListChildren, astNode: AstNodeInterface): void {
-        if(formalParameterListChildren){
+        if(formalParameterListChildren) {
             JavaService.generateAstNode(formalParameterListChildren.formalParameter, astNode, this.generateAstFormalParameterChildren.bind(this));
         }
     }
@@ -313,8 +523,8 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstFormalParameterChildren(formalParameterChildren: FormalParameterChildren, formalParameterAstNode: AstNodeInterface): void {
-        if(formalParameterChildren){
-            JavaService.generateAstNode(formalParameterChildren.variableParaRegularParameter, formalParameterAstNode, this.generateAstFormalParameterChildren.bind(this));
+        if(formalParameterChildren) {
+            JavaService.generateAstNode(formalParameterChildren.variableParaRegularParameter, formalParameterAstNode, this.generateAstVariableParaRegularParameterChildren.bind(this));
         }
     }
     
@@ -348,11 +558,48 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstUnannTypeChildren(unannTypeChildren: UnannTypeChildren, astNode: AstNodeInterface): void {
-        if(unannTypeChildren){
+        if(unannTypeChildren) {
             JavaService.generateAstNode(unannTypeChildren.unannReferenceType, astNode, this.generateAstUnannReferenceTypeChildren.bind(this));
+            JavaService.generateAstNode(unannTypeChildren.unannPrimitiveType, astNode, this.generateAstUnannPrimitiveTypeChildren.bind(this));
         }
     }
     
+    /**
+     * Generate AstNode for unannPrimitiveType children
+     * @param  {UnannPrimitiveTypeChildren} unannPrimitiveTypeChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstUnannPrimitiveTypeChildren(unannPrimitiveTypeChildren: UnannPrimitiveTypeChildren, astNode: AstNodeInterface): void {
+        if(unannPrimitiveTypeChildren) {
+            JavaService.generateAstNode(unannPrimitiveTypeChildren.numericType, astNode, this.generateAstNumericTypeChildren.bind(this));
+        }
+    }
+    
+    /**
+     * Generate AstNode for numericType children
+     * @param  {NumericTypeChildren} numericTypeChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstNumericTypeChildren(numericTypeChildren: NumericTypeChildren, astNode: AstNodeInterface): void {
+        if(numericTypeChildren) {
+            JavaService.generateAstNode(numericTypeChildren.integralType, astNode, this.generateAstIntegralTypeChildren.bind(this));
+        }
+    }
+    
+    /**
+     * Generate AstNode for integralType children
+     * @param  {IntegralTypeChildren} integralTypeChildren
+     * @param  {AstNodeInterface} astNode
+     * @returns void
+     */
+    generateAstIntegralTypeChildren(integralTypeChildren: IntegralTypeChildren, astNode: AstNodeInterface): void {
+        if(integralTypeChildren) {
+            JavaService.getAstNodeInfos(integralTypeChildren.Int, astNode);
+        }
+    }
+
     /**
      * Generate AstNode for unannReferenceType children
      * @param  {UnannReferenceTypeChildren} unannReferenceTypeChildren
@@ -360,7 +607,7 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstUnannReferenceTypeChildren(unannReferenceTypeChildren: UnannReferenceTypeChildren, astNode: AstNodeInterface): void {
-        if(unannReferenceTypeChildren){
+        if(unannReferenceTypeChildren) {
             JavaService.generateAstNode(unannReferenceTypeChildren.unannClassOrInterfaceType, astNode, this.generateAstUnannClassOrInterfaceTypeChildren.bind(this));
             JavaService.generateAstNode(unannReferenceTypeChildren.dims, astNode, this.generateAstDimsChildren.bind(this));
         }
@@ -373,7 +620,7 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstUnannClassOrInterfaceTypeChildren(unannClassOrInterfaceTypeChildren: UnannClassOrInterfaceTypeChildren, astNode: AstNodeInterface): void {
-        if(unannClassOrInterfaceTypeChildren){
+        if(unannClassOrInterfaceTypeChildren) {
             JavaService.generateAstNode(unannClassOrInterfaceTypeChildren.unannClassType, astNode, this.generateAstUnannClassTypeChildren.bind(this));
         }
     }
@@ -385,7 +632,7 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstUnannClassTypeChildren(unannClassTypeChildren: UnannClassTypeChildren, astNode: AstNodeInterface): void {
-        if(unannClassTypeChildren){
+        if(unannClassTypeChildren) {
             JavaService.getAstNodeInfos(unannClassTypeChildren.Identifier, astNode);
         }
     }
@@ -397,7 +644,7 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstDimsChildren(dimsChildren: DimsChildren, astNode: AstNodeInterface): void {
-        if(dimsChildren){
+        if(dimsChildren) {
             JavaService.getAstNodeInfos(dimsChildren.LSquare, astNode);
             JavaService.getAstNodeInfos(dimsChildren.RSquare, astNode);
         }
@@ -410,7 +657,7 @@ export class AstFunctionageGenerationJavaService {
      * @returns void
      */
     generateAstVariableDeclaratorIdChildren(variableDeclaratorIdChildren: VariableDeclaratorIdChildren, astNode: AstNodeInterface): void {
-        if(variableDeclaratorIdChildren){
+        if(variableDeclaratorIdChildren) {
             JavaService.getAstNodeInfos(variableDeclaratorIdChildren.Identifier, astNode);
         }
     }

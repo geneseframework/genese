@@ -1,5 +1,5 @@
 import { Location } from "./location.model";
-import { BinaryExpressionChildren } from "./binary.expression.children.model";
+import { BinaryExpressionChildren } from "./binary-expression-children.model";
 
 export class BinaryExpression {
     name ?= '';
