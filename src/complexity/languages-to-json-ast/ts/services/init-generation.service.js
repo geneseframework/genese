@@ -18,7 +18,7 @@ class InitGenerationService {
      */
     generateAll(path) {
         if (!path) {
-            console.log("ERROR: no path.");
+            console.log('ERROR: no path.');
             return undefined;
         }
         return {
@@ -56,8 +56,7 @@ class InitGenerationService {
      * @param path      // The path of the file
      */
     isFileToGenerate(path) {
-        return ((file_service_1.getFileExtension(path) === "ts" && !globals_const_1.LIMIT_GENERATIONS) ||
-            path === globals_const_1.DEV_MOCK);
+        return ((file_service_1.getFileExtension(path) === "ts" && !globals_const_1.LIMIT_GENERATIONS) || path === globals_const_1.DEV_MOCK);
     }
 }
 exports.InitGenerationService = InitGenerationService;

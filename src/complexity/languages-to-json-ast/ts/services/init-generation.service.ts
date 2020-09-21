@@ -21,7 +21,7 @@ export class InitGenerationService {
      */
     generateAll(path: string): JsonAstInterface {
         if (!path) {
-            console.log("ERROR: no path.");
+            console.log('ERROR: no path.');
             return undefined;
         }
         return {
@@ -41,7 +41,6 @@ export class InitGenerationService {
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach((elementName: string) => {
             const pathElement = path + elementName;
-
             if (!Options.isIgnored(pathElement)) {
                 if (
                     fs.statSync(pathElement).isDirectory() &&
@@ -52,12 +51,7 @@ export class InitGenerationService {
                         this.generateAstFolder(`${pathElement}/`)
                     );
                 } else if (this.isFileToGenerate(pathElement)) {
-                    astFolder.astFiles.push(
-                        new AstFileGenerationService().generate(
-                            pathElement,
-                            astFolder
-                        )
-                    );
+                    astFolder.astFiles.push(new AstFileGenerationService().generate(pathElement, astFolder));
                 }
             }
         });
@@ -69,9 +63,6 @@ export class InitGenerationService {
      * @param path      // The path of the file
      */
     private isFileToGenerate(path: string): boolean {
-        return (
-            (getFileExtension(path) === "ts" && !LIMIT_GENERATIONS) ||
-            path === DEV_MOCK
-        );
+        return ((getFileExtension(path) === "ts" && !LIMIT_GENERATIONS) || path === DEV_MOCK);
     }
 }

@@ -19,7 +19,7 @@ class Options {
      * @param pathGeneseNodeJs          // The path of the node_module Genese in the nodejs user environment (can't be overriden)
      */
     static setOptions(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs) {
-        exports.WINDOWS = process.platform === "win32";
+        exports.WINDOWS = process.platform === 'win32';
         const geneseConfigPath = `${pathCommand}/geneseconfig.json`;
         if (fs.existsSync(geneseConfigPath)) {
             Options.setOptionsFromConfig(geneseConfigPath);
@@ -47,10 +47,7 @@ class Options {
         const config = require(geneseConfigPath);
         Options.ignore = (_a = this.filterIgnorePathsForDotSlash(config.complexity.ignore)) !== null && _a !== void 0 ? _a : Options.ignore;
         Options.ignore.forEach((path, i) => {
-            Options.ignoreRegex +=
-                i !== Options.ignore.length - 1
-                    ? `${this.pathTransformator(path)}|`
-                    : `${this.pathTransformator(path)}`;
+            Options.ignoreRegex += i !== Options.ignore.length - 1 ? `${this.pathTransformator(path)}|` : `${this.pathTransformator(path)}`;
         });
         Options.pathFolderToAnalyze = (_c = (_b = config.complexity) === null || _b === void 0 ? void 0 : _b.pathFolderToAnalyze) !== null && _c !== void 0 ? _c : Options.pathFolderToAnalyze;
         Options.pathOutDir = (_e = (_d = config.complexity) === null || _d === void 0 ? void 0 : _d.pathReports) !== null && _e !== void 0 ? _e : Options.pathOutDir;
@@ -62,8 +59,8 @@ class Options {
      * @returns {String[]}
      */
     static filterIgnorePathsForDotSlash(ignorePaths) {
-        const ignorePathsToFormat = ignorePaths.filter((x) => !x.startsWith("*."));
-        const ignorePathsToKeep = ignorePaths.filter((x) => x.startsWith("*."));
+        const ignorePathsToFormat = ignorePaths.filter((x) => !x.startsWith('*.'));
+        const ignorePathsToKeep = ignorePaths.filter((x) => x.startsWith('*.'));
         return file_service_1.getArrayOfPathsWithDotSlash(ignorePathsToFormat).concat(ignorePathsToKeep);
     }
     /**
@@ -75,25 +72,25 @@ class Options {
         return ((_a = path.match(Options.ignoreRegex)) === null || _a === void 0 ? void 0 : _a.length) > 0;
     }
     static pathTransformator(path) {
-        const SEPARATED_PATH = path.split("/");
-        let pathTester = "";
+        const SEPARATED_PATH = path.split('/');
+        let pathTester = '';
         SEPARATED_PATH.forEach((subPath, i) => {
-            if (subPath.startsWith("*.")) {
-                subPath = subPath.split(".").join("\\.");
-                pathTester = subPath.replace("*\\.", "[a-z]*\\.");
+            if (subPath.startsWith('*.')) {
+                subPath = subPath.split('.').join('\\.');
+                pathTester = subPath.replace('*\\.', '[a-z]*\\.');
             }
             else {
-                if (subPath.match("([a-z].*)")) {
+                if (subPath.match('([a-z].*)')) {
                     i !== SEPARATED_PATH.length - 1
                         ? (pathTester += `${subPath}\\/`)
                         : (pathTester += `${subPath}`);
                 }
-                if (subPath.match("(\\*\\*)") || subPath.match("(\\*)")) {
+                if (subPath.match('(\\*\\*)') || subPath.match('(\\*)')) {
                     i !== SEPARATED_PATH.length - 1
-                        ? (pathTester += "([a-z].*)\\/")
-                        : (pathTester += "([a-z].*)");
+                        ? (pathTester += '([a-z].*)\\/')
+                        : (pathTester += '([a-z].*)');
                 }
-                if (subPath.match("(\\.$)")) {
+                if (subPath.match('(\\.$)')) {
                     i !== SEPARATED_PATH.length - 1
                         ? (pathTester += `${subPath}\\/`)
                         : (pathTester += subPath);
@@ -108,14 +105,14 @@ class Options {
      * @param path
      */
     static pathSeparator(ignorePath, path) {
-        const SEPARATED_PATH = path.split("/");
-        const SEPARATED_IGNORE_PATH = ignorePath.split("/");
+        const SEPARATED_PATH = path.split('/');
+        const SEPARATED_IGNORE_PATH = ignorePath.split('/');
         if (this.handleStarPath(ignorePath, path)) {
             return true;
         }
         let isSamePath = [];
         for (let i = 0; i < SEPARATED_IGNORE_PATH.length; i++) {
-            if (SEPARATED_IGNORE_PATH[i] !== "**" &&
+            if (SEPARATED_IGNORE_PATH[i] !== '**' &&
                 SEPARATED_PATH.length > i) {
                 isSamePath.push(this.handleStarPath(SEPARATED_IGNORE_PATH[i], SEPARATED_PATH[i])
                     ? true
@@ -125,7 +122,7 @@ class Options {
         return isSamePath.findIndex((x) => x === false) === -1;
     }
     static handleStarPath(ignorePath, path) {
-        if (ignorePath.startsWith("*.")) {
+        if (ignorePath.startsWith('*.')) {
             return path.includes(ignorePath.slice(1));
         }
         return false;
@@ -145,26 +142,23 @@ class Options {
 }
 exports.Options = Options;
 Options.cognitiveCpx = {
-    // Options concerning the cognitive complexity
     errorThreshold: 20,
     type: complexity_type_enum_1.ComplexityType.COGNITIVE,
     warningThreshold: 10,
 };
 Options.colors = [
-    // The colors of the charts
     chart_color_enum_1.ChartColor.CORRECT,
     chart_color_enum_1.ChartColor.WARNING,
     chart_color_enum_1.ChartColor.ERROR,
 ];
 Options.cyclomaticCpx = {
-    // Options concerning the cognitive complexity
     errorThreshold: 10,
     type: complexity_type_enum_1.ComplexityType.CYCLOMATIC,
     warningThreshold: 5,
 };
 Options.ignore = []; // The paths of the files or folders to ignore
-Options.ignoreRegex = "";
-Options.pathCommand = ""; // The path of the folder where the command-line was entered (can't be overriden)
-Options.pathFolderToAnalyze = "./"; // The path of the folder to analyse (can be overriden)
-Options.pathGeneseNodeJs = ""; // The path of the node_module Genese in the nodejs user environment (can't be overriden)
-Options.pathOutDir = ""; // The path where the reports are created (can be overriden)
+Options.ignoreRegex = '';
+Options.pathCommand = ''; // The path of the folder where the command-line was entered (can't be overriden)
+Options.pathFolderToAnalyze = './'; // The path of the folder to analyse (can be overriden)
+Options.pathGeneseNodeJs = ''; // The path of the node_module Genese in the nodejs user environment (can't be overriden)
+Options.pathOutDir = ''; // The path where the reports are created (can be overriden)

@@ -8,11 +8,7 @@
 # genese
 /genese
 /gn-reports
-/src/complexity/enums/*.js
-/src/complexity/interfaces/*.js
-/src/complexity/mocks/*.js
-/src/complexity/models/*.js
-/src/complexity/services/*.js
+/src/complexity/**/*.js
 /json-ast.json
 
 # Only exists if Bazel was run
