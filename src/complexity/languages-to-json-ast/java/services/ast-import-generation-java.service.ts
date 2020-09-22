@@ -4,6 +4,7 @@ import { PackageOrTypeNameElement } from '../models/package-or-type-name-element
 import { ImportChildren } from '../models/import-children.model';
 import { ImportDeclarationElement } from '../models/import-declaration-element.model';
 import { PackageOrTypeNameChildren } from '../models/package-or-type-name-children.model';
+import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 
 /**
  * - Generate AstNode for imports from their Abstract Syntax Tree (AST)
@@ -64,7 +65,7 @@ export class AstImportGenerationJavaService {
      */
     private generatePackageOrTypeNameChldren(packageOrTypeNameChildren: PackageOrTypeNameChildren, packageOrTypeNameChildrenAstNode: AstNodeInterface): void {
         if(packageOrTypeNameChildren) {
-            JavaService.getAstNodeInfos(packageOrTypeNameChildren.Identifier, packageOrTypeNameChildrenAstNode);
+            JavaService.getAstNodeInfos(packageOrTypeNameChildren.Identifier, packageOrTypeNameChildrenAstNode, SyntaxKind.Identifier);
             JavaService.getAstNodeInfos(packageOrTypeNameChildren.Dot, packageOrTypeNameChildrenAstNode);
         }
     }
