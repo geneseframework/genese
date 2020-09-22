@@ -11,7 +11,7 @@ export enum SyntaxKind {
     PackageDeclaration = 'packageDeclaration',
     importDeclaration = 'importDeclaration',
     import = 'import',
-    packageOrTypeName = 'packageOrTypeName',  
+    packageOrTypeName = 'packageOrTypeName',
     classDeclaration = 'classDeclaration',
     classModifier = 'classModifier',
     normalClassDeclaration = 'normalClassDeclaration',
@@ -115,4 +115,5 @@ export enum SyntaxKind {
     tokenType = 'tokenType',
     expressionName = 'expressionName',
     typeName = 'typeName',
+    ifStatement= 'ifStatement'
 }

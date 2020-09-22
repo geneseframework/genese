@@ -16,11 +16,25 @@ import { TypeDeclarationElement } from '../models/type-declaration-element.model
 import { TypeDeclarationChildren } from '../models/type-declaration-children.model';
 import { AstClassGenerationJavaService } from './ast-class-generation-java.service';
 
+import { SyntaxKind as TsSyntaxKind } from '../../../core/enum/syntax-kind.enum';
+
 /**
  * - AstFiles generation from their Abstract Syntax Tree (AST)
  */
 export class AstFileGenerationJavaService {
-    
+
+    mapAstNode(astNode: AstNodeInterface): AstNodeInterface {
+        if (astNode.kind === SyntaxKind.ifStatement) {
+            console.log(astNode);
+            astNode.kind = TsSyntaxKind.IfStatement;
+        }
+
+        astNode.children = astNode.children?.map(c => this.mapAstNode(c));
+
+        return astNode;
+    }
+
+
     /**
      * Generates the AstFile corresponding to a given path and a given AstFolder
      * @param  {string} path
@@ -32,14 +46,15 @@ export class AstFileGenerationJavaService {
             console.warn('No path or AstFolder : impossible to create AstFile');
             return undefined;
         }
-        const fileContent = fs.readFileSync(path,'utf8')
+        const fileContent = fs.readFileSync(path, 'utf8');
         const compilationUnit: CompilationUnit = GeneseMapperService.getMappedCompilationUnit(parse(fileContent));
         return {
             name: getFilename(path),
             text: fileContent,
-            astNode: this.createAstNodeChildren(compilationUnit)
+            astNode: this.mapAstNode(this.createAstNodeChildren(compilationUnit))
         };
     }
+
 
     /**
      * @param  {CompilationUnit} compilationUnit
@@ -54,8 +69,9 @@ export class AstFileGenerationJavaService {
         astNode.kind = SyntaxKind.SourceFile;
         this.generateAstPackageImportTypeDeclaration(ordinaryCompilationUnit.children, astNode);
         return astNode;
-    }    
-    
+    }
+
+
     /**
      * @param  {OrdinaryCompilationUnitChildren} children
      * @param  {AstNodeInterface} astNode
@@ -67,39 +83,43 @@ export class AstFileGenerationJavaService {
         this.generateAstTypeDeclaration(children, astNode);
     }
 
+
     /**
      * @param  {OrdinaryCompilationUnitChildren} ordinaryCompilationUnitChildren
      * @param  {AstNodeInterface} astNode
      * @returns void
      */
     private generateAstPackage(ordinaryCompilationUnitChildren: OrdinaryCompilationUnitChildren, astNode: AstNodeInterface): void {
-        if(ordinaryCompilationUnitChildren.packageDeclaration){
+        if (ordinaryCompilationUnitChildren.packageDeclaration) {
             new AstPackageGenerationJavaService().generate(ordinaryCompilationUnitChildren.packageDeclaration[0], astNode);
         }
-    }    
-    
+    }
+
+
     /**
      * @param  {OrdinaryCompilationUnitChildren} ordinaryCompilationUnitChildren
      * @param  {AstNodeInterface} astNode
      * @returns void
      */
     private generateAstImport(ordinaryCompilationUnitChildren: OrdinaryCompilationUnitChildren, astNode: AstNodeInterface): void {
-        if(ordinaryCompilationUnitChildren.importDeclaration){
+        if (ordinaryCompilationUnitChildren.importDeclaration) {
             new AstImportGenerationJavaService().generate(ordinaryCompilationUnitChildren.importDeclaration, astNode);
         }
-    }    
-    
+    }
+
+
     /**
      * @param  {OrdinaryCompilationUnitChildren} ordinaryCompilationUnitChildren
      * @param  {AstNodeInterface} astNode
      * @returns void
      */
     private generateAstTypeDeclaration(ordinaryCompilationUnitChildren: OrdinaryCompilationUnitChildren, astNode: AstNodeInterface): void {
-        if(ordinaryCompilationUnitChildren.typeDeclaration){
+        if (ordinaryCompilationUnitChildren.typeDeclaration) {
             this.generateTypeDeclaration(ordinaryCompilationUnitChildren.typeDeclaration, astNode);
         }
     }
-    
+
+
     /**
      * Generate AstNode for typeDeclaration
      * @param  {TypeDeclarationElement[]} typeDeclaration
@@ -109,14 +129,15 @@ export class AstFileGenerationJavaService {
     private generateTypeDeclaration(typeDeclaration: TypeDeclarationElement[], typeDeclarationAstNode: AstNodeInterface): void {
         JavaService.generateAstNode(typeDeclaration, typeDeclarationAstNode, this.generateTypeDeclarationChildren.bind(this));
     }
-    
+
+
     /**
      * Generate AstNode for typeDeclaration children
      * @param  {TypeDeclarationChildren} typeDeclarationChildren
      * @param  {AstNodeInterface} typeDeclarationChildrenAstNode
      * @returns void
      */
-    private generateTypeDeclarationChildren(typeDeclarationChildren: TypeDeclarationChildren, typeDeclarationChildrenAstNode: AstNodeInterface):  void {
+    private generateTypeDeclarationChildren(typeDeclarationChildren: TypeDeclarationChildren, typeDeclarationChildrenAstNode: AstNodeInterface): void {
         new AstClassGenerationJavaService().generate(typeDeclarationChildren.classDeclaration, typeDeclarationChildrenAstNode);
     }
 
