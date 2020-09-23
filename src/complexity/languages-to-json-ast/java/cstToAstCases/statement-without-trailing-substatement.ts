@@ -4,6 +4,7 @@ import { cstToAst } from '../cstToAst';
 export function run(cstNode, children) {
     return [
         ...children.block?.map(e => cstToAst(e)) ?? [],
-        ...children.returnStatement?.map(e => cstToAst(e)) ?? []
+        ...children.returnStatement?.map(e => cstToAst(e)) ?? [],
+        ...children.switchStatement?.map(e => cstToAst(e)) ?? []
     ];
 }
