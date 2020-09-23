@@ -127,7 +127,6 @@ export class AstFunctionageGenerationJavaService {
      */
     generateAstBlockChildren(blockChildren: BlockChildren, astNode: AstNodeInterface): void {
         if(blockChildren) {
-            console.log('blockChildren: ', blockChildren)
             JavaService.getAstNodeInfos(blockChildren.LCurly, astNode);
             JavaService.generateAstNode(blockChildren.blockStatements, astNode, this.generateAstBlockStatementsChildren.bind(this));
             JavaService.getAstNodeInfos(blockChildren.RCurly, astNode);
