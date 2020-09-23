@@ -9,6 +9,7 @@ function run(cstNode, children) {
         kind: 'ClassModifier',
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset,
+        pos: cstNode.location.startOffset,
         children: [
             ...Public.map(e => cstToAst_1.cstToAst(e, 'public')),
         ]
