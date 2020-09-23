@@ -2,14 +2,14 @@ import { cstToAst } from '../cstToAst';
 
 // @ts-ignore
 export function run(cstNode, children) {
-    const identifier = children.Identifier;
+    const block = children.block
 
     return {
-        kind: 'VariableDeclaratorId',
+        kind: 'MethodBody',
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset,
         children: [
-            ...identifier.map(e => cstToAst(e, 'identifier'))
+            ...block.map(e => cstToAst(e)),
         ]
     };
 }
