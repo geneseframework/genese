@@ -8,6 +8,7 @@ export function run(cstNode, children) {
         kind: getAlias('FormalParameter'),
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset,
+        pos: cstNode.location.startOffset,
         children: [
             ...[].concat(...variableParaRegularParameter.map(e => cstToAst(e)))
         ]

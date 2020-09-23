@@ -7,6 +7,7 @@ export function run(cstNode, children) {
         kind: 'Int',
         start: cstNode.startOffset,
         end: cstNode.endOffset,
+        pos: cstNode.startOffset,
         name: cstNode.image
     };
 }

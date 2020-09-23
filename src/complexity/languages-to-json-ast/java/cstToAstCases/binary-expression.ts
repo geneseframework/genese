@@ -12,6 +12,7 @@ export function run(cstNode, children) {
             kind: 'BinaryExpression',
             start: cstNode.location.startOffset,
             end: cstNode.location.endOffset,
+            pos: cstNode.location.startOffset,
             children: [
                 unaryExpressionsAst[0],
                 {

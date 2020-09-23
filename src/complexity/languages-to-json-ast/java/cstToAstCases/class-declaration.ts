@@ -9,6 +9,7 @@ export function run(cstNode, children) {
         kind: 'ClassDeclaration',
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset,
+        pos: cstNode.location.startOffset,
         children: [
             // ...classModifier.map(e => cstToAst(e)),
             ...[].concat(...normalClassDeclaration.map(e => cstToAst(e))),
