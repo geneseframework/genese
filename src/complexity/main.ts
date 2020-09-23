@@ -6,7 +6,6 @@ import * as chalk from 'chalk';
 import { Language } from './core/enum/language.enum';
 
 import { parse } from 'java-parser';
-import {Collector} from './collector';
 import { toAst } from './toAst';
 
 export const START = Date.now();
