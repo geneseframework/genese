@@ -4,12 +4,14 @@ import { cstToAst } from '../cstToAst';
 export function run(cstNode, children) {
     const identifier = children.Identifier;
 
-    return {
-        kind: 'VariableDeclaratorId',
-        start: cstNode.location.startOffset,
-        end: cstNode.location.endOffset,
-        children: [
-            ...identifier.map(e => cstToAst(e, 'identifier'))
-        ]
-    };
+    return [
+        ...identifier.map(e => cstToAst(e, 'identifier'))
+    ];
+
+    // return {
+    //     kind: 'VariableDeclaratorId',
+    //     start: cstNode.location.startOffset,
+    //     end: cstNode.location.endOffset,
+
+    // };
 }

@@ -42,7 +42,7 @@ export class AstFileGenerationJavaService {
      * @param  {AstFolderInterface} astFolder
      * @returns AstFileInterface
      */
-    generate(path: string, astFolder: AstFolderInterface): AstFileInterface {
+    generate(path: string, astFolder: AstFolderInterface): any {
         if (!path || !astFolder) {
             console.warn('No path or AstFolder : impossible to create AstFile');
             return undefined;
@@ -50,15 +50,27 @@ export class AstFileGenerationJavaService {
         const fileContent = fs.readFileSync(path, 'utf8');
         const cst = parse(fileContent)
         const compilationUnit: CompilationUnit = GeneseMapperService.getMappedCompilationUnit(cst);
-        const methodDeclaration = cst.children.ordinaryCompilationUnit[0].children.typeDeclaration[0].children.classDeclaration[0].children.normalClassDeclaration[0].children.classBody[0].children.classBodyDeclaration[0].children.classMemberDeclaration[0].children.methodDeclaration[0]
-        const methodBody = methodDeclaration.children.methodBody;
-        const ifStatement = methodBody[0].children.block[0].children.blockStatements[0].children.blockStatement[0].children.statement[0].children.ifStatement[0];
-        return cstToAst(methodDeclaration)
-        // return {
-        //     name: getFilename(path),
-        //     text: fileContent,
-        //     astNode: this.mapAstNode(this.createAstNodeChildren(compilationUnit))
-        // };
+        const classDeclaration = cst.children.ordinaryCompilationUnit[0].children.typeDeclaration[0].children.classDeclaration[0]
+        const ast = cstToAst(classDeclaration)
+        return {
+            name: getFilename(path),
+            text: fileContent,
+            astNode: {
+                kind: 'SourceFile',
+                start: 0,
+                pos: 0,
+                end: fileContent.length,
+                children: [
+                    ast,
+                    {
+                        "end": fileContent.length,
+                        "kind": "EndOfFileToken",
+                        "pos": fileContent.length,
+                        "start": fileContent.length
+                    }
+                ]
+            }
+        };
     }
 
 

@@ -20,6 +20,8 @@ export function getAlias(kind): String {
     switch (kind) {
         case 'ReturnStatement':
             return 'Keyword';
+        case 'FormalParameter':
+            return 'Parameter'
         default:
             return kind;
     }
