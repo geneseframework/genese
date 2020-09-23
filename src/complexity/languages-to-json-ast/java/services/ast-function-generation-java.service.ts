@@ -48,7 +48,6 @@ import { NumericTypeChildren } from '../models/numeric-type-children.model';
 import { IntegralTypeChildren } from '../models/integral-type-children.model';
 import { BooleanLiteralChildren } from '../models/boolean-literal-children.model';
 import { ReturnStatementChildren } from '../models/return-statement-children.model';
-import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 
 /**
  * - AstFunction generation from their Abstract Syntax Tree (AST)
@@ -62,7 +61,7 @@ export class AstFunctionageGenerationJavaService {
      * @returns AstNodeInterface
      */
     generate(methodDeclaration: MethodDeclaration[], methodDeclarationAstNode: AstNodeInterface): AstNodeInterface {
-        return JavaService.generateAstNode(methodDeclaration, methodDeclarationAstNode, this.generateAstMethodDeclaration.bind(this), SyntaxKind.MethodDeclaration);
+        return JavaService.generateAstNode(methodDeclaration, methodDeclarationAstNode, this.generateAstMethodDeclaration.bind(this));
     }
 
     /**
@@ -165,7 +164,7 @@ export class AstFunctionageGenerationJavaService {
      */
     generateAstStatementChildren(statementChildren: StatementChildren, astNode: AstNodeInterface): void {
         if(statementChildren) {
-            JavaService.generateAstNode(statementChildren.ifStatement, astNode, this.generateAstIfStatementChildren.bind(this), SyntaxKind.IfStatement);
+            JavaService.generateAstNode(statementChildren.ifStatement, astNode, this.generateAstIfStatementChildren.bind(this));
             JavaService.generateAstNode(statementChildren.statementWithoutTrailingSubstatement, astNode, this.generateAstStatementWithoutTrailingSubstatementChildren.bind(this));
         }
     }
@@ -194,9 +193,9 @@ export class AstFunctionageGenerationJavaService {
      */
     generateAstStatementWithoutTrailingSubstatementChildren(statementWithoutTrailingSubstatementChildren: StatementWithoutTrailingSubstatementChildren, astNode: AstNodeInterface): void {
         if(statementWithoutTrailingSubstatementChildren) {
-            JavaService.generateAstNode(statementWithoutTrailingSubstatementChildren.switchStatement, astNode, this.generateAstSwitchStatementChildren.bind(this), SyntaxKind.SwitchStatement);
-            JavaService.generateAstNode(statementWithoutTrailingSubstatementChildren.expressionStatement, astNode, this.generateAstExpressionStatementChildren.bind(this), SyntaxKind.ExpressionStatement);
-            JavaService.generateAstNode(statementWithoutTrailingSubstatementChildren.returnStatement, astNode, this.generateAstReturnStatementChildren.bind(this), SyntaxKind.ReturnStatement);
+            JavaService.generateAstNode(statementWithoutTrailingSubstatementChildren.switchStatement, astNode, this.generateAstSwitchStatementChildren.bind(this));
+            JavaService.generateAstNode(statementWithoutTrailingSubstatementChildren.expressionStatement, astNode, this.generateAstExpressionStatementChildren.bind(this));
+            JavaService.generateAstNode(statementWithoutTrailingSubstatementChildren.returnStatement, astNode, this.generateAstReturnStatementChildren.bind(this));
             JavaService.generateAstNode(statementWithoutTrailingSubstatementChildren.block, astNode, this.generateAstBlockChildren.bind(this));
         }
     }
@@ -455,7 +454,7 @@ export class AstFunctionageGenerationJavaService {
      */
     generateAstFqnOrRefTypePartCommonChildren(fqnOrRefTypePartCommonChildren: FqnOrRefTypePartCommonChildren, astNode: AstNodeInterface): void {
         if(fqnOrRefTypePartCommonChildren) {
-            JavaService.getAstNodeInfos(fqnOrRefTypePartCommonChildren.Identifier, astNode, SyntaxKind.Identifier);
+            JavaService.getAstNodeInfos(fqnOrRefTypePartCommonChildren.Identifier, astNode);
         }
     }
 
@@ -499,7 +498,7 @@ export class AstFunctionageGenerationJavaService {
      */
     generateAstMethodDeclaratorChildren(methodDeclaratorChildren: MethodDeclaratorChildren,astNode: AstNodeInterface): void {
         if(methodDeclaratorChildren) {
-            JavaService.getAstNodeInfos(methodDeclaratorChildren.Identifier, astNode, SyntaxKind.Identifier);
+            JavaService.getAstNodeInfos(methodDeclaratorChildren.Identifier, astNode);
             JavaService.getAstNodeInfos(methodDeclaratorChildren.LBrace, astNode);
             JavaService.generateAstNode(methodDeclaratorChildren.formalParameterList, astNode, this.generateAstFormalParameterListChildren.bind(this));
             JavaService.getAstNodeInfos(methodDeclaratorChildren.RBrace, astNode);
@@ -635,7 +634,7 @@ export class AstFunctionageGenerationJavaService {
      */
     generateAstUnannClassTypeChildren(unannClassTypeChildren: UnannClassTypeChildren, astNode: AstNodeInterface): void {
         if(unannClassTypeChildren) {
-            JavaService.getAstNodeInfos(unannClassTypeChildren.Identifier, astNode, SyntaxKind.Identifier);
+            JavaService.getAstNodeInfos(unannClassTypeChildren.Identifier, astNode);
         }
     }
     
@@ -660,7 +659,7 @@ export class AstFunctionageGenerationJavaService {
      */
     generateAstVariableDeclaratorIdChildren(variableDeclaratorIdChildren: VariableDeclaratorIdChildren, astNode: AstNodeInterface): void {
         if(variableDeclaratorIdChildren) {
-            JavaService.getAstNodeInfos(variableDeclaratorIdChildren.Identifier, astNode, SyntaxKind.Identifier);
+            JavaService.getAstNodeInfos(variableDeclaratorIdChildren.Identifier, astNode);
         }
     }
     

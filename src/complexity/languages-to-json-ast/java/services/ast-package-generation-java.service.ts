@@ -34,7 +34,7 @@ export class AstPackageGenerationJavaService {
     private generatePackageChildren(packageDeclarationChildren: PackageDeclarationChildren, astNode: AstNodeInterface): void {
         if(packageDeclarationChildren) {
             JavaService.getAstNodeInfos(packageDeclarationChildren.Package, astNode);
-            JavaService.getAstNodeInfos(packageDeclarationChildren.Identifier, astNode, SyntaxKind.Identifier);
+            JavaService.getAstNodeInfos(packageDeclarationChildren.Identifier, astNode);
             JavaService.getAstNodeInfos(packageDeclarationChildren.Dot, astNode);
             JavaService.getAstNodeInfos(packageDeclarationChildren.Semicolon, astNode);
         }

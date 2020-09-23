@@ -19,8 +19,8 @@ export class JavaService {
      * @param  {Node} node
      * @returns AstNodeInterface
      */
-    static getAstNodeWithChildren(node: Node, kind?: string): AstNodeInterface {
-        let astNode: AstNodeInterface = JavaService.getAstNode(node, kind);
+    static getAstNodeWithChildren(node: Node): AstNodeInterface {
+        let astNode: AstNodeInterface = JavaService.getAstNode(node);
         astNode.children = [];
         return astNode;
     }
@@ -30,7 +30,7 @@ export class JavaService {
      * @param  {Node} node
      * @returns AstNodeInterface
      */
-    static getAstNode(node: Node, kind?: string): AstNodeInterface {
+    static getAstNode(node: Node): AstNodeInterface {
         let astNode: AstNodeInterface;
         if(node?.location){
             astNode = {
@@ -39,9 +39,6 @@ export class JavaService {
                 name: node.name,
                 pos: node.location.startOffset,
                 start: node.location.startOffset
-            }
-            if(node.name){
-                astNode.kind = kind;
             }
         }
         return astNode;
@@ -54,7 +51,7 @@ export class JavaService {
      * @param  {AstNodeInterface} astNode
      * @returns AstNodeInterface
      */
-    static getAstNodeInfos(infos: Infos[], astNode: AstNodeInterface, kind?: string): AstNodeInterface {
+    static getAstNodeInfos(infos: Infos[], astNode: AstNodeInterface): AstNodeInterface {
         if(Array.isArray(infos)) {
             infos.forEach(info => {
                 if(info.image !== ''){
@@ -64,9 +61,6 @@ export class JavaService {
                         name: info.image,
                         pos: info.startOffset,
                         start: info.startOffset
-                    }
-                    if(kind){
-                        childrenAstNode.kind = kind;
                     }
                     this.pushChildren(astNode, childrenAstNode);
                 }
@@ -159,11 +153,11 @@ export class JavaService {
      * @param  {(children:any,astNode:AstNodeInterface)=>void} method
      * @returns AstNodeInterface
      */
-    static generateAstNode(declarations: Children[], declarationAstNode: AstNodeInterface, method: (children: any, astNode: AstNodeInterface) => void, kind?: string): AstNodeInterface {
+    static generateAstNode(declarations: Children[], declarationAstNode: AstNodeInterface, method: (children: any, astNode: AstNodeInterface) => void): AstNodeInterface {
         if(Array.isArray(declarations)){
             declarations.forEach(declaration => {
                 if(declaration.name !== '') {
-                    let astNodeElement: AstNodeInterface = JavaService.getAstNodeWithChildren(declaration, kind);
+                    let astNodeElement: AstNodeInterface = JavaService.getAstNodeWithChildren(declaration);
                     method(declaration.children, astNodeElement);
                     this.pushChildren(declarationAstNode, astNodeElement);
                 }
