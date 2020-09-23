@@ -22,6 +22,8 @@ function getAlias(kind) {
     switch (kind) {
         case 'ReturnStatement':
             return 'Keyword';
+        case 'FormalParameter':
+            return 'Parameter';
         default:
             return kind;
     }

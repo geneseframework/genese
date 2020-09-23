@@ -11,8 +11,8 @@ function run(cstNode, children) {
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset,
         children: [
-            ...methodHeader.map(e => cstToAst_1.cstToAst(e)),
-            ...methodBody.map(e => cstToAst_1.cstToAst(e)),
+            ...[].concat(...methodHeader.map(e => cstToAst_1.cstToAst(e))),
+            ...[].concat(...methodBody.map(e => cstToAst_1.cstToAst(e))),
         ]
     };
 }

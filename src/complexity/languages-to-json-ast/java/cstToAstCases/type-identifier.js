@@ -4,16 +4,16 @@ exports.run = void 0;
 const cstToAst_1 = require("../cstToAst");
 // @ts-ignore
 function run(cstNode, children) {
-    const formalParameter = children.formalParameter;
+    const identifier = children.Identifier;
     return [
-        ...formalParameter.map(e => cstToAst_1.cstToAst(e))
+        ...identifier.map(e => cstToAst_1.cstToAst(e, 'identifier')),
     ];
     // return {
-    //     kind: 'FormalParameterList',
+    //     kind: 'TypeIdentifier',
     //     start: cstNode.location.startOffset,
     //     end: cstNode.location.endOffset,
     //     children: [
-    //         ...formalParameter.map(e => cstToAst(e))
+    //         ...identifier.map(e => cstToAst(e, 'identifier')),
     //     ]
     // };
 }

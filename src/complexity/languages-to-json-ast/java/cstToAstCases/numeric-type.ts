@@ -4,12 +4,16 @@ import { cstToAst } from '../cstToAst';
 export function run(cstNode, children) {
     const integralType = children.integralType;
 
-    return {
-        kind: 'NumericType',
-        start: cstNode.location.startOffset,
-        end: cstNode.location.endOffset,
-        children: [
-            ...integralType.map(e => cstToAst(e)),
-        ]
-    };
+    return [
+        ...[].concat(...integralType.map(e => cstToAst(e))),
+    ];
+
+    // return {
+    //     kind: 'NumericType',
+    //     start: cstNode.location.startOffset,
+    //     end: cstNode.location.endOffset,
+    //     children: [
+    //         ...[].concat(...integralType.map(e => cstToAst(e))),
+    //     ]
+    // };
 }

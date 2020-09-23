@@ -6,14 +6,18 @@ const cstToAst_1 = require("../cstToAst");
 function run(cstNode, children) {
     const unannType = children.unannType;
     const variableDeclaratorId = children.variableDeclaratorId;
-    return {
-        kind: 'VariableParaRegularParameter',
-        start: cstNode.location.startOffset,
-        end: cstNode.location.endOffset,
-        children: [
-            ...unannType.map(e => cstToAst_1.cstToAst(e)),
-            ...variableDeclaratorId.map(e => cstToAst_1.cstToAst(e))
-        ]
-    };
+    return [
+        ...[].concat(...unannType.map(e => cstToAst_1.cstToAst(e))),
+        ...[].concat(...variableDeclaratorId.map(e => cstToAst_1.cstToAst(e)))
+    ];
+    // return {
+    //     kind: 'VariableParaRegularParameter',
+    //     start: cstNode.location.startOffset,
+    //     end: cstNode.location.endOffset,
+    //     children: [
+    //         ...[].concat(...unannType.map(e => cstToAst(e))),
+    //         ...[].concat(...variableDeclaratorId.map(e => cstToAst(e)))
+    //     ]
+    // };
 }
 exports.run = run;

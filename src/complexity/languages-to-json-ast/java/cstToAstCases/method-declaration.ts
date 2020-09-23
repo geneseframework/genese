@@ -10,8 +10,8 @@ export function run(cstNode, children) {
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset,
         children: [
-            ...methodHeader.map(e => cstToAst(e)),
-            ...methodBody.map(e => cstToAst(e)),
+            ...[].concat(...methodHeader.map(e => cstToAst(e))),
+            ...[].concat(...methodBody.map(e => cstToAst(e))),
         ]
     };
 }

@@ -4,12 +4,16 @@ import { cstToAst } from '../cstToAst';
 export function run(cstNode, children) {
     const block = children.block
 
-    return {
-        kind: 'MethodBody',
-        start: cstNode.location.startOffset,
-        end: cstNode.location.endOffset,
-        children: [
-            ...block.map(e => cstToAst(e)),
-        ]
-    };
+    return [
+        ...block.map(e => cstToAst(e)),
+    ]
+
+    // return {
+    //     kind: 'MethodBody',
+    //     start: cstNode.location.startOffset,
+    //     end: cstNode.location.endOffset,
+    //     children: [
+    //         ...block.map(e => cstToAst(e)),
+    //     ]
+    // };
 }
