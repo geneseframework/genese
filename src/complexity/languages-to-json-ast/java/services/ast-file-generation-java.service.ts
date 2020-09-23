@@ -17,6 +17,7 @@ import { TypeDeclarationChildren } from '../models/type-declaration-children.mod
 import { AstClassGenerationJavaService } from './ast-class-generation-java.service';
 
 import { SyntaxKind as TsSyntaxKind } from '../../../core/enum/syntax-kind.enum';
+import { cstToAst } from '../cstToAst';
 
 /**
  * - AstFiles generation from their Abstract Syntax Tree (AST)
@@ -47,12 +48,17 @@ export class AstFileGenerationJavaService {
             return undefined;
         }
         const fileContent = fs.readFileSync(path, 'utf8');
-        const compilationUnit: CompilationUnit = GeneseMapperService.getMappedCompilationUnit(parse(fileContent));
-        return {
-            name: getFilename(path),
-            text: fileContent,
-            astNode: this.mapAstNode(this.createAstNodeChildren(compilationUnit))
-        };
+        const cst = parse(fileContent)
+        const compilationUnit: CompilationUnit = GeneseMapperService.getMappedCompilationUnit(cst);
+        const methodDeclaration = cst.children.ordinaryCompilationUnit[0].children.typeDeclaration[0].children.classDeclaration[0].children.normalClassDeclaration[0].children.classBody[0].children.classBodyDeclaration[0].children.classMemberDeclaration[0].children.methodDeclaration[0]
+        const methodBody = methodDeclaration.children.methodBody;
+        const ifStatement = methodBody[0].children.block[0].children.blockStatements[0].children.blockStatement[0].children.statement[0].children.ifStatement[0];
+        return cstToAst(methodDeclaration)
+        // return {
+        //     name: getFilename(path),
+        //     text: fileContent,
+        //     astNode: this.mapAstNode(this.createAstNodeChildren(compilationUnit))
+        // };
     }
 
 
