@@ -40,7 +40,7 @@ function getBinaryOperatorName(operator) {
         case '<=':
             return syntax_kind_enum_1.SyntaxKind.LessThanEqualsToken;
         case '+':
-            return syntax_kind_enum_1.SyntaxKind.PlusPlusToken;
+            return syntax_kind_enum_1.SyntaxKind.PlusToken;
         case '-':
             return syntax_kind_enum_1.SyntaxKind.MinusToken;
         case '*':

@@ -38,7 +38,7 @@ export function getBinaryOperatorName(operator): String {
         case '<=':
             return SyntaxKind.LessThanEqualsToken;
         case '+':
-            return SyntaxKind.PlusPlusToken;
+            return SyntaxKind.PlusToken;
         case '-':
             return SyntaxKind.MinusToken;
         case '*':
