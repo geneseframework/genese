@@ -6,7 +6,6 @@ import * as chalk from 'chalk';
 import { Language } from './core/enum/language.enum';
 
 import { parse } from 'java-parser';
-import {Collector} from './collector';
 import { toAst } from './toAst';
 
 export const START = Date.now();
@@ -36,15 +35,13 @@ export class Main {
         const cst = parse('public class Application {\n' +
             '\n' +
             '    int somme(int a, int b) {\n' +
-            '        if(a > b) {\n' +
+            '        if(!a) {\n' +
             '          return a * b;\n' +
             '        }\n' +
             '    }\n' +
             '}\n');
         console.log('cst', cst);
 
-        // const collector = new Collector();
-        // collector.visit(ast);
         const methodBody = cst.children.ordinaryCompilationUnit[0].children.typeDeclaration[0].children.classDeclaration[0].children.normalClassDeclaration[0].children.classBody[0].children.classBodyDeclaration[0].children.classMemberDeclaration[0].children.methodDeclaration[0].children.methodBody;
         const ifStatement = methodBody[0].children.block[0].children.blockStatements[0].children.blockStatement[0].children.statement[0].children.ifStatement[0];
         const ast = toAst(ifStatement)
