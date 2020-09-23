@@ -6,7 +6,7 @@ const cstToAst_1 = require("../cstToAst");
 function run(cstNode, children) {
     const numericType = children.numericType;
     return [
-        ...[].concat(...numericType.map(e => cstToAst_1.cstToAst(e))),
+        ...[].concat(...numericType === null || numericType === void 0 ? void 0 : numericType.map(e => cstToAst_1.cstToAst(e))),
     ];
     // return {
     //     kind: 'UnannPrimitiveType',
