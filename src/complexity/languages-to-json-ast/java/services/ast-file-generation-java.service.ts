@@ -19,7 +19,7 @@ export class AstFileGenerationJavaService {
      * @param  {AstFolderInterface} astFolder
      * @returns AstFileInterface
      */
-    generate(path: string, astFolder: AstFolderInterface): AstFileInterface {
+    generate(path: string, astFolder: AstFolderInterface): any {
         if (!path || !astFolder) {
             console.warn('No path or AstFolder : impossible to create AstFile');
             return undefined;

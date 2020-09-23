@@ -4,13 +4,15 @@ exports.run = void 0;
 const cstToAst_1 = require("../cstToAst");
 // @ts-ignore
 function run(cstNode, children) {
-    const variableParaRegularParameter = children.variableParaRegularParameter;
+    const classModifier = children.classModifier;
+    const normalClassDeclaration = children.normalClassDeclaration;
     return {
-        kind: cstToAst_1.getAlias('FormalParameter'),
+        kind: 'ClassDeclaration',
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset,
         children: [
-            ...[].concat(...variableParaRegularParameter.map(e => cstToAst_1.cstToAst(e)))
+            // ...classModifier.map(e => cstToAst(e)),
+            ...[].concat(...normalClassDeclaration.map(e => cstToAst_1.cstToAst(e))),
         ]
     };
 }
