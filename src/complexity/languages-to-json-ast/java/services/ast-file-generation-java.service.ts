@@ -6,6 +6,7 @@ import * as fs from 'fs-extra';
 import { cstToAst } from '../cst-to-ast';
 
 import { SyntaxKind as TsSyntaxKind } from '../../../core/enum/syntax-kind.enum';
+import { cstToAst } from '../cstToAst';
 
 /**
  * - AstFiles generation from their Abstract Syntax Tree (AST)
