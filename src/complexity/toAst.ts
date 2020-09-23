@@ -54,7 +54,6 @@ export function toAst(cst, kind = undefined) {
                             kind: getBinaryOperatorName(binaryOperator.image),
                             start: binaryOperator.startOffset,
                             end: binaryOperator.endOffset,
-
                         },
                         unaryExpressionsAst[1]
                     ]
