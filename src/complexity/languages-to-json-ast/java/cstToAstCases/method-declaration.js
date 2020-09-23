@@ -10,6 +10,7 @@ function run(cstNode, children) {
         kind: 'MethodDeclaration',
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset,
+        pos: cstNode.location.startOffset,
         children: [
             ...[].concat(...methodHeader.map(e => cstToAst_1.cstToAst(e))),
             ...[].concat(...methodBody.map(e => cstToAst_1.cstToAst(e))),

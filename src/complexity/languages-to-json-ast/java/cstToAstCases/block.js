@@ -9,6 +9,7 @@ function run(cstNode, children) {
         kind: 'Block',
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset,
+        pos: cstNode.location.startOffset,
         children: [
             ...[].concat(...(_b = (_a = children.blockStatements) === null || _a === void 0 ? void 0 : _a.map(e => cstToAst_1.cstToAst(e))) !== null && _b !== void 0 ? _b : [])
         ]

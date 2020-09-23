@@ -10,6 +10,7 @@ function run(cstNode, children) {
         kind: 'IfStatement',
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset,
+        pos: cstNode.location.startOffset,
         children: [
             ...[].concat(...expressions.map(e => cstToAst_1.cstToAst(e))),
             ...[].concat(...statements.map(e => cstToAst_1.cstToAst(e)))

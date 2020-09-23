@@ -6,6 +6,7 @@ export function run(cstNode, children) {
         kind: getAlias('ReturnStatement'),
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset,
+        pos: cstNode.location.startOffset,
         children: [
             ...[].concat(...children.expression?.map(e => cstToAst(e)) ?? [])
         ]

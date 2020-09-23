@@ -43,6 +43,8 @@ export function getBinaryOperatorName(operator): String {
             return SyntaxKind.MinusToken;
         case '*':
             return SyntaxKind.AsteriskToken;
+        case '==':
+            return SyntaxKind.EqualsEqualsToken;
         default:
             return operator;
     }

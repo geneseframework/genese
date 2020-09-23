@@ -3,9 +3,11 @@ import { cstToAst } from '../cstToAst';
 // @ts-ignore
 export function run(cstNode, children) {
     const integralType = children.integralType;
+    const floatingPointType = children.floatingPointType;
 
     return [
-        ...[].concat(...integralType.map(e => cstToAst(e))),
+        ...[].concat(...integralType?.map(e => cstToAst(e)) ?? []),
+        ...[].concat(...floatingPointType?.map(e => cstToAst(e)) ?? []),
     ];
 
     // return {
