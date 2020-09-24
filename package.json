@@ -1,6 +1,6 @@
 {
     "name": "genese",
-    "version": "0.2.6",
+    "version": "0.2.7",
     "scripts": {
         "dev": "tsc && node dev.js",
         "replace": "tsc && npm unpublish genese@0.2.5 --force && npm publish && npm i -g genese"
