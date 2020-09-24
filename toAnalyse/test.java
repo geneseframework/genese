@@ -3,7 +3,7 @@ public class Application {
         if(a < b) {
           return a * b;
         } else {
-            if (b == a) {
+            if (!a) {
                 return a + b;
             }
             return a - b;
