@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { NumericType } from '../models/numeric-type.model';
+import { NumericTypeChildren } from '../models/numeric-type-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: NumericType, children: NumericTypeChildren) {
     const integralType = children.integralType;
     const floatingPointType = children.floatingPointType;
 

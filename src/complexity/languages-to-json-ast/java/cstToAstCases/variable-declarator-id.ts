@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { VariableDeclaratorId } from '../models/variable-declarator-id.model';
+import { VariableDeclaratorIdChildren } from '../models/variable-declarator-id-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: VariableDeclaratorId, children: VariableDeclaratorIdChildren) {
     const identifier = children.Identifier;
 
     return [

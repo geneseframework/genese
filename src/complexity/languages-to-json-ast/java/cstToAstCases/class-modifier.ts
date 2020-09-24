@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { ClassModifierElement } from '../models/class-modifier-element.model';
+import { ClassModifierChildren } from '../models/class-modifier-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: ClassModifierElement, children: ClassModifierChildren) {
     const Public = children.Public;
 
     return {

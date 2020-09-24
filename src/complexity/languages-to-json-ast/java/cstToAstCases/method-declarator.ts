@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { MethodDeclarator } from '../models/method-declarator.model';
+import { MethodDeclaratorChildren } from '../models/method-declarator-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: MethodDeclarator, children: MethodDeclaratorChildren) {
     const identifier = children.Identifier;
     const formalParameterList = children.formalParameterList;
 

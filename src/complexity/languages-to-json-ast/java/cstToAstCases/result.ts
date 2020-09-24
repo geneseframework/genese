@@ -1,4 +1,6 @@
 import { cstToAst } from '../cstToAst';
+import { Result } from '../models/result.model';
+import { ResultChildren } from '../models/result-children.model';
 
 // @ts-ignore
 export function run(cstNode, children) {

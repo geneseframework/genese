@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { MethodBody } from '../models/method-body.model';
+import { MethodBodyChildren } from '../models/method-body-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: MethodBody, children: MethodBodyChildren) {
     const block = children.block
 
     return [

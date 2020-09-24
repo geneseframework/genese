@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { ClassBodyDeclarationElement } from '../models/class-body-declaration-element.model';
+import { ClassBodyDeclarationChildren } from '../models/class-body-declaration-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: ClassBodyDeclarationElement, children: ClassBodyDeclarationChildren) {
     const classMemberDeclaration = children.classMemberDeclaration;
 
     return [

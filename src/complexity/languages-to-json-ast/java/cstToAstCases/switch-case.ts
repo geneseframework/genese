@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { SwitchCase } from '../models/switch-case.model';
+import { SwitchCaseChildren } from '../models/switch-case-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: SwitchCase, children: SwitchCaseChildren) {
     const blockStatements = children.blockStatements;
 
     return {
