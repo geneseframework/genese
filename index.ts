@@ -6,6 +6,8 @@ import { Main } from './src/complexity/main';
 
 const { program } = require('commander');
 
+const pkg = require('./package.json');
+
 // ---------------------------------------------------------------------------------------------------------
 //                                          GENESE CLI
 // ---------------------------------------------------------------------------------------------------------
@@ -13,7 +15,7 @@ const { program } = require('commander');
 try {
     console.log(yellowBright("WELCOME TO GENESE CLI"));
 
-    program.version('0.0.0')
+    program.version(pkg.version)
         .description('Genese cli');
 
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------

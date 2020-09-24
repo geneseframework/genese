@@ -5,12 +5,13 @@ var ansi_colors_1 = require("ansi-colors");
 var child_process_1 = require("child_process");
 var main_1 = require("./src/complexity/main");
 var program = require('commander').program;
+var pkg = require('./package.json');
 // ---------------------------------------------------------------------------------------------------------
 //                                          GENESE CLI
 // ---------------------------------------------------------------------------------------------------------
 try {
     console.log(ansi_colors_1.yellowBright("WELCOME TO GENESE CLI"));
-    program.version('0.0.0')
+    program.version(pkg.version)
         .description('Genese cli');
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
     program.option('-l, --language <language>', 'Language');
