@@ -6,24 +6,10 @@ const cstToAst_1 = require("../cstToAst");
 function run(cstNode, children) {
     const unaryExpressions = children.unaryExpression;
     const binaryOperators = children.BinaryOperator;
-    const unaryExpressionsAst = unaryExpressions.map(e => cstToAst_1.cstToAst(e));
+    const unaryExpressionsAst = [...[].concat(...unaryExpressions.map(e => cstToAst_1.cstToAst(e)))];
     if (binaryOperators) {
         const binaryOperatorsAst = binaryOperators.map(e => cstToAst_1.cstToAst(e, 'binaryOperator'));
-        const t = binaryOperatorsAst.map((op, i) => {
-            switch (op.kind) {
-                case 'AsteriskToken':
-                    return [
-                        unaryExpressionsAst[i],
-                        op,
-                        unaryExpressionsAst[i + 1]
-                    ];
-                default:
-                    return {
-                        exp: unaryExpressionsAst[i],
-                        op,
-                    };
-            }
-        });
+        // const t = toBin(binaryOperatorsAst, unaryExpressionsAst);
         return {
             kind: 'BinaryExpression',
             start: cstNode.location.startOffset,
@@ -32,7 +18,7 @@ function run(cstNode, children) {
             children: [
                 ...[].concat(...unaryExpressionsAst.map((unaryExp, i) => {
                     return [
-                        ...unaryExp,
+                        unaryExp,
                         binaryOperatorsAst === null || binaryOperatorsAst === void 0 ? void 0 : binaryOperatorsAst[i],
                     ];
                 }))
@@ -44,3 +30,21 @@ function run(cstNode, children) {
     }
 }
 exports.run = run;
+function toBin(_ops, _exps) {
+    if (_ops.length > 1) {
+        const firstExp = _exps.shift();
+        const firstOp = _ops.shift();
+        return {
+            kind: 'binary',
+            children: [firstExp, firstOp, toBin(_ops, _exps)]
+        };
+        // return  [firstExp, firstOp, toBin(_ops, _exps)]
+    }
+    else {
+        return {
+            kind: 'binary',
+            children: [_exps[0], _ops[0], _exps[1]]
+        };
+        // return [_exps[0], _ops[0], _exps[1]]
+    }
+}
