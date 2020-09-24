@@ -9,22 +9,7 @@ function run(cstNode, children) {
     const unaryExpressionsAst = [...[].concat(...unaryExpressions.map(e => cstToAst_1.cstToAst(e)))];
     if (binaryOperators) {
         const binaryOperatorsAst = binaryOperators.map(e => cstToAst_1.cstToAst(e, 'binaryOperator'));
-        const t = toBinaryExpression(binaryOperatorsAst, unaryExpressionsAst);
-        return t;
-        // return {
-        //     kind: 'BinaryExpression',
-        //     start: cstNode.location.startOffset,
-        //     end: cstNode.location.endOffset,
-        //     pos: cstNode.location.startOffset,
-        //     children: [
-        //         ...[].concat(...unaryExpressionsAst.map((unaryExp, i) => {
-        //             return [
-        //                 unaryExp,
-        //                 binaryOperatorsAst?.[i],
-        //             ]
-        //         }))
-        //     ].filter(e => e)
-        // };
+        return toBinaryExpression(binaryOperatorsAst, unaryExpressionsAst);
     }
     else {
         return unaryExpressionsAst[0];
@@ -57,6 +42,5 @@ function toBinaryExpression(_ops, _exps) {
         else {
             return children[0];
         }
-        // return [_exps[0], _ops[0], _exps[1]]
     }
 }

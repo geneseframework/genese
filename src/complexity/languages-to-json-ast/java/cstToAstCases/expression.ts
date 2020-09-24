@@ -5,7 +5,7 @@ import { ExpressionChildren } from '../models/expression-children.model';
 
 // @ts-ignore
 export function run(cstNode: Expression, children: ExpressionChildren) {
-    const ternaryExpressions = children.ternaryExpression;
+    const ternaryExpression = children.ternaryExpression;
 
-    return [...[].concat(...ternaryExpressions.map(e => cstToAst(e)))];
+    return [...[].concat(...ternaryExpression.map(e => cstToAst(e)))];
 }
