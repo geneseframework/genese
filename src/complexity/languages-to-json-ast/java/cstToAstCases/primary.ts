@@ -1,0 +1,20 @@
+import { cstToAst } from '../cstToAst';
+
+// @ts-ignore
+export function run(cstNode, children) {
+    const primaryPrefix = children.primaryPrefix;
+
+    return [
+        ...[].concat(...primaryPrefix.map(e => cstToAst(e)))
+    ]
+
+    // return {
+    //     kind: 'Primary',
+    //     start: cstNode.location.startOffset,
+    //     end: cstNode.location.endOffset,
+    //     pos: cstNode.location.startOffset,
+    //     children: [
+    //         ...primaryPrefix.map(e => cstToAst(e))
+    //     ]
+    // };
+}
