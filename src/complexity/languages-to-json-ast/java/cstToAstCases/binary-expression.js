@@ -30,3 +30,21 @@ function run(cstNode, children) {
     }
 }
 exports.run = run;
+function toBin(_ops, _exps) {
+    if (_ops.length > 1) {
+        const firstExp = _exps.shift();
+        const firstOp = _ops.shift();
+        return {
+            kind: 'binary',
+            children: [firstExp, firstOp, toBin(_ops, _exps)]
+        };
+        // return  [firstExp, firstOp, toBin(_ops, _exps)]
+    }
+    else {
+        return {
+            kind: 'binary',
+            children: [_exps[0], _ops[0], _exps[1]]
+        };
+        // return [_exps[0], _ops[0], _exps[1]]
+    }
+}
