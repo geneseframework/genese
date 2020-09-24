@@ -1,12 +1,13 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.DepthCpx = void 0;
 /**
  * The Complexity Category "Depth"
  */
-class DepthCpx {
-    constructor() {
+var DepthCpx = /** @class */ (function () {
+    function DepthCpx() {
         this.arr = 0; // Depth inside an array
     }
-}
+    return DepthCpx;
+}());
 exports.DepthCpx = DepthCpx;

@@ -1,7 +1,7 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.cpxFactors = void 0;
-const complexityFactors = {};
+var complexityFactors = {};
 complexityFactors.aggregation = {
     arr: 1,
     density: 0.05,
@@ -13,10 +13,10 @@ complexityFactors.atomic = {
     empty: 0,
     keyword: 0.1,
     literal: 0.1,
-    node: 0.1,
+    node: 0.1
 };
 complexityFactors.depth = {
-    arr: 1.5,
+    arr: 1.5
 };
 complexityFactors.nesting = {
     conditional: 0.5,
@@ -42,6 +42,6 @@ complexityFactors.structural = {
     ternary: 1 // Ternary expression
 };
 complexityFactors.use = {
-    method: 1,
+    method: 1
 };
 exports.cpxFactors = complexityFactors;

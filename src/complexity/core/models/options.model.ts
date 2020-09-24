@@ -120,7 +120,11 @@ export class Options {
      * @param path
      */
     static isIgnored(path: string): boolean {
-        return path.match(Options.ignoreRegex)?.length > 0;
+        if (Options.ignoreRegex.length > 0) {
+            return path.match(Options.ignoreRegex)?.length > 0;
+        } else {
+            return false;
+        }
     }
 
     static pathTransformator(path: string) {

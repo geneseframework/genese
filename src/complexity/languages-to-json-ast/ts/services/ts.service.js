@@ -1,31 +1,34 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.Ts = void 0;
-const globals_const_1 = require("../../globals.const");
-const ts_morph_1 = require("ts-morph");
+var globals_const_1 = require("../../globals.const");
+var ts_morph_1 = require("ts-morph");
 /**
  * Service for operations on Node elements (ts-morph nodes)
  */
-class Ts {
+var Ts = /** @class */ (function () {
+    function Ts() {
+    }
     /**
      * Returns the SyntaxKind of an AST node or its alias if exists
      * @param node
      */
-    static getKindAlias(node) {
-        let kind = node.getKindName();
-        for (const alias of globals_const_1.KindAliases) {
+    Ts.getKindAlias = function (node) {
+        var kind = node.getKindName();
+        for (var _i = 0, KindAliases_1 = globals_const_1.KindAliases; _i < KindAliases_1.length; _i++) {
+            var alias = KindAliases_1[_i];
             if (alias.aliases.includes(kind)) {
                 kind = alias.name;
                 break;
             }
         }
         return kind;
-    }
+    };
     /**
      * Gets the name of a Node
      * @param node // The AST node
      */
-    static getName(node) {
+    Ts.getName = function (node) {
         var _a, _b;
         switch (node.getKind()) {
             case ts_morph_1.SyntaxKind.ClassDeclaration:
@@ -38,29 +41,30 @@ class Ts {
             default:
                 return undefined;
         }
-    }
+    };
     /**
      * Checks if a node is a call to a function or method
      * Example : a.slice(1)
      * @param node      // The node to check
      */
-    static isFunctionCall(node) {
+    Ts.isFunctionCall = function (node) {
         var _a;
-        const grandParent = (_a = node === null || node === void 0 ? void 0 : node.getParent()) === null || _a === void 0 ? void 0 : _a.getParent();
+        var grandParent = (_a = node === null || node === void 0 ? void 0 : node.getParent()) === null || _a === void 0 ? void 0 : _a.getParent();
         if (!grandParent) {
             return false;
         }
         return grandParent.getKind() === ts_morph_1.SyntaxKind.CallExpression && grandParent.compilerNode['expression'].end === node.getEnd();
-    }
+    };
     /**
      * Checks is a given node is the second son of its parent
      * @param node      // The node to check
      */
-    static isSecondSon(node) {
+    Ts.isSecondSon = function (node) {
         if (!(node === null || node === void 0 ? void 0 : node.getParent())) {
             return false;
         }
         return (node === null || node === void 0 ? void 0 : node.getChildIndex()) === 2;
-    }
-}
+    };
+    return Ts;
+}());
 exports.Ts = Ts;

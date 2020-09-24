@@ -13,14 +13,14 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     return value;
 };
 var _astFolder, _astMethods, _astNode, _astNodes, _code, _complexitiesByStatus, _cpxFactors, _cyclomaticCpx, _end, _name, _stats;
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.AstFile = void 0;
-const ast_file_service_1 = require("../../services/ast/ast-file.service");
-const cpx_factors_model_1 = require("../../../core/models/cpx-factor/cpx-factors.model");
-const ast_method_service_1 = require("../../services/ast/ast-method.service");
-const chalk = require("chalk");
-class AstFile {
-    constructor() {
+var ast_file_service_1 = require("../../services/ast/ast-file.service");
+var cpx_factors_model_1 = require("../../../core/models/cpx-factor/cpx-factors.model");
+var ast_method_service_1 = require("../../services/ast/ast-method.service");
+var chalk = require("chalk");
+var AstFile = /** @class */ (function () {
+    function AstFile() {
         _astFolder.set(this, undefined); // The AstFolder which includes this AstFile
         _astMethods.set(this, []); // The AstMethods included in this AstFile
         _astNode.set(this, undefined); // The AstNode corresponding to the file itself
@@ -33,107 +33,156 @@ class AstFile {
         _name.set(this, undefined); // The name of the AstFile
         _stats.set(this, undefined); // The statistics of the AstFile
     }
-    // ---------------------------------------------------------------------------------
-    //                                Getters and setters
-    // ---------------------------------------------------------------------------------
-    get astFolder() {
-        return __classPrivateFieldGet(this, _astFolder);
-    }
-    set astFolder(astFolder) {
-        __classPrivateFieldSet(this, _astFolder, astFolder);
-    }
-    get astMethods() {
-        if (__classPrivateFieldGet(this, _astMethods)) {
-            return __classPrivateFieldGet(this, _astMethods);
-        }
-        return [];
-    }
-    set astMethods(astMethods) {
-        __classPrivateFieldSet(this, _astMethods, astMethods);
-    }
-    get astNode() {
-        return __classPrivateFieldGet(this, _astNode);
-    }
-    set astNode(astNode) {
-        __classPrivateFieldSet(this, _astNode, astNode);
-    }
-    get astNodes() {
-        return __classPrivateFieldGet(this, _astNodes);
-    }
-    set astNodes(astNodes) {
-        __classPrivateFieldSet(this, _astNodes, astNodes);
-    }
-    get code() {
-        return __classPrivateFieldGet(this, _code);
-    }
-    set code(code) {
-        __classPrivateFieldSet(this, _code, code);
-    }
-    get complexitiesByStatus() {
-        return __classPrivateFieldGet(this, _complexitiesByStatus);
-    }
-    set complexitiesByStatus(cpxByStatus) {
-        __classPrivateFieldSet(this, _complexitiesByStatus, cpxByStatus);
-    }
-    get cpxFactors() {
-        return __classPrivateFieldGet(this, _cpxFactors);
-    }
-    set cpxFactors(cpxFactors) {
-        __classPrivateFieldSet(this, _cpxFactors, cpxFactors);
-    }
-    get cyclomaticCpx() {
-        return __classPrivateFieldGet(this, _cyclomaticCpx);
-    }
-    set cyclomaticCpx(cyclomaticCpx) {
-        __classPrivateFieldSet(this, _cyclomaticCpx, cyclomaticCpx);
-    }
-    get end() {
-        var _a, _b;
-        return (_a = __classPrivateFieldGet(this, _end)) !== null && _a !== void 0 ? _a : (_b = __classPrivateFieldGet(this, _astNode)) === null || _b === void 0 ? void 0 : _b.end;
-    }
-    set end(end) {
-        __classPrivateFieldSet(this, _end, end);
-    }
-    get name() {
-        return __classPrivateFieldGet(this, _name);
-    }
-    set name(name) {
-        __classPrivateFieldSet(this, _name, name);
-    }
-    get stats() {
-        if (!__classPrivateFieldGet(this, _stats)) {
-            __classPrivateFieldSet(this, _stats, new ast_file_service_1.AstFileService().getStats(this));
-        }
-        return __classPrivateFieldGet(this, _stats);
-    }
-    set stats(stats) {
-        __classPrivateFieldSet(this, _stats, stats);
-    }
-    get text() {
-        return __classPrivateFieldGet(this, _code).text;
-    }
+    Object.defineProperty(AstFile.prototype, "astFolder", {
+        // ---------------------------------------------------------------------------------
+        //                                Getters and setters
+        // ---------------------------------------------------------------------------------
+        get: function () {
+            return __classPrivateFieldGet(this, _astFolder);
+        },
+        set: function (astFolder) {
+            __classPrivateFieldSet(this, _astFolder, astFolder);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AstFile.prototype, "astMethods", {
+        get: function () {
+            if (__classPrivateFieldGet(this, _astMethods)) {
+                return __classPrivateFieldGet(this, _astMethods);
+            }
+            return [];
+        },
+        set: function (astMethods) {
+            __classPrivateFieldSet(this, _astMethods, astMethods);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AstFile.prototype, "astNode", {
+        get: function () {
+            return __classPrivateFieldGet(this, _astNode);
+        },
+        set: function (astNode) {
+            __classPrivateFieldSet(this, _astNode, astNode);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AstFile.prototype, "astNodes", {
+        get: function () {
+            return __classPrivateFieldGet(this, _astNodes);
+        },
+        set: function (astNodes) {
+            __classPrivateFieldSet(this, _astNodes, astNodes);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AstFile.prototype, "code", {
+        get: function () {
+            return __classPrivateFieldGet(this, _code);
+        },
+        set: function (code) {
+            __classPrivateFieldSet(this, _code, code);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AstFile.prototype, "complexitiesByStatus", {
+        get: function () {
+            return __classPrivateFieldGet(this, _complexitiesByStatus);
+        },
+        set: function (cpxByStatus) {
+            __classPrivateFieldSet(this, _complexitiesByStatus, cpxByStatus);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AstFile.prototype, "cpxFactors", {
+        get: function () {
+            return __classPrivateFieldGet(this, _cpxFactors);
+        },
+        set: function (cpxFactors) {
+            __classPrivateFieldSet(this, _cpxFactors, cpxFactors);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AstFile.prototype, "cyclomaticCpx", {
+        get: function () {
+            return __classPrivateFieldGet(this, _cyclomaticCpx);
+        },
+        set: function (cyclomaticCpx) {
+            __classPrivateFieldSet(this, _cyclomaticCpx, cyclomaticCpx);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AstFile.prototype, "end", {
+        get: function () {
+            var _a, _b;
+            return (_a = __classPrivateFieldGet(this, _end)) !== null && _a !== void 0 ? _a : (_b = __classPrivateFieldGet(this, _astNode)) === null || _b === void 0 ? void 0 : _b.end;
+        },
+        set: function (end) {
+            __classPrivateFieldSet(this, _end, end);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AstFile.prototype, "name", {
+        get: function () {
+            return __classPrivateFieldGet(this, _name);
+        },
+        set: function (name) {
+            __classPrivateFieldSet(this, _name, name);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AstFile.prototype, "stats", {
+        get: function () {
+            if (!__classPrivateFieldGet(this, _stats)) {
+                __classPrivateFieldSet(this, _stats, new ast_file_service_1.AstFileService().getStats(this));
+            }
+            return __classPrivateFieldGet(this, _stats);
+        },
+        set: function (stats) {
+            __classPrivateFieldSet(this, _stats, stats);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(AstFile.prototype, "text", {
+        get: function () {
+            return __classPrivateFieldGet(this, _code).text;
+        },
+        enumerable: false,
+        configurable: true
+    });
     // ---------------------------------------------------------------------------------
     //                                  Other methods
     // ---------------------------------------------------------------------------------
     /**
      * Evaluates the complexities of the AstNodes and the AstMethods of this AstFile
      */
-    evaluate() {
+    AstFile.prototype.evaluate = function () {
         this.cpxFactors = new cpx_factors_model_1.CpxFactors();
-        const astMethodService = new ast_method_service_1.AstMethodService();
+        var astMethodService = new ast_method_service_1.AstMethodService();
         this.astNode.evaluate();
-        for (const method of this.astMethods) {
+        for (var _i = 0, _a = this.astMethods; _i < _a.length; _i++) {
+            var method = _a[_i];
             method.evaluate();
             this.cpxFactors = this.cpxFactors.add(method.cpxFactors);
             this.cyclomaticCpx = this.cyclomaticCpx + method.cyclomaticCpx;
             this.complexitiesByStatus = astMethodService.addMethodCpxByStatus(this.complexitiesByStatus, method);
         }
-    }
+    };
     /**
      * Logs the main elements of an AstFile
      * @param message       // Optional message
      */
-    logg(message) {
+    AstFile.prototype.logg = function (message) {
         var _a, _b;
         console.log('-----------------------------');
         console.log(chalk.yellowBright(message !== null && message !== void 0 ? message : 'AST_FILE'));
@@ -143,7 +192,8 @@ class AstFile {
         console.log(chalk.blueBright('text :'), this.text);
         console.log(chalk.blueBright('astNode :'), (_a = this.astNode) === null || _a === void 0 ? void 0 : _a.kind);
         console.log(chalk.blueBright('astFolder :'), (_b = this.astFolder) === null || _b === void 0 ? void 0 : _b.path);
-    }
-}
+    };
+    return AstFile;
+}());
 exports.AstFile = AstFile;
 _astFolder = new WeakMap(), _astMethods = new WeakMap(), _astNode = new WeakMap(), _astNodes = new WeakMap(), _code = new WeakMap(), _complexitiesByStatus = new WeakMap(), _cpxFactors = new WeakMap(), _cyclomaticCpx = new WeakMap(), _end = new WeakMap(), _name = new WeakMap(), _stats = new WeakMap();

@@ -1,8 +1,8 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.project = exports.WEIGHTED_METHODS = exports.WEIGHTS = exports.DEV_MOCK = exports.LIMIT_GENERATIONS = exports.KindAliases = void 0;
-const weights_service_1 = require("./ts/libraries-weights/weights.service");
-const ts_morph_1 = require("ts-morph");
+var weights_service_1 = require("./ts/libraries-weights/weights.service");
+var ts_morph_1 = require("ts-morph");
 /**
  * Merge different node's kind names in a more generic one. It simplifies the JsonAst format
  */

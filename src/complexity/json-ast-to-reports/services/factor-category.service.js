@@ -1,10 +1,12 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.FactorCategoryService = void 0;
-const syntax_kind_enum_1 = require("../../core/enum/syntax-kind.enum");
-const node_feature_enum_1 = require("../enums/node-feature.enum");
-class FactorCategoryService {
-    getNodeFeature(syntaxKind) {
+var syntax_kind_enum_1 = require("../../core/enum/syntax-kind.enum");
+var node_feature_enum_1 = require("../enums/node-feature.enum");
+var FactorCategoryService = /** @class */ (function () {
+    function FactorCategoryService() {
+    }
+    FactorCategoryService.prototype.getNodeFeature = function (syntaxKind) {
         switch (syntaxKind) {
             case syntax_kind_enum_1.SyntaxKind.ArrayType:
             case syntax_kind_enum_1.SyntaxKind.Identifier:
@@ -43,6 +45,7 @@ class FactorCategoryService {
             default:
                 return node_feature_enum_1.NodeFeature.EMPTY;
         }
-    }
-}
+    };
+    return FactorCategoryService;
+}());
 exports.FactorCategoryService = FactorCategoryService;
