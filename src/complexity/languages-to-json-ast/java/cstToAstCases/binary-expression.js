@@ -25,8 +25,23 @@ function run(cstNode, children) {
             ]
         };
     }
+    else if (assignmentOperator) {
+        return {
+            kind: 'BinaryExpression',
+            start: cstNode.location.startOffset,
+            end: cstNode.location.endOffset,
+            pos: cstNode.location.startOffset,
+            children: [
+                ...unaryExpressionsAst,
+                ...(_a = assignmentOperator === null || assignmentOperator === void 0 ? void 0 : assignmentOperator.map(e => cstToAst_1.cstToAst(e, 'assignmentOperator'))) !== null && _a !== void 0 ? _a : [],
+                ...[].concat(...(_b = expression === null || expression === void 0 ? void 0 : expression.map(e => cstToAst_1.cstToAst(e))) !== null && _b !== void 0 ? _b : [])
+            ]
+        };
+    }
     else {
-        return unaryExpressionsAst[0];
+        return [
+            ...unaryExpressionsAst,
+        ];
     }
 }
 exports.run = run;

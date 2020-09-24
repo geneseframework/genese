@@ -5,6 +5,8 @@ const cstToAst_1 = require("../cstToAst");
 // @ts-ignore
 function run(cstNode, children) {
     const binaryExpressions = children.binaryExpression;
-    return binaryExpressions.map(e => cstToAst_1.cstToAst(e));
+    return [
+        ...[].concat(...binaryExpressions.map(e => cstToAst_1.cstToAst(e)))
+    ];
 }
 exports.run = run;
