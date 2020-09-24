@@ -9,6 +9,21 @@ function run(cstNode, children) {
     const unaryExpressionsAst = unaryExpressions.map(e => cstToAst_1.cstToAst(e));
     if (binaryOperators) {
         const binaryOperatorsAst = binaryOperators.map(e => cstToAst_1.cstToAst(e, 'binaryOperator'));
+        const t = binaryOperatorsAst.map((op, i) => {
+            switch (op.kind) {
+                case 'AsteriskToken':
+                    return [
+                        unaryExpressionsAst[i],
+                        op,
+                        unaryExpressionsAst[i + 1]
+                    ];
+                default:
+                    return {
+                        exp: unaryExpressionsAst[i],
+                        op,
+                    };
+            }
+        });
         return {
             kind: 'BinaryExpression',
             start: cstNode.location.startOffset,
