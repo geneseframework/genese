@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { ParenthesisExpression } from "../models/parenthesis-expression.model";
+import { ParenthesisExpressionChildren } from "../models/parenthesis-expression-children.model";
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: ParenthesisExpression, children: ParenthesisExpressionChildren) {
     const expression = children.expression;
 
     return {

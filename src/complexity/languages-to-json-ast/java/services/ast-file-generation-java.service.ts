@@ -49,7 +49,7 @@ export class AstFileGenerationJavaService {
         }
         const fileContent = fs.readFileSync(path, 'utf8');
         const cst = parse(fileContent)
-        const compilationUnit: CompilationUnit = GeneseMapperService.getMappedCompilationUnit(cst);
+        //const compilationUnit: CompilationUnit = GeneseMapperService.getMappedCompilationUnit(cst);
         const classDeclaration = cst.children.ordinaryCompilationUnit[0].children.typeDeclaration[0].children.classDeclaration[0]
         const ast = cstToAst(classDeclaration)
         return {

@@ -13,8 +13,8 @@ export function run(cstNode: IfStatement, children: IfStatementChildren) {
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
         children: [
-            ...[].concat(...expressions.map(e => cstToAst(e))),
-            ...[].concat(...statements.map(e => cstToAst(e)))
+            ...[].concat(...expressions.map(e => cstToAst(e)) ?? []),
+            ...[].concat(...statements.map(e => cstToAst(e)) ?? [])
         ]
     };
 }

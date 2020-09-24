@@ -13,8 +13,8 @@ export function run(cstNode: SwitchStatement, children: SwitchStatementChildren)
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
         children: [
-            ...[].concat(...expression?.map(e => cstToAst(e)) ?? []),
-            ...[].concat(...switchBlock?.map(e => cstToAst(e)) ?? [])
+            ...[].concat(...expression.map(e => cstToAst(e)) ?? []),
+            ...[].concat(...switchBlock.map(e => cstToAst(e)) ?? [])
         ]
     };
 }

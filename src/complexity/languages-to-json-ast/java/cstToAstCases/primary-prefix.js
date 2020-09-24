@@ -9,7 +9,7 @@ function run(cstNode, children) {
     const fqnOrRefType = children.fqnOrRefType;
     const literal = children.literal;
     return [
-        ...(_a = parenthesisExpression === null || parenthesisExpression === void 0 ? void 0 : parenthesisExpression.map(e => cstToAst_1.cstToAst(e))) !== null && _a !== void 0 ? _a : [],
+        ...[].concat(...(_a = parenthesisExpression === null || parenthesisExpression === void 0 ? void 0 : parenthesisExpression.map(e => cstToAst_1.cstToAst(e))) !== null && _a !== void 0 ? _a : []),
         ...[].concat(...(_b = fqnOrRefType === null || fqnOrRefType === void 0 ? void 0 : fqnOrRefType.map(e => cstToAst_1.cstToAst(e))) !== null && _b !== void 0 ? _b : []),
         ...[].concat(...(_c = literal === null || literal === void 0 ? void 0 : literal.map(e => cstToAst_1.cstToAst(e))) !== null && _c !== void 0 ? _c : []),
     ];
