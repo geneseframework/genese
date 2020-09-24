@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { ClassMemberDeclarationElement } from '../models/class-member-declaration-element.model';
+import { ClassMemberDeclarationChildren } from '../models/class-member-declaration-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: ClassMemberDeclarationElement, children: ClassMemberDeclarationChildren) {
     const methodDeclaration = children.methodDeclaration;
 
     return [

@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { IntegralType } from '../models/integral-type.model';
+import { IntegralTypeChildren } from '../models/integral-type-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: IntegralType, children: IntegralTypeChildren) {
     const int = children.Int;
 
     return [

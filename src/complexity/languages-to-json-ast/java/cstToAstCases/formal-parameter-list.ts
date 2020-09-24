@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { FormalParameterList } from '../models/formal-parameter-list.model';
+import { FormalParameterListChildren } from '../models/formal-parameter-list-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: FormalParameterList, children: FormalParameterListChildren) {
     const formalParameter = children.formalParameter;
 
     return [

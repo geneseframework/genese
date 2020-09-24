@@ -1,7 +1,8 @@
 import { cstToAst } from '../cstToAst';
+import { Infos } from '../models/infos.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: Infos, children) {
     return {
         kind: 'PrefixUnaryExpression',
         start: cstNode.startOffset,

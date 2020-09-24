@@ -178,9 +178,9 @@ export class AstFunctionageGenerationJavaService {
     generateAstIfStatementChildren(ifStatementChildren: IfStatementChildren, astNode: AstNodeInterface): void {
         if(ifStatementChildren) {
             JavaService.getAstNodeInfos(ifStatementChildren.If, astNode);
-            JavaService.getAstNodeInfos(ifStatementChildren.LCurly, astNode);
+            JavaService.getAstNodeInfos(ifStatementChildren.LBrace, astNode);
             JavaService.generateAstNode(ifStatementChildren.expression, astNode, this.generateAstExpressionChildren.bind(this));
-            JavaService.getAstNodeInfos(ifStatementChildren.RCurly, astNode);
+            JavaService.getAstNodeInfos(ifStatementChildren.RBrace, astNode);
             JavaService.generateAstNode(ifStatementChildren.statement, astNode, this.generateAstStatementChildren.bind(this));
         }
     }
@@ -196,6 +196,7 @@ export class AstFunctionageGenerationJavaService {
             JavaService.generateAstNode(statementWithoutTrailingSubstatementChildren.switchStatement, astNode, this.generateAstSwitchStatementChildren.bind(this));
             JavaService.generateAstNode(statementWithoutTrailingSubstatementChildren.expressionStatement, astNode, this.generateAstExpressionStatementChildren.bind(this));
             JavaService.generateAstNode(statementWithoutTrailingSubstatementChildren.returnStatement, astNode, this.generateAstReturnStatementChildren.bind(this));
+            JavaService.generateAstNode(statementWithoutTrailingSubstatementChildren.block, astNode, this.generateAstBlockChildren.bind(this));
         }
     }
 
