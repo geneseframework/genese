@@ -17,7 +17,7 @@ function run(cstNode, children) {
             children: [
                 ...[].concat(...unaryExpressionsAst.map((unaryExp, i) => {
                     return [
-                        unaryExp,
+                        ...unaryExp,
                         binaryOperatorsAst === null || binaryOperatorsAst === void 0 ? void 0 : binaryOperatorsAst[i],
                     ];
                 }))
