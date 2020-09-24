@@ -4,6 +4,7 @@ exports.run = void 0;
 const cstToAst_1 = require("../cstToAst");
 // @ts-ignore
 function run(cstNode, children) {
+    var _a, _b;
     const expressions = children.expression;
     const statements = children.statement;
     return {
@@ -12,8 +13,8 @@ function run(cstNode, children) {
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
         children: [
-            ...[].concat(...expressions.map(e => cstToAst_1.cstToAst(e))),
-            ...[].concat(...statements.map(e => cstToAst_1.cstToAst(e)))
+            ...[].concat(...(_a = expressions.map(e => cstToAst_1.cstToAst(e))) !== null && _a !== void 0 ? _a : []),
+            ...[].concat(...(_b = statements.map(e => cstToAst_1.cstToAst(e))) !== null && _b !== void 0 ? _b : [])
         ]
     };
 }

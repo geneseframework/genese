@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { FqnOrRefTypePartFirst } from '../models/fqn-or-ref-type-part-first.model';
+import { FqnOrRefTypePartFirstChildren } from '../models/fqn-or-ref-type-part-first-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: FqnOrRefTypePartFirst, children: FqnOrRefTypePartFirstChildren) {
     const fqnOrRefTypePartCommon = children.fqnOrRefTypePartCommon;
 
     return [

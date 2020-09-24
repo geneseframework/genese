@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { Literal } from '../models/literal.model';
+import { LiteralChildren } from '../models/literal.children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: Literal, children: LiteralChildren) {
     const integerLiteral = children.integerLiteral;
 
     return {

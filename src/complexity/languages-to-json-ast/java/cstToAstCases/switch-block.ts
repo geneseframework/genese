@@ -12,7 +12,7 @@ export function run(cstNode: SwitchBlock, children: SwitchBlockChildren) {
         end: cstNode.location.endOffset + 1,
         pos: cstNode.location.startOffset,
         children: [
-            ...[].concat(...switchCase.map(e => cstToAst(e))),
+            ...[].concat(...switchCase.map(e => cstToAst(e)) ?? []),
         ]
     };
 }

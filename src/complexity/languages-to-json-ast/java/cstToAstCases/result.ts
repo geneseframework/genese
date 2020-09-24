@@ -3,7 +3,7 @@ import { Result } from '../models/result.model';
 import { ResultChildren } from '../models/result-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: Result, children: ResultChildren) {
     const unannType = children.unannType;
 
     return [
