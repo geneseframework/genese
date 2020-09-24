@@ -47,6 +47,8 @@ function getBinaryOperatorName(operator) {
             return syntax_kind_enum_1.SyntaxKind.AsteriskToken;
         case '==':
             return syntax_kind_enum_1.SyntaxKind.EqualsEqualsToken;
+        case '=':
+            return syntax_kind_enum_1.SyntaxKind.EqualsToken;
         default:
             return operator;
     }

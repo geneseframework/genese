@@ -4,9 +4,15 @@ import { StatementWithoutTrailingSubstatementChildren } from '../models/statemen
 
 // @ts-ignore
 export function run(cstNode: StatementWithoutTrailingSubstatement, children: StatementWithoutTrailingSubstatementChildren) {
+    const block = children.block;
+    const returnStatement = children.returnStatement;
+    const switchStatement = children.switchStatement;
+    const expressionStatement = children.expressionStatement;
+
     return [
-        ...children.block?.map(e => cstToAst(e)) ?? [],
-        ...children.returnStatement?.map(e => cstToAst(e)) ?? [],
-        ...children.switchStatement?.map(e => cstToAst(e)) ?? []
+        ...block?.map(e => cstToAst(e)) ?? [],
+        ...returnStatement?.map(e => cstToAst(e)) ?? [],
+        ...switchStatement?.map(e => cstToAst(e)) ?? [],
+        ...expressionStatement?.map(e => cstToAst(e)) ?? [],
     ];
 }

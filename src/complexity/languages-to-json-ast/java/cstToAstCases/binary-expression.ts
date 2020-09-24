@@ -6,6 +6,8 @@ import { BinaryExpressionChildren } from '../models/binary-expression-children.m
 export function run(cstNode: BinaryExpression, children: BinaryExpressionChildren) {
     const unaryExpressions = children.unaryExpression;
     const binaryOperators = children.BinaryOperator;
+    const assignmentOperator = children.AssignmentOperator;
+    const expression = children.expression;
 
     const unaryExpressionsAst = [...[].concat(...unaryExpressions.map(e => cstToAst(e)))];
 
