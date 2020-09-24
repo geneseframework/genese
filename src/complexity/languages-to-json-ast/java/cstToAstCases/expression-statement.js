@@ -12,7 +12,7 @@ function run(cstNode, children) {
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
         children: [
-            ...(_a = statementExpression === null || statementExpression === void 0 ? void 0 : statementExpression.map(e => cstToAst_1.cstToAst(e))) !== null && _a !== void 0 ? _a : []
+            ...[].concat(...(_a = statementExpression === null || statementExpression === void 0 ? void 0 : statementExpression.map(e => cstToAst_1.cstToAst(e))) !== null && _a !== void 0 ? _a : [])
         ]
     };
 }

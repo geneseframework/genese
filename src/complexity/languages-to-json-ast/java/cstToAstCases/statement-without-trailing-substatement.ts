@@ -13,6 +13,6 @@ export function run(cstNode: StatementWithoutTrailingSubstatement, children: Sta
         ...block?.map(e => cstToAst(e)) ?? [],
         ...returnStatement?.map(e => cstToAst(e)) ?? [],
         ...switchStatement?.map(e => cstToAst(e)) ?? [],
-        // ...expressionStatement?.map(e => cstToAst(e)) ?? [],
+        ...expressionStatement?.map(e => cstToAst(e)) ?? [],
     ];
 }

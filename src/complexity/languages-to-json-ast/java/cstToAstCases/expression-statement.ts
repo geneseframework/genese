@@ -12,7 +12,7 @@ export function run(cstNode: StatementWithoutTrailingSubstatement, children: any
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
         children: [
-            ...statementExpression?.map(e => cstToAst(e)) ?? []
+            ...[].concat(...statementExpression?.map(e => cstToAst(e)) ?? [])
         ]
     };
 }

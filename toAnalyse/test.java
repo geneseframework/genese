@@ -11,7 +11,7 @@ public class Application {
     }
 
     double somme_2(double a, double b, double c) {
-        b = a;
+        b = a + 3;
         if (a > c) {
             return a + b * c * 2;
         }
