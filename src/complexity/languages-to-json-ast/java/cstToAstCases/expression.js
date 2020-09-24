@@ -4,7 +4,7 @@ exports.run = void 0;
 const cstToAst_1 = require("../cstToAst");
 // @ts-ignore
 function run(cstNode, children) {
-    const ternaryExpressions = children.ternaryExpression;
-    return [...[].concat(...ternaryExpressions.map(e => cstToAst_1.cstToAst(e)))];
+    const ternaryExpression = children.ternaryExpression;
+    return [...[].concat(...ternaryExpression.map(e => cstToAst_1.cstToAst(e)))];
 }
 exports.run = run;
