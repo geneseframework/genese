@@ -6,6 +6,8 @@ const cstToAst_1 = require("../cstToAst");
 function run(cstNode, children) {
     const unaryExpressions = children.unaryExpression;
     const binaryOperators = children.BinaryOperator;
+    const assignmentOperator = children.AssignmentOperator;
+    const expression = children.expression;
     const unaryExpressionsAst = [...[].concat(...unaryExpressions.map(e => cstToAst_1.cstToAst(e)))];
     if (binaryOperators) {
         const binaryOperatorsAst = binaryOperators.map(e => cstToAst_1.cstToAst(e, 'binaryOperator'));
