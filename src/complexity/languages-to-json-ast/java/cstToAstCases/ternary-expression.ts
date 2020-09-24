@@ -6,5 +6,7 @@ import { TernaryExpressionChildren } from '../models/ternary-expression-children
 export function run(cstNode: TernaryExpression, children: TernaryExpressionChildren) {
     const binaryExpressions = children.binaryExpression;
 
-    return binaryExpressions.map(e => cstToAst(e));
+    return [
+        ...[].concat(...binaryExpressions.map(e => cstToAst(e)))
+    ];
 }

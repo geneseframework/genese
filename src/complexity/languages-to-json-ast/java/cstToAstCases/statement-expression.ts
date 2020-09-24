@@ -6,13 +6,17 @@ import { StatementWithoutTrailingSubstatementChildren } from '../models/statemen
 export function run(cstNode: StatementWithoutTrailingSubstatement, children: any) {
     const expression = children.expression;
 
-    return {
-        kind: 'StatementExpression',
-        start: cstNode.location.startOffset,
-        end: cstNode.location.endOffset,
-        pos: cstNode.location.startOffset,
-        children: [
-            ...expression?.map(e => cstToAst(e)) ?? []
-        ]
-    };
+    return [
+        ...[].concat(...expression?.map(e => cstToAst(e)) ?? [])
+    ]
+
+    // return {
+    //     kind: 'StatementExpression',
+    //     start: cstNode.location.startOffset,
+    //     end: cstNode.location.endOffset,
+    //     pos: cstNode.location.startOffset,
+    //     children: [
+    //         ...[].concat(...expression?.map(e => cstToAst(e)) ?? [])
+    //     ]
+    // };
 }
