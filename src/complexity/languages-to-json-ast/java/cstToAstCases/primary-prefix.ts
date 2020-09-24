@@ -4,10 +4,12 @@ import { cstToAst } from '../cstToAst';
 export function run(cstNode, children) {
     const parenthesisExpression = children.parenthesisExpression;
     const fqnOrRefType = children.fqnOrRefType;
+    const literal = children.literal;
 
     return [
         ...parenthesisExpression?.map(e => cstToAst(e)) ?? [],
         ...[].concat(...fqnOrRefType?.map(e => cstToAst(e)) ?? []),
+        ...[].concat(...literal?.map(e => cstToAst(e)) ?? []),
     ]
 
     // return {
