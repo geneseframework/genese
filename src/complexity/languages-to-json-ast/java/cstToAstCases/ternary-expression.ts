@@ -7,6 +7,6 @@ export function run(cstNode: TernaryExpression, children: TernaryExpressionChild
     const binaryExpressions = children.binaryExpression;
 
     return [
-        ...[].concat(...binaryExpressions.map(e => cstToAst(e)))
-    ];
+        ...[].concat(...binaryExpressions?.map(e => cstToAst(e)) ?? [])
+    ]
 }

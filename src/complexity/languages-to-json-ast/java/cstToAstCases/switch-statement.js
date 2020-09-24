@@ -13,8 +13,8 @@ function run(cstNode, children) {
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
         children: [
-            ...[].concat(...(_a = expression === null || expression === void 0 ? void 0 : expression.map(e => cstToAst_1.cstToAst(e))) !== null && _a !== void 0 ? _a : []),
-            ...[].concat(...(_b = switchBlock === null || switchBlock === void 0 ? void 0 : switchBlock.map(e => cstToAst_1.cstToAst(e))) !== null && _b !== void 0 ? _b : [])
+            ...[].concat(...(_a = expression.map(e => cstToAst_1.cstToAst(e))) !== null && _a !== void 0 ? _a : []),
+            ...[].concat(...(_b = switchBlock.map(e => cstToAst_1.cstToAst(e))) !== null && _b !== void 0 ? _b : [])
         ]
     };
 }

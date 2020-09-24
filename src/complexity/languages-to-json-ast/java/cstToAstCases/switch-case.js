@@ -4,14 +4,17 @@ exports.run = void 0;
 const cstToAst_1 = require("../cstToAst");
 // @ts-ignore
 function run(cstNode, children) {
+    var _a, _b;
     const blockStatements = children.blockStatements;
+    const switchLabels = children.switchLabel;
     return {
-        kind: 'CaseBlock',
+        kind: 'Keyword',
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset + 1,
         pos: cstNode.location.startOffset,
         children: [
-            ...[].concat(...blockStatements.map(e => cstToAst_1.cstToAst(e))),
+            ...[].concat(...(_a = blockStatements.map(e => cstToAst_1.cstToAst(e))) !== null && _a !== void 0 ? _a : []),
+            ...[].concat(...(_b = switchLabels.map(e => cstToAst_1.cstToAst(e))) !== null && _b !== void 0 ? _b : [])
         ]
     };
 }
