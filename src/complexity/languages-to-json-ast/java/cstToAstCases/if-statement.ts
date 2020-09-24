@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { IfStatement } from '../models/if-statement.model';
+import { IfStatementChildren } from '../models/if-statement-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: IfStatement, children: IfStatementChildren) {
     const expressions = children.expression;
     const statements = children.statement;
 

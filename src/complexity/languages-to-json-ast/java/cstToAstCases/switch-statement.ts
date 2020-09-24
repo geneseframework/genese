@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { SwitchStatement } from '../models/switch-statement.model';
+import { SwitchStatementChildren } from '../models/switch-statement-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: SwitchStatement, children: SwitchStatementChildren) {
     const expression = children.expression;
     const switchBlock = children.switchBlock;
 

@@ -1,7 +1,9 @@
 import { cstToAst, getBinaryOperatorName } from '../cstToAst';
+import { BinaryExpression } from '../models/binary-expression.model';
+import { BinaryExpressionChildren } from '../models/binary-expression-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: BinaryExpression, children: BinaryExpressionChildren) {
     const unaryExpressions = children.unaryExpression;
     const binaryOperators = children.BinaryOperator;
 

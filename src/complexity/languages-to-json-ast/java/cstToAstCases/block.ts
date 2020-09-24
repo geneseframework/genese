@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { Block } from '../models/block.model';
+import { BlockChildren } from '../models/block-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: Block, children: BlockChildren) {
     return {
         kind: 'Block',
         start: cstNode.location.startOffset,

@@ -1,7 +1,9 @@
 import { cstToAst, getAlias } from '../cstToAst';
+import { ReturnStatement } from '../models/return-statement.model';
+import { ReturnStatementChildren } from '../models/return-statement-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: ReturnStatement, children: ReturnStatementChildren) {
     return {
         kind: getAlias('ReturnStatement'),
         start: cstNode.location.startOffset,

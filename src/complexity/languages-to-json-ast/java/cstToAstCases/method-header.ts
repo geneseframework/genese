@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { MethodHeader } from '../models/method-header.model';
+import { MethodHeaderChildren } from '../models/method-header-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: MethodHeader, children: MethodHeaderChildren) {
     const result = children.result;
     const methodDeclarator = children.methodDeclarator;
 

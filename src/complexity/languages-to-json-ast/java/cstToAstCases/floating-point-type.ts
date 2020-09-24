@@ -1,7 +1,9 @@
 import { cstToAst } from '../cstToAst';
+import { FloatingPointType } from '../models/floating-point-type.model';
+import { FloatingPointTypeChildren } from '../models/floating-point-type-children.model';
 
 // @ts-ignore
-export function run(cstNode, children) {
+export function run(cstNode: FloatingPointType, children: FloatingPointTypeChildren) {
     const Double = children.Double;
 
     return [

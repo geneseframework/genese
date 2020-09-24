@@ -7,7 +7,7 @@ import { AnnotationChildren } from '../models/annotation-children.model';
 import { TypeNameElement } from '../models/type-name-element.model';
 import { TypeNameChildren } from '../models/type-name-children.model';
 import { Children } from '../interfaces/Children';
-import { TypeIdentifierChildren } from '../models/type-identifier-Children.model';
+import { TypeIdentifierChildren } from '../models/type-identifier-children.model';
 
 /**
  * Service contains common functions
