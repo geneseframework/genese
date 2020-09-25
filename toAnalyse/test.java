@@ -9,5 +9,11 @@ public class Application {
         if (a > c) {
             return a + b + c;
         }
+        while (!b) {
+            a = a + b;
+        }
+        do {
+            a = a + b;
+        } while (a && !b);
     }
 }
