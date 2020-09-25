@@ -16,11 +16,11 @@ public class Application {
         if (a > c) {
             return a + b * c * 2;
         }
-        while (a < b) {
+        while (!b) {
             a = a + b;
         }
         do {
             a = a + b;
-        } while (a < b);
+        } while (a && !b);
     }
 }

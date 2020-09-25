@@ -6,10 +6,16 @@ const cstToAst_1 = require("../cstToAst");
 function run(cstNode, children) {
     const unaryPrefixOperator = children.UnaryPrefixOperator;
     const primary = children.primary;
-    return [
-        // cstToAst(unaryPrefixOperator, 'unaryPrefixOperator'),
-        ...[].concat(...primary.map(e => cstToAst_1.cstToAst(e)))
-    ];
+    if (unaryPrefixOperator) {
+        const unaryPrefixOperatorAst = unaryPrefixOperator.map(e => cstToAst_1.cstToAst(e, 'unaryPrefixOperator'));
+        return toUnaryPrefixOperator(unaryPrefixOperatorAst, primary.map(e => cstToAst_1.cstToAst(e)));
+    }
+    else {
+        return [
+            // ...unaryPrefixOperator?.map(e => cstToAst(e, 'unaryPrefixOperator')) ?? [],
+            ...[].concat(...primary.map(e => cstToAst_1.cstToAst(e)))
+        ];
+    }
     // return {
     //     kind: 'UnaryExpression',
     //     start: cstNode.location.startOffset,
@@ -29,3 +35,20 @@ function run(cstNode, children) {
     // }
 }
 exports.run = run;
+function toUnaryPrefixOperator(prefixes, primaries) {
+    let res = undefined;
+    let last = undefined;
+    while (prefixes.length > 0) {
+        const firstPrefix = prefixes.shift();
+        if (!res) {
+            last = firstPrefix;
+            res = last;
+        }
+        else {
+            last.children.push(firstPrefix);
+            last = firstPrefix;
+        }
+    }
+    last.children = [...[].concat(...primaries)];
+    return res;
+}

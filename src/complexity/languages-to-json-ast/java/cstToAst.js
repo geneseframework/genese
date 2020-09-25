@@ -49,6 +49,10 @@ function getBinaryOperatorName(operator) {
             return syntax_kind_enum_1.SyntaxKind.EqualsEqualsToken;
         case '=':
             return syntax_kind_enum_1.SyntaxKind.EqualsToken;
+        case '&&':
+            return syntax_kind_enum_1.SyntaxKind.AmpersandAmpersandToken;
+        case '||':
+            return syntax_kind_enum_1.SyntaxKind.BarBarToken;
         default:
             return operator;
     }

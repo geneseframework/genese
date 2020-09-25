@@ -47,6 +47,10 @@ export function getBinaryOperatorName(operator): String {
             return SyntaxKind.EqualsEqualsToken;
         case '=':
             return SyntaxKind.EqualsToken;
+        case '&&':
+            return SyntaxKind.AmpersandAmpersandToken
+        case '||':
+            return SyntaxKind.BarBarToken
         default:
             return operator;
     }
