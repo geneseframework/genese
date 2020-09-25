@@ -7,7 +7,7 @@ export function run(cstNode: UnannType, children: UnannTypeChildren) {
     const unannPrimitiveType = children.unannPrimitiveType;
 
     return [
-        ...[].concat(...unannPrimitiveType.map(e => cstToAst(e))),
+        ...[].concat(...unannPrimitiveType?.map(e => cstToAst(e)) ?? []),
     ]
 
     // return {
