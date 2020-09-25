@@ -12,7 +12,7 @@ export function run(cstNode: Statement, children: StatementChildren) {
     return [
         ...[].concat(...statementWithoutTrailingSubstatement?.map(e => cstToAst(e)) ?? []),
         ...[].concat(...ifStatement?.map(e => cstToAst(e)) ?? []),
-        ...[].concat(...forStatement?.map(e => cstToAst(e)) ?? [])
+        ...[].concat(...forStatement?.map(e => cstToAst(e)) ?? []),
         ...whileStatement?.map(e => cstToAst(e)) ?? [],
     ];
 }
