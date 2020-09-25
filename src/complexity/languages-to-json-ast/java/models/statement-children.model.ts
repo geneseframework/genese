@@ -1,6 +1,7 @@
 import { IfStatement } from "./if-statement.model";
 import { StatementWithoutTrailingSubstatement } from "./statement-without-trailing-sub-statement.model";
 import { WhileStatement } from './while-statement.model';
+import { DoStatement } from './do-statement.model';
 
 export class StatementChildren {
     ifStatement?: IfStatement[] = [new IfStatement()];
