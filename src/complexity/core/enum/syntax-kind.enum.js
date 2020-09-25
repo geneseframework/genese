@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.SyntaxKind = void 0;
 /**
  * List of the TypeScript AST nodes

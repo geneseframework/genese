@@ -1,12 +1,12 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.isLastIndex = exports.isLastKey = exports.addObjects = exports.percent = exports.incrementIdentifierDuration = exports.duration = exports.capitalize = void 0;
 /**
  * Sets in capitals the first letter of a text
  * @param text
  */
 function capitalize(text) {
-    return `${text.charAt(0).toUpperCase()}${text.slice(1)}`;
+    return "" + text.charAt(0).toUpperCase() + text.slice(1);
 }
 exports.capitalize = capitalize;
 // TODO: Remove in release version
@@ -38,8 +38,9 @@ function addObjects(first, second, tConstructor) {
     if (!(typeof first === 'object') || !(typeof second === 'object')) {
         return first;
     }
-    const t = tConstructor ? new tConstructor() : {};
-    for (const key of Object.keys(first)) {
+    var t = tConstructor ? new tConstructor() : {};
+    for (var _i = 0, _a = Object.keys(first); _i < _a.length; _i++) {
+        var key = _a[_i];
         if (!second[key]) {
             t[key] = first[key];
         }

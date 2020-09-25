@@ -1,11 +1,11 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.StructuralCpx = void 0;
 /**
  * The Complexity Category "Structural"
  */
-class StructuralCpx {
-    constructor() {
+var StructuralCpx = /** @class */ (function () {
+    function StructuralCpx() {
         this.arr = 0; // "Array", "Set"
         this.asynchronicity = 0; // "Promise", "Observable"
         this.callback = 0; // Callback (call to a parameter of the parentFunction (ie method) of the node)
@@ -20,5 +20,6 @@ class StructuralCpx {
         this.regex = 0; // Regular expression
         this.ternary = 0; // Ternary expression
     }
-}
+    return StructuralCpx;
+}());
 exports.StructuralCpx = StructuralCpx;

@@ -1,12 +1,12 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.ComplexitiesByStatus = void 0;
-const statuses_model_1 = require("../models/statuses.model");
+var statuses_model_1 = require("../models/statuses.model");
 /**
  * Repartition by status for each kind of complexity
  */
-class ComplexitiesByStatus {
-    constructor() {
+var ComplexitiesByStatus = /** @class */ (function () {
+    function ComplexitiesByStatus() {
         this.cognitive = new statuses_model_1.RepartitionByStatus(); // The repartition by status of the cognitive complexity
         this.cyclomatic = new statuses_model_1.RepartitionByStatus(); // The repartition by status of the cyclomatic complexity
     }
@@ -14,14 +14,15 @@ class ComplexitiesByStatus {
      * Adds other cognitive and cyclomatic complexities
      * @param cpxByStatus
      */
-    add(cpxByStatus) {
+    ComplexitiesByStatus.prototype.add = function (cpxByStatus) {
         if (!cpxByStatus) {
             return new ComplexitiesByStatus();
         }
-        const result = new ComplexitiesByStatus();
+        var result = new ComplexitiesByStatus();
         result.cognitive = result.cognitive.add(cpxByStatus.cognitive);
         result.cyclomatic = result.cyclomatic.add(cpxByStatus.cyclomatic);
         return result;
-    }
-}
+    };
+    return ComplexitiesByStatus;
+}());
 exports.ComplexitiesByStatus = ComplexitiesByStatus;

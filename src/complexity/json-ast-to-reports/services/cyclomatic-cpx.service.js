@@ -1,44 +1,47 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.CyclomaticCpxService = void 0;
-const syntax_kind_enum_1 = require("../../core/enum/syntax-kind.enum");
+var syntax_kind_enum_1 = require("../../core/enum/syntax-kind.enum");
 /**
  * Service around complexity calculation
  */
-class CyclomaticCpxService {
+var CyclomaticCpxService = /** @class */ (function () {
+    function CyclomaticCpxService() {
+    }
     /**
      * Returns the cyclomatic complexity of an AST node, including its children
      * @param astNode
      */
-    static calculateCyclomaticCpx(astNode) {
-        let totalComplexity = CyclomaticCpxService.currentAstNodeCyclomaticCpx(astNode);
+    CyclomaticCpxService.calculateCyclomaticCpx = function (astNode) {
+        var totalComplexity = CyclomaticCpxService.currentAstNodeCyclomaticCpx(astNode);
         totalComplexity += CyclomaticCpxService.childrenCyclomaticCpx(astNode);
         return totalComplexity;
-    }
+    };
     /**
      * Returns the cyclomatic complexity of an AST node, without its children
      * @param astNode
      */
-    static currentAstNodeCyclomaticCpx(astNode) {
+    CyclomaticCpxService.currentAstNodeCyclomaticCpx = function (astNode) {
         return CyclomaticCpxService.increasesCyclomaticComplexity(astNode) ? 1 : 0;
-    }
+    };
     /**
      * Returns the cyclomatic complexity of the children of an AST node
      * @param astNode
      */
-    static childrenCyclomaticCpx(astNode) {
-        let cyclomaticCpx = 0;
-        for (const childAstNode of astNode.children) {
+    CyclomaticCpxService.childrenCyclomaticCpx = function (astNode) {
+        var cyclomaticCpx = 0;
+        for (var _i = 0, _a = astNode.children; _i < _a.length; _i++) {
+            var childAstNode = _a[_i];
             cyclomaticCpx += CyclomaticCpxService.currentAstNodeCyclomaticCpx(childAstNode);
             cyclomaticCpx += CyclomaticCpxService.childrenCyclomaticCpx(childAstNode);
         }
         return cyclomaticCpx;
-    }
+    };
     /**
      * Increases the cyclomatic complexity when the AST node must increase it
      * @param astNode
      */
-    static increasesCyclomaticComplexity(astNode) {
+    CyclomaticCpxService.increasesCyclomaticComplexity = function (astNode) {
         switch (astNode.kind) {
             case syntax_kind_enum_1.SyntaxKind.AmpersandAmpersandToken:
             case syntax_kind_enum_1.SyntaxKind.BarBarToken:
@@ -57,6 +60,7 @@ class CyclomaticCpxService {
             default:
                 return false;
         }
-    }
-}
+    };
+    return CyclomaticCpxService;
+}());
 exports.CyclomaticCpxService = CyclomaticCpxService;

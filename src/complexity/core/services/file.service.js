@@ -1,9 +1,9 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.deleteLastSlash = exports.constructLink = exports.antislash = exports.getOS = exports.createFile = exports.windowsPath = exports.platformPath = exports.copyFile = exports.createOutDir = exports.createRelativeDir = exports.getLanguageExtensions = exports.getFilenameWithoutExtension = exports.getFileExtension = exports.getRouteToRoot = exports.getPathWithSlash = exports.getPathWithDotSlash = exports.getArrayOfPathsWithDotSlash = exports.getAllFiles = exports.getFilename = void 0;
-const fs = require("fs-extra");
-const os_enum_1 = require("../../json-ast-to-reports/enums/os.enum");
-const options_model_1 = require("../models/options.model");
+var fs = require("fs-extra");
+var os_enum_1 = require("../../json-ast-to-reports/enums/os.enum");
+var options_model_1 = require("../models/options.model");
 /**
  * Tools about files or folders
  */
@@ -11,8 +11,9 @@ const options_model_1 = require("../models/options.model");
  * Returns the name of the file at a given path
  * @param pathFile      // The path of the file
  */
-function getFilename(pathFile = '') {
-    const splittedPath = pathFile.split('/');
+function getFilename(pathFile) {
+    if (pathFile === void 0) { pathFile = ''; }
+    var splittedPath = pathFile.split('/');
     return splittedPath[splittedPath.length - 1];
 }
 exports.getFilename = getFilename;
@@ -23,14 +24,14 @@ exports.getFilename = getFilename;
  * @param arrayOfFiles      // Recursion parameter
  */
 function getAllFiles(dirPath, arrayOfFiles) {
-    const files = fs.readdirSync(dirPath);
+    var files = fs.readdirSync(dirPath);
     arrayOfFiles = arrayOfFiles || [];
     files.forEach(function (file) {
         if (fs.statSync(dirPath + "/" + file).isDirectory()) {
             arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
         }
         else {
-            arrayOfFiles.push(`${dirPath}/${file}`);
+            arrayOfFiles.push(dirPath + "/" + file);
         }
     });
     return arrayOfFiles;
@@ -44,8 +45,9 @@ function getArrayOfPathsWithDotSlash(paths) {
     if (!Array.isArray(paths)) {
         return undefined;
     }
-    const pathsWithDotSlash = [];
-    for (const path of paths) {
+    var pathsWithDotSlash = [];
+    for (var _i = 0, paths_1 = paths; _i < paths_1.length; _i++) {
+        var path = paths_1[_i];
         pathsWithDotSlash.push(getPathWithDotSlash(path));
     }
     return pathsWithDotSlash;
@@ -56,12 +58,12 @@ exports.getArrayOfPathsWithDotSlash = getArrayOfPathsWithDotSlash;
  * @param path      // The path to analyse
  */
 function getPathWithDotSlash(path) {
-    let pathWithDotSlash = path;
+    var pathWithDotSlash = path;
     if ((path === null || path === void 0 ? void 0 : path.slice(0, 1)) === '/') {
-        pathWithDotSlash = `.${pathWithDotSlash}`;
+        pathWithDotSlash = "." + pathWithDotSlash;
     }
     else if ((path === null || path === void 0 ? void 0 : path.slice(0, 2)) !== './') {
-        pathWithDotSlash = `./${path}`;
+        pathWithDotSlash = "./" + path;
     }
     return pathWithDotSlash;
 }
@@ -71,7 +73,7 @@ exports.getPathWithDotSlash = getPathWithDotSlash;
  * @param path      // The path to analyse
  */
 function getPathWithSlash(path) {
-    return (path === null || path === void 0 ? void 0 : path.slice(-1)) !== '/' ? `${path}/` : path;
+    return (path === null || path === void 0 ? void 0 : path.slice(-1)) !== '/' ? path + "/" : path;
 }
 exports.getPathWithSlash = getPathWithSlash;
 /**
@@ -83,12 +85,12 @@ function getRouteToRoot(relativePath) {
     if (!relativePath) {
         return '';
     }
-    let relativeRoot = '/..';
-    for (let i = 0; i < relativePath.length; i++) {
+    var relativeRoot = '/..';
+    for (var i = 0; i < relativePath.length; i++) {
         relativeRoot =
             relativePath.charAt(i) === constructLink("/") &&
                 i !== relativePath.length - 1
-                ? constructLink("/") + `..${relativeRoot}`
+                ? constructLink("/") + (".." + relativeRoot)
                 : relativeRoot;
     }
     return relativeRoot.slice(1);
@@ -110,8 +112,8 @@ function getFilenameWithoutExtension(path) {
     if (!path) {
         return '';
     }
-    const filename = path.substring(path.lastIndexOf('/') + 1);
-    const extensionLength = getFileExtension(filename).length;
+    var filename = path.substring(path.lastIndexOf('/') + 1);
+    var extensionLength = getFileExtension(filename).length;
     return filename.slice(0, -(extensionLength + 1));
 }
 exports.getFilenameWithoutExtension = getFilenameWithoutExtension;
@@ -136,7 +138,7 @@ exports.getLanguageExtensions = getLanguageExtensions;
  * @param relativePath      // The relative path of the subfolder compared to the outDir path
  */
 function createRelativeDir(relativePath) {
-    const path = `${options_model_1.Options.pathOutDir}/${relativePath}`;
+    var path = options_model_1.Options.pathOutDir + "/" + relativePath;
     if (fs.existsSync(path)) {
         fs.emptyDirSync(path);
     }
@@ -188,10 +190,10 @@ exports.createFile = createFile;
  * @returns {OS}
  */
 function getOS() {
-    let platform = process.platform;
-    let macosPlatforms = ["MACINTOSH", "MACINTEL", "MACPPC", "MAC68K"];
-    let windowsPlatforms = ["WIN32", "WIN64", "WINDOWS", "WINCE"];
-    let os = null;
+    var platform = process.platform;
+    var macosPlatforms = ["MACINTOSH", "MACINTEL", "MACPPC", "MAC68K"];
+    var windowsPlatforms = ["WIN32", "WIN64", "WINDOWS", "WINCE"];
+    var os = null;
     if (macosPlatforms.indexOf(platform.toUpperCase()) !== -1) {
         os = os_enum_1.OS.MACOS;
     }
@@ -229,7 +231,7 @@ exports.constructLink = constructLink;
  * @returns {string}
  */
 function deleteLastSlash(text) {
-    const TEXT_REWORK = (text && constructLink(text)) || "";
+    var TEXT_REWORK = (text && constructLink(text)) || "";
     return TEXT_REWORK &&
         TEXT_REWORK[TEXT_REWORK.length - 1] === constructLink("/")
         ? TEXT_REWORK.slice(0, TEXT_REWORK.length - 1)

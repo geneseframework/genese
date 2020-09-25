@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.MethodStatus = void 0;
 /**
  * Status of methods for cognitive or cyclomatic complexity
