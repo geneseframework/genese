@@ -9,7 +9,7 @@ export function run(cstNode: FqnOrRefTypePartFirst, children: FqnOrRefTypePartFi
     return [
         ...[].concat(...fqnOrRefTypePartCommon?.map(e => cstToAst(e)) ?? [])
     ]
-
+    
     // return {
     //     kind: 'FqnOrRefTypePartFirst',
     //     start: cstNode.location.startOffset,
