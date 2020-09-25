@@ -1,7 +1,7 @@
 # Genese Complexity
 
 Genese Complexity is a part of the [genese framework]('https://github.com/geneseframework/genese') which improves you to increase your code quality by analysing the cognitive complexity and the cyclomatic complexity of your source code.
-This module creates an HTML report displaying an overview of the complexities index of each folder, file or method of your project. Moreover, you will find for each method the elements increasing complexity index, which will help you to refactor esaier your code.
+This module creates an HTML report displaying an overview of the complexities index of each folder, file or method of your project. Moreover, you will find for each method the elements increasing complexity index, which will help you to refactor easier your code.
 
 
 ![Dashboard Genese Complexity](./readme-dashboard.png?raw=true "Dashboard")
