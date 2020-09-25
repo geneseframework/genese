@@ -11,9 +11,13 @@ public class Application {
     }
 
     double somme_2(double a, double b, double c) {
+        int e = a + b;
         b = a + 3;
         if (a > c) {
             return a + b * c * 2;
+        }
+        while (a < b) {
+            a = a + b;
         }
     }
 }
