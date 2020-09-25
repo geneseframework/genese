@@ -11,7 +11,7 @@ function run(cstNode, children) {
     return [
         ...[].concat(...(_a = statementWithoutTrailingSubstatement === null || statementWithoutTrailingSubstatement === void 0 ? void 0 : statementWithoutTrailingSubstatement.map(e => cstToAst_1.cstToAst(e))) !== null && _a !== void 0 ? _a : []),
         ...[].concat(...(_b = ifStatement === null || ifStatement === void 0 ? void 0 : ifStatement.map(e => cstToAst_1.cstToAst(e))) !== null && _b !== void 0 ? _b : []),
-        ...(_c = whileStatement === null || whileStatement === void 0 ? void 0 : whileStatement.map(e => cstToAst_1.cstToAst(e))) !== null && _c !== void 0 ? _c : []
+        ...(_c = whileStatement === null || whileStatement === void 0 ? void 0 : whileStatement.map(e => cstToAst_1.cstToAst(e))) !== null && _c !== void 0 ? _c : [],
     ];
 }
 exports.run = run;

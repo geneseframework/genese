@@ -8,11 +8,13 @@ export function run(cstNode: StatementWithoutTrailingSubstatement, children: Sta
     const returnStatement = children.returnStatement;
     const switchStatement = children.switchStatement;
     const expressionStatement = children.expressionStatement;
+    const doStatement = children.doStatement;
 
     return [
         ...block?.map(e => cstToAst(e)) ?? [],
         ...returnStatement?.map(e => cstToAst(e)) ?? [],
         ...switchStatement?.map(e => cstToAst(e)) ?? [],
         ...expressionStatement?.map(e => cstToAst(e)) ?? [],
+        ...doStatement?.map(e => cstToAst(e)) ?? []
     ];
 }

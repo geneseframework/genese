@@ -19,5 +19,8 @@ public class Application {
         while (a < b) {
             a = a + b;
         }
+        do {
+            a = a + b;
+        } while (a < b);
     }
 }

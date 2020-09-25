@@ -1,10 +1,9 @@
 import { cstToAst } from '../cstToAst';
-import { IfStatement } from '../models/if-statement.model';
-import { IfStatementChildren } from '../models/if-statement-children.model';
 import { WhileStatementChildren } from '../models/while-statement-children.model';
+import { WhileStatement } from '../models/while-statement.model';
 
 // @ts-ignore
-export function run(cstNode: IfStatement, children: WhileStatementChildren) {
+export function run(cstNode: WhileStatement, children: WhileStatementChildren) {
     const expressions = children.expression;
     const statements = children.statement;
 
