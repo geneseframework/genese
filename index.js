@@ -18,7 +18,7 @@ try {
     program.command('cpx [pathToAnalyse]')
         .description('Calculates Complexity Index and cyclomatic complexity')
         .action(function (pathFolderToAnalyze) {
-        var path = pathFolderToAnalyze !== null && pathFolderToAnalyze !== void 0 ? pathFolderToAnalyze : './';
+        var path = process.cwd() + (pathFolderToAnalyze ? '/' + pathFolderToAnalyze : '');
         var mainProcess = new main_1.Main();
         mainProcess.start(process.cwd(), path, __dirname);
     });

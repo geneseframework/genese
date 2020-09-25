@@ -25,7 +25,7 @@ try {
     program.command('cpx [pathToAnalyse]')
         .description('Calculates Complexity Index and cyclomatic complexity')
         .action((pathFolderToAnalyze) => {
-            const path = pathFolderToAnalyze ?? './';
+            const path = process.cwd() + (pathFolderToAnalyze ? '/' + pathFolderToAnalyze : '');
             const mainProcess = new Main();
             mainProcess.start(process.cwd(), path, __dirname)
         });
