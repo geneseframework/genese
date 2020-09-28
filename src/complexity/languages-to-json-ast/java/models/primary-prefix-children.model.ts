@@ -1,6 +1,6 @@
-import { FqnOrRefType } from './fqn-or-ref-type.model';
-import { Literal } from './literal.model';
-import { ParenthesisExpressionChildren } from './parenthesis-expression-children.model';
+import { FqnOrRefType } from "./fqn-or-ref-type.model";
+import { Literal } from "./literal.model";
+import { ParenthesisExpressionChildren } from "./parenthesis-expression-children.model";
 import { Infos } from './infos.model';
 
 export class PrimaryPrefixChildren {
