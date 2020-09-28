@@ -7,11 +7,13 @@ export function run(cstNode: PrimaryPrefix, children: PrimaryPrefixChildren) {
     const parenthesisExpression = children.parenthesisExpression;
     const fqnOrRefType = children.fqnOrRefType;
     const literal = children.literal;
+    const this_ = children.This;
 
     return [
         ...[].concat(...parenthesisExpression?.map(e => cstToAst(e)) ?? []),
         ...[].concat(...fqnOrRefType?.map(e => cstToAst(e)) ?? []),
         ...[].concat(...literal?.map(e => cstToAst(e)) ?? []),
+        ...this_?.map(e => cstToAst(e, 'this')) ?? []
     ]
 
     // return {
