@@ -4,18 +4,12 @@ exports.run = void 0;
 const cstToAst_1 = require("../cstToAst");
 // @ts-ignore
 function run(cstNode, children) {
+    var _a, _b;
     const primaryPrefix = children.primaryPrefix;
+    const primarySuffix = children.primarySuffix;
     return [
-        ...[].concat(...primaryPrefix.map(e => cstToAst_1.cstToAst(e)))
+        ...[].concat(...(_a = primaryPrefix === null || primaryPrefix === void 0 ? void 0 : primaryPrefix.map(e => cstToAst_1.cstToAst(e))) !== null && _a !== void 0 ? _a : []),
+        ...[].concat(...(_b = primarySuffix === null || primarySuffix === void 0 ? void 0 : primarySuffix.map(e => cstToAst_1.cstToAst(e))) !== null && _b !== void 0 ? _b : [])
     ];
-    // return {
-    //     kind: 'Primary',
-    //     start: cstNode.location.startOffset,
-    //     end: cstNode.location.endOffset,
-    //     pos: cstNode.location.startOffset,
-    //     children: [
-    //         ...primaryPrefix.map(e => cstToAst(e))
-    //     ]
-    // };
 }
 exports.run = run;

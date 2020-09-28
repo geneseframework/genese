@@ -13,7 +13,7 @@ export function run(cstNode: UnaryExpression, children: UnaryExpressionChildren)
     } else {
         return [
             // ...unaryPrefixOperator?.map(e => cstToAst(e, 'unaryPrefixOperator')) ?? [],
-            ...[].concat(...primary.map(e => cstToAst(e)))
+            ...[].concat(...primary?.map(e => cstToAst(e)))
         ]
     }
 
