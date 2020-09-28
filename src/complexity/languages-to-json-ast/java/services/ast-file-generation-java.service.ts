@@ -5,9 +5,6 @@ import { parse } from 'java-parser';
 import * as fs from 'fs-extra';
 import { cstToAst } from '../cst-to-ast';
 
-import { SyntaxKind as TsSyntaxKind } from '../../../core/enum/syntax-kind.enum';
-import { cstToAst } from '../cstToAst';
-
 /**
  * - AstFiles generation from their Abstract Syntax Tree (AST)
  */
@@ -19,7 +16,7 @@ export class AstFileGenerationJavaService {
      * @param  {AstFolderInterface} astFolder
      * @returns AstFileInterface
      */
-    generate(path: string, astFolder: AstFolderInterface): any {
+    generate(path: string, astFolder: AstFolderInterface): AstFileInterface {
         if (!path || !astFolder) {
             console.warn('No path or AstFolder : impossible to create AstFile');
             return undefined;
