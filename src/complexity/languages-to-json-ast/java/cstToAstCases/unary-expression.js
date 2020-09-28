@@ -13,7 +13,7 @@ function run(cstNode, children) {
     else {
         return [
             // ...unaryPrefixOperator?.map(e => cstToAst(e, 'unaryPrefixOperator')) ?? [],
-            ...[].concat(...primary.map(e => cstToAst_1.cstToAst(e)))
+            ...[].concat(...primary === null || primary === void 0 ? void 0 : primary.map(e => cstToAst_1.cstToAst(e)))
         ];
     }
     // return {
