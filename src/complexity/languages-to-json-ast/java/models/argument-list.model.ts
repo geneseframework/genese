@@ -1,7 +1,8 @@
-import { Location } from './location.model';
+import { Location } from "./location.model";
+import { ArgumentListChildren } from "./argument-list-children.model";
 
 export class ArgumentList {
     name ?= '';
-    children?: any = undefined;
+    children?: ArgumentListChildren = new ArgumentListChildren();
     location?: Location = new Location();
 }
