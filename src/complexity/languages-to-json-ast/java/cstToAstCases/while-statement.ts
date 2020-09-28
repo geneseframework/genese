@@ -1,9 +1,9 @@
-import { cstToAst } from '../cstToAst';
+import { cstToAst } from '../cst-to-ast';
 import { WhileStatementChildren } from '../models/while-statement-children.model';
 import { WhileStatement } from '../models/while-statement.model';
 
 // @ts-ignore
-export function run(cstNode: WhileStatement, children: WhileStatementChildren) {
+export function run(cstNode: WhileStatement, children: WhileStatementChildren): any {
     const expressions = children.expression;
     const statements = children.statement;
 

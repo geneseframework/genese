@@ -1,9 +1,9 @@
-import { cstToAst } from '../cstToAst';
+import { cstToAst } from '../cst-to-ast';
 import { PrimaryPrefix } from '../models/primary-prefix.model';
 import { PrimaryPrefixChildren } from '../models/primary-prefix-children.model';
 
 // @ts-ignore
-export function run(cstNode: PrimaryPrefix, children: PrimaryPrefixChildren) {
+export function run(cstNode: PrimaryPrefix, children: PrimaryPrefixChildren): any {
     const parenthesisExpression = children.parenthesisExpression;
     const fqnOrRefType = children.fqnOrRefType;
     const literal = children.literal;
@@ -15,15 +15,4 @@ export function run(cstNode: PrimaryPrefix, children: PrimaryPrefixChildren) {
         ...[].concat(...literal?.map(e => cstToAst(e)) ?? []),
         ...this_?.map(e => cstToAst(e, 'this')) ?? []
     ]
-
-    // return {
-    //     kind: 'PrimaryPrefix',
-    //     start: cstNode.location.startOffset,
-    //     end: cstNode.location.endOffset,
-    //     pos: cstNode.location.startOffset,
-    //     children: [
-    //         ...parenthesisExpression?.map(e => cstToAst(e)) ?? [],
-    //         ...fqnOrRefType?.map(e => cstToAst(e)) ?? [],
-    //     ]
-    // };
 }

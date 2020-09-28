@@ -1,10 +1,10 @@
 import { Infos } from '../models/infos.model';
-import { cstToAst } from '../cstToAst';
+import { cstToAst } from '../cst-to-ast';
 import { MethodInvocationSuffix } from '../models/method-invocation-suffix.model';
 import { MethodInvocationSuffixChildren } from '../models/method-invocation-suffix-children.model';
 
 // @ts-ignore
-export function run(cstNode: MethodInvocationSuffix, children: MethodInvocationSuffixChildren) {
+export function run(cstNode: MethodInvocationSuffix, children: MethodInvocationSuffixChildren): any {
     const argumentList = children.argumentList;
 
     return {

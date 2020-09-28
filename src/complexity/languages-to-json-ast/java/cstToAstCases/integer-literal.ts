@@ -1,9 +1,9 @@
-import { cstToAst } from '../cstToAst';
+import { cstToAst } from '../cst-to-ast';
 import { IntegerLiteral } from '../models/integer-literal.model';
 import { IntegerLiteralChildren } from '../models/integer-literal-children.model';
 
 // @ts-ignore
-export function run(cstNode: IntegerLiteral, children: IntegerLiteralChildren) {
+export function run(cstNode: IntegerLiteral, children: IntegerLiteralChildren): any {
     const decimalLiteral = children.DecimalLiteral;
 
     return {

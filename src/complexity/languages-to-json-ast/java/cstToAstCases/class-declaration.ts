@@ -1,9 +1,9 @@
-import { cstToAst } from '../cstToAst';
+import { cstToAst } from '../cst-to-ast';
 import { ClassDeclarationElement } from '../models/class-declaration-element.model';
 import { ClassDeclarationChildren } from '../models/class-declaration-children.model';
 
 // @ts-ignore
-export function run(cstNode: ClassDeclarationElement, children: ClassDeclarationChildren) {
+export function run(cstNode: ClassDeclarationElement, children: ClassDeclarationChildren): any {
     const classModifier = children.classModifier;
     const normalClassDeclaration = children.normalClassDeclaration;
 

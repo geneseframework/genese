@@ -1,9 +1,9 @@
-import { cstToAst } from '../cstToAst';
+import { cstToAst } from '../cst-to-ast';
 import { LocalVariableDeclaration } from '../models/local-variable-declaration.model';
 import { LocalVariableDeclarationChildren } from '../models/local-variable-declaration-children.model';
 
 // @ts-ignore
-export function run(cstNode: LocalVariableDeclaration, children: LocalVariableDeclarationChildren) {
+export function run(cstNode: LocalVariableDeclaration, children: LocalVariableDeclarationChildren): any {
     return {
         kind: 'Keyword',
         start: cstNode.location.startOffset,

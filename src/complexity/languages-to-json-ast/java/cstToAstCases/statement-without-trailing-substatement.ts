@@ -1,9 +1,9 @@
-import { cstToAst } from '../cstToAst';
+import { cstToAst } from '../cst-to-ast';
 import { StatementWithoutTrailingSubstatement } from '../models/statement-without-trailing-sub-statement.model';
 import { StatementWithoutTrailingSubstatementChildren } from '../models/statement-without-trailing-substatement-children.model';
 
 // @ts-ignore
-export function run(cstNode: StatementWithoutTrailingSubstatement, children: StatementWithoutTrailingSubstatementChildren) {
+export function run(cstNode: StatementWithoutTrailingSubstatement, children: StatementWithoutTrailingSubstatementChildren): any {
     const block = children.block;
     const returnStatement = children.returnStatement;
     const switchStatement = children.switchStatement;

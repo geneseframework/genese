@@ -1,11 +1,11 @@
-import { cstToAst, getAlias } from '../cstToAst';
+import { cstToAst } from '../cst-to-ast';
 import { ReturnStatement } from '../models/return-statement.model';
 import { ReturnStatementChildren } from '../models/return-statement-children.model';
 
 // @ts-ignore
-export function run(cstNode: ReturnStatement, children: ReturnStatementChildren) {
+export function run(cstNode: ReturnStatement, children: ReturnStatementChildren): any {
     return {
-        kind: getAlias('ReturnStatement'),
+        kind: 'Keyword',
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,

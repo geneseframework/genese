@@ -1,9 +1,9 @@
-import { cstToAst } from '../cstToAst';
-import { StatementWithoutTrailingSubstatement } from '../models/statement-without-trailing-sub-statement.model';
-import { StatementWithoutTrailingSubstatementChildren } from '../models/statement-without-trailing-substatement-children.model';
+import { cstToAst } from '../cst-to-ast';
+import { ExpressionStatement } from '../models/expression-statement.model';
+import { ExpressionStatementChildren } from '../models/expression-statement-children.model';
 
 // @ts-ignore
-export function run(cstNode: StatementWithoutTrailingSubstatement, children: any) {
+export function run(cstNode: ExpressionStatement, children: ExpressionStatementChildren): any {
     const statementExpression = children.statementExpression;
 
     return {

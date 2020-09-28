@@ -1,33 +1,20 @@
 import { SyntaxKind } from '../../core/enum/syntax-kind.enum';
 
-export function cstToAst(cstNode, kind = undefined) {
+export function cstToAst(cstNode, kind = undefined): any {
     const children = cstNode.children;
     try {
         return require(`./cstToAstCases/${toKebabCase(cstNode.name || kind)}`).run(cstNode, children);
     } catch (e) {
         console.log('error', e);
-        // throw new Error(
-        //     `CST case handler not implemented for CST node <${cstNode.name || kind}>, require <./cstToAstCases/${toKebabCase(cstNode.name || kind)}>`
-        // );
     }
 }
 
-function toKebabCase(string) {
-    return string.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
+function toKebabCase(text: string): string {
+    if (text === undefined) return '';
+    return text.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
 }
 
-export function getAlias(kind): String {
-    switch (kind) {
-        case 'ReturnStatement':
-            return 'Keyword';
-        case 'FormalParameter':
-            return 'Parameter'
-        default:
-            return kind;
-    }
-}
-
-export function getBinaryOperatorName(operator): String {
+export function getBinaryOperatorName(operator: string): string {
     switch (operator) {
         case '>':
             return SyntaxKind.GreaterThanToken;

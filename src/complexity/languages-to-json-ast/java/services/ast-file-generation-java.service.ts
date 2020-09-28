@@ -15,9 +15,7 @@ import { SyntaxKind } from '../core/syntax-kind.enum';
 import { TypeDeclarationElement } from '../models/type-declaration-element.model';
 import { TypeDeclarationChildren } from '../models/type-declaration-children.model';
 import { AstClassGenerationJavaService } from './ast-class-generation-java.service';
-
-import { SyntaxKind as TsSyntaxKind } from '../../../core/enum/syntax-kind.enum';
-import { cstToAst } from '../cstToAst';
+import { cstToAst } from '../cst-to-ast';
 
 /**
  * - AstFiles generation from their Abstract Syntax Tree (AST)
@@ -25,11 +23,6 @@ import { cstToAst } from '../cstToAst';
 export class AstFileGenerationJavaService {
 
     mapAstNode(astNode: AstNodeInterface): AstNodeInterface {
-        if (astNode.kind === SyntaxKind.ifStatement) {
-            console.log(astNode);
-            astNode.kind = TsSyntaxKind.IfStatement;
-        }
-
         astNode.children = astNode.children?.map(c => this.mapAstNode(c));
 
         return astNode;
@@ -42,7 +35,7 @@ export class AstFileGenerationJavaService {
      * @param  {AstFolderInterface} astFolder
      * @returns AstFileInterface
      */
-    generate(path: string, astFolder: AstFolderInterface): any {
+    generate(path: string, astFolder: AstFolderInterface): AstFileInterface {
         if (!path || !astFolder) {
             console.warn('No path or AstFolder : impossible to create AstFile');
             return undefined;

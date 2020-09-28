@@ -1,9 +1,9 @@
-import { cstToAst } from '../cstToAst';
+import { cstToAst } from '../cst-to-ast';
 import { Statement } from '../models/statement.model';
 import { StatementChildren } from '../models/statement-children.model';
 
 // @ts-ignore
-export function run(cstNode: Statement, children: StatementChildren) {
+export function run(cstNode: Statement, children: StatementChildren): any {
     const statementWithoutTrailingSubstatement = children.statementWithoutTrailingSubstatement;
     const ifStatement = children.ifStatement;
     const whileStatement = children.whileStatement;

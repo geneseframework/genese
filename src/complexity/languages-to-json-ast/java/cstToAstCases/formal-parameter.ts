@@ -1,13 +1,13 @@
-import { cstToAst, getAlias } from '../cstToAst';
+import { cstToAst } from '../cst-to-ast';
 import { FormalParameter } from '../models/formal-parameter.model';
 import { FormalParameterChildren } from '../models/formal-parameter-children.model';
 
 // @ts-ignore
-export function run(cstNode: FormalParameter, children: FormalParameterChildren) {
+export function run(cstNode: FormalParameter, children: FormalParameterChildren): any {
     const variableParaRegularParameter = children.variableParaRegularParameter;
 
     return {
-        kind: getAlias('FormalParameter'),
+        kind: 'Parameter',
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,

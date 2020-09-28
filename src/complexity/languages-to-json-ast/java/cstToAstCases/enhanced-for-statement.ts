@@ -1,9 +1,9 @@
-import { cstToAst } from '../cstToAst';
+import { cstToAst } from '../cst-to-ast';
 import { EnhancedForStatement } from '../models/enhanced-for-statement';
 import { EnhancedForStatementChildren } from '../models/enhanced-for-statement-children.model';
 
 // @ts-ignore
-export function run(cstNode: EnhancedForStatement, children: EnhancedForStatementChildren) {
+export function run(cstNode: EnhancedForStatement, children: EnhancedForStatementChildren): any {
     const localVariableType = children.localVariableType;
     const variableDeclaratorId = children.variableDeclaratorId;
     const expression = children.expression;

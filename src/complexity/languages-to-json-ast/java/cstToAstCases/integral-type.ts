@@ -1,21 +1,12 @@
-import { cstToAst } from '../cstToAst';
+import { cstToAst } from '../cst-to-ast';
 import { IntegralType } from '../models/integral-type.model';
 import { IntegralTypeChildren } from '../models/integral-type-children.model';
 
 // @ts-ignore
-export function run(cstNode: IntegralType, children: IntegralTypeChildren) {
+export function run(cstNode: IntegralType, children: IntegralTypeChildren): any {
     const int = children.Int;
 
     return [
         ...int.map(e => cstToAst(e, 'int'))
     ]
-
-    // return {
-    //     kind: 'IntegralType',
-    //     start: cstNode.location.startOffset,
-    //     end: cstNode.location.endOffset,
-    //     children: [
-    //         ...int.map(e => cstToAst(e, 'int')),
-    //     ]
-    // };
 }

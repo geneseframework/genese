@@ -1,9 +1,9 @@
-import { cstToAst } from '../cstToAst';
+import { cstToAst } from '../cst-to-ast';
 import { NumericType } from '../models/numeric-type.model';
 import { NumericTypeChildren } from '../models/numeric-type-children.model';
 
 // @ts-ignore
-export function run(cstNode: NumericType, children: NumericTypeChildren) {
+export function run(cstNode: NumericType, children: NumericTypeChildren): any {
     const integralType = children.integralType;
     const floatingPointType = children.floatingPointType;
 
@@ -11,13 +11,4 @@ export function run(cstNode: NumericType, children: NumericTypeChildren) {
         ...[].concat(...integralType?.map(e => cstToAst(e)) ?? []),
         ...[].concat(...floatingPointType?.map(e => cstToAst(e)) ?? []),
     ];
-
-    // return {
-    //     kind: 'NumericType',
-    //     start: cstNode.location.startOffset,
-    //     end: cstNode.location.endOffset,
-    //     children: [
-    //         ...[].concat(...integralType.map(e => cstToAst(e))),
-    //     ]
-    // };
 }

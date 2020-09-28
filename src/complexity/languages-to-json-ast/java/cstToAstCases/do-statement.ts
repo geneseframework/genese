@@ -1,7 +1,9 @@
-import { cstToAst } from '../cstToAst';
+import { cstToAst } from '../cst-to-ast';
+import { DoStatement } from '../models/do-statement.model';
+import { DoStatementChildren } from '../models/do-statement-children.model';
 
 // @ts-ignore
-export function run(cstNode: DoStatement, children: DoStatementChildren) {
+export function run(cstNode: DoStatement, children: DoStatementChildren): any {
     const expressions = children.expression;
     const statements = children.statement;
 

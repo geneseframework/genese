@@ -1,9 +1,9 @@
-import { cstToAst } from '../cstToAst';
+import { cstToAst } from '../cst-to-ast';
 import { BinaryExpression } from '../models/binary-expression.model';
 import { BinaryExpressionChildren } from '../models/binary-expression-children.model';
 
 // @ts-ignore
-export function run(cstNode: BinaryExpression, children: BinaryExpressionChildren) {
+export function run(cstNode: BinaryExpression, children: BinaryExpressionChildren): any {
     const unaryExpressions = children.unaryExpression;
     const binaryOperators = children.BinaryOperator;
     const assignmentOperator = children.AssignmentOperator;
@@ -35,7 +35,8 @@ export function run(cstNode: BinaryExpression, children: BinaryExpressionChildre
     }
 }
 
-function toBinaryExpression(_ops, _exps) {
+function toBinaryExpression(_ops, _exps): any {
+    if (!_ops || !_exps) return undefined;
     if (_ops.length > 0) {
         const firstExp = _exps.shift();
         const firstOp = _ops.shift();
