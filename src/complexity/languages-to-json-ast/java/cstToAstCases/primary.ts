@@ -10,25 +10,62 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
     const primaryPrefixAst = [].concat(...primaryPrefix?.map(e => cstToAst(e)) ?? []);
     const primarySuffixAst = [].concat(...primarySuffix?.map(e => cstToAst(e)) ?? []);
 
-    if (primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix')) {
-        if (primaryPrefixAst.find(e => e.kind === 'ThisKeyword')) {
+    const methodInvocationSuffix = primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix');
+    const thisKeyword = primaryPrefixAst.find(e => e.kind === 'ThisKeyword');
+    const identifier = primarySuffixAst.find(e => e.kind === 'Identifier');
+    const identifierPrefix = primaryPrefixAst.filter(e => e.kind === 'Identifier');
+    const lambdaExpression = methodInvocationSuffix?.children.find(e => e.kind === 'LambdaExpression');
+
+    if (methodInvocationSuffix) {
+        if (thisKeyword) {
             return {
-                kind: 'CallExpression',
+                    kind: 'CallExpression',
                     start: cstNode.location.startOffset,
                     end: cstNode.location.endOffset,
                     pos: cstNode.location.startOffset,
+                    children: [
+                        {
+                            kind: 'PropertyAccessExpression',
+                            start: thisKeyword.start,
+                            end: identifier.end,
+                            pos: thisKeyword.start,
+                            children: [
+                                thisKeyword,
+                                {...identifier, type: 'function'}
+                            ]
+                        },
+                    ...methodInvocationSuffix.children
+                    ]
+            };
+        } 
+        else if(lambdaExpression) {
+            return {
+                kind: 'CallExpression',
+                start: cstNode.location.startOffset,
+                end: cstNode.location.endOffset,
+                pos: cstNode.location.startOffset,
                 children: [
                     {
                         kind: 'PropertyAccessExpression',
-                        start: primaryPrefixAst.find(e => e.kind === 'ThisKeyword').start,
-                        end: primarySuffixAst.find(e => e.kind === 'Identifier').end,
-                        pos: primaryPrefixAst.find(e => e.kind === 'ThisKeyword').start,
+                        start: cstNode.location.startOffset,
+                        end: cstNode.location.endOffset,
+                        pos: cstNode.location.startOffset,
                         children: [
-                            primaryPrefixAst.find(e => e.kind === 'ThisKeyword'),
-                            {...primarySuffixAst.find(e => e.kind === 'Identifier'), type: 'function'}
+                            ...identifierPrefix,
                         ]
                     },
-                    ...primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix').children
+                    {
+                        kind: 'ArrowFunction',
+                        start: lambdaExpression.start,
+                        end: lambdaExpression.end,
+                        pos: lambdaExpression.pos,
+                        children: [
+                            ...lambdaExpression.children.filter(e => e.kind === 'Parameter'),
+                            ...lambdaExpression.children.filter(e => e.kind === 'EqualsGreaterThanToken'),
+                            ...lambdaExpression.children.filter(e => e.kind === 'ArrowFunction')
+                                                        .filter(e => e.kind === 'Block')
+                        ]
+                    }
                 ]
             };
         } else {
@@ -38,7 +75,7 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
                 end: cstNode.location.endOffset,
                 pos: cstNode.location.startOffset,
                 children: [
-                    {...primarySuffixAst.find(e => e.kind === 'Identifier'), type: 'function'}
+                    {...identifier, type: 'function'}
                 ]
             };
         }
