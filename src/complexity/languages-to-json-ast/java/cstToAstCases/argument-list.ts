@@ -1,6 +1,6 @@
-import { cstToAst } from '../cstToAst';
 import { ArgumentList } from '../models/argument-list.model';
 import { ArgumentListChildren } from '../models/argument-list-children.model';
+import { cstToAst } from '../cst-to-ast';
 
 // @ts-ignore
 export function run(cstNode: ArgumentList, children: ArgumentListChildren) {
