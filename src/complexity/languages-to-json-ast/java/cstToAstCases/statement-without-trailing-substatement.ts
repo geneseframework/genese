@@ -3,18 +3,20 @@ import { StatementWithoutTrailingSubstatement } from '../models/statement-withou
 import { StatementWithoutTrailingSubstatementChildren } from '../models/statement-without-trailing-substatement-children.model';
 
 // @ts-ignore
-export function run(cstNode: StatementWithoutTrailingSubstatement, children: StatementWithoutTrailingSubstatementChildren): any {
+export function run(cstNode: StatementWithoutTrailingSubstatement, children: StatementWithoutTrailingSubstatementChildren) {
     const block = children.block;
     const returnStatement = children.returnStatement;
     const switchStatement = children.switchStatement;
     const expressionStatement = children.expressionStatement;
     const doStatement = children.doStatement;
+    const tryStatement = children.tryStatement;
 
     return [
         ...block?.map(e => cstToAst(e)) ?? [],
         ...returnStatement?.map(e => cstToAst(e)) ?? [],
         ...switchStatement?.map(e => cstToAst(e)) ?? [],
         ...expressionStatement?.map(e => cstToAst(e)) ?? [],
-        ...doStatement?.map(e => cstToAst(e)) ?? []
+        ...doStatement?.map(e => cstToAst(e)) ?? [],
+        ...tryStatement?.map(e => cstToAst(e)) ?? []
     ];
 }
