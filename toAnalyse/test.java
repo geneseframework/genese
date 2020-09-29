@@ -1,14 +1,14 @@
 public class Application {
     int somme(int a, int b) {
         try {
-            System.out.println("Hello IN!");
+            a = 1;
         }
         catch(Exception e) {
-            System.out.println("Hello OUT!");
+            a = 2;
         }finally{
-            System.out.println("Hello FINALLY!");
+            a = 3;
         }
-        return 1;
+        return a;
 
     }
 

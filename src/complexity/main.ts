@@ -6,7 +6,7 @@ import * as chalk from 'chalk';
 import { Language } from './core/enum/language.enum';
 
 import { parse } from 'java-parser';
-import { cstToAst } from './languages-to-json-ast/java/cstToAst';
+import { cstToAst } from './languages-to-json-ast/java/cst-to-ast';
 
 export const START = Date.now();
 

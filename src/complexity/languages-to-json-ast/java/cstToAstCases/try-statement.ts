@@ -4,6 +4,7 @@ import { TryStatement } from "../models/try-statement.model";
 
 // @ts-ignore
 export function run(cstNode: TryStatement, children: TryStatementChildren) {
+    console.log("HERE : ", cstNode);
     const block = children.block;
     const catches = children.catches;
     const finallyBlock = children.finally;
