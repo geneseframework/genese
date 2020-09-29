@@ -7,7 +7,7 @@ export function run(cstNode: LambdaExpression, children: LambdaExpressionChildre
     const lambdaParameters = children.lambdaParameters;
     const arrow = children.Arrow;
     const lambdaBody = children.lambdaBody;
-
+    console.log('arrow: ', arrow);
     return {
         kind: 'LambdaExpression',
         start: cstNode.location.startOffset,
