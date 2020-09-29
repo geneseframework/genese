@@ -7,8 +7,6 @@ export function run(cstNode: TryStatement, children: TryStatementChildren) {
     const block = children.block;
     const catches = children.catches;
     const finallyBlock = children.finally;
-    // const tryStatement = children.block;
-    console.log("HERE THE TEST :", cstNode);
 
     return {
         kind: "TryStatement",

@@ -7,6 +7,8 @@ public class Application {
         catch(Exception e) {
         //  Block of code to handle errors
             System.out.println("Hello OUT!");
+        }finally{
+            System.out.println("Hello FINALLY!");
         }
         return 1;
         // if(a < b) {
