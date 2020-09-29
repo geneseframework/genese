@@ -1,5 +1,5 @@
-import { Infos } from "./infos.model";
-import { BlockStatements } from "./block-statements.model";
+import { Infos } from './infos.model';
+import { BlockStatements } from './block-statements.model';
 
 export class BlockChildren {
     LCurly?: Infos[] = [new Infos()];

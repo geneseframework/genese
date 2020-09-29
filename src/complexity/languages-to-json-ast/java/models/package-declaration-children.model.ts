@@ -1,8 +1,8 @@
-import { Infos } from "./infos.model";
+import { Infos } from './infos.model';
 
 /**
  * We are forced to use PascalCase for the properties
- * java-parser returns PascalCase properties 
+ * java-parser returns PascalCase properties
  */
 export class PackageDeclarationChildren {
     Dot?: Infos[] = [new Infos()];

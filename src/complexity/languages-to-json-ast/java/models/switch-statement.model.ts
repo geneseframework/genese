@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { SwitchStatementChildren } from "./switch-statement-children.model";
+import { Location } from './location.model';
+import { SwitchStatementChildren } from './switch-statement-children.model';
 
 export class SwitchStatement {
     name ?= '';

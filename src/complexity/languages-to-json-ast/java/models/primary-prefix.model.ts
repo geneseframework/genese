@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { PrimaryPrefixChildren } from "./primary-prefix-children.model";
+import { Location } from './location.model';
+import { PrimaryPrefixChildren } from './primary-prefix-children.model';
 
 export class PrimaryPrefix {
     name ?= '';

@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { NumericTypeChildren } from "./numeric-type-children.model";
+import { Location } from './location.model';
+import { NumericTypeChildren } from './numeric-type-children.model';
 
 export class NumericType {
     name ?= '';

@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { SwitchLabelChildren } from "./switch-label-children.model";
+import { Location } from './location.model';
+import { SwitchLabelChildren } from './switch-label-children.model';
 
 export class SwitchLabel {
     name ?= '';

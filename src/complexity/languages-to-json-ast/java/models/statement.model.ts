@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { StatementChildren } from "./statement-children.model";
+import { Location } from './location.model';
+import { StatementChildren } from './statement-children.model';
 
 export class Statement {
     name ?= '';

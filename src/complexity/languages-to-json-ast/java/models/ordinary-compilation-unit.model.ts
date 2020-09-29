@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { OrdinaryCompilationUnitChildren } from "./ordinary-compilation-unit-children.model";
+import { Location } from './location.model';
+import { OrdinaryCompilationUnitChildren } from './ordinary-compilation-unit-children.model';
 
 export class OrdinaryCompilationUnit {
     name ?= '';

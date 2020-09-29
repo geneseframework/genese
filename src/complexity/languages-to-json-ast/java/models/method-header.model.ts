@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { MethodHeaderChildren } from "./method-header-children.model";
+import { Location } from './location.model';
+import { MethodHeaderChildren } from './method-header-children.model';
 
 export class MethodHeader {
     name ?= '';

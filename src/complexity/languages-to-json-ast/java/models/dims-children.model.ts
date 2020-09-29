@@ -1,4 +1,4 @@
-import { Infos } from "./infos.model";
+import { Infos } from './infos.model';
 
 export class DimsChildren {
     LSquare?: Infos[] = [new Infos()];

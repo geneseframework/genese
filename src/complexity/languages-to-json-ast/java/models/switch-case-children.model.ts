@@ -1,8 +1,7 @@
-import { SwitchLabel } from "./switch-label.model";
-import { Location } from "./location.model";
-import { StatementExpression } from "./statement-expression.model";
-import { Infos } from "./infos.model";
-import { Expression } from "./expression.model";
+import { SwitchLabel } from './switch-label.model';
+import { Location } from './location.model';
+import { Infos } from './infos.model';
+import { Expression } from './expression.model';
 
 export class SwitchCaseChildren {
     switchLabel?: SwitchLabel[] = [new SwitchLabel()];
@@ -41,7 +40,7 @@ export class SwitchCaseChildren {
                 }
                 location?: Location
             }],
-        },  
+        },
         location?: Location,
     }] = [{
         name: '',

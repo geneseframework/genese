@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { SwitchBlockChildren } from "./switch-block-children.model";
+import { Location } from './location.model';
+import { SwitchBlockChildren } from './switch-block-children.model';
 
 export class SwitchBlock {
     name ?= '';

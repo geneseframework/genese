@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { IntegerLiteralChildren } from "./integer-literal-children.model";
+import { Location } from './location.model';
+import { IntegerLiteralChildren } from './integer-literal-children.model';
 
 export class IntegerLiteral {
     name ?= '';

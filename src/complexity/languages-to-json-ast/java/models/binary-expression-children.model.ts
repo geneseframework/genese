@@ -1,6 +1,6 @@
-import { Location } from "./location.model";
-import { Infos } from "./infos.model";
-import { UnaryExpression } from "./unary-expression.model";
+import { Location } from './location.model';
+import { Infos } from './infos.model';
+import { UnaryExpression } from './unary-expression.model';
 
 export class BinaryExpressionChildren {
     unaryExpression?: UnaryExpression[] = [new UnaryExpression()];
@@ -23,7 +23,7 @@ export class BinaryExpressionChildren {
                 }
                 location?: Location
             }],
-        },  
+        },
         location?: Location,
     }] = [{
         name: '',

@@ -22,14 +22,7 @@
 /src/complexity/json-ast-to-reports/mocks/*.js
 /src/complexity/json-ast-to-reports/models/*.js
 /src/complexity/json-ast-to-reports/services/*.js
-/src/complexity/languages-to-json-ast/*js
-/src/complexity/languages-to-json-ast/java/core/*.js
-/src/complexity/languages-to-json-ast/java/models/*.js
-/src/complexity/languages-to-json-ast/java/services/*.js
-/src/complexity/languages-to-json-ast/java/interfaces/*.js
-/src/complexity/languages-to-json-ast/ts/libraries-weights/*.js
-/src/complexity/languages-to-json-ast/ts/models/*.js
-/src/complexity/languages-to-json-ast/ts/services/*.js
+/src/complexity/languages-to-json-ast/**/*.js
 /json-ast.json
 
 # Only exists if Bazel was run

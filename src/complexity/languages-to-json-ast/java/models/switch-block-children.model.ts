@@ -1,5 +1,5 @@
-import { Infos } from "./infos.model";
-import { SwitchCase } from "./switch-case.model";
+import { Infos } from './infos.model';
+import { SwitchCase } from './switch-case.model';
 
 export class SwitchBlockChildren {
     LCurly?: Infos[] = [new Infos()];
