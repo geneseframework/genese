@@ -4,7 +4,11 @@ import { VariableInitializerChildren } from '../models/variable-initializer-chil
 
 // @ts-ignore
 export function run(cstNode: VariableInitializer, children: VariableInitializerChildren): any {
+    const expression = children.expression;
+    const arrayInitializer = children.arrayInitializer;
+
     return [
-        ...[].concat(...children.expression?.map(e => cstToAst(e)) ?? [])
+        ...[].concat(...expression?.map(e => cstToAst(e)) ?? []),
+        ...arrayInitializer?.map(e => cstToAst(e)) ?? []
     ];
 }
