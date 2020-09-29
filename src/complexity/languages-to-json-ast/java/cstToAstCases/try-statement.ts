@@ -18,7 +18,7 @@ export function run(cstNode: TryStatement, children: TryStatementChildren) {
         children: [
             ...[].concat(...block.map((e) => cstToAst(e))),
             ...[].concat(...catches.map((e) => cstToAst(e))),
-            ...[].concat(...finallyBlock.map((e) => cstToAst(e))),
+            ...[].concat(...finallyBlock?.map((e) => cstToAst(e)) ?? []),
         ],
     };
 }

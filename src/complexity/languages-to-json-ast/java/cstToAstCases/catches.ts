@@ -4,7 +4,7 @@ import { SwitchStatementChildren } from "../models/switch-statement-children.mod
 import { Catches } from "../models/catches.model";
 import { CatchesChildren } from "../models/catches-children";
 
-// @ts-ignore
+// @ts-ignoree
 export function run(cstNode: Catches, children: CatchesChildren) {
     // export function run(cstNode: SwitchStatement, children: SwitchStatementChildren) {
     // const expression = children.expression;
@@ -21,13 +21,8 @@ export function run(cstNode: Catches, children: CatchesChildren) {
     //     ]
     // };
     const catchClause = children.catchClause;
-    return {
-        kind: "CatchClause",
-        start: cstNode.location.startOffset,
-        end: cstNode.location.endOffset,
-        pos: cstNode.location.startOffset,
-        children: [
-            ...[].concat(...(catchClause.map((e) => cstToAst(e)) ?? [])),
-        ],
-    };
+    return [
+        ...[].concat(...(catchClause.map((e) => cstToAst(e)) ?? [])),
+    ]
+
 }
