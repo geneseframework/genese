@@ -62,8 +62,8 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
                         children: [
                             ...lambdaExpression.children.filter(e => e.kind === 'Parameter'),
                             ...lambdaExpression.children.filter(e => e.kind === 'EqualsGreaterThanToken'),
-                            ...lambdaExpression.children.filter(e => e.kind === 'ArrowFunction')
-                                                        .filter(e => e.kind === 'Block')
+                            lambdaExpression.children.find(e => e.kind === 'ArrowFunction').children
+                                                     .find(e => e.kind === 'Block')
                         ]
                     }
                 ]
