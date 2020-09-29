@@ -23,6 +23,7 @@
 /src/complexity/json-ast-to-reports/models/*.js
 /src/complexity/json-ast-to-reports/services/*.js
 /src/complexity/languages-to-json-ast/*js
+/src/complexity/languages-to-json-ast/java/*.js
 /src/complexity/languages-to-json-ast/java/core/*.js
 /src/complexity/languages-to-json-ast/java/models/*.js
 /src/complexity/languages-to-json-ast/java/services/*.js
