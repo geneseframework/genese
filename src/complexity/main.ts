@@ -5,9 +5,6 @@ import { JsonAstToReports } from './json-ast-to-reports/json-ast-to-reports';
 import * as chalk from 'chalk';
 import { Language } from './core/enum/language.enum';
 
-import { parse } from 'java-parser';
-import { cstToAst } from './languages-to-json-ast/java/cstToAst';
-
 export const START = Date.now();
 
 export function duration() {
