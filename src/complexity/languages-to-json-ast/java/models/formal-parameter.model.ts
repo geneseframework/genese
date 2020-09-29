@@ -1,5 +1,5 @@
-import { FormalParameterChildren } from "./formal-parameter-children.model";
-import { Location } from "./location.model";
+import { FormalParameterChildren } from './formal-parameter-children.model';
+import { Location } from './location.model';
 
 export class FormalParameter {
     name ?= '';

@@ -1,6 +1,6 @@
-import { NormalClassDeclarationChildren } from "./normal-class-declaration-children.model";
-import { Location } from "./location.model";
-import { Children } from "../interfaces/Children";
+import { NormalClassDeclarationChildren } from './normal-class-declaration-children.model';
+import { Location } from './location.model';
+import { Children } from '../interfaces/Children';
 
 export class NormalClassDeclarationElement implements Children {
     name ?= '';

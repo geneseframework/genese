@@ -1,4 +1,4 @@
-import { VariableParaRegularParameterChildren } from "./variable-para-regular-parameter-children.model";
+import { VariableParaRegularParameterChildren } from './variable-para-regular-parameter-children.model';
 import { Location } from './location.model';
 
 export class VariableParaRegularParameter {

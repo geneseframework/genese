@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { SwitchCaseChildren } from "./switch-case-children.model";
+import { Location } from './location.model';
+import { SwitchCaseChildren } from './switch-case-children.model';
 
 export class SwitchCase {
     name ?= '';

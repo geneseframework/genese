@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { ExpressionChildren } from "./expression-children.model";
+import { Location } from './location.model';
+import { ExpressionChildren } from './expression-children.model';
 
 export class Expression {
     name ?= '';

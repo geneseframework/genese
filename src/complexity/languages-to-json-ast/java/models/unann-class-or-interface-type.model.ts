@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { UnannClassOrInterfaceTypeChildren } from "./unann-class-or-interface-type-children.model";
+import { Location } from './location.model';
+import { UnannClassOrInterfaceTypeChildren } from './unann-class-or-interface-type-children.model';
 
 export class UnannClassOrInterfaceType {
     name ?= '';

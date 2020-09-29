@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { ResultChildren } from "./result-children.model";
+import { Location } from './location.model';
+import { ResultChildren } from './result-children.model';
 
 export class Result {
     name ?= '';

@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { StatementWithoutTrailingSubstatementChildren } from "./statement-without-trailing-substatement-children.model";
+import { Location } from './location.model';
+import { StatementWithoutTrailingSubstatementChildren } from './statement-without-trailing-substatement-children.model';
 
 export class StatementWithoutTrailingSubstatement {
     name ?= '';

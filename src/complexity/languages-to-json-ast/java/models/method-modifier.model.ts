@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { MethodModifierChildren } from "./method-modifier-children.model";
+import { Location } from './location.model';
+import { MethodModifierChildren } from './method-modifier-children.model';
 
 export class MethodModifier {
     name ?= '';

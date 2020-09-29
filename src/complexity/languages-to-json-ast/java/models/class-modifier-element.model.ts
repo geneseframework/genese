@@ -1,6 +1,6 @@
-import { ClassModifierChildren } from "./class-modifier-children.model";
-import { Location } from "./location.model";
-import { Children } from "../interfaces/Children";
+import { ClassModifierChildren } from './class-modifier-children.model';
+import { Location } from './location.model';
+import { Children } from '../interfaces/Children';
 
 export class ClassModifierElement implements Children {
     name ?= '';

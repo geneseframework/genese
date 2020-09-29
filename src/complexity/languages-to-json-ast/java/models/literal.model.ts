@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { LiteralChildren } from "./literal.children.model";
+import { Location } from './location.model';
+import { LiteralChildren } from './literal.children.model';
 
 export class Literal {
     name ?= '';

@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { DimsChildren } from "./dims-children.model";
+import { Location } from './location.model';
+import { DimsChildren } from './dims-children.model';
 
 export class Dims {
     name ?= '';

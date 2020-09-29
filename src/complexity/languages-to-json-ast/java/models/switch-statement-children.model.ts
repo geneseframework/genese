@@ -1,6 +1,6 @@
-import { Infos } from "./infos.model";
-import { Expression } from "./expression.model";
-import { SwitchBlock } from "./switch-block.model";
+import { Infos } from './infos.model';
+import { Expression } from './expression.model';
+import { SwitchBlock } from './switch-block.model';
 
 export class SwitchStatementChildren {
     Switch?: Infos[] = [new Infos()];

@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { CompilationUnitChildren } from "./compilation-unit-children.model";
+import { Location } from './location.model';
+import { CompilationUnitChildren } from './compilation-unit-children.model';
 
 export class CompilationUnit {
     name ?= '';

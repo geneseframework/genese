@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { MethodDeclaratorChildren } from "./method-declarator-children.model";
+import { Location } from './location.model';
+import { MethodDeclaratorChildren } from './method-declarator-children.model';
 
 export class MethodDeclarator {
     name ?= '';
