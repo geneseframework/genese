@@ -8,5 +8,5 @@ export function run(cstNode: TernaryExpression, children: TernaryExpressionChild
 
     return [
         ...[].concat(...binaryExpressions?.map(e => cstToAst(e)) ?? [])
-    ]
+    ];
 }

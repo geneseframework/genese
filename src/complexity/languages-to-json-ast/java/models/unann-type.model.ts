@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { UnannTypeChildren } from "./unann-type-children.model";
+import { Location } from './location.model';
+import { UnannTypeChildren } from './unann-type-children.model';
 
 export class UnannType {
     name ?= '';

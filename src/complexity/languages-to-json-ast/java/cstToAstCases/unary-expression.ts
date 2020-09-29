@@ -9,17 +9,17 @@ export function run(cstNode: UnaryExpression, children: UnaryExpressionChildren)
 
     if (unaryPrefixOperator) {
         const unaryPrefixOperatorAst = unaryPrefixOperator.map(e => cstToAst(e, 'unaryPrefixOperator'));
-        return toUnaryPrefixOperator(unaryPrefixOperatorAst, primary.map(e => cstToAst(e)))
+        return toUnaryPrefixOperator(unaryPrefixOperatorAst, primary.map(e => cstToAst(e)));
     } else {
         return [
             // ...unaryPrefixOperator?.map(e => cstToAst(e, 'unaryPrefixOperator')) ?? [],
             ...[].concat(...primary.map(e => cstToAst(e)))
-        ]
+        ];
     }
 }
 
 
-function toUnaryPrefixOperator(prefixes, primaries) {
+function toUnaryPrefixOperator(prefixes: any[], primaries: any[]): any {
     let res = undefined;
     let last = undefined;
     while (prefixes.length > 0) {

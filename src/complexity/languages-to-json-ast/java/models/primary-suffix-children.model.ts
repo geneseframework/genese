@@ -1,5 +1,3 @@
-import { Location } from "./location.model";
-import { PrimaryPrefixChildren } from "./primary-prefix-children.model";
 import { Infos } from './infos.model';
 import { MethodInvocationSuffix } from './method-invocation-suffix.model';
 

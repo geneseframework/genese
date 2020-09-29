@@ -10,5 +10,5 @@ export function run(cstNode: VariableParaRegularParameter, children: VariablePar
     return [
         ...[].concat(...unannType.map(e => cstToAst(e))),
         ...[].concat(...variableDeclaratorId.map(e => cstToAst(e)))
-    ]
+    ];
 }

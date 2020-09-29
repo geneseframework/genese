@@ -1,4 +1,4 @@
-import { cstToAst, getBinaryOperatorName } from '../cst-to-ast';
+import { getBinaryOperatorName } from '../cst-to-ast';
 import { Infos } from '../models/infos.model';
 
 // @ts-ignore

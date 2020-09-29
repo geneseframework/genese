@@ -9,6 +9,6 @@ export function run(cstNode: MethodDeclarator, children: MethodDeclaratorChildre
 
     return [
         ...identifier.map(e => cstToAst(e, 'identifier')),
-        ...[].concat(...formalParameterList.map(e => cstToAst(e))),
-    ]
+        ...[].concat(...formalParameterList?.map(e => cstToAst(e)) ?? []),
+    ];
 }

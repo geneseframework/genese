@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { IntegralTypeChildren } from "./integral-type-children.model";
+import { Location } from './location.model';
+import { IntegralTypeChildren } from './integral-type-children.model';
 
 export class IntegralType {
     name ?= '';

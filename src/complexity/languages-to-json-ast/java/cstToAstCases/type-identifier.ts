@@ -8,5 +8,5 @@ export function run(cstNode: TypeIdentifierElement, children: TypeIdentifierChil
 
     return [
         ...identifier.map(e => cstToAst(e, 'identifier')),
-    ]
+    ];
 }

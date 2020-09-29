@@ -1,5 +1,5 @@
-import { Primary } from "./primary.model";
-import { Infos } from "./infos.model";
+import { Primary } from './primary.model';
+import { Infos } from './infos.model';
 
 export class UnaryExpressionChildren {
     primary?: Primary[] = [new Primary()];

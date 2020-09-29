@@ -1,4 +1,4 @@
-import { Infos } from "./infos.model";
+import { Infos } from './infos.model';
 
 export class PackageOrTypeNameChildren {
     Identifier?: Infos[] = [new Infos()];

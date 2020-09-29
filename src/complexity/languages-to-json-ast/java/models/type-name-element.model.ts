@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { TypeNameChildren } from "./type-name-children.model";
+import { Location } from './location.model';
+import { TypeNameChildren } from './type-name-children.model';
 
 export class TypeNameElement {
     name ?= '';

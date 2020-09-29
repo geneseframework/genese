@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { VariableDeclaratorListChildren } from "./variable-declarator-list-children.model";
+import { Location } from './location.model';
+import { VariableDeclaratorListChildren } from './variable-declarator-list-children.model';
 
 export class VariableDeclaratorList {
     name ?= '';

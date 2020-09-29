@@ -1,4 +1,3 @@
-import { Infos } from '../models/infos.model';
 import { cstToAst } from '../cst-to-ast';
 import { MethodInvocationSuffix } from '../models/method-invocation-suffix.model';
 import { MethodInvocationSuffixChildren } from '../models/method-invocation-suffix-children.model';

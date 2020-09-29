@@ -11,5 +11,5 @@ export function run(cstNode: VariableDeclaratorList, children: VariableDeclarato
         children: [
             ...[].concat(...children.variableDeclarator?.map(e => cstToAst(e)) ?? [])
         ]
-    }
+    };
 }

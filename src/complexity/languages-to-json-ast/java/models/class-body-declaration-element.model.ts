@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { ClassBodyDeclarationChildren } from "./class-body-declaration-children.model";
+import { Location } from './location.model';
+import { ClassBodyDeclarationChildren } from './class-body-declaration-children.model';
 
 export class ClassBodyDeclarationElement {
     name ?= '';

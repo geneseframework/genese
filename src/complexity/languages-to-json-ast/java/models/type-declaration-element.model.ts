@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { TypeDeclarationChildren } from "./type-declaration-children.model";
+import { Location } from './location.model';
+import { TypeDeclarationChildren } from './type-declaration-children.model';
 
 export class TypeDeclarationElement {
     name ?= '';

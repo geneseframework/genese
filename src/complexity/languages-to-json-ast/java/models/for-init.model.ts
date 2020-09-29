@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { ForInitChildren } from "./for-init-children.model";
+import { Location } from './location.model';
+import { ForInitChildren } from './for-init-children.model';
 
 export class ForInit {
     name ?= '';

@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { FloatingPointTypeChildren } from "./floating-point-type-children.model";
+import { Location } from './location.model';
+import { FloatingPointTypeChildren } from './floating-point-type-children.model';
 
 export class FloatingPointType {
     name ?= '';

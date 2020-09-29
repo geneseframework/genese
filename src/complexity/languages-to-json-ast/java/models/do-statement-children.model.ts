@@ -1,6 +1,6 @@
-import { Infos } from "./infos.model";
-import { Location } from "./location.model";
-import { Expression } from "./expression.model";
+import { Infos } from './infos.model';
+import { Location } from './location.model';
+import { Expression } from './expression.model';
 
 export class DoStatementChildren {
     Do?: Infos[] = [new Infos()];

@@ -8,5 +8,5 @@ export function run(cstNode: UnannPrimitiveType, children: UnannPrimitiveTypeChi
 
     return [
         ...[].concat(...numericType?.map(e => cstToAst(e)) ?? []),
-    ]
+    ];
 }

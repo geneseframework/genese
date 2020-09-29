@@ -1,5 +1,5 @@
-import { Infos } from "./infos.model";
-import { ConstantExpression } from "./constant-expression.model";
+import { Infos } from './infos.model';
+import { ConstantExpression } from './constant-expression.model';
 
 export class SwitchLabelChildren {
     Case?: Infos[] = [new Infos()];

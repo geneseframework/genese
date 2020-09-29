@@ -8,5 +8,5 @@ export function run(cstNode: Result, children: ResultChildren): any {
 
     return [
         ...[].concat(...unannType.map(e => cstToAst(e))),
-    ]
+    ];
 }

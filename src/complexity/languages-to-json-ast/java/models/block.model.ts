@@ -1,5 +1,5 @@
-import { BlockChildren } from "./block-children.model";
-import { Location } from "./location.model";
+import { BlockChildren } from './block-children.model';
+import { Location } from './location.model';
 
 export class Block {
     name ?= '';

@@ -1,8 +1,8 @@
-import { Infos } from "./infos.model";
-import { Statement } from "./statement.model";
-import { Expression } from "./expression.model";
-import { ForInit } from "./for-init.model";
-import { ForUpdate } from "./for-update.model";
+import { Infos } from './infos.model';
+import { Statement } from './statement.model';
+import { Expression } from './expression.model';
+import { ForInit } from './for-init.model';
+import { ForUpdate } from './for-update.model';
 
 export class BasicForStatementChildren {
     For?: Infos[] = [new Infos()];

@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { ImportChildren } from "./import-children.model";
+import { Location } from './location.model';
+import { ImportChildren } from './import-children.model';
 
 export class ImportDeclarationElement {
     name ?= '';

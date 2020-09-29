@@ -30,7 +30,7 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
                     },
                     ...primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix').children
                 ]
-            }
+            };
         } else {
             return {
                 kind: 'CallExpression',
@@ -40,12 +40,12 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
                 children: [
                     {...primarySuffixAst.find(e => e.kind === 'Identifier'), type: 'function'}
                 ]
-            }
+            };
         }
     } else {
         return [
             ...primaryPrefixAst,
             ...primarySuffixAst
-        ]
+        ];
     }
 }

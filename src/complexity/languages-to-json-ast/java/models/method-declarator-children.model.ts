@@ -1,5 +1,5 @@
-import { Infos } from "./infos.model";
-import { FormalParameterList } from "./formal-parameter-list.model";
+import { Infos } from './infos.model';
+import { FormalParameterList } from './formal-parameter-list.model';
 
 export class MethodDeclaratorChildren {
     Identifier?: Infos[] = [new Infos()];

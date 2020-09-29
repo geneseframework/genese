@@ -10,5 +10,5 @@ export function run(cstNode: MethodHeader, children: MethodHeaderChildren): any 
     return [
         ...[].concat(...result.map(e => cstToAst(e))),
         ...[].concat(...methodDeclarator.map(e => cstToAst(e))),
-    ]
+    ];
 }

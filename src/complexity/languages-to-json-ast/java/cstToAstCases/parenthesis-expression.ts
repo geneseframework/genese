@@ -1,6 +1,6 @@
 import { cstToAst } from '../cst-to-ast';
-import { ParenthesisExpression } from "../models/parenthesis-expression.model";
-import { ParenthesisExpressionChildren } from "../models/parenthesis-expression-children.model";
+import { ParenthesisExpression } from '../models/parenthesis-expression.model';
+import { ParenthesisExpressionChildren } from '../models/parenthesis-expression-children.model';
 
 // @ts-ignore
 export function run(cstNode: ParenthesisExpression, children: ParenthesisExpressionChildren): any {

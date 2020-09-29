@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { FqnOrRefTypePartFirstChildren } from "./fqn-or-ref-type-part-first-children.model";
+import { Location } from './location.model';
+import { FqnOrRefTypePartFirstChildren } from './fqn-or-ref-type-part-first-children.model';
 
 export class FqnOrRefTypePartFirst {
     name ?= '';

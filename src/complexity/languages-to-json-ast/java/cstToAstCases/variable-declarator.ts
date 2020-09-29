@@ -12,5 +12,5 @@ export function run(cstNode: VariableDeclarator, children: VariableDeclaratorChi
         ...[].concat(...children.variableDeclaratorId?.map(e => cstToAst(e)) ?? []),
         ...[].concat(...children.variableInitializer?.map(e => cstToAst(e)) ?? [])
         ]
-    }
+    };
 }

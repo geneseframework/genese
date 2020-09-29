@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { IfStatementChildren } from "./if-statement-children.model";
+import { Location } from './location.model';
+import { IfStatementChildren } from './if-statement-children.model';
 
 export class WhileStatement {
     name ?= '';

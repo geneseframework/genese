@@ -8,5 +8,5 @@ export function run(cstNode: SwitchLabel, children: SwitchLabelChildren): any {
 
     return [
         ...[].concat(...constantExpressions.map(e => cstToAst(e))),
-    ]
+    ];
 }

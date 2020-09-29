@@ -8,5 +8,5 @@ export function run(cstNode: StatementExpressionList, children: StatementExpress
 
     return [
         ...[].concat(...statementExpression?.map(e => cstToAst(e)) ?? [])
-    ]
+    ];
 }

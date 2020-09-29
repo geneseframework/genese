@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { EnhancedForStatementChildren } from "./enhanced-for-statement-children.model";
+import { Location } from './location.model';
+import { EnhancedForStatementChildren } from './enhanced-for-statement-children.model';
 
 export class EnhancedForStatement {
     name ?= '';

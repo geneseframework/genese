@@ -56,9 +56,9 @@ function toBinaryExpression(_ops, _exps): any {
                 end: _exps[1].end,
                 pos: _exps[0].pos,
                 children: children
-            }
+            };
         } else {
-            return children[0]
+            return children[0];
         }
     }
 }

@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { BasicForStatementChildren } from "./basic-for-statement-children.model";
+import { Location } from './location.model';
+import { BasicForStatementChildren } from './basic-for-statement-children.model';
 
 export class BasicForStatement {
     name ?= '';

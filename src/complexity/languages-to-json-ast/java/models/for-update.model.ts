@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { ForUpdateChildren } from "./for-update-children.model";
+import { Location } from './location.model';
+import { ForUpdateChildren } from './for-update-children.model';
 
 export class ForUpdate {
     name ?= '';

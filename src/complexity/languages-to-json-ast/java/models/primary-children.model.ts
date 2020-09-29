@@ -1,4 +1,4 @@
-import { PrimaryPrefix } from "./primary-prefix.model";
+import { PrimaryPrefix } from './primary-prefix.model';
 import { PrimarySuffix } from './primary-suffix.model';
 
 export class PrimaryChildren {

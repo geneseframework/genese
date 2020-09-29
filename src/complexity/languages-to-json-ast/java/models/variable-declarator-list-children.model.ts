@@ -1,4 +1,4 @@
-import { VariableDeclarator } from "./variable.declarator.model";
+import { VariableDeclarator } from './variable.declarator.model';
 
 
 export class VariableDeclaratorListChildren {

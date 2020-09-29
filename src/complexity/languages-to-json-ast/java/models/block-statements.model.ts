@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { BlockStatementsChildren } from "./block-statements-children.model";
+import { Location } from './location.model';
+import { BlockStatementsChildren } from './block-statements-children.model';
 
 export class BlockStatements {
     name ?= '';

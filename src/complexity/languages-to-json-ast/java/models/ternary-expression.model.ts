@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { TernaryExpressionChildren } from "./ternary-expression-children.model";
+import { Location } from './location.model';
+import { TernaryExpressionChildren } from './ternary-expression-children.model';
 
 export class TernaryExpression {
     name ?= '';

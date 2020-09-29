@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { LocalVariableTypeChildren } from "./local-variable-type-children.model";
+import { Location } from './location.model';
+import { LocalVariableTypeChildren } from './local-variable-type-children.model';
 
 export class LocalVariableType {
     name ?= '';

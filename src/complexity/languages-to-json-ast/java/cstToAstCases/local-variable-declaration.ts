@@ -13,5 +13,5 @@ export function run(cstNode: LocalVariableDeclaration, children: LocalVariableDe
             ...[].concat(...children.localVariableType?.map(e => cstToAst(e)) ?? []),
             ...[].concat(...children.variableDeclaratorList?.map(e => cstToAst(e)) ?? [])
         ]
-    }
+    };
 }

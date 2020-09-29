@@ -1,5 +1,5 @@
-import { Statement } from "./statement.model";
-import { LocalVariableDeclarationStatement } from "./local-variable-declaration-statement.model";
+import { Statement } from './statement.model';
+import { LocalVariableDeclarationStatement } from './local-variable-declaration-statement.model';
 
 export class BlockStatementChildren {
     statement?: Statement[] = [new Statement()];

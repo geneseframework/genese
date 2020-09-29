@@ -1,8 +1,8 @@
-import { Infos } from "./infos.model";
-import { LocalVariableType } from "./local-variable-type.model";
-import { VariableDeclaratorId } from "./variable-declarator-id.model";
-import { Expression } from "./expression.model";
-import { Statement } from "./statement.model";
+import { Infos } from './infos.model';
+import { LocalVariableType } from './local-variable-type.model';
+import { VariableDeclaratorId } from './variable-declarator-id.model';
+import { Expression } from './expression.model';
+import { Statement } from './statement.model';
 
 export class EnhancedForStatementChildren {
     For?: Infos[] = [new Infos()];

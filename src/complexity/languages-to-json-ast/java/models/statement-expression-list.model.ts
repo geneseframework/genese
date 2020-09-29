@@ -1,5 +1,5 @@
-import { StatementExpressionListChildren } from "./statement-expression-list-children.model";
-import { Location } from "./location.model";
+import { StatementExpressionListChildren } from './statement-expression-list-children.model';
+import { Location } from './location.model';
 
 export class StatementExpressionList {
     name ?= '';

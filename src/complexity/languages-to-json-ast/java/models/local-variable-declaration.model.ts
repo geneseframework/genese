@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { LocalVariableDeclarationChildren } from "./local-variable-declaration-children.model";
+import { Location } from './location.model';
+import { LocalVariableDeclarationChildren } from './local-variable-declaration-children.model';
 
 export class LocalVariableDeclaration {
     name ?= '';

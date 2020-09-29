@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { PrimaryChildren } from "./primary-children.model";
+import { Location } from './location.model';
+import { PrimaryChildren } from './primary-children.model';
 
 export class Primary {
     name ?= '';
