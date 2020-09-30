@@ -79,39 +79,4 @@ function toPropertyAccessExpression(identifiers: any[], isFunctionCall = false):
             };
         }
     }
-
-    // if (identifiers.length === 2) {
-    //     if (lastTwo) {
-    //         return {
-    //             kind: 'PropertyAccessExpression',
-    //             start: identifiers[0].start,
-    //             end: identifiers[1].end,
-    //             pos: identifiers[0].pos,
-    //             children: [
-    //                 identifiers[0],
-    //                 {...identifiers[1], type: 'function'}
-    //             ]
-    //         };
-    //     } else {
-    //         return {
-    //             kind: 'PropertyAccessExpression',
-    //             start: identifiers[0].start,
-    //             end: identifiers[1].end,
-    //             pos: identifiers[0].pos,
-    //             children: identifiers
-    //         };
-    //     }
-    // } else if (identifiers.length > 2) {
-    //     const first = identifiers.shift();
-    //     const second = identifiers.shift();
-    //     return {
-    //         kind: 'PropertyAccessExpression',
-    //         start: first.start,
-    //         end: identifiers[identifiers.length - 1].end,
-    //         pos: first.pos,
-    //         children: [toPropertyAccessExpression([first, second], identifiers.length === 0), toPropertyAccessExpression(identifiers)]
-    //     };
-    // } else {
-    //     return {...identifiers[0], type: 'function'}
-    // }
 }
