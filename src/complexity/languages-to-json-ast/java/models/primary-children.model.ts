@@ -1,5 +1,5 @@
-import { PrimaryPrefix } from "./primary-prefix.model";
-import { PrimarySuffix } from "./primary-suffix.model";
+import { PrimaryPrefix } from './primary-prefix.model';
+import { PrimarySuffix } from './primary-suffix.model';
 
 export class PrimaryChildren {
     primaryPrefix?: PrimaryPrefix[] = [new PrimaryPrefix()];

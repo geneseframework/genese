@@ -1,7 +1,7 @@
 import { Infos } from '../models/infos.model';
 
 // @ts-ignore
-export function run(cstNode: Infos, children) {
+export function run(cstNode: Infos, children): any {
     const astNode = {
         kind: 'Identifier',
         start: cstNode.startOffset,
