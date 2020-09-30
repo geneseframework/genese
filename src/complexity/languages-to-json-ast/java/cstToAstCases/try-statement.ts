@@ -1,6 +1,6 @@
-import { cstToAst } from "../cst-to-ast";
-import { TryStatementChildren } from "../models/try-statement-children.model";
-import { TryStatement } from "../models/try-statement.model";
+import { cstToAst } from '../cst-to-ast';
+import { TryStatementChildren } from '../models/try-statement-children.model';
+import { TryStatement } from '../models/try-statement.model';
 
 // @ts-ignore
 export function run(cstNode: TryStatement, children: TryStatementChildren) {
@@ -9,14 +9,14 @@ export function run(cstNode: TryStatement, children: TryStatementChildren) {
     const finallyBlock = children.finally;
 
     return {
-        kind: "TryStatement",
+        kind: 'TryStatement',
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
         children: [
             ...[].concat(...block.map((e) => cstToAst(e))),
             ...[].concat(...catches.map((e) => cstToAst(e))),
-            ...[].concat(...finallyBlock?.map((e) => cstToAst(e)) ?? []),
+            ...[].concat(...(finallyBlock?.map((e) => cstToAst(e)) ?? [])),
         ],
     };
 }

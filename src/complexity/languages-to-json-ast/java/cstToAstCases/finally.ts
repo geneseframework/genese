@@ -1,6 +1,4 @@
 import { cstToAst } from '../cst-to-ast';
-import { ClassBodyElement } from '../models/class-body-element.model';
-import { ClassBodyChildren } from '../models/class-body-children.model';
 import { Finally } from '../models/finally.model';
 import { FinallyChildren } from '../models/finally-children.model';
 

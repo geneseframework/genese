@@ -1,7 +1,7 @@
-import { CatchTypeChildren } from "./catch-type-children.model";
+import { CatchTypeChildren } from './catch-type-children.model';
 
 export class CatchType {
-    name? = "";
+    name?= '';
     children?: CatchTypeChildren = new CatchTypeChildren();
     location?: Location = new Location();
 }

@@ -1,6 +1,6 @@
-import {cstToAst} from '../cst-to-ast';
-import {CatchClause} from '../models/catch-clause.model';
-import {CatchClauseChildren} from '../models/catch-clause-children.model';
+import { cstToAst } from '../cst-to-ast';
+import { CatchClause } from '../models/catch-clause.model';
+import { CatchClauseChildren } from '../models/catch-clause-children.model';
 
 // @ts-ignoree
 export function run(cstNode: CatchClause, children: CatchClauseChildren) {
@@ -12,8 +12,8 @@ export function run(cstNode: CatchClause, children: CatchClauseChildren) {
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
         children: [
-            ...[].concat(...(block.map((e) => cstToAst(e)) ? ? [])),
-            ...[].concat(...(catchFormalParameter.map((e) => cstToAst(e)) ? ? []))
+            ...[].concat(...(block.map((e) => cstToAst(e)) ?? [])),
+            ...[].concat(...(catchFormalParameter.map((e) => cstToAst(e)) ?? []))
         ]
     };
 }
