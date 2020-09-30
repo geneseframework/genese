@@ -1,7 +1,7 @@
 public class Application {
     int somme(String[] a) {
-        this.a.call(1);
+        this.a.b.c.call(1);
         this.call(1);
-        System.out.println(a);
+        System.out.println.a.v(a);
     }
 }
