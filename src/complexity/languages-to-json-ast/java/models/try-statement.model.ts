@@ -1,8 +1,8 @@
-import { Location } from "./location.model";
-import { TryStatementChildren } from "./try-statement-children.model";
+import {Location} from './location.model';
+import {TryStatementChildren} from './try-statement-children.model';
 
 export class TryStatement {
-    name? = "";
+    name? = '';
     children?: TryStatementChildren = new TryStatementChildren();
     location?: Location = new Location();
 }

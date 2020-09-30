@@ -12,8 +12,8 @@ export function run(cstNode: CatchClause, children: CatchClauseChildren) {
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
         children: [
-            ...[].concat(...(block.map((e) => cstToAst(e)) ?? [])),
-            ...[].concat(...(catchFormalParameter.map((e) => cstToAst(e)) ?? []))
+            ...[].concat(...(block.map((e) => cstToAst(e)) ? ? [])),
+            ...[].concat(...(catchFormalParameter.map((e) => cstToAst(e)) ? ? []))
         ]
     };
 }

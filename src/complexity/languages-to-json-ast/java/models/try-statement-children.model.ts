@@ -1,7 +1,7 @@
-import { Block } from "./block.model";
-import { Catches } from "./catches.model";
-import { Finally } from "./finally.model";
-import { Infos } from "./infos.model";
+import {Block} from './block.model';
+import {Catches} from './catches.model';
+import {Finally} from './finally.model';
+import {Infos} from './infos.model';
 
 export class TryStatementChildren {
     Try?: Infos[] = [new Infos()];
