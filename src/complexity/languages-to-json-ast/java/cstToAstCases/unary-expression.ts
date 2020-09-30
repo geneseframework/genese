@@ -35,21 +35,3 @@ function toUnaryPrefixOperator(prefixes: any[], primaries: any[]): any {
     last.children = [...[].concat(...primaries)];
     return res;
 }
-
-
-function toUnaryPrefixOperator(prefixes, primaries) {
-    let res = undefined;
-    let last = undefined;
-    while (prefixes.length > 0) {
-        const firstPrefix = prefixes.shift();
-        if (!res) {
-            last = firstPrefix;
-            res = last;
-        } else {
-            last.children.push(firstPrefix);
-            last = firstPrefix;
-        }
-    }
-    last.children = [...[].concat(...primaries)];
-    return res;
-}
