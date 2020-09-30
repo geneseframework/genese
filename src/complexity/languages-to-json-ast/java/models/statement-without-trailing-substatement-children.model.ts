@@ -5,12 +5,14 @@ import { Infos } from './infos.model';
 import { StatementExpression } from './statement-expression.model';
 import { Location } from './location.model';
 import { DoStatement } from './do-statement.model';
+import { TryStatement } from './try-statement.model';
 
 export class StatementWithoutTrailingSubstatementChildren {
     switchStatement?: SwitchStatement[] = [new SwitchStatement()];
     expressionStatement?: ExpressionStatement[] = [new ExpressionStatement()];
     returnStatement?: ReturnStatement[] = [new ReturnStatement()];
     doStatement?: DoStatement[] = [new DoStatement()];
+    tryStatement?: TryStatement[] = [new TryStatement()];
     block?: [{
         name ?: '',
         children?: {
