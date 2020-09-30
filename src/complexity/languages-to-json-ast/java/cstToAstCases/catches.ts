@@ -6,7 +6,7 @@ import { CatchesChildren } from '../models/catches-children';
 export function run(cstNode: Catches, children: CatchesChildren) {
     const catchClause = children.catchClause;
     return [
-        ...[].concat(...(catchClause.map((e) => cstToAst(e)) ?? [])),
-    ]
+        ...[].concat(...(catchClause.map((e) => cstToAst(e)) ?? []))
+    ];
 
 }

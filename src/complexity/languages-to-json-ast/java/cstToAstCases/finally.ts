@@ -2,7 +2,6 @@ import { cstToAst } from '../cst-to-ast';
 import { Finally } from '../models/finally.model';
 import { FinallyChildren } from '../models/finally-children.model';
 
-// @ts-ignore
 export function run(cstNode: Finally, children: FinallyChildren) {
     const block = children.block;
 
@@ -12,6 +11,6 @@ export function run(cstNode: Finally, children: FinallyChildren) {
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
         children: [...[].concat(...block.map(e => cstToAst(e)))]
-    }
+    };
 
 }

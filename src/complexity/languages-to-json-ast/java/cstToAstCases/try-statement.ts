@@ -2,7 +2,6 @@ import { cstToAst } from '../cst-to-ast';
 import { TryStatementChildren } from '../models/try-statement-children.model';
 import { TryStatement } from '../models/try-statement.model';
 
-// @ts-ignore
 export function run(cstNode: TryStatement, children: TryStatementChildren) {
     const block = children.block;
     const catches = children.catches;
