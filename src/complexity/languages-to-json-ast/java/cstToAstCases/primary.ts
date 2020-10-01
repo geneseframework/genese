@@ -11,7 +11,6 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
 
     const methodInvocationSuffix = primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix');
     const thisKeyword = primaryPrefixAst.find(e => e.kind === 'ThisKeyword');
-    const identifier = primarySuffixAst.find(e => e.kind === 'Identifier');
     const identifierPrefix = primaryPrefixAst.filter(e => e.kind === 'Identifier');
     const lambdaExpression = methodInvocationSuffix?.children.find(e => e.kind === 'LambdaExpression');
 
@@ -25,9 +24,9 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
                 children: [
                     toPropertyAccessExpression([
                         thisKeyword,
-                        ...identifier
+                        ...primarySuffixAst.filter(e => e.kind === 'Identifier')
                     ], true),
-                    ...methodInvocationSuffix.children
+                    ...primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix').children
                 ]
             };
         } else if(lambdaExpression) {
@@ -70,7 +69,7 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
                     toPropertyAccessExpression([
                         ...primaryPrefixAst.filter(e => e.kind === 'Identifier')
                     ], true),
-                    ...methodInvocationSuffix.children
+                    ...primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix').children
                 ]
             };
         }
