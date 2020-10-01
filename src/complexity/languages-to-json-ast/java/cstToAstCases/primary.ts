@@ -69,7 +69,7 @@ function toPropertyAccessExpression(identifiers: any[], isFunctionCall = false):
                 pos: identifiers[0].pos,
                 children: [
                     toPropertyAccessExpression(identifiers),
-                    { ...last, type: 'function' }
+                    {...last, type: 'function'}
                 ]
             };
         } else {
