@@ -7,6 +7,6 @@ export function run(cstNode: ClassMemberDeclarationElement, children: ClassMembe
     const methodDeclaration = children.methodDeclaration;
 
     return [
-        ...methodDeclaration.map(e => cstToAst(e)),
+        ...[].concat(...methodDeclaration.map(e => cstToAst(e)))
     ]
 }

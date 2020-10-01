@@ -2,4 +2,5 @@ import { ClassMemberDeclarationElement } from './class-member-declaration-elemen
 
 export class ClassBodyDeclarationChildren {
     classMemberDeclaration?: ClassMemberDeclarationElement[] = [new ClassMemberDeclarationElement()];
+    constructorDeclaration?: ConstructorDeclaration[] = [new ClassMemberDeclarationElement()];
 }
