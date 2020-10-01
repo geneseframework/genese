@@ -9,8 +9,13 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
     const primaryPrefixAst = [].concat(...primaryPrefix?.map(e => cstToAst(e)) ?? []);
     const primarySuffixAst = [].concat(...primarySuffix?.map(e => cstToAst(e)) ?? []);
 
-    if (primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix')) {
-        if (primaryPrefixAst.find(e => e.kind === 'ThisKeyword')) {
+    const methodInvocationSuffix = primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix');
+    const thisKeyword = primaryPrefixAst.find(e => e.kind === 'ThisKeyword');
+    const identifierPrefix = primaryPrefixAst.filter(e => e.kind === 'Identifier');
+    const lambdaExpression = methodInvocationSuffix?.children.find(e => e.kind === 'LambdaExpression');
+
+    if (methodInvocationSuffix) {
+        if (thisKeyword) {
             return {
                 kind: 'CallExpression',
                 start: cstNode.location.startOffset,
@@ -18,10 +23,40 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
                 pos: cstNode.location.startOffset,
                 children: [
                     toPropertyAccessExpression([
-                        primaryPrefixAst.find(e => e.kind === 'ThisKeyword'),
+                        thisKeyword,
                         ...primarySuffixAst.filter(e => e.kind === 'Identifier')
                     ], true),
                     ...primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix').children
+                ]
+            };
+        } else if(lambdaExpression) {
+            return {
+                kind: 'CallExpression',
+                start: cstNode.location.startOffset,
+                end: cstNode.location.endOffset,
+                pos: cstNode.location.startOffset,
+                children: [
+                    {
+                        kind: 'PropertyAccessExpression',
+                        start: cstNode.location.startOffset,
+                        end: cstNode.location.endOffset,
+                        pos: cstNode.location.startOffset,
+                        children: [
+                            ...identifierPrefix,
+                        ]
+                    },
+                    {
+                        kind: 'ArrowFunction',
+                        start: lambdaExpression.start,
+                        end: lambdaExpression.end,
+                        pos: lambdaExpression.pos,
+                        children: [
+                            ...lambdaExpression.children.filter(e => e.kind === 'Parameter'),
+                            ...lambdaExpression.children.filter(e => e.kind === 'EqualsGreaterThanToken'),
+                            lambdaExpression.children.find(e => e.kind === 'ArrowFunction').children
+                                                     .find(e => e.kind === 'Block')
+                        ]
+                    }
                 ]
             };
         } else {
