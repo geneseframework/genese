@@ -8,7 +8,7 @@ export function run(cstNode: MethodHeader, children: MethodHeaderChildren): any 
     const methodDeclarator = children.methodDeclarator;
 
     return [
-        ...[].concat(...result.map(e => cstToAst(e))),
-        ...[].concat(...methodDeclarator.map(e => cstToAst(e))),
+        ...[].concat(...result?.map(e => cstToAst(e)) ?? []),
+        ...[].concat(...methodDeclarator?.map(e => cstToAst(e)) ?? [])
     ];
 }
