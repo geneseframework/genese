@@ -12,9 +12,9 @@ try {
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
     var mainProcess = new main.Main();
     // const pathFolderToAnalyze = '/Users/utilisateur/Documents/projets/naval-group/code/full/20200611-1756-release-sprint-5/cyms/src/';
-    const pathFolderToAnalyze = '/home/akueny/Dev/genese-github/toAnalyse/';
+    // const pathFolderToAnalyze = '/home/akueny/Dev/genese-github/toAnalyse/';
     // const pathFolderToAnalyze = __dirname + '/src/complexity/core/mocks/';
-    // const pathFolderToAnalyze = 'C:\\Users\\Nigdor\\Documents\\projects\\genese-bis\\genese\\toAnalyse'
+    const pathFolderToAnalyze = 'C:\\Users\\Nigdor\\Documents\\projects\\genese-bis\\genese\\toAnalyse'
     mainProcess.start(__dirname, pathFolderToAnalyze, __dirname, 'java');
 
 }

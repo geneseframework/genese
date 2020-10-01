@@ -7,6 +7,6 @@ export function run(cstNode: Result, children: ResultChildren): any {
     const unannType = children.unannType;
 
     return [
-        ...[].concat(...unannType.map(e => cstToAst(e))),
+        ...[].concat(...unannType?.map(e => cstToAst(e)) || []),
     ];
 }
