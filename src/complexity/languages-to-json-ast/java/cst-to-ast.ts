@@ -42,7 +42,7 @@ export function getBinaryOperatorName(operator: string): string {
         case '<=':
             return SyntaxKind.LessThanEqualsToken;
         case '+':
-            return SyntaxKind.PlusPlusToken;
+            return SyntaxKind.PlusToken;
         case '-':
             return SyntaxKind.MinusToken;
         case '*':
