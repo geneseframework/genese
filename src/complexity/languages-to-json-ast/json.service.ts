@@ -27,6 +27,7 @@ export class JsonService {
      * @param json              // The initial json object
      */
     private static addProperties(obj: object, indentation: string, json: string): string {
+
         for (const key of Object.keys(obj)) {
             json = `${json}${indentation}"${key}": `;
             switch (typeof obj[key]) {
@@ -55,6 +56,8 @@ export class JsonService {
      * @param obj       // The object to clean
      */
     private static deleteUndefinedProperties(obj: object): object {
+        if (!obj) return {};
+
         for (const key of Object.keys(obj)) {
             if (obj[key] === undefined) {
                 delete obj[key];
@@ -82,7 +85,7 @@ export class JsonService {
      * @param text      // The source code
      */
     private static convertCodeToString(text: string): string {
-        let stringified: string = JSON.stringify({"text": text});
+        let stringified: string = JSON.stringify({ "text": text });
         stringified = stringified.slice(9, -2);
         return stringified;
     }

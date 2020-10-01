@@ -74,7 +74,7 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
             };
         }
     } else {
-        if (primaryPrefixAst.length === 1) {
+        if (primaryPrefixAst.length <= 1) {
             return [
                 ...primaryPrefixAst,
                 ...primarySuffixAst
@@ -104,7 +104,7 @@ function toPropertyAccessExpression(identifiers: any[], isFunctionCall = false):
                 pos: identifiers[0].pos,
                 children: [
                     toPropertyAccessExpression(identifiers),
-                    {...last, type: 'function'}
+                    { ...last, type: 'function' }
                 ]
             };
         } else {
