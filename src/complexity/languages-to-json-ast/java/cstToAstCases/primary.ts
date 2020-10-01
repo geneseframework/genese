@@ -18,21 +18,30 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
     if (methodInvocationSuffix) {
         if (thisKeyword) {
             return {
-        else if(lambdaExpression) {
+                kind: 'CallExpression',
+                start: cstNode.location.startOffset,
+                end: cstNode.location.endOffset,
+                pos: cstNode.location.startOffset,
+                children: [
+                    toPropertyAccessExpression([
+                        thisKeyword,
+                        ...identifier
+                    ], true),
+                    ...methodInvocationSuffix.children
+                ]
+            };
+        } else if(lambdaExpression) {
             return {
                 kind: 'CallExpression',
                 start: cstNode.location.startOffset,
                 end: cstNode.location.endOffset,
                 pos: cstNode.location.startOffset,
-        } 
-            };
-                    ]
                 children: [
                     {
                         kind: 'PropertyAccessExpression',
                         start: cstNode.location.startOffset,
-                        pos: cstNode.location.startOffset,
                         end: cstNode.location.endOffset,
+                        pos: cstNode.location.startOffset,
                         children: [
                             ...identifierPrefix,
                         ]
@@ -40,20 +49,15 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
                     {
                         kind: 'ArrowFunction',
                         start: lambdaExpression.start,
-                        pos: lambdaExpression.pos,
                         end: lambdaExpression.end,
+                        pos: lambdaExpression.pos,
                         children: [
-                            ...lambdaExpression.children.filter(e => e.kind === 'EqualsGreaterThanToken'),
                             ...lambdaExpression.children.filter(e => e.kind === 'Parameter'),
                             ...lambdaExpression.children.filter(e => e.kind === 'EqualsGreaterThanToken'),
                             lambdaExpression.children.find(e => e.kind === 'ArrowFunction').children
                                                      .find(e => e.kind === 'Block')
                         ]
-                    toPropertyAccessExpression([
-                        primaryPrefixAst.find(e => e.kind === 'ThisKeyword'),
-                        ...primarySuffixAst.filter(e => e.kind === 'Identifier')
-                    ], true),
-                    ...primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix').children
+                    }
                 ]
             };
         } else {
@@ -66,7 +70,7 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
                     toPropertyAccessExpression([
                         ...primaryPrefixAst.filter(e => e.kind === 'Identifier')
                     ], true),
-                    ...primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix').children
+                    ...methodInvocationSuffix.children
                 ]
             };
         }
