@@ -14,7 +14,7 @@ try {
     // const pathFolderToAnalyze = '/Users/utilisateur/Documents/projets/naval-group/code/full/20200611-1756-release-sprint-5/cyms/src/';
     // const pathFolderToAnalyze = '/home/akueny/Dev/genese-github/toAnalyse/';
     // const pathFolderToAnalyze = __dirname + '/src/complexity/core/mocks/';
-    const pathFolderToAnalyze = '/home/bguendouz/Bureau/Alex/airbus-alex-back/src/main/java/com/airbus/alex/';
+    const pathFolderToAnalyze = '/home/bguendouz/Bureau/Alex/airbus-alex-back/src/main/java/com/airbus/alex/test/';
     mainProcess.start(__dirname, pathFolderToAnalyze, __dirname, 'java');
 
 }
