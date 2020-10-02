@@ -7,6 +7,6 @@ export function run(cstNode: ClassType, children: ClassTypeChildren): any {
     const identifier = children.Identifier;
 
     return [
-        ...identifier?.map(e => cstToAst(e)) ?? [],
+        ...identifier?.map(e => cstToAst(e, 'identifier')) ?? []
     ];
 }

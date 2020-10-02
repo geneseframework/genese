@@ -7,6 +7,6 @@ export function run(cstNode: TypeArgument, children: TypeArgumentChildren): any 
     const referenceType = children.referenceType;
 
     return [
-        ...referenceType?.map(e => cstToAst(e)) ?? [],
+        ...[].concat(...referenceType?.map(e => cstToAst(e)) ?? [])
     ];
 }

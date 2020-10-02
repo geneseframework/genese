@@ -1,5 +1,5 @@
-import { Diamond } from "./diamond.model";
+import { TypeArguments } from "./type-arguments.model";
 
 export class TypeArgumentsOrDiamondChildren {
-    diamond?: Diamond[] = [new Diamond()];
+    typeArguments?: TypeArguments[] = [new TypeArguments()];
 }

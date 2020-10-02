@@ -5,7 +5,6 @@ import { VariableDeclaratorIdChildren } from '../models/variable-declarator-id-c
 // @ts-ignore
 export function run(cstNode: VariableDeclaratorId, children: VariableDeclaratorIdChildren): any {
     const identifier = children.Identifier;
-
     return [
         ...identifier.map(e => cstToAst(e, 'identifier'))
     ];

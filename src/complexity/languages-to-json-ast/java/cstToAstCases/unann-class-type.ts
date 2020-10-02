@@ -7,8 +7,14 @@ export function run(cstNode: UnannClassType, children: UnannClassTypeChildren): 
     const identifier = children.Identifier;
     const typeArguments = children.typeArguments;
 
-    return [
-        ...identifier?.map(e => cstToAst(e, 'identifier')) ?? [],
-        ...[].concat(...typeArguments?.map(e => cstToAst(e)) ?? [])
-    ];
+    return {
+        kind: 'TypeReference',
+        start: cstNode.location.startOffset,
+        end: cstNode.location.endOffset + 1,
+        pos: cstNode.location.startOffset,
+        children: [
+            ...identifier?.map(e => cstToAst(e, 'identifier')) ?? [],
+            ...[].concat(...typeArguments?.map(e => cstToAst(e)) ?? [])
+        ]
+    };
 }
