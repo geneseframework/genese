@@ -1,6 +1,4 @@
 import { cstToAst } from '../cst-to-ast';
-import { ConstructorBodyChildren } from '../models/constructor-body-children.model';
-import { ConstructorBody } from '../models/constructor-body.model';
 import { ConstructorDeclaratorChildren } from '../models/constructor-declarator-children.model';
 import { ConstructorDeclarator } from '../models/constructor-declarator.model';
 
