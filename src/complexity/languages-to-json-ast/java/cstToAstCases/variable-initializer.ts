@@ -9,6 +9,6 @@ export function run(cstNode: VariableInitializer, children: VariableInitializerC
 
     return [
         ...[].concat(...expression?.map(e => cstToAst(e)) ?? []),
-        ...arrayInitializer?.map(e => cstToAst(e)) ?? []
+        ...[].concat(...arrayInitializer?.map(e => cstToAst(e)) ?? [])
     ];
 }

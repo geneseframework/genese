@@ -7,6 +7,6 @@ export function run(cstNode: TypeArguments, children: TypeArgumentsChildren): an
     const typeArgumentList = children.typeArgumentList;
 
     return [
-        ...[].concat(...typeArgumentList?.map(e => cstToAst(e)) ?? []),
+        ...[].concat(...typeArgumentList?.map(e => cstToAst(e)) ?? [])
     ];
 }

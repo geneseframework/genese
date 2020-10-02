@@ -5,8 +5,10 @@ import { ClassOrInterfaceTypeToInstantiateChildren } from '../models/class-or-in
 // @ts-ignore
 export function run(cstNode: ClassOrInterfaceTypeToInstantiate, children: ClassOrInterfaceTypeToInstantiateChildren): any {
     const identifier = children.Identifier;
+    const typeArgumentsOrDiamond = children.typeArgumentsOrDiamond;
 
     return [
-        ...identifier?.map(e => cstToAst(e)) ?? []
+        ...identifier?.map(e => cstToAst(e, 'identifier')) ?? [],
+        ...[].concat(...typeArgumentsOrDiamond?.map(e => cstToAst(e)) ?? [])
     ];
 }
