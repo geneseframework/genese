@@ -1,5 +1,5 @@
-import { UnqualifiedClassInstanceCreationExpression } from "./unqualified-class-instance-creation-expression.model";
+import { Infos } from './infos.model';
 
 export class NewExpressionChildren {
-    unqualifiedClassInstanceCreationExpression?: UnqualifiedClassInstanceCreationExpression[] = [new UnqualifiedClassInstanceCreationExpression()];
+    Identifier?: Infos[] = [new Infos()];
 }

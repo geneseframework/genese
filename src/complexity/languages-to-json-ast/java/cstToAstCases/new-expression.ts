@@ -1,12 +1,18 @@
 import { cstToAst } from '../cst-to-ast';
-import { NewExpression } from '../models/new-expression.model';
-import { NewExpressionChildren } from '../models/new-expression-children.model';
+import { MethodInvocationSuffix } from '../models/method-invocation-suffix.model';
+import { MethodInvocationSuffixChildren } from '../models/method-invocation-suffix-children.model';
 
 // @ts-ignore
-export function run(cstNode: NewExpression, children: NewExpressionChildren): any {
-    const unqualifiedClassInstanceCreationExpression = children.unqualifiedClassInstanceCreationExpression;
+export function run(cstNode: MethodInvocationSuffix, children: MethodInvocationSuffixChildren): any {
+    const argumentList = children.argumentList;
 
-    return [
-        ...[].concat(...unqualifiedClassInstanceCreationExpression?.map(e => cstToAst(e)) ?? []),
-    ];
+    return {
+        kind: 'NewExpression',
+        start: cstNode.location.startOffset,
+        end: cstNode.location.endOffset,
+        pos: cstNode.location.startOffset,
+        children: [
+            ...[].concat(...argumentList?.map(e => cstToAst(e)) ?? [])
+        ]
+    };
 }
