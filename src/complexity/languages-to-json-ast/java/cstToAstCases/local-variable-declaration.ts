@@ -4,14 +4,18 @@ import { LocalVariableDeclarationChildren } from '../models/local-variable-decla
 
 // @ts-ignore
 export function run(cstNode: LocalVariableDeclaration, children: LocalVariableDeclarationChildren): any {
+    
+    const variableDeclaratorList = [].concat(...children.variableDeclaratorList?.map(e => cstToAst(e)) ?? []);
+    const localVariableTypeAst = [].concat(...children.localVariableType?.map(e => cstToAst(e)) ?? []);
+    
     return {
         kind: 'Keyword',
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset + 1,
         pos: cstNode.location.startOffset,
         children: [
-            ...[].concat(...children.localVariableType?.map(e => cstToAst(e)) ?? []),
-            ...[].concat(...children.variableDeclaratorList?.map(e => cstToAst(e)) ?? [])
+            ...localVariableTypeAst.filter(e => e.kind === 'TypeReference'),
+            ...variableDeclaratorList
         ]
     };
 }
