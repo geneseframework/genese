@@ -5,8 +5,10 @@ import { ClassBodyDeclarationChildren } from '../models/class-body-declaration-c
 // @ts-ignore
 export function run(cstNode: ClassBodyDeclarationElement, children: ClassBodyDeclarationChildren): any {
     const classMemberDeclaration = children.classMemberDeclaration;
+    const constructorDeclaration = children.constructorDeclaration;
 
     return [
-        ...[].concat(...classMemberDeclaration.map(e => cstToAst(e))),
+        ...[].concat(...classMemberDeclaration?.map(e => cstToAst(e)) || []),
+        ...[].concat(...constructorDeclaration?.map(e => cstToAst(e)) || [])
     ]
 }

@@ -4,6 +4,7 @@ import { BlockStatementsChildren } from '../models/block-statements-children.mod
 
 // @ts-ignore
 export function run(cstNode: BlockStatements, children: BlockStatementsChildren): any {
+
     return [
         ...[].concat(...children.blockStatement?.map(e => cstToAst(e)) ?? [])
     ];
