@@ -1,5 +1,4 @@
 import * as fs from 'fs-extra';
-import { AstFileGenerationService } from './ts/services/ast-file-generation.service';
 import { AstFileGenerationJavaService } from './java/services/ast-file-generation-java.service';
 import { getFileExtension, platformPath } from '../core/services/file.service';
 import { Options } from '../core/models/options.model';
@@ -7,6 +6,7 @@ import { AstFolderInterface } from '../core/interfaces/ast/ast-folder.interface'
 import { JsonAstInterface } from '../core/interfaces/ast/json-ast.interface';
 import { DEV_MOCK, LIMIT_GENERATIONS } from './globals.const';
 import { Language } from '../core/enum/language.enum';
+import { AstFileGenerationService } from './java/services/ast-file-generation.service';
 
 /**
  * - AstFolders generation from Abstract Syntax Tree (AST) of its files (including files in subfolders)
@@ -42,7 +42,7 @@ export class InitGenerationService {
             path: platformPath(path),
             astFiles: []
         };
-        const initService = language === Language.TS ?  new AstFileGenerationService() : new AstFileGenerationJavaService();
+        const initService = language === Language.TS ? new AstFileGenerationService() : new AstFileGenerationJavaService();
         const filesOrDirs = fs.readdirSync(path);
         filesOrDirs.forEach((elementName: string) => {
             const pathElement = path + elementName;
@@ -57,7 +57,7 @@ export class InitGenerationService {
         });
         return astFolder;
     }
-    
+
     /**
      * Returns true if a path corresponds to a file to generate in JsonAst
      * @param  {string} path  // The path of the file
