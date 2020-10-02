@@ -2,7 +2,7 @@ import { ConstructorModifierChildren } from './constructor-modifier-children.mod
 import { Location } from './location.model';
 
 export class ConstructorModifier {
-    name?= '';
+    name ?= '';
     children?: ConstructorModifierChildren = new ConstructorModifierChildren();
     location?: Location = new Location();
 }

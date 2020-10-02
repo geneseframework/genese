@@ -2,7 +2,7 @@ import { ConstructorDeclarationElementChildren } from './constructor-declaration
 import { Location } from './location.model';
 
 export class ConstructorDeclarationElement {
-    name?= '';
+    name ?= '';
     children?: ConstructorDeclarationElementChildren = new ConstructorDeclarationElementChildren();
     location?: Location = new Location();
 }
