@@ -6,9 +6,9 @@ import { PrimaryPrefixChildren } from '../models/primary-prefix-children.model';
 export function run(cstNode: PrimaryPrefix, children: PrimaryPrefixChildren): any {
     const parenthesisExpression = children.parenthesisExpression;
     const fqnOrRefType = children.fqnOrRefType;
-    const newExpression = children.newExpression;
     const literal = children.literal;
     const this_ = children.This;
+    const newExpression = children.newExpression;
 
     return [
         ...[].concat(...parenthesisExpression?.map(e => cstToAst(e)) ?? []),

@@ -2,7 +2,7 @@ import { ClassOrInterfaceTypeToInstanciateChildren } from './class-or-interface-
 import { Location } from './location.model';
 
 export class ClassOrInterfaceTypeToInstanciate {
-    name?= '';
+    name ?= '';
     classOrInterfaceTypeToInstantiate?: ClassOrInterfaceTypeToInstanciateChildren[] = [new ClassOrInterfaceTypeToInstanciateChildren()];
     location?: Location = new Location();
 }

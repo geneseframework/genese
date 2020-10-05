@@ -6,8 +6,8 @@ import { NewExpression } from './new-expression.model';
 
 export class PrimaryPrefixChildren {
     fqnOrRefType?: FqnOrRefType[] = [new FqnOrRefType()];
-    newExpression?: NewExpression[] = [new NewExpression()];
     literal?: Literal[] = [new Literal()];
     parenthesisExpression?: ParenthesisExpressionChildren[] = [new ParenthesisExpressionChildren()];
     This?: Infos[] = [new Infos()];
+    newExpression?: NewExpression[] = [new NewExpression()];
 }

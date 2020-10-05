@@ -4,8 +4,8 @@ import { ClassOrInterfaceTypeToInstanciate } from './class-or-interface-type-to-
 
 export class UnqualifiedClassInstanceCreationExpressionChildren {
     New?: Infos[] = [new Infos()];
-    LBrace?: Infos[] = [new Infos()];
-    RBrace?: Infos[] = [new Infos()];
     classOrInterfaceTypeToInstantiate?: ClassOrInterfaceTypeToInstanciate[] = [new ClassOrInterfaceTypeToInstanciate()];
+    LBrace?: Infos[] = [new Infos()];
     argumentList?: ArgumentList[] = [new ArgumentList()];
+    RBrace?: Infos[] = [new Infos()];
 }

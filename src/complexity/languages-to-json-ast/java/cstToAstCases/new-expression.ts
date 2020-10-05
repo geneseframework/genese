@@ -8,6 +8,5 @@ export function run(cstNode: NewExpression, children: NewExpressionChildren): an
 
     return [
         ...[].concat(...unqualifiedClassInstanceCreationExpression?.map(e => cstToAst(e)) ?? [])
-    ]
-
+    ];
 }

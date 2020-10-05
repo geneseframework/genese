@@ -29,7 +29,7 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
                     ...primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix').children
                 ]
             };
-        } else if (lambdaExpression) {
+        } else if(lambdaExpression) {
             return {
                 kind: 'CallExpression',
                 start: cstNode.location.startOffset,
@@ -104,7 +104,7 @@ function toPropertyAccessExpression(identifiers: any[], isFunctionCall = false):
                 pos: identifiers[0].pos,
                 children: [
                     toPropertyAccessExpression(identifiers),
-                    { ...last, type: 'function' }
+                    {...last, type: 'function'}
                 ]
             };
         } else {
