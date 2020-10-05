@@ -8,7 +8,10 @@ import { SyntaxKind } from '../../core/enum/syntax-kind.enum';
  * @returns {any}
  */
 export function cstToAst(cstNode, kind = undefined): any {
+
     const children = cstNode.children;
+    console.log(cstNode.name, cstNode.kind);
+
     try {
         return require(`./cstToAstCases/${toKebabCase(cstNode.name || kind)}`).run(cstNode, children);
     } catch (e) {
