@@ -7,6 +7,6 @@ export function run(cstNode: SwitchLabel, children: SwitchLabelChildren): any {
     const constantExpressions = children.constantExpression;
 
     return [
-        ...[].concat(...constantExpressions.map(e => cstToAst(e))),
+        ...[].concat(...constantExpressions?.map(e => cstToAst(e))),
     ];
 }

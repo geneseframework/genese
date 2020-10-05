@@ -14,6 +14,7 @@
 /src/complexity/core/const/*.js
 /src/complexity/core/enums/*.js
 /src/complexity/core/interfaces/*.js
+/src/complexity/core/interfaces/ast/*.js
 /src/complexity/core/mocks/*.js
 /src/complexity/core/models/*.js
 /src/complexity/core/services/*.js

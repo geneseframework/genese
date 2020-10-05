@@ -10,5 +10,5 @@ export function run(cstNode: ClassBodyDeclarationElement, children: ClassBodyDec
     return [
         ...[].concat(...classMemberDeclaration?.map(e => cstToAst(e)) || []),
         ...[].concat(...constructorDeclaration?.map(e => cstToAst(e)) || [])
-    ]
+    ];
 }
