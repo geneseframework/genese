@@ -54,7 +54,7 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
                             ...lambdaExpression.children.filter(e => e.kind === 'Parameter'),
                             ...lambdaExpression.children.filter(e => e.kind === 'EqualsGreaterThanToken'),
                             lambdaExpression.children.find(e => e.kind === 'ArrowFunction').children
-                                                     .find(e => e.kind === 'Block')
+                                .find(e => e.kind === 'Block')
                         ]
                     }
                 ]
@@ -74,7 +74,7 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
             };
         }
     } else {
-        if (primaryPrefixAst.length === 1) {
+        if (primaryPrefixAst.length <= 1) {
             return [
                 ...primaryPrefixAst,
                 ...primarySuffixAst

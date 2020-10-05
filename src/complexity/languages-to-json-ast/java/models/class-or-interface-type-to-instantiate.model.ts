@@ -1,8 +1,8 @@
+import { ClassOrInterfaceTypeToInstanciateChildren } from './class-or-interface-type-to-instantiate-children.model';
 import { Location } from './location.model';
-import { ClassOrInterfaceTypeToInstantiateChildren } from './class-or-interface-type-to-instantiate-children.model';
 
-export class ClassOrInterfaceTypeToInstantiate {
+export class ClassOrInterfaceTypeToInstanciate {
     name ?= '';
-    children?: ClassOrInterfaceTypeToInstantiateChildren = new ClassOrInterfaceTypeToInstantiateChildren();
+    classOrInterfaceTypeToInstantiate?: ClassOrInterfaceTypeToInstanciateChildren[] = [new ClassOrInterfaceTypeToInstanciateChildren()];
     location?: Location = new Location();
 }

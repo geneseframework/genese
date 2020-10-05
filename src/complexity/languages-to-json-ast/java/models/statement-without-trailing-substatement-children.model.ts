@@ -6,6 +6,7 @@ import {StatementExpression} from './statement-expression.model';
 import {Location} from './location.model';
 import {DoStatement} from './do-statement.model';
 import {TryStatement} from './try-statement.model';
+import {ThrowStatementElement} from './throw-statement.model';
 
 export class StatementWithoutTrailingSubstatementChildren {
     switchStatement?: SwitchStatement[] = [new SwitchStatement()];
@@ -13,6 +14,7 @@ export class StatementWithoutTrailingSubstatementChildren {
     returnStatement?: ReturnStatement[] = [new ReturnStatement()];
     doStatement?: DoStatement[] = [new DoStatement()];
     tryStatement?: TryStatement[] = [new TryStatement()];
+    throwStatement?: ThrowStatementElement[] = [new ThrowStatementElement()];
     block?: [{
         name?: '',
         children?: {

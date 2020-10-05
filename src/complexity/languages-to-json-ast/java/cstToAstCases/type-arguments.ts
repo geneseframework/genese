@@ -1,6 +1,6 @@
 import { cstToAst } from '../cst-to-ast';
 import { TypeArguments } from '../models/type-arguments.model';
-import { TypeArgumentsChildren } from '../models/type-arguments-children';
+import { TypeArgumentsChildren } from '../models/type-arguments-children.model';
 
 // @ts-ignore
 export function run(cstNode: TypeArguments, children: TypeArgumentsChildren): any {

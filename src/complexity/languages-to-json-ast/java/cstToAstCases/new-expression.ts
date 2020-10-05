@@ -7,6 +7,6 @@ export function run(cstNode: NewExpression, children: NewExpressionChildren): an
     const unqualifiedClassInstanceCreationExpression = children.unqualifiedClassInstanceCreationExpression;
 
     return [
-        ...[].concat(...unqualifiedClassInstanceCreationExpression?.map(e => cstToAst(e)) ?? []),
+        ...[].concat(...unqualifiedClassInstanceCreationExpression?.map(e => cstToAst(e)) ?? [])
     ];
 }

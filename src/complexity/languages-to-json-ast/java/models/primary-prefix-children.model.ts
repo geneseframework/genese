@@ -8,6 +8,6 @@ export class PrimaryPrefixChildren {
     fqnOrRefType?: FqnOrRefType[] = [new FqnOrRefType()];
     literal?: Literal[] = [new Literal()];
     parenthesisExpression?: ParenthesisExpressionChildren[] = [new ParenthesisExpressionChildren()];
-    This?: Infos[] =  [new Infos()];
+    This?: Infos[] = [new Infos()];
     newExpression?: NewExpression[] = [new NewExpression()];
 }
