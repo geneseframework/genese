@@ -67,7 +67,8 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
                 pos: cstNode.location.startOffset,
                 children: [
                     toPropertyAccessExpression([
-                        ...primaryPrefixAst.filter(e => e.kind === 'Identifier')
+                        ...primaryPrefixAst.filter(e => e.kind === 'Identifier'),
+                        ...primarySuffixAst.filter(e => e.kind === 'Identifier')
                     ], true),
                     ...primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix').children
                 ]
@@ -103,7 +104,7 @@ function toPropertyAccessExpression(identifiers: any[], isFunctionCall = false):
                 end: last.end,
                 pos: identifiers[0].pos,
                 children: [
-                    toPropertyAccessExpression(identifiers),
+                    toPropertyAccessExpression(identifiers, true),
                     {...last, type: 'function'}
                 ]
             };
