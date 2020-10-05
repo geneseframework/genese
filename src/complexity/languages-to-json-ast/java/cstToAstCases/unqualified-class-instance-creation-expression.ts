@@ -4,13 +4,20 @@ import { UnqualifiedClassInstanceCreationExpressionChildren } from '../models/un
 
 // @ts-ignore
 export function run(cstNode: UnqualifiedClassInstanceCreationExpression, children: UnqualifiedClassInstanceCreationExpressionChildren): any {
-    const new_ = children.New;
-    const classOrInterfaceTypeToInstantiate = children.classOrInterfaceTypeToInstantiate;
     const argumentList = children.argumentList;
+    const classOrInterfaceTypeToInstantiate = children.classOrInterfaceTypeToInstantiate;
 
-    return [
-        ...[].concat(...classOrInterfaceTypeToInstantiate?.map(e => cstToAst(e)) ?? []),
-        ...[].concat(...argumentList?.map(e => cstToAst(e)) ?? []),
-        ...new_?.map(e => cstToAst(e, 'identifier')) ?? []
-    ];
+    return {
+        kind: 'Keyword',
+        start: cstNode.location.startOffset,
+        end: cstNode.location.endOffset,
+        pos: cstNode.location.startOffset,
+        children: [
+            ...[].concat(...argumentList?.map(e => cstToAst(e)) ?? []),
+            ...[].concat(...classOrInterfaceTypeToInstantiate?.map(e => cstToAst(e)) ?? []),
+        ]
+    }
+
 }
+
+
