@@ -7,5 +7,7 @@ import { Infos } from '../models/infos.model';
 
 // @ts-ignore
 export function run(cstNode: ClassOrInterfaceTypeToInstanciate, children: ClassOrInterfaceTypeToInstanciateChildren): any {
+    const identifier = children.Identifier;
 
+    return [...identifier.map(e => cstToAst(e, 'identifier'))]
 }
