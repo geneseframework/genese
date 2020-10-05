@@ -9,7 +9,6 @@ export function run(cstNode: PrimaryPrefix, children: PrimaryPrefixChildren): an
     const newExpression = children.newExpression;
     const literal = children.literal;
     const this_ = children.This;
-    const newExpression = children.newExpression;
 
     return [
         ...[].concat(...parenthesisExpression?.map(e => cstToAst(e)) ?? []),
