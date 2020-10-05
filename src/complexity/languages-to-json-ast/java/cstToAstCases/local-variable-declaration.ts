@@ -7,7 +7,7 @@ export function run(cstNode: LocalVariableDeclaration, children: LocalVariableDe
     
     const variableDeclaratorList = [].concat(...children.variableDeclaratorList?.map(e => cstToAst(e)) ?? []);
     const localVariableTypeAst = [].concat(...children.localVariableType?.map(e => cstToAst(e)) ?? []);
-    
+
     return {
         kind: 'Keyword',
         start: cstNode.location.startOffset,
