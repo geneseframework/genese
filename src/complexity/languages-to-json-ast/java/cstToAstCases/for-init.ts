@@ -6,7 +6,11 @@ import { ForInitChildren } from '../models/for-init-children.model';
 export function run(cstNode: ForInit, children: ForInitChildren): any {
     const localVariableDeclaration = children.localVariableDeclaration;
 
-    return [
-        ...[].concat(...localVariableDeclaration?.map(e => cstToAst(e)) ?? [])
-    ]
+    return (
+        [
+            ...[].concat(
+                ...(localVariableDeclaration?.map((e) => cstToAst(e)) ?? [])
+            ),
+        ][0]?.children || []
+    );
 }

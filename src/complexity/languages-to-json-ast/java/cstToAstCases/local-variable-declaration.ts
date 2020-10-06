@@ -14,7 +14,7 @@ export function run(cstNode: LocalVariableDeclaration, children: LocalVariableDe
         end: cstNode.location.endOffset + 1,
         pos: cstNode.location.startOffset,
         children: [
-            ...localVariableTypeAst.filter(e => e.kind === 'TypeReference'),
+            ...localVariableTypeAst.filter(e => e.kind !== 'TypeReference'),
             ...variableDeclaratorList
         ]
     };
