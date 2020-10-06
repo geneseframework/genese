@@ -12,7 +12,7 @@ export function run(cstNode: LambdaBody, children: LambdaBodyChildren) {
         pos: cstNode.location.startOffset,
 
         children: [
-            ...[].concat(...block.map(e => cstToAst(e)) ?? [])
+            ...[].concat(...block?.map(e => cstToAst(e)) ?? [])
         ]
     }
 
