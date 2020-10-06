@@ -13,7 +13,7 @@ export function run(cstNode: ForStatement, children: ForStatementChildren): any 
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
         children: [
-            ...[].concat(...basicForStatement?.map(e => cstToAst(e)) ?? []),
+            ...[].concat(...basicForStatement?.map(e => cstToAst(e)) ?? []).filter(e => e.kind !== 'TypeReference'),
             ...[].concat(...enhancedForStatement?.map(e => cstToAst(e)) ?? []),
         ]
     };

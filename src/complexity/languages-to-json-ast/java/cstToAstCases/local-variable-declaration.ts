@@ -4,7 +4,7 @@ import { LocalVariableDeclarationChildren } from '../models/local-variable-decla
 
 // @ts-ignore
 export function run(cstNode: LocalVariableDeclaration, children: LocalVariableDeclarationChildren): any {
-    
+
     const variableDeclaratorList = [].concat(...children.variableDeclaratorList?.map(e => cstToAst(e)) ?? []);
     const localVariableTypeAst = [].concat(...children.localVariableType?.map(e => cstToAst(e)) ?? []);
 
@@ -14,7 +14,7 @@ export function run(cstNode: LocalVariableDeclaration, children: LocalVariableDe
         end: cstNode.location.endOffset + 1,
         pos: cstNode.location.startOffset,
         children: [
-            ...localVariableTypeAst.filter(e => e.kind !== 'TypeReference'),
+            ...localVariableTypeAst.filter(e => e.kind === 'TypeReference'),
             ...variableDeclaratorList
         ]
     };

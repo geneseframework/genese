@@ -16,7 +16,7 @@ export function run(cstNode: BinaryExpression, children: BinaryExpressionChildre
         return [
             toBinaryExpression(binaryOperatorsAst, unaryExpressionsAst)
         ];
-    } else if (assignmentOperator){
+    } else if (assignmentOperator) {
         return {
             kind: 'BinaryExpression',
             start: cstNode.location.startOffset,
@@ -43,12 +43,13 @@ function toBinaryExpression(_ops, _exps): any {
         return {
             kind: 'BinaryExpression',
             start: firstExp.start,
-            end: _exps[_exps.length - 1].end,
+            end: _exps[_exps.length - 1]?.end,
             pos: firstExp.pos,
             children: [firstExp, firstOp, toBinaryExpression(_ops, _exps)]
         }
     } else {
         const children = [_exps[0], _ops[0], _exps[1]].filter(e => e)
+
         if (children.length > 1) {
             return {
                 kind: 'BinaryExpression',

@@ -12,7 +12,7 @@ export function run(cstNode: FormalParameter, children: FormalParameterChildren)
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
         children: [
-            ...[].concat(...variableParaRegularParameter.map(e => cstToAst(e)))
+            ...[].concat(...variableParaRegularParameter?.map(e => cstToAst(e)) ?? [])
         ]
     };
 }
