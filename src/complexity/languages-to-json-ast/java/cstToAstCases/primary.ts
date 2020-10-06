@@ -8,8 +8,10 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
 
     const primaryPrefixAst = [].concat(...primaryPrefix?.map(e => cstToAst(e)) ?? []);
     const primarySuffixAst = [].concat(...primarySuffix?.map(e => cstToAst(e)) ?? []);
-
+    
     const methodInvocationSuffix = primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix');
+    const classLiteralSuffix = primarySuffixAst.find(e => e.kind === 'ClassLiteralSuffix');
+
     const thisKeyword = primaryPrefixAst.find(e => e.kind === 'ThisKeyword');
     const identifierPrefix = primaryPrefixAst.filter(e => e.kind === 'Identifier');
     const lambdaExpression = methodInvocationSuffix?.children.find(e => e.kind === 'LambdaExpression');
@@ -67,8 +69,10 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
                 pos: cstNode.location.startOffset,
                 children: [
                     toPropertyAccessExpression([
-                        ...primaryPrefixAst.filter(e => e.kind === 'Identifier')
+                        ...primaryPrefixAst.filter(e => e.kind === 'Identifier'),
+                        ...primarySuffixAst.filter(e => e.kind === 'Identifier')
                     ], true),
+                    ...primarySuffixAst.filter(e => e.kind === 'ClassLiteralSuffix'),
                     ...primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix').children
                 ]
             };
@@ -103,7 +107,7 @@ function toPropertyAccessExpression(identifiers: any[], isFunctionCall = false):
                 end: last.end,
                 pos: identifiers[0].pos,
                 children: [
-                    toPropertyAccessExpression(identifiers),
+                    toPropertyAccessExpression(identifiers, true),
                     {...last, type: 'function'}
                 ]
             };
