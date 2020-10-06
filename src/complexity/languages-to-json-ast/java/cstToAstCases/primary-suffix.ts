@@ -6,9 +6,11 @@ import { PrimarySuffixChildren } from '../models/primary-suffix-children.model';
 export function run(cstNode: PrimarySuffix, children: PrimarySuffixChildren): any {
     const identifier = children.Identifier;
     const methodInvocationSuffix = children.methodInvocationSuffix;
+    const classLiteralSuffix = children.classLiteralSuffix;
 
     return [
         ...identifier?.map(e => cstToAst(e, 'identifier')) ?? [],
+        ...[].concat(...classLiteralSuffix?.map(e => cstToAst(e)) ?? []),
         ...[].concat(...methodInvocationSuffix?.map(e => cstToAst(e, 'methodInvocationSuffix')) ?? [])
     ];
 }
