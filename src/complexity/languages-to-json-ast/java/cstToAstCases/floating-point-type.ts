@@ -7,6 +7,6 @@ export function run(cstNode: FloatingPointType, children: FloatingPointTypeChild
     const Double = children.Double;
 
     return [
-        ...Double.map(e => cstToAst(e, 'double'))
-    ]
+        ...[].concat(Double?.map(e => cstToAst(e, 'double')) ?? [])
+    ];
 }

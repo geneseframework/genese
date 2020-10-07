@@ -46,6 +46,7 @@ export class CodeService {
         if (position < 0 || position > code?.end) {
             return 0;
         }
+        
         return  code.lines.filter(l => l.start <= position && l.end > position)?.[0].issue;
     }
 
