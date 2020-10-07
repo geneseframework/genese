@@ -46,8 +46,8 @@ export class JsonService {
                     break;
             }
         }
-    
-    return json;
+
+        return json;
     }
 
 
@@ -57,11 +57,13 @@ export class JsonService {
      */
     private static deleteUndefinedProperties(obj: object): object {
         for (const key of Object.keys(obj)) {
+            console.log("OBJ: ", obj[key]);
+
             if (obj[key] === undefined) {
                 delete obj[key];
             }
         }
-        
+
         return obj;
     }
 
@@ -84,7 +86,7 @@ export class JsonService {
      * @param text      // The source code
      */
     private static convertCodeToString(text: string): string {
-        let stringified: string = JSON.stringify({'text': text});
+        let stringified: string = JSON.stringify({ 'text': text });
         stringified = stringified.slice(9, -2);
         return stringified;
     }
