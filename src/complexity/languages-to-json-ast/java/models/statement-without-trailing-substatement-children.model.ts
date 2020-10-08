@@ -7,6 +7,7 @@ import {Location} from './location.model';
 import {DoStatement} from './do-statement.model';
 import {TryStatement} from './try-statement.model';
 import {ThrowStatementElement} from './throw-statement.model';
+import { AssertStatement } from './assert-statement.model';
 
 export class StatementWithoutTrailingSubstatementChildren {
     switchStatement?: SwitchStatement[] = [new SwitchStatement()];
@@ -15,6 +16,7 @@ export class StatementWithoutTrailingSubstatementChildren {
     doStatement?: DoStatement[] = [new DoStatement()];
     tryStatement?: TryStatement[] = [new TryStatement()];
     throwStatement?: ThrowStatementElement[] = [new ThrowStatementElement()];
+    assertStatement?: AssertStatement[] = [new AssertStatement()];
     block?: [{
         name?: '',
         children?: {

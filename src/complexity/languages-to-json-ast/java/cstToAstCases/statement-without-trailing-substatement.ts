@@ -11,7 +11,8 @@ export function run(cstNode: StatementWithoutTrailingSubstatement, children: Sta
     const doStatement = children.doStatement;
     const tryStatement = children.tryStatement;
     const throwStatement = children.throwStatement;
-
+    const assertStatement = children.assertStatement;
+    
     return [
         ...block?.map(e => cstToAst(e)) ?? [],
         ...returnStatement?.map(e => cstToAst(e)) ?? [],
@@ -19,6 +20,7 @@ export function run(cstNode: StatementWithoutTrailingSubstatement, children: Sta
         ...expressionStatement?.map(e => cstToAst(e)) ?? [],
         ...doStatement?.map(e => cstToAst(e)) ?? [],
         ...tryStatement?.map(e => cstToAst(e)) ?? [],
-        ...throwStatement?.map(e => cstToAst(e)) ?? []
+        ...throwStatement?.map(e => cstToAst(e)) ?? [],
+        ...assertStatement?.map(e => cstToAst(e)) ?? [],
     ];
 }
