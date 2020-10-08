@@ -57,8 +57,6 @@ export class JsonService {
      */
     private static deleteUndefinedProperties(obj: object): object {
         for (const key of Object.keys(obj)) {
-            console.log("OBJ: ", obj[key]);
-
             if (obj[key] === undefined) {
                 delete obj[key];
             }
