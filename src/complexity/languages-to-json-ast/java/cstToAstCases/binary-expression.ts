@@ -43,7 +43,7 @@ function toBinaryExpression(_ops, _exps): any {
         return {
             kind: 'BinaryExpression',
             start: firstExp.start,
-            end: _exps[_exps.length - 1].end,
+            end: _exps[_exps.length - 1]?.end,
             pos: firstExp.pos,
             children: [firstExp, firstOp, toBinaryExpression(_ops, _exps)]
         }

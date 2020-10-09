@@ -5,7 +5,7 @@ import { MethodInvocationSuffixChildren } from '../models/method-invocation-suff
 // @ts-ignore
 export function run(cstNode: MethodInvocationSuffix, children: MethodInvocationSuffixChildren): any {
     const argumentList = children.argumentList;
-
+    
     return {
         kind: 'MethodInvocationSuffix',
         start: cstNode.location.startOffset,

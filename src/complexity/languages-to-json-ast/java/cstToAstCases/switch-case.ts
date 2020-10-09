@@ -12,8 +12,8 @@ export function run(cstNode: SwitchCase, children: SwitchCaseChildren): any {
         end: cstNode.location.endOffset + 1,
         pos: cstNode.location.startOffset,
         children: [
-            ...[].concat(...blockStatements.map(e => cstToAst(e)) ?? []),
-            ...[].concat(...switchLabels.map(e => cstToAst(e)) ?? [])
+            ...[].concat(...blockStatements?.map(e => cstToAst(e)) ?? []),
+            ...[].concat(...switchLabels?.map(e => cstToAst(e)) ?? [])
         ]
     };
 }

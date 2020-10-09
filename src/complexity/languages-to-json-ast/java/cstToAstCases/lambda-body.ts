@@ -5,6 +5,8 @@ import { cstToAst } from '../cst-to-ast';
 // @ts-ignore
 export function run(cstNode: LambdaBody, children: LambdaBodyChildren) {
     const block = children.block;
+    const expression = children.expression;
+    
     return {
         kind: 'ArrowFunction',
         start: cstNode.location.startOffset,
@@ -12,7 +14,8 @@ export function run(cstNode: LambdaBody, children: LambdaBodyChildren) {
         pos: cstNode.location.startOffset,
 
         children: [
-            ...[].concat(...block.map(e => cstToAst(e)) ?? [])
+            ...[].concat(...block?.map(e => cstToAst(e)) ?? []),
+            ...[].concat(...expression?.map(e => cstToAst(e)) ?? [])
         ]
     }
 
