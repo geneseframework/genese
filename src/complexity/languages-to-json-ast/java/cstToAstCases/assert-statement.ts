@@ -7,11 +7,9 @@ export function run(cstNode: AssertStatement, children: AssertStatementChildren)
     const assert = children.Assert;
     const expression = children.expression;
     
-    console.log(assert);
-    console.log(expression);
     
     return [
-        ...[].concat(...assert?.map(e => cstToAst(e)) ?? []),
+        ...assert?.map(e => cstToAst(e, 'identifier')) ?? [],
         ...[].concat(...expression?.map(e => cstToAst(e)) ?? [])
     ];
 }
