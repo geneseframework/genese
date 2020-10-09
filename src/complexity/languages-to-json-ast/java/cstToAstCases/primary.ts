@@ -47,7 +47,6 @@ function handleMethodInvocationSuffix(cstNode: any, primaryPrefixAst: any, prima
     const thisKeyword = primaryPrefixAst.find(e => e.kind === 'ThisKeyword');
     const identifierPrefix = primaryPrefixAst.filter(e => e.kind === 'Identifier');
     
-    // On créer un objet qui nous sert de base
     let obj = {
         kind: 'CallExpression',
         start: cstNode.location.startOffset,
