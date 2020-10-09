@@ -13,9 +13,8 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
 
     if (methodInvocationSuffix) {
         return handleMethodInvocationSuffix(cstNode, primaryPrefixAst, primarySuffixAst, methodInvocationSuffix);
-    } else {
-        return handleNoMethodInvocationSuffix(primaryPrefixAst, primarySuffixAst);
     }
+    return handleNoMethodInvocationSuffix(primaryPrefixAst, primarySuffixAst);
 }
 
 /**
@@ -28,12 +27,11 @@ function handleNoMethodInvocationSuffix(primaryPrefixAst: any, primarySuffixAst:
             ...primaryPrefixAst,
             ...primarySuffixAst
         ];
-    } else {
-        return [
-            toPropertyAccessExpression(primaryPrefixAst),
-            ...primarySuffixAst
-        ];
     }
+    return [
+        toPropertyAccessExpression(primaryPrefixAst),
+        ...primarySuffixAst
+    ];
 }
 
 /**
@@ -61,9 +59,8 @@ function handleMethodInvocationSuffix(cstNode: any, primaryPrefixAst: any, prima
         return getThisKeywordChildren(methodInvocationSuffix, thisKeyword, identifierSuffix, obj);
     } else if(lambdaExpression) {
         return getLambdaExpression(lambdaExpression, cstNode, identifierPrefix, obj);
-    } else {
-        return getOtherCasesChildren(primaryPrefixAst, primarySuffixAst, obj);
     }
+    return getOtherCasesChildren(primaryPrefixAst, primarySuffixAst, obj);
 }
 
 /**
@@ -123,12 +120,14 @@ function getLambdaExpression(lambdaExpression: any, cstNode: Primary, identifier
  */
 function getLambdaExpressionChildren(lambdaExpression: any): any[] {
     
-    const block = lambdaExpression.children.find(e => e.kind === 'ArrowFunction').children.find(e => e.kind === 'Block');
-    const callExpression = lambdaExpression.children.find(e => e.kind === 'ArrowFunction').children.find(e => e.kind === 'CallExpression')
+    const lambdaExpressionChildren = lambdaExpression.children;
+
+    const block = lambdaExpressionChildren.find(e => e.kind === 'ArrowFunction').children.find(e => e.kind === 'Block');
+    const callExpression = lambdaExpressionChildren.find(e => e.kind === 'ArrowFunction').children.find(e => e.kind === 'CallExpression')
 
     const children = [
-        ...lambdaExpression.children.filter(e => e.kind === 'Parameter'),
-        ...lambdaExpression.children.filter(e => e.kind === 'EqualsGreaterThanToken'),
+        ...lambdaExpressionChildren.filter(e => e.kind === 'Parameter'),
+        ...lambdaExpressionChildren.filter(e => e.kind === 'EqualsGreaterThanToken'),
     ]
     if(block) {
         children.push(block);
