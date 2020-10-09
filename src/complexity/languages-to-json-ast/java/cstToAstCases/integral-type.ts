@@ -7,6 +7,6 @@ export function run(cstNode: IntegralType, children: IntegralTypeChildren): any 
     const int = children.Int;
 
     return [
-        ...int.map(e => cstToAst(e, 'int'))
+        ...[].concat(int?.map(e => cstToAst(e, 'int')) ?? [])
     ]
 }

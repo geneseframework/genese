@@ -7,6 +7,6 @@ export function run(cstNode: ConstructorBody, children: ConstructorBodyChildren)
     const blockStatements = children.blockStatements
 
     return [
-        ...[].concat(...blockStatements.map(e => cstToAst(e))),
+        ...[].concat(...blockStatements?.map(e => cstToAst(e)) ?? []),
     ];
 }

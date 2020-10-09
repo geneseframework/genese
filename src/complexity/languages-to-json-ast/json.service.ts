@@ -46,6 +46,7 @@ export class JsonService {
                     break;
             }
         }
+
         return json;
     }
 
@@ -60,6 +61,7 @@ export class JsonService {
                 delete obj[key];
             }
         }
+
         return obj;
     }
 
@@ -82,7 +84,7 @@ export class JsonService {
      * @param text      // The source code
      */
     private static convertCodeToString(text: string): string {
-        let stringified: string = JSON.stringify({"text": text});
+        let stringified: string = JSON.stringify({ 'text': text });
         stringified = stringified.slice(9, -2);
         return stringified;
     }

@@ -7,6 +7,6 @@ export function run(cstNode: ConstructorDeclarator, children: ConstructorDeclara
     const formalParameterList = children.formalParameterList
 
     return [
-        ...[].concat(...formalParameterList.map(e => cstToAst(e)))
+        ...[].concat(...formalParameterList?.map(e => cstToAst(e)) ?? [])
     ];
 }

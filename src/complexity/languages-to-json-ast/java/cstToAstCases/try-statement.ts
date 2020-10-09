@@ -13,8 +13,8 @@ export function run(cstNode: TryStatement, children: TryStatementChildren) {
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
         children: [
-            ...[].concat(...block.map((e) => cstToAst(e))),
-            ...[].concat(...catches.map((e) => cstToAst(e))),
+            ...[].concat(...block?.map((e) => cstToAst(e)) ?? []),
+            ...[].concat(...catches?.map((e) => cstToAst(e)) ?? []),
             ...[].concat(...(finallyBlock?.map((e) => cstToAst(e)) ?? [])),
         ],
     };

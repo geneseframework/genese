@@ -7,6 +7,6 @@ export function run(cstNode: ClassBodyElement, children: ClassBodyChildren): any
     const classBodyDeclaration = children.classBodyDeclaration;
 
     return [
-        ...[].concat(...classBodyDeclaration.map(e => cstToAst(e))),
+        ...[].concat(...classBodyDeclaration?.map(e => cstToAst(e)) ?? []),
     ]
 }
