@@ -9,12 +9,14 @@ export function run(cstNode: PrimaryPrefix, children: PrimaryPrefixChildren): an
     const literal = children.literal;
     const this_ = children.This;
     const newExpression = children.newExpression;
-
+    const castExpression = children.castExpression;
+    
     return [
         ...[].concat(...parenthesisExpression?.map(e => cstToAst(e)) ?? []),
         ...[].concat(...fqnOrRefType?.map(e => cstToAst(e)) ?? []),
         ...[].concat(...literal?.map(e => cstToAst(e)) ?? []),
         ...[].concat(...newExpression?.map(e => cstToAst(e)) ?? []),
+        ...[].concat(...castExpression?.map(e => cstToAst(e)) ?? []),
         ...this_?.map(e => cstToAst(e, 'this')) ?? []
     ]
 }
