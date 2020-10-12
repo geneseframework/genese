@@ -15,7 +15,8 @@
         "lib": [
             "es2018",
             "dom"
-        ]
+        ],
+        "outDir": "dist"
     },
     "exclude": ["node_modules", "gn-report"],
     "include": [
