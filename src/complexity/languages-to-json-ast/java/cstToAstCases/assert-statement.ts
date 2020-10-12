@@ -41,7 +41,7 @@ function generateAssertStatement(expression: Expression[]): any{
                 end: expression[1].location.endOffset,
                 pos: expression[1].location.startOffset,
                 children: [
-                    ...[].concat(...[expression[1]]?.map(e => cstToAst(e)) ?? []),
+                    ...[].concat(...[expression[1]]?.map(e => cstToAst(e)) ?? [])
                 ]
             }
         ];
