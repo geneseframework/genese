@@ -1,0 +1,11 @@
+{
+    "watch": ["*.ts"],
+    "ignore": ["node_modules", ".git", "dist", "genese", "json-ast.json", "src/**/*.spec.ts"],
+    "exec": "ts-node ./index.ts cpx src",
+    "verbose": true,
+    "delay": "1000ms",
+    "ext": "ts",
+    "events": {
+        "start": "cls || clear"
+    }
+}
