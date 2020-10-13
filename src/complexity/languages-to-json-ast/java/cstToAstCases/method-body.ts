@@ -7,6 +7,6 @@ export function run(cstNode: MethodBody, children: MethodBodyChildren): any {
     const block = children.block
 
     return [
-        ...block.map(e => cstToAst(e)),
+        ...[].concat(...block?.map(e => cstToAst(e)) || [])
     ]
 }
