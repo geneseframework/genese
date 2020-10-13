@@ -24,14 +24,12 @@ export class AstFileGenerationJavaService {
         const fileContent = fs.readFileSync(path, 'utf8');
         const cst = parse(fileContent)
         //const compilationUnit: CompilationUnit = GeneseMapperService.getMappedCompilationUnit(cst);
-        let classDeclaration = cst.children.ordinaryCompilationUnit[0].children.typeDeclaration[0].children?.classDeclaration;
-        let interfaceDeclaration = cst.children.ordinaryCompilationUnit[0].children.typeDeclaration[0].children?.interfaceDeclaration;
+        let classDeclaration = cst.children.ordinaryCompilationUnit[0].children.typeDeclaration[0].children?.classDeclaration?.[0];
+        let interfaceDeclaration = cst.children.ordinaryCompilationUnit[0].children.typeDeclaration[0].children?.interfaceDeclaration?.[0];
         let ast: any = [];
-        if(Array.isArray(classDeclaration)) {
-            classDeclaration = classDeclaration[0];
+        if(classDeclaration) {
             ast = cstToAst(classDeclaration);
-        } else if(Array.isArray(interfaceDeclaration)) {
-            interfaceDeclaration = interfaceDeclaration[0];
+        } else if(interfaceDeclaration) {
             ast = cstToAst(interfaceDeclaration);
         }
         return {
