@@ -6,9 +6,10 @@ import { MethodHeaderChildren } from '../models/method-header-children.model';
 export function run(cstNode: MethodHeader, children: MethodHeaderChildren): any {
     const result = children.result;
     const methodDeclarator = children.methodDeclarator;
-
+    const throws = children.throws;
     return [
         ...[].concat(...result?.map(e => cstToAst(e)) ?? []),
-        ...[].concat(...methodDeclarator?.map(e => cstToAst(e)) ?? [])
+        ...[].concat(...methodDeclarator?.map(e => cstToAst(e)) ?? []),
+        ...[].concat(...throws?.map(e => cstToAst(e)) ?? [])
     ];
 }
