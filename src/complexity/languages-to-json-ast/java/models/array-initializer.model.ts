@@ -1,8 +1,8 @@
 import { Location } from './location.model';
-import { VariableInitializerChildren } from './variable-initializer-children.model';
+import { ArrayInitializerChildren } from './array-initializer-children.model';
 
 export class ArrayInitializer {
     name ?= '';
-    children?: VariableInitializerChildren = new VariableInitializerChildren();
+    children?: ArrayInitializerChildren = new ArrayInitializerChildren();
     location?: Location = new Location();
 }
