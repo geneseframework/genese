@@ -14,7 +14,7 @@ export function run(cstNode: ClassDeclarationElement, children: ClassDeclaration
         pos: cstNode.location.startOffset,
         children: [
             // ...classModifier.map(e => cstToAst(e)),
-            ...[].concat(...normalClassDeclaration.map(e => cstToAst(e))),
+            ...[].concat(...normalClassDeclaration?.map(e => cstToAst(e)) ?? []),
         ]
     };
 }
