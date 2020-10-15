@@ -6,6 +6,7 @@ import { UnqualifiedClassInstanceCreationExpressionChildren } from '../models/un
 export function run(cstNode: UnqualifiedClassInstanceCreationExpression, children: UnqualifiedClassInstanceCreationExpressionChildren): any {
     const argumentList = children.argumentList;
     const classOrInterfaceTypeToInstantiate = children.classOrInterfaceTypeToInstantiate;
+    const classBody = children.classBody;
 
     return {
         kind: 'Keyword',
@@ -15,6 +16,7 @@ export function run(cstNode: UnqualifiedClassInstanceCreationExpression, childre
         children: [
             ...[].concat(...argumentList?.map(e => cstToAst(e)) ?? []),
             ...[].concat(...classOrInterfaceTypeToInstantiate?.map(e => cstToAst(e)) ?? []),
+            ...[].concat(...classBody?.map(e => cstToAst(e)) ?? [])
         ]
     }
 
