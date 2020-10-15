@@ -1,11 +1,10 @@
 {
-    "watch": ["*.ts"],
-    "ignore": ["node_modules", ".git", "dist", "genese", "json-ast.json", "src/**/*.spec.ts"],
+    "watch": ["*.ts", "*.html"],
+    "ignore": ["node_modules", ".git", "dist", "./json-ast.json", "src/**/*.spec.ts", "temp", "reports"],
     "exec": "ts-node ./index.ts cpx src",
-    "verbose": true,
     "delay": "1000ms",
     "ext": "ts",
     "events": {
-        "start": "cls || clear"
+        "start": "clear && rm -rf ./genese && rm json-ast.json"
     }
 }

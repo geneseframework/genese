@@ -2,6 +2,7 @@ import { InitService } from './services/init.service';
 import { JsonAst } from './models/ast/json-ast.model';
 import { ReportsService } from './services/report/reports.service';
 import * as chalk from 'chalk';
+import { AstFolder } from './models/ast/ast-folder.model';
 
 
 /**
@@ -9,6 +10,7 @@ import * as chalk from 'chalk';
  */
 export class JsonAstToReports {
 
+    static astFolder: AstFolder;
 
     /**
      * Starts the analysis
@@ -23,6 +25,7 @@ export class JsonAstToReports {
         ReportsService.generateAllReports(jsonAst);
         console.log(chalk.greenBright('REPORTS GENERATED SUCCESSFULLY'));
         console.log('Please open in your browser the file "folder-report.html" located in your genese reports folder.')
+        this.astFolder = jsonAst.astFolder;
     }
 
 
