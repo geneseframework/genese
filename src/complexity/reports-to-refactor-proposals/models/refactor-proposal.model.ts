@@ -2,10 +2,10 @@ import { SyntaxKind } from 'ts-morph';
 import { Method } from './method.model';
 
 export class RefactorProposal {
-    fileName?: string;
-    methodName?: string;
-    oldCode?: string;
-    newCode?: string;
+    fileName?: string = '';
+    methodName?: string = '';
+    oldCode?: string = '';
+    newCode?: string = '';
 
     /**
      * Create a refactor proposal from a method

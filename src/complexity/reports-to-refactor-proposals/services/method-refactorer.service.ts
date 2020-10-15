@@ -4,7 +4,7 @@ import { Method } from '../models/method.model';
 
 export class MethodRefactorerService {
     /**
-     * Check method structure to know if it need refacto
+     * Check method structure to know if it needs refacto
      * if true refactor the method
      * @param method the current method
      * @returns {void}
@@ -24,7 +24,7 @@ export class MethodRefactorerService {
      * @returns {void}
      */
     private static refactor(method: Method): void {
-        let elseStatement: string[];
+        let elseStatement: string[] = [];
         const NODE_COPY = new Project().createSourceFile('test.ts', method.node.getFullText());
         const NODE = NODE_COPY.transform((traversal: TransformTraversalControl) => {
             const node = traversal.visitChildren();
@@ -38,6 +38,6 @@ export class MethodRefactorerService {
         });
         NODE.getFirstDescendantByKind(SyntaxKind.Block).addStatements(elseStatement);
         NODE.formatText();
-        method.refactoredMethod = new Method(NODE);
+        method.refactoredMethod = new Method(NODE, method.astFile);
     }
 }

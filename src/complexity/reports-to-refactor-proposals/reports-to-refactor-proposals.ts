@@ -10,7 +10,7 @@ export class ReportToRefactorReport {
     static methods: Method[] = [];
 
     /**
-     * Walk thru the folder to catch all methods
+     * Walk through the folder to catch all methods
      * generate the refactor report
      * @param astFolder the folder
      * @returns{void}
