@@ -8,7 +8,7 @@ export function run(cstNode: MethodDeclaration, children: MethodDeclarationChild
     const methodBody = children.methodBody;
 
     const methodHeaderAst = methodHeader.map(e => cstToAst(e));
-
+    
     return {
         kind: 'MethodDeclaration',
         start: cstNode.location.startOffset,
@@ -23,5 +23,5 @@ export function run(cstNode: MethodDeclaration, children: MethodDeclarationChild
 }
 
 function getName(methodHeaderAst): string {
-    return methodHeaderAst?.[0]?.[1]?.name ?? '';
+    return methodHeaderAst?.[0]?.[0]?.name ?? '';
 }

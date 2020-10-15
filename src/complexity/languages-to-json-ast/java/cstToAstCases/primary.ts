@@ -13,7 +13,7 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
 
     if (methodInvocationSuffix) {
         return handleMethodInvocationSuffix(cstNode, primaryPrefixAst, primarySuffixAst, methodInvocationSuffix);
-    }
+    }    
     return handleNoMethodInvocationSuffix(primaryPrefixAst, primarySuffixAst);
 }
 
@@ -142,10 +142,11 @@ function getLambdaExpressionChildren(lambdaExpression: any): any[] {
  * @param  {any} obj
  * @returns any
  */
-function getOtherCasesChildren(primaryPrefixAst: any, primarySuffixAst: any, obj: any): any[] {
+function getOtherCasesChildren(primaryPrefixAst: any, primarySuffixAst: any, obj: any): any[] {  
     return { ...obj,
             children :[
             toPropertyAccessExpression([
+                ...getNewExpression(primaryPrefixAst),
                 ...primaryPrefixAst.filter(e => e.kind === 'Identifier'),
                 ...primarySuffixAst.filter(e => e.kind === 'Identifier')
             ], true),
@@ -153,6 +154,18 @@ function getOtherCasesChildren(primaryPrefixAst: any, primarySuffixAst: any, obj
             ...primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix').children
         ]
     }
+}
+
+function getNewExpression(primaryPrefixAst: any) : any[]{
+    const newExpression = primaryPrefixAst.filter(e => e.kind === 'NewExpression');
+
+    if(Array.isArray(newExpression) && newExpression.length) {
+        return [
+            ...primaryPrefixAst.find(e => e.kind === 'NewExpression').children  
+        ]
+    }
+
+    return []
 }
 
 /**
