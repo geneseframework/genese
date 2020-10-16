@@ -1,13 +1,19 @@
-import { Node, Project, SourceFile, SyntaxKind } from 'ts-morph';
+import { Project, SourceFile } from 'ts-morph';
 
 import { AstFile } from '../json-ast-to-reports/models/ast/ast-file.model';
 import { AstFolder } from '../json-ast-to-reports/models/ast/ast-folder.model';
-import { Method } from './models/method.model';
-import { MethodRefactorerService } from './services/method-refactorer.service';
+import { Refactorer } from './models/refactorer.model';
+import { System } from './models/system.model';
+import { BigIfElseRefactorer } from './refactorers/bigIfElse.refactorer';
 import { RefactorReportService } from './services/refactor-report.service';
 
 export class ReportToRefactorReport {
-    static methods: Method[] = [];
+    static systems: System[] = [];
+    static refactorers: (new () => Refactorer)[];
+
+    static setRefactorer(...refactorers: (new () => Refactorer)[]): void {
+        this.refactorers = refactorers;
+    }
 
     /**
      * Walk through the folder to catch all methods
@@ -16,12 +22,13 @@ export class ReportToRefactorReport {
      * @returns{void}
      */
     static start(astFolder: AstFolder): void {
+        this.setRefactorer(BigIfElseRefactorer);
         this.folderWalk(astFolder);
-        new RefactorReportService(this.methods, astFolder).generateRefactorReport();
+        new RefactorReportService(this.systems, astFolder).generateRefactorReport();
     }
 
     /**
-     * refactor methods from folder 
+     * refactor methods from folder
      * @param astFolder the folder
      * @returns {void}
      */
@@ -29,7 +36,7 @@ export class ReportToRefactorReport {
         astFolder?.astFiles?.forEach((afile: AstFile) => {
             const SOURCE_FILE = new Project().createSourceFile('test.ts', afile.code.text);
             const METHODS = this.refactorFromSourceFile(SOURCE_FILE, afile);
-            this.methods.push(...METHODS);
+            this.systems.push(...METHODS);
         });
         astFolder?.children?.forEach((afolder: AstFolder) => this.folderWalk(afolder));
     }
@@ -38,17 +45,18 @@ export class ReportToRefactorReport {
      * Analyze methods from source file object
      * @param sourceFile the source file
      * @param astFile the concerned file
-     * @returns {Method[]}
+     * @returns {System[]}
      */
-    static refactorFromSourceFile(sourceFile: SourceFile, astFile: AstFile): Method[] {
-        const METHODS =
-            sourceFile
-                ?.getFirstChildByKind(SyntaxKind.ClassDeclaration)
-                ?.getChildrenOfKind(SyntaxKind.MethodDeclaration)
-                ?.map((n: Node) => new Method(n, astFile)) || [];
-        METHODS.forEach((m: Method) => MethodRefactorerService.analyze(m));
-        return METHODS.filter((m) => {
-            return m.refactoredMethod;
+    static refactorFromSourceFile(sourceFile: SourceFile, astFile: AstFile): System[] {
+        let systems: System[] = [];
+        this.refactorers.forEach((r: new () => Refactorer) => {
+            const REFACTORER = new r();
+            REFACTORER.prepareSystems(sourceFile, astFile).analyze();
+            REFACTORER.oldSystems.forEach((s: System, i: number) => {
+                s.refactoredSystem = REFACTORER.systems[i];
+            });
+            systems.push(...REFACTORER.oldSystems);
         });
+        return systems.filter((s: System) => s.refactoredSystem?.isRefactored);
     }
 }

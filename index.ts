@@ -12,7 +12,7 @@ const pkg = require('./package.json');
 //                                          GENESE CLI
 // ---------------------------------------------------------------------------------------------------------
 
-try {
+// try {
     console.log(yellowBright("WELCOME TO GENESE CLI"));
 
     program.version(pkg.version)
@@ -55,6 +55,6 @@ try {
 
     program.parse(process.argv);
 
-} catch (err) {
-    console.error(red(`Error in Genese cli process : ${err}`));
-}
+// } catch (err) {
+//     console.error(red(`Error in Genese cli process : ${err}`));
+// }

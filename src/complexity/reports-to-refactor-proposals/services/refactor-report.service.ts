@@ -5,7 +5,7 @@ import * as Handlebars from 'handlebars';
 import { Options } from '../../core/models/options.model';
 import { constructLink, deleteLastSlash, getRouteToRoot } from '../../core/services/file.service';
 import { AstFolder } from '../../json-ast-to-reports/models/ast/ast-folder.model';
-import { Method } from '../models/method.model';
+import { System } from '../models/system.model';
 import { RefactorProposal } from '../models/refactor-proposal.model';
 
 /**
@@ -14,10 +14,10 @@ import { RefactorProposal } from '../models/refactor-proposal.model';
 export class RefactorReportService {
     private template: HandlebarsTemplateDelegate;
 
-    constructor(public methods: Method[], private astFolder: AstFolder) {}
+    constructor(public systems: System[], private astFolder: AstFolder) {}
 
     get refactorProposals(): RefactorProposal[] {
-        return this.methods.map((m: Method) => RefactorProposal.from(m));
+        return this.systems.map((m: System) => RefactorProposal.from(m));
     }
 
     /**
