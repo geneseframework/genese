@@ -9,14 +9,14 @@ export function run(cstNode: LambdaExpression, children: LambdaExpressionChildre
     const lambdaBody = children.lambdaBody;
 
     return {
-        kind: 'LambdaExpression',
+        kind: 'ArrowFunction',
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
         children: [
-            ...[].concat(...lambdaBody.map(e => cstToAst(e)) ?? []),
+            ...[].concat(...lambdaParameters.map(e => cstToAst(e)) ?? []),
             ...[].concat(...arrow?.map(e => cstToAst(e, 'arrow')) ?? []),
-            ...[].concat(...lambdaParameters.map(e => cstToAst(e)) ?? [])
+            ...[].concat(...lambdaBody.map(e => cstToAst(e)) ?? [])
         ]
     } 
     
