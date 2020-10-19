@@ -9,11 +9,11 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
     const primaryPrefixAst = [].concat(...primaryPrefix?.map(e => cstToAst(e)) ?? []);
     const primarySuffixAst = [].concat(...primarySuffix?.map(e => cstToAst(e)) ?? []);
     
-    const methodInvocationSuffix = primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix');
-
-    if (methodInvocationSuffix) {
+    const methodInvocationSuffix = primarySuffixAst.filter(e => e.kind === 'MethodInvocationSuffix');
+    
+    if (Array.isArray(methodInvocationSuffix) && methodInvocationSuffix.length) {          
         return handleMethodInvocationSuffix(cstNode, primaryPrefixAst, primarySuffixAst, methodInvocationSuffix);
-    }    
+    }       
     return handleNoMethodInvocationSuffix(primaryPrefixAst, primarySuffixAst);
 }
 
@@ -40,12 +40,9 @@ function handleNoMethodInvocationSuffix(primaryPrefixAst: any, primarySuffixAst:
  * @param  {any} primarySuffixAst
  * @param  {any} methodInvocationSuffix
  */
-function handleMethodInvocationSuffix(cstNode: any, primaryPrefixAst: any, primarySuffixAst: any, methodInvocationSuffix: any) {
-    const lambdaExpression = methodInvocationSuffix?.children.find(e => e.kind === 'LambdaExpression');
-
+function handleMethodInvocationSuffix(cstNode: any, primaryPrefixAst: any, primarySuffixAst: any, methodInvocationSuffix: any) {    
     const identifierSuffix = primarySuffixAst.filter(e => e.kind === 'Identifier');
     const thisKeyword = primaryPrefixAst.find(e => e.kind === 'ThisKeyword');
-    const identifierPrefix = primaryPrefixAst.filter(e => e.kind === 'Identifier');
     
     let obj = {
         kind: 'CallExpression',
@@ -56,10 +53,42 @@ function handleMethodInvocationSuffix(cstNode: any, primaryPrefixAst: any, prima
 
     if (thisKeyword) {
         return getThisKeywordChildren(methodInvocationSuffix, thisKeyword, identifierSuffix, obj);
-    } else if(lambdaExpression) {
-        return getLambdaExpression(lambdaExpression, cstNode, identifierPrefix, obj);
     }
-    return getOtherCasesChildren(primaryPrefixAst, primarySuffixAst, obj);
+    return getOtherCasesChildren(primaryPrefixAst, primarySuffixAst, methodInvocationSuffix, obj);
+}
+
+/** Get CallExpression List
+ * @param  {any} methodInvocationSuffixList
+ * @returns any
+ */
+function getCallExpression(methodInvocationSuffixList: any): any[] {
+    let callExpressionList = [];
+    if(Array.isArray(methodInvocationSuffixList)) {
+        methodInvocationSuffixList.forEach(methodInvocationSuffix => {
+            const callExpression = methodInvocationSuffix.children?.filter(e => e?.kind === 'CallExpression');
+            if(Array.isArray(callExpression) && callExpression.length) {
+                callExpressionList.push(...callExpression);
+            }
+        });
+    }
+    return callExpressionList;
+}
+
+/** Get ArrowFunction List
+ * @param  {any} methodInvocationSuffixList
+ * @returns any
+ */
+function getArrowFunction(methodInvocationSuffixList: any): any[] {
+    let arrowFunctionList = [];
+    if(Array.isArray(methodInvocationSuffixList)) {
+        methodInvocationSuffixList.forEach(methodInvocationSuffix => {
+            const arrowFunction = methodInvocationSuffix.children?.filter(e => e?.kind === 'ArrowFunction');
+            if(Array.isArray(arrowFunction)) {
+                arrowFunctionList.push(...arrowFunction);
+            }
+        });
+    }
+    return arrowFunctionList;
 }
 
 /**
@@ -69,72 +98,20 @@ function handleMethodInvocationSuffix(cstNode: any, primaryPrefixAst: any, prima
  * @param  {any} obj
  * @returns any
  */
-function getThisKeywordChildren(methodInvocationSuffix: any, thisKeyword: any, identifierSuffix: any, obj: any): any[] {
+function getThisKeywordChildren(methodInvocationSuffix: any, thisKeyword: any, identifierSuffix: any, obj: any): any[] {    
     return { ...obj,
             children :[
             toPropertyAccessExpression([
                 thisKeyword,
-                ...identifierSuffix
+                ...identifierSuffix,
             ], true),
-            ...methodInvocationSuffix.children
+            ...getCallExpression(methodInvocationSuffix),
+            ...getArrowFunction(methodInvocationSuffix)
         ]
     }
 }
 
-/**
- * @param  {any} lambdaExpression
- * @param  {Primary} cstNode
- * @param  {any} identifierPrefix
- * @param  {any} obj
- * @returns any
- */
-function getLambdaExpression(lambdaExpression: any, cstNode: Primary, identifierPrefix: any, obj: any): any[] {
-    return { ...obj,
-            children :[
-            {
-                kind: 'PropertyAccessExpression',
-                start: cstNode.location.startOffset,
-                end: cstNode.location.endOffset,
-                pos: cstNode.location.startOffset,
-                children: [
-                    ...identifierPrefix,
-                ]
-            },
-            {
-                kind: 'ArrowFunction',
-                start: lambdaExpression.start,
-                end: lambdaExpression.end,
-                pos: lambdaExpression.pos,
-                children: [
-                    ...getLambdaExpressionChildren(lambdaExpression)
-                ]
-            }
-        ]
-    }
-}
 
-/**
- * @param  {any} lambdaExpression
- * @returns any
- */
-function getLambdaExpressionChildren(lambdaExpression: any): any[] {
-    
-    const lambdaExpressionChildren = lambdaExpression.children;
-
-    const block = lambdaExpressionChildren.find(e => e.kind === 'ArrowFunction').children.find(e => e.kind === 'Block');
-    const callExpression = lambdaExpressionChildren.find(e => e.kind === 'ArrowFunction').children.find(e => e.kind === 'CallExpression')
-
-    const children = [
-        ...lambdaExpressionChildren.filter(e => e.kind === 'Parameter'),
-        ...lambdaExpressionChildren.filter(e => e.kind === 'EqualsGreaterThanToken'),
-    ]
-    if(block) {
-        children.push(block);
-    } else if(callExpression){
-        children.push(callExpression);
-    }
-    return children;
-}
 
 /**
  * @param  {any} primaryPrefixAst
@@ -142,7 +119,8 @@ function getLambdaExpressionChildren(lambdaExpression: any): any[] {
  * @param  {any} obj
  * @returns any
  */
-function getOtherCasesChildren(primaryPrefixAst: any, primarySuffixAst: any, obj: any): any[] {  
+function getOtherCasesChildren(primaryPrefixAst: any, primarySuffixAst: any, methodInvocationSuffix: any, obj: any): any[] {  
+    
     return { ...obj,
             children :[
             toPropertyAccessExpression([
@@ -151,11 +129,16 @@ function getOtherCasesChildren(primaryPrefixAst: any, primarySuffixAst: any, obj
                 ...primarySuffixAst.filter(e => e.kind === 'Identifier')
             ], true),
             ...primarySuffixAst.filter(e => e.kind === 'ClassLiteralSuffix'),
-            ...primarySuffixAst.find(e => e.kind === 'MethodInvocationSuffix').children
+            ...getCallExpression(methodInvocationSuffix),
+            ...getArrowFunction(methodInvocationSuffix)
         ]
     }
 }
 
+/** Get newExpression Ast node
+ * @param  {any} primaryPrefixAst
+ * @returns any
+ */
 function getNewExpression(primaryPrefixAst: any) : any[]{
     const newExpression = primaryPrefixAst.filter(e => e.kind === 'NewExpression');
 
@@ -164,7 +147,6 @@ function getNewExpression(primaryPrefixAst: any) : any[]{
             ...primaryPrefixAst.find(e => e.kind === 'NewExpression').children  
         ]
     }
-
     return []
 }
 
@@ -184,9 +166,9 @@ function toPropertyAccessExpression(identifiers: any[], isFunctionCall = false):
         if (isFunctionCall) {
             return {
                 kind: 'PropertyAccessExpression',
-                start: identifiers[0].start,
-                end: last.end,
-                pos: identifiers[0].pos,
+                start: identifiers[0]?.start,
+                end: last?.end,
+                pos: identifiers[0]?.pos,
                 children: [
                     toPropertyAccessExpression(identifiers, true),
                     {...last, type: 'function'}
@@ -195,9 +177,9 @@ function toPropertyAccessExpression(identifiers: any[], isFunctionCall = false):
         } else {
             return {
                 kind: 'PropertyAccessExpression',
-                start: identifiers[0].start,
-                end: last.end,
-                pos: identifiers[0].pos,
+                start: identifiers[0]?.start,
+                end: last?.end,
+                pos: identifiers[0]?.pos,
                 children: [
                     toPropertyAccessExpression(identifiers),
                     last
