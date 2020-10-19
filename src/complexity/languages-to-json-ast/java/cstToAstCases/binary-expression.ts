@@ -19,21 +19,16 @@ export function run(cstNode: BinaryExpression, children: BinaryExpressionChildre
 
         if (andOrOperators.length > 0) {
             const andOrOperatorsIndexes = binaryOperatorsAst.map((op, i) => [SyntaxKind.BarBarToken, SyntaxKind.AmpersandAmpersandToken].includes(op.kind) ? i : -1).filter(e => e !== -1);
-
             andOrOperatorsIndexes.reverse().forEach(index => binaryOperatorsAst.splice(index, 1));
-
             const exps = [];
-
             andOrOperators.concat(null).forEach(_ => {
                 exps.push([
                     binaryOperatorsAst.splice(0, 1),
                     unaryExpressionsAst.splice(0, 2)
                 ]);
             });
-
             const binExps = exps.map(exp => toBinaryExpression(clone(exp[0]), clone(exp[1])));
             const children = binExps.reduce((res, exp, i) => res.concat(exp, andOrOperators[i]), []).filter(e => e);
-
             return [{
                 kind: 'BinaryExpression',
                 start: cstNode.location.startOffset,

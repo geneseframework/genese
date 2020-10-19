@@ -4,7 +4,6 @@ import { LiteralChildren } from '../models/literal.children.model';
 // @ts-ignore
 export function run(cstNode: Literal, children: LiteralChildren): any {
     const nullLiteral = children.Null;
-
     if (nullLiteral) {
         return {
             kind: 'NullKeyword',
