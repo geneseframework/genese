@@ -1,6 +1,8 @@
 import { cstToAst } from '../cst-to-ast';
 import { BinaryExpression } from '../models/binary-expression.model';
 import { BinaryExpressionChildren } from '../models/binary-expression-children.model';
+import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
+import { clone } from 'genese-mapper';
 
 // @ts-ignore
 export function run(cstNode: BinaryExpression, children: BinaryExpressionChildren): any {
@@ -13,10 +15,33 @@ export function run(cstNode: BinaryExpression, children: BinaryExpressionChildre
 
     if (binaryOperators) {
         const binaryOperatorsAst = binaryOperators.map(e => cstToAst(e, 'binaryOperator'));
-        return [
-            toBinaryExpression(binaryOperatorsAst, unaryExpressionsAst)
-        ];
-    } else if (assignmentOperator){
+        const andOrOperators = binaryOperatorsAst.filter(op => [SyntaxKind.BarBarToken, SyntaxKind.AmpersandAmpersandToken].includes(op.kind));
+
+        if (andOrOperators.length > 0) {
+            const andOrOperatorsIndexes = binaryOperatorsAst.map((op, i) => [SyntaxKind.BarBarToken, SyntaxKind.AmpersandAmpersandToken].includes(op.kind) ? i : -1).filter(e => e !== -1);
+            andOrOperatorsIndexes.reverse().forEach(index => binaryOperatorsAst.splice(index, 1));
+            const exps = [];
+            andOrOperators.concat(null).forEach(_ => {
+                exps.push([
+                    binaryOperatorsAst.splice(0, 1),
+                    unaryExpressionsAst.splice(0, 2)
+                ]);
+            });
+            const binExps = exps.map(exp => toBinaryExpression(clone(exp[0]), clone(exp[1])));
+            const children = binExps.reduce((res, exp, i) => res.concat(exp, andOrOperators[i]), []).filter(e => e);
+            return [{
+                kind: 'BinaryExpression',
+                start: cstNode.location.startOffset,
+                end: cstNode.location.endOffset,
+                pos: cstNode.location.startOffset,
+                children: children
+            }];
+        } else {
+            return [
+                toBinaryExpression(binaryOperatorsAst, unaryExpressionsAst)
+            ];
+        }
+    } else if (assignmentOperator) {
         return {
             kind: 'BinaryExpression',
             start: cstNode.location.startOffset,
@@ -31,7 +56,7 @@ export function run(cstNode: BinaryExpression, children: BinaryExpressionChildre
     } else {
         return [
             ...unaryExpressionsAst,
-        ]
+        ];
     }
 }
 
@@ -46,9 +71,9 @@ function toBinaryExpression(_ops, _exps): any {
             end: _exps[_exps.length - 1]?.end,
             pos: firstExp.pos,
             children: [firstExp, firstOp, toBinaryExpression(_ops, _exps)]
-        }
+        };
     } else {
-        const children = [_exps[0], _ops[0], _exps[1]].filter(e => e)
+        const children = [_exps[0], _ops[0], _exps[1]].filter(e => e);
         if (children.length > 1) {
             return {
                 kind: 'BinaryExpression',
