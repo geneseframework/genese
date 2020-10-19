@@ -8,12 +8,12 @@ export function run(cstNode: LambdaBody, children: LambdaBodyChildren) {
     const expression = children.expression;
     
     return {
-        kind: 'ArrowFunction',
-        start: cstNode.location.startOffset,
-        end: cstNode.location.endOffset,
-        pos: cstNode.location.startOffset,
+         kind: 'CallExpression',
+         start: cstNode.location.startOffset,
+         end: cstNode.location.endOffset,
+         pos: cstNode.location.startOffset,
 
-        children: [
+         children: [
             ...[].concat(...block?.map(e => cstToAst(e)) ?? []),
             ...[].concat(...expression?.map(e => cstToAst(e)) ?? [])
         ]
