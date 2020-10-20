@@ -2,7 +2,7 @@ export enum Language {
 
     JAVA = 'java',
     PHP = 'php',
-    TS = 'typescript',
+    TS = 'ts',
     TYPESCRIPT = 'typescript'
 
 }

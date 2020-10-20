@@ -48,19 +48,20 @@ export class Ts {
      * @param node      // The node to check
      */
     static isFunctionCall(node: Node): boolean {
-        return node?.getParent()?.getParent()?.getKind() === SyntaxKind.CallExpression && Ts.isSecondSon(node);
-    }
-
-
-    /**
-     * Checks is a given node is the second son of its parent
-     * @param node      // The node to check
-     */
-    private static isSecondSon(node: Node): boolean {
-        if (!node?.getParent()) {
+        if (node.getKind() === SyntaxKind.PropertyAccessExpression) {
             return false;
         }
-        return node?.getChildIndex() === 2;
-    }
+        const parent: Node = node?.getParent();
+        if (!parent) {
+            return false;
+        }
+        const grandParent: Node = parent?.getParent();
+        if (!grandParent) {
+            return false;
+        }
+        const grandParentCall = grandParent.getKind() === SyntaxKind.CallExpression && grandParent.compilerNode['expression'].end === node.getEnd();
+        const parentCall = parent.getKind() === SyntaxKind.CallExpression && parent.compilerNode['expression'].end === node.getEnd();
 
+        return parentCall || grandParentCall;
+    }
 }
