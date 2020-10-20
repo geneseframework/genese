@@ -1,6 +1,8 @@
 import { cstToAst } from '../cst-to-ast';
 import { Primary } from '../models/primary.model';
 import { PrimaryChildren } from '../models/primary-children.model';
+import { MethodInvocationSuffix } from '../models/method-invocation-suffix.model';
+import { clone } from 'genese-mapper';
 
 
 export function run(cstNode: Primary, children: PrimaryChildren): any {
@@ -72,7 +74,7 @@ function getThisKeywordChildren(methodInvocationSuffix: any, thisKeyword: any, i
             toPropertyAccessExpression([
                 thisKeyword,
                 ...identifierSuffix,
-            ], true, methodInvocationSuffix),
+            ], true, clone(methodInvocationSuffix)),
             ...getMethodInvocationSuffixChildren(methodInvocationSuffix),
         ]
     };
@@ -94,7 +96,7 @@ function getOtherCasesChildren(primaryPrefixAst: any, primarySuffixAst: any, met
                 ...getNewExpression(primaryPrefixAst),
                 ...primaryPrefixAst.filter(e => e.kind === 'Identifier'),
                 ...primarySuffixAst.filter(e => e.kind === 'Identifier')
-            ], true, methodInvocationSuffix),
+            ], true, clone(methodInvocationSuffix)),
             ...primarySuffixAst.filter(e => e.kind === 'ClassLiteralSuffix'),
             ...getMethodInvocationSuffixChildren(methodInvocationSuffix),
         ]
