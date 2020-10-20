@@ -24,13 +24,13 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
  * @param  {any} primaryPrefixAst
  * @param  {any} primarySuffixAst
  */
-function handleNoMethodInvocationSuffix(primaryPrefixAst: any, primarySuffixAst: any) {    
+function handleNoMethodInvocationSuffix(primaryPrefixAst: any, primarySuffixAst: any) {
     if (primaryPrefixAst.length <= 1) {
         return [
             ...primaryPrefixAst,
             ...primarySuffixAst
         ];
-    }    
+    }
     return [
         toPropertyAccessExpression(primaryPrefixAst, false, []),
         ...primarySuffixAst
@@ -114,7 +114,7 @@ function getMethodInvocationSuffixChildren(methodInvocationSuffixList) {
             }
         });
     }
-    return childrenList; 
+    return childrenList;
 }
 
 /** Get newExpression Ast node
@@ -135,9 +135,10 @@ function getNewExpression(primaryPrefixAst: any): any[] {
 /**
  * @param  {any[]} identifiers
  * @param  {} isFunctionCall=false
+ * @param  {any[]} methodInvocationSuffix
  * @returns any
  */
-function toPropertyAccessExpression(identifiers: any[], isFunctionCall = false, methodInvocationSuffix): any {
+function toPropertyAccessExpression(identifiers: any[], isFunctionCall = false, methodInvocationSuffix: any[]): any {
     if (!identifiers) return undefined;
 
     if (identifiers.length === 1 && methodInvocationSuffix.length === 0) {
@@ -148,7 +149,7 @@ function toPropertyAccessExpression(identifiers: any[], isFunctionCall = false, 
         const last = identifiers.pop();
 
         if (isFunctionCall) {
-            const suffix = methodInvocationSuffix.pop();
+            methodInvocationSuffix.pop();
 
             let start = 0, pos = 0;
             if (identifiers.length === 0) {
