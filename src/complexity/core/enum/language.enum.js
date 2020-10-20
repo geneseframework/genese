@@ -5,6 +5,6 @@ var Language;
 (function (Language) {
     Language["JAVA"] = "java";
     Language["PHP"] = "php";
-    Language["TS"] = "typescript";
+    Language["TS"] = "ts";
     Language["TYPESCRIPT"] = "typescript";
 })(Language = exports.Language || (exports.Language = {}));
