@@ -105,6 +105,7 @@ function getThisKeywordChildren(methodInvocationSuffix: any, thisKeyword: any, i
                 thisKeyword,
                 ...identifierSuffix,
             ], true),
+            ...getLiteral(methodInvocationSuffix),
             ...getCallExpression(methodInvocationSuffix),
             ...getArrowFunction(methodInvocationSuffix)
         ]
@@ -119,7 +120,7 @@ function getThisKeywordChildren(methodInvocationSuffix: any, thisKeyword: any, i
  * @param  {any} obj
  * @returns any
  */
-function getOtherCasesChildren(primaryPrefixAst: any, primarySuffixAst: any, methodInvocationSuffix: any, obj: any): any[] {  
+function getOtherCasesChildren(primaryPrefixAst: any, primarySuffixAst: any, methodInvocationSuffix: any, obj: any): any[] {      
     
     return { ...obj,
             children :[
@@ -129,10 +130,28 @@ function getOtherCasesChildren(primaryPrefixAst: any, primarySuffixAst: any, met
                 ...primarySuffixAst.filter(e => e.kind === 'Identifier')
             ], true),
             ...primarySuffixAst.filter(e => e.kind === 'ClassLiteralSuffix'),
+            ...getLiteral(methodInvocationSuffix),
             ...getCallExpression(methodInvocationSuffix),
             ...getArrowFunction(methodInvocationSuffix)
         ]
     }
+}
+
+/** get Literal Ast node
+ * @param  {any} methodInvocationSuffixList
+ * @returns any
+ */
+function getLiteral(methodInvocationSuffixList: any): any[] {
+    let literalList = [];
+    if(Array.isArray(methodInvocationSuffixList)) {
+        methodInvocationSuffixList.forEach(methodInvocationSuffix => {
+            const literal = methodInvocationSuffix.children?.filter(e => e?.kind === 'Literal');
+            if(Array.isArray(literal) && literal.length > 0) {
+                literalList.push(...literal);
+            }
+        });
+    }
+    return literalList; 
 }
 
 /** Get newExpression Ast node
