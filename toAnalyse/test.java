@@ -1,15 +1,13 @@
 public class Application {
 
     public void test(){
-        if (h == null || h.next == null) {
-           return h;
-        }
-        if (h == null) {
-           return h;
-        }
-        if (h.next == null) {
-           return h;
-        }
+        int z = a.b;
+        int a = a().b().c();
+        int b = this.a().b().c();
+        int c = Class.a().b().c();
+        int d = a().b.c();
+        int e = f();
+        int g = u.i();
     }
 }
 
