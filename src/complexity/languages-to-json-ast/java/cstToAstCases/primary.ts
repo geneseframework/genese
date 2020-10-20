@@ -146,7 +146,7 @@ function getLiteral(methodInvocationSuffixList: any): any[] {
     if(Array.isArray(methodInvocationSuffixList)) {
         methodInvocationSuffixList.forEach(methodInvocationSuffix => {
             const literal = methodInvocationSuffix.children?.filter(e => e?.kind === 'Literal');
-            if(Array.isArray(literal) && literal.length) {
+            if(Array.isArray(literal) && literal.length > 0) {
                 literalList.push(...literal);
             }
         });
