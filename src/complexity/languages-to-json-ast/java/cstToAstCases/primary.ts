@@ -21,13 +21,13 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
  * @param  {any} primaryPrefixAst
  * @param  {any} primarySuffixAst
  */
-function handleNoMethodInvocationSuffix(primaryPrefixAst: any, primarySuffixAst: any) {
+function handleNoMethodInvocationSuffix(primaryPrefixAst: any, primarySuffixAst: any) {    
     if (primaryPrefixAst.length <= 1) {
         return [
             ...primaryPrefixAst,
             ...primarySuffixAst
         ];
-    }
+    }    
     return [
         toPropertyAccessExpression(primaryPrefixAst),
         ...primarySuffixAst
@@ -57,40 +57,6 @@ function handleMethodInvocationSuffix(cstNode: any, primaryPrefixAst: any, prima
     return getOtherCasesChildren(primaryPrefixAst, primarySuffixAst, methodInvocationSuffix, obj);
 }
 
-/** Get CallExpression List
- * @param  {any} methodInvocationSuffixList
- * @returns any
- */
-function getCallExpression(methodInvocationSuffixList: any): any[] {
-    let callExpressionList = [];
-    if(Array.isArray(methodInvocationSuffixList)) {
-        methodInvocationSuffixList.forEach(methodInvocationSuffix => {
-            const callExpression = methodInvocationSuffix.children?.filter(e => e?.kind === 'CallExpression');
-            if(Array.isArray(callExpression) && callExpression.length) {
-                callExpressionList.push(...callExpression);
-            }
-        });
-    }
-    return callExpressionList;
-}
-
-/** Get ArrowFunction List
- * @param  {any} methodInvocationSuffixList
- * @returns any
- */
-function getArrowFunction(methodInvocationSuffixList: any): any[] {
-    let arrowFunctionList = [];
-    if(Array.isArray(methodInvocationSuffixList)) {
-        methodInvocationSuffixList.forEach(methodInvocationSuffix => {
-            const arrowFunction = methodInvocationSuffix.children?.filter(e => e?.kind === 'ArrowFunction');
-            if(Array.isArray(arrowFunction)) {
-                arrowFunctionList.push(...arrowFunction);
-            }
-        });
-    }
-    return arrowFunctionList;
-}
-
 /**
  * @param  {any} methodInvocationSuffix
  * @param  {any} thisKeyword
@@ -105,9 +71,7 @@ function getThisKeywordChildren(methodInvocationSuffix: any, thisKeyword: any, i
                 thisKeyword,
                 ...identifierSuffix,
             ], true),
-            ...getLiteral(methodInvocationSuffix),
-            ...getCallExpression(methodInvocationSuffix),
-            ...getArrowFunction(methodInvocationSuffix)
+            ...getMethodInvocationSuffixChildren(methodInvocationSuffix),
         ]
     }
 }
@@ -121,7 +85,6 @@ function getThisKeywordChildren(methodInvocationSuffix: any, thisKeyword: any, i
  * @returns any
  */
 function getOtherCasesChildren(primaryPrefixAst: any, primarySuffixAst: any, methodInvocationSuffix: any, obj: any): any[] {      
-    
     return { ...obj,
             children :[
             toPropertyAccessExpression([
@@ -130,28 +93,23 @@ function getOtherCasesChildren(primaryPrefixAst: any, primarySuffixAst: any, met
                 ...primarySuffixAst.filter(e => e.kind === 'Identifier')
             ], true),
             ...primarySuffixAst.filter(e => e.kind === 'ClassLiteralSuffix'),
-            ...getLiteral(methodInvocationSuffix),
-            ...getCallExpression(methodInvocationSuffix),
-            ...getArrowFunction(methodInvocationSuffix)
+            ...getMethodInvocationSuffixChildren(methodInvocationSuffix),
         ]
     }
 }
-
-/** get Literal Ast node
- * @param  {any} methodInvocationSuffixList
- * @returns any
+/** Get all MethodInvocationSuffix with children
+ * @param  {} methodInvocationSuffixList
  */
-function getLiteral(methodInvocationSuffixList: any): any[] {
-    let literalList = [];
+function getMethodInvocationSuffixChildren(methodInvocationSuffixList) {
+    let childrenList = [];
     if(Array.isArray(methodInvocationSuffixList)) {
         methodInvocationSuffixList.forEach(methodInvocationSuffix => {
-            const literal = methodInvocationSuffix.children?.filter(e => e?.kind === 'Literal');
-            if(Array.isArray(literal) && literal.length > 0) {
-                literalList.push(...literal);
+            if(Array.isArray(methodInvocationSuffix.children) && methodInvocationSuffix.children.length > 0) {
+                childrenList.push(...methodInvocationSuffix.children);
             }
         });
     }
-    return literalList; 
+    return childrenList; 
 }
 
 /** Get newExpression Ast node
