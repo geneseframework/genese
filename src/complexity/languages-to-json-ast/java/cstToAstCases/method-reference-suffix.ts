@@ -5,7 +5,7 @@ import { MethodReferenceSuffixChildren } from '../models/method-reference-suffix
 // @ts-ignore
 export function run(cstNode: MethodReferenceSuffix, children: MethodReferenceSuffixChildren): any {
     const identifier = children.Identifier;
-    console.log('identifier : ', identifier)
+
     return [
         ...identifier?.map(e => cstToAst(e, 'identifier')) ?? []
     ];
