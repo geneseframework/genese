@@ -163,7 +163,7 @@ function toPropertyAccessExpression(identifiers: any[], isFunctionCall = false, 
                 end: last?.end,
                 pos: pos,
                 children: [
-                    toPropertyAccessExpression(identifiers, true, methodInvocationSuffix),
+                    toPropertyAccessExpression(identifiers, methodInvocationSuffix.length > 0, methodInvocationSuffix),
                     {...last, type: 'function'}
                 ].filter(e => e !== undefined)
             };
