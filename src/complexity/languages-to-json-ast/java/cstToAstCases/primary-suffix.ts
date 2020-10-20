@@ -7,10 +7,12 @@ export function run(cstNode: PrimarySuffix, children: PrimarySuffixChildren): an
     const identifier = children.Identifier;
     const methodInvocationSuffix = children.methodInvocationSuffix;
     const classLiteralSuffix = children.classLiteralSuffix;
+    const methodReferenceSuffix = children.methodReferenceSuffix;
 
     return [
         ...identifier?.map(e => cstToAst(e, 'identifier')) ?? [],
         ...[].concat(...classLiteralSuffix?.map(e => cstToAst(e)) ?? []),
-        ...[].concat(...methodInvocationSuffix?.map(e => cstToAst(e, 'methodInvocationSuffix')) ?? [])
+        ...[].concat(...methodInvocationSuffix?.map(e => cstToAst(e, 'methodInvocationSuffix')) ?? []),
+        ...[].concat(...methodReferenceSuffix?.map(e => cstToAst(e, 'methodReferenceSuffix')) ?? [])
     ];
 }
