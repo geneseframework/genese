@@ -24,6 +24,7 @@
 /src/complexity/json-ast-to-reports/models/*.js
 /src/complexity/json-ast-to-reports/services/*.js
 /src/complexity/languages-to-json-ast/**/*.js
+/src/complexity/**/*.js
 /json-ast.json
 
 # Only exists if Bazel was run
