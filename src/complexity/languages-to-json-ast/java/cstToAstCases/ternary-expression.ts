@@ -6,9 +6,7 @@ import { TernaryExpressionChildren } from '../models/ternary-expression-children
 export function run(cstNode: TernaryExpression, children: TernaryExpressionChildren): any {
     const binaryExpressions = children.binaryExpression;
     const expression = children.expression;
-
     const expressionAst = [].concat(...expression?.map(e => cstToAst(e)) ?? [])
-
     if (children.QuestionMark) {
         return {
             kind: 'ConditionalExpression',
@@ -22,7 +20,6 @@ export function run(cstNode: TernaryExpression, children: TernaryExpressionChild
                 ...children.Colon?.map(e => cstToAst(e, 'colonToken')) ?? [],
                 expressionAst[1]
             ]
-
         }
     } else {
         return [
