@@ -10,36 +10,31 @@ export function run(cstNode: BinaryExpression, children: BinaryExpressionChildre
     const binaryOperators = children.BinaryOperator;
     const assignmentOperator = children.AssignmentOperator;
     const expression = children.expression;
-
     const unaryExpressionsAst = [...[].concat(...unaryExpressions.map(e => cstToAst(e)))];
-
     if (binaryOperators) {
         const binaryOperatorsAst = binaryOperators.map(e => cstToAst(e, 'binaryOperator'));
         const andOrOperators = binaryOperatorsAst.filter(op => [SyntaxKind.BarBarToken, SyntaxKind.AmpersandAmpersandToken].includes(op.kind));
-
-        if (andOrOperators.length > 0) {
-            const andOrOperatorsIndexes = binaryOperatorsAst.map((op, i) => [SyntaxKind.BarBarToken, SyntaxKind.AmpersandAmpersandToken].includes(op.kind) ? i : -1).filter(e => e !== -1);
-            andOrOperatorsIndexes.reverse().forEach(index => binaryOperatorsAst.splice(index, 1));
-            const exps = [];
-            andOrOperators.concat(null).forEach(_ => {
-                exps.push([
-                    binaryOperatorsAst.splice(0, 1),
-                    unaryExpressionsAst.splice(0, 2)
-                ]);
-            });
-            const binExps = exps.map(exp => toBinaryExpression(clone(exp[0]), clone(exp[1])));
-            const children = binExps.reduce((res, exp, i) => res.concat(exp, andOrOperators[i]), []).filter(e => e);
-            return [{
-                kind: 'BinaryExpression',
-                start: cstNode.location.startOffset,
-                end: cstNode.location.endOffset,
-                pos: cstNode.location.startOffset,
-                children: children
-            }];
+        const exps = [];
+        let i = 0;
+        while (i < binaryOperatorsAst.length + 1) {
+            const op = binaryOperatorsAst[i];
+            if (op) {
+                if ([SyntaxKind.BarBarToken, SyntaxKind.AmpersandAmpersandToken].includes(op.kind)) {
+                    exps.push([[], [unaryExpressionsAst[i]]]);
+                } else {
+                    exps.push([[op], [unaryExpressionsAst[i], unaryExpressionsAst[i + 1]]]);
+                    unaryExpressionsAst.splice(i + 1, 1);
+                }
+            } else {
+                exps.push([[], [unaryExpressionsAst[i]]]);
+            }
+            i++;
+        }
+        const binExps = exps.map(exp => toBinaryExpression(clone(exp[0]), clone(exp[1])));
+        if (binExps.length > 1) {
+            return toBinaryExpression(clone(andOrOperators), clone(binExps));
         } else {
-            return [
-                toBinaryExpression(binaryOperatorsAst, unaryExpressionsAst)
-            ];
+            return binExps[0]
         }
     } else if (assignmentOperator) {
         return {
