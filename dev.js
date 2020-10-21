@@ -3,7 +3,7 @@
 
 exports.__esModule = true;
 var ansi_colors_1 = require("ansi-colors");
-var main = require("./src/complexity/main");
+var main = require("./dist/main");
 
 try {
     console.log(ansi_colors_1.yellowBright("WELCOME TO GENESE COMPLEXITY"));
