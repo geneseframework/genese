@@ -32,8 +32,7 @@ export function run(cstNode: BinaryExpression, children: BinaryExpressionChildre
         }
         const binExps = exps.map(exp => toBinaryExpression(clone(exp[0]), clone(exp[1])));
         if (binExps.length > 1) {
-            const r = toBinaryExpression(clone(andOrOperators), clone(binExps));
-            return r;
+            return toBinaryExpression(clone(andOrOperators), clone(binExps));
         } else {
             return binExps[0]
         }
