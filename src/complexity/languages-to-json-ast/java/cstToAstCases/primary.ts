@@ -18,7 +18,7 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
     if (Array.isArray(methodInvocationSuffix) && methodInvocationSuffix.length > 1) {
         return handleMethodInvocationSuffix(cstNode, primaryPrefixAst, primarySuffixAst, methodInvocationSuffix);
     } else if(Array.isArray(arrayAccessSuffix) && arrayAccessSuffix.length > 1) {
-        return createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuffix, true);
+        return createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuffix);
     }
     return handleNoMethodInvocationSuffix(primaryPrefixAst, primarySuffixAst);
 }
@@ -140,13 +140,13 @@ function getNewExpression(primaryPrefixAst: any): any[] {
  * @param  {} arrayAccessSuffixList
  * @returns any
  */
-function createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList, first): any{
+function createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList): any{
     if (arrayAccessSuffixList.length === 1) {
         return {
             kind: 'ElementAccessExpression',
             start: primaryPrefixAst[0]?.start,
             end: arrayAccessSuffixList[0]?.end,
-            pos: arrayAccessSuffixList[0]?.pos,
+            pos: primaryPrefixAst[0]?.pos,
             children: [
                 primaryPrefixAst.find(e => e.kind === 'Identifier'),
                 ...arrayAccessSuffixList[0].children.filter(e => e.kind === 'Identifier') 
@@ -155,21 +155,14 @@ function createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuff
     } else {
         const arrayAccessSuffix = arrayAccessSuffixList.pop();
         const last = arrayAccessSuffix.children?.find(e => e.kind === 'Identifier');
-        let start = 0, pos = 0;
-        if (first) {
-            start = primaryPrefixAst[0]?.start;
-            pos = last.pos;
-        } else {
-            start = arrayAccessSuffix.start;
-            pos = arrayAccessSuffix.pos;
-        }
+        
         return {
             kind: 'ElementAccessExpression',
-            start: start,
+            start: primaryPrefixAst[0]?.start,
+            pos: primaryPrefixAst[0]?.pos,
             end: arrayAccessSuffix?.end,
-            pos: pos,
             children: [{
-                ...createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList, false),
+                ...createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList),
                 },last
             ]
         };      
