@@ -8,11 +8,14 @@ export function run(cstNode: PrimarySuffix, children: PrimarySuffixChildren): an
     const methodInvocationSuffix = children.methodInvocationSuffix;
     const classLiteralSuffix = children.classLiteralSuffix;
     const methodReferenceSuffix = children.methodReferenceSuffix;
+    const arrayAccessSuffix = children.arrayAccessSuffix;
 
     return [
         ...identifier?.map(e => cstToAst(e, 'identifier')) ?? [],
         ...[].concat(...classLiteralSuffix?.map(e => cstToAst(e)) ?? []),
         ...[].concat(...methodInvocationSuffix?.map(e => cstToAst(e, 'methodInvocationSuffix')) ?? []),
-        ...[].concat(...methodReferenceSuffix?.map(e => cstToAst(e, 'methodReferenceSuffix')) ?? [])
+        ...[].concat(...methodReferenceSuffix?.map(e => cstToAst(e, 'methodReferenceSuffix')) ?? []),
+        ...[].concat(...arrayAccessSuffix?.map(e => cstToAst(e, 'arrayAccessSuffix')) ?? [])
+
     ];
 }
