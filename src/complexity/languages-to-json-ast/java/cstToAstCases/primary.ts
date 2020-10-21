@@ -13,9 +13,12 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
     const primarySuffixAst = [].concat(...primarySuffix?.map(e => cstToAst(e)) ?? []);
 
     const methodInvocationSuffix = primarySuffixAst.filter(e => e.kind === 'MethodInvocationSuffix');
+    const arrayAccessSuffix = primarySuffixAst.filter(e => e.kind === 'ArrayAccessSuffix');
 
-    if (Array.isArray(methodInvocationSuffix) && methodInvocationSuffix.length) {
+    if (Array.isArray(methodInvocationSuffix) && methodInvocationSuffix.length > 1) {
         return handleMethodInvocationSuffix(cstNode, primaryPrefixAst, primarySuffixAst, methodInvocationSuffix);
+    } else if(Array.isArray(arrayAccessSuffix) && arrayAccessSuffix.length > 1) {
+        return handleArrayAccessSuffix(cstNode, primaryPrefixAst, primarySuffixAst, arrayAccessSuffix)
     }
     return handleNoMethodInvocationSuffix(primaryPrefixAst, primarySuffixAst);
 }
@@ -35,6 +38,25 @@ function handleNoMethodInvocationSuffix(primaryPrefixAst: any, primarySuffixAst:
         toPropertyAccessExpression(primaryPrefixAst, false, []),
         ...primarySuffixAst
     ];
+}
+
+/** get ElementAccessExpression Ast node
+ * @param  {any} cstNode
+ * @param  {any} primaryPrefixAst
+ * @param  {any} primarySuffixAst
+ * @param  {any} arrayAccessSuffix
+ */
+function handleArrayAccessSuffix(cstNode: any, primaryPrefixAst: any, _primarySuffixAst: any, arrayAccessSuffix: any) {
+
+    return {
+        kind: 'ElementAccessExpression',
+        start: cstNode.location.startOffset,
+        end: cstNode.location.endOffset,
+        pos: cstNode.location.startOffset,
+        children: [
+            toElementAccessExpression(primaryPrefixAst, arrayAccessSuffix),
+        ]
+    }
 }
 
 /**
@@ -130,6 +152,34 @@ function getNewExpression(primaryPrefixAst: any): any[] {
         ];
     }
     return [];
+}
+
+/**
+ * @param  {} primaryPrefixAst
+ * @param  {} arrayAccessSuffixList
+ * @returns any
+ */
+function toElementAccessExpression(primaryPrefixAst, arrayAccessSuffixList): any{
+
+    if (arrayAccessSuffixList.length === 1) {        
+        return {
+                ...primaryPrefixAst.filter(e => e.kind === 'Identifier'),
+                ...arrayAccessSuffixList[0].children.filter(e => e.kind === 'Identifier')  
+        }
+    } else {
+        const arrayAccessSuffix = arrayAccessSuffixList.pop();
+        const last = arrayAccessSuffix.children?.filter(e => e.kind === 'Identifier');        
+        return {
+            kind: 'ElementAccessExpression',
+            start: arrayAccessSuffix.start,
+            end: arrayAccessSuffix?.end,
+            pos: arrayAccessSuffix.pos,
+            children: [
+                toElementAccessExpression(primaryPrefixAst, arrayAccessSuffixList),
+                ...last
+            ]
+        };
+    }
 }
 
 /**
