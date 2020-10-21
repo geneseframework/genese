@@ -26,6 +26,9 @@
 /src/complexity/languages-to-json-ast/**/*.js
 /src/complexity/**/*.js
 /json-ast.json
+/toAnalyse/
+
+!/src/complexity/main.js
 
 # Only exists if Bazel was run
 /bazel-out
