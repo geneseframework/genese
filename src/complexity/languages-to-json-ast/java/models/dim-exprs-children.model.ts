@@ -1,5 +1,5 @@
-import { Expression } from "./expression.model";
+import { DimExpr } from "./dim-expr.model";
 
 export class DimExprsChildren {
-    expression?: Expression[] = [new Expression()];
+    dimExpr?: DimExpr[] = [new DimExpr()];
 }

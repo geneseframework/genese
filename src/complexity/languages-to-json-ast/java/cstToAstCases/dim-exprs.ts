@@ -4,9 +4,9 @@ import { DimExprsChildren } from '../models/dim-exprs-children.model';
 
 // @ts-ignore
 export function run(cstNode: DimExprs, children: DimExprsChildren): any {
-    const expression = children.expression;
+    const dimExpr = children.dimExpr;
 
     return [
-            ...[].concat(...expression.map(e => cstToAst(e)) ?? [])
+            ...[].concat(...dimExpr?.map(e => cstToAst(e)) ?? [])
     ];
 }
