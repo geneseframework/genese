@@ -18,7 +18,7 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
     if (Array.isArray(methodInvocationSuffix) && methodInvocationSuffix.length > 1) {
         return handleMethodInvocationSuffix(cstNode, primaryPrefixAst, primarySuffixAst, methodInvocationSuffix);
     } else if(Array.isArray(arrayAccessSuffix) && arrayAccessSuffix.length > 1) {
-        return handleArrayAccessSuffix(cstNode, primaryPrefixAst, primarySuffixAst, arrayAccessSuffix)
+        return createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuffix, true);
     }
     return handleNoMethodInvocationSuffix(primaryPrefixAst, primarySuffixAst);
 }
@@ -38,25 +38,6 @@ function handleNoMethodInvocationSuffix(primaryPrefixAst: any, primarySuffixAst:
         toPropertyAccessExpression(primaryPrefixAst, false, []),
         ...primarySuffixAst
     ];
-}
-
-/** get ElementAccessExpression Ast node
- * @param  {any} cstNode
- * @param  {any} primaryPrefixAst
- * @param  {any} primarySuffixAst
- * @param  {any} arrayAccessSuffix
- */
-function handleArrayAccessSuffix(cstNode: any, primaryPrefixAst: any, _primarySuffixAst: any, arrayAccessSuffix: any) {
-
-    return {
-        kind: 'ElementAccessExpression',
-        start: cstNode.location.startOffset,
-        end: cstNode.location.endOffset,
-        pos: cstNode.location.startOffset,
-        children: [
-            toElementAccessExpression(primaryPrefixAst, arrayAccessSuffix),
-        ]
-    }
 }
 
 /**
@@ -159,26 +140,39 @@ function getNewExpression(primaryPrefixAst: any): any[] {
  * @param  {} arrayAccessSuffixList
  * @returns any
  */
-function toElementAccessExpression(primaryPrefixAst, arrayAccessSuffixList): any{
-
-    if (arrayAccessSuffixList.length === 1) {        
+function createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList, first): any{
+    if (arrayAccessSuffixList.length === 1) {
         return {
-                ...primaryPrefixAst.filter(e => e.kind === 'Identifier'),
-                ...arrayAccessSuffixList[0].children.filter(e => e.kind === 'Identifier')  
+            kind: 'ElementAccessExpression',
+            start: primaryPrefixAst[0]?.start,
+            end: arrayAccessSuffixList[0]?.end,
+            pos: arrayAccessSuffixList[0]?.pos,
+            children: [
+                primaryPrefixAst.find(e => e.kind === 'Identifier'),
+                ...arrayAccessSuffixList[0].children.filter(e => e.kind === 'Identifier') 
+            ]
         }
     } else {
         const arrayAccessSuffix = arrayAccessSuffixList.pop();
-        const last = arrayAccessSuffix.children?.filter(e => e.kind === 'Identifier');        
+        const last = arrayAccessSuffix.children?.find(e => e.kind === 'Identifier');
+        let start = 0, pos = 0;
+        if (first) {
+            start = primaryPrefixAst[0]?.start;
+            pos = last.pos;
+        } else {
+            start = arrayAccessSuffix.start;
+            pos = arrayAccessSuffix.pos;
+        }
         return {
             kind: 'ElementAccessExpression',
-            start: arrayAccessSuffix.start,
+            start: start,
             end: arrayAccessSuffix?.end,
-            pos: arrayAccessSuffix.pos,
-            children: [
-                toElementAccessExpression(primaryPrefixAst, arrayAccessSuffixList),
-                ...last
+            pos: pos,
+            children: [{
+                ...createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList, false),
+                },last
             ]
-        };
+        };      
     }
 }
 
