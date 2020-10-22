@@ -6,7 +6,13 @@ import { DimExprsChildren } from '../models/dim-exprs-children.model';
 export function run(cstNode: DimExprs, children: DimExprsChildren): any {
     const dimExpr = children.dimExpr;
 
-    return [
+    return {
+        kind: 'DimExprs',
+        start: cstNode.location.startOffset,
+        end: cstNode.location.endOffset,
+        pos: cstNode.location.startOffset,
+        children: [
             ...[].concat(...dimExpr?.map(e => cstToAst(e)) ?? [])
-    ];
+        ]
+    }  
 }
