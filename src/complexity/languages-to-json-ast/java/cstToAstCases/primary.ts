@@ -13,9 +13,12 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
     const primarySuffixAst = [].concat(...primarySuffix?.map(e => cstToAst(e)) ?? []);
 
     const methodInvocationSuffix = primarySuffixAst.filter(e => e.kind === 'MethodInvocationSuffix');
+    const arrayAccessSuffix = primarySuffixAst.filter(e => e.kind === 'ArrayAccessSuffix');
 
-    if (Array.isArray(methodInvocationSuffix) && methodInvocationSuffix.length) {
+    if (Array.isArray(methodInvocationSuffix) && methodInvocationSuffix.length > 0) {
         return handleMethodInvocationSuffix(cstNode, primaryPrefixAst, primarySuffixAst, methodInvocationSuffix);
+    } else if(Array.isArray(arrayAccessSuffix) && arrayAccessSuffix.length > 0) {
+        return createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuffix);
     }
     return handleNoMethodInvocationSuffix(primaryPrefixAst, primarySuffixAst);
 }
@@ -130,6 +133,40 @@ function getNewExpression(primaryPrefixAst: any): any[] {
         ];
     }
     return [];
+}
+
+/**
+ * @param  {} primaryPrefixAst
+ * @param  {} arrayAccessSuffixList
+ * @returns any
+ */
+function createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList): any {
+    if (arrayAccessSuffixList.length === 1) {
+        return {
+            kind: 'ElementAccessExpression',
+            start: primaryPrefixAst[0]?.start,
+            end: arrayAccessSuffixList[0]?.end,
+            pos: primaryPrefixAst[0]?.pos,
+            children: [
+                primaryPrefixAst.find(e => e.kind === 'Identifier'),
+                ...arrayAccessSuffixList[0].children.filter(e => e.kind === 'Identifier' || 'Literal') 
+            ]
+        }
+    } else {
+        const arrayAccessSuffix = arrayAccessSuffixList.pop();
+        const last = arrayAccessSuffix.children?.find(e => e.kind === 'Identifier' || 'Literal');
+        
+        return {
+            kind: 'ElementAccessExpression',
+            start: primaryPrefixAst[0]?.start,
+            pos: primaryPrefixAst[0]?.pos,
+            end: arrayAccessSuffix?.end,
+            children: [{
+                ...createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList),
+                },last
+            ]
+        };      
+    }
 }
 
 /**
