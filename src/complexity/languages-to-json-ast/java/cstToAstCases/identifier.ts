@@ -5,7 +5,7 @@ export function run(cstNode: Infos, children): any {
     const astNode = {
         kind: 'Identifier',
         start: cstNode.startOffset,
-        end: cstNode.endOffset,
+        end: cstNode.endOffset + 1,
         pos: cstNode.startOffset,
         name: cstNode.image
     };
