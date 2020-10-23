@@ -46,6 +46,7 @@ function split(list) {
     const operatorsOrder = [
         [SyntaxKind.BarBarToken],
         [SyntaxKind.AmpersandAmpersandToken],
+        [SyntaxKind.EqualsEqualsToken, SyntaxKind.ExclamationEqualsToken],
         [SyntaxKind.LessThanToken, SyntaxKind.LessThanEqualsToken, SyntaxKind.GreaterThanToken, SyntaxKind.GreaterThanEqualsToken],
         [SyntaxKind.PlusToken, SyntaxKind.MinusToken],
         [SyntaxKind.AsteriskToken, SyntaxKind.SlashToken, SyntaxKind.PercentToken]
