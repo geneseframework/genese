@@ -5,7 +5,6 @@ import { ClassLiteralSuffixChildren } from '../models/class-literal-suffix-child
 // @ts-ignore
 export function run(cstNode: ClassLiteralSuffix, children: ClassLiteralSuffixChildren): any {
     const class_ = children.Class;
-    
     return {
         kind: 'ClassLiteralSuffix',
         start: cstNode.location.startOffset,
