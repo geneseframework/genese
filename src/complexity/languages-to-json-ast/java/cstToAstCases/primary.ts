@@ -28,14 +28,18 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
  * @param  {any} primarySuffixAst
  */
 function handleNoMethodInvocationSuffix(primaryPrefixAst: any, primarySuffixAst: any) {
-    if (primaryPrefixAst.length <= 1) {
+    if (primaryPrefixAst.length > 1) {
         return [
-            ...primaryPrefixAst,
+            toPropertyAccessExpression(primaryPrefixAst, false, []),
             ...primarySuffixAst
+        ];
+    } else if (primarySuffixAst.length === 1 && primarySuffixAst[0].kind === 'ClassLiteralSuffix') {
+        return [
+            toPropertyAccessExpression([...primaryPrefixAst, ...primarySuffixAst[0].children], false, []),
         ];
     }
     return [
-        toPropertyAccessExpression(primaryPrefixAst, false, []),
+        ...primaryPrefixAst,
         ...primarySuffixAst
     ];
 }
@@ -49,14 +53,12 @@ function handleNoMethodInvocationSuffix(primaryPrefixAst: any, primarySuffixAst:
 function handleMethodInvocationSuffix(cstNode: any, primaryPrefixAst: any, primarySuffixAst: any, methodInvocationSuffix: any) {
     const identifierSuffix = primarySuffixAst.filter(e => e.kind === 'Identifier');
     const thisKeyword = primaryPrefixAst.find(e => e.kind === 'ThisKeyword');
-
     let obj = {
         kind: 'CallExpression',
         start: cstNode.location.startOffset,
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
     };
-
     if (thisKeyword) {
         return getThisKeywordChildren(methodInvocationSuffix, thisKeyword, identifierSuffix, obj);
     }
@@ -91,7 +93,6 @@ function getThisKeywordChildren(methodInvocationSuffix: any, thisKeyword: any, i
  * @returns any
  */
 function getOtherCasesChildren(primaryPrefixAst: any, primarySuffixAst: any, methodInvocationSuffix: any, obj: any): any[] {
-
     return {
         ...obj,
         children: [
@@ -126,7 +127,6 @@ function getMethodInvocationSuffixChildren(methodInvocationSuffixList) {
  */
 function getNewExpression(primaryPrefixAst: any): any[] {
     const newExpression = primaryPrefixAst.filter(e => e.kind === 'NewExpression');
-
     if (Array.isArray(newExpression) && newExpression.length) {
         return [
             ...primaryPrefixAst.find(e => e.kind === 'NewExpression').children
@@ -149,13 +149,12 @@ function createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuff
             pos: primaryPrefixAst[0]?.pos,
             children: [
                 primaryPrefixAst.find(e => e.kind === 'Identifier'),
-                ...arrayAccessSuffixList[0].children.filter(e => e.kind === 'Identifier' || 'Literal') 
+                ...arrayAccessSuffixList[0].children.filter(e => e.kind === 'Identifier' || 'Literal')
             ]
         }
     } else {
         const arrayAccessSuffix = arrayAccessSuffixList.pop();
         const last = arrayAccessSuffix.children?.find(e => e.kind === 'Identifier' || 'Literal');
-        
         return {
             kind: 'ElementAccessExpression',
             start: primaryPrefixAst[0]?.start,
@@ -165,7 +164,7 @@ function createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuff
                 ...createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList),
                 },last
             ]
-        };      
+        };
     }
 }
 
