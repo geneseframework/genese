@@ -13,7 +13,7 @@ export function run(cstNode: BinaryExpression, children: BinaryExpressionChildre
     const assignmentOperator = children.AssignmentOperator;
     const unaryExpressionsAst = [...[].concat(...unaryExpressions.map(e => cstToAst(e)))];
     if (binaryOperators || less || greater) {
-        const binaryOperatorsAst = binaryOperators?.map(e => cstToAst(e, 'binaryOperator')) ?? [];
+        let binaryOperatorsAst = binaryOperators?.map(e => cstToAst(e, 'binaryOperator')) ?? [];
         if (less) {
             binaryOperatorsAst.push({
                 kind: getBinaryOperatorName(less.map(e => e.image).join('')),
@@ -30,6 +30,9 @@ export function run(cstNode: BinaryExpression, children: BinaryExpressionChildre
                 pos: greater[0].startOffset
             })
         }
+        binaryOperatorsAst = binaryOperatorsAst.sort((a, b) => {
+            return a.start - b.start;
+        })
         const alternate = [];
         for (let i = 0; i < binaryOperatorsAst.length; i++) {
             alternate.push(unaryExpressionsAst[i], binaryOperatorsAst[i]);
