@@ -31,6 +31,7 @@ export class InitGenerationService {
         };
     }
 
+
     /**
      * Generates the AstFolder corresponding to a given path and to its potential AstFolder parent
      * @param  {string} path              // The path of the AstFolder
@@ -44,19 +45,32 @@ export class InitGenerationService {
         };
         const initService = language === Language.TS ? new AstFileGenerationService() : new AstFileGenerationJavaService();
         const filesOrDirs = fs.readdirSync(path);
-        filesOrDirs.forEach((elementName: string) => {
-            const pathElement = path + elementName;
-            if (!Options.isIgnored(pathElement)) {
-                if (fs.statSync(pathElement).isDirectory() && !LIMIT_GENERATIONS) {
-                    astFolder.children = astFolder.children ?? [];
-                    astFolder.children.push(this.generateAstFolder(`${pathElement}/`, language))
-                } else if (this.isFileToGenerate(pathElement, language)) {
-                    astFolder.astFiles.push(initService.generate(pathElement, astFolder));
+        let currentFile = undefined;
+        try {
+            filesOrDirs.forEach((elementName: string) => {
+                const pathElement = path + elementName;
+                currentFile = pathElement;
+                if (!Options.isIgnored(pathElement)) {
+                    if (fs.statSync(pathElement).isDirectory() && !LIMIT_GENERATIONS) {
+                        astFolder.children = astFolder.children ?? [];
+                        astFolder.children.push(this.generateAstFolder(`${pathElement}/`, language));
+                    } else if (this.isFileToGenerate(pathElement, language)) {
+                        astFolder.astFiles.push(initService.generate(pathElement, astFolder));
+                    }
                 }
+            });
+        } catch (e) {
+            const [err, lines] = e.message.split('!!!');
+            if (lines) {
+                console.log(`Error in file: ${currentFile}\nAt line ${lines}`);
             }
-        });
+            const error = new Error(err);
+            error.stack = e.stack;
+            throw error;
+        }
         return astFolder;
     }
+
 
     /**
      * Returns true if a path corresponds to a file to generate in JsonAst
