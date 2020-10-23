@@ -1,4 +1,4 @@
-import { cstToAst } from '../cst-to-ast';
+import { cstToAst, getBinaryOperatorName } from '../cst-to-ast';
 import { BinaryExpression } from '../models/binary-expression.model';
 import { BinaryExpressionChildren } from '../models/binary-expression-children.model';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
@@ -7,10 +7,29 @@ import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 export function run(cstNode: BinaryExpression, children: BinaryExpressionChildren): any {
     const unaryExpressions = children.unaryExpression;
     const binaryOperators = children.BinaryOperator;
+    const less = children.Less;
+    const greater = children.Greater;
+
     const assignmentOperator = children.AssignmentOperator;
     const unaryExpressionsAst = [...[].concat(...unaryExpressions.map(e => cstToAst(e)))];
-    if (binaryOperators) {
-        const binaryOperatorsAst = binaryOperators.map(e => cstToAst(e, 'binaryOperator'));
+    if (binaryOperators || less || greater) {
+        const binaryOperatorsAst = binaryOperators?.map(e => cstToAst(e, 'binaryOperator')) ?? [];
+        if (less) {
+            binaryOperatorsAst.push({
+                kind: getBinaryOperatorName(less.map(e => e.image).join('')),
+                start: less[0].startOffset,
+                end: less[less.length - 1].endOffset,
+                pos: less[0].startOffset
+            })
+        }
+        if (greater) {
+            binaryOperatorsAst.push({
+                kind: getBinaryOperatorName(greater.map(e => e.image).join('')),
+                start: greater[0].startOffset,
+                end: greater[greater.length - 1].endOffset,
+                pos: greater[0].startOffset
+            })
+        }
         const alternate = [];
         for (let i = 0; i < binaryOperatorsAst.length; i++) {
             alternate.push(unaryExpressionsAst[i], binaryOperatorsAst[i]);

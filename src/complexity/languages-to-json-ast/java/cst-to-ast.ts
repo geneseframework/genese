@@ -97,6 +97,8 @@ export function getBinaryOperatorName(operator: string): string {
             return SyntaxKind.LessThanLessThanToken
         case '>>':
             return SyntaxKind.GreaterThanGreaterThanToken
+        case '>>>':
+            return SyntaxKind.GreaterThanGreaterThanGreaterThanToken
         case '/':
             return SyntaxKind.SlashToken
         case '%':

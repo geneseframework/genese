@@ -6,6 +6,8 @@ export class BinaryExpressionChildren {
     unaryExpression?: UnaryExpression[] = [new UnaryExpression()];
     BinaryOperator?: Infos[] = [new Infos()];
     AssignmentOperator?: Infos[] = [new Infos()];
+    Less?: Infos[] = [new Infos()];
+    Greater?: Infos[] = [new Infos()];
     expression?: [{
         name ?: '',
         children?: {
