@@ -111,7 +111,7 @@ function toBinaryExpression(op, left, right): any {
     return {
         kind: 'BinaryExpression',
         start: mostLeft.start,
-        end: mostRight.right,
+        end: mostRight.end,
         pos: mostLeft.pos,
         children: children
     };
