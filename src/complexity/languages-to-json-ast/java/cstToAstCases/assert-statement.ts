@@ -24,8 +24,9 @@ export function run(cstNode: AssertStatement, children: AssertStatementChildren)
  * @returns any
  */
 function generateAssertStatement(expression: Expression[]): any{
-    if(Array.isArray(expression)) {
-        return [
+    const assertAst = [];
+    if(Array.isArray(expression) && expression.length > 0) {
+        assertAst.push( 
             {
                 kind: 'IfStatement',
                 start: expression[0].location.startOffset,
@@ -34,8 +35,10 @@ function generateAssertStatement(expression: Expression[]): any{
                 children: [
                     ...[].concat(...[expression[0]]?.map(e => cstToAst(e)) ?? [])
                 ]
-            },
-            {
+            });
+
+        if(expression[1]) {
+            assertAst.push({
                 kind: 'ThrowStatement',
                 start: expression[1].location.startOffset,
                 end: expression[1].location.endOffset,
@@ -43,7 +46,8 @@ function generateAssertStatement(expression: Expression[]): any{
                 children: [
                     ...[].concat(...[expression[1]]?.map(e => cstToAst(e)) ?? [])
                 ]
-            }
-        ];
+            });
+        }
     }
+    return assertAst;
 }
