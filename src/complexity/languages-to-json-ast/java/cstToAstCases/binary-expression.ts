@@ -2,7 +2,6 @@ import { cstToAst } from '../cst-to-ast';
 import { BinaryExpression } from '../models/binary-expression.model';
 import { BinaryExpressionChildren } from '../models/binary-expression-children.model';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
-import { clone } from 'genese-mapper';
 
 // @ts-ignore
 export function run(cstNode: BinaryExpression, children: BinaryExpressionChildren): any {
@@ -49,7 +48,7 @@ function split(list) {
         [SyntaxKind.EqualsEqualsToken, SyntaxKind.ExclamationEqualsToken],
         [SyntaxKind.LessThanToken, SyntaxKind.LessThanEqualsToken, SyntaxKind.GreaterThanToken, SyntaxKind.GreaterThanEqualsToken],
         [SyntaxKind.PlusToken, SyntaxKind.MinusToken],
-        [SyntaxKind.AsteriskToken, SyntaxKind.SlashToken, SyntaxKind.PercentToken]
+        [SyntaxKind.AsteriskToken, SyntaxKind.SlashToken, SyntaxKind.PercentToken],
     ];
     const r = {
         op: undefined,

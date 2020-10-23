@@ -57,6 +57,48 @@ export function getBinaryOperatorName(operator: string): string {
             return SyntaxKind.AmpersandAmpersandToken
         case '||':
             return SyntaxKind.BarBarToken
+        case '!=':
+            return SyntaxKind.ExclamationEqualsToken
+        case '+=':
+            return SyntaxKind.PlusEqualsToken
+        case '-=':
+            return SyntaxKind.MinusEqualsToken
+        case '*=':
+            return SyntaxKind.AsteriskEqualsToken
+        case '/=':
+            return SyntaxKind.SlashEqualsToken
+        case '%=':
+            return SyntaxKind.PercentEqualsToken
+        case '&=':
+            return SyntaxKind.AmpersandEqualsToken
+        case '^=':
+            return SyntaxKind.CaretEqualsToken
+        case '|=':
+            return SyntaxKind.BarEqualsToken
+        case '<<=':
+            return SyntaxKind.LessThanLessThanEqualsToken
+        case '>>=':
+            return SyntaxKind.GreaterThanGreaterThanEqualsToken
+        case '>>>=':
+            return SyntaxKind.GreaterThanGreaterThanGreaterThanEqualsToken
+        case '?':
+            return SyntaxKind.QuestionToken
+        case ':':
+            return SyntaxKind.ColonToken
+        case '|':
+            return SyntaxKind.BarToken
+        case '^':
+            return SyntaxKind.CaretToken
+        case '&':
+            return SyntaxKind.AmpersandToken
+        case '<<':
+            return SyntaxKind.LessThanLessThanToken
+        case '>>':
+            return SyntaxKind.GreaterThanGreaterThanToken
+        case '/':
+            return SyntaxKind.SlashToken
+        case '%':
+            return SyntaxKind.PercentToken
         default:
             return operator;
     }
