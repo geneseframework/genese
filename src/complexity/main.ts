@@ -4,7 +4,7 @@ import { LanguageToJsonAst } from './languages-to-json-ast/language-to-json-ast'
 import { JsonAstToReports } from './json-ast-to-reports/json-ast-to-reports';
 import * as chalk from 'chalk';
 import { Language } from './core/enum/language.enum';
-import { ReportToRefactorReport } from './reports-to-refactor-proposals/reports-to-refactor-proposals';
+import { AutomaticRefactoring } from './automatic-refactoring/automatic-refactoring';
 
 export const START = Date.now();
 
@@ -36,6 +36,6 @@ export class Main {
         createOutDir();
         LanguageToJsonAst.start(Options.pathFolderToAnalyze, language);
         JsonAstToReports.start(pathCommand)
-        ReportToRefactorReport.start(JsonAstToReports.astFolder);
+        AutomaticRefactoring.start(JsonAstToReports.astFolder);
     }
 }

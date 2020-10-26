@@ -9,7 +9,7 @@ export abstract class StatsService {
 
     protected abstract _stats: Stats = undefined;                                       // The statistics of the AstFile or the AstFolder
     protected abstract calculateStats(fileOrFolder: AstFile | AstFolder): void;         // The method calculating the statistics
-    protected abstract getNameOrPath(element: AstFile | AstFolder): void;               // Returns the name of a given AstFile or the path of a given AstFolder                                      // The method returning the filename or the folder's path
+    protected abstract getNameOrPath(element: AstFile | AstFolder): void;               // Returns the name of a given AstFile or the path of a given AstFolder
 
 
     /**

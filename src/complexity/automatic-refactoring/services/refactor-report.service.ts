@@ -5,7 +5,6 @@ import * as Handlebars from 'handlebars';
 import { Options } from '../../core/models/options.model';
 import { constructLink, deleteLastSlash, getRouteToRoot } from '../../core/services/file.service';
 import { AstFolder } from '../../json-ast-to-reports/models/ast/ast-folder.model';
-import { Method } from '../models/method.model';
 import { RefactorProposal } from '../models/refactor-proposal.model';
 
 /**
@@ -14,10 +13,10 @@ import { RefactorProposal } from '../models/refactor-proposal.model';
 export class RefactorReportService {
     private template: HandlebarsTemplateDelegate;
 
-    constructor(public methods: Method[], private astFolder: AstFolder) {}
+    constructor(public systems: RefactorProposal[], private astFolder: AstFolder) {}
 
     get refactorProposals(): RefactorProposal[] {
-        return this.methods.map((m: Method) => RefactorProposal.from(m));
+        return this.systems;
     }
 
     /**
@@ -29,7 +28,7 @@ export class RefactorReportService {
         this.registerPartial('refactorComparaison', 'refactor-comparaison');
         this.registerPartial('methodCode', 'method-script');
 
-        const TEMPLATE_PATH = `${Options.pathGeneseNodeJs}/src/complexity/reports-to-refactor-proposals/templates/handlebars/refactor-proposals.handlebars`;
+        const TEMPLATE_PATH = `${Options.pathGeneseNodeJs}/src/complexity/automatic-refactoring/templates/handlebars/refactor-proposals.handlebars`;
         const REPORT_TEMPLATE = this.getFileFromPath(TEMPLATE_PATH);
         this.template = Handlebars.compile(REPORT_TEMPLATE);
         this.writeRefactorReport();
@@ -55,7 +54,7 @@ export class RefactorReportService {
      * @returns {void}
      */
     private registerPartial(partialName: string, filename: string): void {
-        const PARTIAL_PATH = `${Options.pathGeneseNodeJs}/src/complexity/reports-to-refactor-proposals/templates/handlebars/${filename}.handlebars`;
+        const PARTIAL_PATH = `${Options.pathGeneseNodeJs}/src/complexity/automatic-refactoring/templates/handlebars/${filename}.handlebars`;
         const PARTIAL = this.getFileFromPath(PARTIAL_PATH);
         Handlebars.registerPartial(partialName, PARTIAL);
     }
