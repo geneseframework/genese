@@ -14,40 +14,21 @@ export function run(cstNode: BinaryExpression, children: BinaryExpressionChildre
     const unaryExpressionsAst = [...[].concat(...unaryExpressions.map(e => cstToAst(e)))];
     if (binaryOperators || less || greater) {
         let binaryOperatorsAst = binaryOperators?.map(e => cstToAst(e, 'binaryOperator')) ?? [];
+        const lessAndGreaterAst = [];
         if (less) {
-            const lesses = [];
-            const indexes = less.map((e, i) => {
-                return e?.startOffset + 1 === less[i + 1]?.startOffset ? null : i + 1
-            }).filter(e => e)
-            indexes.forEach((i, index) => {
-                lesses.push(less.slice(indexes[index - 1] ?? 0, i));
-            })
-            lesses.forEach(l => {
-                binaryOperatorsAst.push({
-                    kind: getBinaryOperatorName(l.map(e => e.image).join('')),
-                    start: l[0].startOffset,
-                    end: l[l.length - 1].endOffset,
-                    pos: l[0].startOffset
-                })
-            })
+            lessAndGreaterAst.push(...reconstructOperators(less));
         }
         if (greater) {
-            const greaters = [];
-            const indexes = greater.map((e, i) => {
-                return e?.startOffset + 1 === greater[i + 1]?.startOffset ? null : i + 1
-            }).filter(e => e)
-            indexes.forEach((i, index) => {
-                greaters.push(greater.slice(indexes[index - 1] ?? 0, i));
-            })
-            greaters.forEach(g => {
-                binaryOperatorsAst.push({
-                    kind: getBinaryOperatorName(g.map(e => e.image).join('')),
-                    start: g[0].startOffset,
-                    end: g[g.length - 1].endOffset,
-                    pos: g[0].startOffset
-                })
-            })
+            lessAndGreaterAst.push(...reconstructOperators(greater));
         }
+        lessAndGreaterAst.forEach(op => {
+            binaryOperatorsAst.push({
+                kind: getBinaryOperatorName(op.map(e => e.image).join('')),
+                start: op[0].startOffset,
+                end: op[op.length - 1].endOffset,
+                pos: op[0].startOffset
+            })
+        })
         binaryOperatorsAst = binaryOperatorsAst.sort((a, b) => {
             return a.start - b.start;
         })
@@ -76,6 +57,17 @@ export function run(cstNode: BinaryExpression, children: BinaryExpressionChildre
             ...unaryExpressionsAst,
         ];
     }
+}
+
+function reconstructOperators(elements: any[]): any {
+    const result = [];
+    const indexes = elements.map((e, i) => {
+        return e?.startOffset + 1 === elements[i + 1]?.startOffset ? null : i + 1
+    }).filter(e => e)
+    indexes.forEach((i, index) => {
+        result.push(elements.slice(indexes[index - 1] ?? 0, i));
+    })
+    return result;
 }
 
 function split(list) {
