@@ -406,7 +406,8 @@ This table of weights should never be seen as the exact way to calculate the Com
 | Structural | Conditions | 1 | ```if (a) { ... }``` |  Applies to `if`, `else`, `else if`, `switch` |
 | Structural | Functions | 1 | ```a.filter(elt => { ... })``` |  |
 | Structural | Jumps | 1 | ```for (const a of arr) { ```<br/>  ```if (b) { ```<br/>    ```continue;```<br/>  ```}```<br/>```}``` |  Applies to elements breaking loops |
-| Structural | Logic door | 1 | `&&` or \|\| | |
+| Structural | Logic door | 1 | `&&` or <code>&#124;&#124;</code> | |
+| Structural | Bit door | 1 | `<<` or `>>` or `>>>` or `&` or <code>&#124;</code> or `^` | |
 | Structural | Loops | 1 | ```for (const a of arr) { ... }``` |  Applies to `for`, `forEach`, `do ... while` |
 | Structural | Methods | 1 | ```a.slice(1)``` | Applies to each method, defined in the current language or in the project itself |
 | Structural | Regex | 1 | ```/[^.[\]]+/ // ---- Structural cpx = 1``` | |
