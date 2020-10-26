@@ -37,6 +37,10 @@ function handleNoMethodInvocationSuffix(primaryPrefixAst: any, primarySuffixAst:
         return [
             toPropertyAccessExpression([...primaryPrefixAst, ...primarySuffixAst[0].children], false, []),
         ];
+    } else if (primaryPrefixAst.length === 1 && primaryPrefixAst[0].kind === 'ThisKeyword') {
+        return [
+            toPropertyAccessExpression([...primaryPrefixAst, ...primarySuffixAst], false, []),
+        ];
     }
     return [
         ...primaryPrefixAst,
