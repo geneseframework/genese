@@ -15,19 +15,37 @@ export function run(cstNode: BinaryExpression, children: BinaryExpressionChildre
     if (binaryOperators || less || greater) {
         let binaryOperatorsAst = binaryOperators?.map(e => cstToAst(e, 'binaryOperator')) ?? [];
         if (less) {
-            binaryOperatorsAst.push({
-                kind: getBinaryOperatorName(less.map(e => e.image).join('')),
-                start: less[0].startOffset,
-                end: less[less.length - 1].endOffset,
-                pos: less[0].startOffset
+            const lesses = [];
+            const indexes = less.map((e, i) => {
+                return e?.startOffset + 1 === less[i + 1]?.startOffset ? null : i + 1
+            }).filter(e => e)
+            indexes.forEach((i, index) => {
+                lesses.push(less.slice(indexes[index - 1] ?? 0, i));
+            })
+            lesses.forEach(l => {
+                binaryOperatorsAst.push({
+                    kind: getBinaryOperatorName(l.map(e => e.image).join('')),
+                    start: l[0].startOffset,
+                    end: l[l.length - 1].endOffset,
+                    pos: l[0].startOffset
+                })
             })
         }
         if (greater) {
-            binaryOperatorsAst.push({
-                kind: getBinaryOperatorName(greater.map(e => e.image).join('')),
-                start: greater[0].startOffset,
-                end: greater[greater.length - 1].endOffset,
-                pos: greater[0].startOffset
+            const greaters = [];
+            const indexes = greater.map((e, i) => {
+                return e?.startOffset + 1 === greater[i + 1]?.startOffset ? null : i + 1
+            }).filter(e => e)
+            indexes.forEach((i, index) => {
+                greaters.push(greater.slice(indexes[index - 1] ?? 0, i));
+            })
+            greaters.forEach(g => {
+                binaryOperatorsAst.push({
+                    kind: getBinaryOperatorName(g.map(e => e.image).join('')),
+                    start: g[0].startOffset,
+                    end: g[g.length - 1].endOffset,
+                    pos: g[0].startOffset
+                })
             })
         }
         binaryOperatorsAst = binaryOperatorsAst.sort((a, b) => {
