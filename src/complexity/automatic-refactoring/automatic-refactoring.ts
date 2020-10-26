@@ -4,6 +4,8 @@ import { AstFolder } from '../json-ast-to-reports/models/ast/ast-folder.model';
 import { RefactorProposal } from './models/refactor-proposal.model';
 import { Refactorer } from './models/refactorer.model';
 import { BigIfElseRefactorer } from './refactorers/bigIfElse.refactorer';
+import { TernaryToNullishCoalescing } from './refactorers/ternaryToCoalescing.refactorer';
+import { uselessElseRefactorer } from './refactorers/uselessElse.refactorer';
 import { RefactorReportService } from './services/refactor-report.service';
 
 export class AutomaticRefactoring {

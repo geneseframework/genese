@@ -1,6 +1,18 @@
-import { Block, ts } from 'ts-morph';
+import { Node, SourceFile, ts } from 'ts-morph';
 
 export class RefactorerUtils {
+    static print(node: ts.Node, sourceFile: ts.SourceFile = node.getSourceFile()): void {
+        try {
+            const PRINTER = ts.createPrinter({
+                newLine: ts.NewLineKind.LineFeed,
+            });
+            const OUTPUT = PRINTER.printNode(ts.EmitHint.Unspecified, node, sourceFile);
+            console.log(OUTPUT);
+        } catch (err) {
+            console.error('Node cant be print', err);
+        }
+    }
+
     /**
      * Simple way to create method node
      * @param name the method name

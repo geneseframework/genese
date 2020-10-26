@@ -1,4 +1,4 @@
-import { createWrappedNode, Node, SyntaxKind, TransformTraversalControl } from 'ts-morph';
+import { createWrappedNode, Node, SyntaxKind, TransformTraversalControl, ts } from 'ts-morph';
 
 import { ProjectService } from '../services/project.service';
 import { RefactorProposal } from './refactor-proposal.model';
@@ -11,7 +11,7 @@ export abstract class Refactorer {
     public refactoredProposals: RefactorProposal[] = [];
     public transformers: Transformer[];
     public mapper: (node: Node) => RefactorProposal = (node: Node) => {
-        node.formatText();
+        node.formatText();        
         return {
             newCode: node.getFullText(),
             oldCode: this.projectService.getInitialSystem(node)?.getFullText(),
@@ -32,7 +32,9 @@ export abstract class Refactorer {
     analyze(): void {
         this.nodes = this.nodes.map((n: Node) => this.needRefacto(n) && this.refactor(n));
         if (this.transformers) {
-            this.nodes = this.transformers.map((t: Transformer) => t.node.transform(t.transformer));
+            this.nodes = this.transformers.map((t: Transformer) => {
+                return t.node.transform(t.transformer)
+            });
         }
         this.refactoredProposals = this.nodes.filter((n) => n).map(this.mapper);
     }
