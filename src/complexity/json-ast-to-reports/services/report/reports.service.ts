@@ -5,6 +5,7 @@ import { AstFileReportService } from './ast-file-report.service';
 import { AstFile } from '../../models/ast/ast-file.model';
 import { JsonAst } from '../../models/ast/json-ast.model';
 import { Options } from '../../../core/models/options.model';
+import { AstFolderMarkdownReportService } from './ast-folder-markdown-report.service';
 
 
 /**
@@ -20,6 +21,13 @@ export class ReportsService {
         ReportsService.createStyleFiles();
         const parentFolder: AstFolder = jsonAst.astFolder;
         ReportsService.generateSubfoldersReports(parentFolder);
+    }
+
+    static generateMarkdownReports(jsonAst: JsonAst): void {
+        const parentFolder: AstFolder = jsonAst.astFolder;
+        const folderMakdownReport = new AstFolderMarkdownReportService(parentFolder)
+
+        folderMakdownReport.generateReport();
     }
 
 

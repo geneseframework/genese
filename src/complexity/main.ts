@@ -30,12 +30,12 @@ export class Main {
      * @returns void
      */
     // @ts-ignore
-    start(pathCommand: string, pathFolderToAnalyze: string, pathGeneseNodeJs: string, language?: Language): void {
+    start(pathCommand: string, pathFolderToAnalyze: string, pathGeneseNodeJs: string, language?: Language, markdown:boolean = false): void {
         console.log(`PATH TO ANALYZE : ${pathFolderToAnalyze}`);
         Options.setOptions(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs);
         createOutDir();
         LanguageToJsonAst.start(Options.pathFolderToAnalyze, language);
-        JsonAstToReports.start(pathCommand)
+        JsonAstToReports.start(pathCommand, undefined, markdown)
         AutomaticRefactoring.start(JsonAstToReports.astFolder);
     }
 }

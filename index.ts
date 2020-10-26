@@ -20,14 +20,18 @@ const pkg = require('./package.json');
 
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
 
-    program.option('-l, --language <language>', 'Language');
+    program
+    .option('-l, --language <language>', 'Language')
+    .option('-md, --markdown', 'Markdown type report')
+
 
     program.command('cpx [pathToAnalyse]')
         .description('Calculates Complexity Index and cyclomatic complexity')
         .action((pathFolderToAnalyze) => {
             const path = process.cwd() + (pathFolderToAnalyze ? '/' + pathFolderToAnalyze : '');
             const mainProcess = new Main();
-            mainProcess.start(process.cwd(), path, __dirname)
+
+            mainProcess.start(process.cwd(), path, __dirname, program.language, program.markdown)
         });
 
     // ----------------------------------   GENESE API for Angular   ----------------------------------------

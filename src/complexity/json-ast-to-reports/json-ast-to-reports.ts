@@ -17,12 +17,12 @@ export class JsonAstToReports {
      * @param pathCommand
      * @param jsonAstPath
      */
-    static start(pathCommand: string, jsonAstPath = '/json-ast.json'): void {
+    static start(pathCommand: string, jsonAstPath = '/json-ast.json', markdown:boolean = false): void {
         console.log(chalk.blueBright('STARTS REPORTS GENERATION FROM JSON_AST'));
         console.log('Please wait...')
         const jsonAst = new InitService().generateAllFromJsonAst(JsonAstToReports.getJsonAst(pathCommand + jsonAstPath));
         jsonAst.astFolder.evaluate();
-        ReportsService.generateAllReports(jsonAst);
+        markdown ? ReportsService.generateMarkdownReports(jsonAst): ReportsService.generateAllReports(jsonAst)
         console.log(chalk.greenBright('REPORTS GENERATED SUCCESSFULLY'));
         console.log('Please open in your browser the file "folder-report.html" located in your genese reports folder.')
         this.astFolder = jsonAst.astFolder;
