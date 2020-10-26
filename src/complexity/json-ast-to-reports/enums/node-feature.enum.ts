@@ -10,6 +10,7 @@ export enum NodeFeature {
     KEYWORD = 'keyword',
     LITERAL = 'literal',
     LOGIC_DOOR = 'logicDoor',
+    BIT_DOOR = 'bitDoor',
     LOOP = 'loop',
     REGEX = 'regex',
     TERNARY = 'ternary'

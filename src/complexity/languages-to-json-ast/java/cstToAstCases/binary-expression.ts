@@ -1,4 +1,4 @@
-import { cstToAst } from '../cst-to-ast';
+import { cstToAst, getBinaryOperatorName } from '../cst-to-ast';
 import { BinaryExpression } from '../models/binary-expression.model';
 import { BinaryExpressionChildren } from '../models/binary-expression-children.model';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
@@ -7,10 +7,31 @@ import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 export function run(cstNode: BinaryExpression, children: BinaryExpressionChildren): any {
     const unaryExpressions = children.unaryExpression;
     const binaryOperators = children.BinaryOperator;
+    const less = children.Less;
+    const greater = children.Greater;
+
     const assignmentOperator = children.AssignmentOperator;
     const unaryExpressionsAst = [...[].concat(...unaryExpressions.map(e => cstToAst(e)))];
-    if (binaryOperators) {
-        const binaryOperatorsAst = binaryOperators.map(e => cstToAst(e, 'binaryOperator'));
+    if (binaryOperators || less || greater) {
+        let binaryOperatorsAst = binaryOperators?.map(e => cstToAst(e, 'binaryOperator')) ?? [];
+        const lessAndGreaterAst = [];
+        if (less) {
+            lessAndGreaterAst.push(...reconstructOperators(less));
+        }
+        if (greater) {
+            lessAndGreaterAst.push(...reconstructOperators(greater));
+        }
+        lessAndGreaterAst.forEach(op => {
+            binaryOperatorsAst.push({
+                kind: getBinaryOperatorName(op.map(e => e.image).join('')),
+                start: op[0].startOffset,
+                end: op[op.length - 1].endOffset,
+                pos: op[0].startOffset
+            })
+        })
+        binaryOperatorsAst = binaryOperatorsAst.sort((a, b) => {
+            return a.start - b.start;
+        })
         const alternate = [];
         for (let i = 0; i < binaryOperatorsAst.length; i++) {
             alternate.push(unaryExpressionsAst[i], binaryOperatorsAst[i]);
@@ -36,6 +57,17 @@ export function run(cstNode: BinaryExpression, children: BinaryExpressionChildre
             ...unaryExpressionsAst,
         ];
     }
+}
+
+function reconstructOperators(elements: any[]): any {
+    const result = [];
+    const indexes = elements.map((e, i) => {
+        return e?.startOffset + 1 === elements[i + 1]?.startOffset ? null : i + 1
+    }).filter(e => e)
+    indexes.forEach((i, index) => {
+        result.push(elements.slice(indexes[index - 1] ?? 0, i));
+    })
+    return result;
 }
 
 function split(list) {
@@ -89,7 +121,7 @@ function toBinaryExpression(op, left, right): any {
     return {
         kind: 'BinaryExpression',
         start: mostLeft.start,
-        end: mostRight.right,
+        end: mostRight.end,
         pos: mostLeft.pos,
         children: children
     };

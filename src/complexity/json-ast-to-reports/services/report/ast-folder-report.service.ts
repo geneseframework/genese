@@ -117,7 +117,7 @@ export class AstFolderReportService {
                 });
             }
         }
-        return report;
+        return report.sort((a, b) => b.cpxIndex - a.cpxIndex);
     }
 
 

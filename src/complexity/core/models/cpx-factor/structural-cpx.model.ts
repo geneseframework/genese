@@ -11,6 +11,7 @@ export class StructuralCpx {
     func ?= 0;                              // Usage of a function or method inside a block of code
     jump ?= 0;                              // "break", "continue"
     logicDoor ?= 0;                         // "and", "or", "not"
+    bitDoor ?= 0;                           // ">>", ">>", ">>>", "&", "|", "^"
     loop ?= 0;                              // "for", "foreach", "while"
     method ?= 0;                            // Call of another method (ex : a.slice(1))
     recursion ?= 0;                         // Recursion (call to the node's method)

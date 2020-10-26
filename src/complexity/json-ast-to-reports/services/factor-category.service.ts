@@ -29,6 +29,13 @@ export class FactorCategoryService {
             case SyntaxKind.AmpersandAmpersandToken:
             case SyntaxKind.BarBarToken:
                 return NodeFeature.LOGIC_DOOR;
+            case SyntaxKind.BarToken:
+            case SyntaxKind.AmpersandToken:
+            case SyntaxKind.LessThanLessThanToken:
+            case SyntaxKind.GreaterThanGreaterThanToken:
+            case SyntaxKind.GreaterThanGreaterThanGreaterThanToken:
+            case SyntaxKind.CaretToken:
+                return NodeFeature.BIT_DOOR
             case SyntaxKind.DoStatement:
             case SyntaxKind.ForStatement:
             case SyntaxKind.ForInStatement:

@@ -42,6 +42,7 @@ complexityFactors.structural = {
     func: 1,                            // Usage of a function or method inside a block of code
     jump: 1,                            // "break", "continue"
     logicDoor: 1,                       // "and", "or", "not"
+    bitDoor: 2,                         // ">>", ">>", ">>>", "&", "|", "^"
     loop: 1,                            // "for", "foreach", "while"
     method: 1,                          // Usage of a method (located in the project or elsewhere)
     regex: 1,                           // Regular expression
