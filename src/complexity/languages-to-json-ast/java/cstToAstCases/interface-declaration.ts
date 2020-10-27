@@ -12,7 +12,7 @@ export function run(cstNode: InterfaceDeclaration, children: InterfaceDeclaratio
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
         children: [
-            ...[].concat(...normalInterfaceDeclaration.map(e => cstToAst(e))),
+            ...[].concat(...normalInterfaceDeclaration?.map(e => cstToAst(e)) ?? []),
         ]
     };
 }

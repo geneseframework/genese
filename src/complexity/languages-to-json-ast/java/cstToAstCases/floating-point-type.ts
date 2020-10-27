@@ -4,9 +4,11 @@ import { FloatingPointTypeChildren } from '../models/floating-point-type-childre
 
 // @ts-ignore
 export function run(cstNode: FloatingPointType, children: FloatingPointTypeChildren): any {
-    const Double = children.Double;
+    const double = children.Double;
+    const float = children.Float;
 
     return [
-        ...[].concat(Double?.map(e => cstToAst(e, 'double')) ?? [])
+        ...[].concat(double?.map(e => cstToAst(e, 'double')) ?? []),
+        ...[].concat(float?.map(e => cstToAst(e, 'float')) ?? [])
     ];
 }
