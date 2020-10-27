@@ -11,13 +11,13 @@ export function run(cstNode: ArrayCreationExpression, children: ArrayCreationExp
 
     const classOrInterfaceTypeAst = [].concat(...classOrInterfaceType?.map(e => cstToAst(e)) ?? []);
     const arrayCreationDefaultInitSuffixAst = [].concat(...arrayCreationDefaultInitSuffix?.map(e => cstToAst(e)) ?? []);
+    const primitiveTypeAst = [].concat(...primitiveType?.map(e => cstToAst(e)) ?? []);
 
     const dimExprs = arrayCreationDefaultInitSuffixAst?.find(e => e.kind === 'DimExprs')?.children;
-    
+
     return [
         ...[].concat(...arrayCreationExplicitInitSuffix?.map(e => cstToAst(e)) ?? []),
-        ...[].concat(...primitiveType?.map(e => cstToAst(e)) ?? []),
-        createElementAccess(classOrInterfaceTypeAst, dimExprs)
+        createElementAccess([...classOrInterfaceTypeAst, ...primitiveTypeAst] , dimExprs)
     ];  
 }
 
