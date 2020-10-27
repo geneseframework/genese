@@ -7,11 +7,9 @@ import {
     createRelativeDir,
     deleteLastSlash
 } from '../../../core/services/file.service';
-import { AstFile } from '../../models/ast/ast-file.model';
 import { AstFolder } from '../../models/ast/ast-folder.model';
 import { AstFolderService } from '../ast/ast-folder.service';
 import { Options } from '../../../core/models/options.model';
-import { AstMethodService } from '../ast/ast-method.service';
 
 /**
  * Service generating folders reports
@@ -33,58 +31,10 @@ export class AstFolderMarkdownReportService {
      * Generates the folder's report
      */
     generateReport(): void {
-        this.setMethodsArraySortedByDecreasingCognitiveCpx(this.astFolder);
+        this.methodsArrayReport = this.astFolderService.getMethodsArraySortedByDecreasingCognitiveCpx(this.astFolder);
         const reportTemplate = eol.auto(fs.readFileSync(`${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/folder-markdown-report.handlebars`, 'utf-8'));
         this.template = Handlebars.compile(reportTemplate);
         this.writeReport();
-    }
-
-    /**
-     * Set the array of methods sorted by decreasing cognitive complexity
-     * @param astFolder    // The AstFolder to analyse
-     */
-    private setMethodsArraySortedByDecreasingCognitiveCpx(astFolder: AstFolder): void {
-        this.setMethodsArrayReport(astFolder);
-        this.methodsArrayReport = AstMethodService.sortByDecreasingCognitiveCpx(this.methodsArrayReport); 
-    }
-
-    /**
-     * Recursion setting the array of methods reports of each subFolder
-     * @param astFolder    // The AstFolder to analyse
-     */
-    private setMethodsArrayReport(astFolder: AstFolder): void {
-        for (const subFolder of astFolder.children) {
-            this.setTsFileReport(subFolder);
-            this.setMethodsArrayReport(subFolder);
-        }
-    }
-
-    /**
-     * Recursion setting the array of methods reports of each subFolder's files
-     * @param astFolder    // The AstFolder to analyse
-     */
-    private setTsFileReport(astFolder: AstFolder): void{
-        for (const tsFile of astFolder.astFiles){
-            this.setAstMethodReport(tsFile)
-        }
-    }
-
-    /**
-     * Recursion setting the array of methods reports of each file's methods
-     * @param astFile    // The AstFile to analyse
-     */
-    private setAstMethodReport(astFile: AstFile): void{
-        for (const astMethod of astFile.astMethods) {
-            this.methodsArrayReport.push({
-                cognitiveColor: astMethod.cognitiveStatus.toLowerCase(),
-                cpxIndex: astMethod.cpxIndex,
-                cyclomaticColor: astMethod.cyclomaticStatus.toLowerCase(),
-                cyclomaticValue: astMethod.cyclomaticCpx,
-                filename: astFile.name,
-                linkFile: undefined,
-                methodName: astMethod.name
-            })
-        }
     }
 
     /**

@@ -68,9 +68,9 @@ export class AstFileService extends StatsService {
 
 
     /**
-     * Adds the filename to the stats
+     * Sets the filename to the stats
      */
-    getNameOrPath(astFile: AstFile): void {
+    setNameOrPath(astFile: AstFile): void {
         this._stats.subject = astFile.name;
     }
 
