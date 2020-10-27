@@ -5,8 +5,12 @@ import { IntegralTypeChildren } from '../models/integral-type-children.model';
 // @ts-ignore
 export function run(cstNode: IntegralType, children: IntegralTypeChildren): any {
     const int = children.Int;
+    const byte = children.Byte;
+    const long = children.Long;
 
     return [
-        ...[].concat(int?.map(e => cstToAst(e, 'int')) ?? [])
+        ...[].concat(int?.map(e => cstToAst(e, 'int')) ?? []),
+        ...[].concat(byte?.map(e => cstToAst(e, 'byte')) ?? []),
+        ...[].concat(long?.map(e => cstToAst(e, 'long')) ?? []),
     ]
 }

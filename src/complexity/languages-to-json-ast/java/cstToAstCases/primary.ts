@@ -1,7 +1,6 @@
 import { cstToAst } from '../cst-to-ast';
 import { Primary } from '../models/primary.model';
 import { PrimaryChildren } from '../models/primary-children.model';
-import { MethodInvocationSuffix } from '../models/method-invocation-suffix.model';
 import { clone } from 'genese-mapper';
 
 
