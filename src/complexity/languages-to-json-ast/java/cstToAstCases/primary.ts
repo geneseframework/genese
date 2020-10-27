@@ -156,17 +156,7 @@ function getNewExpression(primaryPrefixAst: any): any[] {
  */
 function createElementAccess(cstNode, primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList): any {
     if (arrayAccessSuffixList.length === 1) {
-        primarySuffixAst.pop();
-        return {
-            kind: 'ElementAccessExpression',
-            start: primaryPrefixAst[0]?.start,
-            end: arrayAccessSuffixList[0]?.end,
-            pos: primaryPrefixAst[0]?.pos,
-            children: [
-                ...[].concat(...[process(cstNode, primaryPrefixAst, primarySuffixAst)]),
-                ...arrayAccessSuffixList[0].children.filter(e => e.kind === 'Identifier' || 'Literal')
-            ]
-        };
+        singleAccessCase(cstNode, primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList);
     }
     const arrayAccessSuffix = arrayAccessSuffixList.pop();
     const last = arrayAccessSuffix.children?.find(e => e.kind === 'Identifier' || 'Literal');
@@ -175,9 +165,25 @@ function createElementAccess(cstNode, primaryPrefixAst, primarySuffixAst, arrayA
         start: primaryPrefixAst[0]?.start,
         pos: primaryPrefixAst[0]?.pos,
         end: arrayAccessSuffix?.end,
-        children: [{
-            ...createElementAccess(cstNode, primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList),
-        }, last
+        children: [
+            {
+                ...createElementAccess(cstNode, primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList),
+            },
+            last
+        ]
+    };
+}
+
+function singleAccessCase(cstNode, primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList) {
+    primarySuffixAst.pop();
+    return {
+        kind: 'ElementAccessExpression',
+        start: primaryPrefixAst[0]?.start,
+        end: arrayAccessSuffixList[0]?.end,
+        pos: primaryPrefixAst[0]?.pos,
+        children: [
+            ...[].concat(...[process(cstNode, primaryPrefixAst, primarySuffixAst)]),
+            ...arrayAccessSuffixList[0].children.filter(e => e.kind === 'Identifier' || 'Literal')
         ]
     };
 }
@@ -200,27 +206,7 @@ function toPropertyAccessExpression(identifiers: any[], isFunctionCall = false, 
     const last = identifiers.pop();
 
     if (isFunctionCall) {
-        methodInvocationSuffix.pop();
-
-        let start = 0, pos = 0;
-        if (identifiers.length === 0) {
-            start = last?.start;
-            pos = last?.pos;
-        } else {
-            start = identifiers[0]?.start;
-            pos = identifiers[0]?.pos;
-        }
-
-        return {
-            kind: 'PropertyAccessExpression',
-            start: start,
-            end: last?.end,
-            pos: pos,
-            children: [
-                toPropertyAccessExpression(identifiers, methodInvocationSuffix.length > 0, methodInvocationSuffix),
-                {...last, type: 'function'}
-            ].filter(e => e !== undefined)
-        };
+        return isFunctionCallCase(identifiers, last, methodInvocationSuffix);
     }
     return {
         kind: 'PropertyAccessExpression',
@@ -230,6 +216,30 @@ function toPropertyAccessExpression(identifiers: any[], isFunctionCall = false, 
         children: [
             toPropertyAccessExpression(identifiers, false, methodInvocationSuffix),
             last
-        ].filter(e => e !== undefined)
+        ].filter(e => e)
+    };
+}
+
+function isFunctionCallCase(identifiers, last, methodInvocationSuffix) {
+    methodInvocationSuffix.pop();
+
+    let start: number, pos: number;
+    if (identifiers.length === 0) {
+        start = last?.start;
+        pos = last?.pos;
+    } else {
+        start = identifiers[0]?.start;
+        pos = identifiers[0]?.pos;
+    }
+
+    return {
+        kind: 'PropertyAccessExpression',
+        start: start,
+        end: last?.end,
+        pos: pos,
+        children: [
+            toPropertyAccessExpression(identifiers, methodInvocationSuffix.length > 0, methodInvocationSuffix),
+            {...last, type: 'function'}
+        ].filter(e => e)
     };
 }
