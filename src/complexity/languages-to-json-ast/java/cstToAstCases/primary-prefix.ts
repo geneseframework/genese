@@ -10,7 +10,7 @@ export function run(cstNode: PrimaryPrefix, children: PrimaryPrefixChildren): an
     const this_ = children.This;
     const newExpression = children.newExpression;
     const castExpression = children.castExpression;
-    
+
     return [
         ...[].concat(...parenthesisExpression?.map(e => cstToAst(e)) ?? []),
         ...[].concat(...fqnOrRefType?.map(e => cstToAst(e)) ?? []),

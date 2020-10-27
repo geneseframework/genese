@@ -12,15 +12,20 @@ export function run(cstNode: Primary, children: PrimaryChildren): any {
     const primaryPrefixAst = [].concat(...primaryPrefix?.map(e => cstToAst(e)) ?? []);
     const primarySuffixAst = [].concat(...primarySuffix?.map(e => cstToAst(e)) ?? []);
 
-    const methodInvocationSuffix = primarySuffixAst.filter(e => e.kind === 'MethodInvocationSuffix');
-    const arrayAccessSuffix = primarySuffixAst.filter(e => e.kind === 'ArrayAccessSuffix');
+    return process(cstNode, primaryPrefixAst, primarySuffixAst);
+}
 
-    if (Array.isArray(methodInvocationSuffix) && methodInvocationSuffix.length > 0) {
-        return handleMethodInvocationSuffix(cstNode, primaryPrefixAst, primarySuffixAst, methodInvocationSuffix);
-    } else if(Array.isArray(arrayAccessSuffix) && arrayAccessSuffix.length > 0) {
-        return createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuffix);
+function process(cstNode: any, prefix: any, suffix: any): any {
+    const methodInvocationSuffix = suffix.filter(e => e.kind === 'MethodInvocationSuffix');
+    const arrayAccessSuffix = suffix.filter(e => e.kind === 'ArrayAccessSuffix');
+
+    if (Array.isArray(arrayAccessSuffix) && arrayAccessSuffix.length > 0) {
+        return createElementAccess(cstNode, prefix, suffix, arrayAccessSuffix);
     }
-    return handleNoMethodInvocationSuffix(primaryPrefixAst, primarySuffixAst);
+    if (Array.isArray(methodInvocationSuffix) && methodInvocationSuffix.length > 0) {
+        return handleMethodInvocationSuffix(cstNode, prefix, suffix, methodInvocationSuffix);
+    }
+    return handleNoMethodInvocationSuffix(prefix, suffix);
 }
 
 /**
@@ -33,11 +38,13 @@ function handleNoMethodInvocationSuffix(primaryPrefixAst: any, primarySuffixAst:
             toPropertyAccessExpression(primaryPrefixAst, false, []),
             ...primarySuffixAst
         ];
-    } else if (primarySuffixAst.length === 1 && primarySuffixAst[0].kind === 'ClassLiteralSuffix') {
+    }
+    if (primarySuffixAst.length === 1 && primarySuffixAst[0].kind === 'ClassLiteralSuffix') {
         return [
             toPropertyAccessExpression([...primaryPrefixAst, ...primarySuffixAst[0].children], false, []),
         ];
-    } else if (primaryPrefixAst.length === 1 && primaryPrefixAst[0].kind === 'ThisKeyword') {
+    }
+    if (primaryPrefixAst.length === 1 && primaryPrefixAst[0].kind === 'ThisKeyword') {
         return [
             toPropertyAccessExpression([...primaryPrefixAst, ...primarySuffixAst], false, []),
         ];
@@ -93,6 +100,7 @@ function getThisKeywordChildren(methodInvocationSuffix: any, thisKeyword: any, i
 /**
  * @param  {any} primaryPrefixAst
  * @param  {any} primarySuffixAst
+ * @param methodInvocationSuffix
  * @param  {any} obj
  * @returns any
  */
@@ -110,14 +118,15 @@ function getOtherCasesChildren(primaryPrefixAst: any, primarySuffixAst: any, met
         ]
     };
 }
+
 /** Get all MethodInvocationSuffix with children
  * @param  {} methodInvocationSuffixList
  */
 function getMethodInvocationSuffixChildren(methodInvocationSuffixList) {
     let childrenList = [];
-    if(Array.isArray(methodInvocationSuffixList)) {
+    if (Array.isArray(methodInvocationSuffixList)) {
         methodInvocationSuffixList.forEach(methodInvocationSuffix => {
-            if(Array.isArray(methodInvocationSuffix.children) && methodInvocationSuffix.children.length > 0) {
+            if (Array.isArray(methodInvocationSuffix.children) && methodInvocationSuffix.children.length > 0) {
                 childrenList.push(...methodInvocationSuffix.children);
             }
         });
@@ -141,35 +150,42 @@ function getNewExpression(primaryPrefixAst: any): any[] {
 
 /**
  * @param  {} primaryPrefixAst
+ * @param primarySuffixAst
  * @param  {} arrayAccessSuffixList
  * @returns any
  */
-function createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList): any {
+function createElementAccess(cstNode, primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList): any {
     if (arrayAccessSuffixList.length === 1) {
-        return {
-            kind: 'ElementAccessExpression',
-            start: primaryPrefixAst[0]?.start,
-            end: arrayAccessSuffixList[0]?.end,
-            pos: primaryPrefixAst[0]?.pos,
-            children: [
-                primaryPrefixAst.find(e => e.kind === 'Identifier'),
-                ...arrayAccessSuffixList[0].children.filter(e => e.kind === 'Identifier' || 'Literal')
-            ]
-        }
-    } else {
-        const arrayAccessSuffix = arrayAccessSuffixList.pop();
-        const last = arrayAccessSuffix.children?.find(e => e.kind === 'Identifier' || 'Literal');
-        return {
-            kind: 'ElementAccessExpression',
-            start: primaryPrefixAst[0]?.start,
-            pos: primaryPrefixAst[0]?.pos,
-            end: arrayAccessSuffix?.end,
-            children: [{
-                ...createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList),
-                },last
-            ]
-        };
+        singleAccessCase(cstNode, primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList);
     }
+    const arrayAccessSuffix = arrayAccessSuffixList.pop();
+    const last = arrayAccessSuffix.children?.find(e => e.kind === 'Identifier' || 'Literal');
+    return {
+        kind: 'ElementAccessExpression',
+        start: primaryPrefixAst[0]?.start,
+        pos: primaryPrefixAst[0]?.pos,
+        end: arrayAccessSuffix?.end,
+        children: [
+            {
+                ...createElementAccess(cstNode, primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList),
+            },
+            last
+        ]
+    };
+}
+
+function singleAccessCase(cstNode, primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList) {
+    primarySuffixAst.pop();
+    return {
+        kind: 'ElementAccessExpression',
+        start: primaryPrefixAst[0]?.start,
+        end: arrayAccessSuffixList[0]?.end,
+        pos: primaryPrefixAst[0]?.pos,
+        children: [
+            ...[].concat(...[process(cstNode, primaryPrefixAst, primarySuffixAst)]),
+            ...arrayAccessSuffixList[0].children.filter(e => e.kind === 'Identifier' || 'Literal')
+        ]
+    };
 }
 
 /**
@@ -179,48 +195,51 @@ function createElementAccess(primaryPrefixAst, primarySuffixAst, arrayAccessSuff
  * @returns any
  */
 function toPropertyAccessExpression(identifiers: any[], isFunctionCall = false, methodInvocationSuffix: any[]): any {
-    if (!identifiers) return undefined;
+    if (!identifiers || identifiers.length === 0) return undefined;
 
     if (identifiers.length === 1 && methodInvocationSuffix.length === 0) {
         return identifiers[0];
-    } else if (identifiers.length === 0) {
-        return undefined;
-    } else {
-        const last = identifiers.pop();
-
-        if (isFunctionCall) {
-            methodInvocationSuffix.pop();
-
-            let start = 0, pos = 0;
-            if (identifiers.length === 0) {
-                start = last?.start;
-                pos = last?.pos;
-            } else {
-                start = identifiers[0]?.start;
-                pos = identifiers[0]?.pos;
-            }
-
-            return {
-                kind: 'PropertyAccessExpression',
-                start: start,
-                end: last?.end,
-                pos: pos,
-                children: [
-                    toPropertyAccessExpression(identifiers, methodInvocationSuffix.length > 0, methodInvocationSuffix),
-                    {...last, type: 'function'}
-                ].filter(e => e !== undefined)
-            };
-        } else {
-            return {
-                kind: 'PropertyAccessExpression',
-                start: identifiers[0]?.start,
-                end: last?.end,
-                pos: identifiers[0]?.pos,
-                children: [
-                    toPropertyAccessExpression(identifiers, false, methodInvocationSuffix),
-                    last
-                ].filter(e => e !== undefined)
-            };
-        }
     }
+    if (identifiers.length === 1) {
+        return {type: 'function', ...identifiers[0]};
+    }
+    const last = identifiers.pop();
+
+    if (isFunctionCall) {
+        return isFunctionCallCase(identifiers, last, methodInvocationSuffix);
+    }
+    return {
+        kind: 'PropertyAccessExpression',
+        start: identifiers[0]?.start,
+        end: last?.end,
+        pos: identifiers[0]?.pos,
+        children: [
+            toPropertyAccessExpression(identifiers, false, methodInvocationSuffix),
+            last
+        ].filter(e => e)
+    };
+}
+
+function isFunctionCallCase(identifiers, last, methodInvocationSuffix) {
+    methodInvocationSuffix.pop();
+
+    let start: number, pos: number;
+    if (identifiers.length === 0) {
+        start = last?.start;
+        pos = last?.pos;
+    } else {
+        start = identifiers[0]?.start;
+        pos = identifiers[0]?.pos;
+    }
+
+    return {
+        kind: 'PropertyAccessExpression',
+        start: start,
+        end: last?.end,
+        pos: pos,
+        children: [
+            toPropertyAccessExpression(identifiers, methodInvocationSuffix.length > 0, methodInvocationSuffix),
+            {...last, type: 'function'}
+        ].filter(e => e)
+    };
 }

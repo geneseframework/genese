@@ -2,6 +2,7 @@ import { cstToAst, getBinaryOperatorName } from '../cst-to-ast';
 import { BinaryExpression } from '../models/binary-expression.model';
 import { BinaryExpressionChildren } from '../models/binary-expression-children.model';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
+import { binaryOperatorsPrecedence } from '../const/bin-ops-precedence';
 
 // @ts-ignore
 export function run(cstNode: BinaryExpression, children: BinaryExpressionChildren): any {
@@ -13,45 +14,9 @@ export function run(cstNode: BinaryExpression, children: BinaryExpressionChildre
     const assignmentOperator = children.AssignmentOperator;
     const unaryExpressionsAst = [...[].concat(...unaryExpressions.map(e => cstToAst(e)))];
     if (binaryOperators || less || greater) {
-        let binaryOperatorsAst = binaryOperators?.map(e => cstToAst(e, 'binaryOperator')) ?? [];
-        const lessAndGreaterAst = [];
-        if (less) {
-            lessAndGreaterAst.push(...reconstructOperators(less));
-        }
-        if (greater) {
-            lessAndGreaterAst.push(...reconstructOperators(greater));
-        }
-        lessAndGreaterAst.forEach(op => {
-            binaryOperatorsAst.push({
-                kind: getBinaryOperatorName(op.map(e => e.image).join('')),
-                start: op[0].startOffset,
-                end: op[op.length - 1].endOffset,
-                pos: op[0].startOffset
-            })
-        })
-        binaryOperatorsAst = binaryOperatorsAst.sort((a, b) => {
-            return a.start - b.start;
-        })
-        const alternate = [];
-        for (let i = 0; i < binaryOperatorsAst.length; i++) {
-            alternate.push(unaryExpressionsAst[i], binaryOperatorsAst[i]);
-        }
-        alternate.push(...unaryExpressionsAst.slice(binaryOperatorsAst.length), ...binaryOperatorsAst.slice(binaryOperatorsAst.length));
-        const separatedExps = split(alternate);
-        return toBinaryExpression(separatedExps.op, separatedExps.left, separatedExps.right);
+        return binaryOperatorsCase(binaryOperators, less, greater, unaryExpressionsAst);
     } else if (assignmentOperator) {
-        const expression = children.expression;
-        return {
-            kind: 'BinaryExpression',
-            start: cstNode.location.startOffset,
-            end: cstNode.location.endOffset,
-            pos: cstNode.location.startOffset,
-            children: [
-                ...unaryExpressionsAst,
-                ...assignmentOperator?.map(e => cstToAst(e, 'assignmentOperator')) ?? [],
-                ...[].concat(...expression?.map(e => cstToAst(e)) ?? [])
-            ]
-        };
+        return assignmentOperatorCase(cstNode, children, unaryExpressionsAst, assignmentOperator);
     } else {
         return [
             ...unaryExpressionsAst,
@@ -59,49 +24,81 @@ export function run(cstNode: BinaryExpression, children: BinaryExpressionChildre
     }
 }
 
+function binaryOperatorsCase(binaryOperators, less, greater, unaryExpressionsAst) {
+    let binaryOperatorsAst = constructBinaryOperatorsAst(binaryOperators, less, greater);
+    const alternate = [];
+    for (let i = 0; i < binaryOperatorsAst.length; i++) {
+        alternate.push(unaryExpressionsAst[i], binaryOperatorsAst[i]);
+    }
+    alternate.push(...unaryExpressionsAst.slice(binaryOperatorsAst.length), ...binaryOperatorsAst.slice(binaryOperatorsAst.length));
+    const separatedExps = splitExpression(alternate);
+    return toBinaryExpression(separatedExps.op, separatedExps.left, separatedExps.right);
+}
+
+function constructBinaryOperatorsAst(binaryOperators, less, greater) {
+    let binaryOperatorsAst = binaryOperators?.map(e => cstToAst(e, 'binaryOperator')) ?? [];
+    const lessAndGreaterAst = [];
+    lessAndGreaterAst.push(...reconstructOperators(less));
+    lessAndGreaterAst.push(...reconstructOperators(greater));
+    lessAndGreaterAst.forEach(op => {
+        binaryOperatorsAst.push({
+            kind: getBinaryOperatorName(op.map(e => e.image).join('')),
+            start: op[0].startOffset,
+            end: op[op.length - 1].endOffset,
+            pos: op[0].startOffset
+        });
+    });
+    binaryOperatorsAst = binaryOperatorsAst.sort((a, b) => {
+        return a.start - b.start;
+    });
+    return binaryOperatorsAst;
+}
+
+function assignmentOperatorCase(cstNode, children, unaryExpressionsAst, assignmentOperator) {
+    const expression = children.expression;
+    return {
+        kind: 'BinaryExpression',
+        start: cstNode.location.startOffset,
+        end: cstNode.location.endOffset,
+        pos: cstNode.location.startOffset,
+        children: [
+            ...unaryExpressionsAst,
+            ...assignmentOperator?.map(e => cstToAst(e, 'assignmentOperator')) ?? [],
+            ...[].concat(...expression?.map(e => cstToAst(e)) ?? [])
+        ]
+    };
+}
+
 function reconstructOperators(elements: any[]): any {
+    if (!elements || elements.length === 0) return [];
     const result = [];
     const indexes = elements.map((e, i) => {
-        return e?.startOffset + 1 === elements[i + 1]?.startOffset ? null : i + 1
-    }).filter(e => e)
+        return e?.startOffset + 1 === elements[i + 1]?.startOffset ? null : i + 1;
+    }).filter(e => e);
     indexes.forEach((i, index) => {
         result.push(elements.slice(indexes[index - 1] ?? 0, i));
-    })
+    });
     return result;
 }
 
-function split(list) {
+function splitExpression(list) {
     if (list.length === 1) {
         return list[0];
     }
-    const operatorsOrder = [
-        [SyntaxKind.EqualsToken, SyntaxKind.PlusEqualsToken, SyntaxKind.MinusEqualsToken, SyntaxKind.AsteriskEqualsToken, SyntaxKind.SlashEqualsToken, SyntaxKind.PercentEqualsToken, SyntaxKind.AmpersandEqualsToken, SyntaxKind.CaretEqualsToken, SyntaxKind.BarEqualsToken, SyntaxKind.LessThanLessThanEqualsToken, SyntaxKind.GreaterThanGreaterThanEqualsToken, SyntaxKind.GreaterThanGreaterThanGreaterThanEqualsToken],
-        [SyntaxKind.QuestionToken, SyntaxKind.ColonToken],
-        [SyntaxKind.BarBarToken],
-        [SyntaxKind.AmpersandAmpersandToken],
-        [SyntaxKind.BarToken],
-        [SyntaxKind.CaretToken],
-        [SyntaxKind.AmpersandToken],
-        [SyntaxKind.EqualsEqualsToken, SyntaxKind.ExclamationEqualsToken],
-        [SyntaxKind.LessThanToken, SyntaxKind.LessThanEqualsToken, SyntaxKind.GreaterThanToken, SyntaxKind.GreaterThanEqualsToken],
-        [SyntaxKind.LessThanLessThanToken, SyntaxKind.GreaterThanGreaterThanToken, SyntaxKind.GreaterThanGreaterThanGreaterThanToken],
-        [SyntaxKind.PlusToken, SyntaxKind.MinusToken],
-        [SyntaxKind.AsteriskToken, SyntaxKind.SlashToken, SyntaxKind.PercentToken],
-    ];
-    const r = {
+    const result = {
         op: undefined,
         left: undefined,
         right: undefined
     };
-    operatorsOrder.forEach(ops => {
+    binaryOperatorsPrecedence.forEach(ops => {
         const index = list.findIndex(e => ops.includes(e.kind));
-        if (index !== -1 && !r.op) {
-            r.op = list[index];
-            r.left = split(list.slice(0, index));
-            r.right = split(list.slice(index + 1, list.length + 1));
+        if (index !== -1 && !result.op) {
+            result.op = list[index];
+            result.left = splitExpression(list.slice(0, index));
+            result.right = splitExpression(list.slice(index + 1, list.length + 1));
         }
     });
-    return r;
+    return result;
 }
 
 function toBinaryExpression(op, left, right): any {
@@ -109,7 +106,7 @@ function toBinaryExpression(op, left, right): any {
         left.op ? toBinaryExpression(left.op, left.left, left.right) : left,
         op,
         right.op ? toBinaryExpression(right.op, right.left, right.right) : right,
-    ]
+    ];
     let mostLeft = left;
     while (mostLeft.left) {
         mostLeft = mostLeft.left;
