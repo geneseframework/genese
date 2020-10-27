@@ -25,6 +25,17 @@ export function run(cstNode: BinaryExpression, children: BinaryExpressionChildre
 }
 
 function binaryOperatorsCase(binaryOperators, less, greater, unaryExpressionsAst) {
+    let binaryOperatorsAst = constructBinaryOperatorsAst(binaryOperators, less, greater);
+    const alternate = [];
+    for (let i = 0; i < binaryOperatorsAst.length; i++) {
+        alternate.push(unaryExpressionsAst[i], binaryOperatorsAst[i]);
+    }
+    alternate.push(...unaryExpressionsAst.slice(binaryOperatorsAst.length), ...binaryOperatorsAst.slice(binaryOperatorsAst.length));
+    const separatedExps = splitExpression(alternate);
+    return toBinaryExpression(separatedExps.op, separatedExps.left, separatedExps.right);
+}
+
+function constructBinaryOperatorsAst(binaryOperators, less, greater) {
     let binaryOperatorsAst = binaryOperators?.map(e => cstToAst(e, 'binaryOperator')) ?? [];
     const lessAndGreaterAst = [];
     lessAndGreaterAst.push(...reconstructOperators(less));
@@ -40,13 +51,7 @@ function binaryOperatorsCase(binaryOperators, less, greater, unaryExpressionsAst
     binaryOperatorsAst = binaryOperatorsAst.sort((a, b) => {
         return a.start - b.start;
     });
-    const alternate = [];
-    for (let i = 0; i < binaryOperatorsAst.length; i++) {
-        alternate.push(unaryExpressionsAst[i], binaryOperatorsAst[i]);
-    }
-    alternate.push(...unaryExpressionsAst.slice(binaryOperatorsAst.length), ...binaryOperatorsAst.slice(binaryOperatorsAst.length));
-    const separatedExps = splitExpression(alternate);
-    return toBinaryExpression(separatedExps.op, separatedExps.left, separatedExps.right);
+    return binaryOperatorsAst;
 }
 
 function assignmentOperatorCase(cstNode, children, unaryExpressionsAst, assignmentOperator) {
