@@ -30,7 +30,7 @@ export class Main {
      * @returns void
      */
     // @ts-ignore
-    start(pathCommand: string, pathFolderToAnalyze: string, pathGeneseNodeJs: string, language?: Language, markdown:boolean = false): void {
+    start(pathCommand: string, pathFolderToAnalyze: string, pathGeneseNodeJs: string, language?: Language, markdown = false): void {
         console.log(`PATH TO ANALYZE : ${pathFolderToAnalyze}`);
         Options.setOptions(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs);
         createOutDir();

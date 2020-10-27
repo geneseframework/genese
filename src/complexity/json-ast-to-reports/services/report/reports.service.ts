@@ -23,10 +23,13 @@ export class ReportsService {
         ReportsService.generateSubfoldersReports(parentFolder);
     }
 
+    /**
+     * LanguageToJsonAst markdown reports generation process
+     * @param jsonAst
+     */
     static generateMarkdownReports(jsonAst: JsonAst): void {
         const parentFolder: AstFolder = jsonAst.astFolder;
         const folderMakdownReport = new AstFolderMarkdownReportService(parentFolder)
-
         folderMakdownReport.generateReport();
     }
 
