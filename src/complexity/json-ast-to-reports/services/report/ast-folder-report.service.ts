@@ -29,7 +29,7 @@ export class AstFolderReportService {
     private isRootFolder = false;                                           // True if the AstFolder relative to this service is the root folder of the analysis
     private methodsArray: RowFileReport[] = [];                             // The array of methods reports
     private relativeRootReports = '';                                       // The route between the pos of the current TsFolder and the root of the analysis
-    template: HandlebarsTemplateDelegate;                                   // The HandleBar template used to generate the report
+    template: HandlebarsTemplateDelegate = undefined;                       // The HandleBar template used to generate the report
 
 
     constructor(astFolder: AstFolder) {
@@ -223,13 +223,11 @@ export class AstFolderReportService {
         if (this.astFolder.relativePath) {
             createRelativeDir(this.astFolder.relativePath);
         }
-
         const pathOutDir = constructLink(Options.pathOutDir);
         const relativePath = constructLink(this.astFolder.relativePath);
         const pathReport = `${deleteLastSlash(pathOutDir)}/${deleteLastSlash(
             relativePath
         )}/folder-report.html`;
-
         try {
             fs.writeFileSync(pathReport, template, { encoding: "utf-8" });
         } catch (err) {

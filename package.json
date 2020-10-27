@@ -31,7 +31,8 @@
         "java-parser": "0.6.0",
         "paths": "^0.1.1",
         "prismjs": "^1.20.0",
-        "ts-morph": "^7.1.2"
+        "ts-morph": "^7.1.2",
+        "ts-node": "^9.0.0"
     },
     "devDependencies": {},
     "jscpd": {

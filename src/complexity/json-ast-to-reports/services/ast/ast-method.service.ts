@@ -2,9 +2,17 @@ import { AstMethod } from '../../models/ast/ast-method.model';
 import { ComplexitiesByStatus } from '../../interfaces/complexities-by-status.interface';
 import { ComplexityType } from '../../enums/complexity-type.enum';
 import { MethodStatus } from '../../enums/evaluation-status.enum';
+import { MethodReport } from '../../models/report/method-report.model';
 
 export class AstMethodService {
 
+    /**
+     * The method sorting the rows of the methods report by decreasing cognitive complexity
+     * @param methodsReport     // The array to sort
+     */
+    static sortByDecreasingCognitiveCpx(methodsReport: MethodReport[]): MethodReport[] {
+        return methodsReport.sort((a, b) => b.cpxIndex - a.cpxIndex);
+    }
 
     /**
      * Returns the addition of a ComplexitiesByStatus object and the complexities scores of a given astMethod
