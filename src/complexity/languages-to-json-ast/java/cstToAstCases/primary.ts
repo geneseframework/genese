@@ -155,7 +155,7 @@ function getNewExpression(primaryPrefixAst: any): any[] {
  */
 function createElementAccess(cstNode, primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList): any {
     if (arrayAccessSuffixList.length === 1) {
-        singleAccessCase(cstNode, primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList);
+        return singleAccessCase(cstNode, primaryPrefixAst, primarySuffixAst, arrayAccessSuffixList);
     }
     const arrayAccessSuffix = arrayAccessSuffixList.pop();
     const last = arrayAccessSuffix.children?.find(e => e.kind === 'Identifier' || 'Literal');
