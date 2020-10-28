@@ -14,8 +14,8 @@ export function run(cstNode: UnqualifiedClassInstanceCreationExpression, childre
         end: cstNode.location.endOffset,
         pos: cstNode.location.startOffset,
         children: [
-            ...[].concat(...argumentList?.map(e => cstToAst(e)) ?? []),
             ...[].concat(...classOrInterfaceTypeToInstantiate?.map(e => cstToAst(e)) ?? []),
+            ...[].concat(...argumentList?.map(e => cstToAst(e)) ?? []),
             ...[].concat(...classBody?.map(e => cstToAst(e)) ?? [])
         ]
     }

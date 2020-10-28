@@ -32,15 +32,13 @@ function process(cstNode: any, prefix: any, suffix: any): any {
  * @param  {any} primarySuffixAst
  */
 function handleNoMethodInvocationSuffix(primaryPrefixAst: any, primarySuffixAst: any) {
+    if (primarySuffixAst.length === 1 && primarySuffixAst[0].kind === 'ClassLiteralSuffix') {
+        primaryPrefixAst.push(...primarySuffixAst.pop().children)
+    }
     if (primaryPrefixAst.length > 1) {
         return [
             toPropertyAccessExpression(primaryPrefixAst, false, []),
             ...primarySuffixAst
-        ];
-    }
-    if (primarySuffixAst.length === 1 && primarySuffixAst[0].kind === 'ClassLiteralSuffix') {
-        return [
-            toPropertyAccessExpression([...primaryPrefixAst, ...primarySuffixAst[0].children], false, []),
         ];
     }
     if (primaryPrefixAst.length === 1 && primaryPrefixAst[0].kind === 'ThisKeyword') {

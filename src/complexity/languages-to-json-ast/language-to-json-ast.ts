@@ -31,6 +31,7 @@ export class LanguageToJsonAst {
                 jsonAst = LanguageToJsonAst.generateFromAllFiles(pathToAnalyze);
                 break;
         }
+        const ru = LanguageToJsonAst.findInObject(jsonAst, undefined);
         createFile(`./json-ast.json`, JsonService.prettifyJson(jsonAst));
         console.log(chalk.greenBright('JSON AST GENERATED SUCCESSFULLY'));
     }
@@ -56,4 +57,15 @@ export class LanguageToJsonAst {
         jsonAst.astFolder = astFolder;
         return jsonAst;
     }
+
+    private static findInObject(o, f) {
+        return Object.keys(o).some(function (a) {
+            if (Array.isArray(o[a]) || typeof o[a] === 'object' && o[a] !== null) {
+                return LanguageToJsonAst.findInObject(o[a], f);
+            }
+            return o[a] === f;
+        });
+    }
+
+
 }

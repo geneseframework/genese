@@ -112,7 +112,10 @@ er
      * @param astNode
      */
     static isFunctionOrMethod(astNode: AstNode): boolean {
-        return astNode?.kind === SyntaxKind.MethodDeclaration || astNode?.kind === SyntaxKind.FunctionDeclaration || false;
+        return astNode?.kind === SyntaxKind.MethodDeclaration ||
+            astNode?.kind === SyntaxKind.FunctionDeclaration ||
+            astNode?.kind === SyntaxKind.Constructor ||
+            false;
     }
 
 
