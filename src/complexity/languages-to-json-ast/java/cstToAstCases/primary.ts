@@ -46,6 +46,11 @@ function handleNoMethodInvocationSuffix(primaryPrefixAst: any, primarySuffixAst:
             toPropertyAccessExpression([...primaryPrefixAst, ...primarySuffixAst], false, []),
         ];
     }
+    if (primarySuffixAst.every(e => e.kind === 'Identifier') && primarySuffixAst.every(e => e.kind === 'Identifier')) {
+        return [
+            toPropertyAccessExpression([...primaryPrefixAst, ...primarySuffixAst], false, []),
+        ];
+    }
     return [
         ...primaryPrefixAst,
         ...primarySuffixAst
