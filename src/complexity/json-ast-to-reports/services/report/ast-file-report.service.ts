@@ -11,7 +11,6 @@ import {
 import { MethodReport } from '../../models/report/method-report.model';
 import { AstFile } from '../../models/ast/ast-file.model';
 import { Options } from '../../../core/models/options.model';
-import { mainModule } from "process";
 
 /**
  * Service generating files reports
@@ -27,10 +26,21 @@ export class AstFileReportService {
     }
 
     /**
-     * Returns the array of methods with their analysis
+     * Generates the file's report
      */
-    getMethodsArray(): MethodReport[] {
-        let report: MethodReport[] = [];
+    generateReport(): void {
+        this.setMethodsArray();
+        this.relativeRootReports = getRouteToRoot(this.astFile.astFolder?.relativePath);
+        this.setPartials();
+        const reportTemplate = eol.auto(fs.readFileSync(`${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/file-report.handlebars`, 'utf-8'));
+        this.template = Handlebars.compile(reportTemplate);
+        this.writeReport();
+    }
+
+    /**
+     * Sets the array of methods with their analysis
+     */
+    private setMethodsArray(): void {
         for (const method of this.astFile.astMethods) {
             const methodReport: MethodReport = {
                 code: method.displayedCode?.text,
@@ -40,31 +50,14 @@ export class AstFileReportService {
                 cyclomaticValue: method.cyclomaticCpx,
                 methodName: method.name,
             };
-            report.push(methodReport);
+            this.methodReports.push(methodReport);
         }
-        return report;
-    }
-
-    /**
-     * Generates the file's report
-     */
-    generateReport(): void {
-        this.methodReports = this.getMethodsArray();
-        this.relativeRootReports = getRouteToRoot(this.astFile.astFolder?.relativePath);
-        this.registerPartial("cognitiveBarchartScript", 'cognitive-barchart');
-        this.registerPartial("cyclomaticBarchartScript", 'cyclomatic-barchart');
-        this.registerPartial("cognitiveDoughnutScript", 'cognitive-doughnut');
-        this.registerPartial("cyclomaticDoughnutScript", 'cyclomatic-doughnut');
-        this.registerPartial("method", 'methods');
-        const reportTemplate = eol.auto(fs.readFileSync(`${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/file-report.handlebars`, 'utf-8'));
-        this.template = Handlebars.compile(reportTemplate);
-        this.writeReport();
     }
 
     /**
      * Creates the file of the report
      */
-    private writeReport() {
+    private writeReport(): void {
         const template = this.template({
             colors: Options.colors,
             methods: this.methodReports,
@@ -85,6 +78,17 @@ export class AstFileReportService {
 
 
         fs.writeFileSync(pathReport, template, { encoding: 'utf-8' });
+    }
+
+    /**
+     * Sets the HandleBar's partials 
+     */
+    private setPartials(): void{
+        this.registerPartial("cognitiveBarchartScript", 'cognitive-barchart');
+        this.registerPartial("cyclomaticBarchartScript", 'cyclomatic-barchart');
+        this.registerPartial("cognitiveDoughnutScript", 'cognitive-doughnut');
+        this.registerPartial("cyclomaticDoughnutScript", 'cyclomatic-doughnut');
+        this.registerPartial("method", 'methods');
     }
 
     /**
