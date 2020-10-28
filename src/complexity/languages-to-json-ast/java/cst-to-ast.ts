@@ -14,7 +14,7 @@ export function cstToAst(cstNode, kind = undefined): any {
     try {
         return require(`./cstToAstCases/${toKebabCase(cstNode.name || kind)}`).run(cstNode, children);
     } catch (e) {
-        const error = new Error(e.message + '!!!' + cstNode.location.startLine)
+        const error = new Error(e.message + '!!!' + cstNode.location ? cstNode.location.startLine : cstNode.startLine)
         error.stack = e.stack;
         throw error;
     }

@@ -10,8 +10,8 @@ import { UnqualifiedExplicitConstructorInvocationChildren } from '../models/unqu
 export function run(cstNode: UnqualifiedExplicitConstructorInvocation, children: UnqualifiedExplicitConstructorInvocationChildren): any {
     const Super = children.Super;
     const argumentList = children.argumentList;
-    const superAst = Super.map(e => cstToAst(e, 'super'))[0];
-    superAst.type = 'function';
+    const superAst = Super?.map(e => cstToAst(e, 'super'))[0] ?? undefined;
+    if (superAst) superAst.type = 'function';
 
     return {
         kind: 'CallExpression',
@@ -21,6 +21,6 @@ export function run(cstNode: UnqualifiedExplicitConstructorInvocation, children:
         children: [
             superAst,
             ...[].concat(...argumentList?.map(e => cstToAst(e)) ?? []),
-        ]
+        ].filter(e => e)
     };
 }
