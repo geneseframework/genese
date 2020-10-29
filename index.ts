@@ -21,7 +21,7 @@ const pkg = require('./package.json');
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
 
     program
-    .option('-l, --language <language>', 'Language')
+    .option('-l, --language <language>', 'Language', 'ts')
     .option('-md, --markdown', 'Markdown type report')
 
 
