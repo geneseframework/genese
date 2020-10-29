@@ -199,7 +199,7 @@ export class AstFolderService extends StatsService {
             const linkStarter = this.getLinkStarter(astFolder);
 
             return `${linkStarter}${astFile.astFolder.path.slice(
-                astFolder.path.length
+                astFolder.path.length + 1
             )}`;
 
         }
