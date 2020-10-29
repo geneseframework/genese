@@ -3,6 +3,7 @@ import { JsonAst } from './models/ast/json-ast.model';
 import { ReportsService } from './services/report/reports.service';
 import * as chalk from 'chalk';
 import { AstFolder } from './models/ast/ast-folder.model';
+import * as terminalLink from 'terminal-link';
 
 
 /**
@@ -26,9 +27,10 @@ export class JsonAstToReports {
             ReportsService.generateMarkdownReports(jsonAst)
         } else {
             ReportsService.generateAllReports(jsonAst)
-        } 
+        }
         console.log(chalk.greenBright('REPORTS GENERATED SUCCESSFULLY'));
-        console.log('Please open in your browser the file "folder-report.html" located in your genese reports folder.')
+        const link = terminalLink('folder-report.html', `file://${pathCommand}/genese/complexity/reports/folder-report.html`);
+        console.log(`'Please open in your browser the file "${link}" located in your genese reports folder.'`)
         this.astFolder = jsonAst.astFolder;
     }
 
