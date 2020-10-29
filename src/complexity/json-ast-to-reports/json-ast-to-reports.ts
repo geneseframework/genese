@@ -30,7 +30,7 @@ export class JsonAstToReports {
         }
         console.log(chalk.greenBright('REPORTS GENERATED SUCCESSFULLY'));
         const link = terminalLink('folder-report.html', `file://${pathCommand}/genese/complexity/reports/folder-report.html`);
-        console.log(`'Please open in your browser the file "${link}" located in your genese reports folder.'`)
+        console.log(`Please open in your browser the file "${link}" located in your genese reports folder.`)
         this.astFolder = jsonAst.astFolder;
     }
 
