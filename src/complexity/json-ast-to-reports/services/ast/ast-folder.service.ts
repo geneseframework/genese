@@ -6,8 +6,6 @@ import { ComplexityType } from '../../enums/complexity-type.enum';
 import { BarchartService } from '../report/barchart.service';
 import { constructLink, getOS } from '../../../core/services/file.service';
 import { OS } from '../../enums/os.enum';
-import { RowFileReport } from '../../models/report/row-file-report.model';
-import { AstMethodService } from './ast-method.service';
 
 /**
  * - AstFolders generation from Abstract Syntax AstNode of a folder
@@ -17,20 +15,11 @@ export class AstFolderService extends StatsService {
 
     protected _stats: Stats = undefined;                            // The statistics of the AstFolder
     astFolder: AstFolder = undefined;                               // The AstFolder corresponding to this service
-    private methodsArrayReport: RowFileReport[] = [];  
 
     constructor() {
         super();
     }
 
-    /**
-     * Get the array of methods sorted by decreasing cognitive complexity
-     * @param astFolder    // The AstFolder to analyse
-     */
-    getMethodsArraySortedByDecreasingCognitiveCpx(astFolder: AstFolder): RowFileReport[] {
-        this.setMethodsArrayReport(astFolder);
-        return AstMethodService.sortByDecreasingCognitiveCpx(this.methodsArrayReport); 
-    }
 
     /**
      * Calculates the statistics of the AstFolder
@@ -48,44 +37,6 @@ export class AstFolderService extends StatsService {
         return this._stats;
     }
 
-    /**
-     * Recursion setting the array of methods reports of each subFolder
-     * @param astFolder    // The AstFolder to analyse
-     */
-    private setMethodsArrayReport(astFolder: AstFolder): void {
-        for (const subFolder of astFolder.children) {
-            this.setTsFileReport(subFolder);
-            this.setMethodsArrayReport(subFolder);
-        }
-    }
-
-    /**
-     * Recursion setting the array of methods reports of each subFolder's files
-     * @param astFolder    // The AstFolder to analyse
-     */
-    private setTsFileReport(astFolder: AstFolder): void{
-        for (const tsFile of astFolder.astFiles){
-            this.setAstMethodReport(tsFile)
-        }
-    }
-
-    /**
-     * Recursion setting the array of methods reports of each file's methods
-     * @param astFile    // The AstFile to analyse
-     */
-    private setAstMethodReport(astFile: AstFile): void{
-        for (const astMethod of astFile.astMethods) {
-            this.methodsArrayReport.push({
-                cognitiveColor: astMethod.cognitiveStatus.toLowerCase(),
-                cpxIndex: astMethod.cpxIndex,
-                cyclomaticColor: astMethod.cyclomaticStatus.toLowerCase(),
-                cyclomaticValue: astMethod.cyclomaticCpx,
-                filename: astFile.name,
-                linkFile: undefined,
-                methodName: astMethod.name
-            })
-        }
-    }
 
     /**
      * Calculates and sets to _stats the Complexities by Status of a given AstFolder
@@ -126,9 +77,9 @@ export class AstFolderService extends StatsService {
 
 
     /**
-     * Sets the relative path of an AstFolder
+     * Returns the relative path of an AstFolder
      */
-    protected setNameOrPath(astFolder: AstFolder): void {
+    protected getNameOrPath(astFolder: AstFolder): void {
         this._stats.subject = astFolder.relativePath;
     }
 
@@ -238,22 +189,22 @@ export class AstFolderService extends StatsService {
      * @param astFile        // The path of the AstFile
      */
     getRouteFromFolderToFile(astFolder: AstFolder, astFile: AstFile): string {
-        if (astFile?.astFolder.path.slice(0, astFolder?.path.length) === astFolder?.path) {
+        if (!astFile || !astFolder) {
+            return undefined;
+        }
+        if (astFile.astFolder.path.slice(0, astFolder.path.length) !== astFolder.path) {
+            console.log(`The file ${astFile.name} is not inside the folder ${astFolder.path}`);
+            return undefined;
+        } else {
             const linkStarter = this.getLinkStarter(astFolder);
 
             return `${linkStarter}${astFile.astFolder.path.slice(
-                astFolder.path.length
+                astFolder.path.length + 1
             )}`;
-        } else {
-            console.log(`The file ${astFile.name} is not inside the folder ${astFolder.path}`);
-            return undefined;
+
         }
     }
 
-    /**
-     * Get the starter link 
-     * @param astFolder         // The concerned astFolder 
-     */
     getLinkStarter(astFolder: AstFolder) {
         return getOS() !== OS.WINDOWS ? astFolder?.relativePath === "" ? "./" : "." : astFolder?.relativePath === "" ? "./" : ""
     }
@@ -283,20 +234,10 @@ export class AstFolderService extends StatsService {
         }
     }
 
-    /**
-     * Return if slash exists on string
-     * @param text          // Text to analyse
-     * @param parentText    // Parent text to analyse 
-     */
     isSlashExist(text: string, parentText: string) {
         return constructLink(text[parentText.length + 1]) === constructLink("/");
     }
 
-    /**
-     * Return string section separate by a slash from a string 
-     * @param text          // Text to analyse
-     * @param parentText    // Parent text to analyse
-     */
     linkSlicer(text: string, parentText: string): string {
         return this.isSlashExist(text, parentText)
             ? text.slice(parentText.length + 1)

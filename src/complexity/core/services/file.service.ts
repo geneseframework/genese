@@ -176,7 +176,8 @@ export function copyFile(originPath: string, targetPath: string): void {
 
 
 export function platformPath(path: string): string {
-    return WINDOWS ? windowsPath(path) : path;
+    const modifiedPath = path.split('/').filter(e => e !== '.').join('/');
+    return WINDOWS ? windowsPath(modifiedPath) : modifiedPath;
 }
 
 

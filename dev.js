@@ -3,7 +3,7 @@
 
 exports.__esModule = true;
 var ansi_colors_1 = require("ansi-colors");
-var main = require("./dist/main");
+var main = require("./dist/src/complexity/main");
 
 try {
     console.log(ansi_colors_1.yellowBright("WELCOME TO GENESE COMPLEXITY"));
@@ -12,10 +12,11 @@ try {
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
     var mainProcess = new main.Main();
     // const pathFolderToAnalyze = '/Users/utilisateur/Documents/projets/naval-group/code/full/20200611-1756-release-sprint-5/cyms/src/';
-     const pathFolderToAnalyze = '/home/bguendouz/Bureau/Alex/airbus-alex-back/src/main/java/com/airbus/alex/test';
+    //  const pathFolderToAnalyze = '/home/bguendouz/Bureau/Alex/airbus-alex-back/src/main/java/com/airbus/alex/test';
     //const pathFolderToAnalyze = '/home/gmartin/Documents/projects/genese-bis/genese/toAnalyse';
     // const pathFolderToAnalyze = __dirname + '/src/complexity/core/mocks/';
     // const pathFolderToAnalyze = "C:\\Users\\Nigdor\\Documents\\projects\\genese-bis\\genese\\toAnalyse";
+    const pathFolderToAnalyze = '/home/akueny/Dev/genese-github/toAnalyse'
     mainProcess.start(__dirname, pathFolderToAnalyze, __dirname, "java");
 } catch (err) {
     console.error(
