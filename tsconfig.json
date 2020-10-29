@@ -27,7 +27,6 @@
         "index.ts",
         "src/**/*.ts",
         "package.json",
-        "tsconfig.json",
         "src/**/*.json"
     ]
 }
