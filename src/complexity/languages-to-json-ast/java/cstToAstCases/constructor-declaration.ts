@@ -1,7 +1,7 @@
 import { cstToAst } from '../cst-to-ast';
 import { ConstructorDeclarationElementChildren } from '../models/constructor-declaration-children.model';
 import { ConstructorDeclarationElement } from '../models/constructor-declaration.model';
-import { ConstructorDeclaratorChildren } from '../models/constructor-declarator-children.model';
+
 
 export function run(cstNode: ConstructorDeclarationElement, children: ConstructorDeclarationElementChildren): any {
     const constructorBody = children.constructorBody;

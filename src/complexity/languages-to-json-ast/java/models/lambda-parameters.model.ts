@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { LambdaParametersChildren } from "./lambda-parameters-children.model";
+import { Location } from './location.model';
+import { LambdaParametersChildren } from './lambda-parameters-children.model';
 
 export class LambdaParameters {
     name ?= '';

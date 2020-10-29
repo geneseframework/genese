@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { LambdaExpressionChildren } from "./lambda-expression-children.model";
+import { Location } from './location.model';
+import { LambdaExpressionChildren } from './lambda-expression-children.model';
 
 export class LambdaExpression {
     name ?= '';

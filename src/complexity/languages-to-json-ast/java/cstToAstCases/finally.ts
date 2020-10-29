@@ -2,6 +2,7 @@ import { cstToAst } from '../cst-to-ast';
 import { Finally } from '../models/finally.model';
 import { FinallyChildren } from '../models/finally-children.model';
 
+
 export function run(cstNode: Finally, children: FinallyChildren) {
     const block = children.block;
 

@@ -1,5 +1,5 @@
-import { TernaryExpression } from "./ternary-expression.model";
-import { LambdaExpression } from "./lambda-expression.model";
+import { TernaryExpression } from './ternary-expression.model';
+import { LambdaExpression } from './lambda-expression.model';
 import { NewExpression } from './new-expression.model';
 
 export class ExpressionChildren {

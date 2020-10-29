@@ -2,11 +2,7 @@ import * as fs from 'fs-extra';
 import * as eol from 'eol';
 import * as Handlebars from 'handlebars';
 import { RowFileReport } from '../../models/report/row-file-report.model';
-import {
-    constructLink,
-    createRelativeDir,
-    deleteLastSlash
-} from '../../../core/services/file.service';
+import { constructLink, createRelativeDir, deleteLastSlash } from '../../../core/services/file.service';
 import { AstFolder } from '../../models/ast/ast-folder.model';
 import { AstFolderService } from '../ast/ast-folder.service';
 import { Options } from '../../../core/models/options.model';

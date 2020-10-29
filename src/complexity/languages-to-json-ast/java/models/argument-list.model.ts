@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { ArgumentListChildren } from "./argument-list-children.model";
+import { Location } from './location.model';
+import { ArgumentListChildren } from './argument-list-children.model';
 
 export class ArgumentList {
     name ?= '';

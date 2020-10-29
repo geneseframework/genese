@@ -1,5 +1,5 @@
-import {Location} from './location.model';
-import {TryStatementChildren} from './try-statement-children.model';
+import { Location } from './location.model';
+import { TryStatementChildren } from './try-statement-children.model';
 
 export class TryStatement {
     name ?= '';

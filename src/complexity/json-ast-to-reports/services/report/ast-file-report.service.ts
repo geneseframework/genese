@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
-import * as eol from "eol";
-import * as Handlebars from "handlebars";
+import * as eol from 'eol';
+import * as Handlebars from 'handlebars';
 import {
     constructLink,
     deleteLastSlash,
@@ -81,7 +81,7 @@ export class AstFileReportService {
     }
 
     /**
-     * Sets the HandleBar's partials 
+     * Sets the HandleBar's partials
      */
     private setPartials(): void{
         this.registerPartial("cognitiveBarchartScript", 'cognitive-barchart');

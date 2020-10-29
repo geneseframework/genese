@@ -1,5 +1,5 @@
-import {FinallyChildren} from './finally-children.model';
-import {Location} from './location.model';
+import { FinallyChildren } from './finally-children.model';
+import { Location } from './location.model';
 
 export class Finally {
     name ?= '';

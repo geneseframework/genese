@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { ArrayCreationExplicitInitSuffixChildren } from "./array-creation-explicit-init-suffix-children.model";
+import { Location } from './location.model';
+import { ArrayCreationExplicitInitSuffixChildren } from './array-creation-explicit-init-suffix-children.model';
 
 export class ArrayCreationExplicitInitSuffix {
     name ?= '';

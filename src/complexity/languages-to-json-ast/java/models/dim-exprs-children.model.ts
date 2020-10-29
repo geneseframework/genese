@@ -1,4 +1,4 @@
-import { DimExpr } from "./dim-expr.model";
+import { DimExpr } from './dim-expr.model';
 
 export class DimExprsChildren {
     dimExpr?: DimExpr[] = [new DimExpr()];

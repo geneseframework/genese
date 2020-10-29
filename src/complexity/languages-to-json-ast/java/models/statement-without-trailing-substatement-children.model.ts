@@ -1,12 +1,12 @@
-import {SwitchStatement} from './switch-statement.model';
-import {ExpressionStatement} from './expression-statement.model';
-import {ReturnStatement} from './return-statement.model';
-import {Infos} from './infos.model';
-import {StatementExpression} from './statement-expression.model';
-import {Location} from './location.model';
-import {DoStatement} from './do-statement.model';
-import {TryStatement} from './try-statement.model';
-import {ThrowStatementElement} from './throw-statement.model';
+import { SwitchStatement } from './switch-statement.model';
+import { ExpressionStatement } from './expression-statement.model';
+import { ReturnStatement } from './return-statement.model';
+import { Infos } from './infos.model';
+import { StatementExpression } from './statement-expression.model';
+import { Location } from './location.model';
+import { DoStatement } from './do-statement.model';
+import { TryStatement } from './try-statement.model';
+import { ThrowStatementElement } from './throw-statement.model';
 import { AssertStatement } from './assert-statement.model';
 
 export class StatementWithoutTrailingSubstatementChildren {

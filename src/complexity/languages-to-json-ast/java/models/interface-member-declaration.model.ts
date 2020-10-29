@@ -1,4 +1,4 @@
-import { InterfaceMemberDeclarationChildren } from "./interface-member-declaration-children.model";
+import { InterfaceMemberDeclarationChildren } from './interface-member-declaration-children.model';
 import { Location } from './location.model';
 
 export class InterfaceMemberDeclaration {

@@ -1,13 +1,9 @@
-import * as fs from "fs-extra";
-import {
-    constructLink,
-    getArrayOfPathsWithDotSlash,
-    getPathWithSlash,
-} from "../services/file.service";
-import { Complexity } from "../../json-ast-to-reports/interfaces/complexity.interface";
-import { ComplexityType } from "../../json-ast-to-reports/enums/complexity-type.enum";
-import { ChartColor } from "../../json-ast-to-reports/enums/chart-color.enum";
-import { ComplexitiesByStatus } from "../../json-ast-to-reports/interfaces/complexities-by-status.interface";
+import * as fs from 'fs-extra';
+import { getArrayOfPathsWithDotSlash, getPathWithSlash, } from '../services/file.service';
+import { Complexity } from '../../json-ast-to-reports/interfaces/complexity.interface';
+import { ComplexityType } from '../../json-ast-to-reports/enums/complexity-type.enum';
+import { ChartColor } from '../../json-ast-to-reports/enums/chart-color.enum';
+import { ComplexitiesByStatus } from '../../json-ast-to-reports/interfaces/complexities-by-status.interface';
 
 export var WINDOWS = false;
 
