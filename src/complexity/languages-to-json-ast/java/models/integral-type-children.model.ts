@@ -5,4 +5,5 @@ export class IntegralTypeChildren {
     Byte?: Infos[] = [new Infos()];
     Long?: Infos[] = [new Infos()];
     Char?: Infos[] = [new Infos()];
+    Short?: Infos[] = [new Infos()];
 }

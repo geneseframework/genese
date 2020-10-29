@@ -28,6 +28,8 @@
 /json-ast.json
 /toAnalyse/
 
+!index.js
+
 # Only exists if Bazel was run
 /bazel-out
 
