@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { ExceptionTypeListChildren } from "./exception-type-list-children.model";
+import { Location } from './location.model';
+import { ExceptionTypeListChildren } from './exception-type-list-children.model';
 
 export class ExceptionTypeList {
     name ?= '';

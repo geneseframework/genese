@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { ArrayCreationExpressionChildren } from "./array-creation-expression-children.model";
+import { Location } from './location.model';
+import { ArrayCreationExpressionChildren } from './array-creation-expression-children.model';
 
 export class ArrayCreationExpression {
     name ?= '';

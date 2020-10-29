@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { ArrayAccessSuffixChildren } from "./array-access-suffix-children.model";
+import { Location } from './location.model';
+import { ArrayAccessSuffixChildren } from './array-access-suffix-children.model';
 
 export class ArrayAccessSuffix {
     name ?= '';

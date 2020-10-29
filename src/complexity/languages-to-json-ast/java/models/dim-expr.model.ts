@@ -1,5 +1,5 @@
-import { Location } from "./location.model";
-import { DimExprChildren } from "./dim-expr-children.model";
+import { Location } from './location.model';
+import { DimExprChildren } from './dim-expr-children.model';
 
 export class DimExpr {
     name ?= '';

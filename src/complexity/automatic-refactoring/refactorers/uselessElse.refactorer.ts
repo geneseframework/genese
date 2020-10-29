@@ -1,5 +1,4 @@
 import { Node, SyntaxKind, TransformTraversalControl, ts } from 'ts-morph';
-import { RefactorProposal } from '../models/refactor-proposal.model';
 
 import { Refactorer } from '../models/refactorer.model';
 

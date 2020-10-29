@@ -1,4 +1,4 @@
-import { ConditionalExpression, createWrappedNode, Node, SyntaxKind, TransformTraversalControl, ts } from 'ts-morph';
+import { ConditionalExpression, Node, SyntaxKind, TransformTraversalControl, ts } from 'ts-morph';
 
 import { Refactorer } from '../models/refactorer.model';
 

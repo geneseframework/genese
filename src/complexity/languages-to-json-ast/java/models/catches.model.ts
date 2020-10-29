@@ -1,5 +1,5 @@
-import {CatchesChildren} from './catches-children';
-import {Location} from './location.model';
+import { CatchesChildren } from './catches-children';
+import { Location } from './location.model';
 
 export class Catches {
     name ?= '';

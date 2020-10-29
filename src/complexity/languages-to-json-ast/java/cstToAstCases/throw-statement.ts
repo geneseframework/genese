@@ -2,6 +2,7 @@ import { cstToAst } from '../cst-to-ast';
 import { ThrowStatementElementChildren } from '../models/throw-statement-element-children.model';
 import { ThrowStatementElement } from '../models/throw-statement.model';
 
+
 export function run(cstNode: ThrowStatementElement, children: ThrowStatementElementChildren): any {
     const expression = children.expression;
 

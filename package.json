@@ -1,9 +1,10 @@
 {
     "name": "genese",
-    "version": "0.2.9",
+    "version": "0.2.10",
     "scripts": {
-        "dev": "tsc && node dev.js",
-        "replace": "tsc && npm unpublish genese@0.2.9 --force && npm publish && npm i -g genese"
+        "build": "tsc && cp -r src/complexity/json-ast-to-reports/templates dist/src/complexity/json-ast-to-reports/templates && cp -r src/complexity/automatic-refactoring/templates dist/src/complexity/automatic-refactoring/templates && cp -r src/complexity/core/chartjs dist/src/complexity/core/chartjs",
+        "dev": "npm run build && node dev.js",
+        "replace": "npm run build && npm unpublish genese@0.2.9 --force && npm publish && npm i -g genese"
     },
     "author": {
         "name": "Gilles Fabre",
@@ -15,7 +16,7 @@
         "url": "https://github.com/geneseframework/genese"
     },
     "bin": {
-        "genese": "index.js"
+        "genese": "dist/index.js"
     },
     "dependencies": {
         "@types/node": "^13.11.1",

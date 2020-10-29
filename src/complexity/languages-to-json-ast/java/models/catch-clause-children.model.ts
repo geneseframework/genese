@@ -1,6 +1,6 @@
-import { Block } from "./block.model";
-import { CatchFormalParameter } from "./catch-formal-parameter.model";
-import { Infos } from "./infos.model";
+import { Block } from './block.model';
+import { CatchFormalParameter } from './catch-formal-parameter.model';
+import { Infos } from './infos.model';
 
 export class CatchClauseChildren {
     Catch?: Infos[] = [new Infos()];

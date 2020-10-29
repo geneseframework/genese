@@ -1,7 +1,6 @@
 import { cstToAst, getBinaryOperatorName } from '../cst-to-ast';
 import { BinaryExpression } from '../models/binary-expression.model';
 import { BinaryExpressionChildren } from '../models/binary-expression-children.model';
-import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 import { binaryOperatorsPrecedence } from '../const/bin-ops-precedence';
 
 // @ts-ignore
