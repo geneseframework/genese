@@ -206,7 +206,7 @@ export class AstFolderService extends StatsService {
     }
 
     getLinkStarter(astFolder: AstFolder) {
-        return getOS() !== OS.WINDOWS ? astFolder?.relativePath === "" ? "./" : "." : astFolder?.relativePath === "" ? "./" : ""
+        return getOS() !== OS.WINDOWS ? "./" : astFolder?.relativePath === "" ? "./" : ""
     }
 
     /**
@@ -240,8 +240,8 @@ export class AstFolderService extends StatsService {
 
     linkSlicer(text: string, parentText: string): string {
         return this.isSlashExist(text, parentText)
-            ? text.slice(parentText.length + 1)
-            : text.slice(parentText.length);
+            ? text.slice(parentText.length + 2)
+            : text.slice(parentText.length + 1);
     }
 
 }
