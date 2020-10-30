@@ -6,7 +6,7 @@ import { AstFolderInterface } from '../core/interfaces/ast/ast-folder.interface'
 import { JsonAstInterface } from '../core/interfaces/ast/json-ast.interface';
 import { DEV_MOCK, LIMIT_GENERATIONS } from './globals.const';
 import { Language } from '../core/enum/language.enum';
-import { AstFileGenerationService } from './java/services/ast-file-generation.service';
+import { AstFileGenerationService } from './ts/services/ast-file-generation.service';
 
 /**
  * - AstFolders generation from Abstract Syntax Tree (AST) of its files (including files in subfolders)
