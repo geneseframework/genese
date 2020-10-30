@@ -40,7 +40,9 @@ This module creates an HTML report displaying an overview of the complexities in
 
 ## 1. Why use Genese Complexity ?
 
-Genese Complexity is an audit tool which allows you to identify quickly the bad practices concerning cognitive or cyclomatic complexity. You will be able to find quickly the methods with too high complexity index or which should be examined carefully.
+Genese Complexity is an audit tool which allows you to identify quickly the bad practices concerning cognitive or cyclomatic complexity.
+You will be able to find quickly the methods with too high complexity index or which should be examined carefully.
+Genese Complexity is available for JS, TS, JSX, TSX and JAVA.
 
 [Top](#table-of-contents)
 ## 2. Installation
@@ -62,10 +64,19 @@ genese cpx [directory]
 
 The "directory" param is the folder of the project to audit. It can be relative or absolute.
 
-***Example :***
+***Example:***
 ```sh 
 genese cpx ./src
 ```
+
+By default, Genese Complexity is launched for TS files.
+You can modify this with the `-l` option
+
+***Exemple:***
+```sh
+genese cpx -l java ./src
+```
+Available options are: `ts`, `js`, `tsx`, `jsx` and `java`.
 
 This command line will generate a report in the folder `genese/complexity/reports` (it can be customized) named `folder-report.html`. You just need to open it in a browser to display the results.
 
@@ -428,7 +439,12 @@ Each time the algorithm will be updated, the version indicated at the top of the
 
 ### 7.2 Add new languages
 
-We developed Genese Complexity at first for TypeScript files, but you can now "plug" any language into this module. What does it mean ? To be simple, Genese Complexity parses a Json file with a specific format : [JsonAst](#722-jsonast-specifications). This format corresponds to a simplified AST (Abstract Syntax Tree) of the source code. So if you want to be able to "plug" your language into Genese Complexity, you "just" need to convert the specific AST structure of your language into JsonAst format. In other words, your AST nodes must "match" with the nodes of the JsonAst format. If your plugin is correct, we will add it to Genese Complexity module.
+Genese Complexity is available for JS, TS, JSX, TSX and JAVA, but you can "plug" any language into this module.
+What does it mean ? To be simple, Genese Complexity parses a Json file with a specific format : [JsonAst](#722-jsonast-specifications).
+This format corresponds to a simplified AST (Abstract Syntax Tree) of the source code.
+So if you want to be able to "plug" your language into Genese Complexity, you "just" need to convert the specific AST structure of your language into JsonAst format.
+In other words, your AST nodes must "match" with the nodes of the JsonAst format.
+If your plugin is correct, we will add it to Genese Complexity module.
 
 There are hundreds kinds of TypeScript AST nodes, so it can be fastidious to "bind" all of them to the AST nodes of your language. Fortunately, JsonAst only needs few kinds of nodes; you will find them [below](#81-kinds-of-nodes).
 

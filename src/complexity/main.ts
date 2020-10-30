@@ -30,7 +30,7 @@ export class Main {
      */
     // @ts-ignore
     start(pathCommand: string, pathFolderToAnalyze: string, pathGeneseNodeJs: string, language?: Language, markdown = false): void {
-        console.log(`PATH TO ANALYZE : ${pathFolderToAnalyze}`);
+        console.log(`PATH TO ANALYZE : ${pathFolderToAnalyze.split('/').filter(e => e !== '.').join('/')}`);
         Options.setOptions(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs);
         createOutDir();
         LanguageToJsonAst.start(Options.pathFolderToAnalyze, language);

@@ -6,7 +6,7 @@ import { DefinitionInfo, Identifier, Node, SourceFile } from 'ts-morph';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 import { CpxFactorsInterface } from '../../../core/interfaces/cpx-factors.interface';
 import { project, WEIGHTED_METHODS, WEIGHTS } from '../../globals.const';
-import { Ts } from '../../ts/services/ts.service';
+import { Ts } from './ts.service';
 
 /**
  * - AstFiles generation from their Abstract Syntax Tree (AST)
@@ -46,12 +46,14 @@ export class AstFileGenerationService {
             start: node.getStart()
         };
         astNode = this.addTypeAndCpxFactors(node, astNode);
-        node.forEachChild((childNode: Node) => {
-            if (!astNode.children) {
-                astNode.children = [];
-            }
-            astNode.children.push(this.createAstNodeChildren(childNode));
-        });
+        if (node.getKindName() !== SyntaxKind.JsxElement) {
+            node.forEachChild((childNode: Node) => {
+                if (!astNode.children) {
+                    astNode.children = [];
+                }
+                astNode.children.push(this.createAstNodeChildren(childNode));
+            });
+        }
         return astNode;
     }
 
