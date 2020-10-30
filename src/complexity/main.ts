@@ -26,14 +26,16 @@ export class Main {
      * @param  {string} pathFolderToAnalyze
      * @param  {string} pathGeneseNodeJs
      * @param  {Language} language?
+     * @param  {} markdown=false
+     * @param  {} ignoretest=false
      * @returns void
      */
     // @ts-ignore
-    start(pathCommand: string, pathFolderToAnalyze: string, pathGeneseNodeJs: string, language?: Language, markdown = false): void {
+    start(pathCommand: string, pathFolderToAnalyze: string, pathGeneseNodeJs: string, language?: Language, markdown = false, ignoretest = false): void {
         console.log(`PATH TO ANALYZE : ${pathFolderToAnalyze}`);
         Options.setOptions(pathCommand, pathFolderToAnalyze, pathGeneseNodeJs);
         createOutDir();
-        LanguageToJsonAst.start(Options.pathFolderToAnalyze, language);
+        LanguageToJsonAst.start(Options.pathFolderToAnalyze, language, ignoretest);
         JsonAstToReports.start(pathCommand, undefined, markdown)
         if (language === Language.TS) {
             require('./automatic-refactoring/automatic-refactoring').AutomaticRefactoring.start(JsonAstToReports.astFolder);

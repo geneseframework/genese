@@ -23,6 +23,7 @@ const pkg = require('./package.json');
     program
     .option('-l, --language <language>', 'Language', 'ts')
     .option('-md, --markdown', 'Markdown type report')
+    .option('-ignoreTest, --ignoreTest', 'Ignore test files')
 
 
     program.command('cpx [pathToAnalyse]')
@@ -31,7 +32,7 @@ const pkg = require('./package.json');
             const path = process.cwd() + (pathFolderToAnalyze ? '/' + pathFolderToAnalyze : '');
             const mainProcess = new Main();
 
-            mainProcess.start(process.cwd(), path, __dirname, program.language, program.markdown)
+            mainProcess.start(process.cwd(), path, __dirname, program.language, program.markdown, program.ignoretest)
         });
 
     // ----------------------------------   GENESE API for Angular   ----------------------------------------

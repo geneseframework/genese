@@ -3,12 +3,18 @@ import { MethodDeclaration } from '../models/method-declaration.model';
 import { MethodDeclarationChildren } from '../models/method-declaration-children.model';
 
 // @ts-ignore
-export function run(cstNode: MethodDeclaration, children: MethodDeclarationChildren): any {
+export function run(cstNode: MethodDeclaration, children: MethodDeclarationChildren, ignoretest = false): any {
     const methodHeader = children.methodHeader;
     const methodBody = children.methodBody;
+    const methodModifier = children.methodModifier;
 
     const methodHeaderAst = methodHeader.map(e => cstToAst(e));
+    const methodModifierAst = [].concat(...methodModifier?.map(e => cstToAst(e)));
+    const identifier = methodModifierAst.filter(e => e.kind === 'Identifier');
     
+    if(identifier) {
+        return []
+    }
     return {
         kind: 'MethodDeclaration',
         start: cstNode.location.startOffset,

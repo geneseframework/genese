@@ -16,7 +16,7 @@ export class AstFileGenerationJavaService {
      * @param  {AstFolderInterface} astFolder
      * @returns AstFileInterface
      */
-    generate(path: string, astFolder: AstFolderInterface): AstFileInterface {
+    generate(path: string, astFolder: AstFolderInterface, ignoretest?: boolean): AstFileInterface {
         if (!path || !astFolder) {
             console.warn('No path or AstFolder : impossible to create AstFile');
             return undefined;
@@ -27,7 +27,7 @@ export class AstFileGenerationJavaService {
         let interfaceDeclaration = cst.children.ordinaryCompilationUnit[0].children?.typeDeclaration?.[0]?.children?.interfaceDeclaration?.[0];
         let ast: any = [];
         if(classDeclaration) {
-            ast = cstToAst(classDeclaration);
+            ast = cstToAst(classDeclaration, ignoretest);
         } else if(interfaceDeclaration) {
             ast = cstToAst(interfaceDeclaration);
         }

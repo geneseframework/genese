@@ -7,12 +7,12 @@ import { SyntaxKind } from '../../core/enum/syntax-kind.enum';
  * @param kind
  * @returns {any}
  */
-export function cstToAst(cstNode, kind = undefined): any {
+export function cstToAst(cstNode, kind = undefined, ignoretest = false): any {
 
     const children = cstNode.children;
 
     try {
-        return require(`./cstToAstCases/${toKebabCase(cstNode.name || kind)}`).run(cstNode, children);
+        return require(`./cstToAstCases/${toKebabCase(cstNode.name || kind)}`).run(cstNode, children, ignoretest);
     } catch (e) {
         const error = new Error(e.message + '!!!' + cstNode.location ? cstNode.location.startLine : cstNode.startLine)
         error.stack = e.stack;

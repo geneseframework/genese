@@ -21,13 +21,13 @@ export class InitGenerationService {
      * @param  {Language} language
      * @returns JsonAstInterface
      */
-    generateAll(path: string, language: Language): JsonAstInterface {
+    generateAll(path: string, language: Language, ignoretest?: boolean): JsonAstInterface {
         if (!path) {
             console.log('ERROR: no path.');
             return undefined;
         }
         return {
-            astFolder: this.generateAstFolder(path, language)
+            astFolder: this.generateAstFolder(path, language, ignoretest)
         };
     }
 
@@ -38,7 +38,7 @@ export class InitGenerationService {
      * @param  {Language} language
      * @returns AstFolderInterface
      */
-    private generateAstFolder(path: string, language: Language): AstFolderInterface {
+    private generateAstFolder(path: string, language: Language, ignoretest?: boolean): AstFolderInterface {
         let astFolder: AstFolderInterface = {
             path: platformPath(path),
             astFiles: []
@@ -53,9 +53,9 @@ export class InitGenerationService {
                 if (!Options.isIgnored(pathElement)) {
                     if (fs.statSync(pathElement).isDirectory() && !LIMIT_GENERATIONS) {
                         astFolder.children = astFolder.children ?? [];
-                        astFolder.children.push(this.generateAstFolder(`${pathElement}/`, language));
+                        astFolder.children.push(this.generateAstFolder(`${pathElement}/`, language, ignoretest));
                     } else if (this.isFileToGenerate(pathElement, language)) {
-                        astFolder.astFiles.push(initService.generate(pathElement, astFolder));
+                        astFolder.astFiles.push(initService.generate(pathElement, astFolder, ignoretest));
                     }
                 }
             });
