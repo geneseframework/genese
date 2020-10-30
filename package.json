@@ -1,6 +1,6 @@
 {
     "name": "genese",
-    "version": "0.2.29",
+    "version": "0.3.0",
     "scripts": {
         "build": "tsc && cp -r src/complexity/json-ast-to-reports/templates dist/src/complexity/json-ast-to-reports/templates && cp -r src/complexity/automatic-refactoring/templates dist/src/complexity/automatic-refactoring/templates && cp -r src/complexity/core/chartjs dist/src/complexity/core/chartjs",
         "dev": "npm run build && node dev.js",
