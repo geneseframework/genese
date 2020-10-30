@@ -46,12 +46,14 @@ export class AstFileGenerationService {
             start: node.getStart()
         };
         astNode = this.addTypeAndCpxFactors(node, astNode);
-        node.forEachChild((childNode: Node) => {
-            if (!astNode.children) {
-                astNode.children = [];
-            }
-            astNode.children.push(this.createAstNodeChildren(childNode));
-        });
+        if (node.getKindName() !== SyntaxKind.JsxElement) {
+            node.forEachChild((childNode: Node) => {
+                if (!astNode.children) {
+                    astNode.children = [];
+                }
+                astNode.children.push(this.createAstNodeChildren(childNode));
+            });
+        }
         return astNode;
     }
 

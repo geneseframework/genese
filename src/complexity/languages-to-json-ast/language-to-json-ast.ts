@@ -20,11 +20,25 @@ export class LanguageToJsonAst {
     static start(pathToAnalyze: string, language?: Language): void {
         console.log(chalk.blueBright('STARTS JSON AST GENERATION'));
         console.log('Please wait...')
-        project.addSourceFilesAtPaths(`${pathToAnalyze}/**/*.ts`);
         let jsonAst: JsonAstInterface;
         switch (language) {
             case Language.TS:
+                project.addSourceFilesAtPaths(`${pathToAnalyze}/**/*.ts`);
+                jsonAst = LanguageToJsonAst.generateFromFiles(pathToAnalyze, language);
+                break
             case Language.JAVA:
+                jsonAst = LanguageToJsonAst.generateFromFiles(pathToAnalyze, language);
+                break;
+            case Language.JS:
+                project.addSourceFilesAtPaths(`${pathToAnalyze}/**/*.js`);
+                jsonAst = LanguageToJsonAst.generateFromFiles(pathToAnalyze, language);
+                break;
+            case Language.TSX:
+                project.addSourceFilesAtPaths(`${pathToAnalyze}/**/*.tsx`);
+                jsonAst = LanguageToJsonAst.generateFromFiles(pathToAnalyze, language);
+                break;
+            case Language.JSX:
+                project.addSourceFilesAtPaths(`${pathToAnalyze}/**/*.jsx`);
                 jsonAst = LanguageToJsonAst.generateFromFiles(pathToAnalyze, language);
                 break;
             default:

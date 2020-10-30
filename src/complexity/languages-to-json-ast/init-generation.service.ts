@@ -43,7 +43,20 @@ export class InitGenerationService {
             path: platformPath(path),
             astFiles: []
         };
-        const initService = language === Language.TS ? new AstFileGenerationService() : new AstFileGenerationJavaService();
+        let initService;
+        switch (language) {
+            case Language.JS:
+            case Language.TS:
+            case Language.JSX:
+            case Language.TSX:
+                initService = new AstFileGenerationService();
+                break
+            case Language.JAVA:
+                initService = new AstFileGenerationJavaService();
+                break
+            default:
+                initService = new AstFileGenerationService();
+        }
         const filesOrDirs = fs.readdirSync(path);
         let currentFile = undefined;
         try {
