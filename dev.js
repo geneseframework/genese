@@ -11,12 +11,7 @@ try {
     console.log(ansi_colors_1.yellowBright("JSON AST CREATION"));
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
     var mainProcess = new main.Main();
-    // const pathFolderToAnalyze = '/Users/utilisateur/Documents/projets/naval-group/code/full/20200611-1756-release-sprint-5/cyms/src/';
-    //  const pathFolderToAnalyze = '/home/bguendouz/Bureau/Alex/airbus-alex-back/src/main/java/com/airbus/alex/test';
-    //const pathFolderToAnalyze = '/home/gmartin/Documents/projects/genese-bis/genese/toAnalyse';
-    // const pathFolderToAnalyze = __dirname + '/src/complexity/core/mocks/';
-    // const pathFolderToAnalyze = "C:\\Users\\Nigdor\\Documents\\projects\\genese-bis\\genese\\toAnalyse";
-    const pathFolderToAnalyze = '/home/akueny/Dev/genese-github/toAnalyse'
+    const pathFolderToAnalyze = 'my-absolute-folder'
     mainProcess.start(__dirname, pathFolderToAnalyze, __dirname, "java");
 } catch (err) {
     console.error(
