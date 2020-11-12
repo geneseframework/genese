@@ -92,6 +92,8 @@ export class Options {
         Options.pathOutDir =
             config.complexity?.pathReports ?? Options.pathOutDir;
         Options.ignore.push(Options.pathOutDir);
+        Options.cognitiveCpx = config.complexity.cognitiveCpx ?? Options.cognitiveCpx;
+        Options.cyclomaticCpx = config.complexity.cyclomaticCpx ?? Options.cyclomaticCpx;
     }
 
 

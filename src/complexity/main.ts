@@ -1,4 +1,4 @@
-import { createOutDir } from './core/services/file.service';
+import { createOutDir, deleteFile } from './core/services/file.service';
 import { Options } from './core/models/options.model';
 import { LanguageToJsonAst } from './languages-to-json-ast/language-to-json-ast';
 import { JsonAstToReports } from './json-ast-to-reports/json-ast-to-reports';
@@ -26,18 +26,30 @@ export class Main {
      * @param  {string} pathFolderToAnalyze
      * @param  {string} pathGeneseNodeJs
      * @param  {Language} language?
+     * @param markdown
+     * @param consoleMode
      * @returns void
      */
     // @ts-ignore
-    start(pathCommand: string, pathFolderToAnalyze: string, pathGeneseNodeJs: string, language?: Language, markdown = false): void {
+    start(
+        pathCommand: string,
+        pathFolderToAnalyze: string,
+        pathGeneseNodeJs: string,
+        language?: Language,
+        markdown = false,
+        consoleMode = false
+    ): void {
         const modifiedPath = pathFolderToAnalyze.split('/').filter(e => e !== '.').join('/');
         console.log(`PATH TO ANALYZE : ${modifiedPath}`);
         Options.setOptions(pathCommand, modifiedPath, pathGeneseNodeJs);
-        createOutDir();
+        if (!consoleMode) {
+            createOutDir();
+        }
         LanguageToJsonAst.start(Options.pathFolderToAnalyze, language);
-        JsonAstToReports.start(pathCommand, undefined, markdown)
-        if (language === Language.TS) {
+        JsonAstToReports.start(pathCommand, undefined, markdown, consoleMode)
+        if (language === Language.TS && !consoleMode) {
             require('./automatic-refactoring/automatic-refactoring').AutomaticRefactoring.start(JsonAstToReports.astFolder);
         }
+        deleteFile('./json-ast.json');
     }
 }

@@ -16,7 +16,7 @@ import { AstMethodService } from '../ast/ast-method.service';
 /**
  * Service generating folders reports
  */
-export class AstFolderMarkdownReportService {
+export class AstFolderConsoleReportService {
 
     astFolder: AstFolder = undefined;                                       // The AstFolder relative to this service
     astFolderService: AstFolderService = new AstFolderService();            // The service relative to AstFolders
@@ -34,8 +34,6 @@ export class AstFolderMarkdownReportService {
      */
     generateReport(): void {
         this.setMethodsArraySortedByDecreasingCognitiveCpx(this.astFolder);
-        const reportTemplate = eol.auto(fs.readFileSync(`${Options.pathGeneseNodeJs}/src/complexity/json-ast-to-reports/templates/handlebars/folder-markdown-report.handlebars`, 'utf-8'));
-        this.template = Handlebars.compile(reportTemplate);
         this.writeReport();
     }
 
@@ -47,6 +45,7 @@ export class AstFolderMarkdownReportService {
         this.setTsFileReport(astFolder);
         this.setMethodsArrayReport(astFolder);
         this.methodsArrayReport = AstMethodService.sortByDecreasingCognitiveCpx(this.methodsArrayReport);
+        this.methodsArrayReport = this.methodsArrayReport.filter(e => e.cpxIndex >= Options.getThresholds().cognitive.warning)
     }
 
     /**
@@ -92,21 +91,6 @@ export class AstFolderMarkdownReportService {
      * Fills the HandleBar's template
      */
     private writeReport() {
-        const template = this.template({
-            rowFile: this.methodsArrayReport,
-        });
-        if (this.astFolder.relativePath) {
-            createRelativeDir(this.astFolder.relativePath);
-        }
-        const pathOutDir = constructLink(Options.pathOutDir);
-        const relativePath = constructLink(this.astFolder.relativePath);
-        const pathReport = `${deleteLastSlash(pathOutDir)}/${deleteLastSlash(
-            relativePath
-        )}/folder-report.md`;
-        try {
-            fs.writeFileSync(pathReport, template, { encoding: "utf-8" });
-        } catch (err) {
-            console.log(err);
-        }
+        console.table(this.methodsArrayReport, ['filename', 'methodName', 'cpxIndex']);
     }
 }

@@ -164,6 +164,12 @@ export function createOutDir(): void {
     }
 }
 
+export function deleteFile(fileName: string): void {
+    if (fs.existsSync(fileName)) {
+        fs.unlinkSync(fileName);
+    }
+}
+
 
 /**
  * Copy a file from a path to another one

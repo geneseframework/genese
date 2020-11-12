@@ -17,20 +17,24 @@ export class JsonAstToReports {
      * Starts the analysis
      * @param pathCommand
      * @param jsonAstPath
+     * @param markdown
+     * @param consoleMode
      */
-    static start(pathCommand: string, jsonAstPath = '/json-ast.json', markdown = false): void {
+    static start(pathCommand: string, jsonAstPath = '/json-ast.json', markdown: boolean, consoleMode: boolean): void {
         console.log(chalk.blueBright('STARTS REPORTS GENERATION FROM JSON_AST'));
         console.log('Please wait...')
         const jsonAst = new InitService().generateAllFromJsonAst(JsonAstToReports.getJsonAst(pathCommand + jsonAstPath));
         jsonAst.astFolder.evaluate();
         if(markdown){
             ReportsService.generateMarkdownReports(jsonAst)
+        } else if (consoleMode) {
+            ReportsService.generateConsoleReports(jsonAst)
         } else {
             ReportsService.generateAllReports(jsonAst)
+            const link = terminalLink('folder-report.html', `file://${pathCommand}/genese/complexity/reports/folder-report.html`);
+            console.log(`Please open in your browser the file "${link}" located in your genese reports folder.`)
         }
         console.log(chalk.greenBright('REPORTS GENERATED SUCCESSFULLY'));
-        const link = terminalLink('folder-report.html', `file://${pathCommand}/genese/complexity/reports/folder-report.html`);
-        console.log(`Please open in your browser the file "${link}" located in your genese reports folder.`)
         this.astFolder = jsonAst.astFolder;
     }
 
