@@ -7,6 +7,7 @@ import { JsonAst } from '../../models/ast/json-ast.model';
 import { Options } from '../../../core/models/options.model';
 import { AstFolderMarkdownReportService } from './ast-folder-markdown-report.service';
 import { AstFolderConsoleReportService } from './ast-folder-console-report.service';
+import { RowFileReport } from '../../models/report/row-file-report.model';
 
 
 /**
@@ -38,10 +39,10 @@ export class ReportsService {
      * LanguageToJsonAst console reports generation process
      * @param jsonAst
      */
-    static generateConsoleReports(jsonAst: JsonAst): void {
+    static generateConsoleReports(jsonAst: JsonAst): RowFileReport[] {
         const parentFolder: AstFolder = jsonAst.astFolder;
         const folderConsoleReport = new AstFolderConsoleReportService(parentFolder)
-        folderConsoleReport.generateReport();
+        return folderConsoleReport.generateReport();
     }
 
 

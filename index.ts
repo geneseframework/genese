@@ -9,6 +9,7 @@ const pathNode = require('path');
 
 const pkg = require('./package.json');
 
+
 // ---------------------------------------------------------------------------------------------------------
 //                                          GENESE CLI
 // ---------------------------------------------------------------------------------------------------------
@@ -23,7 +24,7 @@ try {
 
     program.command('cpx [pathToAnalyse]')
         .description('Calculates Complexity Index and cyclomatic complexity')
-        .option('-l, --language <language>', 'Language: js, ts, jsx, tsx or java')
+        .option('-l, --language <language>', 'Language: js, ts, jsx, tsx or java', 'ts')
         .option('-md, --markdown', 'Markdown type report')
         .option('-c, --console', 'Disable report generation and outputs to console')
         .action((pathFolderToAnalyze, options) => {

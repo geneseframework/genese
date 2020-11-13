@@ -13,6 +13,8 @@ import { AstFolderService } from '../ast/ast-folder.service';
 import { Options } from '../../../core/models/options.model';
 import { AstMethodService } from '../ast/ast-method.service';
 
+import * as terminalLink from 'terminal-link';
+
 /**
  * Service generating folders reports
  */
@@ -32,9 +34,10 @@ export class AstFolderConsoleReportService {
     /**
      * Generates the folder's report
      */
-    generateReport(): void {
+    generateReport(): RowFileReport[] {
         this.setMethodsArraySortedByDecreasingCognitiveCpx(this.astFolder);
-        this.writeReport();
+        return this.methodsArrayReport;
+        // this.writeReport();
     }
 
     /**
@@ -80,9 +83,9 @@ export class AstFolderConsoleReportService {
                 cpxIndex: astMethod.cpxIndex,
                 cyclomaticColor: astMethod.cyclomaticStatus.toLowerCase(),
                 cyclomaticValue: astMethod.cyclomaticCpx,
-                filename: astFile.name,
-                linkFile: undefined,
-                methodName: astMethod.name
+                filename: `file://${astFile.astFolder.path}/${astFile.name}`,
+                linkFile: `${astFile.astFolder.path}/${astFile.name}`,
+                methodName: astMethod.name,
             })
         }
     }
@@ -91,6 +94,6 @@ export class AstFolderConsoleReportService {
      * Fills the HandleBar's template
      */
     private writeReport() {
-        console.table(this.methodsArrayReport, ['filename', 'methodName', 'cpxIndex']);
+        console.table(this.methodsArrayReport, ['file', 'methodName', 'cpxIndex']);
     }
 }

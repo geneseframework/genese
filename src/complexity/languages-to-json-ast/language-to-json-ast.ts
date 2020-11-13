@@ -18,8 +18,6 @@ export class LanguageToJsonAst {
      * @returns void
      */
     static start(pathToAnalyze: string, language?: Language): void {
-        console.log(chalk.blueBright('STARTS JSON AST GENERATION'));
-        console.log('Please wait...')
         let jsonAst: JsonAstInterface;
         switch (language) {
             case Language.TS:
@@ -47,7 +45,6 @@ export class LanguageToJsonAst {
         }
         const ru = LanguageToJsonAst.findInObject(jsonAst, undefined);
         createFile(`./json-ast.json`, JsonService.prettifyJson(jsonAst));
-        console.log(chalk.greenBright('JSON AST GENERATED SUCCESSFULLY'));
     }
 
 
