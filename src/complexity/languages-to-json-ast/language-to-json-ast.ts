@@ -43,7 +43,6 @@ export class LanguageToJsonAst {
                 jsonAst = LanguageToJsonAst.generateFromAllFiles(pathToAnalyze);
                 break;
         }
-        const ru = LanguageToJsonAst.findInObject(jsonAst, undefined);
         createFile(`./json-ast.json`, JsonService.prettifyJson(jsonAst));
     }
 
