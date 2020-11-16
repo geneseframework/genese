@@ -52,60 +52,62 @@ export class Main {
         language?: Language,
         markdown = false,
         consoleMode = false
-    ): Promise<void> {
-        try {
-            const modifiedPath = pathFolderToAnalyze.split('/').filter(e => e !== '.').join('/');
-            Options.setOptions(pathCommand, modifiedPath, pathGeneseNodeJs);
-            if (!consoleMode) {
-                createOutDir();
-            }
-
-            spinner.start('AST generation');
-            await this.useWorker(
-                `${__dirname}/workers/ast-worker.js`,
-                {
-                    pathCommand: pathCommand,
-                    modifiedPath: modifiedPath,
-                    pathGeneseNodeJs: pathGeneseNodeJs,
-                    language: language
-                });
-            spinner.succeed();
-
-            spinner.start('Report generation');
-            const reportResult: { message: string; astFolder: AstFolder } = await this.useWorker(
-                `${__dirname}/workers/report-worker.js`,
-                {
-                    pathCommand: pathCommand,
-                    modifiedPath: modifiedPath,
-                    pathGeneseNodeJs: pathGeneseNodeJs,
-                    markdown: markdown,
-                    consoleMode: consoleMode,
-                });
-            spinner.succeed();
-
-            if (language === Language.TS && !consoleMode) {
-                spinner.start('Refactoring generation');
-                await this.useWorker(
-                    `${__dirname}/workers/refactoring-worker.js`,
-                    {
-                        pathCommand: Options.pathCommand,
-                        modifiedPath: modifiedPath,
-                        pathGeneseNodeJs: pathGeneseNodeJs,
-                        astFolder: reportResult.astFolder
-                    });
-                spinner.succeed();
-            }
-
-            deleteFile('./json-ast.json');
-
-            if (reportResult.message) {
-                console.log();
-                if (typeof reportResult.message === 'string') console.log(reportResult.message);
-                if (typeof reportResult.message === 'object') console.table(reportResult.message, ['filename', 'methodName', 'cpxIndex']);
-            }
-        } catch (e) {
-            spinner.fail();
-            console.log(e);
+    ): Promise<number> {
+        const modifiedPath = pathFolderToAnalyze.split('/').filter(e => e !== '.').join('/');
+        Options.setOptions(pathCommand, modifiedPath, pathGeneseNodeJs);
+        if (!consoleMode) {
+            createOutDir();
         }
+
+        spinner.start('AST generation');
+        await this.useWorker(
+            `${__dirname}/workers/ast-worker.js`,
+            {
+                pathCommand: pathCommand,
+                modifiedPath: modifiedPath,
+                pathGeneseNodeJs: pathGeneseNodeJs,
+                language: language
+            });
+        spinner.succeed();
+
+        spinner.start('Report generation');
+        const reportResult: { message: any; astFolder: AstFolder } = await this.useWorker(
+            `${__dirname}/workers/report-worker.js`,
+            {
+                pathCommand: pathCommand,
+                modifiedPath: modifiedPath,
+                pathGeneseNodeJs: pathGeneseNodeJs,
+                markdown: markdown,
+                consoleMode: consoleMode,
+            });
+        spinner.succeed();
+
+        if (language === Language.TS && !consoleMode) {
+            spinner.start('Refactoring generation');
+            await this.useWorker(
+                `${__dirname}/workers/refactoring-worker.js`,
+                {
+                    pathCommand: Options.pathCommand,
+                    modifiedPath: modifiedPath,
+                    pathGeneseNodeJs: pathGeneseNodeJs,
+                    astFolder: reportResult.astFolder
+                });
+            spinner.succeed();
+        }
+
+        deleteFile('./json-ast.json');
+
+        if (reportResult.message && reportResult.message.length > 0) {
+            console.log();
+            if (typeof reportResult.message === 'object') {
+                console.table(reportResult.message, ['filename', 'methodName', 'cpxIndex']);
+            } else {
+                console.log(reportResult.message);
+            }
+            if (consoleMode) {
+                return 1;
+            }
+        }
+        return 0;
     }
 }
