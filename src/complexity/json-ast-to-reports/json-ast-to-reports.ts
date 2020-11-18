@@ -37,6 +37,11 @@ export class JsonAstToReports {
         return result;
     }
 
+    static getTotalCpx(jsonAst: JsonAst): number {
+        const json = new InitService().generateAllFromJsonAst(jsonAst);
+        json.astFolder.evaluateStandalone();
+        return json.astFolder.stats.totalCognitiveComplexity;
+    }
 
     /**
      * Returns the content of the JsonAst file

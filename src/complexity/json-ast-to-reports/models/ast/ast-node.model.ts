@@ -18,30 +18,30 @@ import { CpxFactorsInterface } from '../../../core/interfaces/cpx-factors.interf
 
 export class AstNode implements AstNodeInterface, Evaluate, Logg {
 
-    #astFile?: AstFile = undefined;                                             // The AstFile containing the AST node of the AstNode
-    #astMethod?: AstMethod = undefined;                                         // The method at the root of the current ast (if this ast is inside a method)
-    #astNodeService?: AstNodeService = new AstNodeService();                    // The service managing AstNodes
-    #children?: AstNode[] = [];                                                 // The children AstNodes of the AstNode
-    #context?: AstNode = undefined;                                             // The context of the AstNode
-    #cpxFactors?: CpxFactors = undefined;                                       // The complexity factors of the AstNode
-    #cpxFactorsFromJsonAST?: CpxFactorsInterface = undefined;                   // The complexity factors added manually in JsonAST (have priority on calculated cpxFactors)
-    #cyclomaticCpx ?= 0;                                                        // The cyclomatic complexity of the AstNode
-    #end ?= 0;                                                                  // The pos of the end of the source code of the AstNode in the source code of the AstFile
-    #factorCategory?: NodeFeature = undefined;                                  // The NodeFeature of the node of the AstNode
-    #intrinsicDepthCpx: number = undefined;                                     // The depth of the AstNode inside its method (not including its parent's depth)
-    #intrinsicNestingCpx: number = undefined;                                   // The nesting of the AstNode inside its method (not including its parent's nesting)
-    #isCallback: boolean = undefined;                                           // True if the astNode is a method with a Callback, false if not
-    #isRecursiveMethod: boolean = undefined;                                    // True if the astNode is a recursive method, false if not
-    #kind?: SyntaxKind = undefined;                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
-    #lineEnd?: number = undefined;                                              // The issue of the line containing the character at the AstNode.end
-    #linePos?: number = undefined;                                              // The issue of the line containing the character at the AstNode.pos
-    #lineStart?: number = undefined;                                            // The issue of the line containing the character at the AstNode.start
-    #name: string = undefined;                                                  // The name of the AstNode
-    #parent?: AstNode;                                                          // The ast of the parent of the current node
-    #pos ?= 0;                                                                  // The pos of the beginning of the AST node, including spaces and comments before it. (start <= start)
-    #start ?= 0;                                                                // The pos of the beginning of the AST node, without spaces and comments before it. (start >= start)
-    #text: string = undefined;                                                  // The code of the AstNode
-    #type: IdentifierType = undefined;                                          // The type of the AstNode (if given)
+    private _astFile?: AstFile = undefined;                                             // The AstFile containing the AST node of the AstNode
+    private _astMethod?: AstMethod = undefined;                                         // The method at the root of the current ast (if this ast is inside a method)
+    private _astNodeService?: AstNodeService = new AstNodeService();                    // The service managing AstNodes
+    private _children?: AstNode[] = [];                                                 // The children AstNodes of the AstNode
+    private _context?: AstNode = undefined;                                             // The context of the AstNode
+    private _cpxFactors?: CpxFactors = undefined;                                       // The complexity factors of the AstNode
+    private _cpxFactorsFromJsonAST?: CpxFactorsInterface = undefined;                   // The complexity factors added manually in JsonAST (have priority on calculated cpxFactors)
+    private _cyclomaticCpx ?= 0;                                                        // The cyclomatic complexity of the AstNode
+    private _end ?= 0;                                                                  // The pos of the end of the source code of the AstNode in the source code of the AstFile
+    private _factorCategory?: NodeFeature = undefined;                                  // The NodeFeature of the node of the AstNode
+    private _intrinsicDepthCpx: number = undefined;                                     // The depth of the AstNode inside its method (not including its parent's depth)
+    private _intrinsicNestingCpx: number = undefined;                                   // The nesting of the AstNode inside its method (not including its parent's nesting)
+    private _isCallback: boolean = undefined;                                           // True if the astNode is a method with a Callback, false if not
+    private _isRecursiveMethod: boolean = undefined;                                    // True if the astNode is a recursive method, false if not
+    private _kind?: SyntaxKind = undefined;                                             // The kind of the node ('MethodDeclaration, IfStatement, ...)
+    private _lineEnd?: number = undefined;                                              // The issue of the line containing the character at the AstNode.end
+    private _linePos?: number = undefined;                                              // The issue of the line containing the character at the AstNode.pos
+    private _lineStart?: number = undefined;                                            // The issue of the line containing the character at the AstNode.start
+    private _name: string = undefined;                                                  // The name of the AstNode
+    private _parent?: AstNode;                                                          // The ast of the parent of the current node
+    private _pos ?= 0;                                                                  // The pos of the beginning of the AST node, including spaces and comments before it. (start <= start)
+    private _start ?= 0;                                                                // The pos of the beginning of the AST node, without spaces and comments before it. (start >= start)
+    private _text: string = undefined;                                                  // The code of the AstNode
+    private _type: IdentifierType = undefined;                                          // The type of the AstNode (if given)
 
 
 
@@ -57,22 +57,22 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
 
 
     get astFile(): AstFile {
-        return this.#astFile;
+        return this._astFile;
     }
 
 
     set astFile(astFile: AstFile) {
-        this.#astFile = astFile;
+        this._astFile = astFile;
     }
 
 
     get astMethod(): AstMethod {
-        return this.#astMethod;
+        return this._astMethod;
     }
 
 
     set astMethod(astMethod: AstMethod) {
-        this.#astMethod = astMethod;
+        this._astMethod = astMethod;
     }
 
 
@@ -82,52 +82,52 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
 
 
     get children(): AstNode[] {
-        return this.#children;
+        return this._children;
     }
 
 
     set children(children: AstNode[]) {
-        this.#children = children;
+        this._children = children;
     }
 
 
     get context(): AstNode {
-        return this.#context ?? this.#astNodeService.getContext(this);
+        return this._context ?? this._astNodeService.getContext(this);
     }
 
 
     set context(treeNode: AstNode) {
-        this.#context = treeNode;
+        this._context = treeNode;
     }
 
 
     get cpxFactors(): CpxFactors {
-        return this.#cpxFactors;
+        return this._cpxFactors;
     }
 
 
     set cpxFactors(cpxFactors: CpxFactors) {
-        this.#cpxFactors = cpxFactors;
+        this._cpxFactors = cpxFactors;
     }
 
 
     get cpxFactorsFromJsonAST(): CpxFactorsInterface {
-        return this.#cpxFactorsFromJsonAST;
+        return this._cpxFactorsFromJsonAST;
     }
 
 
     set cpxFactorsFromJsonAST(cpxFactorsFromJsonAST: CpxFactorsInterface) {
-        this.#cpxFactorsFromJsonAST = cpxFactorsFromJsonAST;
+        this._cpxFactorsFromJsonAST = cpxFactorsFromJsonAST;
     }
 
 
     get cyclomaticCpx(): number {
-        return this.#cyclomaticCpx;
+        return this._cyclomaticCpx;
     }
 
 
     set cyclomaticCpx(cyclomaticCpx: number) {
-        this.#cyclomaticCpx = cyclomaticCpx;
+        this._cyclomaticCpx = cyclomaticCpx;
     }
 
 
@@ -137,17 +137,17 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
 
 
     get end(): number {
-        return this.#end;
+        return this._end;
     }
 
 
     set end(end: number) {
-        this.#end = end;
+        this._end = end;
     }
 
 
     get factorCategory(): NodeFeature {
-        return this.#factorCategory ?? new FactorCategoryService().getNodeFeature(this.kind);
+        return this._factorCategory ?? new FactorCategoryService().getNodeFeature(this.kind);
     }
 
 
@@ -157,31 +157,31 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
 
 
     get intrinsicDepthCpx(): number {
-        return this.#intrinsicDepthCpx;
+        return this._intrinsicDepthCpx;
     }
 
 
     set intrinsicDepthCpx(cpx: number) {
-        this.#intrinsicDepthCpx = cpx;
+        this._intrinsicDepthCpx = cpx;
     }
 
 
     get intrinsicNestingCpx(): number {
-        return this.#intrinsicNestingCpx;
+        return this._intrinsicNestingCpx;
     }
 
 
     set intrinsicNestingCpx(cpx: number) {
-        this.#intrinsicNestingCpx = cpx;
+        this._intrinsicNestingCpx = cpx;
     }
 
 
     get isCallback(): boolean {
-        if (this.#isCallback) {
-            return this.#isCallback;
+        if (this._isCallback) {
+            return this._isCallback;
         }
-        this.#isCallback = this.#astNodeService.isCallback(this);
-        return this.#isCallback;
+        this._isCallback = this._astNodeService.isCallback(this);
+        return this._isCallback;
     }
 
 
@@ -201,48 +201,48 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
 
 
     get isRecursiveMethod(): boolean {
-        if (this.#isRecursiveMethod) {
-            return this.#isRecursiveMethod;
+        if (this._isRecursiveMethod) {
+            return this._isRecursiveMethod;
         }
-        this.#isRecursiveMethod = this.#astNodeService.isRecursiveMethod(this);
-        return this.#isRecursiveMethod;
+        this._isRecursiveMethod = this._astNodeService.isRecursiveMethod(this);
+        return this._isRecursiveMethod;
     }
 
 
     get kind(): SyntaxKind {
-        return this.#kind;
+        return this._kind;
     }
 
 
     set kind(kind: SyntaxKind) {
-        this.#kind = kind;
+        this._kind = kind;
     }
 
 
     get lineEnd(): number {
-        if (this.#lineEnd) {
-            return this.#lineEnd;
+        if (this._lineEnd) {
+            return this._lineEnd;
         }
-        this.#lineEnd = CodeService.getLineIssue(this.astFile?.code, this.end);
-        return this.#lineEnd;
+        this._lineEnd = CodeService.getLineIssue(this.astFile?.code, this.end);
+        return this._lineEnd;
     }
 
 
     get linePos(): number {
-        if (this.#linePos) {
-            return this.#linePos;
+        if (this._linePos) {
+            return this._linePos;
         }
-        this.#linePos = CodeService.getLineIssue(this.astFile?.code, this.pos);
-        return this.#linePos;
+        this._linePos = CodeService.getLineIssue(this.astFile?.code, this.pos);
+        return this._linePos;
     }
 
 
     get lineStart(): number {
-        if (this.#lineStart) {
-            return this.#lineStart;
+        if (this._lineStart) {
+            return this._lineStart;
         }
-        this.#lineStart = CodeService.getLineIssue(this.astFile?.code, this.start);
-        return this.#lineStart;
+        this._lineStart = CodeService.getLineIssue(this.astFile?.code, this.start);
+        return this._lineStart;
     }
 
 
@@ -252,12 +252,12 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
 
 
     get name(): string {
-        return this.#name ?? '';
+        return this._name ?? '';
     }
 
 
     set name(name: string) {
-        this.#name = name;
+        this._name = name;
     }
 
 
@@ -267,32 +267,32 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
 
 
     get parent(): AstNode {
-        return this.#parent;
+        return this._parent;
     }
 
 
     set parent(treeNode: AstNode) {
-        this.#parent = treeNode;
+        this._parent = treeNode;
     }
 
 
     get pos(): number {
-        return this.#pos;
+        return this._pos;
     }
 
 
     set pos(pos: number) {
-        this.#pos = pos;
+        this._pos = pos;
     }
 
 
     get start(): number {
-        return this.#start;
+        return this._start;
     }
 
 
     set start(start: number) {
-        this.#start = start;
+        this._start = start;
     }
 
 
@@ -312,22 +312,22 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
 
 
     get text(): string {
-        return this.#text ?? this.#astNodeService.getCode(this);
+        return this._text ?? this._astNodeService.getCode(this);
     }
 
 
     set text(text: string) {
-        this.#text = text;
+        this._text = text;
     }
 
 
     get type(): IdentifierType {
-        return this.#type;
+        return this._type;
     }
 
 
     set type(type: IdentifierType) {
-        this.#type = type;
+        this._type = type;
     }
 
 
@@ -342,7 +342,7 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
     evaluate(): void {
         this.calculateAndSetCpxFactors();
         this.addParentCpx();
-        for (const child of this.#children) {
+        for (const child of this._children) {
             child.evaluate();
         }
     }
@@ -371,7 +371,7 @@ export class AstNode implements AstNodeInterface, Evaluate, Logg {
         this.intrinsicNestingCpx = this.cpxFactors.totalNesting;
         this.intrinsicDepthCpx = this.cpxFactors.totalDepth;
         this.forceCpxFactors();
-        return this.#cpxFactors;
+        return this._cpxFactors;
     }
 
 

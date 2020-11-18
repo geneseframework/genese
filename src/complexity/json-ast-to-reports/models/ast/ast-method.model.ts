@@ -16,16 +16,16 @@ import { Options } from '../../../core/models/options.model';
  */
 export class AstMethod implements Evaluate {
 
-    #astNode?: AstNode = undefined;                                     // The AST of the method itself
-    #codeLines?: CodeLine[] = [];                                       // The array of CodeLine of the AstMethod (elements of the array of CodeLine of the corresponding AstFile)
-    #cognitiveStatus: MethodStatus = MethodStatus.CORRECT;              // The cognitive status of the method
-    #cpxFactors?: CpxFactors = undefined;                               // The complexity factors of the AstMethod
-    #cyclomaticCpx ?= 0;                                                // The cyclomatic complexity of the AstMethod
-    #cpxIndex = undefined;                                              // The complexity index of the method
-    #cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;             // The cyclomatic status of the method
-    #displayedCode?: Code = undefined;                                  // The code to display in the report
-    #maxLineLength ?= 0;                                                // The max length of the lines of the code
-    #name: string = undefined;                                          // The name of the method
+    private _astNode?: AstNode = undefined;                                     // The AST of the method itself
+    private _codeLines?: CodeLine[] = [];                                       // The array of CodeLine of the AstMethod (elements of the array of CodeLine of the corresponding AstFile)
+    private _cognitiveStatus: MethodStatus = MethodStatus.CORRECT;              // The cognitive status of the method
+    private _cpxFactors?: CpxFactors = undefined;                               // The complexity factors of the AstMethod
+    private _cyclomaticCpx ?= 0;                                                // The cyclomatic complexity of the AstMethod
+    private _cpxIndex = undefined;                                              // The complexity index of the method
+    private _cyclomaticStatus: MethodStatus = MethodStatus.CORRECT;             // The cyclomatic status of the method
+    private _displayedCode?: Code = undefined;                                  // The code to display in the report
+    private _maxLineLength ?= 0;                                                // The max length of the lines of the code
+    private _name: string = undefined;                                          // The name of the method
 
 
 
@@ -35,72 +35,72 @@ export class AstMethod implements Evaluate {
 
 
     get astNode(): AstNode {
-        return this.#astNode;
+        return this._astNode;
     }
 
 
     set astNode(astNode: AstNode) {
-        this.#astNode = astNode;
+        this._astNode = astNode;
     }
 
 
     get codeLines(): CodeLine[] {
-        return this.#codeLines;
+        return this._codeLines;
     }
 
 
     set codeLines(codeLines: CodeLine[]) {
-        this.#codeLines = codeLines;
+        this._codeLines = codeLines;
     }
 
 
     get cognitiveStatus(): MethodStatus {
-        return this.#cognitiveStatus;
+        return this._cognitiveStatus;
     }
 
 
     set cognitiveStatus(cognitiveStatus: MethodStatus) {
-        this.#cognitiveStatus = cognitiveStatus;
+        this._cognitiveStatus = cognitiveStatus;
     }
 
 
     get cpxFactors(): CpxFactors {
-        return this.#cpxFactors;
+        return this._cpxFactors;
     }
 
 
     set cpxFactors(cpxFactors: CpxFactors) {
-        this.#cpxFactors = cpxFactors;
+        this._cpxFactors = cpxFactors;
     }
 
 
     get cpxIndex(): number {
-        return this.#cpxIndex ?? this.cpxFactors.total;
+        return this._cpxIndex ?? this.cpxFactors.total;
     }
 
 
     get cyclomaticCpx(): number {
-        return this.#cyclomaticCpx;
+        return this._cyclomaticCpx;
     }
 
 
     set cyclomaticCpx(cyclomaticCpx: number) {
-        this.#cyclomaticCpx = cyclomaticCpx;
+        this._cyclomaticCpx = cyclomaticCpx;
     }
 
 
     get cyclomaticStatus(): MethodStatus {
-        return this.#cyclomaticStatus;
+        return this._cyclomaticStatus;
     }
 
 
     set cyclomaticStatus(cyclomaticStatus: MethodStatus) {
-        this.#cyclomaticStatus = cyclomaticStatus;
+        this._cyclomaticStatus = cyclomaticStatus;
     }
 
 
     get displayedCode(): Code {
-        return this.#displayedCode;
+        return this._displayedCode;
     }
 
 
@@ -110,20 +110,20 @@ export class AstMethod implements Evaluate {
 
 
     get maxLineLength(): number {
-        if (this.#maxLineLength) {
-            return this.#maxLineLength;
+        if (this._maxLineLength) {
+            return this._maxLineLength;
         }
-        this.#maxLineLength = Math.max(...this.codeLines?.map(l => l.end - l.start));
-        return this.#maxLineLength;
+        this._maxLineLength = Math.max(...this.codeLines?.map(l => l.end - l.start));
+        return this._maxLineLength;
     }
 
 
     get name(): string {
-        if (this.#name) {
-            return this.#name;
+        if (this._name) {
+            return this._name;
         }
-        this.#name = this.#astNode.name;
-        return this.#name;
+        this._name = this._astNode.name;
+        return this._name;
     }
 
 
@@ -160,11 +160,11 @@ export class AstMethod implements Evaluate {
      * Calculates the Complexity Factors of the method
      */
     private calculateCpxFactors(): void {
-        if (!(this.#displayedCode?.lines?.length > 0)) {
+        if (!(this._displayedCode?.lines?.length > 0)) {
             this.createDisplayedCode();
         }
         this.cpxFactors = new CpxFactors();
-        for (const line of this.#displayedCode?.lines) {
+        for (const line of this._displayedCode?.lines) {
             this.cpxFactors = this.cpxFactors.add(line.cpxFactors);
         }
     }
@@ -199,10 +199,10 @@ export class AstMethod implements Evaluate {
         this.setDisplayedCodeLines();
         this.setDeclarationCpxFactors();
         this.setCpxFactorsToDisplayedCode(astNode, false);
-        this.#displayedCode.setLinesDepthAndNestingCpx();
+        this._displayedCode.setLinesDepthAndNestingCpx();
         this.addCommentsToDisplayedCode();
         this.calculateCpxFactors();
-        this.#displayedCode.setTextWithLines();
+        this._displayedCode.setTextWithLines();
     }
 
 
@@ -210,7 +210,7 @@ export class AstMethod implements Evaluate {
      * Creates the Code object corresponding to the code to display
      */
     private setDisplayedCodeLines(): void {
-        this.#displayedCode = new Code();
+        this._displayedCode = new Code();
         for (const line of this.codeLines) {
             const displayedLine = new CodeLine();
             displayedLine.issue = line.issue;
@@ -218,7 +218,7 @@ export class AstMethod implements Evaluate {
             displayedLine.start = line.start;
             displayedLine.text = line.text;
             displayedLine.text = this.getDisplayedLineText(displayedLine);
-            this.#displayedCode.lines.push(displayedLine);
+            this._displayedCode.lines.push(displayedLine);
         }
     }
 
@@ -243,8 +243,8 @@ export class AstMethod implements Evaluate {
 
 
     private setDeclarationCpxFactors(): void {
-        this.increaseLineCpxFactors(this.astNode, this.#displayedCode.getLine(this.astNode.lineStart));
-        this.#displayedCode.getLine(this.astNode.lineStart).astNodes.push(this.astNode);
+        this.increaseLineCpxFactors(this.astNode, this._displayedCode.getLine(this.astNode.lineStart));
+        this._displayedCode.getLine(this.astNode.lineStart).astNodes.push(this.astNode);
     }
 
 
@@ -256,13 +256,13 @@ export class AstMethod implements Evaluate {
     private setCpxFactorsToDisplayedCode(astNode: AstNode, startedUncommentedLines = false): void {
         for (const childAst of astNode.children) {
             let issue = Math.max(childAst.lineStart, this.codeLines[0]?.issue);
-            const codeLine: CodeLine = this.#displayedCode.lines.find(l => l.issue === issue);
+            const codeLine: CodeLine = this._displayedCode.lines.find(l => l.issue === issue);
             if (Ast.isElseStatement(childAst)) {
                 childAst.cpxFactors.atomic.node = cpxFactors.atomic.node;
                 issue--;
             }
             this.increaseLineCpxFactors(childAst, codeLine);
-            this.#displayedCode.getLine(issue).astNodes.push(childAst);
+            this._displayedCode.getLine(issue).astNodes.push(childAst);
             this.setCpxFactorsToDisplayedCode(childAst, startedUncommentedLines);
         }
     }
@@ -285,7 +285,7 @@ export class AstMethod implements Evaluate {
      * Adds information about complexity factors for each line of the displayed code
      */
     private addCommentsToDisplayedCode(): void {
-        this.#displayedCode.lines
+        this._displayedCode.lines
             .filter(line => line.cpxFactors.total > 0)
             .forEach(line => {
                 let comment = `+${line.cpxFactors.total.toFixed(1)} Complexity index (+${line.cpxFactors.totalAtomic.toFixed(1)} ${FactorCategory.ATOMIC}`;
@@ -296,7 +296,7 @@ export class AstMethod implements Evaluate {
                 comment = line.cpxFactors.totalStructural > 0 ? `${comment}, +${line.cpxFactors.totalStructural} ${FactorCategory.STRUCTURAL}` : comment;
                 comment = line.cpxFactors.totalUse > 0 ? `${comment}, +${line.cpxFactors.totalUse} ${FactorCategory.USE}` : comment;
                 comment = `${comment})`;
-                this.#displayedCode.getLine(line.issue).addComment(comment, this.maxLineLength);
+                this._displayedCode.getLine(line.issue).addComment(comment, this.maxLineLength);
             });
     }
 }

@@ -14,18 +14,18 @@ import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.inte
 
 export class AstFolder implements AstFolderInterface, Evaluate, Logg {
 
-    #astFiles?: AstFile[] = [];                                                     // The array of files of this folder (not in the subfolders)
-    #astFolderService?: AstFolderService = new AstFolderService();                  // The service managing AstFolders
-    #children?: AstFolder[] = [];                                                   // The subfolders of this folder
-    #complexitiesByStatus?: ComplexitiesByStatus = new ComplexitiesByStatus();      // The folder complexities spread by complexity status
-    #cpxFactors?: CpxFactors = undefined;                                           // The complexity factors of the AstFolder
-    #cyclomaticCpx ?= 0;                                                            // The cyclomatic complexity of the AstFolder
-    #numberOfFiles: number = undefined;                                             // The number of files of the AstFolder
-    #numberOfMethods: number = undefined;                                           // The number of methods of the AstFolder
-    #parent?: AstFolder = undefined;                                                // The AstFolder corresponding to the parent folder of this AstFolder
-    #path?: string = undefined;                                                     // The absolute path of this folder
-    #relativePath?: string = undefined;                                             // The relative path of this folder compared to the root folder of the analyse
-    #stats: Stats = undefined;                                                      // The stats corresponding to this folder
+    private _astFiles?: AstFile[] = [];                                                     // The array of files of this folder (not in the subfolders)
+    private _astFolderService?: AstFolderService = new AstFolderService();                  // The service managing AstFolders
+    private _children?: AstFolder[] = [];                                                   // The subfolders of this folder
+    private _complexitiesByStatus?: ComplexitiesByStatus = new ComplexitiesByStatus();      // The folder complexities spread by complexity status
+    private _cpxFactors?: CpxFactors = undefined;                                           // The complexity factors of the AstFolder
+    private _cyclomaticCpx ?= 0;                                                            // The cyclomatic complexity of the AstFolder
+    private _numberOfFiles: number = undefined;                                             // The number of files of the AstFolder
+    private _numberOfMethods: number = undefined;                                           // The number of methods of the AstFolder
+    private _parent?: AstFolder = undefined;                                                // The AstFolder corresponding to the parent folder of this AstFolder
+    private _path?: string = undefined;                                                     // The absolute path of this folder
+    private _relativePath?: string = undefined;                                             // The relative path of this folder compared to the root folder of the analyse
+    private _stats: Stats = undefined;                                                      // The stats corresponding to this folder
 
 
     // ---------------------------------------------------------------------------------
@@ -34,112 +34,112 @@ export class AstFolder implements AstFolderInterface, Evaluate, Logg {
 
 
     get astFiles(): AstFile[] {
-        return this.#astFiles;
+        return this._astFiles;
     }
 
 
     set astFiles(astFiles: AstFile[]) {
-        this.#astFiles = astFiles;
+        this._astFiles = astFiles;
     }
 
 
     get children(): AstFolder[] {
-        return this.#children;
+        return this._children;
     }
 
 
     set children(children: AstFolder[]) {
-        this.#children = children;
+        this._children = children;
     }
 
 
     get complexitiesByStatus(): ComplexitiesByStatus {
-        return this.#complexitiesByStatus;
+        return this._complexitiesByStatus;
     }
 
 
     set complexitiesByStatus(complexitiesByStatus: ComplexitiesByStatus) {
-        this.#complexitiesByStatus = complexitiesByStatus;
+        this._complexitiesByStatus = complexitiesByStatus;
     }
 
 
 
     get cpxFactors(): CpxFactors {
-        if (this.#cpxFactors) {
-            return this.#cpxFactors;
+        if (this._cpxFactors) {
+            return this._cpxFactors;
         }
         this.evaluate();
-        return this.#cpxFactors;
+        return this._cpxFactors;
     }
 
 
     set cpxFactors(cpxFactors: CpxFactors) {
-        this.#cpxFactors = cpxFactors;
+        this._cpxFactors = cpxFactors;
     }
 
 
     get cyclomaticCpx(): number {
-        return this.#cyclomaticCpx;
+        return this._cyclomaticCpx;
     }
 
 
     set cyclomaticCpx(cyclomaticCpx: number) {
-        this.#cyclomaticCpx = cyclomaticCpx;
+        this._cyclomaticCpx = cyclomaticCpx;
     }
 
 
     get numberOfFiles(): number {
-        return this.#numberOfFiles ?? this.#astFolderService.getNumberOfFiles(this);
+        return this._numberOfFiles ?? this._astFolderService.getNumberOfFiles(this);
     }
 
 
     set numberOfFiles(numberOfFiles: number) {
-        this.#numberOfFiles = numberOfFiles;
+        this._numberOfFiles = numberOfFiles;
     }
 
 
     get numberOfMethods(): number {
-        return this.#numberOfMethods ?? this.#astFolderService.getNumberOfMethods(this);
+        return this._numberOfMethods ?? this._astFolderService.getNumberOfMethods(this);
     }
 
 
     set numberOfMethods(numberOfMethods: number) {
-        this.#numberOfMethods = numberOfMethods;
+        this._numberOfMethods = numberOfMethods;
     }
 
 
     get parent(): AstFolder {
-        return this.#parent;
+        return this._parent;
     }
 
 
     set parent(parent: AstFolder) {
-        this.#parent = parent;
+        this._parent = parent;
     }
 
 
     get path(): string {
-        return this.#path;
+        return this._path;
     }
 
 
     set path(path: string) {
-        this.#path = path;
+        this._path = path;
     }
 
 
     get relativePath(): string {
-        return this.#relativePath ?? this.#astFolderService.getRelativePath(this);
+        return this._relativePath ?? this._astFolderService.getRelativePath(this);
     }
 
 
     get stats(): Stats {
-        return this.#stats;
+        return this._stats;
     }
 
 
     set stats(stats: Stats) {
-        this.#stats = stats;
+        this._stats = stats;
     }
 
 
@@ -156,8 +156,17 @@ export class AstFolder implements AstFolderInterface, Evaluate, Logg {
     evaluate(): void {
         this.cpxFactors = new CpxFactors();
         this.evaluateCpxFactors(this);
-        this.numberOfMethods = this.#astFolderService.getNumberOfMethods(this);
-        this.stats = this.#astFolderService.calculateStats(this);
+        this.numberOfMethods = this._astFolderService.getNumberOfMethods(this);
+        this.stats = this._astFolderService.calculateStats(this);
+    }
+
+    evaluateStandalone(): void {
+        this.cpxFactors = new CpxFactors();
+        const astFile = this.astFiles[0];
+        astFile.evaluateStandalone();
+        this.addCpx(astFile);
+        this.numberOfMethods = 0;
+        this.stats = this._astFolderService.calculateStats(this);
     }
 
 

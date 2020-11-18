@@ -2,7 +2,7 @@ import { getFilename } from '../../../core/services/file.service';
 import { AstFileInterface } from '../../../core/interfaces/ast/ast-file.interface';
 import { AstFolderInterface } from '../../../core/interfaces/ast/ast-folder.interface';
 import { AstNodeInterface } from '../../../core/interfaces/ast/ast-node.interface';
-import { DefinitionInfo, Identifier, Node, SourceFile } from 'ts-morph';
+import { DefinitionInfo, Identifier, Node, Project, SourceFile } from 'ts-morph';
 import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 import { CpxFactorsInterface } from '../../../core/interfaces/cpx-factors.interface';
 import { project, WEIGHTED_METHODS, WEIGHTS } from '../../globals.const';
@@ -12,6 +12,15 @@ import { Ts } from './ts.service';
  * - AstFiles generation from their Abstract Syntax Tree (AST)
  */
 export class AstFileGenerationService {
+
+    generateFromString(sourceCode: string): AstFileInterface {
+        const sourceFile = project.createSourceFile('./temp.ts', sourceCode);
+        return {
+            name: 'temp.ts',
+            text: sourceFile.getFullText(),
+            astNode: this.createAstNodeChildren(sourceFile)
+        };
+    }
 
 
     /**

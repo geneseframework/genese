@@ -1,9 +1,6 @@
 import { createOutDir, deleteFile } from './core/services/file.service';
 import { Options } from './core/models/options.model';
-import { LanguageToJsonAst } from './languages-to-json-ast/language-to-json-ast';
-import * as chalk from 'chalk';
 import { Language } from './core/enum/language.enum';
-import { strict } from 'assert';
 import { AstFolder } from './json-ast-to-reports/models/ast/ast-folder.model';
 
 const ora = require('ora');
