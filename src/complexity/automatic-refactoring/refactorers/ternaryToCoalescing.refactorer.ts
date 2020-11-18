@@ -3,23 +3,22 @@ import { ConditionalExpression, Node, SyntaxKind, TransformTraversalControl, ts 
 import { Refactorer } from '../models/refactorer.model';
 
 export class TernaryToNullishCoalescing extends Refactorer {
-    static readonly KIND = SyntaxKind.MethodDeclaration;
+    REFACTORED_NODE_KIND = SyntaxKind.MethodDeclaration;
 
-    needRefacto(node: Node): boolean {
-        let needRefacto = false;
+    refactorNeeded(node: Node): boolean {
+        let refactorNeeded = false;
         const TERNARY_EXPRESSIONS = node.getDescendantsOfKind(SyntaxKind.ConditionalExpression);
         TERNARY_EXPRESSIONS.forEach((ternary: ConditionalExpression) => {
             const COUNT = ternary.getChildCount();
-            if (ts.isConditionalExpression(ternary.compilerNode) && COUNT > 0) {
+            if (Node.isConditionalExpression(ternary) && COUNT > 0) {
                 const FIRST_MEMBER = ternary.getChildAtIndex(0);
                 const SECOND_MEMBER = ternary.getChildAtIndex(2);
-                let test = FIRST_MEMBER ? FIRST_MEMBER : SECOND_MEMBER;
                 if (FIRST_MEMBER.getText() === SECOND_MEMBER.getText() && FIRST_MEMBER.getKind() === SECOND_MEMBER.getKind()) {
-                    needRefacto = true;
+                    refactorNeeded = true;
                 }
             }
         });
-        return needRefacto;
+        return refactorNeeded;
     }
 
     /**
@@ -28,14 +27,14 @@ export class TernaryToNullishCoalescing extends Refactorer {
      * @param method the current method
      * @returns {void}
      */
-    refactor(system: Node): Node {
-        return system.transform((traversal: TransformTraversalControl) => {
-            let node: Node = Refactorer.wrapCurrentNode(system, traversal);
-            if (ts.isConditionalExpression(node.compilerNode)) {
-                const FIRST_MEMBER = node.getChildAtIndex(0);
-                const SECOND_MEMBER = node.getChildAtIndex(2);
+    refactor(node: Node): Node {
+        return node.transform((traversal: TransformTraversalControl) => {
+            const currentNode = Refactorer.wrapCurrentNode(node, traversal);
+            if (Node.isConditionalExpression(currentNode)) {
+                const FIRST_MEMBER = currentNode.getChildAtIndex(0);
+                const SECOND_MEMBER = currentNode.getChildAtIndex(2);
                 if (FIRST_MEMBER.getText() === SECOND_MEMBER.getText() && FIRST_MEMBER.getKind() === SECOND_MEMBER.getKind()) {
-                    const THIRD_MEMBER = node.getChildAtIndex(4);
+                    const THIRD_MEMBER = currentNode.getChildAtIndex(4);
                     return ts.createBinary(
                         FIRST_MEMBER.compilerNode as ts.Identifier,
                         SyntaxKind.QuestionQuestionToken,
@@ -43,7 +42,7 @@ export class TernaryToNullishCoalescing extends Refactorer {
                     );
                 }
             }
-            return node.compilerNode;
+            return currentNode.compilerNode;
         });
     }
 }

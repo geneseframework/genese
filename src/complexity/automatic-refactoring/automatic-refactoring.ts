@@ -3,47 +3,42 @@ import { SyntaxKind } from 'ts-morph';
 import { AstFolder } from '../json-ast-to-reports/models/ast/ast-folder.model';
 import { RefactorProposal } from './models/refactor-proposal.model';
 import { Refactorer } from './models/refactorer.model';
-import { BigIfElseRefactorer } from './refactorers/bigIfElse.refactorer';
+// import { BigIfElseRefactorer } from './refactorers/bigIfElse.refactorer';
+
+import { ProjectService } from './services/project.service';
+import { UselessElseRefactorer } from './refactorers/uselessElse.refactorer';
 import { RefactorReportService } from './services/refactor-report.service';
+import { TernaryToNullishCoalescing } from './refactorers/ternaryToCoalescing.refactorer';
+import { BigIfElseRefactorer } from './refactorers/bigIfElse.refactorer';
 
 export class AutomaticRefactoring {
-    static systems: RefactorProposal[] = [];
-    static refactorers: (new (kind: SyntaxKind) => Refactorer)[];
+    static refactorProposals: RefactorProposal[] = [];
+    static refactorers: (new (projectService: ProjectService, existingRefactorProposals: RefactorProposal[]) => Refactorer)[];
 
-    /**
-     * Set refactorers
-     * @param refactorers
-     * @returns {void}
-     */
-    static setRefactorer(...refactorers: (new (kind: SyntaxKind) => Refactorer)[]): void {
+
+    static setRefactorer(...refactorers: (new (projectService: ProjectService, existingRefactorProposals: RefactorProposal[]) => Refactorer)[]): void {
         this.refactorers = refactorers;
     }
 
-    /**
-     * Walk through the folder to catch all methods
-     * generate the refactor report
-     * @param astFolder the folder
-     * @returns {void}
-     */
+
     static start(astFolder: AstFolder): void {
-        this.setRefactorer(BigIfElseRefactorer);
-        this.systems = this.refactorFromSourceFile();
-        new RefactorReportService(this.systems, astFolder).generateRefactorReport();
+        this.setRefactorer(BigIfElseRefactorer, UselessElseRefactorer);
+
+        this.refactorProposals = this.refactorFromSourceFile();
+        new RefactorReportService(this.refactorProposals, astFolder).generateRefactorReport();
     }
 
-    /**
-     * Analyze methods from source file object
-     * @param sourceFile the source file
-     * @param astFile the concerned file
-     * @returns {RefactorProposal[]}
-     */
     static refactorFromSourceFile(): RefactorProposal[] {
+        const projectService: ProjectService = new ProjectService('tsconfig.json');
         let systems: RefactorProposal[] = [];
-        this.refactorers.forEach((r: new (kind: SyntaxKind) => Refactorer) => {
-            const REFACTORER = new r((r as any).KIND);
-            REFACTORER.analyze();
-            systems.push(...REFACTORER.refactoredProposals);
+        this.refactorers.forEach((r: new (projectService: ProjectService, existingRefactorProposals: RefactorProposal[]) => Refactorer) => {
+            const REFACTORER = new r(projectService, systems);
+            REFACTORER.apply();
+            systems.push(...REFACTORER.refactorProposals);
         });
+
+        
+
         return systems;
     }
 }
