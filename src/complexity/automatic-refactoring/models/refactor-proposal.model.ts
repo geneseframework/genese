@@ -6,4 +6,6 @@ export class RefactorProposal {
     newCode?: string = '';
     id: string = '';
     usedTransformer?: Transformer;
+    oldComplexity: number = 0;
+    newComplexity: number = 0;
 }

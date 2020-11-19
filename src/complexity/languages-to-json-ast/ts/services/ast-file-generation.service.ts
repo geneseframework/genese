@@ -7,16 +7,23 @@ import { SyntaxKind } from '../../../core/enum/syntax-kind.enum';
 import { CpxFactorsInterface } from '../../../core/interfaces/cpx-factors.interface';
 import { project, WEIGHTED_METHODS, WEIGHTS } from '../../globals.const';
 import { Ts } from './ts.service';
+import { randomString } from '../../../core/services/tools.service';
 
 /**
  * - AstFiles generation from their Abstract Syntax Tree (AST)
  */
 export class AstFileGenerationService {
 
+    /**
+     * Generate the AstFile corresponding to a given source code
+     * @param sourceCode
+     * @returns {{astNode: AstNodeInterface, name: string, text: string}}
+     */
     generateFromString(sourceCode: string): AstFileInterface {
-        const sourceFile = project.createSourceFile('./temp.ts', sourceCode);
+        const randomName = randomString(10);
+        const sourceFile = project.createSourceFile(`./${randomName}.ts`, sourceCode);
         return {
-            name: 'temp.ts',
+            name: `${randomName}.ts`,
             text: sourceFile.getFullText(),
             astNode: this.createAstNodeChildren(sourceFile)
         };

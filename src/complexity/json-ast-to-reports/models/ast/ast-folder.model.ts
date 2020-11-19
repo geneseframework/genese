@@ -160,6 +160,11 @@ export class AstFolder implements AstFolderInterface, Evaluate, Logg {
         this.stats = this._astFolderService.calculateStats(this);
     }
 
+
+    /**
+     * Evaluates and sets the complexities of the AstFiles of this AstFolder
+     * But not based on methods
+     */
     evaluateStandalone(): void {
         this.cpxFactors = new CpxFactors();
         const astFile = this.astFiles[0];

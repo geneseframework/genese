@@ -12,11 +12,11 @@ import { TernaryToNullishCoalescing } from './refactorers/ternaryToCoalescing.re
 import { BigIfElseRefactorer } from './refactorers/bigIfElse.refactorer';
 
 export class AutomaticRefactoring {
-    static refactorProposals: RefactorProposal[] = [];
-    static refactorers: (new (projectService: ProjectService, existingRefactorProposals: RefactorProposal[]) => Refactorer)[];
+    static refactorers: (new (projectService: ProjectService) => Refactorer)[];
+    static readonly projectService: ProjectService = new ProjectService('tsconfig.json');
 
 
-    static setRefactorer(...refactorers: (new (projectService: ProjectService, existingRefactorProposals: RefactorProposal[]) => Refactorer)[]): void {
+    static setRefactorer(...refactorers: (new (projectService: ProjectService) => Refactorer)[]): void {
         this.refactorers = refactorers;
     }
 
@@ -24,21 +24,15 @@ export class AutomaticRefactoring {
     static start(astFolder: AstFolder): void {
         this.setRefactorer(BigIfElseRefactorer, UselessElseRefactorer);
 
-        this.refactorProposals = this.refactorFromSourceFile();
-        new RefactorReportService(this.refactorProposals, astFolder).generateRefactorReport();
+        this.refactorFromSourceFile();
+        new RefactorReportService(this.projectService.refactorProposals, astFolder).generateRefactorReport();
     }
 
-    static refactorFromSourceFile(): RefactorProposal[] {
-        const projectService: ProjectService = new ProjectService('tsconfig.json');
-        let systems: RefactorProposal[] = [];
-        this.refactorers.forEach((r: new (projectService: ProjectService, existingRefactorProposals: RefactorProposal[]) => Refactorer) => {
-            const REFACTORER = new r(projectService, systems);
+    static refactorFromSourceFile(): void {
+        this.refactorers.forEach((r: new (projectService: ProjectService) => Refactorer) => {
+            const REFACTORER = new r(this.projectService);
             REFACTORER.apply();
-            systems.push(...REFACTORER.refactorProposals);
+            this.projectService.addToRefactorProposals(REFACTORER.refactorProposals);
         });
-
-        
-
-        return systems;
     }
 }

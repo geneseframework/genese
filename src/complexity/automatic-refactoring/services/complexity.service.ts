@@ -5,6 +5,11 @@ import { JsonAstToReports } from '../../json-ast-to-reports/json-ast-to-reports'
 import { JsonAst } from '../../json-ast-to-reports/models/ast/json-ast.model';
 
 export class ComplexityService {
+    /**
+     * Get the cognitive complexity of the given source code
+     * @param sourceCode
+     * @returns {number}
+     */
     static getCpxFromSourceCode(sourceCode: string): number {
         const initGenerationService = new InitGenerationService();
         const jsonAst: JsonAstInterface = {

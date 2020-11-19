@@ -3,6 +3,7 @@ import { createWrappedNode, MethodDeclaration, Node, SyntaxKind, TransformTraver
 import { ProjectService } from '../services/project.service';
 import { RefactorProposal } from './refactor-proposal.model';
 import { Transformer } from './transformer.model';
+import { ComplexityService } from '../services/complexity.service';
 
 export abstract class Refactorer {
     private projectService: ProjectService;
@@ -10,21 +11,11 @@ export abstract class Refactorer {
     abstract readonly REFACTORED_NODE_KIND: SyntaxKind;
 
     public nodes: Node[];
-    public existingRefactorProposals: RefactorProposal[];
     public refactorProposals: RefactorProposal[] = [];
     public transformers: Transformer[];
-    // public mapper: (node: {old: any, new: any}) => RefactorProposal = (node: {old: any, new: any}) => {
-    //     node.formatText();
-    //     return {
-    //         newCode: node.getFullText(),
-    //         oldCode: this.projectService.getInitialSystem(node)?.getFullText(),
-    //         title: 'test',
-    //     };
-    // };
 
-    constructor(projectService: ProjectService, existingRefactorProposals: RefactorProposal[]) {
+    constructor(projectService: ProjectService) {
         this.projectService = projectService;
-        this.existingRefactorProposals = existingRefactorProposals;
     }
 
 
@@ -38,33 +29,63 @@ export abstract class Refactorer {
         this.nodes = this.projectService.getNodesOfKinds(this.REFACTORED_NODE_KIND)
             .filter(n => this.refactorNeeded(n))
             .map((n, i) => {
-                n.formatText();
-                this.refactorProposals.push({
-                    oldCode: n.getFullText(),
-                    newCode: undefined,
-                    title: (n as MethodDeclaration).getStructure()['name'],
-                    id: (n as MethodDeclaration).getStructure()['name']
-                });
+                this.processOriginalNode(n);
                 this.refactor(n);
-                const existingRefactor = this.existingRefactorProposals.find(er => er.id === this.refactorProposals[i].id);
-                if (existingRefactor && existingRefactor.usedTransformer) {
-                    this.refactorProposals[i].oldCode = existingRefactor.oldCode;
-                    const transformer = existingRefactor.usedTransformer;
-                    n = n[transformer.nodeMethod]().transform(transformer.transformer);
-                }
-                n.formatText();
-                this.refactorProposals[i].newCode = n.getFullText();
+                this.processRefactoredNode(n, i);
                 return n;
             })
         if (this.transformers) {
-            this.nodes = this.transformers.map((t: Transformer, i) => {
-                const r = t.baseNode[t.nodeMethod]().transform(t.transformer);
-                r.formatText();
-                this.refactorProposals[i].newCode = r.getFullText();
-                this.refactorProposals[i].usedTransformer = t;
-                return r;
-            });
+            this.applyTransformers();
         }
+    }
+
+
+    /**
+     * Apply additional tranformers to the node
+     */
+    private applyTransformers(): void {
+        this.nodes = this.transformers.map((t: Transformer, i) => {
+            const r = t.baseNode[t.nodeMethod]().transform(t.transformer);
+            r.formatText();
+            this.refactorProposals[i].newCode = r.getFullText();
+            this.refactorProposals[i].usedTransformer = t;
+            return r;
+        });
+    }
+
+
+    /**
+     * Compute and store information about the refactored node
+     * @param n
+     * @param i
+     */
+    private processRefactoredNode(n: Node, i: number) {
+        this.refactorProposals[i].newComplexity = ComplexityService.getCpxFromSourceCode(n.getFullText());
+        const existingRefactor = this.projectService.refactorProposals.find(er => er.id === this.refactorProposals[i].id);
+        if (existingRefactor && existingRefactor.usedTransformer) {
+            this.refactorProposals[i].oldCode = existingRefactor.oldCode;
+            const transformer = existingRefactor.usedTransformer;
+            n = n[transformer.nodeMethod]().transform(transformer.transformer);
+        }
+        n.formatText();
+        this.refactorProposals[i].newCode = n.getFullText();
+    }
+
+
+    /**
+     * Compute and store information about the original node
+     * @param n
+     */
+    private processOriginalNode(n: Node): void {
+        n.formatText();
+        this.refactorProposals.push({
+            oldCode: n.getFullText(),
+            newCode: undefined,
+            title: (n as MethodDeclaration).getStructure()['name'],
+            id: (n as MethodDeclaration).getStructure()['name'],
+            oldComplexity: ComplexityService.getCpxFromSourceCode(n.getFullText()),
+            newComplexity: undefined
+        });
     }
 
 

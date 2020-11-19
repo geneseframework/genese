@@ -8,8 +8,8 @@ var main = require("./dist/src/complexity/main");
 try {
     // -------------------------------------   GENESE COMPLEXITY   ------------------------------------------
     var mainProcess = new main.Main();
-    const pathFolderToAnalyze = 'my-absolute-folder'
-    mainProcess.start(__dirname, pathFolderToAnalyze, __dirname, "ts", false, true)
+    const pathFolderToAnalyze = '/home/akueny/Dev/genese-github/toAnalyse'
+    mainProcess.start(__dirname, pathFolderToAnalyze, __dirname, "ts", false, false, false)
         .then(exitCode => {
             process.exit(exitCode);
         });

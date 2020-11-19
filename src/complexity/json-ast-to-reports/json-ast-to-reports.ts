@@ -37,6 +37,12 @@ export class JsonAstToReports {
         return result;
     }
 
+
+    /**
+     * Get the complexity value of the given JsonAst
+     * @param jsonAst
+     * @returns {number}
+     */
     static getTotalCpx(jsonAst: JsonAst): number {
         const json = new InitService().generateAllFromJsonAst(jsonAst);
         json.astFolder.evaluateStandalone();

@@ -1,12 +1,28 @@
 import { KindToNodeMappings, Node, Project, SourceFile, SyntaxKind } from 'ts-morph';
+import { RefactorProposal } from '../models/refactor-proposal.model';
 
 export class ProjectService {
-    public initialProject: Project;
-    public refactoredProject: Project;
+    public project: Project;
+    public refactorProposals: RefactorProposal[] = [];
 
     constructor(tsConfigFilePath: string) {
-        this.initialProject = new Project({ tsConfigFilePath });
-        this.refactoredProject = new Project({ tsConfigFilePath });
+        this.project = new Project({ tsConfigFilePath });
+    }
+
+
+    /**
+     * Add new refactor proposals to the list, and replace the existing ones
+     * @param refactorProposals
+     */
+    addToRefactorProposals(refactorProposals: RefactorProposal[]): void {
+        refactorProposals.forEach(proposal => {
+            const index = this.refactorProposals.findIndex(r => r.id === proposal.id);
+            if (index !== -1) {
+                this.refactorProposals[index] = proposal;
+            } else {
+                this.refactorProposals.push(proposal);
+            }
+        })
     }
 
     /**
@@ -16,7 +32,7 @@ export class ProjectService {
      */
     getNodesOfKinds<T extends SyntaxKind>(kind: T): Node[] {
         const SYSTEMS: KindToNodeMappings[T][] = [];
-        this.refactoredProject.getSourceFiles().forEach((sf: SourceFile) => {
+        this.project.getSourceFiles().forEach((sf: SourceFile) => {
             const FILE_SYSTEMS = sf.getDescendantsOfKind(kind);
             SYSTEMS.push(...FILE_SYSTEMS);
         });

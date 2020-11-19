@@ -26,6 +26,7 @@ program.command('cpx [pathToAnalyse]')
     .option('-l, --language <language>', 'Language: js, ts, jsx, tsx or java', 'ts')
     .option('-md, --markdown', 'Markdown type report')
     .option('-c, --console', 'Disable report generation and outputs to console')
+    .option('-r, --refactor', 'Enable refactoring report generation')
     .action((pathFolderToAnalyze, options) => {
         let path;
         if (pathNode.isAbsolute(pathFolderToAnalyze)) {
@@ -35,7 +36,7 @@ program.command('cpx [pathToAnalyse]')
         }
         const mainProcess = new Main();
 
-        mainProcess.start(process.cwd(), path, __dirname, options.language, options.markdown, options.console)
+        mainProcess.start(process.cwd(), path, __dirname, options.language, options.markdown, options.console, options.refactor)
             .then(exitCode => {
                 process.exit(exitCode);
             })

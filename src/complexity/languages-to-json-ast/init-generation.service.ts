@@ -31,6 +31,12 @@ export class InitGenerationService {
         };
     }
 
+
+    /**
+     * Generates the AstFolder for the given source code
+     * @param sourceCode
+     * @returns {{astFolder: {path: string, astFiles: AstFileInterface[]}}}
+     */
     generateAstFolderFromString(sourceCode: string): JsonAstInterface {
         sourceCode = `${sourceCode}\n`
         const astFileGenerationService = new AstFileGenerationService();

@@ -39,6 +39,7 @@ export class Main {
      * @param  {Language} language?
      * @param markdown
      * @param consoleMode
+     * @param enableRefactor
      * @returns void
      */
     // @ts-ignore
@@ -48,7 +49,8 @@ export class Main {
         pathGeneseNodeJs: string,
         language?: Language,
         markdown = false,
-        consoleMode = false
+        consoleMode = false,
+        enableRefactor = false
     ): Promise<number> {
         const modifiedPath = pathFolderToAnalyze.split('/').filter(e => e !== '.').join('/');
         Options.setOptions(pathCommand, modifiedPath, pathGeneseNodeJs);
@@ -79,7 +81,7 @@ export class Main {
             });
         spinner.succeed();
 
-        if (language === Language.TS && !consoleMode) {
+        if (language === Language.TS && !consoleMode && enableRefactor) {
             spinner.start('Refactoring generation');
             await this.useWorker(
                 `${__dirname}/workers/refactoring-worker.js`,

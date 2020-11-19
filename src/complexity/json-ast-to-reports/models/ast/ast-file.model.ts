@@ -177,6 +177,11 @@ export class AstFile implements AstFileInterface, Evaluate, Logg {
         }
     }
 
+
+    /**
+     * Evaluates the complexities of the AstNodes of this AstFile
+     * But not based on methods
+     */
     evaluateStandalone(): void {
         this.astMethods = [];
         this.cpxFactors = new CpxFactors();
