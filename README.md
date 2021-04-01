@@ -1,3 +1,8 @@
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/geneseframework/mapper/develop/docs/logo-genese-150x150.png" alt="genese logo">
+</p>
+
 # @genese
 
 `@genese` is a tool suite composed by different modules which will improve your development velocity and increase your code quality. Some of these tools are accessible by command lines thanks to [@genese/cli](https://www.npmjs.com/package/genese-cli) module, like [@genese/complexity](https://www.npmjs.com/package/genese-complexity), and may be installed globally. Other tools are available as classic node-modules, like [@genese/mapper](https://www.npmjs.com/package/@genese/mapper), [@genese/angular](https://www.npmjs.com/package/genese-angular) or [@genese/api](https://www.npmjs.com/package/genese-api). 
