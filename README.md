@@ -171,15 +171,15 @@ This method can be used with primitives, arrays, tuples, classes, interfaces, en
 [Top](#table-of-contents)
 ## @genese/angular
 
-[@genese/angular](https://www.npmjs.com/package/genese-angular) is an Angular library which replaces all the data-services of Angular applications. Thanks to `@genese/mapper`, it maps every data received from your http requests into the safe typed Object that you'll need to use in your components.
+[@genese/angular](https://www.npmjs.com/package/genese-angular) is an Angular library which replaces all the data-services of Angular applications. Thanks to `@genese/mapper`, it maps every data received from your http requests into the safe typed object that you'll need to use in your components.
 
 ### Basic usage
 
-`@genese/angular` replaces the http requests located in your services, and replaces too the mappers used to format data coming from backend into typed objects.
+`@genese/angular` replaces the http requests located in your services, and replaces the mappers used to format data coming from the backend into typed objects.
 
-Returning typed objects from your data-services to your components is fundamental : if you do not, your component could receive incorrect data from the backend, and your application could crash. The mappers are so important, but long and fastidious to write. More, if you write some mappers, you'll need to write unit tests for them, and add some mock values to be able to do these tests...
+Returning typed objects from your data-services to your components is fundamental : if you do not, your component could receive incorrect data from the backend, and your application could crash. However, even if the mappers are important, they are also long and fastidious to write. Moreover, if you write mappers, you'll need to write unit tests for them, and add some mock values to be able to do these tests...
 
-So, what would you say if `@genese/angular` could do ALL OF THAT for you ? Yes, that's right : `@genese/angular` calls the http requests for you, and uses `@genese/mapper` which will send you back objects automatically typed ! 
+So, what would you say if `@genese/angular` could do all of that for you ? Yes, that's right : `@genese/angular` calls the http requests for you, and uses `@genese/mapper` which will send you back objects automatically typed ! 
 
 In the below example, that means that you can simply put the file `book-data.service.ts` in the garbage, with its associated test file `book-data.service.spec.ts`.
 
