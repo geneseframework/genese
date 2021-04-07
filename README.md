@@ -34,6 +34,8 @@ This module creates an HTML report displaying an overview of the complexities in
 
 ![Dashboard Genese Complexity](readme-dashboard-cpx.png?raw=true "Dashboard")
 
+More information on [@genese/complexity official documentation](https://github.com/geneseframework/complexity).
+
 [Top](#table-of-contents)
 ## @genese/mapper
 
@@ -173,10 +175,14 @@ The `create()` method checks everything for you. If data value respects the cont
 
 This method can be used with primitives, arrays, tuples, classes, interfaces, enums and types.
 
+More information on [@genese/mapper official documentation](https://github.com/geneseframework/mapper).
+
 [Top](#table-of-contents)
 ## @genese/angular
 
 [@genese/angular](https://www.npmjs.com/package/genese-angular) is an Angular library which replaces all the data-services of Angular applications. Thanks to `@genese/mapper`, it maps every data received from your http requests into the safe typed object that you'll need to use in your components.
+
+More information on [@genese/angular official documentation](https://github.com/geneseframework/genese-angular).
 
 ### Basic usage
 
@@ -300,22 +306,25 @@ export class BooksComponent {
 
 With the `getOne()` method, you are sure to receive your data correctly formatted with Book's type. No data-services to write, and no unit tests to do.
 
+More information on [@genese/angular official documentation](https://github.com/geneseframework/genese-angular).
+
 [Top](#table-of-contents)
 ## @genese/api
 
-[@genese/api](https://www.npmjs.com/package/genese-api) is a code generator for Angular and React apps which generates all your DTOs and data-services from you OpenApi (Swagger) file.
+[@genese/api](https://www.npmjs.com/package/@genese/api) is a code generator for Angular and React apps which generates all your DTOs and data-services from you OpenApi (Swagger) file.
 
-You simply need to create you OpenApi file and launch genese-api : all your DTOs and data-services will be automatically generated. Moreover, with the help of `@genese/mapper`, all these data-services will use and return typed objects corresponding to the schemas included in your OpenApi file.
+You simply need to create you OpenApi file and launch `@genese/api` : all your DTOs and data-services will be automatically generated. Moreover, with the help of `@genese/mapper`, all these data-services will use and return typed objects corresponding to the schemas included in your OpenApi file.
 
 `@genese/api` may be used in combination with `@genese/angular` to remove both the necessity to create DTOs, data-services and calls to http requests.
 
+More information on [@genese/api official documentation](https://github.com/geneseframework/api).
 
 [Top](#table-of-contents)
 ## @genese/cli
 
-[@genese/cli](https://www.npmjs.com/package/genese-cli) is a command line interface to ease the use of some `@genese` packages, like `@genese/complexity` or `@genese/api`.
+[@genese/cli](https://www.npmjs.com/package/@genese/cli) is a command line interface to ease the use of some `@genese` packages, like `@genese/complexity` or `@genese/api`.
 
-More information on [the official documentation](https://www.npmjs.com/package/genese-cli).
+More information on [@genese/cli official documentation](https://github.com/geneseframework/cli).
 
 
 
