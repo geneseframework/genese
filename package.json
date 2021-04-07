@@ -1,6 +1,6 @@
 {
     "name": "genese",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "Documentation about @genese framework",
     "repository": {
         "type": "git",
@@ -12,21 +12,28 @@
     },
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/geneseframework/cli/issues"
+        "url": "https://github.com/geneseframework/genese/issues"
     },
-    "homepage": "https://github.com/geneseframework/cli#readme",
+    "homepage": "https://github.com/geneseframework/genese/#readme",
     "scripts": {
         "build": "tsc",
         "publish_package": "npm run build && npm publish",
         "republish_package": "npm run build && npm unpublish -f && npm publish"
     },
     "dependencies": {
+        "@genese/angular": "^2.0.0",
         "@genese/api": "^1.0.5",
         "@genese/cli": "^1.0.5",
         "@genese/mapper": "^2.1.0",
         "@types/node": "^13.11.1",
-        "genese-angular": "^1.3.1",
         "handlebars": "^4.7.6",
         "ts-node": "^9.0.0"
-    }
+    },
+    "keywords": [
+        "genese",
+        "cognitive complexity",
+        "angular",
+        "mapper",
+        "@genese framework"
+    ]
 }
