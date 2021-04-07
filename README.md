@@ -5,7 +5,7 @@
 
 # @genese
 
-`@genese` is a tool suite composed by different modules which will improve your development velocity and increase your code quality. Some of these tools are accessible by command lines thanks to [@genese/cli](https://www.npmjs.com/package/genese-cli) module, like [@genese/complexity](https://www.npmjs.com/package/genese-complexity), and may be installed globally. Other tools are available as classic node-modules, like [@genese/mapper](https://www.npmjs.com/package/@genese/mapper), [@genese/angular](https://www.npmjs.com/package/genese-angular) or [@genese/api](https://www.npmjs.com/package/genese-api). 
+@genese is a tool suite composed by different modules which will improve your development velocity and increase your code quality. Some of these tools are accessible by command lines thanks to [@genese/cli](https://www.npmjs.com/package/genese-cli) module, like [@genese/complexity](https://www.npmjs.com/package/genese-complexity), and may be installed globally. Other tools are available as classic node-modules, like [@genese/mapper](https://www.npmjs.com/package/@genese/mapper), [@genese/angular](https://www.npmjs.com/package/genese-angular) or [@genese/api](https://www.npmjs.com/package/genese-api). 
 
 
 ## Table of Contents
@@ -39,13 +39,13 @@ More information on [@genese/complexity official documentation](https://github.c
 [Top](#table-of-contents)
 ## @genese/mapper
 
-`@genese/mapper` maps objects of unknown type into the required type.
+@genese/mapper maps objects of unknown type into the required type.
 
 ### Basic usage
 
 With [@genese/mapper](https://www.npmjs.com/package/@genese/mapper), you can transform untyped javascript objects into safe typed objects.
 
-`@genese/mapper` exposes only one method, the `create()` method.
+@genese/mapper exposes only one method, the `create()` method.
 
 - Example 1 : creation of a typed object
 
@@ -120,7 +120,7 @@ person.hello(); // => logs 'Hello John !'
 person.cat.meaow(); // => logs 'Meaow !'
 ```
 
-With `@genese/mapper`, you can do it in one line :
+With @genese/mapper, you can do it in one line :
 
 ```ts
 const person: Person = create(Person, data);    // Person object which contains a Cat object
@@ -132,7 +132,7 @@ The `data` object may be as complex as you want, you will still need only one li
 
 - Example 3 : validation of the data shape
 
-The above usage simplifies the creation of known objects, the real power of `@genese/mapper` is to create safe typed objects even when you don't know the `data` value or even its shape.
+The above usage simplifies the creation of known objects, the real power of @genese/mapper is to create safe typed objects even when you don't know the `data` value or even its shape.
 
 Assume that you receive some `data` with unknown value or shape, like on http requests. You need to check the `data` shape and verify if its value respects your DTO contract :
 
@@ -143,7 +143,7 @@ interface PersonDto {
 }
 ```
 
-Without `@genese/mapper`, your controller in the backend could be written like this (example with NestJs) :
+Without @genese/mapper, your controller in the backend could be written like this (example with NestJs) :
 
 ```ts
 @Post()
@@ -180,9 +180,7 @@ More information on [@genese/mapper official documentation](https://github.com/g
 [Top](#table-of-contents)
 ## @genese/angular
 
-[@genese/angular](https://www.npmjs.com/package/genese-angular) is an Angular library which replaces all the data-services of Angular applications. Thanks to `@genese/mapper`, it maps every data received from your http requests into the safe typed object that you'll need to use in your components.
-
-More information on [@genese/angular official documentation](https://github.com/geneseframework/genese-angular).
+[@genese/angular](https://www.npmjs.com/package/@genese/angular) is an Angular library which replaces all the data-services of Angular applications. Thanks to @genese/mapper, it maps every data received from your http requests into the safe typed object that you'll need to use in your components.
 
 ### Basic usage
 
@@ -190,7 +188,7 @@ More information on [@genese/angular official documentation](https://github.com/
 
 Returning typed objects from your data-services to your components is fundamental : if you do not, your component could receive incorrect data from the backend, and your application could crash. However, even if the mappers are important, they are also long and fastidious to write. Moreover, if you write mappers, you'll need to write unit tests for them, and add some mock values to be able to do these tests...
 
-So, what would you say if `@genese/angular` could do all of that for you ? Yes, that's right : `@genese/angular` calls the http requests for you, and uses `@genese/mapper` which will send you back objects automatically typed ! 
+So, what would you say if `@genese/angular` could do all of that for you ? Yes, that's right : `@genese/angular` calls the http requests for you, and uses @genese/mapper which will send you back objects automatically typed ! 
 
 In the below example, that means that you can simply put the file `book-data.service.ts` in the garbage, with its associated test file `book-data.service.spec.ts`.
 
@@ -306,23 +304,23 @@ export class BooksComponent {
 
 With the `getOne()` method, you are sure to receive your data correctly formatted with Book's type. No data-services to write, and no unit tests to do.
 
-More information on [@genese/angular official documentation](https://github.com/geneseframework/genese-angular).
+More information on [@genese/angular official documentation](https://github.com/geneseframework/angular).
 
 [Top](#table-of-contents)
 ## @genese/api
 
 [@genese/api](https://www.npmjs.com/package/@genese/api) is a code generator for Angular and React apps which generates all your DTOs and data-services from you OpenApi (Swagger) file.
 
-You simply need to create you OpenApi file and launch `@genese/api` : all your DTOs and data-services will be automatically generated. Moreover, with the help of `@genese/mapper`, all these data-services will use and return typed objects corresponding to the schemas included in your OpenApi file.
+You simply need to create you OpenApi file and launch @genese/api : all your DTOs and data-services will be automatically generated. Moreover, with the help of @genese/mapper, all these data-services will use and return typed objects corresponding to the schemas included in your OpenApi file.
 
-`@genese/api` may be used in combination with `@genese/angular` to remove both the necessity to create DTOs, data-services and calls to http requests.
+@genese/api may be used in combination with `@genese/angular` to remove both the necessity to create DTOs, data-services and calls to http requests.
 
 More information on [@genese/api official documentation](https://github.com/geneseframework/api).
 
 [Top](#table-of-contents)
 ## @genese/cli
 
-[@genese/cli](https://www.npmjs.com/package/@genese/cli) is a command line interface to ease the use of some `@genese` packages, like `@genese/complexity` or `@genese/api`.
+[@genese/cli](https://www.npmjs.com/package/@genese/cli) is a command line interface to ease the use of some @genese packages, like @genese/complexity or @genese/api.
 
 More information on [@genese/cli official documentation](https://github.com/geneseframework/cli).
 
