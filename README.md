@@ -25,6 +25,7 @@ Each Genese module may be installed separately :
 - [@genese/cli](https://www.npmjs.com/package/genese-cli)
 - [@genese/complexity](https://www.npmjs.com/package/genese-complexity)
 - [@genese/mapper](https://www.npmjs.com/package/@genese/mapper)
+- [@genese/core](https://www.npmjs.com/package/@genese/core)
 
 ## @genese/complexity
 
@@ -184,11 +185,11 @@ More information on [@genese/mapper official documentation](https://github.com/g
 
 ### Basic usage
 
-`@genese/angular` replaces the http requests located in your services, and replaces the mappers used to format data coming from the backend into typed objects.
+@genese/angular replaces the http requests located in your services, and replaces the mappers used to format data coming from the backend into typed objects.
 
 Returning typed objects from your data-services to your components is fundamental : if you do not, your component could receive incorrect data from the backend, and your application could crash. However, even if the mappers are important, they are also long and fastidious to write. Moreover, if you write mappers, you'll need to write unit tests for them, and add some mock values to be able to do these tests...
 
-So, what would you say if `@genese/angular` could do all of that for you ? Yes, that's right : `@genese/angular` calls the http requests for you, and uses @genese/mapper which will send you back objects automatically typed ! 
+So, what would you say if @genese/angular could do all of that for you ? Yes, that's right : @genese/angular calls the http requests for you, and uses @genese/mapper which will send you back objects automatically typed ! 
 
 In the below example, that means that you can simply put the file `book-data.service.ts` in the garbage, with its associated test file `book-data.service.spec.ts`.
 
@@ -279,7 +280,7 @@ export class BookDataService {
 }
 ``` 
 
-With `@genese/angular`, you simply need to call `GeneseService` inside your components, like this :
+With @genese/angular, you simply need to call `GeneseService` inside your components, like this :
 
 
 Supposing that in your environment.ts, `genese.api = http://localhost:3000` .
@@ -313,7 +314,7 @@ More information on [@genese/angular official documentation](https://github.com/
 
 You simply need to create you OpenApi file and launch @genese/api : all your DTOs and data-services will be automatically generated. Moreover, with the help of @genese/mapper, all these data-services will use and return typed objects corresponding to the schemas included in your OpenApi file.
 
-@genese/api may be used in combination with `@genese/angular` to remove both the necessity to create DTOs, data-services and calls to http requests.
+@genese/api may be used in combination with @genese/angular to remove both the necessity to create DTOs, data-services and calls to http requests.
 
 More information on [@genese/api official documentation](https://github.com/geneseframework/api).
 
@@ -323,6 +324,15 @@ More information on [@genese/api official documentation](https://github.com/gene
 [@genese/cli](https://www.npmjs.com/package/@genese/cli) is a command line interface to ease the use of some @genese packages, like @genese/complexity or @genese/api.
 
 More information on [@genese/cli official documentation](https://github.com/geneseframework/cli).
+
+[Top](#table-of-contents)
+## @genese/core
+
+[@genese/core](https://www.npmjs.com/package/@genese/core) is a set of tools used by some @genese packages.
+
+It should not be installed separately.
+
+Github repository : [@genese/core](https://github.com/geneseframework/core).
 
 
 
