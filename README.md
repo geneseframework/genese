@@ -282,7 +282,6 @@ export class BookDataService {
 
 With @genese/angular, you simply need to call `GeneseService` inside your components, like this :
 
-
 Supposing that in your environment.ts, `genese.api = http://localhost:3000` .
 
 ``books.component.ts``
