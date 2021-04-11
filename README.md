@@ -306,6 +306,7 @@ With the `getOne()` method, you are sure to receive your data correctly formatte
 
 More information on [@genese/angular official documentation](https://github.com/geneseframework/angular).
 
+
 [Top](#table-of-contents)
 ## @genese/api
 
