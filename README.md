@@ -310,7 +310,7 @@ More information on [@genese/angular official documentation](https://github.com/
 [Top](#table-of-contents)
 ## @genese/api
 
-[@genese/api](https://www.npmjs.com/package/@genese/api) is a code generator for Angular and React apps which generates all your DTOs and data-services from you OpenApi (Swagger) file.
+[@genese/api](https://www.npmjs.com/package/@genese/api) is a code generator for Angular and React apps which generates all your DTOs and data-services from your OpenApi (Swagger) file.
 
 You simply need to create you OpenApi file and launch @genese/api : all your DTOs and data-services will be automatically generated. Moreover, with the help of @genese/mapper, all these data-services will use and return typed objects corresponding to the schemas included in your OpenApi file.
 
