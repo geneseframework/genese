@@ -5,7 +5,7 @@
 
 # @genese
 
-@genese is a tool suite composed by different modules which will improve your development velocity and increase your code quality. Some of these tools are accessible by command lines thanks to [@genese/cli](https://www.npmjs.com/package/genese-cli) module, like [@genese/complexity](https://www.npmjs.com/package/genese-complexity), and may be installed globally. Other tools are available as classic node-modules, like [@genese/mapper](https://www.npmjs.com/package/@genese/mapper), [@genese/angular](https://www.npmjs.com/package/genese-angular) or [@genese/api](https://www.npmjs.com/package/genese-api). 
+@genese is a tool suite composed by different modules which will improve your development velocity and increase your code quality. Some of these tools are accessible by command lines thanks to [@genese/cli](https://www.npmjs.com/package/@genese/cli) module, like [@genese/complexity](https://www.npmjs.com/package/@genese/complexity), and may be installed globally. Other tools are available as classic node-modules, like [@genese/mapper](https://www.npmjs.com/package/@genese/mapper), [@genese/angular](https://www.npmjs.com/package/genese-angular) or [@genese/api](https://www.npmjs.com/package/genese-api). 
 
 
 ## Table of Contents
@@ -22,14 +22,14 @@ Each Genese module may be installed separately :
 
 - [@genese/angular](https://www.npmjs.com/package/genese-angular)
 - [@genese/api](https://www.npmjs.com/package/genese-api)
-- [@genese/cli](https://www.npmjs.com/package/genese-cli)
-- [@genese/complexity](https://www.npmjs.com/package/genese-complexity)
+- [@genese/cli](https://www.npmjs.com/package/@genese/cli)
+- [@genese/complexity](https://www.npmjs.com/package/@genese/complexity)
 - [@genese/mapper](https://www.npmjs.com/package/@genese/mapper)
 - [@genese/core](https://www.npmjs.com/package/@genese/core)
 
 ## @genese/complexity
 
-[@genese/complexity](https://www.npmjs.com/package/genese-complexity) is a module which analyzes the code quality of a given project by analyzing its cyclomatic and cognitive complexities.
+[@genese/complexity](https://www.npmjs.com/package/@genese/complexity) is a module which analyzes the code quality of a given project by analyzing its cyclomatic and cognitive complexities.
 This module creates an HTML report displaying an overview of the complexities index of each folder, file or method of your project. Moreover, you will find for each method the elements increasing complexity index, which will help you to refactor easier your code.
 
 
